@@ -1,3 +1,5 @@
 current_repo:
   repo: insightsengineering/cardx
   host: https://github.com
+upstream_repos: {}
+downstream_repos: {}
