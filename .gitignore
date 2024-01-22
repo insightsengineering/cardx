@@ -1,0 +1,13 @@
+# R-related
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# docs
+inst/doc
+docs
+
+# others
+.DS_Store
+temp/

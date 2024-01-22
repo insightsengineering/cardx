@@ -1,0 +1,36 @@
+# cicd
+^\.pre-commit-config\.yaml$
+
+# data
+^data-raw$
+
+# doc
+^CODE_OF_CONDUCT\.md$
+^docs$
+LICENSE
+^LICENSE\.md$
+^SECURITY\.md$
+
+# git
+^\.git$
+^\.github$
+^\.gitlab-ci\.yml$
+
+# lintr
+^\.lintr$
+
+# pkgdown
+^_pkgdown\.yml$
+pkgdown
+^pkgdown$
+
+# rstudio
+^.*\.Rproj$
+^\.Rproj\.user$
+
+# staded dependencies
+^staged_dependencies\.yaml$
+
+# others
+^renv$
+^renv\.lock$
