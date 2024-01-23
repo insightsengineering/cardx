@@ -31,7 +31,7 @@ test_that("ard_proportion_ci(method='strat_wilson') works", {
     stringsAsFactors = TRUE
   )
 
-  weights <- 1:6 / sum(1:6)
+  weights <- 1:6 /sum(1:6)
 
   expect_snapshot(
     ard_proportion_ci(
