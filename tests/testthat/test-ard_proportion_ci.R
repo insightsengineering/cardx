@@ -1,8 +1,10 @@
 test_that("ard_proportion_ci() works", {
   # testing the easy methods together
   expect_error(
-    c("waldcc", "wald", "clopper-pearson",
-      "wilson", "wilsoncc", "agresti-coull", "jeffreys") |>
+    c(
+      "waldcc", "wald", "clopper-pearson",
+      "wilson", "wilsoncc", "agresti-coull", "jeffreys"
+    ) |>
       lapply(
         \(x) {
           ard_proportion_ci(
@@ -40,7 +42,7 @@ test_that("ard_proportion_ci(method='strat_wilson') works", {
       variables = rsp,
       strata = strata,
       weights = weights,
-      method = 'strat_wilson'
+      method = "strat_wilson"
     )
   )
 
@@ -53,7 +55,7 @@ test_that("ard_proportion_ci(method='strat_wilson') works", {
       variables = rsp,
       strata = strata,
       weights = weights,
-      method = 'strat_wilsoncc'
+      method = "strat_wilsoncc"
     )
   )
 })

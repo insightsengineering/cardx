@@ -29,12 +29,14 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
                               strata,
                               weights = NULL,
                               max.iterations = 10,
-                              method = c("waldcc", "wald", "clopper-pearson",
-                                         "wilson", "wilsoncc",
-                                         "strat_wilson", "strat_wilsoncc",
-                                         "agresti-coull", "jeffreys")) {
+                              method = c(
+                                "waldcc", "wald", "clopper-pearson",
+                                "wilson", "wilsoncc",
+                                "strat_wilson", "strat_wilsoncc",
+                                "agresti-coull", "jeffreys"
+                              )) {
   # process inputs -------------------------------------------------------------
-  cards::process_selectors(data, variables = {{  variables }}, by = {{  by }})
+  cards::process_selectors(data, variables = {{ variables }}, by = {{ by }})
   method <- arg_match(method)
   if (method %in% c("strat_wilson", "strat_wilsoncc")) {
     cards::process_selectors(data, strata = strata)
@@ -47,10 +49,9 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
     variables = {{ variables }},
     by = {{ by }},
     statistics =
-      ~list(
+      ~ list(
         prop_ci =
-          switch(
-            method,
+          switch(method,
             "waldcc" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = TRUE),
             "wald" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = FALSE),
             "wilsoncc" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = TRUE),
@@ -59,14 +60,18 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
             "agresti-coull" = \(x, ...) proportion_ci_agresti_coull(x, conf.level = conf.level),
             "jeffreys" = \(x, ...) proportion_ci_jeffreys(x, conf.level = conf.level),
             "strat_wilsoncc" = \(x, data, ...) {
-              proportion_ci_strat_wilson(x, strata = data[[strata]], weights = weights,
-                                         max.iterations = max.iterations,
-                                         conf.level = conf.level, correct = TRUE)
+              proportion_ci_strat_wilson(x,
+                strata = data[[strata]], weights = weights,
+                max.iterations = max.iterations,
+                conf.level = conf.level, correct = TRUE
+              )
             },
             "strat_wilson" = \(x, data, ...) {
-              proportion_ci_strat_wilson(x, strata = data[[strata]], weights = weights,
-                                         max.iterations = max.iterations,
-                                         conf.level = conf.level, correct = FALSE)
+              proportion_ci_strat_wilson(x,
+                strata = data[[strata]], weights = weights,
+                max.iterations = max.iterations,
+                conf.level = conf.level, correct = FALSE
+              )
             }
           )
       )
@@ -75,5 +80,3 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
       context = "proportion_ci"
     )
 }
-
-
