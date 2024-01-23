@@ -11,3 +11,6 @@ docs
 # others
 .DS_Store
 temp/
+
+
+.pre-commit-config.yaml
