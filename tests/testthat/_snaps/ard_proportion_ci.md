@@ -1,8 +1,7 @@
 # ard_proportion_ci(method='strat_wilson') works
 
     Code
-      ard_proportion_ci(data = data.frame(rsp = rsp, strata = interaction(strata_data)),
-      variables = rsp, strata = strata, weights = weights, method = "strat_wilson")
+      ard_proportion_ci_strat_wilson
     Message
       {cards} data frame: 1 x 8
     Output
@@ -14,8 +13,7 @@
 ---
 
     Code
-      ard_proportion_ci(data = data.frame(rsp = rsp, strata = interaction(strata_data)),
-      variables = rsp, strata = strata, weights = weights, method = "strat_wilsoncc")
+      ard_proportion_ci_strat_wilsoncc
     Message
       {cards} data frame: 1 x 8
     Output
