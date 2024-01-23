@@ -1,6 +1,6 @@
 Package: cardx
 Title: R Package to Supplement ARD Functions Found in {cards}
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Date: 2024-01-23
 Authors@R: c(
     person("Daniel", "Sjoberg", , "sjobergd@gene.com", role = c("aut", "cre")),
