@@ -15,8 +15,10 @@ Imports:
     cli (>= 3.6.1),
     cards (>= 0.0.0.9012),
     dplyr (>= 1.1.2),
+    glue (>= 1.6.2),
     rlang (>= 1.1.1)
 Suggests:
+    broom (>= 1.0.5),
     spelling,
     testthat (>= 3.2.0),
     withr
