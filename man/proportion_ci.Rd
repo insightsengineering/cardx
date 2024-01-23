@@ -78,8 +78,10 @@ for multiple binomial proportions. \emph{Statistics in Biopharmaceutical Researc
 
 }}
 \examples{
-x <- c(TRUE, TRUE, TRUE, TRUE, TRUE,
-       FALSE, FALSE, FALSE, FALSE, FALSE)
+x <- c(
+  TRUE, TRUE, TRUE, TRUE, TRUE,
+  FALSE, FALSE, FALSE, FALSE, FALSE
+)
 
 proportion_ci_wald(x, conf.level = 0.9)
 proportion_ci_wilson(x, correct = TRUE)

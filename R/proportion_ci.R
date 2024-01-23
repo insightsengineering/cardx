@@ -8,8 +8,10 @@
 #'
 #' @name proportion_ci
 #' @examples
-#' x <- c(TRUE, TRUE, TRUE, TRUE, TRUE,
-#'        FALSE, FALSE, FALSE, FALSE, FALSE)
+#' x <- c(
+#'   TRUE, TRUE, TRUE, TRUE, TRUE,
+#'   FALSE, FALSE, FALSE, FALSE, FALSE
+#' )
 #'
 #' proportion_ci_wald(x, conf.level = 0.9)
 #' proportion_ci_wilson(x, correct = TRUE)
@@ -77,8 +79,10 @@ proportion_ci_wilson <- function(x, conf.level = 0.95, correct = FALSE) {
   list(N = n, conf.level = conf.level) |>
     utils::modifyList(val = broom::tidy(y) |> as.list()) |>
     utils::modifyList(
-      list(method =
-             glue::glue("Wilson Confidence Interval {ifelse(correct, 'with', 'without')} continuity correction"))
+      list(
+        method =
+          glue::glue("Wilson Confidence Interval {ifelse(correct, 'with', 'without')} continuity correction")
+      )
     )
 }
 
@@ -255,7 +259,9 @@ proportion_ci_strat_wilson <- function(x,
     }
   }
   check_range(weights, range = c(0, 1), include_bounds = c(TRUE, TRUE))
-  sum_weights <- sum(weights) |> round() |> as.integer()
+  sum_weights <- sum(weights) |>
+    round() |>
+    as.integer()
   if (sum_weights != 1L || abs(sum_weights - sum(weights)) > sqrt(.Machine$double.eps)) {
     cli::cli_abort("The sum of the {.arg weights} argument must be {.val {1L}}")
   }
@@ -397,4 +403,3 @@ proportion_ci_strat_wilson <- function(x,
     "diff_v" = diff_v
   )
 }
-

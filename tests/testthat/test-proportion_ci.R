@@ -165,7 +165,7 @@ test_that("check the proportion_ci_strat_wilson() function works", {
     error = TRUE
   )
   expect_snapshot(
-    proportion_ci_strat_wilson(x = as.numeric(rsp), strata = strata, weights = weights + pi/5),
+    proportion_ci_strat_wilson(x = as.numeric(rsp), strata = strata, weights = weights + pi / 5),
     error = TRUE
   )
   expect_snapshot(
