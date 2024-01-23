@@ -8,14 +8,14 @@ navbar:
   structure:
     left: [intro, reference, articles, tutorials, news, reports]
     right: [search, github]
-  components:
-    reports:
-      text: Reports
-      menu:
-        - text: Coverage report
-          href: coverage-report/
-        - text: Unit test report
-          href: unit-test-report/
+  # components:
+  #   reports:
+  #     text: Reports
+  #     menu:
+  #       - text: Coverage report
+  #         href: coverage-report/
+  #       - text: Unit test report
+  #         href: unit-test-report/
     github:
       icon: fa-github
       href: https://github.com/insightsengineering/cardx
