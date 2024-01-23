@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="delete_me" timestamp="2024-01-23T21:32:01Z" hostname="7b7dd10ef0dd" tests="1" skipped="0" failures="0" errors="0" time="0.369">
-    <testcase time="0.369" classname="character(0)" name="multiplication_works"/>
+  <testsuite name="delete_me" timestamp="2024-01-23T22:22:33Z" hostname="fb0073141949" tests="1" skipped="0" failures="0" errors="0" time="0.418">
+    <testcase time="0.418" classname="character(0)" name="multiplication_works"/>
   </testsuite>
-  <testsuite name="ard_proportion_ci" timestamp="2024-01-23T21:32:01Z" hostname="7b7dd10ef0dd" tests="1" skipped="0" failures="0" errors="0" time="0.621">
-    <testcase time="0.621" classname="character(0)" name="ard_proportion_ci_works"/>
+  <testsuite name="ard_proportion_ci" timestamp="2024-01-23T22:22:33Z" hostname="fb0073141949" tests="1" skipped="0" failures="0" errors="0" time="0.518">
+    <testcase time="0.518" classname="character(0)" name="ard_proportion_ci_works"/>
   </testsuite>
-  <testsuite name="ard_proportion_ci" timestamp="2024-01-23T21:32:01Z" hostname="7b7dd10ef0dd" tests="1" skipped="1" failures="0" errors="0" time="0.019">
-    <testcase time="0.0189999999999999" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works">
+  <testsuite name="ard_proportion_ci" timestamp="2024-01-23T22:22:34Z" hostname="fb0073141949" tests="1" skipped="1" failures="0" errors="0" time="0.018">
+    <testcase time="0.018" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works">
       <skipped message="Reason: On CRAN ('test-ard_proportion_ci.R:36:3')"/>
     </testcase>
   </testsuite>
