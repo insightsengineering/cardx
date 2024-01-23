@@ -36,15 +36,15 @@ test_that("ard_proportion_ci(method='strat_wilson') works", {
   expect_error(
     ard_proportion_ci_strat_wilson <-
       ard_proportion_ci(
-      data = data.frame(
-        rsp = rsp,
-        strata = interaction(strata_data)
+        data = data.frame(
+          rsp = rsp,
+          strata = interaction(strata_data)
+        ),
+        variables = rsp,
+        strata = strata,
+        weights = weights,
+        method = "strat_wilson"
       ),
-      variables = rsp,
-      strata = strata,
-      weights = weights,
-      method = "strat_wilson"
-    ),
     NA
   )
   expect_snapshot(ard_proportion_ci_strat_wilson)
