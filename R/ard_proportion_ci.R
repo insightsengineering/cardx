@@ -17,7 +17,7 @@
 #'   Must be one of `r formals(ard_proportion_ci)[["method"]] |> eval() |> shQuote()`.
 #'   See `?proportion_ci` for details.
 #' @param strata,weights,max.iterations arguments passed to `proportion_ci_strat_wilson()`,
-#'   when `method = 'strat_wilson'`
+#'   when `method='strat_wilson'`
 #'
 #' @return an ARD data frame
 #' @export
@@ -52,27 +52,27 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
       ~ list(
         prop_ci =
           switch(method,
-                 "waldcc" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = TRUE),
-                 "wald" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = FALSE),
-                 "wilsoncc" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = TRUE),
-                 "wilson" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = FALSE),
-                 "clopper-pearson" = \(x, ...) proportion_ci_clopper_pearson(x, conf.level = conf.level),
-                 "agresti-coull" = \(x, ...) proportion_ci_agresti_coull(x, conf.level = conf.level),
-                 "jeffreys" = \(x, ...) proportion_ci_jeffreys(x, conf.level = conf.level),
-                 "strat_wilsoncc" = \(x, data, ...) {
-                   proportion_ci_strat_wilson(x,
-                                              strata = data[[strata]], weights = weights,
-                                              max.iterations = max.iterations,
-                                              conf.level = conf.level, correct = TRUE
-                   )
-                 },
-                 "strat_wilson" = \(x, data, ...) {
-                   proportion_ci_strat_wilson(x,
-                                              strata = data[[strata]], weights = weights,
-                                              max.iterations = max.iterations,
-                                              conf.level = conf.level, correct = FALSE
-                   )
-                 }
+            "waldcc" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = TRUE),
+            "wald" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = FALSE),
+            "wilsoncc" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = TRUE),
+            "wilson" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = FALSE),
+            "clopper-pearson" = \(x, ...) proportion_ci_clopper_pearson(x, conf.level = conf.level),
+            "agresti-coull" = \(x, ...) proportion_ci_agresti_coull(x, conf.level = conf.level),
+            "jeffreys" = \(x, ...) proportion_ci_jeffreys(x, conf.level = conf.level),
+            "strat_wilsoncc" = \(x, data, ...) {
+              proportion_ci_strat_wilson(x,
+                strata = data[[strata]], weights = weights,
+                max.iterations = max.iterations,
+                conf.level = conf.level, correct = TRUE
+              )
+            },
+            "strat_wilson" = \(x, data, ...) {
+              proportion_ci_strat_wilson(x,
+                strata = data[[strata]], weights = weights,
+                max.iterations = max.iterations,
+                conf.level = conf.level, correct = FALSE
+              )
+            }
           )
       )
   ) |>

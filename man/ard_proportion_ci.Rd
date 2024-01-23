@@ -32,7 +32,7 @@ a scalar in \verb{(0, 1)} indicating the confidence level.
 Default is \code{0.95}}
 
 \item{strata, weights, max.iterations}{arguments passed to \code{proportion_ci_strat_wilson()},
-when \code{method = 'strat_wilson'}}
+when \code{method='strat_wilson'}}
 
 \item{method}{(\code{string})\cr
 string indicating the type of confidence interval to calculate.
