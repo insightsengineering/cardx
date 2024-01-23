@@ -53,7 +53,7 @@ jobs:
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
     with:
-      auto-update: true
+      auto-update: false
   gitleaks:
     name: gitleaks 💧
     uses: insightsengineering/r.pkg.template/.github/workflows/gitleaks.yaml@main
@@ -83,7 +83,7 @@ jobs:
     name: Style Check 👗
     uses: insightsengineering/r.pkg.template/.github/workflows/style.yaml@main
     with:
-      auto-update: true
+      auto-update: false
   grammar:
     if: github.event_name != 'push'
     name: Grammar Check 🔤
