@@ -1,4 +1,3 @@
-<!-- markdownlint-disable MD007 MD030 -->
 **What changes are proposed in this pull request?**
 
 
@@ -22,5 +21,3 @@ When the branch is ready to be merged:
 - [ ] Run `usethis::use_spell_check()` again
 - [ ] Approve Pull Request
 - [ ] Merge the PR. Please use "Squash and merge".
-
-<!-- markdownlint-enable MD007 MD030 -->
