@@ -25,7 +25,7 @@
 #' @examples
 #' ard_proportion_ci(mtcars, variables = c(vs, am), method = "wilson")
 ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
-                              conf.level = 0.95, # nolint
+                              conf.level = 0.95,
                               strata,
                               weights = NULL,
                               max.iterations = 10,
