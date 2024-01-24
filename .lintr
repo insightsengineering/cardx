@@ -7,5 +7,5 @@ linters: linters_with_defaults(
   )
 
 linters: exclude(
-  .github
+  ".github"
   )
