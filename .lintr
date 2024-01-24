@@ -4,6 +4,6 @@ linters: linters_with_defaults(
   object_usage_linter = NULL,
   indentation_linter = NULL,
   object_name_linter = NULL,
-  blanks-around-lists = NULL,
-  no-multiple-blanks = NULL
+  blanks_around_lists = NULL,
+  no_multiple_blanks = NULL
   )
