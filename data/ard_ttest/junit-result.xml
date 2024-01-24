@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="ard_ttest" timestamp="2024-01-24T18:03:32Z" hostname="f960e748e4d6" tests="3" skipped="1" failures="0" errors="0" time="1.032">
-    <testcase time="1.01" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0.0150000000000001" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0.0069999999999999" classname="character(0)" name="ard_ttest_works">
+  <testsuite name="ard_ttest" timestamp="2024-01-24T18:12:44Z" hostname="9ac47dcb6d99" tests="3" skipped="1" failures="0" errors="0" time="1.019">
+    <testcase time="0.999" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.014" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.00599999999999978" classname="character(0)" name="ard_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:25:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_ttest" timestamp="2024-01-24T18:03:32Z" hostname="f960e748e4d6" tests="3" skipped="1" failures="0" errors="0" time="0.026">
-    <testcase time="0.0249999999999999" classname="character(0)" name="ard_paired_ttest_works"/>
-    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_ttest_works"/>
+  <testsuite name="ard_ttest" timestamp="2024-01-24T18:12:44Z" hostname="9ac47dcb6d99" tests="3" skipped="1" failures="0" errors="0" time="0.026">
+    <testcase time="0.0250000000000001" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_ttest_works"/>
     <testcase time="0" classname="character(0)" name="ard_paired_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:70:3')"/>
     </testcase>
