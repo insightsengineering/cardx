@@ -8,7 +8,7 @@
 \alias{proportion_ci_agresti_coull}
 \alias{proportion_ci_jeffreys}
 \alias{proportion_ci_strat_wilson}
-\title{Helper Functions for Calculating Proportion Confidence Intervals}
+\title{Functions for Calculating Proportion Confidence Intervals}
 \usage{
 proportion_ci_wald(x, conf.level = 0.95, correct = FALSE)
 

@@ -1,4 +1,4 @@
-#' Helper Functions for Calculating Proportion Confidence Intervals
+#' Functions for Calculating Proportion Confidence Intervals
 #'
 #' Functions to calculate different proportion confidence intervals for use in `ard_proportion()`.
 #'
