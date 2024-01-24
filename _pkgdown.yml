@@ -15,5 +15,5 @@ navbar:
 reference:
   - title: "ARD Creation"
   - subtitle: "Inference"
-  -  contents:
-      - ard_ttest
+  - contents:
+    - ard_ttest
