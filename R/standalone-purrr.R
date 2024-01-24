@@ -1,4 +1,3 @@
-# nolint start
 # ---
 # repo: r-lib/rlang
 # file: standalone-purrr.R
@@ -32,7 +31,6 @@
 # * Used `as_function()` to allow use of `~`
 # * Used `.` prefix for helpers
 #
-# nolint end
 # nocov start
 
 map <- function(.x, .f, ...) {
