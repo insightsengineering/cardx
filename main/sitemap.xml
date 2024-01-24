@@ -13,6 +13,9 @@
     <loc>https://insightsengineering.github.io/cardx/LICENSE-text.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/PULL_REQUEST_TEMPLATE.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/SECURITY.html</loc>
   </url>
   <url>
@@ -25,12 +28,39 @@
     <loc>https://insightsengineering.github.io/cardx/news/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/cardx/pull_request_template.html</loc>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_ttest.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/cardx-package.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/check_binary.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/check_class.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/check_class_data_frame.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/check_length.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/check_not_missing.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/check_range.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/dot-format_ttest_results.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/dot-paired_data_pivot_wider.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/reexports.html</loc>
   </url>
 </urlset>
