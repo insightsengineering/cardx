@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="delete_me" timestamp="2024-01-23T19:32:14Z" hostname="15acc027e2e0" tests="1" skipped="0" failures="0" errors="0" time="0.5">
-    <testcase time="0.5" classname="character(0)" name="multiplication_works"/>
+  <testsuite name="ard_ttest" timestamp="2024-01-24T19:09:47Z" hostname="37d4f0118bf9" tests="3" skipped="1" failures="0" errors="0" time="1.222">
+    <testcase time="1.201" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.0149999999999999" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.00600000000000001" classname="character(0)" name="ard_ttest_works">
+      <skipped message="Reason: On CRAN ('test-ard_ttest.R:25:3')"/>
+    </testcase>
+  </testsuite>
+  <testsuite name="ard_ttest" timestamp="2024-01-24T19:09:47Z" hostname="37d4f0118bf9" tests="3" skipped="1" failures="0" errors="0" time="0.03">
+    <testcase time="0.0289999999999999" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_ttest_works">
+      <skipped message="Reason: On CRAN ('test-ard_ttest.R:70:3')"/>
+    </testcase>
   </testsuite>
 </testsuites>
