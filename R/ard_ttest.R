@@ -129,9 +129,11 @@ ard_paired_ttest <- function(data, by, variable, id, ...) {
   ret <-
     cards::tidy_as_ard(
       lst_tidy = lst_tidy,
-      tidy_result_names = c("estimate", "estimate1", "estimate2", "statistic",
-                            "p.value", "parameter", "conf.low", "conf.high",
-                            "method", "alternative"),
+      tidy_result_names = c(
+        "estimate", "estimate1", "estimate2", "statistic",
+        "p.value", "parameter", "conf.low", "conf.high",
+        "method", "alternative"
+      ),
       fun_args_to_record = c("mu", "paired", "var.equal", "conf.level"),
       formals = formals(asNamespace("stats")[["t.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
@@ -200,5 +202,3 @@ ard_paired_ttest <- function(data, by, variable, id, ...) {
     "conf.level", "CI Confidence Level",
   )
 }
-
-
