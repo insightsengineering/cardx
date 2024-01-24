@@ -2,7 +2,7 @@
 % Please edit documentation in R/ard_proportion_ci.R
 \name{ard_proportion_ci}
 \alias{ard_proportion_ci}
-\title{Proportion ARD Statistics}
+\title{ARD Proportion Confidence Intervals}
 \usage{
 ard_proportion_ci(
   data,
