@@ -2,7 +2,6 @@
 # DO NOT USE IMPORTED FUNCTIONS AND ONLY USE rlang AND cli NAMESPACING FOR CHECKS
 # nocov start
 
-
 #' Check Class
 #'
 #' @param class (`character`)\cr
