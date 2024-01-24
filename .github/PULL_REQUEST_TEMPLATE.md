@@ -1,8 +1,6 @@
 **What changes are proposed in this pull request?**
 
-
 **Reference GitHub issue associated with pull request.** _e.g., 'closes #1'_
-
 
 --------------------------------------------------------------------------------
 
