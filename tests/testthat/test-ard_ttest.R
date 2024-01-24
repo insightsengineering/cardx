@@ -59,9 +59,9 @@ test_that("ard_paired_ttest() works", {
           paired = TRUE,
           var.equal = TRUE
         ) |>
-        broom::tidy() |>
-        dplyr::select(estimate, conf.low, conf.high) |>
-        unclass()
+          broom::tidy() |>
+          dplyr::select(estimate, conf.low, conf.high) |>
+          unclass()
     ),
     ignore_attr = TRUE
   )
