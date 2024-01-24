@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="ard_ttest" timestamp="2024-01-24T05:29:02Z" hostname="4e726258266c" tests="2" skipped="0" failures="1" errors="1" time="0.768">
-    <testcase time="0.714" classname="character(0)" name="ard_ttest_works">
-      <failure type="failure" message="`... &lt;- NULL` threw an unexpected error. ('test-ard_ttest.R:2:3')">`... &lt;- NULL` threw an unexpected error.
-Message: object 'ADSL' not found
-Class:   simpleError/error/condition
-Backtrace:
-     ▆
-  1. ├─testthat::expect_error(...) at test-ard_ttest.R:2:3
-  2. │ └─testthat:::expect_condition_matching(...)
-  3. │   └─testthat:::quasi_capture(...)
-  4. │     ├─testthat (local) .capture(...)
-  5. │     │ └─base::withCallingHandlers(...)
-  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-  7. ├─cardx::ard_ttest(...)
-  8. │ └─cardx:::check_class_data_frame(x = data)
-  9. │   └─cardx:::check_class(...)
- 10. └─dplyr::filter(ADSL, ARM %in% c("Placebo", "Xanomeline High Dose"))</failure>
+  <testsuite name="ard_ttest" timestamp="2024-01-24T17:00:48Z" hostname="04b65c61b235" tests="3" skipped="1" failures="0" errors="0" time="0.997">
+    <testcase time="0.978" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.014" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.00500000000000012" classname="character(0)" name="ard_ttest_works">
+      <skipped message="Reason: On CRAN ('test-ard_ttest.R:25:3')"/>
     </testcase>
-    <testcase time="0.054" classname="character(0)" name="ard_ttest_works">
-      <error type="error" message="Error in `get_ard_statistics(ard_ttest, stat_name %in% c(&quot;estimate&quot;, &quot;conf.low&quot;,  ('test-ard_ttest.R:10:3')">Error in `get_ard_statistics(ard_ttest, stat_name %in% c("estimate", "conf.low", 
-    "conf.high"))`: could not find function "get_ard_statistics"
-Backtrace:
-    ▆
- 1. └─testthat::expect_equal(...) at test-ard_ttest.R:10:3
- 2.   └─testthat::quasi_label(enquo(object), label, arg = "object")
- 3.     └─rlang::eval_bare(expr, quo_get_env(quo))</error>
+  </testsuite>
+  <testsuite name="ard_ttest" timestamp="2024-01-24T17:00:49Z" hostname="04b65c61b235" tests="3" skipped="1" failures="0" errors="0" time="0.026">
+    <testcase time="0.0249999999999999" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_ttest_works">
+      <skipped message="Reason: On CRAN ('test-ard_ttest.R:70:3')"/>
     </testcase>
   </testsuite>
 </testsuites>
