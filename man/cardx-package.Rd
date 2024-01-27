@@ -6,6 +6,8 @@
 \alias{cardx-package}
 \title{cardx: Extra Analysis Results Data Utilities}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 R Package to Supplement ARD Functions Found in {cards}.
 }
 \seealso{
