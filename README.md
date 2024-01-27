@@ -1,4 +1,4 @@
-# cardx
+# cardx <a href="https://insightsengineering.github.io/cardx"><img src="man/figures/logo.png" align="right" height="138" alt="cardx website" /></a>
 
 <!-- start badges -->
 [![Check 🛠](https://github.com/insightsengineering/cardx/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/cardx/main/unit-test-report/)

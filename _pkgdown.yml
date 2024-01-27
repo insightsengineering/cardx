@@ -4,13 +4,13 @@ url: https://insightsengineering.github.io/cardx
 template:
   package: nesttemplate
 
-navbar:
-  structure:
-    left: [intro, reference, articles, tutorials, news, reports]
-    right: [search, github]
-    github:
-      icon: fa-github
-      href: https://github.com/insightsengineering/cardx
+# navbar:
+#   structure:
+#     left: [intro, reference, articles, tutorials, news, reports]
+#     right: [search, github]
+#     github:
+#       icon: fa-github
+#       href: https://github.com/insightsengineering/cardx
 
 reference:
   - title: "ARD Creation"
