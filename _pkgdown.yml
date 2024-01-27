@@ -12,6 +12,14 @@ template:
 #       icon: fa-github
 #       href: https://github.com/insightsengineering/cardx
 
+development:
+  mode: auto
+  version_label: default
+
+authors:
+  Daniel D. Sjoberg:
+    href: "http://www.danieldsjoberg.com/"
+
 reference:
   - title: "ARD Creation"
   - subtitle: "Inference"
