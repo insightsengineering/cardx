@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="ard_fishertest" timestamp="2024-01-28T04:58:33Z" hostname="1a738b16d3ab" tests="2" skipped="0" failures="0" errors="0" time="0.808">
+    <testcase time="0.784" classname="character(0)" name="ard_fishertest_works"/>
+    <testcase time="0.024" classname="character(0)" name="ard_fishertest_works"/>
+  </testsuite>
+  <testsuite name="ard_ttest" timestamp="2024-01-28T04:58:33Z" hostname="1a738b16d3ab" tests="3" skipped="1" failures="0" errors="0" time="0.292">
+    <testcase time="0.291" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.00100000000000011" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_ttest_works">
+      <skipped message="Reason: On CRAN ('test-ard_ttest.R:25:3')"/>
+    </testcase>
+  </testsuite>
+  <testsuite name="ard_ttest" timestamp="2024-01-28T04:58:33Z" hostname="1a738b16d3ab" tests="3" skipped="1" failures="0" errors="0" time="0.028">
+    <testcase time="0.0269999999999999" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_paired_ttest_works">
+      <skipped message="Reason: On CRAN ('test-ard_ttest.R:70:3')"/>
+    </testcase>
+  </testsuite>
+</testsuites>
