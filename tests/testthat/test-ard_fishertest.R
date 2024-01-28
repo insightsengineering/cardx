@@ -16,4 +16,3 @@ test_that("ard_fishertest() works", {
     ignore_attr = TRUE
   )
 })
-
