@@ -1,3 +1,7 @@
+# Standalone file: do not edit by hand
+# Source: <https://github.com/r-lib/rlang/blob/main/R/standalone-purrr.R>
+# ----------------------------------------------------------------------
+#
 # ---
 # repo: r-lib/rlang
 # file: standalone-purrr.R

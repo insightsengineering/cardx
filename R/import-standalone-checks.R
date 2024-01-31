@@ -1,19 +1,22 @@
+# Standalone file: do not edit by hand
+# Source: <https://github.com/ddsjoberg/standalone/blob/main/R/standalone-checks.R>
+# ----------------------------------------------------------------------
+#
 # DO NOT MODIFY THIS FILE. INSTEAD MODIFY THE VERSION IN https://github.com/ddsjoberg/standalone/tree/main/R
 # ---
 # repo: ddsjoberg/standalone
 # file: standalone-checks.R
 # last-updated: 2024-01-24
 # license: https://unlicense.org
-# imports: rlang, cli
+# imports: [rlang, cli]
 # ---
 #
-# This file provides a minimal shim to provide a purrr-like API on top of
-# base R functions. They are not drop-in replacements but allow a similar style
-# of programming.
+# This file provides a minimal functions to check argument values and types
+# passed by users to functions in packages.
 #
 # ## Changelog
 # nocov start
-
+# styler: off
 
 #' Check Class
 #'
@@ -111,7 +114,7 @@ check_scalar <- function(x, arg_name = rlang::caller_arg(x), call = parent.frame
 check_range <- function(x,
                         range,
                         include_bounds = c(FALSE, FALSE),
-                        arg_name = caller_arg(x),
+                        arg_name = rlang::caller_arg(x),
                         scalar = FALSE,
                         msg = paste(
                           "The {.arg {arg_name}} argument must be in the interval",
@@ -166,8 +169,8 @@ check_range <- function(x,
 #' @return invisible
 #' @keywords internal
 #' @noRd
-check_binary <- function(x, arg_name = caller_arg(x), call = parent.frame()) {
-  if (!is.logical(x) && !(is_integerish(x) && is_empty(setdiff(x, c(0, 1, NA))))) {
+check_binary <- function(x, arg_name = rlang::caller_arg(x), call = parent.frame()) {
+  if (!is.logical(x) && !(rlang::is_integerish(x) && rlang::is_empty(setdiff(x, c(0, 1, NA))))) {
     paste(
       "Expecting column {.arg {arg_name}} to be either {.cls logical}",
       "or {.cls {c('numeric', 'integer')}} coded as {.val {c(0, 1)}}."
@@ -178,5 +181,5 @@ check_binary <- function(x, arg_name = caller_arg(x), call = parent.frame()) {
   invisible()
 }
 
-
 # nocov end
+# styler: on
