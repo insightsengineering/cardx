@@ -25,3 +25,7 @@ reference:
   - subtitle: "Inference"
   - contents:
       - ard_ttest
+
+  - subtitle: "Modeling"
+  - contents:
+      - ard_regression
