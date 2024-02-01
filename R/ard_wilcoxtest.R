@@ -132,8 +132,10 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
     cards::tidy_as_ard(
       lst_tidy = lst_tidy,
       tidy_result_names = c("statistic", "p.value", "method", "alternative"),
-      fun_args_to_record = c("mu", "paired", "exact", "correct", "conf.int",
-                             "conf.level", "tol.root", "digits.rank"),
+      fun_args_to_record = c(
+        "mu", "paired", "exact", "correct", "conf.int",
+        "conf.level", "tol.root", "digits.rank"
+      ),
       formals = formals(asNamespace("stats")[["wilcox.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
       lst_ard_columns = list(group1 = by, variable = variable, context = "ttest")

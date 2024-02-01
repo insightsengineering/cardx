@@ -39,8 +39,10 @@ test_that("ard_paired_wilcoxtest() works", {
   expect_error(
     ard_paired_wilcoxtest <-
       ADSL_paired |>
-      ard_paired_wilcoxtest(by = ARM, variable = AGE, id = USUBJID,
-                            correct = FALSE, conf.int = TRUE),
+      ard_paired_wilcoxtest(
+        by = ARM, variable = AGE, id = USUBJID,
+        correct = FALSE, conf.int = TRUE
+      ),
     NA
   )
 
@@ -62,9 +64,9 @@ test_that("ard_paired_wilcoxtest() works", {
           correct = FALSE,
           conf.int = TRUE
         ) |>
-        broom::tidy() |>
-        dplyr::select(estimate, conf.low, conf.high) |>
-        unclass()
+          broom::tidy() |>
+          dplyr::select(estimate, conf.low, conf.high) |>
+          unclass()
     ),
     ignore_attr = TRUE
   )
@@ -75,8 +77,10 @@ test_that("ard_paired_wilcoxtest() works", {
       dplyr::mutate(
         ARM = ifelse(dplyr::row_number() == 1L, "3rd ARM", ARM)
       ) |>
-      ard_paired_wilcoxtest(by = ARM, variable = AGE, id = USUBJID,
-                            correct = FALSE, conf.int = TRUE) |>
+      ard_paired_wilcoxtest(
+        by = ARM, variable = AGE, id = USUBJID,
+        correct = FALSE, conf.int = TRUE
+      ) |>
       as.data.frame()
   )
 })
