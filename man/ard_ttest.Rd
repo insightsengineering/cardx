@@ -43,7 +43,7 @@ The data are then passed as
 \examples{
 cards::ADSL |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
-  ard_ttest(by = "ARM", variable = "AGE")
+  ard_ttest(by = ARM, variable = AGE)
 
 # constructing a paired data set,
 # where patients receive both treatments
