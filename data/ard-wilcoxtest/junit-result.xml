@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="ard_ttest" timestamp="2024-02-01T05:28:58Z" hostname="9e96a49c078d" tests="3" skipped="1" failures="0" errors="0" time="1.129">
-    <testcase time="1.105" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0.0150000000000001" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0.0089999999999999" classname="character(0)" name="ard_ttest_works">
+  <testsuite name="ard_ttest" timestamp="2024-02-02T22:10:34Z" hostname="bc4ea28f8a7b" tests="3" skipped="1" failures="0" errors="0" time="1.037">
+    <testcase time="1.015" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.014" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.00800000000000001" classname="character(0)" name="ard_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:25:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_ttest" timestamp="2024-02-01T05:28:58Z" hostname="9e96a49c078d" tests="3" skipped="1" failures="0" errors="0" time="0.026">
-    <testcase time="0.0250000000000001" classname="character(0)" name="ard_paired_ttest_works"/>
+  <testsuite name="ard_ttest" timestamp="2024-02-02T22:10:34Z" hostname="bc4ea28f8a7b" tests="3" skipped="1" failures="0" errors="0" time="0.023">
+    <testcase time="0.0230000000000001" classname="character(0)" name="ard_paired_ttest_works"/>
     <testcase time="0" classname="character(0)" name="ard_paired_ttest_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_ttest_works">
+    <testcase time="0" classname="character(0)" name="ard_paired_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:70:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_wilcoxtest" timestamp="2024-02-01T05:28:58Z" hostname="9e96a49c078d" tests="3" skipped="1" failures="0" errors="0" time="0.048">
-    <testcase time="0.048" classname="character(0)" name="ard_wilcoxtest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_wilcoxtest_works"/>
+  <testsuite name="ard_wilcoxtest" timestamp="2024-02-02T22:10:34Z" hostname="bc4ea28f8a7b" tests="3" skipped="1" failures="0" errors="0" time="0.051">
+    <testcase time="0.05" classname="character(0)" name="ard_wilcoxtest_works"/>
+    <testcase time="0.00100000000000011" classname="character(0)" name="ard_wilcoxtest_works"/>
     <testcase time="0" classname="character(0)" name="ard_wilcoxtest_works">
       <skipped message="Reason: On CRAN ('test-ard_wilcoxtest.R:26:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_wilcoxtest" timestamp="2024-02-01T05:28:58Z" hostname="9e96a49c078d" tests="3" skipped="1" failures="0" errors="0" time="0.012">
-    <testcase time="0.0109999999999999" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
-    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_wilcoxtest_works">
+  <testsuite name="ard_wilcoxtest" timestamp="2024-02-02T22:10:34Z" hostname="bc4ea28f8a7b" tests="3" skipped="1" failures="0" errors="0" time="0.011">
+    <testcase time="0.00999999999999979" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
+    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_paired_wilcoxtest_works">
       <skipped message="Reason: On CRAN ('test-ard_wilcoxtest.R:75:3')"/>
     </testcase>
   </testsuite>
