@@ -4,13 +4,21 @@ url: https://insightsengineering.github.io/cardx
 template:
   package: nesttemplate
 
-navbar:
-  structure:
-    left: [intro, reference, articles, tutorials, news, reports]
-    right: [search, github]
-    github:
-      icon: fa-github
-      href: https://github.com/insightsengineering/cardx
+# navbar:
+#   structure:
+#     left: [intro, reference, articles, tutorials, news, reports]
+#     right: [search, github]
+#     github:
+#       icon: fa-github
+#       href: https://github.com/insightsengineering/cardx
+
+development:
+  mode: auto
+  version_label: default
+
+authors:
+  Daniel D. Sjoberg:
+    href: "http://www.danieldsjoberg.com/"
 
 reference:
   - title: "ARD Creation"

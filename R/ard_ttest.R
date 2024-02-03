@@ -29,7 +29,7 @@
 #' @examples
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   ard_ttest(by = "ARM", variable = "AGE")
+#'   ard_ttest(by = ARM, variable = AGE)
 #'
 #' # constructing a paired data set,
 #' # where patients receive both treatments
@@ -94,7 +94,9 @@ ard_paired_ttest <- function(data, by, variable, id, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions({
+        # adding this reshape inside the eval, so if there is an error it's captured in the ARD object
         data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
+        # perform paired t-test
         stats::t.test(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...) |>
           broom::tidy()
       }),
