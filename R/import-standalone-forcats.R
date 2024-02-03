@@ -1,3 +1,7 @@
+# Standalone file: do not edit by hand
+# Source: <https://github.com/ddsjoberg/standalone/blob/main/R/standalone-forcats.R>
+# ----------------------------------------------------------------------
+#
 # DO NOT MODIFY THIS FILE. INSTEAD MODIFY THE VERSION IN https://github.com/ddsjoberg/standalone/tree/main/R
 # ---
 # file: standalone-forcats.R
@@ -13,6 +17,7 @@
 # ## Changelog
 #
 # nocov start
+# styler: off
 
 fct_infreq <- function(f, ordered = NA) {
   # reorder by frequency
@@ -32,3 +37,4 @@ fct_inorder <- function(f, ordered = NA) {
 }
 
 # nocov end
+# styler: on
