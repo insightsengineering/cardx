@@ -1,3 +1,7 @@
+# Standalone file: do not edit by hand
+# Source: <https://github.com/ddsjoberg/standalone/blob/main/R/standalone-stringr.R>
+# ----------------------------------------------------------------------
+#
 # DO NOT MODIFY THIS FILE. INSTEAD MODIFY THE VERSION IN https://github.com/ddsjoberg/standalone/tree/main/R
 # ---
 # file: standalone-stringr.R
@@ -13,6 +17,7 @@
 # ## Changelog
 #
 # nocov start
+# styler: off
 
 str_trim <- function(string, side = c("both", "left", "right")) {
   side <- rlang::arg_match(side)
@@ -41,3 +46,4 @@ str_detect <- function(string, pattern) {
 }
 
 # nocov end
+# styler: on
