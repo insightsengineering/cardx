@@ -24,4 +24,7 @@ reference:
   - title: "ARD Creation"
   - subtitle: "Inference"
   - contents:
+      - ard_aov
+      - ard_onewaytest
       - ard_ttest
+

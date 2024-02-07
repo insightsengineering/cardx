@@ -8,10 +8,13 @@ ard_onewaytest(data, by, variable, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
-a data frame.}
+a data frame}
 
-\item{by, variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column names to compare}
+\item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name to compare by}
+
+\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name to be compared}
 
 \item{...}{additional arguments passed to \code{oneway.test(...)}}
 }
@@ -20,7 +23,7 @@ ARD data frame
 }
 \description{
 Analysis results data for Testing Equal Means in a One-Way Layout.
-Calculated with \code{oneway.test(data[[variable]] ~ as.factor(data[[by]]), ...)}
+Calculated with \code{oneway.test(data[[variable]] ~ as.factor(data[[by]]), data = data, ...)}
 }
 \examples{
 cards::ADSL |>

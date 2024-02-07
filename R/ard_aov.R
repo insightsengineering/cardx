@@ -2,12 +2,14 @@
 #'
 #' @description
 #' Analysis results data for Analysis of Variance.
-#' Calculated with `aov(data[[variable]] ~ as.factor(data[[by]]), ...)`
+#' Calculated with `aov(data[[variable]] ~ as.factor(data[[by]]), data = data, ...)`
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame.
-#' @param by,variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column names to compare
+#' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to compare by. Should be a factor variable.
+#' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to be compared. Should be a continuous variable.
 #' @param ... additional arguments passed to `aov(...)`
 #'
 #' @return ARD data frame
@@ -33,7 +35,7 @@ ard_aov <- function(data, by, variable, ...) {
   cards::tidy_as_ard(
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::aov(stats::reformulate(by, response=variable), data=data) |>
+        stats::aov(stats::reformulate(by, response = variable), data = data) |>
           broom::tidy() |>
           dplyr::slice_head()
       ),

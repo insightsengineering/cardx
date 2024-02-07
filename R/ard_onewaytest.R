@@ -2,12 +2,14 @@
 #'
 #' @description
 #' Analysis results data for Testing Equal Means in a One-Way Layout.
-#' Calculated with `oneway.test(data[[variable]] ~ as.factor(data[[by]]), ...)`
+#' Calculated with `oneway.test(data[[variable]] ~ as.factor(data[[by]]), data = data, ...)`
 #'
 #' @param data (`data.frame`)\cr
-#'   a data frame.
-#' @param by,variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column names to compare
+#'   a data frame
+#' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to compare by
+#' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to be compared
 #' @param ... additional arguments passed to `oneway.test(...)`
 #'
 #' @return ARD data frame
@@ -16,7 +18,6 @@
 #' @examples
 #' cards::ADSL |>
 #'   ard_onewaytest(by = "ARM", variable = "AGE")
-
 ard_onewaytest <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
@@ -34,7 +35,7 @@ ard_onewaytest <- function(data, by, variable, ...) {
   cards::tidy_as_ard(
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::oneway.test(stats::reformulate(by, response=variable), data=data) |>
+        stats::oneway.test(stats::reformulate(by, response = variable), data = data) |>
           broom::tidy()
       ),
     tidy_result_names = c("num.df", "den.df", "statistic", "p.value", "method"),
@@ -57,4 +58,3 @@ ard_onewaytest <- function(data, by, variable, ...) {
         )
     )
 }
-
