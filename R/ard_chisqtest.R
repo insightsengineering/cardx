@@ -50,7 +50,7 @@ ard_chisqtest <- function(data, by, variable, ...) {
         dplyr::case_when(
           .data$stat_name %in% "statistic" ~ "X-squared Statistic",
           .data$stat_name %in% "p.value" ~ "p-value",
-          .data$stat_name %in% "paramter" ~ "Degrees of Freedom",
+          .data$stat_name %in% "parameter" ~ "Degrees of Freedom",
           TRUE ~ .data$stat_name,
         )
     )
