@@ -19,7 +19,7 @@ column names to compare}
 ARD data frame
 }
 \description{
-Analysis results data for Kruskal-Wllis Rank Sum Test.
+Analysis results data for Kruskal-Wallis Rank Sum Test.
 Calculated with \code{kruskal.test(formula = data[[variable]] ~ data[[by]], data = data, ...)}
 }
 \examples{

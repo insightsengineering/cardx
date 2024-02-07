@@ -1,7 +1,7 @@
 #' ARD Kruskal-Wallis Test
 #'
 #' @description
-#' Analysis results data for Kruskal-Wllis Rank Sum Test.
+#' Analysis results data for Kruskal-Wallis Rank Sum Test.
 #' Calculated with `kruskal.test(formula = data[[variable]] ~ data[[by]], data = data, ...)`
 #'
 #'
@@ -34,7 +34,7 @@ ard_kwtest <- function(data, by, variable, ...) {
   cards::tidy_as_ard(
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::kruskal.test(formula = data[[variable]] ~ data[[by]],  data = data, ...) |>
+        stats::kruskal.test(formula = data[[variable]] ~ data[[by]], data = data, ...) |>
           broom::tidy()
       ),
     tidy_result_names = c("statistic", "p.value", "parameter", "method"),
