@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="1" branch-rate="0" lines-covered="117" lines-valid="117" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-02-07 19:01:39.878164">
+<coverage line-rate="1" branch-rate="0" lines-covered="116" lines-valid="116" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-02-07 19:22:37.714054">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
@@ -39,7 +39,6 @@
                 <line number="53" hits="3" branch="false"/>
                 <line number="54" hits="3" branch="false"/>
                 <line number="55" hits="3" branch="false"/>
-                <line number="56" hits="3" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -72,7 +71,6 @@
             <line number="53" hits="3" branch="false"/>
             <line number="54" hits="3" branch="false"/>
             <line number="55" hits="3" branch="false"/>
-            <line number="56" hits="3" branch="false"/>
           </lines>
         </class>
         <class name="ard_ttest.R" filename="R/ard_ttest.R" line-rate="1" branch-rate="0" complexity="0">
