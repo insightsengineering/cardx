@@ -40,7 +40,7 @@ ard_kwtest <- function(data, by, variable, ...) {
           broom::tidy()
       ),
     tidy_result_names = c("statistic", "p.value", "parameter", "method"),
-    formals = formals(asNamespace("stats")[["t.test.default"]]),
+    formals = formals(asNamespace("stats")[["kruskal.test.default"]]),
     lst_ard_columns = list(group1 = by, variable = variable, context = "kruskalwallistest")
   ) |>
     dplyr::mutate(
