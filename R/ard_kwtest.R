@@ -7,8 +7,10 @@
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame.
-#' @param by, variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column names to compare
+#' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to compare by
+#' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to be compared
 #' @param ... additional arguments
 #'
 #' @return ARD data frame

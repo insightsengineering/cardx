@@ -10,8 +10,11 @@ ard_kwtest(data, by, variable, ...)
 \item{data}{(\code{data.frame})\cr
 a data frame.}
 
-\item{by, }{variable (\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column names to compare}
+\item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name to compare by}
+
+\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name to be compared}
 
 \item{...}{additional arguments}
 }
