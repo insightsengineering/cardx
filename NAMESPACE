@@ -3,6 +3,8 @@
 export("%>%")
 export(all_of)
 export(any_of)
+export(ard_aov)
+export(ard_onewaytest)
 export(ard_paired_ttest)
 export(ard_ttest)
 export(contains)
