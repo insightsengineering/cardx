@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Analysis results data for Kruskal-Wallis Rank Sum Test.
-#' Calculated with `kruskal.test(formula = data[[variable]] ~ data[[by]], data = data, ...)`
+#' Calculated with `kruskal.test(data[[variable]], data[[by]], ...)`
 #'
 #'
 #' @param data (`data.frame`)\cr
@@ -36,12 +36,11 @@ ard_kwtest <- function(data, by, variable, ...) {
   cards::tidy_as_ard(
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::kruskal.test(formula = data[[variable]] ~ data[[by]], data = data, ...) |>
+        stats::kruskal.test(x = data[[variable]], g = data[[by]], ...) |>
           broom::tidy()
       ),
     tidy_result_names = c("statistic", "p.value", "parameter", "method"),
-    fun_args_to_record = c("subset", "na.action"),
-    formals = formals(stats::kruskal.test.formula),
+    formals = formals(asNamespace("stats")[["t.test.default"]]),
     lst_ard_columns = list(group1 = by, variable = variable, context = "kruskalwallistest")
   ) |>
     dplyr::mutate(
