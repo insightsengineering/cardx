@@ -190,7 +190,7 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
   dplyr::tribble(
     ~stat_name, ~stat_label,
     "statistic", "X-squared Statistic",
-    "paramter", "Degrees of Freedom",
+    "parameter", "Degrees of Freedom",
     "estimate", "Median of the Difference",
     "p.value", "p-value",
     "conf.low", "CI Lower Bound",
