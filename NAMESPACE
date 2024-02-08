@@ -3,7 +3,7 @@
 export("%>%")
 export(all_of)
 export(any_of)
-export(ard_kwtest)
+export(ard_kruskaltest)
 export(ard_paired_ttest)
 export(ard_ttest)
 export(contains)

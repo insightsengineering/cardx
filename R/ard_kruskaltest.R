@@ -18,8 +18,8 @@
 #'
 #' @examples
 #' cards::ADSL |>
-#'   ard_kwtest(by = "ARM", variable = "AGEGR1")
-ard_kwtest <- function(data, by, variable, ...) {
+#'   ard_kruskaltest(by = "ARM", variable = "AGEGR1")
+ard_kruskaltest <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
 
@@ -41,7 +41,7 @@ ard_kwtest <- function(data, by, variable, ...) {
       ),
     tidy_result_names = c("statistic", "p.value", "parameter", "method"),
     formals = formals(asNamespace("stats")[["kruskal.test.default"]]),
-    lst_ard_columns = list(group1 = by, variable = variable, context = "kruskalwallistest")
+    lst_ard_columns = list(group1 = by, variable = variable, context = "kruskaltest")
   ) |>
     dplyr::mutate(
       .after = "stat_name",
