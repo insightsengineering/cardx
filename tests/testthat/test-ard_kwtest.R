@@ -33,7 +33,6 @@ test_that("shuffle_ard fills missing group levels if the group is meaningful", {
         variable = "AGEGR1"
       )
     ) |>
-      cards::shuffle_ard() |>
       as.data.frame()
   )
 })

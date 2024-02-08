@@ -11,7 +11,7 @@
 #'   column name to compare by
 #' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to be compared
-#' @param ... additional arguments
+#' @param ... additional arguments passed to `kruskal.test()`
 #'
 #' @return ARD data frame
 #' @export
