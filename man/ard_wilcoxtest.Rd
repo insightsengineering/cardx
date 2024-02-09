@@ -14,15 +14,15 @@ ard_paired_wilcoxtest(data, by, variable, id, ...)
 a data frame. See below for details.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to compare by}
+column name to compare by.}
 
 \item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to be compared}
+column name to be compared.}
 
 \item{...}{arguments passed to \code{wilcox.test(...)}}
 
 \item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name of the subject or participant ID}
+column name of the subject or participant ID.}
 }
 \value{
 ARD data frame
