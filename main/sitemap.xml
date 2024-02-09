@@ -31,10 +31,16 @@
     <loc>https://insightsengineering.github.io/cardx/reference/ard_ttest.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_wilcoxtest.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/reference/cardx-package.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/dot-format_ttest_results.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/dot-format_wilcoxtest_results.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/dot-paired_data_pivot_wider.html</loc>
