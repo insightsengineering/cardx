@@ -26,3 +26,8 @@ reference:
   - contents:
       - ard_ttest
       - ard_wilcoxtest
+      - ard_proportion_ci
+
+  - title: "Helpers"
+  - contents:
+      - proportion_ci
