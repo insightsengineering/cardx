@@ -8,7 +8,7 @@
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to compare by.
 #' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name to be compared
+#'   column name to be compared.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
 #' @param ... arguments passed to `wilcox.test(...)`
