@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="ard_ttest" timestamp="2024-02-09T01:50:41Z" hostname="760fc44fd358" tests="3" skipped="1" failures="0" errors="0" time="1.061">
-    <testcase time="1.022" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0.0249999999999999" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0.014" classname="character(0)" name="ard_ttest_works">
+  <testsuite name="ard_ttest" timestamp="2024-02-09T18:45:53Z" hostname="1e9001e93de5" tests="3" skipped="1" failures="0" errors="0" time="1.059">
+    <testcase time="1.036" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.014" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.00900000000000012" classname="character(0)" name="ard_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:25:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_ttest" timestamp="2024-02-09T01:50:41Z" hostname="760fc44fd358" tests="3" skipped="1" failures="0" errors="0" time="0.025">
-    <testcase time="0.024" classname="character(0)" name="ard_paired_ttest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_paired_ttest_works"/>
-    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_ttest_works">
+  <testsuite name="ard_ttest" timestamp="2024-02-09T18:45:53Z" hostname="1e9001e93de5" tests="3" skipped="1" failures="0" errors="0" time="0.023">
+    <testcase time="0.022" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_paired_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:70:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_regression" timestamp="2024-02-09T01:50:41Z" hostname="760fc44fd358" tests="1" skipped="1" failures="0" errors="0" time="0.373">
-    <testcase time="0.373" classname="character(0)" name="ard_regression_works">
+  <testsuite name="ard_wilcoxtest" timestamp="2024-02-09T18:45:53Z" hostname="1e9001e93de5" tests="3" skipped="0" failures="0" errors="0" time="0.343">
+    <testcase time="0.342" classname="character(0)" name="ard_wilcoxtest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_wilcoxtest_works"/>
+    <testcase time="0.00100000000000033" classname="character(0)" name="ard_wilcoxtest_works"/>
+  </testsuite>
+  <testsuite name="ard_wilcoxtest" timestamp="2024-02-09T18:45:53Z" hostname="1e9001e93de5" tests="3" skipped="0" failures="0" errors="0" time="0.002">
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
+  </testsuite>
+  <testsuite name="ard_regression" timestamp="2024-02-09T18:45:53Z" hostname="1e9001e93de5" tests="1" skipped="1" failures="0" errors="0" time="0.037">
+    <testcase time="0.0369999999999999" classname="character(0)" name="ard_regression_works">
       <skipped message="Reason: On CRAN ('test-ard_regression.R:2:3')"/>
     </testcase>
   </testsuite>
