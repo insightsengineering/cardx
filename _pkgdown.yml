@@ -25,8 +25,4 @@ reference:
   - subtitle: "Inference"
   - contents:
       - ard_ttest
-      - ard_proportion_ci
-
-  - title: "Helpers"
-  - contents:
-      - proportion_ci
+      - ard_wilcoxtest
