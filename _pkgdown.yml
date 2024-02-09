@@ -26,3 +26,4 @@ reference:
   - contents:
       - ard_ttest
       - ard_kruskaltest
+      - ard_wilcoxtest
