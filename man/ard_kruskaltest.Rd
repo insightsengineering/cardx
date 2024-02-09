@@ -23,6 +23,7 @@ ARD data frame
 }
 \description{
 Analysis results data for Kruskal-Wallis Rank Sum Test.
+
 Calculated with \code{kruskal.test(data[[variable]], data[[by]], ...)}
 }
 \examples{

@@ -2,8 +2,8 @@
 #'
 #' @description
 #' Analysis results data for Kruskal-Wallis Rank Sum Test.
-#' Calculated with `kruskal.test(data[[variable]], data[[by]], ...)`
 #'
+#' Calculated with `kruskal.test(data[[variable]], data[[by]], ...)`
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame.
