@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="ard_ttest" timestamp="2024-02-09T15:39:53Z" hostname="a743d093160f" tests="3" skipped="1" failures="0" errors="0" time="1.054">
-    <testcase time="1.031" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0.0149999999999999" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0.00800000000000001" classname="character(0)" name="ard_ttest_works">
+  <testsuite name="ard_ttest" timestamp="2024-02-09T15:45:28Z" hostname="a56aba28d606" tests="3" skipped="1" failures="0" errors="0" time="1.044">
+    <testcase time="1.021" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.014" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.00900000000000012" classname="character(0)" name="ard_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:25:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_ttest" timestamp="2024-02-09T15:39:53Z" hostname="a743d093160f" tests="3" skipped="1" failures="0" errors="0" time="0.024">
-    <testcase time="0.0230000000000001" classname="character(0)" name="ard_paired_ttest_works"/>
+  <testsuite name="ard_ttest" timestamp="2024-02-09T15:45:28Z" hostname="a56aba28d606" tests="3" skipped="1" failures="0" errors="0" time="0.024">
+    <testcase time="0.0229999999999999" classname="character(0)" name="ard_paired_ttest_works"/>
     <testcase time="0" classname="character(0)" name="ard_paired_ttest_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:70:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_wilcoxtest" timestamp="2024-02-09T15:39:53Z" hostname="a743d093160f" tests="3" skipped="0" failures="0" errors="0" time="0.045">
-    <testcase time="0.044" classname="character(0)" name="ard_wilcoxtest_works"/>
+  <testsuite name="ard_wilcoxtest" timestamp="2024-02-09T15:45:28Z" hostname="a56aba28d606" tests="3" skipped="0" failures="0" errors="0" time="0.071">
+    <testcase time="0.0700000000000001" classname="character(0)" name="ard_wilcoxtest_works"/>
     <testcase time="0" classname="character(0)" name="ard_wilcoxtest_works"/>
     <testcase time="0.00100000000000011" classname="character(0)" name="ard_wilcoxtest_works"/>
   </testsuite>
-  <testsuite name="ard_wilcoxtest" timestamp="2024-02-09T15:39:53Z" hostname="a743d093160f" tests="3" skipped="1" failures="0" errors="0" time="0.002">
+  <testsuite name="ard_wilcoxtest" timestamp="2024-02-09T15:45:28Z" hostname="a56aba28d606" tests="3" skipped="0" failures="1" errors="0" time="0.002">
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
-    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_wilcoxtest_works">
-      <skipped message="Reason: On CRAN ('test-ard_wilcoxtest.R:77:3')"/>
+    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_paired_wilcoxtest_works">
+      <failure type="failure" message="getElement(...) (`actual`) not equal to &quot;\033[38;5;232mThe `by` argument must have two and only two levels.\033[39m&quot; (`expected`). ('test-ard_wilcoxtest.R:77:3')">getElement(...) (`actual`) not equal to "\033[38;5;232mThe `by` argument must have two and only two levels.\033[39m" (`expected`).
+
+actual vs expected
+- "The `by` argument must have two and only two levels."
++ "\033[38;5;232mThe `by` argument must have two and only two levels.\033[39m"</failure>
     </testcase>
   </testsuite>
 </testsuites>
