@@ -74,7 +74,7 @@ test_that("ard_paired_wilcoxtest() works", {
   )
 
   # errors are properly handled
-  expect_snapshot(
+  expect_equal(
     ADSL_paired |>
       dplyr::mutate(
         ARM = ifelse(dplyr::row_number() == 1L, "3rd ARM", ARM)
@@ -83,6 +83,8 @@ test_that("ard_paired_wilcoxtest() works", {
         by = ARM, variable = AGE, id = USUBJID,
         correct = FALSE, conf.int = TRUE
       ) |>
-      as.data.frame()
+      dplyr::pull(error) |>
+      getElement(1L),
+    "\033[38;5;232mThe `by` argument must have two and only two levels.\033[39m"
   )
 })
