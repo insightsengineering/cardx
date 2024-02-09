@@ -23,10 +23,12 @@ test_that("ard_wilcoxtest() works", {
   )
 
   # errors are properly handled
-  expect_snapshot(
+  expect_equal(
     cards::ADSL |>
-      ard_wilcoxtest(by = ARM, variable = AGE, correct = FALSEE) |>
-      as.data.frame()
+      ard_wilcoxtest(by = ARM, variable = AGE, correct = FALSE) |>
+      dplyr::pull(error) |>
+      getElement(1L),
+    "grouping factor must have exactly 2 levels"
   )
 })
 

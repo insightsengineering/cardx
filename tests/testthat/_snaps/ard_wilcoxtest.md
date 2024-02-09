@@ -1,35 +1,3 @@
-# ard_wilcoxtest() works
-
-    Code
-      as.data.frame(ard_wilcoxtest(cards::ADSL, by = ARM, variable = AGE, correct = FALSEE))
-    Output
-         group1 variable context   stat_name          stat_label statistic
-      1     ARM      AGE   ttest   statistic X-squared Statistic      NULL
-      2     ARM      AGE   ttest     p.value             p-value      NULL
-      3     ARM      AGE   ttest      method              method      NULL
-      4     ARM      AGE   ttest alternative         alternative      NULL
-      5     ARM      AGE   ttest          mu                  mu      NULL
-      6     ARM      AGE   ttest      paired         Paired test      NULL
-      7     ARM      AGE   ttest       exact               exact      NULL
-      8     ARM      AGE   ttest     correct             correct      NULL
-      9     ARM      AGE   ttest    conf.int            conf.int      NULL
-      10    ARM      AGE   ttest  conf.level CI Confidence Level      NULL
-      11    ARM      AGE   ttest    tol.root            tol.root      NULL
-      12    ARM      AGE   ttest digits.rank         digits.rank      NULL
-         statistic_fmt_fn warning                                      error
-      1              NULL    NULL grouping factor must have exactly 2 levels
-      2              NULL    NULL grouping factor must have exactly 2 levels
-      3              NULL    NULL grouping factor must have exactly 2 levels
-      4              NULL    NULL grouping factor must have exactly 2 levels
-      5              NULL    NULL grouping factor must have exactly 2 levels
-      6              NULL    NULL grouping factor must have exactly 2 levels
-      7              NULL    NULL grouping factor must have exactly 2 levels
-      8              NULL    NULL grouping factor must have exactly 2 levels
-      9              NULL    NULL grouping factor must have exactly 2 levels
-      10             NULL    NULL grouping factor must have exactly 2 levels
-      11             NULL    NULL grouping factor must have exactly 2 levels
-      12             NULL    NULL grouping factor must have exactly 2 levels
-
 # ard_paired_wilcoxtest() works
 
     Code
