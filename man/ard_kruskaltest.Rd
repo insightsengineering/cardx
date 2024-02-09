@@ -15,8 +15,6 @@ column name to compare by}
 
 \item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to be compared}
-
-\item{...}{additional arguments passed to \code{kruskal.test()}}
 }
 \value{
 ARD data frame

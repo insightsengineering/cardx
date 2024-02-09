@@ -2,7 +2,7 @@ test_that("ard_kurskaltest() works", {
   expect_error(
     ard_kruskaltest <-
       cards::ADSL |>
-      ard_kruskaltest(by = ARM, variable = AGEGR1),
+      ard_kruskaltest(by = ARM, variable = AGE),
     NA
   )
 
@@ -25,12 +25,12 @@ test_that("shuffle_ard fills missing group levels if the group is meaningful", {
       ard_kruskaltest(
         data = adsl_sub,
         by = "ARM",
-        variable = "AGEGR1"
+        variable = "AGE"
       ),
       ard_kruskaltest(
         data = adsl_sub,
         by = "SEX",
-        variable = "AGEGR1"
+        variable = "AGE"
       )
     ) |>
       as.data.frame()

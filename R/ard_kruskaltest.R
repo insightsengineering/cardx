@@ -11,7 +11,6 @@
 #'   column name to compare by
 #' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to be compared
-#' @param ... additional arguments passed to `kruskal.test()`
 #'
 #' @return ARD data frame
 #' @export
@@ -36,7 +35,7 @@ ard_kruskaltest <- function(data, by, variable, ...) {
   cards::tidy_as_ard(
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::kruskal.test(x = data[[variable]], g = data[[by]], ...) |>
+        stats::kruskal.test(x = data[[variable]], g = data[[by]]) |>
           broom::tidy()
       ),
     tidy_result_names = c("statistic", "p.value", "parameter", "method"),
