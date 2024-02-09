@@ -9,7 +9,7 @@ test_that("ard_kurskaltest() works", {
   expect_equal(
     ard_kruskaltest |>
       cards::get_ard_statistics(stat_name %in% c("statistic", "p.value")),
-    with(cards::ADSL, kruskal.test(AGEGR1, ARM)) |>
+    with(cards::ADSL, kruskal.test(AGEG, ARM)) |>
       broom::tidy() |>
       dplyr::select(statistic, p.value) |>
       unclass(),
