@@ -6,7 +6,7 @@
 #' @param data (`data.frame`)\cr
 #'   a data frame. See below for details.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name to compare by
+#'   column name to compare by.
 #' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to be compared
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
