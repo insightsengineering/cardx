@@ -39,8 +39,6 @@ ard_aov <- function(data, by, variable) {
           dplyr::slice_head()
       ),
     tidy_result_names = c("term", "df", "sumsq", "meansq", "statistic", "p.value"),
-    fun_args_to_record =
-      c("formula"),
     formals = formals(stats::aov),
     lst_ard_columns = list(group1 = by, variable = variable, context = "aov")
   ) |>
