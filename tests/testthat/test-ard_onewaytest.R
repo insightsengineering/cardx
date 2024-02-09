@@ -19,10 +19,11 @@ test_that("ard_onewaytest() works", {
     ignore_attr = TRUE
   )
 
-  # errors are properly handled
+  # errors are properly handled - "variable" should be continuous, not factor
   expect_snapshot(
     cards::ADSL |>
       ard_onewaytest(by = ARM, variable = AGEGR1) |>
+      dplyr::select(c("group1", "variable", "stat_name", "error")) |>
       as.data.frame()
   )
 })

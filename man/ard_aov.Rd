@@ -4,7 +4,7 @@
 \alias{ard_aov}
 \title{ARD ANOVA}
 \usage{
-ard_aov(data, by, variable, ...)
+ard_aov(data, by, variable)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
@@ -15,8 +15,6 @@ column name to compare by. Should be a factor variable.}
 
 \item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to be compared. Should be a continuous variable.}
-
-\item{...}{additional arguments passed to \code{aov(...)}}
 }
 \value{
 ARD data frame

@@ -25,7 +25,7 @@ ard_onewaytest <- function(data, by, variable, ...) {
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variable)
-  check_not_missing(by, "by")
+  check_not_missing(by)
   check_class_data_frame(x = data)
   cards::process_selectors(data, by = {{ by }}, variable = {{ variable }})
   check_scalar(by)
@@ -40,7 +40,7 @@ ard_onewaytest <- function(data, by, variable, ...) {
       ),
     tidy_result_names = c("num.df", "den.df", "statistic", "p.value", "method"),
     fun_args_to_record =
-      c("formula", "subset", "na.action", "var.equal"),
+      c("var.equal"),
     formals = formals(stats::oneway.test),
     passed_args = dots_list(...),
     lst_ard_columns = list(group1 = by, variable = variable, context = "Oneway.test")
