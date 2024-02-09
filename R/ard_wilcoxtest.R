@@ -10,7 +10,7 @@
 #' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to be compared.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name of the subject or participant ID
+#'   column name of the subject or participant ID.
 #' @param ... arguments passed to `wilcox.test(...)`
 #'
 #' @return ARD data frame
