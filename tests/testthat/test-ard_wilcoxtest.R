@@ -85,6 +85,6 @@ test_that("ard_paired_wilcoxtest() works", {
       ) |>
       dplyr::pull(error) |>
       getElement(1L),
-    "\033[38;5;232mThe `by` argument must have two and only two levels.\033[39m"
+    "The `by` argument must have two and only two levels."
   )
 })
