@@ -27,4 +27,4 @@ reference:
       - ard_aov
       - ard_onewaytest
       - ard_ttest
-
+      - ard_wilcoxtest
