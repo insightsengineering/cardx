@@ -25,6 +25,7 @@ reference:
   - subtitle: "Inference"
   - contents:
       - ard_ttest
+      - ard_chisqtest
       - ard_wilcoxtest
 
   - subtitle: "Modeling"
