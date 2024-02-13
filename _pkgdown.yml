@@ -25,9 +25,15 @@ reference:
   - subtitle: "Inference"
   - contents:
       - ard_ttest
+      - ard_fishertest
       - ard_chisqtest
       - ard_wilcoxtest
 
-  - subtitle: "Modeling"
+  - subtitle: "Estimation"
   - contents:
       - ard_regression
+      - ard_proportion_ci
+
+  - title: "Helpers"
+  - contents:
+      - proportion_ci
