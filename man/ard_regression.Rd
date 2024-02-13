@@ -15,7 +15,7 @@ ard_regression(x, ...)
 \item{...}{Arguments passed to \code{broom.helpers::tidy_plus_plus()}}
 
 \item{tidy_fun}{(\code{function})\cr
-a tidier. Default is broom.helpers::tidy_with_broom_or_parameters}
+a tidier. Default is \code{\link[broom.helpers:tidy_with_broom_or_parameters]{broom.helpers::tidy_with_broom_or_parameters}}}
 }
 \value{
 data frame
