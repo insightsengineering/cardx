@@ -21,7 +21,7 @@
 #' The data is passed as `wilcox.test(data[[variable]] ~ data[[by]], paired = FALSE, ...)`.
 #'
 #' For the `ard_paired_wilcoxtest()` function, the data is expected to be one row
-#' per subject per by level. Before the t-test is calculated, the data are
+#' per subject per by level. Before the test is calculated, the data are
 #' reshaped to a wide format to be one row per subject.
 #' The data are then passed as
 #' `wilcox.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
@@ -96,7 +96,7 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
       cards::eval_capture_conditions({
         # adding this reshape inside the eval, so if there is an error it's captured in the ARD object
         data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
-        # perform paried t-test
+        # perform paired wilcox test
         stats::wilcox.test(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...) |>
           broom::tidy()
       }),
@@ -105,7 +105,7 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
   )
 }
 
-#' Convert t-test to ARD
+#' Convert Wilcoxon test to ARD
 #'
 #' @inheritParams cards::tidy_as_ard
 #' @inheritParams stats::wilcox.test
