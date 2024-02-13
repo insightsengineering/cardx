@@ -5,7 +5,7 @@
 #'
 #' @param x regression model object
 #' @param tidy_fun (`function`)\cr
-#'   a tidier. Default is broom.helpers::tidy_with_broom_or_parameters
+#'   a tidier. Default is [`broom.helpers::tidy_with_broom_or_parameters`]
 #' @param ... Arguments passed to `broom.helpers::tidy_plus_plus()`
 #'
 #' @return data frame
