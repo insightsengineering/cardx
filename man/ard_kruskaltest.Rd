@@ -4,7 +4,7 @@
 \alias{ard_kruskaltest}
 \title{ARD Kruskal-Wallis Test}
 \usage{
-ard_kruskaltest(data, by, variable, ...)
+ard_kruskaltest(data, by, variable)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr

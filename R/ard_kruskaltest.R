@@ -18,7 +18,7 @@
 #' @examples
 #' cards::ADSL |>
 #'   ard_kruskaltest(by = "ARM", variable = "AGEGR1")
-ard_kruskaltest <- function(data, by, variable, ...) {
+ard_kruskaltest <- function(data, by, variable) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
 
