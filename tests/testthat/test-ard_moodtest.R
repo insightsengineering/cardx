@@ -1,0 +1,28 @@
+test_that("ard_moodtest() works", {
+  expect_error(
+    ard_moodtest <-
+      cards::ADSL |>
+      ard_moodtest(by = SEX, variable = AGE),
+    NA
+  )
+
+  expect_equal(
+    ard_moodtest |>
+      cards::get_ard_statistics(stat_name %in% c("statistic", "p.value", "alternative")),
+    mood.test(
+      AGE ~ SEX,
+      data = cards::ADSL
+    ) |>
+      broom::tidy() |>
+      dplyr::select(statistic, p.value, alternative) |>
+      unclass(),
+    ignore_attr = TRUE
+  )
+
+  # errors are properly handled
+  expect_snapshot(
+    cards::ADSL |>
+      ard_moodtest(by = SEX, variable = AGE) |>
+      as.data.frame()
+  )
+})
