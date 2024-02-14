@@ -3,6 +3,7 @@
 export("%>%")
 export(all_of)
 export(any_of)
+export(ard_mcnemartest)
 export(ard_paired_ttest)
 export(ard_paired_wilcoxtest)
 export(ard_ttest)
