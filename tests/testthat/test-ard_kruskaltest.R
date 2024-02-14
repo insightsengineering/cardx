@@ -19,7 +19,7 @@ test_that("ard_kurskaltest() works", {
   # errors are properly handled
   expect_snapshot(
     cards::ADSL |>
-      ard_kruskaltest(by = "ARM",  variable = "AGE" ) |>
+      ard_kruskaltest(by = "ARM", variable = "AGE") |>
       as.data.frame()
   )
 })
