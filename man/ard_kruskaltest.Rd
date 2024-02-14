@@ -26,5 +26,5 @@ Calculated with \code{kruskal.test(data[[variable]], data[[by]], ...)}
 }
 \examples{
 cards::ADSL |>
-  ard_kruskaltest(by = "ARM", variable = "AGEGR1")
+  ard_kruskaltest(by = "ARM", variable = "AGE")
 }

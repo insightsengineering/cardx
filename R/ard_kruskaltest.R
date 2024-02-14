@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' cards::ADSL |>
-#'   ard_kruskaltest(by = "ARM", variable = "AGEGR1")
+#'   ard_kruskaltest(by = "ARM", variable = "AGE")
 ard_kruskaltest <- function(data, by, variable) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
@@ -25,7 +25,7 @@ ard_kruskaltest <- function(data, by, variable) {
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variable)
-  check_not_missing(by, "by")
+  check_not_missing(by)
   check_class_data_frame(x = data)
   cards::process_selectors(data, by = {{ by }}, variable = {{ variable }})
   check_scalar(by)
@@ -39,7 +39,6 @@ ard_kruskaltest <- function(data, by, variable) {
           broom::tidy()
       ),
     tidy_result_names = c("statistic", "p.value", "parameter", "method"),
-    formals = formals(asNamespace("stats")[["kruskal.test.default"]]),
     lst_ard_columns = list(group1 = by, variable = variable, context = "kruskaltest")
   ) |>
     dplyr::mutate(
