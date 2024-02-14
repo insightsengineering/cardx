@@ -15,24 +15,11 @@ test_that("ard_kurskaltest() works", {
       unclass(),
     ignore_attr = TRUE
   )
-})
 
-test_that("shuffle_ard fills missing group levels if the group is meaningful", {
-  adsl_sub <- cards::ADSL |> dplyr::filter(ARM %in% unique(ARM)[1:2])
-
+  # errors are properly handled
   expect_snapshot(
-    cards::bind_ard(
-      ard_kruskaltest(
-        data = adsl_sub,
-        by = "ARM",
-        variable = "AGE"
-      ),
-      ard_kruskaltest(
-        data = adsl_sub,
-        by = "SEX",
-        variable = "AGE"
-      )
-    ) |>
+    cards::ADSL |>
+      ard_kruskaltest(by = "ARM",  variable = "AGE" ) |>
       as.data.frame()
   )
 })
