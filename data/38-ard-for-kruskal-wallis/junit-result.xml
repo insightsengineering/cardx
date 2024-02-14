@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="ard_fishertest" timestamp="2024-02-14T18:43:28Z" hostname="d0bc3a5ec438" tests="2" skipped="0" failures="0" errors="0" time="0.718">
-    <testcase time="0.703" classname="character(0)" name="ard_fishertest_works"/>
-    <testcase time="0.0149999999999999" classname="character(0)" name="ard_fishertest_works"/>
+  <testsuite name="ard_fishertest" timestamp="2024-02-14T18:48:12Z" hostname="fc5b18461090" tests="2" skipped="0" failures="0" errors="0" time="0.731">
+    <testcase time="0.709" classname="character(0)" name="ard_fishertest_works"/>
+    <testcase time="0.022" classname="character(0)" name="ard_fishertest_works"/>
   </testsuite>
-  <testsuite name="ard_chisqtest" timestamp="2024-02-14T18:43:28Z" hostname="d0bc3a5ec438" tests="2" skipped="0" failures="0" errors="0" time="0.17">
-    <testcase time="0.169" classname="character(0)" name="ard_chisqtest_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_chisqtest_works"/>
-  </testsuite>
-  <testsuite name="ard_chisqtest" timestamp="2024-02-14T18:43:29Z" hostname="d0bc3a5ec438" tests="1" skipped="1" failures="0" errors="0" time="0.012">
-    <testcase time="0.012" classname="character(0)" name="shuffle_ard_fills_missing_group_levels_if_the_group_is_meaningful">
-      <skipped message="Reason: On CRAN ('test-ard_chisqtest.R:23:3')"/>
-    </testcase>
-  </testsuite>
-  <testsuite name="ard_kruskaltest" timestamp="2024-02-14T18:43:29Z" hostname="d0bc3a5ec438" tests="3" skipped="1" failures="0" errors="0" time="0.033">
-    <testcase time="0.032" classname="character(0)" name="ard_kurskaltest_works"/>
-    <testcase time="0.00100000000000011" classname="character(0)" name="ard_kurskaltest_works"/>
+  <testsuite name="ard_kruskaltest" timestamp="2024-02-14T18:48:12Z" hostname="fc5b18461090" tests="3" skipped="1" failures="0" errors="0" time="0.189">
+    <testcase time="0.188" classname="character(0)" name="ard_kurskaltest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_kurskaltest_works"/>
     <testcase time="0" classname="character(0)" name="ard_kurskaltest_works">
       <skipped message="Reason: On CRAN ('test-ard_kruskaltest.R:20:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_proportion_ci" timestamp="2024-02-14T18:43:29Z" hostname="d0bc3a5ec438" tests="1" skipped="0" failures="0" errors="0" time="0.441">
-    <testcase time="0.441" classname="character(0)" name="ard_proportion_ci_works"/>
+  <testsuite name="ard_chisqtest" timestamp="2024-02-14T18:48:12Z" hostname="fc5b18461090" tests="2" skipped="0" failures="0" errors="0" time="0.039">
+    <testcase time="0.0349999999999999" classname="character(0)" name="ard_chisqtest_works"/>
+    <testcase time="0.004" classname="character(0)" name="ard_chisqtest_works"/>
   </testsuite>
-  <testsuite name="ard_proportion_ci" timestamp="2024-02-14T18:43:29Z" hostname="d0bc3a5ec438" tests="2" skipped="1" failures="0" errors="0" time="0.004">
-    <testcase time="0.00300000000000011" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works"/>
+  <testsuite name="ard_chisqtest" timestamp="2024-02-14T18:48:12Z" hostname="fc5b18461090" tests="1" skipped="1" failures="0" errors="0" time="0.002">
+    <testcase time="0.002" classname="character(0)" name="shuffle_ard_fills_missing_group_levels_if_the_group_is_meaningful">
+      <skipped message="Reason: On CRAN ('test-ard_chisqtest.R:23:3')"/>
+    </testcase>
+  </testsuite>
+  <testsuite name="ard_proportion_ci" timestamp="2024-02-14T18:48:12Z" hostname="fc5b18461090" tests="1" skipped="0" failures="0" errors="0" time="0.453">
+    <testcase time="0.453" classname="character(0)" name="ard_proportion_ci_works"/>
+  </testsuite>
+  <testsuite name="ard_proportion_ci" timestamp="2024-02-14T18:48:12Z" hostname="fc5b18461090" tests="2" skipped="1" failures="0" errors="0" time="0.002">
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works">
       <skipped message="Reason: On CRAN ('test-ard_proportion_ci.R:50:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_ttest" timestamp="2024-02-14T18:43:29Z" hostname="d0bc3a5ec438" tests="3" skipped="1" failures="0" errors="0" time="0.342">
-    <testcase time="0.341" classname="character(0)" name="ard_ttest_works"/>
+  <testsuite name="ard_regression" timestamp="2024-02-14T18:48:13Z" hostname="fc5b18461090" tests="1" skipped="1" failures="0" errors="0" time="0.331">
+    <testcase time="0.331" classname="character(0)" name="ard_regression_works">
+      <skipped message="Reason: On CRAN ('test-ard_regression.R:2:3')"/>
+    </testcase>
+  </testsuite>
+  <testsuite name="ard_ttest" timestamp="2024-02-14T18:48:13Z" hostname="fc5b18461090" tests="3" skipped="1" failures="0" errors="0" time="0.02">
+    <testcase time="0.0190000000000001" classname="character(0)" name="ard_ttest_works"/>
     <testcase time="0" classname="character(0)" name="ard_ttest_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:25:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_ttest" timestamp="2024-02-14T18:43:29Z" hostname="d0bc3a5ec438" tests="3" skipped="1" failures="0" errors="0" time="0.016">
-    <testcase time="0.0150000000000001" classname="character(0)" name="ard_paired_ttest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_paired_ttest_works"/>
+  <testsuite name="ard_ttest" timestamp="2024-02-14T18:48:13Z" hostname="fc5b18461090" tests="3" skipped="1" failures="0" errors="0" time="0.011">
+    <testcase time="0.00900000000000034" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_ttest_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:70:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_regression" timestamp="2024-02-14T18:43:29Z" hostname="d0bc3a5ec438" tests="1" skipped="1" failures="0" errors="0" time="0.022">
-    <testcase time="0.0220000000000002" classname="character(0)" name="ard_regression_works">
-      <skipped message="Reason: On CRAN ('test-ard_regression.R:2:3')"/>
-    </testcase>
-  </testsuite>
-  <testsuite name="proportion_ci" timestamp="2024-02-14T18:43:29Z" hostname="d0bc3a5ec438" tests="1" skipped="1" failures="0" errors="0" time="0.12">
-    <testcase time="0.12" classname="character(0)" name="check_the_proportion_ci__functions_work">
+  <testsuite name="proportion_ci" timestamp="2024-02-14T18:48:13Z" hostname="fc5b18461090" tests="1" skipped="1" failures="0" errors="0" time="0.128">
+    <testcase time="0.128" classname="character(0)" name="check_the_proportion_ci__functions_work">
       <skipped message="Reason: On CRAN ('test-proportion_ci.R:10:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="proportion_ci" timestamp="2024-02-14T18:43:30Z" hostname="d0bc3a5ec438" tests="1" skipped="1" failures="0" errors="0" time="0.01">
-    <testcase time="0.0100000000000002" classname="character(0)" name="check_the_proportion_ci_strat_wilson_function_works">
+  <testsuite name="proportion_ci" timestamp="2024-02-14T18:48:13Z" hostname="fc5b18461090" tests="1" skipped="1" failures="0" errors="0" time="0.017">
+    <testcase time="0.0169999999999999" classname="character(0)" name="check_the_proportion_ci_strat_wilson_function_works">
       <skipped message="Reason: On CRAN ('test-proportion_ci.R:136:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_wilcoxtest" timestamp="2024-02-14T18:43:30Z" hostname="d0bc3a5ec438" tests="3" skipped="0" failures="0" errors="0" time="0.169">
-    <testcase time="0.168" classname="character(0)" name="ard_wilcoxtest_works"/>
+  <testsuite name="ard_wilcoxtest" timestamp="2024-02-14T18:48:13Z" hostname="fc5b18461090" tests="3" skipped="0" failures="0" errors="0" time="0.211">
+    <testcase time="0.21" classname="character(0)" name="ard_wilcoxtest_works"/>
     <testcase time="0" classname="character(0)" name="ard_wilcoxtest_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_wilcoxtest_works"/>
   </testsuite>
-  <testsuite name="ard_wilcoxtest" timestamp="2024-02-14T18:43:30Z" hostname="d0bc3a5ec438" tests="3" skipped="0" failures="0" errors="0" time="0.002">
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
+  <testsuite name="ard_wilcoxtest" timestamp="2024-02-14T18:48:13Z" hostname="fc5b18461090" tests="3" skipped="0" failures="0" errors="0" time="0.002">
+    <testcase time="0.00100000000000033" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
     <testcase time="0" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
   </testsuite>
