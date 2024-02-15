@@ -21,6 +21,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Daniel Sjoberg \email{sjobergd@gene.com}
 
+Authors:
+\itemize{
+  \item Emily de la Rua \email{emily.de_la_rua@contractors.roche.com}
+}
+
 Other contributors:
 \itemize{
   \item F. Hoffmann-La Roche AG [copyright holder, funder]
