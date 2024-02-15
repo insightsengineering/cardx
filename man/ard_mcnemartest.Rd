@@ -17,9 +17,6 @@ column name to compare by.}
 column name to be compared.}
 
 \item{...}{arguments passed to \code{stats::mcnemar.test(...)}}
-
-\item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name of the subject or participant ID.}
 }
 \value{
 ARD data frame
