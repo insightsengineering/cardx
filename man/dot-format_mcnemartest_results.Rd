@@ -12,8 +12,8 @@
 \item{variable}{(\code{string})\cr variable column name}
 
 \item{lst_tidy}{(named \code{list})\cr
-list of tidied results constructed with \code{eval_capture_conditions()},
-e.g. \code{eval_capture_conditions(t.test(mtcars$mpg ~ mtcars$am) |> broom::tidy())}}
+list of tidied results constructed with \code{\link[cards:eval_capture_conditions]{eval_capture_conditions()}},
+e.g. \code{eval_capture_conditions(t.test(mtcars$mpg ~ mtcars$am) |> broom::tidy())}.}
 
 \item{...}{passed to \code{stats::mcnemar.test(...)}}
 }
