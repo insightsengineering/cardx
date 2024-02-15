@@ -24,5 +24,16 @@ reference:
   - title: "ARD Creation"
   - subtitle: "Inference"
   - contents:
+      - ard_chisqtest
+      - ard_fishertest
       - ard_ttest
       - ard_wilcoxtest
+
+  - subtitle: "Estimation"
+  - contents:
+      - ard_proportion_ci
+      - ard_regression
+
+  - title: "Helpers"
+  - contents:
+      - proportion_ci

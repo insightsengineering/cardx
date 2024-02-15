@@ -35,7 +35,7 @@ For the \code{ard_wilcoxtest()} function, the data is expected to be one row per
 The data is passed as \code{wilcox.test(data[[variable]] ~ data[[by]], paired = FALSE, ...)}.
 
 For the \code{ard_paired_wilcoxtest()} function, the data is expected to be one row
-per subject per by level. Before the t-test is calculated, the data are
+per subject per by level. Before the test is calculated, the data are
 reshaped to a wide format to be one row per subject.
 The data are then passed as
 \verb{wilcox.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)}.
