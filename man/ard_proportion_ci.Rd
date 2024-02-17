@@ -36,7 +36,7 @@ when \code{method='strat_wilson'}}
 
 \item{method}{(\code{string})\cr
 string indicating the type of confidence interval to calculate.
-Must be one of 'waldcc', 'wald', 'clopper-pearson', 'wilson', 'wilsoncc', 'strat_wilson', 'strat_wilsoncc', 'agresti-coull', 'jeffreys'.
+Must be one of "waldcc", "wald", "clopper-pearson", "wilson", "wilsoncc", "strat_wilson", "strat_wilsoncc", "agresti-coull", "jeffreys".
 See \code{?proportion_ci} for details.}
 }
 \value{

@@ -56,6 +56,7 @@ ard_wilcoxtest <- function(data, by, variable, ...) {
   check_scalar(by)
   check_scalar(variable)
 
+  browser()
   # build ARD ------------------------------------------------------------------
   .format_wilcoxtest_results(
     by = by,
@@ -127,6 +128,7 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
 #'     )
 #' )
 .format_wilcoxtest_results <- function(by, variable, lst_tidy, paired, ...) {
+  browser()
   # build ARD ------------------------------------------------------------------
   ret <-
     cards::tidy_as_ard(
