@@ -87,7 +87,7 @@ ard_mcnemartest <- function(data, by, variable, ...) {
       fun_args_to_record = c("correct"),
       formals = formals(asNamespace("stats")[["mcnemar.test"]]),
       passed_args = dots_list(...),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "ttest")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "mcnemartest")
     )
 
   # add the stat label ---------------------------------------------------------
