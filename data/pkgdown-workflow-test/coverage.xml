@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.935114503816794" branch-rate="0" lines-covered="490" lines-valid="524" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-02-19 05:27:40.37978">
+<coverage line-rate="0.936902485659656" branch-rate="0" lines-covered="490" lines-valid="523" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-02-19 05:31:54.802533">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.935114503816794" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.936902485659656" branch-rate="0" complexity="0">
       <classes>
         <class name="ard_chisqtest.R" filename="R/ard_chisqtest.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -1191,18 +1191,6 @@
             <line number="402" hits="0" branch="false"/>
             <line number="403" hits="0" branch="false"/>
             <line number="404" hits="0" branch="false"/>
-          </lines>
-        </class>
-        <class name="test_delete_me.R" filename="R/test_delete_me.R" line-rate="0" branch-rate="0" complexity="0">
-          <methods>
-            <method name="test_delete_me" signature="" line-rate="0" branch-rate="0" complexity="0">
-              <lines>
-                <line number="9" hits="0" branch="false"/>
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="9" hits="0" branch="false"/>
           </lines>
         </class>
       </classes>
