@@ -27,7 +27,7 @@ the Brown-Mood test of medians.
 }
 \details{
 For the \code{ard_moodtest()} function, the data is expected to be one row per subject.
-The data is passed as \code{mood.test(variable ~ as.factor(by), data = data, ...)}.
+The data is passed as \code{mood.test(data[[variable]] ~ data[[by]], ...)}.
 }
 \examples{
 cards::ADSL |>
