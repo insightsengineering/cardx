@@ -48,7 +48,7 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
     data = data,
     variables = {{ variables }},
     by = {{ by }},
-    statistics =
+    statistic =
       ~ list(
         prop_ci =
           switch(method,
