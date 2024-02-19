@@ -11,7 +11,7 @@
       3      rsp proporti…   conf.low   conf.low     0.487                1
       4      rsp proporti…  conf.high  conf.high     0.719                1
       5      rsp proporti… conf.level  conf.lev…      0.95                1
-      6      rsp proporti…     method     method Stratifi…                1
+      6      rsp proporti…     method     method Stratifi…             <fn>
     Message
       i 2 more variables: warning, error
 
@@ -28,7 +28,7 @@
       3      rsp proporti…   conf.low   conf.low     0.448                1
       4      rsp proporti…  conf.high  conf.high     0.753                1
       5      rsp proporti… conf.level  conf.lev…      0.95                1
-      6      rsp proporti…     method     method Stratifi…                1
+      6      rsp proporti…     method     method Stratifi…             <fn>
     Message
       i 2 more variables: warning, error
 
