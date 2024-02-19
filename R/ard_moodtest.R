@@ -45,7 +45,7 @@ ard_moodtest <- function(data, by, variable, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::mood.test(data[[variable]] ~ data[[by]], ...) |>
+        stats::mood.test(variable ~ as.factor(by), data = data, ...) |>
           broom::tidy()
       ),
     ...
@@ -96,6 +96,7 @@ ard_moodtest <- function(data, by, variable, ...) {
   dplyr::tribble(
     ~stat_name, ~stat_label,
     "statistic", "Z-Statistic",
-    "p.value", "p-value"
+    "p.value", "p-value",
+    "alternative", "Alternative Hypothesis"
   )
 }
