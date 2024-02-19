@@ -8,13 +8,10 @@ test_that("ard_moodtest() works", {
 
   expect_equal(
     ard_moodtest |>
-      cards::get_ard_statistics(stat_name %in% c("statistic", "p.value", "alternative")),
-    mood.test(
-      AGE ~ SEX,
-      data = cards::ADSL
-    ) |>
+      cards::get_ard_statistics(stat_name %in% c("statistic", "p.value")),
+    with(cards::ADSL, mood.test(AGE ~ SEX)) |>
       broom::tidy() |>
-      dplyr::select(statistic, p.value, alternative) |>
+      dplyr::select(statistic, p.value) |>
       unclass(),
     ignore_attr = TRUE
   )

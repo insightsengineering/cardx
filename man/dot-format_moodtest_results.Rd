@@ -2,7 +2,7 @@
 % Please edit documentation in R/ard_moodtest.R
 \name{.format_moodtest_results}
 \alias{.format_moodtest_results}
-\title{Convert moodon test to ARD}
+\title{Convert mood test results to ARD}
 \usage{
 .format_moodtest_results(by, variable, lst_tidy, ...)
 }
@@ -21,7 +21,7 @@ e.g. \code{eval_capture_conditions(t.test(mtcars$mpg ~ mtcars$am) |> broom::tidy
 ARD data frame
 }
 \description{
-Convert moodon test to ARD
+Convert mood test results to ARD
 }
 \examples{
 cardx:::.format_moodtest_results(

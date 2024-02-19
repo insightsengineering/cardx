@@ -17,14 +17,13 @@
 #'
 #' @details
 #' For the `ard_moodtest()` function, the data is expected to be one row per subject.
-#' The data is passed as `mood.test(variable ~ as.factor(by), data = data, ...)`.
+#' The data is passed as `mood.test(data[[variable]] ~ data[[by]], ...)`.
 #' @rdname ard_moodtest
 #' @export
 #'
 #' @examples
 #' cards::ADSL |>
 #'   ard_moodtest(by = "SEX", variable = "AGE")
-
 ard_moodtest <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
@@ -45,13 +44,13 @@ ard_moodtest <- function(data, by, variable, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::mood.test(variable ~ as.factor(by), data = data, ...) |>
+        stats::mood.test(data[[variable]] ~ data[[by]], ...) |>
           broom::tidy()
       ),
     ...
   )
 }
-#' Convert moodon test to ARD
+#' Convert mood test results to ARD
 #'
 #' @inheritParams cards::tidy_as_ard
 #' @inheritParams stats::mood.test
@@ -78,8 +77,8 @@ ard_moodtest <- function(data, by, variable, ...) {
       lst_tidy = lst_tidy,
       tidy_result_names = c("statistic", "p.value", "method", "alternative"),
       formals = formals(asNamespace("stats")[["mood.test.default"]]),
-      passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "ttest")
+      passed_args = c(dots_list(...)),
+      lst_ard_columns = list(group1 = by, variable = variable, context = "moodtest")
     )
 
   # add the stat label ---------------------------------------------------------
