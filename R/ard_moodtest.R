@@ -17,7 +17,7 @@
 #'
 #' @details
 #' For the `ard_moodtest()` function, the data is expected to be one row per subject.
-#' The data is passed as `mood.test(data[[variable]] ~ data[[by]], ...)`.
+#' The data is passed as `mood.test(variable ~ as.factor(by), data = data, ...)`.
 #' @rdname ard_moodtest
 #' @export
 #'
