@@ -62,7 +62,7 @@ ard_ttest <- function(data, by, variable, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::t.test(data[[variable]] ~ data[[by]], paired = FALSE, ...) |>
+        stats::t.test(data[[variable]] ~ data[[by]], ...) |>
           broom::tidy()
       ),
     paired = FALSE,
