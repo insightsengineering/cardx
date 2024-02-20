@@ -62,7 +62,7 @@ ard_wilcoxtest <- function(data, by, variable, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::wilcox.test(data[[variable]] ~ data[[by]], paired = FALSE, ...) |>
+        stats::wilcox.test(data[[variable]] ~ data[[by]], ...) |>
           broom::tidy()
       ),
     paired = FALSE,
