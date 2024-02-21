@@ -136,7 +136,7 @@ ard_paired_ttest <- function(data, by, variable, id, ...) {
         "p.value", "parameter", "conf.low", "conf.high",
         "method", "alternative"
       ),
-      fun_args_to_record = c("mu", "paired", "ci", "pooled_sd"),
+      fun_args_to_record = c("mu", "paired", "var.equal", "conf.level"),
       formals = formals(asNamespace("stats")[["t.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
       lst_ard_columns = list(group1 = by, variable = variable, context = "ttest")
