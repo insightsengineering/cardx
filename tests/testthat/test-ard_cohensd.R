@@ -1,0 +1,78 @@
+test_that("ard_cohensd() works", {
+  expect_error(
+    ard_cohensd <-
+      cards::ADSL |>
+      dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+      ard_cohensd(by = ARM, variable = AGE, var.equal = TRUE),
+    NA
+  )
+
+  expect_equal(
+    ard_cohensd |>
+      cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
+    effectsize::cohens_d(
+      AGE ~ ARM,
+      data = cards::ADSL |> dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose"))
+    ) |>
+      parameters::standardize_names(style = "broom") |>
+      dplyr::select(estimate, conf.low, conf.high) |>
+      unclass(),
+    ignore_attr = TRUE
+  )
+
+  # errors are properly handled
+  expect_snapshot(
+    cards::ADSL |>
+      ard_cohensd(by = ARM, variable = AGE) |>
+      as.data.frame()
+  )
+})
+
+test_that("ard_paired_cohensd() works", {
+  ADSL_paired <-
+    cards::ADSL[c("ARM", "AGE")] |>
+    dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+    dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
+    dplyr::group_by(USUBJID) |>
+    dplyr::filter(dplyr::n()>1)
+
+  expect_error(
+    ard_paired_cohensd <-
+      ADSL_paired |>
+      ard_paired_cohensd(by = ARM, variable = AGE, id = USUBJID),
+    NA
+  )
+
+  expect_equal(
+    ard_paired_cohensd |>
+      cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
+    with(
+      data =
+        dplyr::full_join(
+          ADSL_paired |> dplyr::filter(ARM %in% "Placebo") |> dplyr::rename(ARM1 = ARM, AGE1 = AGE),
+          ADSL_paired |> dplyr::filter(ARM %in% "Xanomeline High Dose") |> dplyr::rename(ARM2 = ARM, AGE2 = AGE),
+          by = "USUBJID"
+        ),
+      expr =
+        effectsize::cohens_d(
+          x = AGE1,
+          y = AGE2,
+          paired = TRUE
+        ) |>
+        parameters::standardize_names(style = "broom") |>
+        dplyr::select(estimate, conf.low, conf.high) |>
+        unclass()
+    ),
+    ignore_attr = TRUE
+  )
+
+  # errors are properly handled
+  expect_snapshot(
+    ADSL_paired |>
+      dplyr::mutate(
+        ARM = ifelse(dplyr::row_number() == 1L, "3rd ARM", ARM)
+      ) |>
+      ard_paired_cohensd(by = ARM, variable = AGE, id = USUBJID) |>
+      as.data.frame()
+  )
+})

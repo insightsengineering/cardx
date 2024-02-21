@@ -25,7 +25,9 @@ reference:
   - subtitle: "Inference"
   - contents:
       - ard_chisqtest
+      - ard_cohensd
       - ard_fishertest
+      - ard_hedgesg
       - ard_kruskaltest
       - ard_ttest
       - ard_wilcoxtest
