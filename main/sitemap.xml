@@ -40,6 +40,9 @@
     <loc>https://insightsengineering.github.io/cardx/reference/ard_mcnemartest.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_moodtest.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_proportion_ci.html</loc>
   </url>
   <url>
@@ -56,6 +59,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/dot-format_mcnemartest_results.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/dot-format_moodtest_results.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/dot-format_ttest_results.html</loc>
