@@ -28,6 +28,7 @@ reference:
       - ard_fishertest
       - ard_kruskaltest
       - ard_moodtest
+      - ard_mcnemartest
       - ard_ttest
       - ard_wilcoxtest
 
