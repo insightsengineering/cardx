@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9040</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9041</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,12 +24,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -111,7 +105,7 @@ The data are then passed as
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ARM</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Placebo"</span>, <span class="st">"Xanomeline High Dose"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_wilcoxtest</span><span class="op">(</span>by <span class="op">=</span> <span class="st">"ARM"</span>, variable <span class="op">=</span> <span class="st">"AGE"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 12 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable context   stat_name stat_label statistic</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable context   stat_name stat_label      stat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     ARM      AGE   ttest   statistic  X-square…    3862.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     ARM      AGE   ttest     p.value    p-value     0.435</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     ARM      AGE   ttest      method     method Wilcoxon…</span>
@@ -124,7 +118,7 @@ The data are then passed as
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10    ARM      AGE   ttest  conf.level  CI Confi…      0.95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11    ARM      AGE   ttest    tol.root   tol.root         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12    ARM      AGE   ttest digits.rank  digits.r…       Inf</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: statistic_fmt_fn, warning, error</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># constructing a paired data set,</span></span></span>
 <span class="r-in"><span><span class="co"># where patients receive both treatments</span></span></span>
@@ -134,7 +128,7 @@ The data are then passed as
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">ARM</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_paired_wilcoxtest</span><span class="op">(</span>by <span class="op">=</span> <span class="va">ARM</span>, variable <span class="op">=</span> <span class="va">AGE</span>, id <span class="op">=</span> <span class="va">USUBJID</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 12 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable context   stat_name stat_label statistic</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable context   stat_name stat_label      stat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     ARM      AGE   ttest   statistic  X-square…      1754</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     ARM      AGE   ttest     p.value    p-value     0.522</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     ARM      AGE   ttest      method     method Wilcoxon…</span>
@@ -147,7 +141,7 @@ The data are then passed as
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10    ARM      AGE   ttest  conf.level  CI Confi…      0.95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11    ARM      AGE   ttest    tol.root   tol.root         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12    ARM      AGE   ttest digits.rank  digits.r…       Inf</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: statistic_fmt_fn, warning, error</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
