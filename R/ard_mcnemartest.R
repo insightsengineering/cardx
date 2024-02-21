@@ -17,8 +17,7 @@
 #' @details
 #' For the `ard_mcnemartest()` function, the data is expected to be one row per subject.
 #' The data is passed as `stats::mcnemar.test(x = data[[variable]], y = data[[by]], ...)`.
-#' `variable` and `by` are expected to be dichotomous variables. Please
-#' use `table(x = data[[variable]], y = data[[by]])` to check the contingency table.
+#' Please use `table(x = data[[variable]], y = data[[by]])` to check the contingency table.
 #'
 #' @examples
 #' cards::ADSL |>
@@ -69,7 +68,6 @@ ard_mcnemartest <- function(data, by, variable, ...) {
 #' cardx:::.format_mcnemartest_results(
 #'   by = "ARM",
 #'   variable = "AGE",
-#'   paired = FALSE,
 #'   lst_tidy =
 #'     cards::eval_capture_conditions(
 #'       stats::mcnemar.test(cards::ADSL[["SEX"]], cards::ADSL[["EFFFL"]]) |>
@@ -78,7 +76,7 @@ ard_mcnemartest <- function(data, by, variable, ...) {
 #' )
 #'
 #' @keywords internal
-.format_mcnemartest_results <- function(by, variable, lst_tidy, paired, ...) {
+.format_mcnemartest_results <- function(by, variable, lst_tidy, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
     cards::tidy_as_ard(

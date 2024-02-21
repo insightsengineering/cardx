@@ -4,7 +4,7 @@
 \alias{.format_mcnemartest_results}
 \title{Convert McNemar's test to ARD}
 \usage{
-.format_mcnemartest_results(by, variable, lst_tidy, paired, ...)
+.format_mcnemartest_results(by, variable, lst_tidy, ...)
 }
 \arguments{
 \item{by}{(\code{string})\cr by column name}
@@ -27,7 +27,6 @@ Convert McNemar's test to ARD
 cardx:::.format_mcnemartest_results(
   by = "ARM",
   variable = "AGE",
-  paired = FALSE,
   lst_tidy =
     cards::eval_capture_conditions(
       stats::mcnemar.test(cards::ADSL[["SEX"]], cards::ADSL[["EFFFL"]]) |>

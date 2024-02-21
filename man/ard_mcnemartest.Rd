@@ -27,8 +27,7 @@ Analysis results data for McNemar's statistical test.
 \details{
 For the \code{ard_mcnemartest()} function, the data is expected to be one row per subject.
 The data is passed as \code{stats::mcnemar.test(x = data[[variable]], y = data[[by]], ...)}.
-\code{variable} and \code{by} are expected to be dichotomous variables. Please
-use \code{table(x = data[[variable]], y = data[[by]])} to check the contingency table.
+Please use \code{table(x = data[[variable]], y = data[[by]])} to check the contingency table.
 }
 \examples{
 cards::ADSL |>

@@ -28,10 +28,13 @@ test_that("ard_mcnemartest() works", {
   ADSL_tmp <- cards::ADSL |>
     dplyr::rename("if" = AGE, "_c d" = EFFFL)
 
-  expect_error(
-    ard_mcnemartest <-
-      ADSL_tmp |>
-      ard_mcnemartest(by = `if`, variable = `_c d`),
-    NA
+  expect_equal(
+    cards::ADSL |>
+      dplyr::rename(`Planned Tx` = TRT01P, `Age Group` = AGEGR1) |>
+      ard_mcnemartest(by = `Planned Tx`, variable = `Age Group`) |>
+      cards::get_ard_statistics(),
+    cards::ADSL |>
+      ard_mcnemartest(by = TRT01P, variable = AGEGR1) |>
+      cards::get_ard_statistics()
   )
 })
