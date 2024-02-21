@@ -8,9 +8,9 @@
       2    ARM      AGE kruskaltest   p.value                              p-value
       3    ARM      AGE kruskaltest parameter                   Degrees of Freedom
       4    ARM      AGE kruskaltest    method                               method
-                           statistic statistic_fmt_fn warning error
-      1                      1.63473                1    NULL  NULL
-      2                    0.4415937                1    NULL  NULL
-      3                            2                1    NULL  NULL
-      4 Kruskal-Wallis rank sum test             NULL    NULL  NULL
+                                stat fmt_fn warning error
+      1                      1.63473      1    NULL  NULL
+      2                    0.4415937      1    NULL  NULL
+      3                            2      1    NULL  NULL
+      4 Kruskal-Wallis rank sum test   NULL    NULL  NULL
 

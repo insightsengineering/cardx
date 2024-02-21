@@ -3,7 +3,7 @@ test_that("ard_regression() works", {
     lm(AGE ~ ARM, data = cards::ADSL) |>
       ard_regression(add_estimate_to_reference_rows = TRUE) |>
       dplyr::mutate(
-        statistic = lapply(statistic, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+        stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
       ) |>
       print(n = Inf)
   )
