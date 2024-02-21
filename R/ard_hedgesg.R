@@ -1,7 +1,7 @@
 #' ARD Hedge's G Test
 #'
 #' @description
-#' Analysis results data for paired and non-paired Hegde's G Effect Size Test.
+#' Analysis results data for paired and non-paired Hedge's G Effect Size Test.
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame. See below for details.

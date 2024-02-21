@@ -28,7 +28,7 @@ column name of the subject or participant ID}
 ARD data frame
 }
 \description{
-Analysis results data for paired and non-paired Hegde's G Effect Size Test.
+Analysis results data for paired and non-paired Hedge's G Effect Size Test.
 }
 \details{
 For the \code{ard_hedgesg()} function, the data is expected to be one row per subject.

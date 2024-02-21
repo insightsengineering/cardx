@@ -3,7 +3,7 @@ test_that("ard_hedgesg() works", {
     ard_hedgesg <-
       cards::ADSL |>
       dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-      ard_hedgesg(by = ARM, variable = AGE, var.equal = TRUE),
+      ard_hedgesg(by = ARM, variable = AGE),
     NA
   )
 
@@ -24,6 +24,7 @@ test_that("ard_hedgesg() works", {
   expect_snapshot(
     cards::ADSL |>
       ard_hedgesg(by = ARM, variable = AGE) |>
+      select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
 })
@@ -73,6 +74,7 @@ test_that("ard_paired_hedgesg() works", {
         ARM = ifelse(dplyr::row_number() == 1L, "3rd ARM", ARM)
       ) |>
       ard_paired_hedgesg(by = ARM, variable = AGE, id = USUBJID) |>
+      dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
 })

@@ -24,6 +24,7 @@ test_that("ard_cohensd() works", {
   expect_snapshot(
     cards::ADSL |>
       ard_cohensd(by = ARM, variable = AGE) |>
+      dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
 })
@@ -73,6 +74,7 @@ test_that("ard_paired_cohensd() works", {
         ARM = ifelse(dplyr::row_number() == 1L, "3rd ARM", ARM)
       ) |>
       ard_paired_cohensd(by = ARM, variable = AGE, id = USUBJID) |>
+      dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
 })
