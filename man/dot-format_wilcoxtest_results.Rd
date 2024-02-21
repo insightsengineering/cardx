@@ -17,7 +17,7 @@ e.g. \code{eval_capture_conditions(t.test(mtcars$mpg ~ mtcars$am) |> broom::tidy
 
 \item{paired}{a logical indicating whether you want a paired test.}
 
-\item{...}{passed to \code{wilcox.test(...)}}
+\item{...}{passed to \code{stats::wilcox.test(...)}}
 }
 \value{
 ARD data frame
@@ -26,6 +26,11 @@ ARD data frame
 Convert Wilcoxon test to ARD
 }
 \examples{
+# Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
+ADSL <- cards::ADSL |>
+  dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
+  ard_wilcoxtest(by = "ARM", variable = "AGE")
+
 cardx:::.format_wilcoxtest_results(
   by = "ARM",
   variable = "AGE",
@@ -36,5 +41,6 @@ cardx:::.format_wilcoxtest_results(
         broom::tidy()
     )
 )
+
 }
 \keyword{internal}
