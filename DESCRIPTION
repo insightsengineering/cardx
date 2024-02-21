@@ -1,19 +1,21 @@
 Package: cardx
 Title: Extra Analysis Results Data Utilities
-Version: 0.0.0.9033
+Version: 0.0.0.9042
 Authors@R: c(
     person("Daniel", "Sjoberg", , "sjobergd@gene.com", role = c("aut", "cre")),
     person("Emily", "de la Rua", , "emily.de_la_rua@contractors.roche.com", role = c("aut")),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
-Description: R Package to Supplement ARD Functions Found in {cards}.
+Description: Extra Analysis Results Data (ARD) functions. The package
+    supplements the ARD functions from the 'cards' package, exporting
+    functions to put statistical results in the ARD format.
 License: Apache License 2.0
 URL: https://github.com/insightsengineering/cardx
 BugReports: https://github.com/insightsengineering/cardx/issues
 Depends:
-    R (>= 4.0)
+    R (>= 4.1)
 Imports:
-    cards (>= 0.0.0.9035),
+    cards (>= 0.0.0.9049),
     cli (>= 3.6.1),
     dplyr (>= 1.1.2),
     glue (>= 1.6.2),

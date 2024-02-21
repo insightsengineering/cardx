@@ -63,7 +63,7 @@ ard_wilcoxtest <- function(data, by, variable, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::wilcox.test(data[[variable]] ~ data[[by]], paired = FALSE, ...) |>
+        stats::wilcox.test(data[[variable]] ~ data[[by]], ...) |>
           broom::tidy()
       ),
     paired = FALSE,
@@ -106,17 +106,23 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
   )
 }
 
+
 #' Convert Wilcoxon test to ARD
 #'
 #' @inheritParams cards::tidy_as_ard
 #' @inheritParams stats::wilcox.test
 #' @param by (`string`)\cr by column name
 #' @param variable (`string`)\cr variable column name
-#' @param ... passed to `wilcox.test(...)`
+#' @param ... passed to `stats::wilcox.test(...)`
 #'
 #' @return ARD data frame
-#' @keywords internal
+#'
 #' @examples
+#' # Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
+#' ADSL <- cards::ADSL |>
+#'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+#'   ard_wilcoxtest(by = "ARM", variable = "AGE")
+#'
 #' cardx:::.format_wilcoxtest_results(
 #'   by = "ARM",
 #'   variable = "AGE",
@@ -127,6 +133,8 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
 #'         broom::tidy()
 #'     )
 #' )
+#'
+#' @keywords internal
 .format_wilcoxtest_results <- function(by, variable, lst_tidy, paired, ...) {
   browser()
   # build ARD ------------------------------------------------------------------

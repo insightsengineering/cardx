@@ -5,7 +5,7 @@
         by = "ARM", variable = "AGEGR1"), ard_chisqtest(data = adsl_sub, by = "SEX",
         variable = "AGEGR1"))))
     Output
-                ARM         SEX variable   context stat_name    statistic
+                ARM         SEX variable   context stat_name         stat
       1 Overall ARM        <NA>   AGEGR1 chisqtest statistic 5.079442e+00
       2 Overall ARM        <NA>   AGEGR1 chisqtest   p.value 7.888842e-02
       3 Overall ARM        <NA>   AGEGR1 chisqtest parameter 2.000000e+00

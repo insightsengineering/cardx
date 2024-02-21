@@ -1,9 +1,11 @@
 # cardx <a href="https://insightsengineering.github.io/cardx"><img src="man/figures/logo.png" align="right" height="138" alt="cardx website" /></a>
 
-<!-- start badges -->
-[![Check 🛠](https://github.com/insightsengineering/cardx/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/cardx/main/unit-test-report/)
-[![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/cardx/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/cardx/main/coverage-report/)
-<!-- end badges -->
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/insightsengineering/cardx/branch/main/graph/badge.svg)](https://app.codecov.io/gh/insightsengineering/cardx?branch=main)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
 
 This is the source repository of the `cardx` R package.
 
