@@ -1,6 +1,6 @@
 Package: cardx
 Title: Extra Analysis Results Data Utilities
-Version: 0.0.0.9038
+Version: 0.0.0.9041
 Authors@R: c(
     person("Daniel", "Sjoberg", , "sjobergd@gene.com", role = c("aut", "cre")),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
@@ -14,7 +14,7 @@ BugReports: https://github.com/insightsengineering/cardx/issues
 Depends:
     R (>= 4.1)
 Imports:
-    cards (>= 0.0.0.9044),
+    cards (>= 0.0.0.9048),
     cli (>= 3.6.1),
     dplyr (>= 1.1.2),
     glue (>= 1.6.2),
