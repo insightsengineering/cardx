@@ -12,9 +12,8 @@
 #'   column name to be compared
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
-#' @param ... arguments passed to `t.test(...)`
 #'
-#' @return ARD data frame
+#' @return an ARD data frame of class 'card'
 #' @name ard_surv_est
 #'
 #' @details
@@ -39,7 +38,7 @@ NULL
 
 #' @rdname ard_surv_est
 #' @export
-ard_surv_est <- function(x, times = NULL, probs = NULL, reverse = FALSE, ...) {
+ard_surv_est <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("survival", reference_pkg = "cardx")
 
@@ -67,10 +66,7 @@ ard_surv_est <- function(x, times = NULL, probs = NULL, reverse = FALSE, ...) {
     "probs" = .format_survfit_probs(x, probs)
   )
 
-  .format_surv_est_results(
-    tidy_stats,
-    ...
-  )
+  .format_surv_est_results(tidy_stats)
 }
 
 .format_survfit_time <- function(x, times, reverse) {
@@ -180,21 +176,18 @@ ard_surv_est <- function(x, times = NULL, probs = NULL, reverse = FALSE, ...) {
   df_stat
 }
 
-#' Convert t-test to ARD
+#' Convert Tidied Survival Fit to ARD
 #'
 #' @inheritParams cards::tidy_as_ard
-#' @inheritParams stats::t.test
-#' @param by (`string`)\cr by column name
-#' @param variable (`string`)\cr variable column name
-#' @param ... passed to `t.test(...)`
 #'
-#' @return ARD data frame
+#' @return an ARD data frame of class 'card'
 #' @keywords internal
+#'
 #' @examples
 #' cardx:::.format_surv_est_results(
 #'   broom::tidy(survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE))
 #' )
-.format_surv_est_results <- function(tidy_stats, ...) {
+.format_surv_est_results <- function(tidy_stats) {
   ret <- tidy_stats %>%
     mutate(across(
       any_of(c("estimate", "conf.high", "conf.low", "time", "prob")), ~ as.list(.)
@@ -202,7 +195,7 @@ ard_surv_est <- function(x, times = NULL, probs = NULL, reverse = FALSE, ...) {
     pivot_longer(
       cols = any_of(c("estimate", "conf.high", "conf.low", "time", "prob")),
       names_to = "stat_name",
-      values_to = "statistic"
+      values_to = "stat"
     ) %>%
     separate_wider_delim(strata, "=", names = c("variable", "variable_level"))
 
@@ -213,9 +206,9 @@ ard_surv_est <- function(x, times = NULL, probs = NULL, reverse = FALSE, ...) {
       by = "stat_name"
     ) |>
     dplyr::mutate(
-      statistic_fmt_fn =
+      fmt_fn =
         lapply(
-          .data$statistic,
+          .data$stat,
           function(x) {
             switch(is.integer(x), 0L) %||% switch(is.numeric(x), 1L)
           }
