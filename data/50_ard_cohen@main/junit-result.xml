@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="ard_cohensd" timestamp="2024-02-21T21:14:01Z" hostname="b68d6eafb2a0" tests="4" skipped="0" failures="0" errors="1" time="0.868">
-    <testcase time="0.844" classname="character(0)" name="ard_cohensd_works"/>
-    <testcase time="0.0170000000000001" classname="character(0)" name="ard_cohensd_works"/>
+  <testsuite name="ard_cohensd" timestamp="2024-02-21T21:19:37Z" hostname="27c3418b5b06" tests="4" skipped="0" failures="0" errors="1" time="0.85">
+    <testcase time="0.822" classname="character(0)" name="ard_cohensd_works"/>
+    <testcase time="0.0209999999999999" classname="character(0)" name="ard_cohensd_works"/>
     <testcase time="0.00600000000000001" classname="character(0)" name="ard_cohensd_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_cohensd_works">
+    <testcase time="0.00100000000000011" classname="character(0)" name="ard_cohensd_works">
       <error type="error" message="&lt;packageNotFoundError/error/condition&gt; ('test-ard_cohensd.R:10:3')">&lt;packageNotFoundError/error/condition&gt;
 Error in `loadNamespace(x)`: there is no package called 'parameters'
 Backtrace:
@@ -19,11 +19,11 @@ Backtrace:
  8.       └─base (local) doWithOneRestart(return(expr), restart)</error>
     </testcase>
   </testsuite>
-  <testsuite name="ard_cohensd" timestamp="2024-02-21T21:14:01Z" hostname="b68d6eafb2a0" tests="4" skipped="0" failures="0" errors="1" time="0.033">
+  <testsuite name="ard_cohensd" timestamp="2024-02-21T21:19:37Z" hostname="27c3418b5b06" tests="4" skipped="0" failures="0" errors="1" time="0.034">
     <testcase time="0.032" classname="character(0)" name="ard_paired_cohensd_works"/>
-    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_cohensd_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_cohensd_works"/>
     <testcase time="0" classname="character(0)" name="ard_paired_cohensd_works"/>
-    <testcase time="0" classname="character(0)" name="ard_paired_cohensd_works">
+    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_cohensd_works">
       <error type="error" message="&lt;packageNotFoundError/error/condition&gt; ('test-ard_cohensd.R:47:3')">&lt;packageNotFoundError/error/condition&gt;
 Error in `loadNamespace(x)`: there is no package called 'parameters'
 Backtrace:
@@ -42,30 +42,23 @@ Backtrace:
  12.       └─base (local) doWithOneRestart(return(expr), restart)</error>
     </testcase>
   </testsuite>
-  <testsuite name="ard_chisqtest" timestamp="2024-02-21T21:14:01Z" hostname="b68d6eafb2a0" tests="2" skipped="0" failures="0" errors="0" time="0.057">
-    <testcase time="0.0559999999999998" classname="character(0)" name="ard_chisqtest_works"/>
+  <testsuite name="ard_chisqtest" timestamp="2024-02-21T21:19:37Z" hostname="27c3418b5b06" tests="2" skipped="0" failures="0" errors="0" time="0.053">
+    <testcase time="0.0519999999999998" classname="character(0)" name="ard_chisqtest_works"/>
     <testcase time="0.00100000000000011" classname="character(0)" name="ard_chisqtest_works"/>
   </testsuite>
-  <testsuite name="ard_chisqtest" timestamp="2024-02-21T21:14:01Z" hostname="b68d6eafb2a0" tests="1" skipped="1" failures="0" errors="0" time="0.001">
+  <testsuite name="ard_chisqtest" timestamp="2024-02-21T21:19:37Z" hostname="27c3418b5b06" tests="1" skipped="1" failures="0" errors="0" time="0.001">
     <testcase time="0.00099999999999989" classname="character(0)" name="shuffle_ard_fills_missing_group_levels_if_the_group_is_meaningful">
       <skipped message="Reason: On CRAN ('test-ard_chisqtest.R:23:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_fishertest" timestamp="2024-02-21T21:14:01Z" hostname="b68d6eafb2a0" tests="2" skipped="0" failures="0" errors="0" time="0.068">
-    <testcase time="0.0670000000000002" classname="character(0)" name="ard_fishertest_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_fishertest_works"/>
+  <testsuite name="ard_fishertest" timestamp="2024-02-21T21:19:37Z" hostname="27c3418b5b06" tests="2" skipped="0" failures="0" errors="0" time="0.087">
+    <testcase time="0.0870000000000002" classname="character(0)" name="ard_fishertest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_fishertest_works"/>
   </testsuite>
-  <testsuite name="ard_kruskaltest" timestamp="2024-02-21T21:14:02Z" hostname="b68d6eafb2a0" tests="3" skipped="1" failures="0" errors="0" time="0.159">
-    <testcase time="0.159" classname="character(0)" name="ard_kurskaltest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_kurskaltest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_kurskaltest_works">
-      <skipped message="Reason: On CRAN ('test-ard_kruskaltest.R:20:3')"/>
-    </testcase>
-  </testsuite>
-  <testsuite name="ard_hedgesg" timestamp="2024-02-21T21:14:02Z" hostname="b68d6eafb2a0" tests="4" skipped="0" failures="0" errors="1" time="0.016">
-    <testcase time="0.0150000000000001" classname="character(0)" name="ard_hedgesg_works"/>
-    <testcase time="0" classname="character(0)" name="ard_hedgesg_works"/>
+  <testsuite name="ard_hedgesg" timestamp="2024-02-21T21:19:37Z" hostname="27c3418b5b06" tests="4" skipped="0" failures="0" errors="1" time="0.196">
+    <testcase time="0.194" classname="character(0)" name="ard_hedgesg_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_hedgesg_works"/>
+    <testcase time="0.00100000000000011" classname="character(0)" name="ard_hedgesg_works"/>
     <testcase time="0" classname="character(0)" name="ard_hedgesg_works">
       <error type="error" message="&lt;packageNotFoundError/error/condition&gt; ('test-ard_hedgesg.R:10:3')">&lt;packageNotFoundError/error/condition&gt;
 Error in `loadNamespace(x)`: there is no package called 'parameters'
@@ -81,11 +74,11 @@ Backtrace:
  8.       └─base (local) doWithOneRestart(return(expr), restart)</error>
     </testcase>
   </testsuite>
-  <testsuite name="ard_hedgesg" timestamp="2024-02-21T21:14:02Z" hostname="b68d6eafb2a0" tests="4" skipped="0" failures="0" errors="1" time="0.02">
-    <testcase time="0.018" classname="character(0)" name="ard_paired_hedgesg_works"/>
-    <testcase time="0.00100000000000011" classname="character(0)" name="ard_paired_hedgesg_works"/>
+  <testsuite name="ard_hedgesg" timestamp="2024-02-21T21:19:38Z" hostname="27c3418b5b06" tests="4" skipped="0" failures="0" errors="1" time="0.026">
+    <testcase time="0.022" classname="character(0)" name="ard_paired_hedgesg_works"/>
     <testcase time="0" classname="character(0)" name="ard_paired_hedgesg_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_hedgesg_works">
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_hedgesg_works"/>
+    <testcase time="0.00300000000000011" classname="character(0)" name="ard_paired_hedgesg_works">
       <error type="error" message="&lt;packageNotFoundError/error/condition&gt; ('test-ard_hedgesg.R:47:3')">&lt;packageNotFoundError/error/condition&gt;
 Error in `loadNamespace(x)`: there is no package called 'parameters'
 Backtrace:
@@ -104,65 +97,72 @@ Backtrace:
  12.       └─base (local) doWithOneRestart(return(expr), restart)</error>
     </testcase>
   </testsuite>
-  <testsuite name="ard_moodtest" timestamp="2024-02-21T21:14:02Z" hostname="b68d6eafb2a0" tests="3" skipped="1" failures="0" errors="0" time="0.143">
-    <testcase time="0.142" classname="character(0)" name="ard_moodtest_works"/>
+  <testsuite name="ard_kruskaltest" timestamp="2024-02-21T21:19:38Z" hostname="27c3418b5b06" tests="3" skipped="1" failures="0" errors="0" time="0.024">
+    <testcase time="0.0229999999999999" classname="character(0)" name="ard_kurskaltest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_kurskaltest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_kurskaltest_works">
+      <skipped message="Reason: On CRAN ('test-ard_kruskaltest.R:20:3')"/>
+    </testcase>
+  </testsuite>
+  <testsuite name="ard_moodtest" timestamp="2024-02-21T21:19:38Z" hostname="27c3418b5b06" tests="3" skipped="1" failures="0" errors="0" time="0.134">
+    <testcase time="0.133" classname="character(0)" name="ard_moodtest_works"/>
     <testcase time="0.00100000000000033" classname="character(0)" name="ard_moodtest_works"/>
     <testcase time="0" classname="character(0)" name="ard_moodtest_works">
       <skipped message="Reason: On CRAN ('test-ard_moodtest.R:20:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_mcnemartest" timestamp="2024-02-21T21:14:02Z" hostname="b68d6eafb2a0" tests="4" skipped="0" failures="0" errors="0" time="0.021">
-    <testcase time="0.0179999999999998" classname="character(0)" name="ard_mcnemartest_works"/>
+  <testsuite name="ard_mcnemartest" timestamp="2024-02-21T21:19:38Z" hostname="27c3418b5b06" tests="4" skipped="0" failures="0" errors="0" time="0.036">
+    <testcase time="0.0339999999999998" classname="character(0)" name="ard_mcnemartest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_mcnemartest_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_mcnemartest_works"/>
-    <testcase time="0.00100000000000033" classname="character(0)" name="ard_mcnemartest_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_mcnemartest_works"/>
   </testsuite>
-  <testsuite name="ard_proportion_ci" timestamp="2024-02-21T21:14:02Z" hostname="b68d6eafb2a0" tests="1" skipped="0" failures="0" errors="0" time="0.426">
-    <testcase time="0.426" classname="character(0)" name="ard_proportion_ci_works"/>
+  <testsuite name="ard_proportion_ci" timestamp="2024-02-21T21:19:38Z" hostname="27c3418b5b06" tests="1" skipped="0" failures="0" errors="0" time="0.409">
+    <testcase time="0.409" classname="character(0)" name="ard_proportion_ci_works"/>
   </testsuite>
-  <testsuite name="ard_proportion_ci" timestamp="2024-02-21T21:14:02Z" hostname="b68d6eafb2a0" tests="2" skipped="1" failures="0" errors="0" time="0.002">
-    <testcase time="0.00100000000000033" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works"/>
+  <testsuite name="ard_proportion_ci" timestamp="2024-02-21T21:19:38Z" hostname="27c3418b5b06" tests="2" skipped="1" failures="0" errors="0" time="0.002">
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works">
       <skipped message="Reason: On CRAN ('test-ard_proportion_ci.R:50:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_ttest" timestamp="2024-02-21T21:14:02Z" hostname="b68d6eafb2a0" tests="3" skipped="1" failures="0" errors="0" time="0.306">
-    <testcase time="0.305" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_ttest_works"/>
+  <testsuite name="ard_ttest" timestamp="2024-02-21T21:19:38Z" hostname="27c3418b5b06" tests="3" skipped="1" failures="0" errors="0" time="0.307">
+    <testcase time="0.306" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.00100000000000033" classname="character(0)" name="ard_ttest_works"/>
     <testcase time="0" classname="character(0)" name="ard_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:25:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_ttest" timestamp="2024-02-21T21:14:02Z" hostname="b68d6eafb2a0" tests="3" skipped="1" failures="0" errors="0" time="0.013">
-    <testcase time="0.012" classname="character(0)" name="ard_paired_ttest_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_ttest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_paired_ttest_works">
+  <testsuite name="ard_ttest" timestamp="2024-02-21T21:19:38Z" hostname="27c3418b5b06" tests="3" skipped="1" failures="0" errors="0" time="0.014">
+    <testcase time="0.0129999999999999" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:70:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_regression" timestamp="2024-02-21T21:14:03Z" hostname="b68d6eafb2a0" tests="1" skipped="1" failures="0" errors="0" time="0.041">
-    <testcase time="0.0409999999999999" classname="character(0)" name="ard_regression_works">
+  <testsuite name="ard_regression" timestamp="2024-02-21T21:19:39Z" hostname="27c3418b5b06" tests="1" skipped="1" failures="0" errors="0" time="0.067">
+    <testcase time="0.0670000000000002" classname="character(0)" name="ard_regression_works">
       <skipped message="Reason: On CRAN ('test-ard_regression.R:2:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="proportion_ci" timestamp="2024-02-21T21:14:03Z" hostname="b68d6eafb2a0" tests="1" skipped="1" failures="0" errors="0" time="0.121">
-    <testcase time="0.121" classname="character(0)" name="check_the_proportion_ci__functions_work">
+  <testsuite name="proportion_ci" timestamp="2024-02-21T21:19:39Z" hostname="27c3418b5b06" tests="1" skipped="1" failures="0" errors="0" time="0.124">
+    <testcase time="0.124" classname="character(0)" name="check_the_proportion_ci__functions_work">
       <skipped message="Reason: On CRAN ('test-proportion_ci.R:10:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="proportion_ci" timestamp="2024-02-21T21:14:03Z" hostname="b68d6eafb2a0" tests="1" skipped="1" failures="0" errors="0" time="0.02">
+  <testsuite name="proportion_ci" timestamp="2024-02-21T21:19:39Z" hostname="27c3418b5b06" tests="1" skipped="1" failures="0" errors="0" time="0.02">
     <testcase time="0.02" classname="character(0)" name="check_the_proportion_ci_strat_wilson_function_works">
       <skipped message="Reason: On CRAN ('test-proportion_ci.R:136:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_wilcoxtest" timestamp="2024-02-21T21:14:03Z" hostname="b68d6eafb2a0" tests="3" skipped="0" failures="0" errors="0" time="0.169">
-    <testcase time="0.168" classname="character(0)" name="ard_wilcoxtest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_wilcoxtest_works"/>
+  <testsuite name="ard_wilcoxtest" timestamp="2024-02-21T21:19:39Z" hostname="27c3418b5b06" tests="3" skipped="0" failures="0" errors="0" time="0.148">
+    <testcase time="0.147" classname="character(0)" name="ard_wilcoxtest_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_wilcoxtest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_wilcoxtest_works"/>
   </testsuite>
-  <testsuite name="ard_wilcoxtest" timestamp="2024-02-21T21:14:03Z" hostname="b68d6eafb2a0" tests="3" skipped="0" failures="0" errors="0" time="0.002">
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
-    <testcase time="0.00100000000000033" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
+  <testsuite name="ard_wilcoxtest" timestamp="2024-02-21T21:19:39Z" hostname="27c3418b5b06" tests="3" skipped="0" failures="0" errors="0" time="0.003">
+    <testcase time="0.00200000000000022" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
     <testcase time="0" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
   </testsuite>
 </testsuites>
