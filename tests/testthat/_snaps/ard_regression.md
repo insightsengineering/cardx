@@ -2,12 +2,12 @@
 
     Code
       print(dplyr::mutate(ard_regression(lm(AGE ~ ARM, data = cards::ADSL),
-      add_estimate_to_reference_rows = TRUE), statistic = lapply(statistic, function(
-        x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+      add_estimate_to_reference_rows = TRUE), stat = lapply(stat, function(x) ifelse(
+        is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       {cards} data frame: 43 x 7
     Output
-         variable variable_level   context      stat_name stat_label statistic
+         variable variable_level   context      stat_name stat_label      stat
       1       ARM        Placebo regressi…           term       term ARMPlace…
       2       ARM        Placebo regressi…      var_label      Label Descript…
       3       ARM        Placebo regressi…      var_class      Class character
@@ -52,5 +52,5 @@
       42      ARM      Xanomeli… regressi…       conf.low  CI Lower…    -2.039
       43      ARM      Xanomeli… regressi…      conf.high  CI Upper…     2.953
     Message
-      i 1 more variable: statistic_fmt_fn
+      i 1 more variable: fmt_fn
 
