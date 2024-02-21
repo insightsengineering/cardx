@@ -52,6 +52,6 @@ cards::ADSL[c("ARM", "AGE")] |>
   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
   dplyr::arrange(USUBJID, ARM) |>
   dplyr::group_by(USUBJID) |>
-  dplyr::filter(dplyr::n()>1) |>
+  dplyr::filter(dplyr::n() > 1) |>
   ard_paired_cohensd(by = ARM, variable = AGE, id = USUBJID)
 }

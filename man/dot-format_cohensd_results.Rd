@@ -33,10 +33,10 @@ cardx:::.format_cohensd_results(
   variable = "AGE",
   paired = FALSE,
   lst_tidy =
-   cards::eval_capture_conditions(
-   effectsize::hedges_g(data[[variable]] ~ data[[by]], paired = FALSE) |>
-   parameters::standardize_names(style = "broom")
-   )
+    cards::eval_capture_conditions(
+      effectsize::hedges_g(data[[variable]] ~ data[[by]], paired = FALSE) |>
+        parameters::standardize_names(style = "broom")
+    )
 )
 }
 \keyword{internal}

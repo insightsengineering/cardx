@@ -35,7 +35,7 @@ test_that("ard_paired_hedgesg() works", {
     dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
     dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
     dplyr::group_by(USUBJID) |>
-    dplyr::filter(dplyr::n()>1)
+    dplyr::filter(dplyr::n() > 1)
 
   expect_error(
     ard_paired_hedgesg <-
@@ -59,10 +59,10 @@ test_that("ard_paired_hedgesg() works", {
           x = AGE1,
           y = AGE2,
           paired = TRUE
-          ) |>
-        parameters::standardize_names(style = "broom") |>
-        dplyr::select(estimate, conf.low, conf.high) |>
-        unclass()
+        ) |>
+          parameters::standardize_names(style = "broom") |>
+          dplyr::select(estimate, conf.low, conf.high) |>
+          unclass()
     ),
     ignore_attr = TRUE
   )

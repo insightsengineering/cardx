@@ -38,7 +38,7 @@
 #'   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
 #'   dplyr::arrange(USUBJID, ARM) |>
 #'   dplyr::group_by(USUBJID) |>
-#'   dplyr::filter(dplyr::n()>1) |>
+#'   dplyr::filter(dplyr::n() > 1) |>
 #'   ard_paired_cohensd(by = ARM, variable = AGE, id = USUBJID)
 NULL
 
@@ -62,7 +62,7 @@ ard_cohensd <- function(data, by, variable, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions(
-        effectsize::cohens_d(data[[variable]]~data[[by]], data = data, paired = FALSE, ...) |>
+        effectsize::cohens_d(data[[variable]] ~ data[[by]], data = data, paired = FALSE, ...) |>
           parameters::standardize_names(style = "broom")
       ),
     paired = FALSE,
@@ -98,7 +98,7 @@ ard_paired_cohensd <- function(data, by, variable, id, ...) {
         # adding this reshape inside the eval, so if there is an error it's captured in the ARD object
         data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
         # perform paired cohen's d test
-        effectsize::cohens_d(x=data_wide[["by1"]], y=data_wide[["by2"]], paired = TRUE, ...) |>
+        effectsize::cohens_d(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...) |>
           parameters::standardize_names(style = "broom")
       }),
     paired = TRUE,
@@ -133,10 +133,10 @@ ard_paired_cohensd <- function(data, by, variable, id, ...) {
 #'   variable = "AGE",
 #'   paired = FALSE,
 #'   lst_tidy =
-#'    cards::eval_capture_conditions(
-#'    effectsize::hedges_g(data[[variable]] ~ data[[by]], paired = FALSE) |>
-#'    parameters::standardize_names(style = "broom")
-#'    )
+#'     cards::eval_capture_conditions(
+#'       effectsize::hedges_g(data[[variable]] ~ data[[by]], paired = FALSE) |>
+#'         parameters::standardize_names(style = "broom")
+#'     )
 #' )
 .format_cohensd_results <- function(by, variable, lst_tidy, paired, ...) {
   # build ARD ------------------------------------------------------------------
@@ -161,4 +161,3 @@ ard_paired_cohensd <- function(data, by, variable, id, ...) {
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
     cards::tidy_ard_column_order()
 }
-
