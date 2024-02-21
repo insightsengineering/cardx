@@ -14,7 +14,7 @@ BugReports: https://github.com/insightsengineering/cardx/issues
 Depends:
     R (>= 4.1)
 Imports:
-    cards (>= 0.0.0.9047),
+    cards (>= 0.0.0.9049),
     cli (>= 3.6.1),
     dplyr (>= 1.1.2),
     glue (>= 1.6.2),
@@ -27,7 +27,7 @@ Suggests:
     testthat (>= 3.2.0),
     withr
 Remotes: 
-    insightsengineering/cards@more-renaming-ugh
+    insightsengineering/cards
 Config/Needs/website: insightsengineering/nesttemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: true
