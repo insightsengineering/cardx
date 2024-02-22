@@ -112,7 +112,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
     # add requested timepoints
     dplyr::full_join(
       tidy_x %>%
-      dplyr::select("strata") %>%
+        dplyr::select("strata") %>%
         dplyr::distinct() %>%
         dplyr::mutate(
           time = list(.env$times),
