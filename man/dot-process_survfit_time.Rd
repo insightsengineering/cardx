@@ -18,7 +18,7 @@ Flip the probability reported, i.e. \code{1 - estimate}. Default is \code{FALSE}
 \code{probs} is specified.}
 }
 \value{
-a tibble
+a \code{tibble}
 }
 \description{
 Process Survival Fit For Time Estimates

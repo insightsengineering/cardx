@@ -56,8 +56,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 
   # build ARD ------------------------------------------------------------------
   est_type <- ifelse(is.null(probs), "times", "probs")
-  tidy_survfit <- switch(
-    est_type,
+  tidy_survfit <- switch(est_type,
     "times" = .process_survfit_time(x, times, reverse),
     "probs" = .process_survfit_probs(x, probs)
   )
@@ -70,7 +69,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #' @inheritParams cards::tidy_as_ard
 #' @inheritParams ard_survfit
 #'
-#' @return a tibble
+#' @return a `tibble`
 #'
 #' @examples
 #' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
@@ -153,7 +152,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #' @inheritParams cards::tidy_as_ard
 #' @inheritParams ard_survfit
 #'
-#' @return a tibble
+#' @return a `tibble`
 #'
 #' @examples
 #' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
@@ -209,7 +208,13 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
     dplyr::mutate(
       fmt_fn = lapply(
         .data$stat,
-        function(x) switch(is.integer(x), 0L) %||% switch(is.numeric(x), 1L)
+        function(x) {
+          switch(is.integer(x),
+            0L
+          ) %||% switch(is.numeric(x),
+            1L
+          )
+        }
       ),
       context = "survival",
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)
