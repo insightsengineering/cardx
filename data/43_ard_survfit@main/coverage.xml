@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.943448275862069" branch-rate="0" lines-covered="684" lines-valid="725" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-02-22 02:44:56.86343">
+<coverage line-rate="0.943448275862069" branch-rate="0" lines-covered="684" lines-valid="725" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-02-22 02:54:31.299702">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
@@ -725,7 +725,7 @@
                 <line number="198" hits="2" branch="false"/>
                 <line number="199" hits="2" branch="false"/>
                 <line number="200" hits="2" branch="false"/>
-                <line number="201" hits="2" branch="false"/>
+                <line number="202" hits="2" branch="false"/>
                 <line number="203" hits="2" branch="false"/>
                 <line number="204" hits="2" branch="false"/>
                 <line number="205" hits="2" branch="false"/>
@@ -854,7 +854,7 @@
             <line number="198" hits="2" branch="false"/>
             <line number="199" hits="2" branch="false"/>
             <line number="200" hits="2" branch="false"/>
-            <line number="201" hits="2" branch="false"/>
+            <line number="202" hits="2" branch="false"/>
             <line number="203" hits="2" branch="false"/>
             <line number="204" hits="2" branch="false"/>
             <line number="205" hits="2" branch="false"/>
