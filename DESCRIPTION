@@ -23,7 +23,8 @@ Suggests:
     broom.helpers (>= 1.13.0),
     spelling,
     testthat (>= 3.2.0),
-    withr
+    withr,
+    car
 Remotes: 
     insightsengineering/cards
 Config/Needs/website: insightsengineering/nesttemplate
