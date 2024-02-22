@@ -1,3 +1,18 @@
+# ard_hedgesg() works
+
+    Code
+      as.data.frame(dplyr::select(ard_hedgesg(cards::ADSL, by = ARM, variable = AGE),
+      c("variable", "stat_name", "error")))
+    Output
+        variable  stat_name                                           error
+      1      AGE   estimate Grouping variable y must have exactly 2 levels.
+      2      AGE conf.level Grouping variable y must have exactly 2 levels.
+      3      AGE   conf.low Grouping variable y must have exactly 2 levels.
+      4      AGE  conf_high Grouping variable y must have exactly 2 levels.
+      5      AGE         mu Grouping variable y must have exactly 2 levels.
+      6      AGE     paired Grouping variable y must have exactly 2 levels.
+      7      AGE  pooled_sd Grouping variable y must have exactly 2 levels.
+
 # ard_paired_hedgesg() works
 
     Code

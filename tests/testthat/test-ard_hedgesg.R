@@ -15,8 +15,7 @@ test_that("ard_hedgesg() works", {
       data = cards::ADSL |> dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose"))
     ) |>
       parameters::standardize_names(style = "broom") |>
-      dplyr::select(estimate, conf.low, conf.high) |>
-      unclass(),
+      dplyr::select(estimate, conf.low, conf.high),
     ignore_attr = TRUE
   )
 
@@ -24,7 +23,7 @@ test_that("ard_hedgesg() works", {
   expect_snapshot(
     cards::ADSL |>
       ard_hedgesg(by = ARM, variable = AGE) |>
-      select(c("variable", "stat_name", "error")) |>
+      dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
 })
@@ -61,8 +60,7 @@ test_that("ard_paired_hedgesg() works", {
           paired = TRUE
         ) |>
           parameters::standardize_names(style = "broom") |>
-          dplyr::select(estimate, conf.low, conf.high) |>
-          unclass()
+          dplyr::select(estimate, conf.low, conf.high)
     ),
     ignore_attr = TRUE
   )
