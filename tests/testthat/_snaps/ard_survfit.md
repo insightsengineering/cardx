@@ -35,13 +35,51 @@
     Message
       i 1 more variable: fmt_fn
 
+# ard_survfit() works with reverse=TRUE
+
+    Code
+      print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~
+        TRTA, cards::ADTTE), times = c(60, 180), reverse = TRUE), stat = lapply(stat,
+        function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+    Message
+      {cards} data frame: 24 x 7
+    Output
+         variable variable_level  context stat_name stat_label  stat
+      1      TRTA        Placebo survival  estimate  Survival… 0.107
+      2      TRTA        Placebo survival conf.high  CI Upper… 0.175
+      3      TRTA        Placebo survival  conf.low  CI Lower… 0.034
+      4      TRTA        Placebo survival      time       Time    60
+      5      TRTA        Placebo survival  estimate  Survival… 0.349
+      6      TRTA        Placebo survival conf.high  CI Upper… 0.459
+      7      TRTA        Placebo survival  conf.low  CI Lower… 0.217
+      8      TRTA        Placebo survival      time       Time   180
+      9      TRTA      Xanomeli… survival  estimate  Survival… 0.306
+      10     TRTA      Xanomeli… survival conf.high  CI Upper… 0.432
+      11     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.151
+      12     TRTA      Xanomeli… survival      time       Time    60
+      13     TRTA      Xanomeli… survival  estimate  Survival… 0.738
+      14     TRTA      Xanomeli… survival conf.high  CI Upper… 0.908
+      15     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.251
+      16     TRTA      Xanomeli… survival      time       Time   180
+      17     TRTA      Xanomeli… survival  estimate  Survival… 0.268
+      18     TRTA      Xanomeli… survival conf.high  CI Upper…  0.39
+      19     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.122
+      20     TRTA      Xanomeli… survival      time       Time    60
+      21     TRTA      Xanomeli… survival  estimate  Survival… 0.619
+      22     TRTA      Xanomeli… survival conf.high  CI Upper… 0.805
+      23     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.257
+      24     TRTA      Xanomeli… survival      time       Time   180
+    Message
+      i 1 more variable: fmt_fn
+
 # ard_survfit() works with probs provided
 
     Code
       print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~
-        TRTA, cards::ADTTE), probs = c(0.25, 0.75)), stat = lapply(stat, function(x)
-        ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+        TRTA, cards::ADTTE), probs = c(0.25, 0.75), reverse = TRUE), stat = lapply(
+        stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
+      The `reverse=TRUE` argument is ignored for survival quantile estimation.
       {cards} data frame: 24 x 7
     Output
          variable variable_level  context stat_name stat_label stat
@@ -71,4 +109,21 @@
       24     TRTA      Xanomeli… survival      prob   Quantile 0.75
     Message
       i 1 more variable: fmt_fn
+
+# ard_survfit() errors are properly handled
+
+    Code
+      ard_survfit("not_survfit")
+    Condition
+      Error in `ard_survfit()`:
+      ! The `x` argument must be class <survfit> created using the `survival::survfit()` function.
+
+---
+
+    Code
+      ard_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE),
+      times = 100, probs = c(0.25, 0.75))
+    Condition
+      Error in `ard_survfit()`:
+      ! One and only one of `times` and `probs` must be specified.
 

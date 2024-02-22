@@ -140,7 +140,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
   # reverse probs if requested
   if (reverse) {
     df_stat <- df_stat %>%
-      dplyr::mutate_at(vars("estimate", "conf.low", "conf.high"), ~ 1 - .) %>%
+      dplyr::mutate_at(dplyr::vars("estimate", "conf.low", "conf.high"), ~ 1 - .) %>%
       dplyr::rename(conf.low = "conf.high", conf.high = "conf.low")
   }
 
