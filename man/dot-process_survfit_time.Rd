@@ -24,7 +24,7 @@ a \code{tibble}
 Process Survival Fit For Time Estimates
 }
 \examples{
-survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
   cardx:::.process_survfit_time(times = c(60, 180), reverse = FALSE)
 
 }

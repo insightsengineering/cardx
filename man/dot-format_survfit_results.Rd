@@ -14,7 +14,7 @@ Convert Tidied Survival Fit to ARD
 }
 \examples{
 cardx:::.format_survfit_results(
-  broom::tidy(survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE))
+  broom::tidy(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE))
 )
 
 }

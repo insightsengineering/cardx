@@ -72,7 +72,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #' @return a `tibble`
 #'
 #' @examples
-#' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+#' survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
 #'   cardx:::.process_survfit_time(times = c(60, 180), reverse = FALSE)
 #'
 #' @keywords internal
@@ -155,7 +155,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #' @return a `tibble`
 #'
 #' @examples
-#' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+#' survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
 #'   cardx:::.process_survfit_probs(probs = c(0.25, 0.75))
 #'
 #' @keywords internal
@@ -183,7 +183,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #'
 #' @examples
 #' cardx:::.format_survfit_results(
-#'   broom::tidy(survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE))
+#'   broom::tidy(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE))
 #' )
 #'
 #' @keywords internal
@@ -197,8 +197,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
       names_to = "stat_name",
       values_to = "stat"
     ) %>%
-    tidyr::separate_wider_delim(strata, "=", names = c("variable", "variable_level")) %>%
-    dplyr::arrange(variable, variable_level)
+    tidyr::separate_wider_delim(strata, "=", names = c("variable", "variable_level"))
 
   ret %>%
     dplyr::left_join(
@@ -219,8 +218,9 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
       context = "survival",
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)
     ) %>%
+    structure(., class = c("card", class(.))) %>%
     cards::tidy_ard_column_order() %>%
-    structure(., class = c("card", class(.)))
+    cards::tidy_ard_row_order()
 }
 
 .df_survfit_stat_labels <- function() {

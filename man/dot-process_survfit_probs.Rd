@@ -20,7 +20,7 @@ a \code{tibble}
 Process Survival Fit For Quantile Estimates
 }
 \examples{
-survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
   cardx:::.process_survfit_probs(probs = c(0.25, 0.75))
 
 }
