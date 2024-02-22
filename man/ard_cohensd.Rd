@@ -19,7 +19,7 @@ column name to compare by. Must be a categorical variable with exactly two level
 \item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to be compared. Must be a continuous variable.}
 
-\item{...}{arguments passed to \code{cohens_d(...)}}
+\item{...}{arguments passed to \code{effectsize::cohens_d(...)}}
 
 \item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name of the subject or participant ID}
@@ -28,17 +28,18 @@ column name of the subject or participant ID}
 ARD data frame
 }
 \description{
-Analysis results data for paired and non-paired Cohen's D Effect Size Test.
+Analysis results data for paired and non-paired Cohen's D Effect Size Test
+using \code{effectsize::cohens_d()}.
 }
 \details{
 For the \code{ard_cohensd()} function, the data is expected to be one row per subject.
-The data is passed as \code{cohens_d(data[[variable]]~data[[by]], data, paired = FALSE, ...)}.
+The data is passed as \code{effectsize::cohens_d(data[[variable]]~data[[by]], data, paired = FALSE, ...)}.
 
 For the \code{ard_paired_cohensd()} function, the data is expected to be one row
 per subject per by level. Before the effect size is calculated, the data are
 reshaped to a wide format to be one row per subject.
 The data are then passed as
-\verb{cohens_d(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)}.
+\verb{effectsize::cohens_d(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)}.
 }
 \examples{
 cards::ADSL |>

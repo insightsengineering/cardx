@@ -1,7 +1,8 @@
 #' ARD Hedge's G Test
 #'
 #' @description
-#' Analysis results data for paired and non-paired Hedge's G Effect Size Test.
+#' Analysis results data for paired and non-paired Hedge's G Effect Size Test
+#' using `effectsize::hedges_g()`.
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame. See below for details.
@@ -11,20 +12,20 @@
 #'   column name to be compared. Must be a continuous variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
-#' @param ... arguments passed to `hedges_g(...)`
+#' @param ... arguments passed to `effectsize::hedges_g(...)`
 #'
 #' @return ARD data frame
 #' @name ard_hedgesg
 #'
 #' @details
 #' For the `ard_hedgesg()` function, the data is expected to be one row per subject.
-#' The data is passed as `hedges_g(data[[variable]]~data[[by]], data, paired = FALSE, ...)`.
+#' The data is passed as `effectsize::hedges_g(data[[variable]]~data[[by]], data, paired = FALSE, ...)`.
 #'
 #' For the `ard_paired_hedgesg()` function, the data is expected to be one row
 #' per subject per by level. Before the effect size is calculated, the data are
 #' reshaped to a wide format to be one row per subject.
 #' The data are then passed as
-#' `hedges_g_d(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
+#' `effectsize::hedges_g(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
 #' @examples
 #' cards::ADSL |>
@@ -33,7 +34,7 @@
 #'
 #' # constructing a paired data set,
 #' # where patients receive both treatments
-#' cards::ADSL[c("ARM", "AGE")] |>
+#' t <- cards::ADSL[c("ARM", "AGE")] |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
 #'   dplyr::arrange(USUBJID, ARM) |>
@@ -46,8 +47,8 @@ NULL
 #' @export
 ard_hedgesg <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
-
+  cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
+  cards::check_pkg_installed("parameters", reference_pkg = "cardx")
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_class_data_frame(x = data)
@@ -74,8 +75,8 @@ ard_hedgesg <- function(data, by, variable, ...) {
 #' @export
 ard_paired_hedgesg <- function(data, by, variable, id, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
-
+  cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
+  cards::check_pkg_installed("parameters", reference_pkg = "cardx")
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variable)
@@ -132,7 +133,7 @@ ard_paired_hedgesg <- function(data, by, variable, id, ...) {
     cards::tidy_as_ard(
       lst_tidy = lst_tidy,
       tidy_result_names = c(
-        "estimate", "conf.level", "conf.low", "conf_high"
+        "estimate", "conf.level", "conf.low", "conf.high"
       ),
       fun_args_to_record = c("mu", "paired", "pooled_sd"),
       formals = formals(asNamespace("effectsize")[["hedges_g"]]),

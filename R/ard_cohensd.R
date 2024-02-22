@@ -1,7 +1,8 @@
 #' ARD Cohen's D Test
 #'
 #' @description
-#' Analysis results data for paired and non-paired Cohen's D Effect Size Test.
+#' Analysis results data for paired and non-paired Cohen's D Effect Size Test
+#' using `effectsize::cohens_d()`.
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame. See below for details.
@@ -11,20 +12,20 @@
 #'   column name to be compared. Must be a continuous variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
-#' @param ... arguments passed to `cohens_d(...)`
+#' @param ... arguments passed to `effectsize::cohens_d(...)`
 #'
 #' @return ARD data frame
 #' @name ard_cohensd
 #'
 #' @details
 #' For the `ard_cohensd()` function, the data is expected to be one row per subject.
-#' The data is passed as `cohens_d(data[[variable]]~data[[by]], data, paired = FALSE, ...)`.
+#' The data is passed as `effectsize::cohens_d(data[[variable]]~data[[by]], data, paired = FALSE, ...)`.
 #'
 #' For the `ard_paired_cohensd()` function, the data is expected to be one row
 #' per subject per by level. Before the effect size is calculated, the data are
 #' reshaped to a wide format to be one row per subject.
 #' The data are then passed as
-#' `cohens_d(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
+#' `effectsize::cohens_d(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
 #' @examples
 #' cards::ADSL |>
@@ -46,7 +47,8 @@ NULL
 #' @export
 ard_cohensd <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
+  cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
+  cards::check_pkg_installed("parameters", reference_pkg = "cardx")
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variable)
@@ -76,8 +78,8 @@ ard_cohensd <- function(data, by, variable, ...) {
 #' @export
 ard_paired_cohensd <- function(data, by, variable, id, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
-
+  cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
+  cards::check_pkg_installed("parameters", reference_pkg = "cardx")
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variable)
@@ -145,7 +147,7 @@ ard_paired_cohensd <- function(data, by, variable, id, ...) {
     cards::tidy_as_ard(
       lst_tidy = lst_tidy,
       tidy_result_names = c(
-        "estimate", "conf.level", "conf.low", "conf_high"
+        "estimate", "conf.level", "conf.low", "conf.high"
       ),
       fun_args_to_record = c("mu", "paired", "pooled_sd"),
       formals = formals(asNamespace("effectsize")[["cohens_d"]]),
