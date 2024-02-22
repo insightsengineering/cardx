@@ -24,11 +24,8 @@ a tibble
 Process Survival Fit For Time Estimates
 }
 \examples{
-cardx:::.format_survfit_time(
-  survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE),
-  times = c(60, 180),
-  reverse = FALSE
-)
+survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+  cardx:::.process_survfit_time(times = c(60, 180), reverse = FALSE)
 
 }
 \keyword{internal}

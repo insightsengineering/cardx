@@ -18,7 +18,9 @@
 #' @name ard_survfit
 #'
 #' @details
-#' Only one of either the `times` or `probs` parameters can be specified.
+#' * Only one of either the `times` or `probs` parameters can be specified.
+#' * Times should be provided using the same scale as the time variable used to fit the provided
+#'   survival fit model.
 #'
 #' @examplesIf broom.helpers::.assert_package("survival", pkg_search = "cardx", boolean = TRUE)
 #' library(survival)
@@ -38,23 +40,18 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(x)
-  check_range(probs, c(0, 1))
   check_binary(reverse)
-
+  if (!is.null(probs)) check_range(probs, c(0, 1))
   if (!all(inherits(x, "survfit"))) {
     cli::cli_abort(
       "The {.arg x} argument must be class {.cls survfit} created using the {.fun survival::survfit} function."
     )
   }
   if (sum(is.null(times), is.null(probs)) != 1) {
-    cli::cli_abort(
-      "One and only one of {.arg times} and {.arg probs} must be specified."
-    )
+    cli::cli_abort("One and only one of {.arg times} and {.arg probs} must be specified.")
   }
   if (reverse && !is.null(probs)) {
-    cli::cli_inform(
-      "The {.code reverse=TRUE} argument is ignored for survival quantile estimation."
-    )
+    cli::cli_inform("The {.code reverse=TRUE} argument is ignored for survival quantile estimation.")
   }
 
   # build ARD ------------------------------------------------------------------
@@ -76,82 +73,75 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #' @return a tibble
 #'
 #' @examples
-#' cardx:::.format_survfit_time(
-#'   survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE),
-#'   times = c(60, 180),
-#'   reverse = FALSE
-#' )
+#' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+#'   cardx:::.process_survfit_time(times = c(60, 180), reverse = FALSE)
 #'
 #' @keywords internal
 .process_survfit_time <- function(x, times, reverse) {
-  tidy <- broom::tidy(x)
-
-  strata <- intersect("strata", names(tidy)) %>%
-    list() %>%
-    compact()
+  # tidy survfit results
+  tidy_x <- broom::tidy(x)
 
   # adding time 0 to data frame
-  tidy <- tidy %>%
+  tidy_x <- tidy_x %>%
     # make strata a fct to preserve ordering
-    mutate_at(vars(strata), ~ factor(., levels = unique(.))) %>%
-    # if CI is missing, and SE is 0, make the CI the estimate
-    mutate_at(
-      vars("conf.high", "conf.low"),
+    dplyr::mutate_at(dplyr::vars(strata), ~ factor(., levels = unique(.))) %>%
+    # if CI is missing and SE is 0, use estimate as the CI
+    dplyr::mutate_at(
+      dplyr::vars("conf.high", "conf.low"),
       ~ ifelse(is.na(.) & .data$std.error == 0, .data$estimate, .)
     ) %>%
-    select(any_of(c("time", "estimate", "conf.high", "conf.low", "strata"))) %>%
+    dplyr::select(dplyr::any_of(c("time", "estimate", "conf.high", "conf.low", "strata"))) %>%
     # add data for time 0
-    bind_rows(
-      group_by(., strata) %>%
-        slice(1) %>%
-        mutate(
+    dplyr::bind_rows(
+      dplyr::group_by(., strata) %>%
+        dplyr::slice(1) %>%
+        dplyr::mutate(
           time = 0,
           estimate = 1,
           conf.low = 1,
           conf.high = 1
         )
     ) %>%
-    ungroup()
+    dplyr::ungroup()
 
   # get requested estimates
-  df_stat <- tidy %>%
+  df_stat <- tidy_x %>%
     # find max time
-    group_by(., strata) %>%
-    mutate(time_max = max(.data$time)) %>%
-    ungroup() %>%
+    dplyr::group_by(., strata) %>%
+    dplyr::mutate(time_max = max(.data$time)) %>%
+    dplyr::ungroup() %>%
     # add requested timepoints
-    full_join(
-      select(tidy, strata) %>%
-        distinct() %>%
-        mutate(
+    dplyr::full_join(
+      dplyr::select(tidy_x, strata) %>%
+        dplyr::distinct() %>%
+        dplyr::mutate(
           time = list(.env$times),
           col_name = list(paste("stat", seq_len(length(.env$times)), sep = "_"))
         ) %>%
-        unnest(cols = c("time", "col_name")),
-      by = unlist(c(strata, "time"))
+        tidyr::unnest(cols = c("time", "col_name")),
+      by = unlist(c("strata", "time"))
     ) %>%
     # if user-specifed time is unobserved, fill estimate with previous value
-    arrange(strata, .data$time) %>%
-    group_by(strata) %>%
+    dplyr::arrange(.data$strata, .data$time) %>%
+    dplyr::group_by(.data$strata) %>%
     tidyr::fill(
       "estimate", "conf.high", "conf.low", "time_max",
       .direction = "down"
     ) %>%
-    ungroup() %>%
+    dplyr::ungroup() %>%
     # keep only user-specified times
-    filter(!is.na(.data$col_name)) %>%
+    dplyr::filter(!is.na(.data$col_name)) %>%
     # if user-specified time is after max time, make estimate NA
-    mutate_at(
-      vars("estimate", "conf.high", "conf.low"),
+    dplyr::mutate_at(
+      dplyr::vars("estimate", "conf.high", "conf.low"),
       ~ ifelse(.data$time > .data$time_max, NA_real_, .)
     ) %>%
-    select(-c(time_max, col_name))
+    dplyr::select(-c(time_max, col_name))
 
   # reverse probs if requested
   if (reverse) {
-    df_stat <-
-      df_stat %>%
-      mutate_at(vars("estimate", "conf.low", "conf.high"), ~ 1 - .) %>%
+    df_stat <- df_stat %>%
+      dplyr::mutate_at(vars("estimate", "conf.low", "conf.high"), ~ 1 - .) %>%
       dplyr::rename(conf.low = "conf.high", conf.high = "conf.low")
   }
 
@@ -166,19 +156,11 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #' @return a tibble
 #'
 #' @examples
-#' cardx:::.format_survfit_probs(
-#'   survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE),
-#'   probs = c(0.25, 0.5, 0.75)
-#' )
+#' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+#'   cardx:::.process_survfit_probs(probs = c(0.25, 0.75))
 #'
 #' @keywords internal
 .process_survfit_probs <- function(x, probs) {
-  tidy <- broom::tidy(x)
-
-  strata <- intersect("strata", names(tidy)) %>%
-    list() %>%
-    compact()
-
   # calculate survival quantiles and add estimates to df
   df_stat <- purrr::map2_dfr(
     probs,
@@ -187,8 +169,9 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
       as.data.frame() %>%
       tibble::rownames_to_column() %>%
       set_names(c("strata", "estimate", "conf.low", "conf.high")) %>%
-      mutate(prob = .x)
-  )
+      dplyr::mutate(prob = .x)
+  ) %>%
+    tibble::tibble()
 
   df_stat
 }
@@ -207,32 +190,30 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #' @keywords internal
 .format_survfit_results <- function(tidy_survfit) {
   ret <- tidy_survfit %>%
-    mutate(across(
-      any_of(c("estimate", "conf.high", "conf.low", "time", "prob")), ~ as.list(.)
+    dplyr::mutate(across(
+      dplyr::any_of(c("estimate", "conf.high", "conf.low", "time", "prob")), ~ as.list(.)
     )) %>%
-    pivot_longer(
+    tidyr::pivot_longer(
       cols = any_of(c("estimate", "conf.high", "conf.low", "time", "prob")),
       names_to = "stat_name",
       values_to = "stat"
     ) %>%
-    separate_wider_delim(strata, "=", names = c("variable", "variable_level"))
+    tidyr::separate_wider_delim(strata, "=", names = c("variable", "variable_level")) %>%
+    dplyr::arrange(variable, variable_level)
 
-  ret |>
+  ret %>%
     dplyr::left_join(
       .df_survfit_stat_labels(),
       by = "stat_name"
-    ) |>
+    ) %>%
     dplyr::mutate(
-      fmt_fn =
-        lapply(
-          .data$stat,
-          function(x) {
-            switch(is.integer(x), 0L) %||% switch(is.numeric(x), 1L)
-          }
-        ),
+      fmt_fn = lapply(
+        .data$stat,
+        function(x) switch(is.integer(x), 0L) %||% switch(is.numeric(x), 1L)
+      ),
       context = "survival",
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)
-    ) |>
+    ) %>%
     cards::tidy_ard_column_order() %>%
     structure(., class = c("card", class(.)))
 }
@@ -245,6 +226,6 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
     "conf.high", "CI Upper Bound",
     "conf.level", "CI Confidence Level",
     "prob", "Quantile",
-    "times", "Time"
+    "time", "Time"
   )
 }

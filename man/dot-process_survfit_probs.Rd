@@ -20,10 +20,8 @@ a tibble
 Process Survival Fit For Quantile Estimates
 }
 \examples{
-cardx:::.format_survfit_probs(
-  survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE),
-  probs = c(0.25, 0.5, 0.75)
-)
+survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+  cardx:::.process_survfit_probs(probs = c(0.25, 0.75))
 
 }
 \keyword{internal}

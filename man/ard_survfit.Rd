@@ -28,7 +28,11 @@ Analysis results data for survival quantiles and x-year survival estimates, extr
 from a \code{\link[survival:survfit]{survival::survfit()}} model.
 }
 \details{
-Only one of either the \code{times} or \code{probs} parameters can be specified.
+\itemize{
+\item Only one of either the \code{times} or \code{probs} parameters can be specified.
+\item Times should be provided using the same scale as the time variable used to fit the provided
+survival fit model.
+}
 }
 \examples{
 \dontshow{if (broom.helpers::.assert_package("survival", pkg_search = "cardx", boolean = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
