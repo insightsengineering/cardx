@@ -26,10 +26,10 @@ ard_regression <- function(x, ...) {
 #' @export
 ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or_parameters, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
+  cards::check_pkg_installed("broom.helpers", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
-  check_not_missing(x, "model")
+  check_not_missing(x)
 
   # summarize model ------------------------------------------------------------
   broom.helpers::tidy_plus_plus(
