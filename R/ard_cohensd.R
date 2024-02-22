@@ -46,6 +46,7 @@ NULL
 #' @export
 ard_cohensd <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
+  cards::check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variable)
@@ -75,7 +76,7 @@ ard_cohensd <- function(data, by, variable, ...) {
 #' @export
 ard_paired_cohensd <- function(data, by, variable, id, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  cards::check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
