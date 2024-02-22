@@ -83,7 +83,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
   # adding time 0 to data frame
   tidy_x <- tidy_x %>%
     # make strata a fct to preserve ordering
-    dplyr::mutate_at(dplyr::vars(strata), ~ factor(., levels = unique(.))) %>%
+    dplyr::mutate_at("strata", ~ factor(., levels = unique(.))) %>%
     # if CI is missing and SE is 0, use estimate as the CI
     dplyr::mutate_at(
       dplyr::vars("conf.high", "conf.low"),
@@ -92,7 +92,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
     dplyr::select(dplyr::any_of(c("time", "estimate", "conf.high", "conf.low", "strata"))) %>%
     # add data for time 0
     dplyr::bind_rows(
-      dplyr::group_by(., strata) %>%
+      dplyr::group_by(., .data$strata) %>%
         dplyr::slice(1) %>%
         dplyr::mutate(
           time = 0,
@@ -106,12 +106,13 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
   # get requested estimates
   df_stat <- tidy_x %>%
     # find max time
-    dplyr::group_by(., strata) %>%
+    dplyr::group_by(., .data$strata) %>%
     dplyr::mutate(time_max = max(.data$time)) %>%
     dplyr::ungroup() %>%
     # add requested timepoints
     dplyr::full_join(
-      dplyr::select(tidy_x, strata) %>%
+      tidy_x %>%
+      dplyr::select("strata") %>%
         dplyr::distinct() %>%
         dplyr::mutate(
           time = list(.env$times),
@@ -135,7 +136,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
       dplyr::vars("estimate", "conf.high", "conf.low"),
       ~ ifelse(.data$time > .data$time_max, NA_real_, .)
     ) %>%
-    dplyr::select(-c(time_max, col_name))
+    dplyr::select(!dplyr::any_of(c("time_max", "col_name")))
 
   # reverse probs if requested
   if (reverse) {
@@ -189,7 +190,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #' @keywords internal
 .format_survfit_results <- function(tidy_survfit) {
   ret <- tidy_survfit %>%
-    dplyr::mutate(across(
+    dplyr::mutate(dplyr::across(
       dplyr::any_of(c("estimate", "conf.high", "conf.low", "time", "prob")), ~ as.list(.)
     )) %>%
     tidyr::pivot_longer(
@@ -197,7 +198,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
       names_to = "stat_name",
       values_to = "stat"
     ) %>%
-    tidyr::separate_wider_delim(strata, "=", names = c("variable", "variable_level"))
+    tidyr::separate_wider_delim("strata", "=", names = c("variable", "variable_level"))
 
   ret %>%
     dplyr::left_join(
