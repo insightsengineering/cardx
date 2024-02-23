@@ -36,6 +36,7 @@ reference:
   - contents:
       - ard_proportion_ci
       - ard_regression
+      - ard_vif
 
   - title: "Helpers"
   - contents:
