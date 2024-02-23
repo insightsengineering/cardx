@@ -30,7 +30,8 @@ proportion_ci_wald <- function(x, conf.level = 0.95, correct = FALSE) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
   check_binary(x)
-  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE), scalar = TRUE)
+  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))
+  check_scalar(conf.level)
   check_class(x = correct, "logical")
   check_scalar(correct)
 
@@ -69,7 +70,8 @@ proportion_ci_wilson <- function(x, conf.level = 0.95, correct = FALSE) {
   check_binary(x)
   check_class(x = correct, "logical")
   check_scalar(correct)
-  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE), scalar = TRUE)
+  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))
+  check_scalar(conf.level)
 
   x <- stats::na.omit(x)
 
@@ -94,7 +96,8 @@ proportion_ci_clopper_pearson <- function(x, conf.level = 0.95) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
   check_binary(x)
-  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE), scalar = TRUE)
+  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))
+  check_scalar(conf.level)
 
   x <- stats::na.omit(x)
   n <- length(x)
@@ -113,7 +116,8 @@ proportion_ci_agresti_coull <- function(x, conf.level = 0.95) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
   check_binary(x)
-  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE), scalar = TRUE)
+  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))
+  check_scalar(conf.level)
 
   x <- stats::na.omit(x)
 
@@ -149,7 +153,8 @@ proportion_ci_jeffreys <- function(x, conf.level = 0.95) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
   check_binary(x)
-  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE), scalar = TRUE)
+  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))
+  check_scalar(conf.level)
   x <- stats::na.omit(x)
 
   n <- length(x)
@@ -232,7 +237,8 @@ proportion_ci_strat_wilson <- function(x,
   check_class(correct, "logical")
   check_scalar(correct)
   check_class(strata, "factor")
-  check_range(conf.level, range = c(0, 1), scalar = TRUE)
+  check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))
+  check_scalar(conf.level)
 
   # remove missing values from x and strata
   is_na <- is.na(x) | is.na(strata)
