@@ -48,7 +48,7 @@ cards::ADSL |>
 
 # constructing a paired data set,
 # where patients receive both treatments
-t <- cards::ADSL[c("ARM", "AGE")] |>
+cards::ADSL[c("ARM", "AGE")] |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
   dplyr::arrange(USUBJID, ARM) |>

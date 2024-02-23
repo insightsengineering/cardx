@@ -34,7 +34,7 @@
 #'
 #' # constructing a paired data set,
 #' # where patients receive both treatments
-#' t <- cards::ADSL[c("ARM", "AGE")] |>
+#' cards::ADSL[c("ARM", "AGE")] |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
 #'   dplyr::arrange(USUBJID, ARM) |>
@@ -51,7 +51,7 @@ ard_hedgesg <- function(data, by, variable, ...) {
   cards::check_pkg_installed("parameters", reference_pkg = "cardx")
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
-  check_class_data_frame(x = data)
+  check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variable = {{ variable }})
   check_scalar(by)
@@ -82,7 +82,7 @@ ard_paired_hedgesg <- function(data, by, variable, id, ...) {
   check_not_missing(variable)
   check_not_missing(by)
   check_not_missing(id)
-  check_class_data_frame(x = data)
+  check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variable = {{ variable }}, id = {{ id }})
   check_scalar(by)
