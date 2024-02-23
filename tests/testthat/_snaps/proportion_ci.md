@@ -513,7 +513,7 @@
     Code
       proportion_ci_wilson(x_dbl, conf.level = c(0.9, 0.9))
     Condition
-      Error in `check_range()`:
+      Error in `proportion_ci_wilson()`:
       ! The `conf.level` argument must be length 1.
 
 ---
@@ -522,7 +522,7 @@
       proportion_ci_wilson(mtcars$cyl)
     Condition
       Error in `proportion_ci_wilson()`:
-      ! Expecting column `x` to be either <logical> or <numeric/integer> coded as 0 and 1.
+      ! Expecting `x` to be either <logical> or <numeric/integer> coded as 0 and 1.
 
 # check the proportion_ci_strat_wilson() function works
 

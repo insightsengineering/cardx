@@ -1,6 +1,6 @@
 Package: cardx
 Title: Extra Analysis Results Data Utilities
-Version: 0.0.0.9042
+Version: 0.0.0.9043
 Authors@R: c(
     person("Daniel", "Sjoberg", , "sjobergd@gene.com", role = c("aut", "cre")),
     person("Emily", "de la Rua", , "emily.de_la_rua@contractors.roche.com", role = c("aut")),
