@@ -4,14 +4,10 @@
 \alias{ard_vif}
 \title{Regression VIF ARD}
 \usage{
-ard_vif(x, statistic)
+ard_vif(x)
 }
 \arguments{
-\item{x}{regression model object}
-
-\item{statistic}{"VIF" (variance inflation factors, for models with no categorical terms)
-or one of/combination of "GVIF" (generalized variance inflation factors),
-"aGVIF" 'adjusted GVIF, i.e. GVIF^\link{1/(2*df)} and/or "df" (degrees of freedom).
+\item{x}{regression model object
 See car::vif() for details}
 }
 \value{
