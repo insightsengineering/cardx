@@ -79,3 +79,43 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
     cards::tidy_ard_column_order() %>%
     {structure(., class = c("card", class(.)))} # styler: off
 }
+
+#' ard_regression_basic
+#'
+#' @description
+#' A function that takes a regression model and provides basic statistics in an
+#' ARD structure.
+#'
+#'
+#' @param x regression model object
+#' @param tidy_fun(`function`)\cr
+#'   a tidier. Default is [`broom.helpers::tidy_with_broom_or_parameters`]
+#' @param ... Arguments passed to `broom.helpers::tidy_plus_plus()`
+#'
+#' @return data frame
+#' @name ard_regression_basic
+#' @export
+#'
+#' @examples
+#' lm(AGE ~ ARM, data = cards::ADSL) |>
+#'   ard_regression_basic()
+#'
+ard_regression_basic <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or_parameters, ...) {
+  # check installed packages ---------------------------------------------------
+  cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
+
+  # check inputs ---------------------------------------------------------------
+  check_not_missing(x, "model")
+
+  args <-
+    list(
+      add_reference_rows = FALSE,
+      add_estimate_to_reference_rows = FALSE,
+      add_n = FALSE,
+      intercept = FALSE
+    ) |>
+    utils::modifyList(val = rlang::dots_list(...))
+
+  rlang::inject(ard_regression(x = x, tidy_fun = tidy_fun, !!!args)) |>
+    dplyr::filter(!.data$stat_name %in% c("term", "var_type", "var_label", "var_class", "label"))
+}
