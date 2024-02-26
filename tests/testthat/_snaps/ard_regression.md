@@ -78,23 +78,23 @@
       16      ARM  Xanomeline Low Dose regression        p.value        p-value
       17      ARM  Xanomeline Low Dose regression       conf.low CI Lower Bound
       18      ARM  Xanomeline Low Dose regression      conf.high CI Upper Bound
-               statistic statistic_fmt_fn
-      1                3                0
-      2  contr.treatment             NULL
-      3        treatment             NULL
-      4       -0.8283499                1
-      5         1.267394                1
-      6        -0.653585                1
-      7        0.5139775                1
-      8        -3.324433                1
-      9         1.667733                1
-      10               3                0
-      11 contr.treatment             NULL
-      12       treatment             NULL
-      13       0.4573643                1
-      14        1.267394                1
-      15       0.3608698                1
-      16       0.7185003                1
-      17       -2.038718                1
-      18        2.953447                1
+                    stat fmt_fn
+      1                3      0
+      2  contr.treatment   NULL
+      3        treatment   NULL
+      4       -0.8283499      1
+      5         1.267394      1
+      6        -0.653585      1
+      7        0.5139775      1
+      8        -3.324433      1
+      9         1.667733      1
+      10               3      0
+      11 contr.treatment   NULL
+      12       treatment   NULL
+      13       0.4573643      1
+      14        1.267394      1
+      15       0.3608698      1
+      16       0.7185003      1
+      17       -2.038718      1
+      18        2.953447      1
 
