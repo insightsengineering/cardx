@@ -39,14 +39,13 @@ ard_vif <- function(x) {
   # if VIF is returned
   if (is.null(vif$result)) {
     vif$result <- dplyr::tibble(variable = names(temp$coefficients)[-1], VIF = list(NULL))
-  }
-  else if (!is.matrix(vif$result)) {
-    vif$result <- dplyr::tibble(variable = names(vif$result) , VIF = vif$result)
+  } else if (!is.matrix(vif$result)) {
+    vif$result <- dplyr::tibble(variable = names(vif$result), VIF = vif$result)
   } # if Generalized VIF is returned
-  else if (is.matrix(vif$result)){
+  else if (is.matrix(vif$result)) {
     vif$result <-
       vif$result |>
-      as.data.frame()  %>%
+      as.data.frame() %>%
       dplyr::mutate(., variable = rownames(.), .before = 1L) |>
       dplyr::rename(
         aGVIF = "GVIF^(1/(2*Df))",
