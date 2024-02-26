@@ -6,8 +6,16 @@ test_that("ard_vif() works", {
 })
 
 test_that("ard_vif() appropriate errors are given for model with only 1 term", {
-  expect_error(
+  expect_snapshot(
     lm(AGE ~ ARM, data = cards::ADSL) |>
       ard_vif()
+  )
+  expect_equal(
+    lm(AGE ~ ARM, data = cards::ADSL) |>
+      ard_vif() |>
+      dplyr::select(error) |>
+      unlist() |>
+      unique(),
+    "model contains fewer than 2 terms"
   )
 })
