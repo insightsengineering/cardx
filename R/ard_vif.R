@@ -21,27 +21,19 @@ ard_vif <- function(x) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x, "model")
 
-  vif_return <- .vif_to_tibble(x)
-  dplyr::tibble(
-    vif_return$result,
-    warning = vif_return["warning"],
-    error = vif_return["error"]
-  )
-}
-
-
-# put VIF results in data frame -- borrowed from gtsummary
-.vif_to_tibble <- function(x) {
   temp <- x
   vif <- car::vif(x) |>
     cards::eval_capture_conditions()
 
-  # if VIF is returned
+  # if vif failed, set result as NULL, error will be kept through eval_capture_conditions()
   if (is.null(vif$result)) {
     vif$result <- dplyr::tibble(variable = names(temp$coefficients)[-1], VIF = list(NULL))
-  } else if (!is.matrix(vif$result)) {
+  }
+  # if VIF is returned
+  else if (!is.matrix(vif$result)) {
     vif$result <- dplyr::tibble(variable = names(vif$result), VIF = vif$result)
-  } # if Generalized VIF is returned
+  }
+  # if Generalized VIF is returned
   else if (is.matrix(vif$result)) {
     vif$result <-
       vif$result |>
@@ -54,6 +46,7 @@ ard_vif <- function(x) {
       dplyr::tibble()
   }
 
+  # Clean-up the result to fit the ard structure through pivot
   vif$result <-
     vif$result |>
     tidyr::pivot_longer(
@@ -62,17 +55,23 @@ ard_vif <- function(x) {
       values_to = "statistic"
     ) |>
     dplyr::mutate(
-      .after = "variable",
-      context = "vif"
-    ) |>
-    dplyr::mutate(
-      .after = "stat_name",
+      context = "vif",
       stat_label = ifelse(
-        stat_name == "aGVIF",
+        .data$stat_name == "aGVIF",
         "Adjusted GVIF",
-        stat_name
+        .data$stat_name
       )
     )
 
-  return(vif)
+  # Bind the results and possible warning/errors together
+  vif_return <- dplyr::tibble(
+    vif$result,
+    warning = vif["warning"],
+    error = vif["error"]
+    )
+
+  # Clean up return object
+  vif_return |>
+   cards::tidy_ard_column_order() %>%
+    {structure(., class = c("card", class(.)))}  # styler: off
 }

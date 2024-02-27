@@ -44,6 +44,7 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
     tidyr::pivot_longer(
       cols = -c("variable", "variable_level"),
       names_to = "stat_name",
+      # noticed this while trying to fix ard_vif() does this need renaming to "statistic" ?
       values_to = "stat"
     ) |>
     dplyr::filter(map_lgl(.data$stat, Negate(is.na))) |>
