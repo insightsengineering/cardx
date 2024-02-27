@@ -10,11 +10,13 @@ test_that("ard_regression() works", {
 })
 
 test_that("ard_regression_basic() works", {
-  expect_error(lm(AGE ~ ARM, data = cards::ADSL) |>
-                 ard_regression_basic(),
-               NA)
+  expect_error(
+    lm(AGE ~ ARM, data = cards::ADSL) |>
+      ard_regression_basic(),
+    NA
+  )
 
   expect_snapshot(lm(AGE ~ ARM, data = cards::ADSL) |>
-                    ard_regression_basic() |>
-                    as.data.frame())
+    ard_regression_basic() |>
+    as.data.frame())
 })
