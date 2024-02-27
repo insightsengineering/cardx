@@ -68,10 +68,10 @@ ard_vif <- function(x) {
     vif$result,
     warning = vif["warning"],
     error = vif["error"]
-    )
+  )
 
   # Clean up return object
   vif_return |>
-   cards::tidy_ard_column_order() %>%
+    cards::tidy_ard_column_order() %>%
     {structure(., class = c("card", class(.)))}  # styler: off
 }
