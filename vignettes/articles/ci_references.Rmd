@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 $$      
 \hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
 $$
+
 # Wilson
 $$
 \frac{\hat{p} + \frac{z^2_{\alpha/2}}{2n} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n} + \frac{z^2_{\alpha/2}}{4n^2}}}{1 + \frac{z^2_{\alpha/2}}{n}}
@@ -25,6 +26,7 @@ $$
 $$
 \left( \frac{k}{n} \pm z_{\alpha/2} \sqrt{\frac{\frac{k}{n}(1-\frac{k}{n})}{n} + \frac{z^2_{\alpha/2}}{4n^2}} \right) \div \left( 1 + \frac{z^2_{\alpha/2}}{n} \right)
 $$
+
 # Agresti Coull
 $$
 \left( \frac{\tilde{p} + z^2_{\alpha/2}/2}{n + z^2_{\alpha/2}} \pm z_{\alpha/2} \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{n} + \frac{z^2_{\alpha/2}}{4n^2}} \right)
