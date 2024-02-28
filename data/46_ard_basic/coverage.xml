@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.946945337620579" branch-rate="0" lines-covered="589" lines-valid="622" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-02-27 03:32:18.199787">
+<coverage line-rate="0.946945337620579" branch-rate="0" lines-covered="589" lines-valid="622" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-02-28 16:07:25.696342">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
@@ -568,9 +568,8 @@
             </method>
             <method name="ard_regression_basic" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="105" hits="2" branch="false"/>
-                <line number="108" hits="2" branch="false"/>
-                <line number="110" hits="2" branch="false"/>
+                <line number="106" hits="2" branch="false"/>
+                <line number="109" hits="2" branch="false"/>
                 <line number="111" hits="2" branch="false"/>
                 <line number="112" hits="2" branch="false"/>
                 <line number="113" hits="2" branch="false"/>
@@ -578,8 +577,9 @@
                 <line number="115" hits="2" branch="false"/>
                 <line number="116" hits="2" branch="false"/>
                 <line number="117" hits="2" branch="false"/>
-                <line number="119" hits="2" branch="false"/>
+                <line number="118" hits="2" branch="false"/>
                 <line number="120" hits="2" branch="false"/>
+                <line number="121" hits="2" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -633,9 +633,8 @@
             <line number="78" hits="3" branch="false"/>
             <line number="79" hits="3" branch="false"/>
             <line number="80" hits="3" branch="false"/>
-            <line number="105" hits="2" branch="false"/>
-            <line number="108" hits="2" branch="false"/>
-            <line number="110" hits="2" branch="false"/>
+            <line number="106" hits="2" branch="false"/>
+            <line number="109" hits="2" branch="false"/>
             <line number="111" hits="2" branch="false"/>
             <line number="112" hits="2" branch="false"/>
             <line number="113" hits="2" branch="false"/>
@@ -643,8 +642,9 @@
             <line number="115" hits="2" branch="false"/>
             <line number="116" hits="2" branch="false"/>
             <line number="117" hits="2" branch="false"/>
-            <line number="119" hits="2" branch="false"/>
+            <line number="118" hits="2" branch="false"/>
             <line number="120" hits="2" branch="false"/>
+            <line number="121" hits="2" branch="false"/>
           </lines>
         </class>
         <class name="ard_ttest.R" filename="R/ard_ttest.R" line-rate="1" branch-rate="0" complexity="0">
