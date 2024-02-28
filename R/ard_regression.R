@@ -80,12 +80,13 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
     {structure(., class = c("card", class(.)))} # styler: off
 }
 
-#' ard_regression_basic
+#' Basic Regression ARD
 #'
 #' @description
 #' A function that takes a regression model and provides basic statistics in an
 #' ARD structure.
-#'
+#' The default output is simpler than `ard_regression()`.
+#' The function primarily matches regression terms to underlying variable names.
 #'
 #' @param x regression model object
 #' @param tidy_fun (`function`)\cr
@@ -105,7 +106,7 @@ ard_regression_basic <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or
   cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
 
   # check inputs ---------------------------------------------------------------
-  check_not_missing(x, "model")
+  check_not_missing(x)
 
   args <-
     list(

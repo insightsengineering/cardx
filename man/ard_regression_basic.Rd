@@ -2,7 +2,7 @@
 % Please edit documentation in R/ard_regression.R
 \name{ard_regression_basic}
 \alias{ard_regression_basic}
-\title{ard_regression_basic}
+\title{Basic Regression ARD}
 \usage{
 ard_regression_basic(
   x,
@@ -24,6 +24,8 @@ data frame
 \description{
 A function that takes a regression model and provides basic statistics in an
 ARD structure.
+The default output is simpler than \code{ard_regression()}.
+The function primarily matches regression terms to underlying variable names.
 }
 \examples{
 lm(AGE ~ ARM, data = cards::ADSL) |>
