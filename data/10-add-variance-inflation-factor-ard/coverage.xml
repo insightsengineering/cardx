@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.947852760736196" branch-rate="0" lines-covered="618" lines-valid="652" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-02-28 18:03:31.142372">
+<coverage line-rate="0.947852760736196" branch-rate="0" lines-covered="618" lines-valid="652" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-02-28 18:06:53.420235">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
@@ -530,6 +530,7 @@
                 <line number="44" hits="1" branch="false"/>
                 <line number="45" hits="1" branch="false"/>
                 <line number="46" hits="1" branch="false"/>
+                <line number="47" hits="1" branch="false"/>
                 <line number="48" hits="1" branch="false"/>
                 <line number="49" hits="1" branch="false"/>
                 <line number="50" hits="1" branch="false"/>
@@ -563,7 +564,6 @@
                 <line number="78" hits="1" branch="false"/>
                 <line number="79" hits="1" branch="false"/>
                 <line number="80" hits="1" branch="false"/>
-                <line number="81" hits="1" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -583,6 +583,7 @@
             <line number="44" hits="1" branch="false"/>
             <line number="45" hits="1" branch="false"/>
             <line number="46" hits="1" branch="false"/>
+            <line number="47" hits="1" branch="false"/>
             <line number="48" hits="1" branch="false"/>
             <line number="49" hits="1" branch="false"/>
             <line number="50" hits="1" branch="false"/>
@@ -616,7 +617,6 @@
             <line number="78" hits="1" branch="false"/>
             <line number="79" hits="1" branch="false"/>
             <line number="80" hits="1" branch="false"/>
-            <line number="81" hits="1" branch="false"/>
           </lines>
         </class>
         <class name="ard_ttest.R" filename="R/ard_ttest.R" line-rate="1" branch-rate="0" complexity="0">
