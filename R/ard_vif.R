@@ -6,6 +6,8 @@
 #' @param x regression model object
 #' See car::vif() for details
 #'
+#' Do I need to add "type" or "..." as pass-through?
+#'
 #' @return data frame
 #' @name ard_vif
 #' @rdname ard_vif
@@ -52,7 +54,7 @@ ard_vif <- function(x) {
     tidyr::pivot_longer(
       cols = -c("variable"),
       names_to = "stat_name",
-      values_to = "statistic"
+      values_to = "stat"
     ) |>
     dplyr::mutate(
       context = "vif",
