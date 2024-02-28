@@ -28,7 +28,7 @@ Suggests:
     withr
 Remotes: 
     insightsengineering/cards
-Config/Needs/website: insightsengineering/nesttemplate
+Config/Needs/website: insightsengineering/nesttemplate, rmarkdown, utils
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8
