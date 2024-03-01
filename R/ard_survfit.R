@@ -77,6 +77,22 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #'
 #' @keywords internal
 .process_survfit_time <- function(x, times, reverse) {
+  # process multi-state models
+  multi_state <- inherits(x, "survfitms")
+  if (multi_state == TRUE) {
+    # selecting state to show
+    state <- unique(tidy$state) %>%
+      setdiff("(s0)") %>%
+      purrr::pluck(1)
+
+    if (identical(quiet, FALSE)) {
+      rlang::inform(glue(
+        "tbl_survfit: Multi-state model detected. Showing probabilities into state '{state}'"
+      ))
+    }
+    tidy <- dplyr::filter(tidy, .data$state == .env$state)
+  }
+
   # tidy survfit results
   tidy_x <- broom::tidy(x)
 
@@ -96,9 +112,9 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
         dplyr::slice(1) %>%
         dplyr::mutate(
           time = 0,
-          estimate = 1,
-          conf.low = 1,
-          conf.high = 1
+          estimate = ifelse(multi_state, 0, 1),
+          conf.low = ifelse(multi_state, 0, 1),
+          conf.high = ifelse(multi_state, 0, 1)
         )
     ) %>%
     dplyr::ungroup()
