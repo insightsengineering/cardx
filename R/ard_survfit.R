@@ -10,9 +10,19 @@
 #'   a vector of times for which to return survival probabilities.
 #' @param probs (`numeric`)\cr
 #'   a vector of probabilities with values in (0,1) specifying the survival quantiles to return.
-#' @param reverse (`logical`)\cr
-#'   Flip the probability reported, i.e. `1 - estimate`. Default is `FALSE`. Only applies when
-#'   `probs` is specified.
+#' @param type (`character` or `NULL`)\cr
+#'   type of statistic to report. Available for Kaplan-Meier time estimates only, otherwise `type`
+#'   is ignored. Default is `"survival"`.
+#'   Must be one of the following:
+#'   ```{r, echo = FALSE}
+#'   dplyr::tribble(
+#'     ~type,          ~transformation,
+#'     '`"survival"`', '`x`',
+#'     '`"risk"`',     '`1 - x`',
+#'     '`"cumhaz"`',   '`-log(x)`',
+#'   ) %>%
+#'   knitr::kable()
+#'   ```
 #'
 #' @return an ARD data frame of class 'card'
 #' @name ard_survfit
@@ -34,13 +44,13 @@ NULL
 
 #' @rdname ard_survfit
 #' @export
-ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
+ard_survfit <- function(x, times = NULL, probs = NULL, type = c("survival", "risk", "cumhaz")) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("survival", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(x)
-  check_binary(reverse)
+  check_class(type, "character", allow_empty = TRUE)
   if (!is.null(probs)) check_range(probs, c(0, 1))
   if (!all(inherits(x, "survfit"))) {
     cli::cli_abort(
@@ -50,14 +60,14 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
   if (sum(is.null(times), is.null(probs)) != 1) {
     cli::cli_abort("One and only one of {.arg times} and {.arg probs} must be specified.")
   }
-  if (reverse && !is.null(probs)) {
-    cli::cli_inform("The {.code reverse=TRUE} argument is ignored for survival quantile estimation.")
+  if (!is.null(type) && !is.null(probs)) {
+    cli::cli_inform("The {.arg type} argument is ignored for survival quantile estimation.")
   }
 
   # build ARD ------------------------------------------------------------------
   est_type <- ifelse(is.null(probs), "times", "probs")
   tidy_survfit <- switch(est_type,
-    "times" = .process_survfit_time(x, times, reverse),
+    "times" = .process_survfit_time(x, times, type),
     "probs" = .process_survfit_probs(x, probs)
   )
 
@@ -73,10 +83,10 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #'
 #' @examples
 #' survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
-#'   cardx:::.process_survfit_time(times = c(60, 180), reverse = FALSE)
+#'   cardx:::.process_survfit_time(times = c(60, 180), type = "risk")
 #'
 #' @keywords internal
-.process_survfit_time <- function(x, times, reverse) {
+.process_survfit_time <- function(x, times, type) {
   # process multi-state models
   multi_state <- inherits(x, "survfitms")
   if (multi_state == TRUE) {
@@ -154,10 +164,13 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
     ) %>%
     dplyr::select(!dplyr::any_of(c("time_max", "col_name")))
 
-  # reverse probs if requested
-  if (reverse) {
+  # convert estimates to requested type
+  if (type != "survival") {
     df_stat <- df_stat %>%
-      dplyr::mutate_at(dplyr::vars("estimate", "conf.low", "conf.high"), ~ 1 - .) %>%
+      dplyr::mutate_at(
+        dplyr::vars("estimate", "conf.low", "conf.high"),
+        ~ dplyr::if_else(type == "risk", 1 - ., -log(.))
+      ) %>%
       dplyr::rename(conf.low = "conf.high", conf.high = "conf.low")
   }
 
