@@ -6,7 +6,7 @@
 #' @param x regression model object
 #' @param tidy_fun (`function`)\cr
 #'   a tidier. Default is [`broom.helpers::tidy_with_broom_or_parameters`]
-#' @param ... Arguments passed to `broom.helpers::tidy_plus_plus()`
+#' @param ... Arguments passed to [`broom.helpers::tidy_plus_plus()`]
 #'
 #' @return data frame
 #' @name ard_regression
@@ -44,13 +44,13 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
     tidyr::pivot_longer(
       cols = -c("variable", "variable_level"),
       names_to = "stat_name",
-      values_to = "statistic"
+      values_to = "stat"
     ) |>
-    dplyr::filter(map_lgl(.data$statistic, Negate(is.na))) |>
+    dplyr::filter(map_lgl(.data$stat, Negate(is.na))) |>
     dplyr::mutate(
-      statistic_fmt_fn =
+      fmt_fn =
         lapply(
-          .data$statistic,
+          .data$stat,
           function(x) {
             switch(is.integer(x), 0L) %||% # styler: off
               switch(is.numeric(x), 1L) # styler: off

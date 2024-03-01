@@ -50,7 +50,7 @@ ard_ttest <- function(data, by, variable, ...) {
   check_not_missing(data)
   check_not_missing(variable)
   check_not_missing(by)
-  check_class_data_frame(x = data)
+  check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variable = {{ variable }})
   check_scalar(by)
@@ -62,7 +62,7 @@ ard_ttest <- function(data, by, variable, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::t.test(data[[variable]] ~ data[[by]], paired = FALSE, ...) |>
+        stats::t.test(data[[variable]] ~ data[[by]], ...) |>
           broom::tidy()
       ),
     paired = FALSE,
@@ -81,7 +81,7 @@ ard_paired_ttest <- function(data, by, variable, id, ...) {
   check_not_missing(variable)
   check_not_missing(by)
   check_not_missing(id)
-  check_class_data_frame(x = data)
+  check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variable = {{ variable }}, id = {{ id }})
   check_scalar(by)

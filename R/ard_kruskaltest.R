@@ -1,23 +1,24 @@
-#' ARD Chi-squared Test
+#' ARD Kruskal-Wallis Test
 #'
 #' @description
-#' Analysis results data for Pearson's Chi-squared Test.
-#' Calculated with `chisq.test(x = data[[variable]], y = data[[by]], ...)`
+#' Analysis results data for Kruskal-Wallis Rank Sum Test.
 #'
+#' Calculated with `kruskal.test(data[[variable]], data[[by]], ...)`
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame.
-#' @param by,variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column names to compare
-#' @param ... additional arguments passed to `fisher.test(...)`
+#' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to compare by
+#' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to be compared
 #'
 #' @return ARD data frame
 #' @export
 #'
 #' @examples
 #' cards::ADSL |>
-#'   ard_chisqtest(by = "ARM", variable = "AGEGR1")
-ard_chisqtest <- function(data, by, variable, ...) {
+#'   ard_kruskaltest(by = "ARM", variable = "AGE")
+ard_kruskaltest <- function(data, by, variable) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
 
@@ -34,21 +35,17 @@ ard_chisqtest <- function(data, by, variable, ...) {
   cards::tidy_as_ard(
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::chisq.test(x = data[[variable]], y = data[[by]], ...) |>
+        stats::kruskal.test(x = data[[variable]], g = data[[by]]) |>
           broom::tidy()
       ),
     tidy_result_names = c("statistic", "p.value", "parameter", "method"),
-    fun_args_to_record =
-      c("correct", "p", "rescale.p", "simulate.p.value", "B"),
-    formals = formals(stats::chisq.test),
-    passed_args = dots_list(...),
-    lst_ard_columns = list(group1 = by, variable = variable, context = "chisqtest")
+    lst_ard_columns = list(group1 = by, variable = variable, context = "kruskaltest")
   ) |>
     dplyr::mutate(
       .after = "stat_name",
       stat_label =
         dplyr::case_when(
-          .data$stat_name %in% "statistic" ~ "X-squared Statistic",
+          .data$stat_name %in% "statistic" ~ "Kruskal-Wallis chi-squared Statistic",
           .data$stat_name %in% "p.value" ~ "p-value",
           .data$stat_name %in% "parameter" ~ "Degrees of Freedom",
           TRUE ~ .data$stat_name,
