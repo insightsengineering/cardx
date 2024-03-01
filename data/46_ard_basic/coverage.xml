@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.94551282051282" branch-rate="0" lines-covered="590" lines-valid="624" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-03-01 23:14:45.201958">
+<coverage line-rate="0.94551282051282" branch-rate="0" lines-covered="590" lines-valid="624" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-03-01 23:18:52.869234">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
@@ -511,38 +511,38 @@
           <methods>
             <method name="ard_regression_basic" signature="" line-rate="0.928571428571429" branch-rate="0" complexity="0">
               <lines>
-                <line number="37" hits="1" branch="false"/>
-                <line number="40" hits="1" branch="false"/>
-                <line number="41" hits="1" branch="false"/>
-                <line number="42" hits="0" branch="false"/>
-                <line number="44" hits="1" branch="false"/>
-                <line number="45" hits="1" branch="false"/>
+                <line number="39" hits="1" branch="false"/>
+                <line number="42" hits="1" branch="false"/>
+                <line number="43" hits="1" branch="false"/>
+                <line number="44" hits="0" branch="false"/>
                 <line number="46" hits="1" branch="false"/>
                 <line number="47" hits="1" branch="false"/>
                 <line number="48" hits="1" branch="false"/>
                 <line number="49" hits="1" branch="false"/>
                 <line number="50" hits="1" branch="false"/>
                 <line number="51" hits="1" branch="false"/>
+                <line number="52" hits="1" branch="false"/>
                 <line number="53" hits="1" branch="false"/>
-                <line number="54" hits="1" branch="false"/>
+                <line number="55" hits="1" branch="false"/>
+                <line number="56" hits="1" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="37" hits="1" branch="false"/>
-            <line number="40" hits="1" branch="false"/>
-            <line number="41" hits="1" branch="false"/>
-            <line number="42" hits="0" branch="false"/>
-            <line number="44" hits="1" branch="false"/>
-            <line number="45" hits="1" branch="false"/>
+            <line number="39" hits="1" branch="false"/>
+            <line number="42" hits="1" branch="false"/>
+            <line number="43" hits="1" branch="false"/>
+            <line number="44" hits="0" branch="false"/>
             <line number="46" hits="1" branch="false"/>
             <line number="47" hits="1" branch="false"/>
             <line number="48" hits="1" branch="false"/>
             <line number="49" hits="1" branch="false"/>
             <line number="50" hits="1" branch="false"/>
             <line number="51" hits="1" branch="false"/>
+            <line number="52" hits="1" branch="false"/>
             <line number="53" hits="1" branch="false"/>
-            <line number="54" hits="1" branch="false"/>
+            <line number="55" hits="1" branch="false"/>
+            <line number="56" hits="1" branch="false"/>
           </lines>
         </class>
         <class name="ard_regression.R" filename="R/ard_regression.R" line-rate="1" branch-rate="0" complexity="0">
