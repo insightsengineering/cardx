@@ -4,7 +4,7 @@
 \alias{.process_survfit_time}
 \title{Process Survival Fit For Time Estimates}
 \usage{
-.process_survfit_time(x, times, reverse)
+.process_survfit_time(x, times, type)
 }
 \arguments{
 \item{x}{(\code{\link[survival:survfit]{survival::survfit()}})\cr
@@ -13,9 +13,15 @@ a \code{\link[survival:survfit]{survival::survfit()}} object. See below for deta
 \item{times}{(\code{numeric})\cr
 a vector of times for which to return survival probabilities.}
 
-\item{reverse}{(\code{logical})\cr
-Flip the probability reported, i.e. \code{1 - estimate}. Default is \code{FALSE}. Only applies when
-\code{probs} is specified.}
+\item{type}{(\code{character} or \code{NULL})\cr
+type of statistic to report. Available for Kaplan-Meier time estimates only, otherwise \code{type}
+is ignored. Default is \code{"survival"}.
+Must be one of the following:\tabular{ll}{
+   type \tab transformation \cr
+   \code{"survival"} \tab \code{x} \cr
+   \code{"risk"} \tab \code{1 - x} \cr
+   \code{"cumhaz"} \tab \code{-log(x)} \cr
+}}
 }
 \value{
 a \code{tibble}
@@ -25,7 +31,7 @@ Process Survival Fit For Time Estimates
 }
 \examples{
 survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
-  cardx:::.process_survfit_time(times = c(60, 180), reverse = FALSE)
+  cardx:::.process_survfit_time(times = c(60, 180), type = "risk")
 
 }
 \keyword{internal}

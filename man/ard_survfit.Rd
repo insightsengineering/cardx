@@ -4,7 +4,12 @@
 \alias{ard_survfit}
 \title{ARD Survival Estimates}
 \usage{
-ard_survfit(x, times = NULL, probs = NULL, reverse = FALSE)
+ard_survfit(
+  x,
+  times = NULL,
+  probs = NULL,
+  type = c("survival", "risk", "cumhaz")
+)
 }
 \arguments{
 \item{x}{(\code{\link[survival:survfit]{survival::survfit()}})\cr
@@ -16,9 +21,15 @@ a vector of times for which to return survival probabilities.}
 \item{probs}{(\code{numeric})\cr
 a vector of probabilities with values in (0,1) specifying the survival quantiles to return.}
 
-\item{reverse}{(\code{logical})\cr
-Flip the probability reported, i.e. \code{1 - estimate}. Default is \code{FALSE}. Only applies when
-\code{probs} is specified.}
+\item{type}{(\code{character} or \code{NULL})\cr
+type of statistic to report. Available for Kaplan-Meier time estimates only, otherwise \code{type}
+is ignored. Default is \code{"survival"}.
+Must be one of the following:\tabular{ll}{
+   type \tab transformation \cr
+   \code{"survival"} \tab \code{x} \cr
+   \code{"risk"} \tab \code{1 - x} \cr
+   \code{"cumhaz"} \tab \code{-log(x)} \cr
+}}
 }
 \value{
 an ARD data frame of class 'card'
