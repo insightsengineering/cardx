@@ -96,16 +96,9 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
   multi_state <- inherits(x, "survfitms")
   if (multi_state == TRUE) {
     # selecting state to show
-    state <- unique(tidy$state) %>%
-      setdiff("(s0)") %>%
-      purrr::pluck(1)
-
-    if (identical(quiet, FALSE)) {
-      rlang::inform(glue(
-        "tbl_survfit: Multi-state model detected. Showing probabilities into state '{state}'"
-      ))
-    }
-    tidy <- dplyr::filter(tidy, .data$state == .env$state)
+    state <- setdiff(unique(tidy$state), "(s0)")[[1]]
+    cli::cli_inform("Multi-state model detected. Showing probabilities into state '{state}'.")
+    x <- dplyr::filter(x, .data$state == .env$state)
   }
 
   # tidy survfit results
@@ -173,7 +166,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
   # convert estimates to requested type
   if (type != "survival") {
     df_stat <- df_stat %>%
-      dplyr::mutate(across(
+      dplyr::mutate(dplyr::across(
         any_of(c("estimate", "conf.low", "conf.high")),
         if (type == "cumhaz") ~ -log(.x) else ~ 1 - .x
       )) %>%
@@ -233,7 +226,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
       dplyr::any_of(c("estimate", "conf.high", "conf.low", "time", "prob")), ~ as.list(.)
     )) %>%
     tidyr::pivot_longer(
-      cols = any_of(c("estimate", "conf.high", "conf.low", "time", "prob")),
+      cols = dplyr::any_of(c("estimate", "conf.high", "conf.low", "time", "prob")),
       names_to = "stat_name",
       values_to = "stat"
     ) %>%

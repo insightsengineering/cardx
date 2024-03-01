@@ -4,12 +4,7 @@
 \alias{ard_survfit}
 \title{ARD Survival Estimates}
 \usage{
-ard_survfit(
-  x,
-  times = NULL,
-  probs = NULL,
-  type = c("survival", "risk", "cumhaz")
-)
+ard_survfit(x, times = NULL, probs = NULL, type = "survival")
 }
 \arguments{
 \item{x}{(\code{\link[survival:survfit]{survival::survfit()}})\cr
