@@ -12,7 +12,7 @@ ard_regression(x, ...)
 \arguments{
 \item{x}{regression model object}
 
-\item{...}{Arguments passed to \code{broom.helpers::tidy_plus_plus()}}
+\item{...}{Arguments passed to \code{\link[broom.helpers:tidy_plus_plus]{broom.helpers::tidy_plus_plus()}}}
 
 \item{tidy_fun}{(\code{function})\cr
 a tidier. Default is \code{\link[broom.helpers:tidy_with_broom_or_parameters]{broom.helpers::tidy_with_broom_or_parameters}}}
