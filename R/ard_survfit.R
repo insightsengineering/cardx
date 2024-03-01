@@ -44,13 +44,13 @@ NULL
 
 #' @rdname ard_survfit
 #' @export
-ard_survfit <- function(x, times = NULL, probs = NULL, type = c("survival", "risk", "cumhaz")) {
+ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("survival", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(x)
-  check_class(type, "character", allow_empty = TRUE)
+  check_class(type, "character")
   if (!is.null(probs)) check_range(probs, c(0, 1))
   if (!all(inherits(x, "survfit"))) {
     cli::cli_abort(
@@ -60,7 +60,12 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = c("survival", "ris
   if (sum(is.null(times), is.null(probs)) != 1) {
     cli::cli_abort("One and only one of {.arg times} and {.arg probs} must be specified.")
   }
-  if (!is.null(type) && !is.null(probs)) {
+  if (!is.null(times) && !is.null(type) && !type %in% c("survival", "risk", "cumhaz")) {
+    cli::cli_abort(
+      "The {.arg type} argument is {.val {type}} but must be one of {.val survival}, {.val risk}, or {.val cumhaz}."
+    )
+  }
+  if (type != "survival" && !is.null(probs)) {
     cli::cli_inform("The {.arg type} argument is ignored for survival quantile estimation.")
   }
 
@@ -162,15 +167,16 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = c("survival", "ris
       dplyr::vars("estimate", "conf.high", "conf.low"),
       ~ ifelse(.data$time > .data$time_max, NA_real_, .)
     ) %>%
+    dplyr::mutate(context = type) %>%
     dplyr::select(!dplyr::any_of(c("time_max", "col_name")))
 
   # convert estimates to requested type
   if (type != "survival") {
     df_stat <- df_stat %>%
-      dplyr::mutate_at(
-        dplyr::vars("estimate", "conf.low", "conf.high"),
-        ~ dplyr::if_else(type == "risk", 1 - ., -log(.))
-      ) %>%
+      dplyr::mutate(across(
+        any_of(c("estimate", "conf.low", "conf.high")),
+        if (type == "cumhaz") ~ -log(.x) else ~ 1 - .x
+      )) %>%
       dplyr::rename(conf.low = "conf.high", conf.high = "conf.low")
   }
 
@@ -203,6 +209,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = c("survival", "ris
   ) %>%
     dplyr::bind_rows() %>%
     `rownames<-`(NULL) %>%
+    dplyr::mutate(context = "survival") %>%
     dplyr::as_tibble()
 
   df_stat
@@ -248,7 +255,6 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = c("survival", "ris
           )
         }
       ),
-      context = "survival",
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)
     ) %>%
     structure(., class = c("card", class(.))) %>%
