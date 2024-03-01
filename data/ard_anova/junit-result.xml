@@ -1,141 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="ard_aov" timestamp="2024-03-01T23:26:23Z" hostname="396e0a22e3da" tests="2" skipped="0" failures="1" errors="1" time="0.728">
-    <testcase time="0.672" classname="character(0)" name="ard_aov_works">
-      <failure type="failure" message="`ard_aov &lt;- ard_aov(cards::ADSL, by = ARM, variable = AGE)` threw an unexpected error. ('test-ard_aov.R:2:3')">`ard_aov &lt;- ard_aov(cards::ADSL, by = ARM, variable = AGE)` threw an unexpected error.
-Message: could not find function "check_class_data_frame"
-Class:   simpleError/error/condition
-Backtrace:
-    ▆
- 1. ├─testthat::expect_error(...) at test-ard_aov.R:2:3
- 2. │ └─testthat:::expect_condition_matching(...)
- 3. │   └─testthat:::quasi_capture(...)
- 4. │     ├─testthat (local) .capture(...)
- 5. │     │ └─base::withCallingHandlers(...)
- 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
- 7. └─cardx::ard_aov(cards::ADSL, by = ARM, variable = AGE)</failure>
-    </testcase>
-    <testcase time="0.056" classname="character(0)" name="ard_aov_works">
-      <error type="error" message="Error in `UseMethod(&quot;filter&quot;)`: no applicable method for 'filter' applied to an object of class &quot;function&quot; ('test-ard_aov.R:9:3')">Error in `UseMethod("filter")`: no applicable method for 'filter' applied to an object of class "function"
-Backtrace:
-    ▆
- 1. ├─testthat::expect_equal(...) at test-ard_aov.R:9:3
- 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object")
- 3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
- 4. └─cards::get_ard_statistics(...)
- 5.   └─dplyr::filter(x, ...)</error>
+  <testsuite name="ard_aov" timestamp="2024-03-01T23:38:53Z" hostname="601123c3fa1f" tests="3" skipped="1" failures="0" errors="0" time="0.893">
+    <testcase time="0.87" classname="character(0)" name="ard_aov_works"/>
+    <testcase time="0.0169999999999999" classname="character(0)" name="ard_aov_works"/>
+    <testcase time="0.00600000000000001" classname="character(0)" name="ard_aov_works">
+      <skipped message="Reason: On CRAN ('test-ard_aov.R:24:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_fishertest" timestamp="2024-03-01T23:26:24Z" hostname="396e0a22e3da" tests="2" skipped="0" failures="0" errors="0" time="0.142">
-    <testcase time="0.141" classname="character(0)" name="ard_fishertest_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_fishertest_works"/>
+  <testsuite name="ard_chisqtest" timestamp="2024-03-01T23:38:53Z" hostname="601123c3fa1f" tests="2" skipped="0" failures="0" errors="0" time="0.047">
+    <testcase time="0.046" classname="character(0)" name="ard_chisqtest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_chisqtest_works"/>
   </testsuite>
-  <testsuite name="ard_chisqtest" timestamp="2024-03-01T23:26:24Z" hostname="396e0a22e3da" tests="2" skipped="0" failures="0" errors="0" time="0.073">
-    <testcase time="0.0730000000000002" classname="character(0)" name="ard_chisqtest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_chisqtest_works"/>
-  </testsuite>
-  <testsuite name="ard_chisqtest" timestamp="2024-03-01T23:26:24Z" hostname="396e0a22e3da" tests="1" skipped="1" failures="0" errors="0" time="0.001">
-    <testcase time="0.00099999999999989" classname="character(0)" name="shuffle_ard_fills_missing_group_levels_if_the_group_is_meaningful">
+  <testsuite name="ard_chisqtest" timestamp="2024-03-01T23:38:53Z" hostname="601123c3fa1f" tests="1" skipped="1" failures="0" errors="0" time="0.011">
+    <testcase time="0.0110000000000001" classname="character(0)" name="shuffle_ard_fills_missing_group_levels_if_the_group_is_meaningful">
       <skipped message="Reason: On CRAN ('test-ard_chisqtest.R:23:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_kruskaltest" timestamp="2024-03-01T23:26:24Z" hostname="396e0a22e3da" tests="3" skipped="1" failures="0" errors="0" time="0.1">
-    <testcase time="0.0980000000000001" classname="character(0)" name="ard_kurskaltest_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_kurskaltest_works"/>
-    <testcase time="0.00100000000000011" classname="character(0)" name="ard_kurskaltest_works">
+  <testsuite name="ard_fishertest" timestamp="2024-03-01T23:38:53Z" hostname="601123c3fa1f" tests="2" skipped="0" failures="0" errors="0" time="0.072">
+    <testcase time="0.0720000000000001" classname="character(0)" name="ard_fishertest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_fishertest_works"/>
+  </testsuite>
+  <testsuite name="ard_kruskaltest" timestamp="2024-03-01T23:38:53Z" hostname="601123c3fa1f" tests="3" skipped="1" failures="0" errors="0" time="0.072">
+    <testcase time="0.0719999999999998" classname="character(0)" name="ard_kurskaltest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_kurskaltest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_kurskaltest_works">
       <skipped message="Reason: On CRAN ('test-ard_kruskaltest.R:20:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_mcnemartest" timestamp="2024-03-01T23:26:24Z" hostname="396e0a22e3da" tests="4" skipped="0" failures="0" errors="0" time="0.097">
-    <testcase time="0.0959999999999999" classname="character(0)" name="ard_mcnemartest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_mcnemartest_works"/>
+  <testsuite name="ard_mcnemartest" timestamp="2024-03-01T23:38:53Z" hostname="601123c3fa1f" tests="4" skipped="0" failures="0" errors="0" time="0.119">
+    <testcase time="0.117" classname="character(0)" name="ard_mcnemartest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_mcnemartest_works"/>
     <testcase time="0.00100000000000011" classname="character(0)" name="ard_mcnemartest_works"/>
     <testcase time="0" classname="character(0)" name="ard_mcnemartest_works"/>
   </testsuite>
-  <testsuite name="ard_moodtest" timestamp="2024-03-01T23:26:24Z" hostname="396e0a22e3da" tests="3" skipped="1" failures="0" errors="0" time="0.046">
-    <testcase time="0.044" classname="character(0)" name="ard_moodtest_works"/>
+  <testsuite name="ard_moodtest" timestamp="2024-03-01T23:38:53Z" hostname="601123c3fa1f" tests="3" skipped="1" failures="0" errors="0" time="0.022">
+    <testcase time="0.02" classname="character(0)" name="ard_moodtest_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_moodtest_works"/>
     <testcase time="0.00100000000000011" classname="character(0)" name="ard_moodtest_works">
       <skipped message="Reason: On CRAN ('test-ard_moodtest.R:20:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_onewaytest" timestamp="2024-03-01T23:26:24Z" hostname="396e0a22e3da" tests="2" skipped="0" failures="1" errors="1" time="0.053">
-    <testcase time="0.0369999999999999" classname="character(0)" name="ard_onewaytest_works">
-      <failure type="failure" message="`ard_onewaytest &lt;- ard_onewaytest(cards::ADSL, by = ARM, variable = AGE)` threw an unexpected error. ('test-ard_onewaytest.R:2:3')">`ard_onewaytest &lt;- ard_onewaytest(cards::ADSL, by = ARM, variable = AGE)` threw an unexpected error.
-Message: could not find function "check_class_data_frame"
-Class:   simpleError/error/condition
-Backtrace:
-    ▆
- 1. ├─testthat::expect_error(...) at test-ard_onewaytest.R:2:3
- 2. │ └─testthat:::expect_condition_matching(...)
- 3. │   └─testthat:::quasi_capture(...)
- 4. │     ├─testthat (local) .capture(...)
- 5. │     │ └─base::withCallingHandlers(...)
- 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
- 7. └─cardx::ard_onewaytest(cards::ADSL, by = ARM, variable = AGE)</failure>
-    </testcase>
-    <testcase time="0.016" classname="character(0)" name="ard_onewaytest_works">
-      <error type="error" message="Error in `UseMethod(&quot;filter&quot;)`: no applicable method for 'filter' applied to an object of class &quot;function&quot; ('test-ard_onewaytest.R:9:3')">Error in `UseMethod("filter")`: no applicable method for 'filter' applied to an object of class "function"
-Backtrace:
-    ▆
- 1. ├─testthat::expect_equal(...) at test-ard_onewaytest.R:9:3
- 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object")
- 3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
- 4. └─cards::get_ard_statistics(...)
- 5.   └─dplyr::filter(x, ...)</error>
+  <testsuite name="ard_onewaytest" timestamp="2024-03-01T23:38:53Z" hostname="601123c3fa1f" tests="3" skipped="1" failures="0" errors="0" time="0.122">
+    <testcase time="0.121" classname="character(0)" name="ard_onewaytest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_onewaytest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_onewaytest_works">
+      <skipped message="Reason: On CRAN ('test-ard_onewaytest.R:23:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_proportion_ci" timestamp="2024-03-01T23:26:24Z" hostname="396e0a22e3da" tests="1" skipped="0" failures="0" errors="0" time="0.382">
-    <testcase time="0.382" classname="character(0)" name="ard_proportion_ci_works"/>
+  <testsuite name="ard_proportion_ci" timestamp="2024-03-01T23:38:54Z" hostname="601123c3fa1f" tests="1" skipped="0" failures="0" errors="0" time="0.312">
+    <testcase time="0.312" classname="character(0)" name="ard_proportion_ci_works"/>
   </testsuite>
-  <testsuite name="ard_proportion_ci" timestamp="2024-03-01T23:26:24Z" hostname="396e0a22e3da" tests="2" skipped="1" failures="0" errors="0" time="0.003">
-    <testcase time="0.00200000000000022" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works"/>
+  <testsuite name="ard_proportion_ci" timestamp="2024-03-01T23:38:54Z" hostname="601123c3fa1f" tests="2" skipped="1" failures="0" errors="0" time="0.003">
+    <testcase time="0.00199999999999978" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_proportion_ci_method_strat_wilson_works">
       <skipped message="Reason: On CRAN ('test-ard_proportion_ci.R:50:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_regression" timestamp="2024-03-01T23:26:25Z" hostname="396e0a22e3da" tests="1" skipped="1" failures="0" errors="0" time="0.407">
-    <testcase time="0.407" classname="character(0)" name="ard_regression_works">
-      <skipped message="Reason: On CRAN ('test-ard_regression.R:2:3')"/>
-    </testcase>
-  </testsuite>
-  <testsuite name="ard_regression_basic" timestamp="2024-03-01T23:26:25Z" hostname="396e0a22e3da" tests="2" skipped="1" failures="0" errors="0" time="0.054">
-    <testcase time="0.0529999999999999" classname="character(0)" name="ard_regression_basic_works"/>
+  <testsuite name="ard_regression_basic" timestamp="2024-03-01T23:38:54Z" hostname="601123c3fa1f" tests="2" skipped="1" failures="0" errors="0" time="0.447">
+    <testcase time="0.446" classname="character(0)" name="ard_regression_basic_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_regression_basic_works">
       <skipped message="Reason: On CRAN ('test-ard_regression_basic.R:8:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_ttest" timestamp="2024-03-01T23:26:25Z" hostname="396e0a22e3da" tests="3" skipped="1" failures="0" errors="0" time="0.288">
-    <testcase time="0.287" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0.00100000000000033" classname="character(0)" name="ard_ttest_works"/>
-    <testcase time="0" classname="character(0)" name="ard_ttest_works">
+  <testsuite name="ard_regression" timestamp="2024-03-01T23:38:54Z" hostname="601123c3fa1f" tests="1" skipped="1" failures="0" errors="0" time="0.016">
+    <testcase time="0.016" classname="character(0)" name="ard_regression_works">
+      <skipped message="Reason: On CRAN ('test-ard_regression.R:2:3')"/>
+    </testcase>
+  </testsuite>
+  <testsuite name="ard_ttest" timestamp="2024-03-01T23:38:55Z" hostname="601123c3fa1f" tests="3" skipped="1" failures="0" errors="0" time="0.302">
+    <testcase time="0.301" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0" classname="character(0)" name="ard_ttest_works"/>
+    <testcase time="0.00099999999999989" classname="character(0)" name="ard_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:25:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_ttest" timestamp="2024-03-01T23:26:25Z" hostname="396e0a22e3da" tests="3" skipped="1" failures="0" errors="0" time="0.011">
-    <testcase time="0.00999999999999979" classname="character(0)" name="ard_paired_ttest_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_ttest_works"/>
+  <testsuite name="ard_ttest" timestamp="2024-03-01T23:38:55Z" hostname="601123c3fa1f" tests="3" skipped="1" failures="0" errors="0" time="0.022">
+    <testcase time="0.0209999999999999" classname="character(0)" name="ard_paired_ttest_works"/>
+    <testcase time="0.00100000000000033" classname="character(0)" name="ard_paired_ttest_works"/>
     <testcase time="0" classname="character(0)" name="ard_paired_ttest_works">
       <skipped message="Reason: On CRAN ('test-ard_ttest.R:70:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="ard_wilcoxtest" timestamp="2024-03-01T23:26:25Z" hostname="396e0a22e3da" tests="3" skipped="0" failures="0" errors="0" time="0.055">
-    <testcase time="0.0540000000000003" classname="character(0)" name="ard_wilcoxtest_works"/>
+  <testsuite name="ard_wilcoxtest" timestamp="2024-03-01T23:38:55Z" hostname="601123c3fa1f" tests="3" skipped="0" failures="0" errors="0" time="0.073">
+    <testcase time="0.0719999999999996" classname="character(0)" name="ard_wilcoxtest_works"/>
+    <testcase time="0.00100000000000033" classname="character(0)" name="ard_wilcoxtest_works"/>
     <testcase time="0" classname="character(0)" name="ard_wilcoxtest_works"/>
-    <testcase time="0.00099999999999989" classname="character(0)" name="ard_wilcoxtest_works"/>
   </testsuite>
-  <testsuite name="ard_wilcoxtest" timestamp="2024-03-01T23:26:25Z" hostname="396e0a22e3da" tests="3" skipped="0" failures="0" errors="0" time="0.004">
-    <testcase time="0.00300000000000011" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
+  <testsuite name="ard_wilcoxtest" timestamp="2024-03-01T23:38:55Z" hostname="601123c3fa1f" tests="3" skipped="0" failures="0" errors="0" time="0.003">
+    <testcase time="0.00199999999999978" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
     <testcase time="0" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
     <testcase time="0.00099999999999989" classname="character(0)" name="ard_paired_wilcoxtest_works"/>
   </testsuite>
-  <testsuite name="proportion_ci" timestamp="2024-03-01T23:26:25Z" hostname="396e0a22e3da" tests="1" skipped="1" failures="0" errors="0" time="0.067">
-    <testcase time="0.0670000000000002" classname="character(0)" name="check_the_proportion_ci__functions_work">
+  <testsuite name="proportion_ci" timestamp="2024-03-01T23:38:55Z" hostname="601123c3fa1f" tests="1" skipped="1" failures="0" errors="0" time="0.05">
+    <testcase time="0.0500000000000003" classname="character(0)" name="check_the_proportion_ci__functions_work">
       <skipped message="Reason: On CRAN ('test-proportion_ci.R:10:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="proportion_ci" timestamp="2024-03-01T23:26:25Z" hostname="396e0a22e3da" tests="1" skipped="1" failures="0" errors="0" time="0.01">
-    <testcase time="0.00999999999999979" classname="character(0)" name="check_the_proportion_ci_strat_wilson_function_works">
+  <testsuite name="proportion_ci" timestamp="2024-03-01T23:38:55Z" hostname="601123c3fa1f" tests="1" skipped="1" failures="0" errors="0" time="0.013">
+    <testcase time="0.0129999999999999" classname="character(0)" name="check_the_proportion_ci_strat_wilson_function_works">
       <skipped message="Reason: On CRAN ('test-proportion_ci.R:136:3')"/>
     </testcase>
   </testsuite>
