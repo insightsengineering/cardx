@@ -30,8 +30,10 @@
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_regression_basic()
 ard_regression_basic <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or_parameters,
-                                 stats_to_remove = c("term", "var_type", "var_label", "var_class",
-                                                     "label", "contrasts_type", "contrasts", "var_nlevels"),
+                                 stats_to_remove = c(
+                                   "term", "var_type", "var_label", "var_class",
+                                   "label", "contrasts_type", "contrasts", "var_nlevels"
+                                 ),
                                  ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
