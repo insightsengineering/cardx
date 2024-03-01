@@ -14,7 +14,7 @@ a \code{\link[survival:survfit]{survival::survfit()}} object. See below for deta
 a vector of probabilities with values in (0,1) specifying the survival quantiles to return.}
 }
 \value{
-a \code{tibble}
+a \code{data.frame}
 }
 \description{
 Process Survival Fit For Quantile Estimates

@@ -162,16 +162,19 @@ ard_survfit <- function(x, times = NULL, probs = NULL, reverse = FALSE) {
 #' @keywords internal
 .process_survfit_probs <- function(x, probs) {
   # calculate survival quantiles and add estimates to df
-  df_stat <- purrr::map2_dfr(
+  df_stat <- map2(
     probs,
     seq_along(probs),
     ~ stats::quantile(x, probs = .x) %>%
       as.data.frame() %>%
-      tibble::rownames_to_column() %>%
-      set_names(c("strata", "estimate", "conf.low", "conf.high")) %>%
+      set_names(c("estimate", "conf.low", "conf.high")) %>%
+      dplyr::mutate(strata = row.names(.)) %>%
+      dplyr::select(strata, estimate, conf.low, conf.high) %>%
       dplyr::mutate(prob = .x)
   ) %>%
-    tibble::tibble()
+    dplyr::bind_rows() %>%
+    `rownames<-`(NULL) %>%
+    dplyr::as_tibble()
 
   df_stat
 }
