@@ -21,6 +21,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Daniel Sjoberg \email{sjobergd@gene.com}
 
+Authors:
+\itemize{
+  \item Abinaya Yogasekaram \email{abinaya.yogasekaram@contractors.roche.com}
+}
+
 Other contributors:
 \itemize{
   \item F. Hoffmann-La Roche AG [copyright holder, funder]

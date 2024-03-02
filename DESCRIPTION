@@ -3,6 +3,7 @@ Title: Extra Analysis Results Data Utilities
 Version: 0.0.0.9044
 Authors@R: c(
     person("Daniel", "Sjoberg", , "sjobergd@gene.com", role = c("aut", "cre")),
+    person("Abinaya", "Yogasekaram", , "abinaya.yogasekaram@contractors.roche.com", role = c("aut")),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: Extra Analysis Results Data (ARD) functions. The package
@@ -23,6 +24,8 @@ Imports:
 Suggests:
     broom (>= 1.0.5),
     broom.helpers (>= 1.13.0),
+    effectsize (>= 0.6.0),
+    parameters (>= 0.20.2),
     spelling,
     testthat (>= 3.2.0),
     withr
