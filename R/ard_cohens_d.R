@@ -12,16 +12,16 @@
 #'   column name to be compared. Must be a continuous variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
-#' @param ... arguments passed to [`effectsize::cohens_d(...)`]
+#' @param ... arguments passed to `effectsize::cohens_d(...)`
 #'
 #' @return ARD data frame
-#' @name ard_cohensd
+#' @name ard_cohens_d
 #'
 #' @details
-#' For the `ard_cohensd()` function, the data is expected to be one row per subject.
+#' For the `ard_cohens_d()` function, the data is expected to be one row per subject.
 #' The data is passed as `effectsize::cohens_d(data[[variable]]~data[[by]], data, paired = FALSE, ...)`.
 #'
-#' For the `ard_paired_cohensd()` function, the data is expected to be one row
+#' For the `ard_paired_cohens_d()` function, the data is expected to be one row
 #' per subject per by level. Before the effect size is calculated, the data are
 #' reshaped to a wide format to be one row per subject.
 #' The data are then passed as
@@ -30,7 +30,7 @@
 #' @examples
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   ard_cohensd(by = ARM, variable = AGE)
+#'   ard_cohens_d(by = ARM, variable = AGE)
 #'
 #' # constructing a paired data set,
 #' # where patients receive both treatments
@@ -40,12 +40,12 @@
 #'   dplyr::arrange(USUBJID, ARM) |>
 #'   dplyr::group_by(USUBJID) |>
 #'   dplyr::filter(dplyr::n() > 1) |>
-#'   ard_paired_cohensd(by = ARM, variable = AGE, id = USUBJID)
+#'   ard_paired_cohens_d(by = ARM, variable = AGE, id = USUBJID)
 NULL
 
-#' @rdname ard_cohensd
+#' @rdname ard_cohens_d
 #' @export
-ard_cohensd <- function(data, by, variable, ...) {
+ard_cohens_d <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
   cards::check_pkg_installed("parameters", reference_pkg = "cardx")
@@ -61,7 +61,7 @@ ard_cohensd <- function(data, by, variable, ...) {
   check_scalar(variable)
 
   # build ARD ------------------------------------------------------------------
-  .format_cohensd_results(
+  .format_cohens_d_results(
     by = by,
     variable = variable,
     lst_tidy =
@@ -75,9 +75,9 @@ ard_cohensd <- function(data, by, variable, ...) {
 }
 
 
-#' @rdname ard_cohensd
+#' @rdname ard_cohens_d
 #' @export
-ard_paired_cohensd <- function(data, by, variable, id, ...) {
+ard_paired_cohens_d <- function(data, by, variable, id, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
   cards::check_pkg_installed("parameters", reference_pkg = "cardx")
@@ -94,7 +94,7 @@ ard_paired_cohensd <- function(data, by, variable, id, ...) {
   check_scalar(id)
 
   # build ARD ------------------------------------------------------------------
-  .format_cohensd_results(
+  .format_cohens_d_results(
     by = by,
     variable = variable,
     lst_tidy =
@@ -136,7 +136,7 @@ ard_paired_cohensd <- function(data, by, variable, id, ...) {
 #' @return ARD data frame
 #' @keywords internal
 #' @examples
-#' cardx:::.format_cohensd_results(
+#' cardx:::.format_cohens_d_results(
 #'   by = "ARM",
 #'   variable = "AGE",
 #'   paired = FALSE,
@@ -146,7 +146,7 @@ ard_paired_cohensd <- function(data, by, variable, id, ...) {
 #'         parameters::standardize_names(style = "broom")
 #'     )
 #' )
-.format_cohensd_results <- function(by, variable, lst_tidy, paired, ...) {
+.format_cohens_d_results <- function(by, variable, lst_tidy, paired, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
     cards::tidy_as_ard(
@@ -157,7 +157,7 @@ ard_paired_cohensd <- function(data, by, variable, id, ...) {
       fun_args_to_record = c("mu", "paired", "pooled_sd", "alternative"),
       formals = formals(asNamespace("effectsize")[["cohens_d"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "cohensd")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "cohens_d")
     )
 
   # add the stat label ---------------------------------------------------------

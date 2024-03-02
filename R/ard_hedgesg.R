@@ -12,7 +12,7 @@
 #'   column name to be compared. Must be a continuous variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
-#' @param ... arguments passed to [`effectsize::hedges_g(...)`]
+#' @param ... arguments passed to `effectsize::hedges_g(...)`
 #'
 #' @return ARD data frame
 #' @name ard_hedgesg

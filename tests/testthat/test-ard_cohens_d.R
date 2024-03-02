@@ -1,17 +1,17 @@
 skip_if_not(cards::is_pkg_installed("effectsize", reference_pkg = "cardx"))
 skip_if_not(cards::is_pkg_installed("parameters", reference_pkg = "cardx"))
 
-test_that("ard_cohensd() works", {
+test_that("ard_cohens_d() works", {
   expect_error(
-    ard_cohensd <-
+    ard_cohens_d <-
       cards::ADSL |>
       dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-      ard_cohensd(by = ARM, variable = AGE, pooled_sd = FALSE),
+      ard_cohens_d(by = ARM, variable = AGE, pooled_sd = FALSE),
     NA
   )
 
   expect_equal(
-    ard_cohensd |>
+    ard_cohens_d |>
       cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
     effectsize::cohens_d(
       AGE ~ ARM,
@@ -26,13 +26,13 @@ test_that("ard_cohensd() works", {
   # errors are properly handled
   expect_snapshot(
     cards::ADSL |>
-      ard_cohensd(by = ARM, variable = AGE) |>
+      ard_cohens_d(by = ARM, variable = AGE) |>
       dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
 })
 
-test_that("ard_paired_cohensd() works", {
+test_that("ard_paired_cohens_d() works", {
   ADSL_paired <-
     cards::ADSL[c("ARM", "AGE")] |>
     dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
@@ -41,14 +41,14 @@ test_that("ard_paired_cohensd() works", {
     dplyr::filter(dplyr::n() > 1)
 
   expect_error(
-    ard_paired_cohensd <-
+    ard_paired_cohens_d <-
       ADSL_paired |>
-      ard_paired_cohensd(by = ARM, variable = AGE, id = USUBJID),
+      ard_paired_cohens_d(by = ARM, variable = AGE, id = USUBJID),
     NA
   )
 
   expect_equal(
-    ard_paired_cohensd |>
+    ard_paired_cohens_d |>
       cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
     with(
       data =
@@ -75,7 +75,7 @@ test_that("ard_paired_cohensd() works", {
       dplyr::mutate(
         ARM = ifelse(dplyr::row_number() == 1L, "3rd ARM", ARM)
       ) |>
-      ard_paired_cohensd(by = ARM, variable = AGE, id = USUBJID) |>
+      ard_paired_cohens_d(by = ARM, variable = AGE, id = USUBJID) |>
       dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
