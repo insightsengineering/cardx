@@ -31,7 +31,13 @@
     <loc>https://insightsengineering.github.io/cardx/reference/ard_chisqtest.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_cohens_d.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_fishertest.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_hedges_g.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_kruskaltest.html</loc>
@@ -59,6 +65,12 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/cardx-package.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/dot-format_cohens_d_results.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/dot-format_hedges_g_results.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/dot-format_mcnemartest_results.html</loc>
