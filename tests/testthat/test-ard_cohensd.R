@@ -1,9 +1,12 @@
+skip_if_not(cards::is_pkg_installed("effectsize", reference_pkg = "cardx"))
+skip_if_not(cards::is_pkg_installed("parameters", reference_pkg = "cardx"))
+
 test_that("ard_cohensd() works", {
   expect_error(
     ard_cohensd <-
       cards::ADSL |>
       dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-      ard_cohensd(by = ARM, variable = AGE, var.equal = TRUE),
+      ard_cohensd(by = ARM, variable = AGE, pooled_sd = FALSE),
     NA
   )
 
@@ -12,7 +15,8 @@ test_that("ard_cohensd() works", {
       cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
     effectsize::cohens_d(
       AGE ~ ARM,
-      data = cards::ADSL |> dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose"))
+      data = cards::ADSL |> dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")),
+      pooled_sd = FALSE
     ) |>
       parameters::standardize_names(style = "broom") |>
       dplyr::select(estimate, conf.low, conf.high),

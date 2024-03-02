@@ -1,3 +1,6 @@
+skip_if_not(cards::is_pkg_installed("effectsize", reference_pkg = "cardx"))
+skip_if_not(cards::is_pkg_installed("parameters", reference_pkg = "cardx"))
+
 test_that("ard_hedgesg() works", {
   expect_error(
     ard_hedgesg <-

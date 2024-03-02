@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Analysis results data for paired and non-paired Hedge's G Effect Size Test
-#' using `effectsize::hedges_g()`.
+#' using [`effectsize::hedges_g()`].
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame. See below for details.
@@ -12,7 +12,7 @@
 #'   column name to be compared. Must be a continuous variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
-#' @param ... arguments passed to `effectsize::hedges_g(...)`
+#' @param ... arguments passed to [`effectsize::hedges_g(...)`]
 #'
 #' @return ARD data frame
 #' @name ard_hedgesg
@@ -49,6 +49,7 @@ ard_hedgesg <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
   cards::check_pkg_installed("parameters", reference_pkg = "cardx")
+
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_data_frame(data)
@@ -77,6 +78,7 @@ ard_paired_hedgesg <- function(data, by, variable, id, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
   cards::check_pkg_installed("parameters", reference_pkg = "cardx")
+
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variable)
@@ -135,7 +137,7 @@ ard_paired_hedgesg <- function(data, by, variable, id, ...) {
       tidy_result_names = c(
         "estimate", "conf.level", "conf.low", "conf.high"
       ),
-      fun_args_to_record = c("mu", "paired", "pooled_sd"),
+      fun_args_to_record = c("mu", "paired", "pooled_sd", "alternative"),
       formals = formals(asNamespace("effectsize")[["hedges_g"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
       lst_ard_columns = list(group1 = by, variable = variable, context = "hedgesg")

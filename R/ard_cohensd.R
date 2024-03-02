@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Analysis results data for paired and non-paired Cohen's D Effect Size Test
-#' using `effectsize::cohens_d()`.
+#' using [`effectsize::cohens_d()`].
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame. See below for details.
@@ -12,7 +12,7 @@
 #'   column name to be compared. Must be a continuous variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
-#' @param ... arguments passed to `effectsize::cohens_d(...)`
+#' @param ... arguments passed to [`effectsize::cohens_d(...)`]
 #'
 #' @return ARD data frame
 #' @name ard_cohensd
@@ -49,6 +49,7 @@ ard_cohensd <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
   cards::check_pkg_installed("parameters", reference_pkg = "cardx")
+
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variable)
@@ -116,6 +117,10 @@ ard_paired_cohensd <- function(data, by, variable, id, ...) {
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
     "conf.level", "CI Confidence Level",
+    "mu", "H0 Mean",
+    "paired", "Paired test",
+    "pooled_sd", "Pooled Standard Deviation",
+    "alternative", "Alternative Hypothesis"
   )
 }
 
@@ -149,7 +154,7 @@ ard_paired_cohensd <- function(data, by, variable, id, ...) {
       tidy_result_names = c(
         "estimate", "conf.level", "conf.low", "conf.high"
       ),
-      fun_args_to_record = c("mu", "paired", "pooled_sd"),
+      fun_args_to_record = c("mu", "paired", "pooled_sd", "alternative"),
       formals = formals(asNamespace("effectsize")[["cohens_d"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
       lst_ard_columns = list(group1 = by, variable = variable, context = "cohensd")
