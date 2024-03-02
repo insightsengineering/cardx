@@ -1,17 +1,17 @@
 skip_if_not(cards::is_pkg_installed("effectsize", reference_pkg = "cardx"))
 skip_if_not(cards::is_pkg_installed("parameters", reference_pkg = "cardx"))
 
-test_that("ard_hedgesg() works", {
+test_that("ard_hedges_g() works", {
   expect_error(
-    ard_hedgesg <-
+    ard_hedges_g <-
       cards::ADSL |>
       dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-      ard_hedgesg(by = ARM, variable = AGE),
+      ard_hedges_g(by = ARM, variable = AGE),
     NA
   )
 
   expect_equal(
-    ard_hedgesg |>
+    ard_hedges_g |>
       cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
     effectsize::hedges_g(
       AGE ~ ARM,
@@ -25,13 +25,13 @@ test_that("ard_hedgesg() works", {
   # errors are properly handled
   expect_snapshot(
     cards::ADSL |>
-      ard_hedgesg(by = ARM, variable = AGE) |>
+      ard_hedges_g(by = ARM, variable = AGE) |>
       dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
 })
 
-test_that("ard_paired_hedgesg() works", {
+test_that("ard_paired_hedges_g() works", {
   ADSL_paired <-
     cards::ADSL[c("ARM", "AGE")] |>
     dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
@@ -40,14 +40,14 @@ test_that("ard_paired_hedgesg() works", {
     dplyr::filter(dplyr::n() > 1)
 
   expect_error(
-    ard_paired_hedgesg <-
+    ard_paired_hedges_g <-
       ADSL_paired |>
-      ard_paired_hedgesg(by = ARM, variable = AGE, id = USUBJID),
+      ard_paired_hedges_g(by = ARM, variable = AGE, id = USUBJID),
     NA
   )
 
   expect_equal(
-    ard_paired_hedgesg |>
+    ard_paired_hedges_g |>
       cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
     with(
       data =
@@ -74,7 +74,7 @@ test_that("ard_paired_hedgesg() works", {
       dplyr::mutate(
         ARM = ifelse(dplyr::row_number() == 1L, "3rd ARM", ARM)
       ) |>
-      ard_paired_hedgesg(by = ARM, variable = AGE, id = USUBJID) |>
+      ard_paired_hedges_g(by = ARM, variable = AGE, id = USUBJID) |>
       dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )

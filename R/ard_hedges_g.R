@@ -15,13 +15,13 @@
 #' @param ... arguments passed to `effectsize::hedges_g(...)`
 #'
 #' @return ARD data frame
-#' @name ard_hedgesg
+#' @name ard_hedges_g
 #'
 #' @details
-#' For the `ard_hedgesg()` function, the data is expected to be one row per subject.
+#' For the `ard_hedges_g()` function, the data is expected to be one row per subject.
 #' The data is passed as `effectsize::hedges_g(data[[variable]]~data[[by]], data, paired = FALSE, ...)`.
 #'
-#' For the `ard_paired_hedgesg()` function, the data is expected to be one row
+#' For the `ard_paired_hedges_g()` function, the data is expected to be one row
 #' per subject per by level. Before the effect size is calculated, the data are
 #' reshaped to a wide format to be one row per subject.
 #' The data are then passed as
@@ -30,7 +30,7 @@
 #' @examples
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   ard_hedgesg(by = ARM, variable = AGE)
+#'   ard_hedges_g(by = ARM, variable = AGE)
 #'
 #' # constructing a paired data set,
 #' # where patients receive both treatments
@@ -40,12 +40,12 @@
 #'   dplyr::arrange(USUBJID, ARM) |>
 #'   dplyr::group_by(USUBJID) |>
 #'   dplyr::filter(dplyr::n() > 1) |>
-#'   ard_paired_hedgesg(by = ARM, variable = AGE, id = USUBJID)
+#'   ard_paired_hedges_g(by = ARM, variable = AGE, id = USUBJID)
 NULL
 
-#' @rdname ard_hedgesg
+#' @rdname ard_hedges_g
 #' @export
-ard_hedgesg <- function(data, by, variable, ...) {
+ard_hedges_g <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
   cards::check_pkg_installed("parameters", reference_pkg = "cardx")
@@ -59,7 +59,7 @@ ard_hedgesg <- function(data, by, variable, ...) {
   check_scalar(variable)
 
   # build ARD ------------------------------------------------------------------
-  .format_hedgesg_results(
+  .format_hedges_g_results(
     by = by,
     variable = variable,
     lst_tidy =
@@ -72,9 +72,9 @@ ard_hedgesg <- function(data, by, variable, ...) {
   )
 }
 
-#' @rdname ard_hedgesg
+#' @rdname ard_hedges_g
 #' @export
-ard_paired_hedgesg <- function(data, by, variable, id, ...) {
+ard_paired_hedges_g <- function(data, by, variable, id, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
   cards::check_pkg_installed("parameters", reference_pkg = "cardx")
@@ -92,7 +92,7 @@ ard_paired_hedgesg <- function(data, by, variable, id, ...) {
   check_scalar(id)
 
   # build ARD ------------------------------------------------------------------
-  .format_hedgesg_results(
+  .format_hedges_g_results(
     by = by,
     variable = variable,
     lst_tidy =
@@ -119,7 +119,7 @@ ard_paired_hedgesg <- function(data, by, variable, id, ...) {
 #' @return ARD data frame
 #' @keywords internal
 #' @examples
-#' cardx:::.format_hedgesg_results(
+#' cardx:::.format_hedges_g_results(
 #'   by = "ARM",
 #'   variable = "AGE",
 #'   paired = FALSE,
@@ -129,7 +129,7 @@ ard_paired_hedgesg <- function(data, by, variable, id, ...) {
 #'         parameters::standardize_names(style = "broom")
 #'     )
 #' )
-.format_hedgesg_results <- function(by, variable, lst_tidy, paired, ...) {
+.format_hedges_g_results <- function(by, variable, lst_tidy, paired, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
     cards::tidy_as_ard(
@@ -140,7 +140,7 @@ ard_paired_hedgesg <- function(data, by, variable, id, ...) {
       fun_args_to_record = c("mu", "paired", "pooled_sd", "alternative"),
       formals = formals(asNamespace("effectsize")[["hedges_g"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "hedgesg")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "hedges_g")
     )
 
   # add the stat label ---------------------------------------------------------
