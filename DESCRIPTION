@@ -14,7 +14,7 @@ BugReports: https://github.com/insightsengineering/cardx/issues
 Depends:
     R (>= 4.1)
 Imports:
-    cards (>= 0.0.0.9049),
+    cards (>= 0.1.0.9002),
     cli (>= 3.6.1),
     dplyr (>= 1.1.2),
     glue (>= 1.6.2),
@@ -23,6 +23,7 @@ Imports:
 Suggests:
     broom (>= 1.0.5),
     broom.helpers (>= 1.13.0),
+    car (>= 3.0-11),
     spelling,
     testthat (>= 3.2.0),
     withr

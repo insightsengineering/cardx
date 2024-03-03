@@ -1,4 +1,4 @@
-#' ARD Anova from car Package
+#' ARD ANOVA from car Package
 #'
 #' Function takes a regression model object and calculated ANOVA using [`car::Anova()`].
 #'
@@ -6,8 +6,9 @@
 #' @param ... arguments passed to `car::Anova(...)`
 #'
 #' @return data frame
+#' @export
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed("car", reference_pkg = "cardx")
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_car_anova()
 #'
@@ -15,8 +16,7 @@
 #'   ard_car_anova(test.statistic = "Wald")
 ard_car_anova <- function(x, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("car", reference_pkg = "cardx")
-  cards::check_pkg_installed("broom.helpers", reference_pkg = "cardx")
+  cards::check_pkg_installed(c("broom.helpers", "car"), reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
@@ -32,7 +32,7 @@ ard_car_anova <- function(x, ...) {
       values_to = "stat"
     ) |>
     dplyr::mutate(
-      stat = as.list(stat),
+      stat = as.list(.data$stat),
       stat_label =
         dplyr::case_when(
           .data$stat_name %in% "statistic" ~ "Statistic",

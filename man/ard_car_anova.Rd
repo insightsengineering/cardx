@@ -2,7 +2,7 @@
 % Please edit documentation in R/ard_car_anova.R
 \name{ard_car_anova}
 \alias{ard_car_anova}
-\title{ARD Anova from car Package}
+\title{ARD ANOVA from car Package}
 \usage{
 ard_car_anova(x, ...)
 }
@@ -18,9 +18,11 @@ data frame
 Function takes a regression model object and calculated ANOVA using \code{\link[car:Anova]{car::Anova()}}.
 }
 \examples{
+\dontshow{if (cards::is_pkg_installed("car", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_car_anova()
 
 glm(vs ~ factor(cyl) + factor(am), data = mtcars, family = binomial) |>
   ard_car_anova(test.statistic = "Wald")
+\dontshow{\}) # examplesIf}
 }
