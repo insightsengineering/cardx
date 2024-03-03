@@ -14,7 +14,7 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed("smd", reference_pkg = "cardx")
 #' ard_smd(cards::ADSL, by = ARM, variable = AGE, std.error = TRUE)
 #' ard_smd(cards::ADSL, by = ARM, variable = AGEGR1, std.error = TRUE)
 ard_smd <- function(data, by, variable, ...) {

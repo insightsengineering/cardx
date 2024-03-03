@@ -1,3 +1,5 @@
+skip_if_not(cards::is_pkg_installed("smd", reference_pkg = "cardx"))
+
 test_that("ard_smd() works", {
   expect_error(
     ard_smd <-
