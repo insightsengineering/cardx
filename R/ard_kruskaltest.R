@@ -26,7 +26,7 @@ ard_kruskaltest <- function(data, by, variable) {
   check_not_missing(data)
   check_not_missing(variable)
   check_not_missing(by)
-  check_class_data_frame(x = data)
+  check_data_frame(data)
   cards::process_selectors(data, by = {{ by }}, variable = {{ variable }})
   check_scalar(by)
   check_scalar(variable)
