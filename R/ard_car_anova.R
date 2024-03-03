@@ -53,15 +53,17 @@ ard_car_anova <- function(x, ...) {
         map(
           .data$stat,
           function(.x) {
+            # styler: off
             if (is.integer(.x)) return(0L)
             if (is.numeric(.x)) return(1L)
+            # styler: on
             NULL
           }
         ),
       context = "car_anova",
       warning = car_anova["warning"],
       error = car_anova["error"]
-    )  |>
+    ) |>
     cards::tidy_ard_column_order() %>%
     {structure(., class = c("card", class(.)))} # styler: off
 }
