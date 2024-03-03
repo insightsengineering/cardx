@@ -15,7 +15,7 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
 #' mtcars |>
 #'   ard_proptest(by = vs, variable = am)
 ard_proptest <- function(data, by, variable, ...) {

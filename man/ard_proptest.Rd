@@ -26,6 +26,8 @@ ARD data frame
 Analysis results data for a 2-sample test or proportions using \code{\link[stats:prop.test]{stats::prop.test()}}.
 }
 \examples{
+\dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 mtcars |>
   ard_proptest(by = vs, variable = am)
+\dontshow{\}) # examplesIf}
 }
