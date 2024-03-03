@@ -10,8 +10,10 @@ test_that("ard_proptest() works", {
     ard_proptest |>
       cards::get_ard_statistics(stat_name %in% c("estimate", "estimate1", "estimate2", "conf.low", "conf.high")),
     prop.test(
-      x = c(mtcars$am[mtcars$vs == 0] |> sum(),
-            mtcars$am[mtcars$vs == 1] |> sum()),
+      x = c(
+        mtcars$am[mtcars$vs == 0] |> sum(),
+        mtcars$am[mtcars$vs == 1] |> sum()
+      ),
       n = c(sum(mtcars$vs == 0), sum(mtcars$vs == 1)),
       conf.level = 0.90
     ) |>
