@@ -34,8 +34,11 @@ reference:
 
   - subtitle: "Estimation"
   - contents:
+      - ard_cohens_d
+      - ard_hedges_g
       - ard_proportion_ci
       - ard_regression
+      - ard_regression_basic
 
   - title: "Helpers"
   - contents:
