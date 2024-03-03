@@ -34,7 +34,16 @@ test_that("ard_proptest() error messaging", {
       as.data.frame(),
     NA
   )
+  # check all the stats still appear despite the errors
   expect_equal(nrow(non_binary), 13L)
+  expect_setequal(
+    non_binary$stat_name,
+    c(
+      "estimate", "estimate1", "estimate2", "statistic", "p.value", "parameter",
+      "conf.low", "conf.high", "method", "alternative", "p", "conf.level", "correct"
+    )
+  )
+  # check the error message it the one we expect
   expect_equal(
     non_binary$error |> unique() |> cli::ansi_strip(),
     "Expecting `variable` to be either <logical> or <numeric/integer> coded as 0 and 1."
@@ -48,7 +57,16 @@ test_that("ard_proptest() error messaging", {
       as.data.frame(),
     NA
   )
+  # check all the stats still appear despite the errors
   expect_equal(nrow(too_many_levels), 13L)
+  expect_setequal(
+    non_binary$stat_name,
+    c(
+      "estimate", "estimate1", "estimate2", "statistic", "p.value", "parameter",
+      "conf.low", "conf.high", "method", "alternative", "p", "conf.level", "correct"
+    )
+  )
+  # check the error message it the one we expect
   expect_equal(
     too_many_levels$error |> unique() |> cli::ansi_strip(),
     "The `by` column must have exactly 2 levels.\nThe levels are 4, 6, and 8"
