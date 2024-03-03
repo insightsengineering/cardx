@@ -22,7 +22,16 @@ ard_car_anova <- function(x, ...) {
   check_not_missing(x)
 
   # run car::Anova() -----------------------------------------------------------
-  car::Anova(x, ...) |>
+  car_anova <- cards::eval_capture_conditions(car::Anova(x, ...))
+
+  if (!is.null(car_anova[["error"]])) {
+    cli::cli_abort(c(
+      "There was an error running {.fun car::Anova}. See error message below.",
+      x = car_anova[["error"]]
+    ))
+  }
+
+  car_anova[["result"]] |>
     broom.helpers::tidy_parameters(conf.int = FALSE) |> # using broom.helpers, because it handle non-syntactic names for us
     dplyr::filter(!(dplyr::row_number() == dplyr::n() & .data$term %in% "Residuals")) |> # removing Residual rows
     dplyr::rename(variable = "term") |>
@@ -44,11 +53,14 @@ ard_car_anova <- function(x, ...) {
         map(
           .data$stat,
           function(.x) {
-            if (is.numeric(.x)) return(1L)
             if (is.integer(.x)) return(0L)
+            if (is.numeric(.x)) return(1L)
             NULL
           }
-        )
+        ),
+      context = "car_anova",
+      warning = car_anova["warning"],
+      error = car_anova["error"]
     )  |>
     cards::tidy_ard_column_order() %>%
     {structure(., class = c("card", class(.)))} # styler: off
