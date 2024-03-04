@@ -29,6 +29,7 @@ reference:
       - ard_kruskaltest
       - ard_moodtest
       - ard_mcnemartest
+      - ard_proptest
       - ard_ttest
       - ard_wilcoxtest
 
