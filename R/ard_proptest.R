@@ -9,7 +9,7 @@
 #'   column name to compare by
 #' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to be compared. Must be a binary column coded as `TRUE`/`FALSE`
-#'   of `1`/`0`.
+#'   or `1`/`0`.
 #' @param ... arguments passed to `prop.test(...)`
 #'
 #' @return ARD data frame
