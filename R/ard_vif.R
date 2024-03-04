@@ -6,7 +6,7 @@
 #' @param x regression model object
 #' See car::vif() for details
 #'
-#' Do I need to add "type" or "..." as pass-through?
+#' @param ... arguments passed to `car::vif(...)`
 #'
 #' @return data frame
 #' @name ard_vif
@@ -24,7 +24,7 @@ ard_vif <- function(x) {
   check_not_missing(x, "model")
 
   temp <- x
-  vif <- car::vif(x) |>
+  vif <- car::vif(x, ...) |>
     cards::eval_capture_conditions()
 
   # if vif failed, set result as NULL, error will be kept through eval_capture_conditions()

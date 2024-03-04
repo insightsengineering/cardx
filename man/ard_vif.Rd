@@ -8,9 +8,9 @@ ard_vif(x)
 }
 \arguments{
 \item{x}{regression model object
-See car::vif() for details
+See car::vif() for details}
 
-Do I need to add "type" or "..." as pass-through?}
+\item{...}{arguments passed to \code{car::vif(...)}}
 }
 \value{
 data frame
