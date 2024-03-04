@@ -27,7 +27,7 @@
 #' The data are then passed as
 #' `effectsize::hedges_g(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_hedges_g(by = ARM, variable = AGE)
@@ -47,8 +47,7 @@ NULL
 #' @export
 ard_hedges_g <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
-  cards::check_pkg_installed("parameters", reference_pkg = "cardx")
+  cards::check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

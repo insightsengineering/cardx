@@ -11,7 +11,7 @@
 #' @return data frame
 #' @name ard_regression
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed("broom.helpers", reference_pkg = "cardx")
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_regression(add_estimate_to_reference_rows = TRUE)
 NULL
