@@ -59,22 +59,45 @@ Functions to calculate different proportion confidence intervals for use in \cod
 \item \code{proportion_ci_wald()}: Calculates the Wald interval by following the usual textbook definition
 for a single proportion confidence interval using the normal approximation.
 
+\deqn{\hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}}
+
 \item \code{proportion_ci_wilson()}: Calculates the Wilson interval by calling \code{\link[stats:prop.test]{stats::prop.test()}}.
 Also referred to as Wilson score interval.
+
+\deqn{\frac{\hat{p} +
+\frac{z^2_{\alpha/2}}{2n} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n} +
+\frac{z^2_{\alpha/2}}{4n^2}}}{1 + \frac{z^2_{\alpha/2}}{n}}}
 
 \item \code{proportion_ci_clopper_pearson()}: Calculates the Clopper-Pearson interval by calling \code{\link[stats:binom.test]{stats::binom.test()}}.
 Also referred to as the \code{exact} method.
 
+\deqn{
+\left( \frac{k}{n} \pm z_{\alpha/2} \sqrt{\frac{\frac{k}{n}(1-\frac{k}{n})}{n} +
+\frac{z^2_{\alpha/2}}{4n^2}} \right)
+\div \left( 1 + \frac{z^2_{\alpha/2}}{n} \right)}
+
 \item \code{proportion_ci_agresti_coull()}: Calculates the \code{Agresti-Coull} interval (created by \verb{Alan Agresti} and \verb{Brent Coull}) by
 (for 95\% CI) adding two successes and two failures to the data and then using the Wald formula to construct a CI.
 
+\deqn{
+\left( \frac{\tilde{p} + z^2_{\alpha/2}/2}{n + z^2_{\alpha/2}} \pm
+z_{\alpha/2} \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{n} +
+\frac{z^2_{\alpha/2}}{4n^2}} \right)}
+
 \item \code{proportion_ci_jeffreys()}: Calculates the Jeffreys interval, an equal-tailed interval based on the
 non-informative Jeffreys prior for a binomial proportion.
+
+\deqn{\left( \text{Beta}\left(\frac{k}{2} + \frac{1}{2}, \frac{n - k}{2} + \frac{1}{2}\right)_\alpha,
+\text{Beta}\left(\frac{k}{2} + \frac{1}{2}, \frac{n - k}{2} + \frac{1}{2}\right)_{1-\alpha} \right)}
 
 \item \code{proportion_ci_strat_wilson()}: Calculates the stratified Wilson confidence
 interval for unequal proportions as described in
 Xin YA, Su XG. Stratified Wilson and Newcombe confidence intervals
 for multiple binomial proportions. \emph{Statistics in Biopharmaceutical Research}. 2010;2(3).
+
+\deqn{\frac{\hat{p}_j + \frac{z^2_{\alpha/2}}{2n_j} \pm
+z_{\alpha/2} \sqrt{\frac{\hat{p}_j(1 - \hat{p}_j)}{n_j} +
+\frac{z^2_{\alpha/2}}{4n_j^2}}}{1 + \frac{z^2_{\alpha/2}}{n_j}}}
 
 }}
 \examples{
