@@ -14,12 +14,12 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
 #' cards::ADSL[1:30, ] |>
 #'   ard_fishertest(by = "ARM", variable = "AGEGR1")
 ard_fishertest <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom.helpers", reference_pkg = "cardx")
+  cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

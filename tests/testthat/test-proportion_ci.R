@@ -1,3 +1,5 @@
+skip_if_not(cards::is_pkg_installed("broom", reference_pkg = "cardx"))
+
 test_that("check the proportion_ci_*() functions work", {
   # setting vectors to test
   x_dbl <- c(NA, mtcars$vs)
