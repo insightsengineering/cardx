@@ -15,7 +15,7 @@ column name to compare by}
 
 \item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to be compared. Must be a binary column coded as \code{TRUE}/\code{FALSE}
-of \code{1}/\code{0}.}
+or \code{1}/\code{0}.}
 
 \item{...}{arguments passed to \code{prop.test(...)}}
 }
