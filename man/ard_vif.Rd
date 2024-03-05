@@ -4,7 +4,7 @@
 \alias{ard_vif}
 \title{Regression VIF ARD}
 \usage{
-ard_vif(x)
+ard_vif(x, ...)
 }
 \arguments{
 \item{x}{regression model object
