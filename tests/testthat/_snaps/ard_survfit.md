@@ -110,6 +110,68 @@
     Message
       i 1 more variable: fmt_fn
 
+# ard_survfit() works with competing risks
+
+    Code
+      print(dplyr::mutate(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, data = ADTTE_MS) %>%
+        ard_survfit(times = c(60, 180)), stat = lapply(stat, function(x) ifelse(
+        is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+    Message
+      Multi-state model detected. Showing probabilities into state 'death from cancer'.
+      {cards} data frame: 48 x 7
+    Output
+         variable variable_level  context stat_name stat_label  stat
+      1      TRTA        Placebo survival  estimate  Survival… 0.053
+      2      TRTA        Placebo survival conf.high  CI Upper… 0.139
+      3      TRTA        Placebo survival  conf.low  CI Lower… 0.021
+      4      TRTA        Placebo survival      time       Time    60
+      5      TRTA        Placebo survival  estimate  Survival… 0.123
+      6      TRTA        Placebo survival conf.high  CI Upper… 0.237
+      7      TRTA        Placebo survival  conf.low  CI Lower… 0.064
+      8      TRTA        Placebo survival      time       Time   180
+      9      TRTA      Xanomeli… survival  estimate  Survival… 0.169
+      10     TRTA      Xanomeli… survival conf.high  CI Upper… 0.304
+      11     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.094
+      12     TRTA      Xanomeli… survival      time       Time    60
+      13     TRTA      Xanomeli… survival  estimate  Survival… 0.262
+      14     TRTA      Xanomeli… survival conf.high  CI Upper… 0.749
+      15     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.092
+      16     TRTA      Xanomeli… survival      time       Time   180
+      17     TRTA      Xanomeli… survival  estimate  Survival…  0.51
+      18     TRTA      Xanomeli… survival conf.high  CI Upper… 0.892
+      19     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.292
+      20     TRTA      Xanomeli… survival      time       Time   180
+      21     TRTA      Xanomeli… survival  estimate  Survival… 0.228
+      22     TRTA      Xanomeli… survival conf.high  CI Upper… 0.427
+      23     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.121
+      24     TRTA      Xanomeli… survival      time       Time   180
+      25     TRTA      Xanomeli… survival  estimate  Survival… 0.732
+      26     TRTA      Xanomeli… survival conf.high  CI Upper… 0.878
+      27     TRTA      Xanomeli… survival  conf.low  CI Lower…  0.61
+      28     TRTA      Xanomeli… survival      time       Time    60
+      29     TRTA      Xanomeli… survival  estimate  Survival… 0.162
+      30     TRTA      Xanomeli… survival conf.high  CI Upper…  0.33
+      31     TRTA      Xanomeli… survival  conf.low  CI Lower…  0.08
+      32     TRTA      Xanomeli… survival      time       Time    60
+      33     TRTA      Xanomeli… survival  estimate  Survival… 0.106
+      34     TRTA      Xanomeli… survival conf.high  CI Upper… 0.232
+      35     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.048
+      36     TRTA      Xanomeli… survival      time       Time    60
+      37     TRTA      Xanomeli… survival  estimate  Survival… 0.381
+      38     TRTA      Xanomeli… survival conf.high  CI Upper… 0.743
+      39     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.195
+      40     TRTA      Xanomeli… survival      time       Time   180
+      41     TRTA      Xanomeli… survival  estimate  Survival… 0.244
+      42     TRTA      Xanomeli… survival conf.high  CI Upper… 0.516
+      43     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.115
+      44     TRTA      Xanomeli… survival      time       Time   180
+      45     TRTA      Xanomeli… survival  estimate  Survival… 0.375
+      46     TRTA      Xanomeli… survival conf.high  CI Upper… 0.719
+      47     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.196
+      48     TRTA      Xanomeli… survival      time       Time   180
+    Message
+      i 1 more variable: fmt_fn
+
 # ard_survfit() errors are properly handled
 
     Code

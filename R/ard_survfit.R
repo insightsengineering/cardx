@@ -32,7 +32,7 @@
 #' * Times should be provided using the same scale as the time variable used to fit the provided
 #'   survival fit model.
 #'
-#' @examplesIf cards::is_pkg_installed("survival", reference_pkg = "cardx")
+#' @examplesIf cards::is_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")
 #' library(survival)
 #'
 #' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
@@ -40,13 +40,27 @@
 #'
 #' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
 #'   ard_survfit(probs = c(0.25, 0.5, 0.75))
+#'
+#' # Competing Risks Example ---------------------------
+#' set.seed(1)
+#' ADTTE_MS <- cards::ADTTE %>%
+#'   dplyr::mutate(
+#'     CNSR = dplyr::case_when(
+#'       CNSR == 0 ~ "censor",
+#'       runif(dplyr::n()) < 0.5 ~ "death from cancer",
+#'       TRUE ~ "death other causes"
+#'     ) %>% factor()
+#'   )
+#'
+#' survfit(Surv(AVAL, CNSR) ~ TRTA, data = ADTTE_MS) %>%
+#'   ard_survfit(times = c(60, 180))
 NULL
 
 #' @rdname ard_survfit
 #' @export
 ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("survival", reference_pkg = "cardx")
+  cards::check_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(x)
@@ -92,17 +106,18 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
 #'
 #' @keywords internal
 .process_survfit_time <- function(x, times, type) {
-  # process multi-state models
-  multi_state <- inherits(x, "survfitms")
-  if (multi_state == TRUE) {
-    # selecting state to show
-    state <- setdiff(unique(x$state), "(s0)")[[1]]
-    cli::cli_inform("Multi-state model detected. Showing probabilities into state '{state}'.")
-    x <- dplyr::filter(x, .data$state == .env$state)
-  }
-
   # tidy survfit results
   tidy_x <- broom::tidy(x)
+
+  # process multi-state models
+  multi_state <- inherits(x, "survfitms")
+
+  if (multi_state == TRUE) {
+    # selecting state to show
+    state <- setdiff(unique(tidy_x$state), "(s0)")[[1]]
+    cli::cli_inform("Multi-state model detected. Showing probabilities into state '{state}'.")
+    x <- dplyr::filter(tidy_x, .data$state == .env$state)
+  }
 
   # adding time 0 to data frame
   tidy_x <- tidy_x %>%

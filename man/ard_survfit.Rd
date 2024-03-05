@@ -41,7 +41,7 @@ survival fit model.
 }
 }
 \examples{
-\dontshow{if (cards::is_pkg_installed("survival", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (cards::is_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(survival)
 
 survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
@@ -49,5 +49,19 @@ survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
 
 survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
   ard_survfit(probs = c(0.25, 0.5, 0.75))
+
+# Competing Risks Example ---------------------------
+set.seed(1)
+ADTTE_MS <- cards::ADTTE \%>\%
+  dplyr::mutate(
+    CNSR = dplyr::case_when(
+      CNSR == 0 ~ "censor",
+      runif(dplyr::n()) < 0.5 ~ "death from cancer",
+      TRUE ~ "death other causes"
+    ) \%>\% factor()
+  )
+
+survfit(Surv(AVAL, CNSR) ~ TRTA, data = ADTTE_MS) \%>\%
+  ard_survfit(times = c(60, 180))
 \dontshow{\}) # examplesIf}
 }
