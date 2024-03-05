@@ -16,7 +16,7 @@
 #' @examples
 #' lm(AGE ~ ARM + SEX, data = cards::ADSL) |>
 #'   ard_vif()
-ard_vif <- function(x) {
+ard_vif <- function(x, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
 
