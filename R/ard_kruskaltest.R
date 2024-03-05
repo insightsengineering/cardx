@@ -15,12 +15,12 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
 #' cards::ADSL |>
 #'   ard_kruskaltest(by = "ARM", variable = "AGE")
 ard_kruskaltest <- function(data, by, variable) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
+  cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

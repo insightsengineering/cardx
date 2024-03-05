@@ -42,6 +42,7 @@ The data are then passed as
 \verb{effectsize::cohens_d(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)}.
 }
 \examples{
+\dontshow{if (cards::is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
   ard_cohens_d(by = ARM, variable = AGE)
@@ -55,4 +56,5 @@ cards::ADSL[c("ARM", "AGE")] |>
   dplyr::group_by(USUBJID) |>
   dplyr::filter(dplyr::n() > 1) |>
   ard_paired_cohens_d(by = ARM, variable = AGE, id = USUBJID)
+\dontshow{\}) # examplesIf}
 }
