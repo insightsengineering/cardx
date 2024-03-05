@@ -96,7 +96,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
   multi_state <- inherits(x, "survfitms")
   if (multi_state == TRUE) {
     # selecting state to show
-    state <- setdiff(unique(tidy$state), "(s0)")[[1]]
+    state <- setdiff(unique(x$state), "(s0)")[[1]]
     cli::cli_inform("Multi-state model detected. Showing probabilities into state '{state}'.")
     x <- dplyr::filter(x, .data$state == .env$state)
   }
