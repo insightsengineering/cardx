@@ -1,3 +1,5 @@
+skip_if_not(cards::is_pkg_installed("survival", reference_pkg = "cardx"))
+
 test_that("ard_survfit() works with times provided", {
   expect_snapshot(
     survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>

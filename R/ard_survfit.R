@@ -32,7 +32,7 @@
 #' * Times should be provided using the same scale as the time variable used to fit the provided
 #'   survival fit model.
 #'
-#' @examplesIf broom.helpers::.assert_package("survival", pkg_search = "cardx", boolean = TRUE)
+#' @examplesIf cards::is_pkg_installed("survival", reference_pkg = "cardx")
 #' library(survival)
 #'
 #' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>

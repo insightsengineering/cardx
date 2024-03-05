@@ -15,10 +15,6 @@
 list of tidied results constructed with \code{\link[cards:eval_capture_conditions]{eval_capture_conditions()}},
 e.g. \code{eval_capture_conditions(t.test(mtcars$mpg ~ mtcars$am) |> broom::tidy())}.}
 
-\item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
-This produces an effect size that is equivalent to the one-sample effect
-size on \code{x - y}.}
-
 \item{...}{passed to \code{cohens_d(...)}}
 }
 \value{

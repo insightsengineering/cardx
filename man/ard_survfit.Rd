@@ -41,7 +41,7 @@ survival fit model.
 }
 }
 \examples{
-\dontshow{if (broom.helpers::.assert_package("survival", pkg_search = "cardx", boolean = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (cards::is_pkg_installed("survival", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(survival)
 
 survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
