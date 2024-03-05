@@ -12,21 +12,16 @@
 #' @param ... arguments passed to `stats::mcnemar.test(...)`
 #'
 #' @return ARD data frame
-#' @name ard_mcnemartest
+#' @export
 #'
 #' @details
 #' For the `ard_mcnemartest()` function, the data is expected to be one row per subject.
 #' The data is passed as `stats::mcnemar.test(x = data[[variable]], y = data[[by]], ...)`.
 #' Please use `table(x = data[[variable]], y = data[[by]])` to check the contingency table.
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
 #' cards::ADSL |>
 #'   ard_mcnemartest(by = "SEX", variable = "EFFFL")
-#'
-NULL
-
-#' @rdname ard_mcnemartest
-#' @export
 ard_mcnemartest <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")

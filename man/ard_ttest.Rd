@@ -41,6 +41,7 @@ The data are then passed as
 \verb{t.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)}.
 }
 \examples{
+\dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
   ard_ttest(by = ARM, variable = AGE)
@@ -52,4 +53,5 @@ cards::ADSL[c("ARM", "AGE")] |>
   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
   dplyr::arrange(USUBJID, ARM) |>
   ard_paired_ttest(by = ARM, variable = AGE, id = USUBJID)
+\dontshow{\}) # examplesIf}
 }

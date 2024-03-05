@@ -1,3 +1,5 @@
+skip_if_not(cards::is_pkg_installed("broom", reference_pkg = "cardx"))
+
 test_that("ard_proportion_ci() works", {
   # testing the easy methods together
   expect_error(

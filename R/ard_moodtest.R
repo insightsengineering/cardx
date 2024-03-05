@@ -21,7 +21,7 @@
 #' @rdname ard_moodtest
 #' @export
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
 #' cards::ADSL |>
 #'   ard_moodtest(by = "SEX", variable = "AGE")
 ard_moodtest <- function(data, by, variable, ...) {
