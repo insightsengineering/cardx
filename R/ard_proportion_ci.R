@@ -22,7 +22,7 @@
 #' @return an ARD data frame
 #' @export
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
 #' ard_proportion_ci(mtcars, variables = c(vs, am), method = "wilson")
 ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
                               conf.level = 0.95,

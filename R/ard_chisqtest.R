@@ -14,12 +14,12 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
 #' cards::ADSL |>
 #'   ard_chisqtest(by = "ARM", variable = "AGEGR1")
 ard_chisqtest <- function(data, by, variable, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
+  cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

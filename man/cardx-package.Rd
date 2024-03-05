@@ -23,6 +23,11 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Abinaya Yogasekaram \email{abinaya.yogasekaram@contractors.roche.com}
+}
+
+Authors:
+\itemize{
   \item Emily de la Rua \email{emily.de_la_rua@contractors.roche.com}
 }
 
