@@ -116,7 +116,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
     # selecting state to show
     state <- setdiff(unique(tidy_x$state), "(s0)")[[1]]
     cli::cli_inform("Multi-state model detected. Showing probabilities into state '{state}'.")
-    x <- dplyr::filter(tidy_x, .data$state == .env$state)
+    tidy_x <- dplyr::filter(tidy_x, .data$state == .env$state)
   }
 
   # adding time 0 to data frame

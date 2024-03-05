@@ -46,7 +46,7 @@ test_that("ard_survfit() works with competing risks", {
 
   expect_snapshot(
     survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, data = ADTTE_MS) %>%
-    ard_survfit(times = c(60, 180)) |>
+      ard_survfit(times = c(60, 180)) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
       ) |>
