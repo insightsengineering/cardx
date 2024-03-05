@@ -101,6 +101,7 @@ z_{\alpha/2} \sqrt{\frac{\hat{p}_j(1 - \hat{p}_j)}{n_j} +
 
 }}
 \examples{
+\dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 x <- c(
   TRUE, TRUE, TRUE, TRUE, TRUE,
   FALSE, FALSE, FALSE, FALSE, FALSE
@@ -111,6 +112,7 @@ proportion_ci_wilson(x, correct = TRUE)
 proportion_ci_clopper_pearson(x)
 proportion_ci_agresti_coull(x)
 proportion_ci_jeffreys(x)
+\dontshow{\}) # examplesIf}
 # Stratified Wilson confidence interval with unequal probabilities
 
 set.seed(1)

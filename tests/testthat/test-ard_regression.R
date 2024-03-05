@@ -1,3 +1,5 @@
+skip_if_not(cards::is_pkg_installed("broom.helpers", reference_pkg = "cardx"))
+
 test_that("ard_regression() works", {
   expect_snapshot(
     lm(AGE ~ ARM, data = cards::ADSL) |>

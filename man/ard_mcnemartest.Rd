@@ -30,7 +30,8 @@ The data is passed as \code{stats::mcnemar.test(x = data[[variable]], y = data[[
 Please use \code{table(x = data[[variable]], y = data[[by]])} to check the contingency table.
 }
 \examples{
+\dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
   ard_mcnemartest(by = "SEX", variable = "EFFFL")
-
+\dontshow{\}) # examplesIf}
 }

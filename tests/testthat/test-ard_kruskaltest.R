@@ -1,3 +1,5 @@
+skip_if_not(cards::is_pkg_installed("broom", reference_pkg = "cardx"))
+
 test_that("ard_kurskaltest() works", {
   expect_error(
     ard_kruskaltest <-

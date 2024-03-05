@@ -1,51 +1,52 @@
-skip_if_not(cards::is_pkg_installed("broom", reference_pkg = "cardx"))
+skip_if_not(cards::is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx"))
 
-test_that("ard_ttest() works", {
+test_that("ard_hedges_g() works", {
   expect_error(
-    ard_ttest <-
+    ard_hedges_g <-
       cards::ADSL |>
       dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-      ard_ttest(by = ARM, variable = AGE, var.equal = TRUE),
+      ard_hedges_g(by = ARM, variable = AGE),
     NA
   )
 
   expect_equal(
-    ard_ttest |>
+    ard_hedges_g |>
       cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
-    t.test(
+    effectsize::hedges_g(
       AGE ~ ARM,
-      data = cards::ADSL |> dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")),
-      var.equal = TRUE
+      data = cards::ADSL |> dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose"))
     ) |>
-      broom::tidy() |>
-      dplyr::select(estimate, conf.low, conf.high) |>
-      unclass(),
+      parameters::standardize_names(style = "broom") |>
+      dplyr::select(estimate, conf.low, conf.high),
     ignore_attr = TRUE
   )
 
   # errors are properly handled
   expect_snapshot(
     cards::ADSL |>
-      ard_ttest(by = ARM, variable = AGE, var.equal = TRUE) |>
+      ard_hedges_g(by = ARM, variable = AGE) |>
+      dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
 })
 
-test_that("ard_paired_ttest() works", {
+test_that("ard_paired_hedges_g() works", {
   ADSL_paired <-
     cards::ADSL[c("ARM", "AGE")] |>
     dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-    dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number())
+    dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
+    dplyr::group_by(USUBJID) |>
+    dplyr::filter(dplyr::n() > 1)
 
   expect_error(
-    ard_paired_ttest <-
+    ard_paired_hedges_g <-
       ADSL_paired |>
-      ard_paired_ttest(by = ARM, variable = AGE, id = USUBJID, var.equal = TRUE),
+      ard_paired_hedges_g(by = ARM, variable = AGE, id = USUBJID),
     NA
   )
 
   expect_equal(
-    ard_paired_ttest |>
+    ard_paired_hedges_g |>
       cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
     with(
       data =
@@ -55,15 +56,13 @@ test_that("ard_paired_ttest() works", {
           by = "USUBJID"
         ),
       expr =
-        t.test(
+        effectsize::hedges_g(
           x = AGE1,
           y = AGE2,
-          paired = TRUE,
-          var.equal = TRUE
+          paired = TRUE
         ) |>
-          broom::tidy() |>
-          dplyr::select(estimate, conf.low, conf.high) |>
-          unclass()
+          parameters::standardize_names(style = "broom") |>
+          dplyr::select(estimate, conf.low, conf.high)
     ),
     ignore_attr = TRUE
   )
@@ -74,7 +73,8 @@ test_that("ard_paired_ttest() works", {
       dplyr::mutate(
         ARM = ifelse(dplyr::row_number() == 1L, "3rd ARM", ARM)
       ) |>
-      ard_paired_ttest(by = ARM, variable = AGE, id = USUBJID, var.equal = TRUE) |>
+      ard_paired_hedges_g(by = ARM, variable = AGE, id = USUBJID) |>
+      dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
 })
