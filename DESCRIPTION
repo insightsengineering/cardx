@@ -24,7 +24,6 @@ Imports:
 Suggests:
     broom (>= 1.0.5),
     broom.helpers (>= 1.13.0),
-    knitr,
     effectsize (>= 0.6.0),
     parameters (>= 0.20.2),
     spelling,
@@ -32,7 +31,7 @@ Suggests:
     withr
 Remotes: 
     insightsengineering/cards
-Config/Needs/website: insightsengineering/nesttemplate, rmarkdown, knitr
+Config/Needs/website: insightsengineering/nesttemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8
@@ -40,4 +39,3 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
-VignetteBuilder: knitr
