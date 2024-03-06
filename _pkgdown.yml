@@ -25,6 +25,7 @@ reference:
   - subtitle: "Inference"
   - contents:
       - ard_aov
+      - ard_car_anova
       - ard_chisqtest
       - ard_fishertest
       - ard_kruskaltest
@@ -42,6 +43,7 @@ reference:
       - ard_proportion_ci
       - ard_regression
       - ard_regression_basic
+      - ard_smd
 
   - title: "Helpers"
   - contents:
