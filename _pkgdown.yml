@@ -40,6 +40,7 @@ reference:
       - ard_proportion_ci
       - ard_regression
       - ard_regression_basic
+      - ard_smd
 
   - title: "Helpers"
   - contents:

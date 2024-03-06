@@ -15,7 +15,7 @@ BugReports: https://github.com/insightsengineering/cardx/issues
 Depends:
     R (>= 4.1)
 Imports:
-    cards (>= 0.0.0.9049),
+    cards (>= 0.1.0.9002),
     cli (>= 3.6.1),
     dplyr (>= 1.1.2),
     glue (>= 1.6.2),
@@ -27,6 +27,7 @@ Suggests:
     effectsize (>= 0.6.0),
     parameters (>= 0.20.2),
     spelling,
+    smd (>= 0.6.6),
     testthat (>= 3.2.0),
     withr
 Remotes: 
