@@ -28,6 +28,7 @@ Suggests:
     effectsize (>= 0.6.0),
     parameters (>= 0.20.2),
     spelling,
+    smd (>= 0.6.6),
     testthat (>= 3.2.0),
     withr
 Remotes: 
