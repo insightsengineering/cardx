@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-R Package to Supplement ARD Functions Found in {cards}.
+Extra Analysis Results Data (ARD) functions. The package supplements the ARD functions from the 'cards' package, exporting functions to put statistical results in the ARD format.
 }
 \seealso{
 Useful links:
@@ -20,6 +20,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Daniel Sjoberg \email{sjobergd@gene.com}
+
+Authors:
+\itemize{
+  \item Abinaya Yogasekaram \email{abinaya.yogasekaram@contractors.roche.com}
+}
 
 Other contributors:
 \itemize{

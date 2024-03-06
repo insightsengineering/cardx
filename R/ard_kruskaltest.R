@@ -1,26 +1,26 @@
-#' ARD One-way Test
+#' ARD Kruskal-Wallis Test
 #'
 #' @description
-#' Analysis results data for Testing Equal Means in a One-Way Layout.
-#' Calculated with `oneway.test(data[[variable]] ~ as.factor(data[[by]]), data = data, ...)`
+#' Analysis results data for Kruskal-Wallis Rank Sum Test.
+#'
+#' Calculated with `kruskal.test(data[[variable]], data[[by]], ...)`
 #'
 #' @param data (`data.frame`)\cr
-#'   a data frame
+#'   a data frame.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to compare by
 #' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to be compared
-#' @param ... additional arguments passed to `oneway.test(...)`
 #'
 #' @return ARD data frame
 #' @export
 #'
 #' @examples
 #' cards::ADSL |>
-#'   ard_onewaytest(by = "ARM", variable = "AGE")
-ard_onewaytest <- function(data, by, variable, ...) {
+#'   ard_kruskaltest(by = "ARM", variable = "AGE")
+ard_kruskaltest <- function(data, by, variable) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -35,25 +35,19 @@ ard_onewaytest <- function(data, by, variable, ...) {
   cards::tidy_as_ard(
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::oneway.test(stats::reformulate(by, response = variable), data = data) |>
+        stats::kruskal.test(x = data[[variable]], g = data[[by]]) |>
           broom::tidy()
       ),
-    tidy_result_names = c("num.df", "den.df", "statistic", "p.value", "method"),
-    fun_args_to_record =
-      c("var.equal"),
-    formals = formals(stats::oneway.test),
-    passed_args = dots_list(...),
-    lst_ard_columns = list(group1 = by, variable = variable, context = "Oneway.test")
+    tidy_result_names = c("statistic", "p.value", "parameter", "method"),
+    lst_ard_columns = list(group1 = by, variable = variable, context = "kruskaltest")
   ) |>
     dplyr::mutate(
       .after = "stat_name",
       stat_label =
         dplyr::case_when(
-          .data$stat_name %in% "num.df" ~ "Degrees of Freedom",
-          .data$stat_name %in% "den.df" ~ "Denominator Degrees of Freedom",
-          .data$stat_name %in% "statistic" ~ "F Statistic",
+          .data$stat_name %in% "statistic" ~ "Kruskal-Wallis chi-squared Statistic",
           .data$stat_name %in% "p.value" ~ "p-value",
-          .data$stat_name %in% "method" ~ "Method",
+          .data$stat_name %in% "parameter" ~ "Degrees of Freedom",
           TRUE ~ .data$stat_name,
         )
     )

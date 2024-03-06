@@ -2,7 +2,7 @@
 % Please edit documentation in R/ard_wilcoxtest.R
 \name{.format_wilcoxtest_results}
 \alias{.format_wilcoxtest_results}
-\title{Convert t-test to ARD}
+\title{Convert Wilcoxon test to ARD}
 \usage{
 .format_wilcoxtest_results(by, variable, lst_tidy, paired, ...)
 }
@@ -12,20 +12,25 @@
 \item{variable}{(\code{string})\cr variable column name}
 
 \item{lst_tidy}{(named \code{list})\cr
-list of tidied results constructed with \code{eval_capture_conditions()},
-e.g. \code{eval_capture_conditions(t.test(mtcars$mpg ~ mtcars$am) |> broom::tidy())}}
+list of tidied results constructed with \code{\link[cards:eval_capture_conditions]{eval_capture_conditions()}},
+e.g. \code{eval_capture_conditions(t.test(mtcars$mpg ~ mtcars$am) |> broom::tidy())}.}
 
 \item{paired}{a logical indicating whether you want a paired test.}
 
-\item{...}{passed to \code{wilcox.test(...)}}
+\item{...}{passed to \code{stats::wilcox.test(...)}}
 }
 \value{
 ARD data frame
 }
 \description{
-Convert t-test to ARD
+Convert Wilcoxon test to ARD
 }
 \examples{
+# Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
+ADSL <- cards::ADSL |>
+  dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
+  ard_wilcoxtest(by = "ARM", variable = "AGE")
+
 cardx:::.format_wilcoxtest_results(
   by = "ARM",
   variable = "AGE",
@@ -36,5 +41,6 @@ cardx:::.format_wilcoxtest_results(
         broom::tidy()
     )
 )
+
 }
 \keyword{internal}

@@ -21,7 +21,7 @@
 #' The data is passed as `wilcox.test(data[[variable]] ~ data[[by]], paired = FALSE, ...)`.
 #'
 #' For the `ard_paired_wilcoxtest()` function, the data is expected to be one row
-#' per subject per by level. Before the t-test is calculated, the data are
+#' per subject per by level. Before the test is calculated, the data are
 #' reshaped to a wide format to be one row per subject.
 #' The data are then passed as
 #' `wilcox.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
@@ -50,7 +50,7 @@ ard_wilcoxtest <- function(data, by, variable, ...) {
   check_not_missing(data)
   check_not_missing(variable)
   check_not_missing(by)
-  check_class_data_frame(x = data)
+  check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variable = {{ variable }})
   check_scalar(by)
@@ -62,7 +62,7 @@ ard_wilcoxtest <- function(data, by, variable, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::wilcox.test(data[[variable]] ~ data[[by]], paired = FALSE, ...) |>
+        stats::wilcox.test(data[[variable]] ~ data[[by]], ...) |>
           broom::tidy()
       ),
     paired = FALSE,
@@ -81,7 +81,7 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
   check_not_missing(variable)
   check_not_missing(by)
   check_not_missing(id)
-  check_class_data_frame(x = data)
+  check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variable = {{ variable }}, id = {{ id }})
   check_scalar(by)
@@ -96,7 +96,7 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
       cards::eval_capture_conditions({
         # adding this reshape inside the eval, so if there is an error it's captured in the ARD object
         data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
-        # perform paried t-test
+        # perform paired wilcox test
         stats::wilcox.test(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...) |>
           broom::tidy()
       }),
@@ -105,17 +105,23 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
   )
 }
 
-#' Convert t-test to ARD
+
+#' Convert Wilcoxon test to ARD
 #'
 #' @inheritParams cards::tidy_as_ard
 #' @inheritParams stats::wilcox.test
 #' @param by (`string`)\cr by column name
 #' @param variable (`string`)\cr variable column name
-#' @param ... passed to `wilcox.test(...)`
+#' @param ... passed to `stats::wilcox.test(...)`
 #'
 #' @return ARD data frame
-#' @keywords internal
+#'
 #' @examples
+#' # Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
+#' ADSL <- cards::ADSL |>
+#'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+#'   ard_wilcoxtest(by = "ARM", variable = "AGE")
+#'
 #' cardx:::.format_wilcoxtest_results(
 #'   by = "ARM",
 #'   variable = "AGE",
@@ -126,6 +132,8 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
 #'         broom::tidy()
 #'     )
 #' )
+#'
+#' @keywords internal
 .format_wilcoxtest_results <- function(by, variable, lst_tidy, paired, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-

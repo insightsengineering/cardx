@@ -25,6 +25,23 @@ reference:
   - subtitle: "Inference"
   - contents:
       - ard_aov
+      - ard_chisqtest
+      - ard_fishertest
+      - ard_kruskaltest
+      - ard_moodtest
+      - ard_mcnemartest
       - ard_onewaytest
       - ard_ttest
       - ard_wilcoxtest
+
+  - subtitle: "Estimation"
+  - contents:
+      - ard_cohens_d
+      - ard_hedges_g
+      - ard_proportion_ci
+      - ard_regression
+      - ard_regression_basic
+
+  - title: "Helpers"
+  - contents:
+      - proportion_ci
