@@ -62,6 +62,16 @@ ard_vif <- function(x, ...) {
         .data$stat_name == "aGVIF",
         "Adjusted GVIF",
         .data$stat_name
+      ),
+      fmt_fn = map(
+        .data$stat,
+        function(.x) {
+          # styler: off
+          if (is.integer(.x)) return(0L)
+          if (is.numeric(.x)) return(1L)
+          # styler: on
+          NULL
+        }
       )
     )
 
