@@ -1,6 +1,6 @@
 Package: cardx
 Title: Extra Analysis Results Data Utilities
-Version: 0.0.0.9047
+Version: 0.0.0.9049
 Authors@R: c(
     person("Daniel", "Sjoberg", , "sjobergd@gene.com", role = c("aut", "cre")),
     person("Abinaya", "Yogasekaram", , "abinaya.yogasekaram@contractors.roche.com", role = "aut"),
@@ -16,7 +16,7 @@ BugReports: https://github.com/insightsengineering/cardx/issues
 Depends:
     R (>= 4.1)
 Imports:
-    cards (>= 0.0.0.9049),
+    cards (>= 0.1.0.9002),
     cli (>= 3.6.1),
     dplyr (>= 1.1.2),
     glue (>= 1.6.2),
@@ -25,8 +25,10 @@ Imports:
 Suggests:
     broom (>= 1.0.5),
     broom.helpers (>= 1.13.0),
+    car (>= 3.0-11),
     effectsize (>= 0.6.0),
     parameters (>= 0.20.2),
+    smd (>= 0.6.6),
     spelling,
     survival (>= 3.2-11),
     testthat (>= 3.2.0),
