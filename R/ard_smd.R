@@ -25,6 +25,15 @@ ard_smd <- function(data, by, variable, ...) {
   check_not_missing(data)
   check_not_missing(variable)
   check_not_missing(by)
+
+  # grab design object if from `survey` ----------------------------------------
+  is_survey <- inherits(data, "survey.design")
+  if (is_survey) {
+    design <- data
+    data <- design$variables
+  }
+
+  # continue check/process inputs ----------------------------------------------
   check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variable = {{ variable }})
@@ -37,7 +46,11 @@ ard_smd <- function(data, by, variable, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions(
-        smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, ...) |>
+        switch(
+         as.character(is_survey),
+         "TRUE" = smd::smd(x = data[[variable]], g = data[[by]], w = stats::weights(design), na.rm = TRUE, ...),
+         "FALSE" = smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, ...)
+        ) |>
           dplyr::select(-any_of("term"))
       ),
     ...
