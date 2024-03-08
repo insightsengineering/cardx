@@ -27,7 +27,7 @@ ard_vif <- function(x, ...) {
   # if vif failed, set result as NULL, error will be kept through eval_capture_conditions()
   if (is.null(vif$result)) {
     vif$result <- dplyr::tibble(
-      variable = attr(terms(x), "term.labels"),
+      variable = attr(stats::terms(x), "term.labels"),
       VIF = list(NULL),
       GVIF = list(NULL),
       aGVIF = list(NULL),
