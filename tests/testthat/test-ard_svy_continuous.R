@@ -232,7 +232,9 @@ test_that("ard_svy_continuous() error handling", {
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1[1:20, ], fpc = ~fpc)
 
   # passing a character vector (some results are still calculable...i don't think we need to "fix" these)
-  expect_snapshot(
+  # and these "results" may vary across systems (all are nonsense), so just check
+  # that code runs without error
+  expect_error(
     ard_svy_continuous(
       dclus1,
       variables = sname,
@@ -240,11 +242,11 @@ test_that("ard_svy_continuous() error handling", {
         "mean", "median", "min", "max", "sum", "var", "sd",
         "mean.std.error", "deff", "p75"
       )
-    ) |>
-      dplyr::select(-fmt_fn, -context, -stat_label)
+    ),
+    NA
   )
 
-  expect_snapshot(
+  expect_error(
     ard_svy_continuous(
       dclus1,
       variables = sname,
@@ -253,8 +255,8 @@ test_that("ard_svy_continuous() error handling", {
         "mean", "median", "min", "max", "sum", "var", "sd",
         "mean.std.error", "deff", "p75"
       )
-    ) |>
-      dplyr::select(-fmt_fn, -context, -stat_label)
+    ),
+    NA
   )
 })
 
