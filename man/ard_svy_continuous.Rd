@@ -58,7 +58,7 @@ where 'p##' is are the percentiles and \verb{##} is an integer between 0 and 100
 \examples{
 \dontshow{if (cards::is_pkg_installed("survey", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 data(api, package = "survey")
-dclus1 <- survey::svydesign(id=~dnum, weights=~pw, data=apiclus1, fpc=~fpc)
+dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
 ard_svy_continuous(
   data = dclus1,
