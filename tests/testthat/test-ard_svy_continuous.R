@@ -94,91 +94,146 @@ test_that("stratified ard_svy_continuous() works", {
   expect_equal(
     ard_svy_cont |>
       dplyr::filter(stat_name %in% "mean") %>%
-      {dplyr::pull(., stat) |> set_names(unlist(.$group1_level))},
+      {
+        dplyr::pull(., stat) |> set_names(unlist(.$group1_level))
+      },
     survey::svyby(~api00, by = ~both, dclus1, FUN = survey::svymean, na.rm = TRUE) %>%
-      {dplyr::pull(., api00) |> as.list() |> set_names(rownames(.))},
+      {
+        dplyr::pull(., api00) |>
+          as.list() |>
+          set_names(rownames(.))
+      },
     ignore_attr = TRUE
   )
 
   expect_equal(
     ard_svy_cont |>
       dplyr::filter(stat_name %in% "median") %>%
-      {dplyr::pull(., stat) |> set_names(unlist(.$group1_level))},
+      {
+        dplyr::pull(., stat) |> set_names(unlist(.$group1_level))
+      },
     survey::svyby(~api00, by = ~both, dclus1, FUN = survey::svyquantile, na.rm = TRUE, quantiles = 0.5) %>%
-      {dplyr::pull(., api00) |> as.list() |> set_names(rownames(.))},
+      {
+        dplyr::pull(., api00) |>
+          as.list() |>
+          set_names(rownames(.))
+      },
     ignore_attr = TRUE
   )
 
   expect_equal(
     ard_svy_cont |>
       dplyr::filter(stat_name %in% "min") %>%
-      {dplyr::pull(., stat) |> set_names(unlist(.$group1_level))},
+      {
+        dplyr::pull(., stat) |> set_names(unlist(.$group1_level))
+      },
     dclus1$variables |>
       dplyr::summarise(
         .by = both,
         min = min(api00, na.rm = TRUE)
       ) |>
       dplyr::arrange(both) %>%
-      {dplyr::pull(., min) |> as.list() |> set_names(.$both)},
+      {
+        dplyr::pull(., min) |>
+          as.list() |>
+          set_names(.$both)
+      },
     ignore_attr = TRUE
   )
 
   expect_equal(
     ard_svy_cont |>
       dplyr::filter(stat_name %in% "max") %>%
-      {dplyr::pull(., stat) |> set_names(unlist(.$group1_level))},
+      {
+        dplyr::pull(., stat) |> set_names(unlist(.$group1_level))
+      },
     dclus1$variables |>
       dplyr::summarise(
         .by = both,
         max = max(api00, na.rm = TRUE)
       ) |>
       dplyr::arrange(both) %>%
-      {dplyr::pull(., max) |> as.list() |> set_names(.$both)},
+      {
+        dplyr::pull(., max) |>
+          as.list() |>
+          set_names(.$both)
+      },
     ignore_attr = TRUE
   )
 
   expect_equal(
     ard_svy_cont |>
       dplyr::filter(stat_name %in% "var") %>%
-      {dplyr::pull(., stat) |> set_names(unlist(.$group1_level))},
+      {
+        dplyr::pull(., stat) |> set_names(unlist(.$group1_level))
+      },
     survey::svyby(~api00, by = ~both, dclus1, FUN = survey::svyvar, na.rm = TRUE) %>%
-      {dplyr::pull(., api00) |> as.list() |> set_names(rownames(.))},
+      {
+        dplyr::pull(., api00) |>
+          as.list() |>
+          set_names(rownames(.))
+      },
     ignore_attr = TRUE
   )
 
   expect_equal(
     ard_svy_cont |>
       dplyr::filter(stat_name %in% "sd") %>%
-      {dplyr::pull(., stat) |> set_names(unlist(.$group1_level))},
+      {
+        dplyr::pull(., stat) |> set_names(unlist(.$group1_level))
+      },
     survey::svyby(~api00, by = ~both, dclus1, FUN = survey::svyvar, na.rm = TRUE) %>%
-      {dplyr::pull(., api00) |> sqrt() |> as.list() |> set_names(rownames(.))},
+      {
+        dplyr::pull(., api00) |>
+          sqrt() |>
+          as.list() |>
+          set_names(rownames(.))
+      },
     ignore_attr = TRUE
   )
 
   expect_equal(
     ard_svy_cont |>
       dplyr::filter(stat_name %in% "mean.std.error") %>%
-      {dplyr::pull(., stat) |> set_names(unlist(.$group1_level))},
+      {
+        dplyr::pull(., stat) |> set_names(unlist(.$group1_level))
+      },
     survey::svyby(~api00, by = ~both, dclus1, FUN = survey::svymean, na.rm = TRUE) %>%
-      {dplyr::pull(., se) |> as.list() |> set_names(rownames(.))},
+      {
+        dplyr::pull(., se) |>
+          as.list() |>
+          set_names(rownames(.))
+      },
     ignore_attr = TRUE
   )
 
   expect_equal(
     ard_svy_cont |>
       dplyr::filter(stat_name %in% "deff") %>%
-      {dplyr::pull(., stat) |> set_names(unlist(.$group1_level))},
+      {
+        dplyr::pull(., stat) |> set_names(unlist(.$group1_level))
+      },
     survey::svyby(~api00, by = ~both, dclus1, FUN = survey::svymean, na.rm = TRUE, deff = TRUE) %>%
-      {dplyr::pull(., DEff.api00) |> as.list() |> set_names(rownames(.))},
+      {
+        dplyr::pull(., DEff.api00) |>
+          as.list() |>
+          set_names(rownames(.))
+      },
     ignore_attr = TRUE
   )
 
   expect_equal(
     ard_svy_cont |>
       dplyr::filter(stat_name %in% "p75") %>%
-      {dplyr::pull(., stat) |> set_names(unlist(.$group1_level))},
+      {
+        dplyr::pull(., stat) |> set_names(unlist(.$group1_level))
+      },
     survey::svyby(~api00, by = ~both, dclus1, FUN = survey::svyquantile, na.rm = TRUE, quantiles = 0.75) %>%
-      {dplyr::pull(., api00) |> as.list() |> set_names(rownames(.))},
+      {
+        dplyr::pull(., api00) |>
+          as.list() |>
+          set_names(rownames(.))
+      },
     ignore_attr = TRUE
   )
 })
@@ -202,7 +257,7 @@ test_that("ard_svy_continuous() NA handling", {
   # all results are NA, NaN, or NULL
   expect_true(
     ard_uni_NA_svy_cont$stat |>
-      map_lgl(~is.na(.x) || is.nan(.x) || is.null(.x)) |>
+      map_lgl(~ is.na(.x) || is.nan(.x) || is.null(.x)) |>
       all()
   )
 
@@ -222,7 +277,7 @@ test_that("ard_svy_continuous() NA handling", {
   # all results are NA, NaN, or NULL
   expect_true(
     ard_NA_svy_cont$stat |>
-      map_lgl(~is.na(.x) || is.nan(.x) || is.null(.x)) |>
+      map_lgl(~ is.na(.x) || is.nan(.x) || is.null(.x)) |>
       all()
   )
 })
@@ -290,13 +345,15 @@ test_that("ard_svy_continuous(stat_label)", {
 
 test_that("ard_svy_continuous(by) unobserved levels/combinations", {
   data(api, package = "survey")
-  dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw,
-                              data = apiclus1 |>
-                                dplyr::mutate(
-                                  both = factor(both, levels = c("Yes", "No", "Neither")),
-                                  awards = ifelse(stype == "E", "Yes", as.character(awards))
-                                ),
-                              fpc = ~fpc)
+  dclus1 <- survey::svydesign(
+    id = ~dnum, weights = ~pw,
+    data = apiclus1 |>
+      dplyr::mutate(
+        both = factor(both, levels = c("Yes", "No", "Neither")),
+        awards = ifelse(stype == "E", "Yes", as.character(awards))
+      ),
+    fpc = ~fpc
+  )
 
 
   # The 'Neither' level is never observed, but included in the table
@@ -327,4 +384,3 @@ test_that("ard_svy_continuous(by) unobserved levels/combinations", {
     rep_len(list(NA_real_), 4L)
   )
 })
-
