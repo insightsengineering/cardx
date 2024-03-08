@@ -103,9 +103,11 @@ ard_svy_continuous <- function(data, variables, by = NULL,
       dplyr::rows_update(
         df_stats,
         dplyr::tibble(
-          stat_name = names(stat_label),
-          stat_label = unlist(stat_label) |> unname()
-        ),
+          variable = names(stat_label),
+          stat_name = map(.data$variable, ~names(stat_label[[.x]])),
+          stat_label = map(.data$variable, ~stat_label[[.x]] |> unname() |> unlist())
+        ) |>
+          tidyr::unnest(cols = c("stat_name", "stat_label")),
         by = "stat_name",
         unmatched = "ignore"
       )
@@ -113,14 +115,16 @@ ard_svy_continuous <- function(data, variables, by = NULL,
 
   # add formatting stats -------------------------------------------------------
   df_stats$fmt_fn <- list(1L)
-  if (!is_empty(stat_label)) {
+  if (!is_empty(fmt_fn)) {
     df_stats <-
       dplyr::rows_update(
         df_stats,
         dplyr::tibble(
-          stat_name = names(fmt_fn),
-          fmt_fn = unname(fmt_fn)
-        ),
+          variable = names(fmt_fn),
+          stat_name = map(.data$variable, ~names(fmt_fn[[.x]])),
+          fmt_fn = map(.data$variable, ~fmt_fn[[.x]] |> unname())
+        ) |>
+          tidyr::unnest(cols = c("stat_name", "fmt_fn")),
         by = "stat_name",
         unmatched = "ignore"
       )
@@ -242,6 +246,16 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
           do.call(survey::svyby, args) |> set_names(c(by, "quantile", "ci.2.5", "ci.97.5", "se"))
         )
       }
+    else if (stat_name %in% "deff") {
+      stat <-
+        cards::eval_capture_conditions(
+          do.call(
+            survey::svyby,
+            args |> utils::modifyList(list(FUN = survey::svymean, deff = TRUE))
+          ) |>
+            dplyr::select(all_of(by), dplyr::last_col()) # the last column is DEff
+        )
+    }
     else cards::eval_capture_conditions(do.call(survey::svyby, args))
 
     # if the result was calculated, then put it into a tibble

@@ -173,17 +173,115 @@ test_that("stratified ard_svy_continuous() works", {
     ignore_attr = TRUE
   )
 
+  expect_equal(
+    ard_svy_cont |>
+      dplyr::filter(stat_name %in% "p75") %>%
+      {dplyr::pull(., stat) |> set_names(unlist(.$group1_level))},
+    survey::svyby(~api00, by = ~both, dclus1, FUN = survey::svyquantile, na.rm = TRUE, quantiles = 0.75) %>%
+      {dplyr::pull(., api00) |> as.list() |> set_names(rownames(.))},
+    ignore_attr = TRUE
+  )
+})
 
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_svy_cont, stat_name %in% "deff") |> unlist(),
-  #   survey::svymean(x = ~api00, dclus1, na.rm = TRUE, deff = TRUE) |>
-  #     as.data.frame() |>
-  #     dplyr::pull(deff),
-  #   ignore_attr = TRUE
-  # )
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_svy_cont, stat_name %in% "p75") |> unlist(),
-  #   survey::svyquantile(x = ~api00, dclus1, na.rm = TRUE, quantiles = 0.75)[[1]][1] |> unlist(),
-  #   ignore_attr = TRUE
-  # )
+test_that("ard_svy_continuous() NA handling", {
+  data(api, package = "survey")
+  dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1 |> dplyr::mutate(api00 = NA_real_), fpc = ~fpc)
+
+  expect_error(
+    ard_uni_NA_svy_cont <-
+      ard_svy_continuous(
+        dclus1,
+        variables = api00,
+        statistic = ~ c(
+          "mean", "median", "min", "max", "sum", "var", "sd",
+          "mean.std.error", "deff", "p75"
+        )
+      ),
+    NA
+  )
+  # all results are NA, NaN, or NULL
+  expect_true(
+    ard_uni_NA_svy_cont$stat |>
+      map_lgl(~is.na(.x) || is.nan(.x) || is.null(.x)) |>
+      all()
+  )
+
+  expect_error(
+    ard_NA_svy_cont <-
+      ard_svy_continuous(
+        dclus1,
+        variables = api00,
+        by = both,
+        statistic = ~ c(
+          "mean", "median", "min", "max", "sum", "var", "sd",
+          "mean.std.error", "deff", "p75"
+        )
+      ),
+    NA
+  )
+  # all results are NA, NaN, or NULL
+  expect_true(
+    ard_NA_svy_cont$stat |>
+      map_lgl(~is.na(.x) || is.nan(.x) || is.null(.x)) |>
+      all()
+  )
+})
+
+test_that("ard_svy_continuous() error handling", {
+  data(api, package = "survey")
+  dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1[1:20, ], fpc = ~fpc)
+
+  # passing a character vector (some results are still calculable...i don't think we need to "fix" these)
+  expect_snapshot(
+    ard_svy_continuous(
+      dclus1,
+      variables = sname,
+      statistic = ~ c(
+        "mean", "median", "min", "max", "sum", "var", "sd",
+        "mean.std.error", "deff", "p75"
+      )
+    ) |>
+      dplyr::select(-fmt_fn, -context, -stat_label)
+  )
+
+  expect_snapshot(
+    ard_svy_continuous(
+      dclus1,
+      variables = sname,
+      by = both,
+      statistic = ~ c(
+        "mean", "median", "min", "max", "sum", "var", "sd",
+        "mean.std.error", "deff", "p75"
+      )
+    ) |>
+      dplyr::select(-fmt_fn, -context, -stat_label)
+  )
+})
+
+test_that("ard_svy_continuous(fmt_fn)", {
+  data(api, package = "survey")
+  dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
+
+  expect_snapshot(
+    ard_svy_continuous(
+      dclus1,
+      variables = api00,
+      statistic = ~ c("mean", "median", "min", "max"),
+      fmt_fn = list(api00 = list(mean = 2, median = "xx.xx", min = as.character))
+    )
+  )
+})
+
+test_that("ard_svy_continuous(stat_label)", {
+  data(api, package = "survey")
+  dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
+
+  expect_snapshot(
+    ard_svy_continuous(
+      dclus1,
+      variables = api00,
+      statistic = ~ c("mean", "median", "min", "max"),
+      stat_label = list(api00 = list(mean = "MeAn", median = "MEDian", min = "MINimum"))
+    )
+  )
 })
