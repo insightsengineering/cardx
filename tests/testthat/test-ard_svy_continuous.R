@@ -287,3 +287,44 @@ test_that("ard_svy_continuous(stat_label)", {
     )
   )
 })
+
+test_that("ard_svy_continuous(by) unobserved levels/combinations", {
+  data(api, package = "survey")
+  dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw,
+                              data = apiclus1 |>
+                                dplyr::mutate(
+                                  both = factor(both, levels = c("Yes", "No", "Neither")),
+                                  awards = ifelse(stype == "E", "Yes", as.character(awards))
+                                ),
+                              fpc = ~fpc)
+
+
+  # The 'Neither' level is never observed, but included in the table
+  expect_setequal(
+    levels(dclus1$variables$both),
+    ard_svy_continuous(
+      dclus1,
+      variables = api00,
+      by = both,
+      statistic = ~ c("mean", "median", "min", "max")
+    ) |>
+      dplyr::pull(group1_level) |>
+      map_chr(as.character) |>
+      unique()
+  )
+
+  # stype="E" is not observed with awards="No", but it should still appear in table
+  with(dclus1$variables, table(stype, awards))
+  expect_equal(
+    ard_svy_continuous(
+      dclus1,
+      variables = api00,
+      by = c(stype, awards),
+      statistic = ~ c("mean", "median", "min", "max")
+    ) |>
+      dplyr::filter(map_chr(group1_level, as.character) %in% "E", group2_level %in% "No") |>
+      dplyr::pull(stat),
+    rep_len(list(NA_real_), 4L)
+  )
+})
+
