@@ -39,12 +39,11 @@
 # ard_vif() issues friendly messaging for incorrect object passed in/can't get terms of model
 
     Code
-      try(ard_vif(cards::ADSL))
+      ard_vif(cards::ADSL)
     Condition
       Warning:
       Unknown or uninitialised column: `terms`.
-    Output
-      Error in ard_vif(cards::ADSL) : 
-        There was an error running `car::vif()`. See below.
+      Error in `ard_vif()`:
+      ! There was an error running `car::vif()`. See below.
       x no applicable method for 'vcov' applied to an object of class "c('tbl_df', 'tbl', 'data.frame')"
 
