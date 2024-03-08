@@ -23,6 +23,8 @@ NULL
 #' @describeIn proportion_ci Calculates the Wald interval by following the usual textbook definition
 #'   for a single proportion confidence interval using the normal approximation.
 #'
+#' \deqn{\hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}}
+#'
 #' @param correct (`logical`)\cr apply continuity correction.
 #'
 #' @export
@@ -62,6 +64,10 @@ proportion_ci_wald <- function(x, conf.level = 0.95, correct = FALSE) {
 #' @describeIn proportion_ci Calculates the Wilson interval by calling [stats::prop.test()].
 #'  Also referred to as Wilson score interval.
 #'
+#' \deqn{\frac{\hat{p} +
+#' \frac{z^2_{\alpha/2}}{2n} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n} +
+#' \frac{z^2_{\alpha/2}}{4n^2}}}{1 + \frac{z^2_{\alpha/2}}{n}}}
+#'
 #' @export
 proportion_ci_wilson <- function(x, conf.level = 0.95, correct = FALSE) {
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
@@ -91,6 +97,12 @@ proportion_ci_wilson <- function(x, conf.level = 0.95, correct = FALSE) {
 
 #' @describeIn proportion_ci Calculates the Clopper-Pearson interval by calling [stats::binom.test()].
 #'   Also referred to as the `exact` method.
+#'
+#' \deqn{
+#' \left( \frac{k}{n} \pm z_{\alpha/2} \sqrt{\frac{\frac{k}{n}(1-\frac{k}{n})}{n} +
+#' \frac{z^2_{\alpha/2}}{4n^2}} \right)
+#' / \left( 1 + \frac{z^2_{\alpha/2}}{n} \right)}
+#'
 #' @export
 proportion_ci_clopper_pearson <- function(x, conf.level = 0.95) {
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
@@ -112,6 +124,12 @@ proportion_ci_clopper_pearson <- function(x, conf.level = 0.95) {
 
 #' @describeIn proportion_ci Calculates the `Agresti-Coull` interval (created by `Alan Agresti` and `Brent Coull`) by
 #'   (for 95% CI) adding two successes and two failures to the data and then using the Wald formula to construct a CI.
+#'
+#' \deqn{
+#' \left( \frac{\tilde{p} + z^2_{\alpha/2}/2}{n + z^2_{\alpha/2}} \pm
+#' z_{\alpha/2} \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{n} +
+#' \frac{z^2_{\alpha/2}}{4n^2}} \right)}
+#'
 #' @export
 proportion_ci_agresti_coull <- function(x, conf.level = 0.95) {
   # check inputs ---------------------------------------------------------------
@@ -149,6 +167,10 @@ proportion_ci_agresti_coull <- function(x, conf.level = 0.95) {
 
 #' @describeIn proportion_ci Calculates the Jeffreys interval, an equal-tailed interval based on the
 #'   non-informative Jeffreys prior for a binomial proportion.
+#'
+#' \deqn{\left( \text{Beta}\left(\frac{k}{2} + \frac{1}{2}, \frac{n - k}{2} + \frac{1}{2}\right)_\alpha,
+#' \text{Beta}\left(\frac{k}{2} + \frac{1}{2}, \frac{n - k}{2} + \frac{1}{2}\right)_{1-\alpha} \right)}
+#'
 #' @export
 proportion_ci_jeffreys <- function(x, conf.level = 0.95) {
   # check inputs ---------------------------------------------------------------
@@ -189,6 +211,11 @@ proportion_ci_jeffreys <- function(x, conf.level = 0.95) {
 #'   interval for unequal proportions as described in
 #'   Xin YA, Su XG. Stratified Wilson and Newcombe confidence intervals
 #'   for multiple binomial proportions. _Statistics in Biopharmaceutical Research_. 2010;2(3).
+#'
+#' \deqn{\frac{\hat{p}_j + \frac{z^2_{\alpha/2}}{2n_j} \pm
+#' z_{\alpha/2} \sqrt{\frac{\hat{p}_j(1 - \hat{p}_j)}{n_j} +
+#' \frac{z^2_{\alpha/2}}{4n_j^2}}}{1 + \frac{z^2_{\alpha/2}}{n_j}}}
+#'
 #'
 #' @param strata (`factor`)\cr variable with one level per stratum and same length as `x`.
 #' @param weights (`numeric` or `NULL`)\cr weights for each level of the strata. If `NULL`, they are
