@@ -46,10 +46,9 @@ ard_smd <- function(data, by, variable, ...) {
     variable = variable,
     lst_tidy =
       cards::eval_capture_conditions(
-        switch(
-         as.character(is_survey),
-         "TRUE" = smd::smd(x = data[[variable]], g = data[[by]], w = stats::weights(design), na.rm = TRUE, ...),
-         "FALSE" = smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, ...)
+        switch(as.character(is_survey),
+          "TRUE" = smd::smd(x = data[[variable]], g = data[[by]], w = stats::weights(design), na.rm = TRUE, ...),
+          "FALSE" = smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, ...)
         ) |>
           dplyr::select(-any_of("term"))
       ),
