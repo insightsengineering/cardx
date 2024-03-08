@@ -35,4 +35,3 @@ test_that("ard_vif() issues friendly messaging for incorrect object passed in/ca
     cards::ADSL |> ard_vif()
   )
 })
-

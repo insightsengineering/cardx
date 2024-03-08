@@ -31,11 +31,13 @@ ard_vif <- function(x, ...) {
         tryCatch(
           varnames <- attr(stats::terms(x), "term.labels"),
           error = function(e) {
-            cli::cli_abort(c(
-              "There was an error running {.fun car::vif}. See below.",
-              x = vif[["error"]]
-            ),
-            call = env_parent(n = 3L))
+            cli::cli_abort(
+              c(
+                "There was an error running {.fun car::vif}. See below.",
+                x = vif[["error"]]
+              ),
+              call = env_parent(n = 3L)
+            )
           }
         ),
       VIF = list(NULL),
