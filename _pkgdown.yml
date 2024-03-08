@@ -42,6 +42,7 @@ reference:
       - ard_regression
       - ard_regression_basic
       - ard_smd
+      - ard_vif
 
   - title: "Helpers"
   - contents:
