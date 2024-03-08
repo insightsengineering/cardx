@@ -21,25 +21,20 @@ ard_vif <- function(x, ...) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
 
-  vif <- car::vif(x, ...) |>
-    cards::eval_capture_conditions()
+  vif <- cards::eval_capture_conditions(car::vif(x, ...))
 
   # if vif failed, set result as NULL, error will be kept through eval_capture_conditions()
   if (is.null(vif$result)) {
+    # try to capture variable names from `terms()`
+    lst_terms <- cards::eval_capture_conditions(attr(stats::terms(x), "term.labels"))
+    # we cannot get variable names, error out
+    if (!is.null(lst_terms[["error"]])) {
+      cli::cli_abort(
+        c("There was an error running {.fun car::vif}. See below.", x = vif[["error"]])
+      )
+    }
     vif$result <- dplyr::tibble(
-      variable =
-        tryCatch(
-          varnames <- attr(stats::terms(x), "term.labels"),
-          error = function(e) {
-            cli::cli_abort(
-              c(
-                "There was an error running {.fun car::vif}. See below.",
-                x = vif[["error"]]
-              ),
-              call = env_parent(n = 3L)
-            )
-          }
-        ),
+      variable = lst_terms[["result"]],
       VIF = list(NULL),
       GVIF = list(NULL),
       aGVIF = list(NULL),

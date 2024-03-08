@@ -41,8 +41,6 @@
     Code
       ard_vif(cards::ADSL)
     Condition
-      Warning:
-      Unknown or uninitialised column: `terms`.
       Error in `ard_vif()`:
       ! There was an error running `car::vif()`. See below.
       x no applicable method for 'vcov' applied to an object of class "c('tbl_df', 'tbl', 'data.frame')"
