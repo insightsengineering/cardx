@@ -27,3 +27,11 @@ test_that("ard_vif() appropriate errors are given for model with only 1 term", {
     "model contains fewer than 2 terms"
   )
 })
+
+
+test_that("ard_vif() issues friendly messaging for incorrect object passed in/can't get terms of model", {
+  expect_snapshot(
+    try(cards::ADSL |> ard_vif())
+  )
+})
+
