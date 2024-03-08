@@ -74,7 +74,7 @@ Also referred to as the \code{exact} method.
 \deqn{
 \left( \frac{k}{n} \pm z_{\alpha/2} \sqrt{\frac{\frac{k}{n}(1-\frac{k}{n})}{n} +
 \frac{z^2_{\alpha/2}}{4n^2}} \right)
-\div \left( 1 + \frac{z^2_{\alpha/2}}{n} \right)}
+/ \left( 1 + \frac{z^2_{\alpha/2}}{n} \right)}
 
 \item \code{proportion_ci_agresti_coull()}: Calculates the \code{Agresti-Coull} interval (created by \verb{Alan Agresti} and \verb{Brent Coull}) by
 (for 95\% CI) adding two successes and two failures to the data and then using the Wald formula to construct a CI.

@@ -101,7 +101,7 @@ proportion_ci_wilson <- function(x, conf.level = 0.95, correct = FALSE) {
 #' \deqn{
 #' \left( \frac{k}{n} \pm z_{\alpha/2} \sqrt{\frac{\frac{k}{n}(1-\frac{k}{n})}{n} +
 #' \frac{z^2_{\alpha/2}}{4n^2}} \right)
-#' \div \left( 1 + \frac{z^2_{\alpha/2}}{n} \right)}
+#' / \left( 1 + \frac{z^2_{\alpha/2}}{n} \right)}
 #'
 #' @export
 proportion_ci_clopper_pearson <- function(x, conf.level = 0.95) {
