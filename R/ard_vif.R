@@ -1,7 +1,8 @@
 #' Regression VIF ARD
 #'
-#' Function takes a regression model object and converts it to a ARD
-#' structure using the `broom.helpers` package.
+#' @description
+#' Function takes a regression model object and returns the variance inflation factor (VIF)
+#' using [`car::vif()`] and converts it to a ARD structure
 #'
 #' @param x regression model object
 #' See car::vif() for details
@@ -17,19 +18,21 @@
 #' lm(AGE ~ ARM + SEX, data = cards::ADSL) |>
 #'   ard_vif()
 ard_vif <- function(x, ...) {
-  # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom.helpers", reference_pkg = "cards")
-
   # check inputs ---------------------------------------------------------------
   check_not_missing(x, "model")
 
-  temp <- x
   vif <- car::vif(x, ...) |>
     cards::eval_capture_conditions()
 
   # if vif failed, set result as NULL, error will be kept through eval_capture_conditions()
   if (is.null(vif$result)) {
-    vif$result <- dplyr::tibble(variable = names(temp$coefficients)[-1], VIF = list(NULL))
+    vif$result <- dplyr::tibble(
+      variable = attr(terms(x), "term.labels"),
+      VIF = list(NULL),
+      GVIF = list(NULL),
+      aGVIF = list(NULL),
+      df = list(NULL)
+    )
   }
   # if VIF is returned
   else if (!is.matrix(vif$result)) {

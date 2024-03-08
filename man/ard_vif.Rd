@@ -16,8 +16,8 @@ See car::vif() for details}
 data frame
 }
 \description{
-Function takes a regression model object and converts it to a ARD
-structure using the \code{broom.helpers} package.
+Function takes a regression model object and returns the variance inflation factor (VIF)
+using \code{\link[car:vif]{car::vif()}} and converts it to a ARD structure
 }
 \examples{
 lm(AGE ~ ARM + SEX, data = cards::ADSL) |>

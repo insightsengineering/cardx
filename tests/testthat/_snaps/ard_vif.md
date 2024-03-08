@@ -1,30 +1,29 @@
 # ard_vif() works
 
     Code
-      ard_vif(lm(AGE ~ ARM + SEX, data = cards::ADSL))
-    Message
-      {cards} data frame: 6 x 8
+      as.data.frame(ard_vif(lm(AGE ~ ARM + SEX, data = cards::ADSL)))
     Output
-        variable context stat_name stat_label  stat fmt_fn
-      1      ARM     vif      GVIF       GVIF 1.016      1
-      2      ARM     vif        df         df     2      1
-      3      ARM     vif     aGVIF  Adjusted… 1.004      1
-      4      SEX     vif      GVIF       GVIF 1.016      1
-      5      SEX     vif        df         df     1      1
-      6      SEX     vif     aGVIF  Adjusted… 1.008      1
-    Message
-      i 2 more variables: warning, error
+        variable context stat_name    stat_label     stat fmt_fn warning error
+      1      ARM     vif      GVIF          GVIF 1.015675      1    NULL  NULL
+      2      ARM     vif        df            df 2.000000      1    NULL  NULL
+      3      ARM     vif     aGVIF Adjusted GVIF 1.003896      1    NULL  NULL
+      4      SEX     vif      GVIF          GVIF 1.015675      1    NULL  NULL
+      5      SEX     vif        df            df 1.000000      1    NULL  NULL
+      6      SEX     vif     aGVIF Adjusted GVIF 1.007807      1    NULL  NULL
 
 # ard_vif() appropriate errors are given for model with only 1 term
 
     Code
-      ard_vif(lm(AGE ~ ARM, data = cards::ADSL))
-    Message
-      {cards} data frame: 2 x 8
+      as.data.frame(ard_vif(lm(AGE ~ ARM, data = cards::ADSL)))
     Output
-                       variable context stat_name stat_label stat     error
-      1 ARMXanomeline High Dose     vif       VIF        VIF      model co…
-      2  ARMXanomeline Low Dose     vif       VIF        VIF      model co…
-    Message
-      i 2 more variables: fmt_fn, warning
+        variable context stat_name    stat_label stat fmt_fn warning
+      1      ARM     vif       VIF           VIF NULL   NULL    NULL
+      2      ARM     vif      GVIF          GVIF NULL   NULL    NULL
+      3      ARM     vif     aGVIF Adjusted GVIF NULL   NULL    NULL
+      4      ARM     vif        df            df NULL   NULL    NULL
+                                    error
+      1 model contains fewer than 2 terms
+      2 model contains fewer than 2 terms
+      3 model contains fewer than 2 terms
+      4 model contains fewer than 2 terms
 
