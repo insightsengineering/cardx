@@ -4,6 +4,12 @@ test_that("ard_vif() works", {
       ard_vif() |>
       as.data.frame()
   )
+
+  expect_snapshot(
+    lm(AGE ~ BMIBL + EDUCLVL, data = cards::ADSL) |>
+      ard_vif() |>
+      as.data.frame()
+  )
 })
 
 test_that("ard_vif() appropriate errors are given for model with only 1 term", {

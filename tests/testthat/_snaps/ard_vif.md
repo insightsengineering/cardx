@@ -11,6 +11,15 @@
       5      SEX     vif        df            df 1.000000      1    NULL  NULL
       6      SEX     vif     aGVIF Adjusted GVIF 1.007807      1    NULL  NULL
 
+---
+
+    Code
+      as.data.frame(ard_vif(lm(AGE ~ BMIBL + EDUCLVL, data = cards::ADSL)))
+    Output
+        variable context stat_name stat_label     stat fmt_fn warning error
+      1    BMIBL     vif       VIF        VIF 1.010522      1    NULL  NULL
+      2  EDUCLVL     vif       VIF        VIF 1.010522      1    NULL  NULL
+
 # ard_vif() appropriate errors are given for model with only 1 term
 
     Code
