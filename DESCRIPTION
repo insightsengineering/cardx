@@ -29,6 +29,7 @@ Suggests:
     parameters (>= 0.20.2),
     smd (>= 0.6.6),
     spelling,
+    survey (>= 4.1),
     testthat (>= 3.2.0),
     withr
 Remotes: 
