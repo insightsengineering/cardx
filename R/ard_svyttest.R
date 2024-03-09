@@ -19,7 +19,7 @@
 #'
 #' @examplesIf cards::is_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
 #' data(api, package = "survey")
-#' dclus2 <- survey::svydesign(id = ~dnum + snum, fpc = ~fpc1 + fpc2, data = apiclus2)
+#' dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 #'
 #' ard_svyttest(dclus2, variable = enroll, by = comp.imp, conf.level = 0.9)
 ard_svyttest <- function(data, by, variable, conf.level = 0.95, ...) {
@@ -44,15 +44,16 @@ ard_svyttest <- function(data, by, variable, conf.level = 0.95, ...) {
       cards::eval_capture_conditions(
         survey::svyttest(stats::reformulate(by, response = variable), design = data, ...) %>%
           # a slightly enhanced tidier that allows us to specify the conf.level
-          {dplyr::bind_cols(
-            broom::tidy(.) |> dplyr::select(-c("conf.low", "conf.high")),
-            dplyr::tibble(!!!stats::confint(., level = conf.level) |> set_names(c("conf.low", "conf.high"))) |>
-              dplyr::mutate(conf.level = conf.level)
-          )}
+          {
+            dplyr::bind_cols(
+              broom::tidy(.) |> dplyr::select(-c("conf.low", "conf.high")),
+              dplyr::tibble(!!!stats::confint(., level = conf.level) |> set_names(c("conf.low", "conf.high"))) |>
+                dplyr::mutate(conf.level = conf.level)
+            )
+          }
       ),
     ...
   )
-
 }
 
 .format_svyttest_results <- function(by, variable, lst_tidy, ...) {
@@ -79,4 +80,3 @@ ard_svyttest <- function(data, by, variable, conf.level = 0.95, ...) {
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
     cards::tidy_ard_column_order()
 }
-

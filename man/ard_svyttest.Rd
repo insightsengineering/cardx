@@ -31,7 +31,7 @@ Analysis results data for survey t-test using \code{\link[survey:svyttest]{surve
 \examples{
 \dontshow{if (cards::is_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 data(api, package = "survey")
-dclus2 <- survey::svydesign(id = ~dnum + snum, fpc = ~fpc1 + fpc2, data = apiclus2)
+dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 
 ard_svyttest(dclus2, variable = enroll, by = comp.imp, conf.level = 0.9)
 \dontshow{\}) # examplesIf}
