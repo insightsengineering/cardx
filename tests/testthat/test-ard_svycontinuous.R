@@ -1,12 +1,12 @@
 skip_if_not(cards::is_pkg_installed("survey", reference_pkg = "cardx"))
 
-test_that("unstratified ard_svy_continuous() works", {
+test_that("unstratified ard_svycontinuous() works", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
   expect_error(
     ard_uni_svy_cont <-
-      ard_svy_continuous(
+      ard_svycontinuous(
         dclus1,
         variables = api00,
         statistic = ~ c(
@@ -71,13 +71,13 @@ test_that("unstratified ard_svy_continuous() works", {
 })
 
 
-test_that("stratified ard_svy_continuous() works", {
+test_that("stratified ard_svycontinuous() works", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
   expect_error(
     ard_svy_cont <-
-      ard_svy_continuous(
+      ard_svycontinuous(
         dclus1,
         by = both,
         variables = api00,
@@ -238,13 +238,13 @@ test_that("stratified ard_svy_continuous() works", {
   )
 })
 
-test_that("ard_svy_continuous() NA handling", {
+test_that("ard_svycontinuous() NA handling", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1 |> dplyr::mutate(api00 = NA_real_), fpc = ~fpc)
 
   expect_error(
     ard_uni_NA_svy_cont <-
-      ard_svy_continuous(
+      ard_svycontinuous(
         dclus1,
         variables = api00,
         statistic = ~ c(
@@ -263,7 +263,7 @@ test_that("ard_svy_continuous() NA handling", {
 
   expect_error(
     ard_NA_svy_cont <-
-      ard_svy_continuous(
+      ard_svycontinuous(
         dclus1,
         variables = api00,
         by = both,
@@ -282,7 +282,7 @@ test_that("ard_svy_continuous() NA handling", {
   )
 })
 
-test_that("ard_svy_continuous() error handling", {
+test_that("ard_svycontinuous() error handling", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1[1:20, ], fpc = ~fpc)
 
@@ -290,7 +290,7 @@ test_that("ard_svy_continuous() error handling", {
   # and these "results" may vary across systems (all are nonsense), so just check
   # that code runs without error
   expect_error(
-    ard_svy_continuous(
+    ard_svycontinuous(
       dclus1,
       variables = sname,
       statistic = ~ c(
@@ -302,7 +302,7 @@ test_that("ard_svy_continuous() error handling", {
   )
 
   expect_error(
-    ard_svy_continuous(
+    ard_svycontinuous(
       dclus1,
       variables = sname,
       by = both,
@@ -315,12 +315,12 @@ test_that("ard_svy_continuous() error handling", {
   )
 })
 
-test_that("ard_svy_continuous(fmt_fn)", {
+test_that("ard_svycontinuous(fmt_fn)", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
   expect_snapshot(
-    ard_svy_continuous(
+    ard_svycontinuous(
       dclus1,
       variables = api00,
       statistic = ~ c("mean", "median", "min", "max"),
@@ -329,12 +329,12 @@ test_that("ard_svy_continuous(fmt_fn)", {
   )
 })
 
-test_that("ard_svy_continuous(stat_label)", {
+test_that("ard_svycontinuous(stat_label)", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
   expect_snapshot(
-    ard_svy_continuous(
+    ard_svycontinuous(
       dclus1,
       variables = api00,
       statistic = ~ c("mean", "median", "min", "max"),
@@ -343,7 +343,7 @@ test_that("ard_svy_continuous(stat_label)", {
   )
 })
 
-test_that("ard_svy_continuous(by) unobserved levels/combinations", {
+test_that("ard_svycontinuous(by) unobserved levels/combinations", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(
     id = ~dnum, weights = ~pw,
@@ -359,7 +359,7 @@ test_that("ard_svy_continuous(by) unobserved levels/combinations", {
   # The 'Neither' level is never observed, but included in the table
   expect_setequal(
     levels(dclus1$variables$both),
-    ard_svy_continuous(
+    ard_svycontinuous(
       dclus1,
       variables = api00,
       by = both,
@@ -373,7 +373,7 @@ test_that("ard_svy_continuous(by) unobserved levels/combinations", {
   # stype="E" is not observed with awards="No", but it should still appear in table
   with(dclus1$variables, table(stype, awards))
   expect_equal(
-    ard_svy_continuous(
+    ard_svycontinuous(
       dclus1,
       variables = api00,
       by = c(stype, awards),

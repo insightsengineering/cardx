@@ -38,12 +38,12 @@
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
-#' ard_svy_continuous(
+#' ard_svycontinuous(
 #'   data = dclus1,
 #'   variables = api00,
 #'   by = stype
 #' )
-ard_svy_continuous <- function(data, variables, by = NULL,
+ard_svycontinuous <- function(data, variables, by = NULL,
                                statistic = everything() ~ c("median", "p25", "p75"),
                                fmt_fn = NULL,
                                stat_label = NULL) {
@@ -65,7 +65,7 @@ ard_svy_continuous <- function(data, variables, by = NULL,
   )
   cards::fill_formula_selectors(
     data$variables[variables],
-    statistic = formals(ard_svy_continuous)[["statistic"]] |> eval()
+    statistic = formals(ard_svycontinuous)[["statistic"]] |> eval()
   )
   cards::check_list_elements(
     x = statistic,

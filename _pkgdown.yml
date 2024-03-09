@@ -42,7 +42,7 @@ reference:
       - ard_regression
       - ard_regression_basic
       - ard_smd
-      - ard_svy_continuous
+      - ard_svycontinuous
 
   - title: "Helpers"
   - contents:

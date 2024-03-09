@@ -1,4 +1,4 @@
-# unstratified ard_svy_continuous() works
+# unstratified ard_svycontinuous() works
 
     Code
       ard_uni_svy_cont
@@ -19,10 +19,10 @@
     Message
       i 2 more variables: warning, error
 
-# ard_svy_continuous(fmt_fn)
+# ard_svycontinuous(fmt_fn)
 
     Code
-      ard_svy_continuous(dclus1, variables = api00, statistic = ~ c("mean", "median",
+      ard_svycontinuous(dclus1, variables = api00, statistic = ~ c("mean", "median",
         "min", "max"), fmt_fn = list(api00 = list(mean = 2, median = "xx.xx", min = as.character)))
     Message
       {cards} data frame: 4 x 8
@@ -35,10 +35,10 @@
     Message
       i 2 more variables: warning, error
 
-# ard_svy_continuous(stat_label)
+# ard_svycontinuous(stat_label)
 
     Code
-      ard_svy_continuous(dclus1, variables = api00, statistic = ~ c("mean", "median",
+      ard_svycontinuous(dclus1, variables = api00, statistic = ~ c("mean", "median",
         "min", "max"), stat_label = list(api00 = list(mean = "MeAn", median = "MEDian",
         min = "MINimum")))
     Message
