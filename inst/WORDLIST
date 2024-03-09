@@ -9,6 +9,7 @@ Lifecycle
 McNemar's
 Newcombe
 Su
+VIF
 XG
 Xin
 agresti
@@ -20,6 +21,7 @@ jeffreys
 pearson
 sd
 strat
+vif
 wald
 waldcc
 wilson
