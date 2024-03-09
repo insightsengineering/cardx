@@ -3,8 +3,9 @@
 #' @description
 #' Standardized mean difference calculated via [`smd::smd()`] with `na.rm = TRUE`.
 #'
-#' @param data (`data.frame`)\cr
-#'   a data frame.
+#' @param data (`data.frame`/`survey.design`)\cr
+#'   a data frame or object of class 'survey.design'
+#'   (typically created with [`survey::svydesign()`]).
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to compare by
 #' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
