@@ -49,7 +49,7 @@ ard_ttest <- function(data, by, variables, ...) {
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
-  check_not_missing(variable)
+  check_not_missing(variables)
   check_not_missing(by)
   check_data_frame(data)
   data <- dplyr::ungroup(data)
@@ -89,7 +89,7 @@ ard_paired_ttest <- function(data, by, variables, id, ...) {
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
-  check_not_missing(variable)
+  check_not_missing(variables)
   check_not_missing(by)
   check_not_missing(id)
   check_data_frame(data)
