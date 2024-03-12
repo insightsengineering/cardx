@@ -32,6 +32,19 @@ test_that("ard_wilcoxtest() works", {
       getElement(1L),
     "grouping factor must have exactly 2 levels"
   )
+
+  # test that the function works with multiple variables as once
+  expect_equal(
+    dplyr::bind_rows(
+      ard_wilcoxtest,
+      cards::ADSL |>
+        dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+        ard_wilcoxtest(by = ARM, variable = BMIBL, correct = FALSE, conf.int = TRUE)
+    ),
+    cards::ADSL |>
+      dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+      ard_wilcoxtest(by = ARM, variable = c(AGE, BMIBL), correct = FALSE, conf.int = TRUE)
+  )
 })
 
 test_that("ard_paired_wilcoxtest() works", {
