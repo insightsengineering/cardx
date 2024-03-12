@@ -79,7 +79,6 @@ ard_wilcoxtest <- function(data, by, variables, ...) {
     }
   ) |>
     dplyr::bind_rows()
-
 }
 
 #' @rdname ard_wilcoxtest
