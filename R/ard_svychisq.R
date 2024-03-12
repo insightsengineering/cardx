@@ -21,7 +21,7 @@
 #'
 #' @examplesIf cards::is_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
 #' data(api, package = "survey")
-#' dclus2 <- survey::svydesign(id=~dnum, weights=~pw, data=apiclus1, fpc=~fpc)
+#' dclus2 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
 #' ard_svychisq(dclus2, variable = sch.wide, by = comp.imp, statistic = "F")
 ard_svychisq <- function(data, by, variable, statistic = "F", ...) {
@@ -41,7 +41,7 @@ ard_svychisq <- function(data, by, variable, statistic = "F", ...) {
   cards::tidy_as_ard(
     lst_tidy =
       cards::eval_capture_conditions(
-        survey::svychisq(stats::reformulate(termlabels = paste (variable, by, sep = "+"), response = NULL), design = data, ...)  |>
+        survey::svychisq(stats::reformulate(termlabels = paste(variable, by, sep = "+"), response = NULL), design = data, ...) |>
           broom::tidy()
       ),
     tidy_result_names = c("statistic", "p.value", "ndf", "ddf", "method"),

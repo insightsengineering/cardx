@@ -33,7 +33,7 @@ Only two-way comparisons are supported.
 \examples{
 \dontshow{if (cards::is_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 data(api, package = "survey")
-dclus2 <- survey::svydesign(id=~dnum, weights=~pw, data=apiclus1, fpc=~fpc)
+dclus2 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
 ard_svychisq(dclus2, variable = sch.wide, by = comp.imp, statistic = "F")
 \dontshow{\}) # examplesIf}

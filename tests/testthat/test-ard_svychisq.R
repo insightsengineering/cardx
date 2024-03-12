@@ -20,7 +20,7 @@ test_that("ard_svychisq() works", {
       ard_svychisq,
       stat_name %in% c("statistic", "p.value")
     ),
-    survey::svychisq(~sch.wide + comp.imp, dclus2)[c("statistic", "p.value")],
+    survey::svychisq(~ sch.wide + comp.imp, dclus2)[c("statistic", "p.value")],
     ignore_attr = TRUE
   )
 })
