@@ -2,18 +2,19 @@
 #'
 #' @description
 #' Analysis results data for survey Chi-Square test using [`survey::svychisq()`].
+#' Only two-way comparisons are supported.
 #'
 #' @param data (`survey.design`)\cr
 #'   a survey design object often created with
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name to compare by
+#'   column name to compare by.
 #' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to be compared
 #' @param statistic (`character`)\cr
 #'   statistic used to estimate chisq p-value.
 #'   Default is the Rao-Scott second-order correction ("F"). See [`survey::svychisq`]
 #'   for available statistics options.
-#' @param ... arguments passed to [`survey::svychisq()`]
+#' @param ... arguments passed to [`survey::svychisq()`].
 #'
 #' @return ARD data frame
 #' @export

@@ -11,7 +11,7 @@ ard_svychisq(data, by, variable, statistic = "F", ...)
 a survey design object often created with}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to compare by}
+column name to compare by.}
 
 \item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to be compared}
@@ -21,13 +21,14 @@ statistic used to estimate chisq p-value.
 Default is the Rao-Scott second-order correction ("F"). See \code{\link[survey:svychisq]{survey::svychisq}}
 for available statistics options.}
 
-\item{...}{arguments passed to \code{\link[survey:svychisq]{survey::svychisq()}}}
+\item{...}{arguments passed to \code{\link[survey:svychisq]{survey::svychisq()}}.}
 }
 \value{
 ARD data frame
 }
 \description{
 Analysis results data for survey Chi-Square test using \code{\link[survey:svychisq]{survey::svychisq()}}.
+Only two-way comparisons are supported.
 }
 \examples{
 \dontshow{if (cards::is_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
