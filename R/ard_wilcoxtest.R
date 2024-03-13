@@ -167,7 +167,7 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
       ),
       formals = formals(asNamespace("stats")[["wilcox.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "ttest")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "wilcoxtest")
     )
 
   # add the stat label ---------------------------------------------------------

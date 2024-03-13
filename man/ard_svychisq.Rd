@@ -4,7 +4,7 @@
 \alias{ard_svychisq}
 \title{ARD Survey Chi-Square Test}
 \usage{
-ard_svychisq(data, by, variable, statistic = "F", ...)
+ard_svychisq(data, by, variables, statistic = "F", ...)
 }
 \arguments{
 \item{data}{(\code{survey.design})\cr
@@ -13,8 +13,9 @@ a survey design object often created with}
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to compare by.}
 
-\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to be compared}
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column names to be compared. Independent tests will be computed for
+each variable.}
 
 \item{statistic}{(\code{character})\cr
 statistic used to estimate chisq p-value.
@@ -33,8 +34,8 @@ Only two-way comparisons are supported.
 \examples{
 \dontshow{if (cards::is_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 data(api, package = "survey")
-dclus2 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
+dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
-ard_svychisq(dclus2, variable = sch.wide, by = comp.imp, statistic = "F")
+ard_svychisq(dclus1, variables = sch.wide, by = comp.imp, statistic = "F")
 \dontshow{\}) # examplesIf}
 }
