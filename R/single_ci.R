@@ -69,15 +69,14 @@ single_ci_sd  <- function(x, conf.level = 0.95) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
   check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))
-  check_scalar_logical(use_t)
 
   x <- stats::na.omit(x)
 
   n <- length(x)
   sd <- sd(x)
   alpha <- 1 - conf.level
-  crit_value_left <- stats::qchisq(alpha / 2, df = n - 1)
-  crit_value_right <- stats::qchisq((1 - alpha) / 2, df = n - 1)
+  crit_value_left <- stats::qchisq((1 - (alpha / 2)), df = n - 1)
+  crit_value_right <- stats::qchisq(alpha / 2, df = n - 1)
 
   l_ci <- sqrt((n - 1) * sd^2 / crit_value_left )
   u_ci <- sqrt((n - 1) * sd^2 / crit_value_right )
@@ -101,15 +100,14 @@ single_ci_var  <- function(x, conf.level = 0.95) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
   check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))
-  check_scalar_logical(use_t)
 
   x <- stats::na.omit(x)
 
   n <- length(x)
   var <- var(x)
   alpha <- 1 - conf.level
-  crit_value_left <- stats::qchisq(alpha / 2, df = n - 1)
-  crit_value_right <- stats::qchisq((1 - alpha) / 2, df = n - 1)
+  crit_value_left <- stats::qchisq((1 - alpha) / 2, df = n - 1)
+  crit_value_right <- stats::qchisq(alpha / 2, df = n - 1)
 
   l_ci <- (n - 1) * var / crit_value_left
   u_ci <- (n - 1) * var / crit_value_right
