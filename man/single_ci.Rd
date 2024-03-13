@@ -2,9 +2,19 @@
 % Please edit documentation in R/single_ci.R
 \name{single_ci}
 \alias{single_ci}
+\alias{single_ci_mean}
 \title{Functions for Calculating Univariate Confidence Intervals}
+\usage{
+single_ci_mean(x, conf.level = 0.95, use_t = TRUE)
+}
 \arguments{
 \item{x}{vector of numeric values}
+
+\item{conf.level}{(\code{numeric})\cr
+a scalar in \verb{(0, 1)} indicating the confidence level.
+Default is \code{0.95}}
+
+\item{use_t}{(\code{logical})\cr use t-distribution vs normal distribution}
 }
 \value{
 Confidence interval of a mean
@@ -12,6 +22,12 @@ Confidence interval of a mean
 \description{
 Functions to calculate different univariate/single statistic confidence intervals for use in \code{ard_single_ci()}.
 }
+\section{Functions}{
+\itemize{
+\item \code{single_ci_mean()}: Calculates the mean confidenence interval by following
+the usual textbook definition with either the normal or t distribution
+
+}}
 \examples{
 \dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 x <- 1:10

@@ -5,8 +5,9 @@
 #'
 #' @inheritParams cards::ard_continuous
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   columns to include in summaries. Columns must be class `<logical>`
-#'   or `<numeric>` values coded as `c(0, 1)`.
+#'   columns to include in summaries. Columns must be class  `<numeric>`.
+#' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   columns to stratify calculations by
 #' @param conf.level (`numeric`)\cr
 #'   a scalar in `(0, 1)` indicating the confidence level.
 #'   Default is `0.95`
@@ -29,10 +30,6 @@ ard_single_ci <- function(data,
   # process inputs -------------------------------------------------------------
   cards::process_selectors(data, variables = {{ variables }}, by = {{ by }})
   method <- arg_match(method)
-  if (method %in% c("mean")) {
-    cards::process_selectors(data, strata = strata)
-    check_scalar(strata)
-  }
 
   # calculate confidence intervals ---------------------------------------------
   cards::ard_complex(

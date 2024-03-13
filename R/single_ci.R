@@ -18,6 +18,13 @@
 #' single_ci_mean(x, conf.level = 0.9, use_t = TRUE)
 #' single_ci_mean(x, conf.level = 0.9, use_t = FALSE)
 NULL
+
+#' @describeIn single_ci Calculates the mean confidenence interval by following
+#' the usual textbook definition with either the normal or t distribution
+#'
+#' @param use_t (`logical`)\cr use t-distribution vs normal distribution
+#'
+#' @export
 single_ci_mean  <- function(x, conf.level = 0.95, use_t = TRUE) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)

@@ -9,7 +9,7 @@ ard_single_ci(
   variables,
   by = dplyr::group_vars(data),
   conf.level = 0.95,
-  method = c("mean_with_Z", "mean_with_T")
+  method = c("mean_with_T", "mean_with_Z")
 )
 }
 \arguments{
@@ -17,8 +17,10 @@ ard_single_ci(
 a data frame}
 
 \item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-columns to include in summaries. Columns must be class \verb{<logical>}
-or \verb{<numeric>} values coded as \code{c(0, 1)}.}
+columns to include in summaries. Columns must be class  \verb{<numeric>}.}
+
+\item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+columns to stratify calculations by}
 
 \item{conf.level}{(\code{numeric})\cr
 a scalar in \verb{(0, 1)} indicating the confidence level.
@@ -38,7 +40,7 @@ Calculate confidence intervals for univariate statistics.
 }
 \examples{
 \dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-ard_single_ci(cards::ADSL, variables = c(AGE), method = "mean_with_Z")
 ard_single_ci(cards::ADSL, variables = c(AGE), method = "mean_with_T")
+ard_single_ci(cards::ADSL, variables = c(AGE), method = "mean_with_Z")
 \dontshow{\}) # examplesIf}
 }
