@@ -8,7 +8,7 @@ ard_svychisq(data, by, variables, statistic = "F", ...)
 }
 \arguments{
 \item{data}{(\code{survey.design})\cr
-a survey design object often created with}
+a survey design object often created with the {survey} package}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to compare by.}

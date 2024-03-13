@@ -5,14 +5,14 @@
 #' Only two-way comparisons are supported.
 #'
 #' @param data (`survey.design`)\cr
-#'   a survey design object often created with
+#'   a survey design object often created with the {survey} package
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to compare by.
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column names to be compared. Independent tests will be computed for
 #'   each variable.
 #' @param statistic (`character`)\cr
-#'   statistic used to estimate chisq p-value.
+#'   statistic used to estimate Chisq p-value.
 #'   Default is the Rao-Scott second-order correction ("F"). See [`survey::svychisq`]
 #'   for available statistics options.
 #' @param ... arguments passed to [`survey::svychisq()`].
@@ -52,7 +52,6 @@ ard_svychisq <- function(data, by, variables, statistic = "F", ...) {
               broom::tidy()
           ),
         tidy_result_names = c("statistic", "p.value", "ndf", "ddf", "method"),
-        formals = formals(asNamespace("survey")[["svychisq.survey.design"]]),
         passed_args = dots_list(...),
         lst_ard_columns = list(group1 = by, variable = variable, context = "svychisq")
       ) |>
