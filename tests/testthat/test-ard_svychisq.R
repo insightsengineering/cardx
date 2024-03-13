@@ -30,16 +30,15 @@ test_that("ard_svychisq() works with multiple variables", {
   dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 
   expect_snapshot(
-      ard_svychisq(
-        dclus2,
-        variables = c(sch.wide, stype),
-        by = comp.imp,
-        statistic = "adjWald"
-      ) |>
-        dplyr::select(c(1:3, 5:6)) |>
-        dplyr::group_by(variable) |>
-        dplyr::slice_head(n=3) |>
-        as.data.frame()
-
+    ard_svychisq(
+      dclus2,
+      variables = c(sch.wide, stype),
+      by = comp.imp,
+      statistic = "adjWald"
+    ) |>
+      dplyr::select(c(1:3, 5:6)) |>
+      dplyr::group_by(variable) |>
+      dplyr::slice_head(n = 3) |>
+      as.data.frame()
   )
 })
