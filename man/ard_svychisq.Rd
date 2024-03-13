@@ -18,7 +18,7 @@ column names to be compared. Independent tests will be computed for
 each variable.}
 
 \item{statistic}{(\code{character})\cr
-statistic used to estimate chisq p-value.
+statistic used to estimate Chisq p-value.
 Default is the Rao-Scott second-order correction ("F"). See \code{\link[survey:svychisq]{survey::svychisq}}
 for available statistics options.}
 
