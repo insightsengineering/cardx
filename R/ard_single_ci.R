@@ -26,7 +26,7 @@ ard_single_ci <- function(data,
                           variables,
                           by = dplyr::group_vars(data),
                           conf.level = 0.95,
-                          method = c("mean_with_T", "mean_with_Z")) {
+                          method = c("mean_with_T", "mean_with_Z", "sd", "var")) {
   # process inputs -------------------------------------------------------------
   cards::process_selectors(data, variables = {{ variables }}, by = {{ by }})
   method <- arg_match(method)
@@ -41,7 +41,9 @@ ard_single_ci <- function(data,
         single_ci =
           switch(method,
                  "mean_with_T" = \(x, ...) single_ci_mean(x, conf.level = conf.level, use_t = TRUE),
-                 "mean_with_Z" = \(x, ...) single_ci_mean(x, conf.level = conf.level, use_t = FALSE)
+                 "mean_with_Z" = \(x, ...) single_ci_mean(x, conf.level = conf.level, use_t = FALSE),
+                 "sd" = \(x, ...) single_ci_sd(x, conf.level = conf.level),
+                 "var"= \(x, ...) single_ci_sd(x, conf.level = conf.level)
           )
       )
   ) |>

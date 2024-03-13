@@ -9,7 +9,7 @@ ard_single_ci(
   variables,
   by = dplyr::group_vars(data),
   conf.level = 0.95,
-  method = c("mean_with_T", "mean_with_Z")
+  method = c("mean_with_T", "mean_with_Z", "sd", "var")
 )
 }
 \arguments{

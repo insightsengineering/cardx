@@ -3,9 +3,15 @@
 \name{single_ci}
 \alias{single_ci}
 \alias{single_ci_mean}
+\alias{single_ci_sd}
+\alias{single_ci_var}
 \title{Functions for Calculating Univariate Confidence Intervals}
 \usage{
 single_ci_mean(x, conf.level = 0.95, use_t = TRUE)
+
+single_ci_sd(x, conf.level = 0.95)
+
+single_ci_var(x, conf.level = 0.95)
 }
 \arguments{
 \item{x}{vector of numeric values}
@@ -27,6 +33,12 @@ Functions to calculate different univariate/single statistic confidence interval
 \item \code{single_ci_mean()}: Calculates the mean confidenence interval by following
 the usual textbook definition with either the normal or t distribution
 
+\item \code{single_ci_sd()}: Calculates the standard deviation confidence interval by following
+the usual textbook definition with the chi-sq distribution
+
+\item \code{single_ci_var()}: Calculates the variance deviation confidence interval by following
+the usual textbook definition with the chi-sq distribution
+
 }}
 \examples{
 \dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -34,5 +46,7 @@ x <- 1:10
 
 single_ci_mean(x, conf.level = 0.9, use_t = TRUE)
 single_ci_mean(x, conf.level = 0.9, use_t = FALSE)
+single_ci_sd(x, conf.level = 0.9)
+single_ci_var(x, conf.level = 0.9)
 \dontshow{\}) # examplesIf}
 }
