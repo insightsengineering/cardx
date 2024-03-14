@@ -145,7 +145,7 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
 #'
 #' cardx:::.format_wilcoxtest_results(
 #'   by = "ARM",
-#'   variables = "AGE",
+#'   variable = "AGE",
 #'   paired = FALSE,
 #'   lst_tidy =
 #'     cards::eval_capture_conditions(
