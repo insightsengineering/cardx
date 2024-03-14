@@ -30,7 +30,7 @@
 #' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   ard_wilcoxtest(by = "ARM", variable = "AGE")
+#'   ard_wilcoxtest(by = "ARM", variables = "AGE")
 #'
 #' # constructing a paired data set,
 #' # where patients receive both treatments
@@ -38,7 +38,7 @@
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
 #'   dplyr::arrange(USUBJID, ARM) |>
-#'   ard_paired_wilcoxtest(by = ARM, variable = AGE, id = USUBJID)
+#'   ard_paired_wilcoxtest(by = ARM, variables = AGE, id = USUBJID)
 NULL
 
 #' @rdname ard_wilcoxtest
@@ -141,11 +141,11 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
 #' # Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
 #' ADSL <- cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   ard_wilcoxtest(by = "ARM", variable = "AGE")
+#'   ard_wilcoxtest(by = "ARM", variables = "AGE")
 #'
 #' cardx:::.format_wilcoxtest_results(
 #'   by = "ARM",
-#'   variable = "AGE",
+#'   variables = "AGE",
 #'   paired = FALSE,
 #'   lst_tidy =
 #'     cards::eval_capture_conditions(

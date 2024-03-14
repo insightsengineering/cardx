@@ -29,11 +29,11 @@ Convert Wilcoxon test to ARD
 # Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
 ADSL <- cards::ADSL |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
-  ard_wilcoxtest(by = "ARM", variable = "AGE")
+  ard_wilcoxtest(by = "ARM", variables = "AGE")
 
 cardx:::.format_wilcoxtest_results(
   by = "ARM",
-  variable = "AGE",
+  variables = "AGE",
   paired = FALSE,
   lst_tidy =
     cards::eval_capture_conditions(
