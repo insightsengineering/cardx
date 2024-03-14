@@ -32,13 +32,13 @@ test_that("ard_cohens_d() works", {
 
   # test that the function works with multiple variables
   expect_snapshot(
-      cards::ADSL |>
-        dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-        ard_cohens_d(by = ARM, variables = c(BMIBL, HEIGHTBL)) |>
-        dplyr::select(c(1:3, 5:6)) |>
-        dplyr::group_by(variable) |>
-        dplyr::slice_head(n = 3) |>
-        as.data.frame()
+    cards::ADSL |>
+      dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+      ard_cohens_d(by = ARM, variables = c(BMIBL, HEIGHTBL)) |>
+      dplyr::select(c(1:3, 5:6)) |>
+      dplyr::group_by(variable) |>
+      dplyr::slice_head(n = 3) |>
+      as.data.frame()
   )
 })
 
@@ -90,5 +90,3 @@ test_that("ard_paired_cohens_d() works", {
       as.data.frame()
   )
 })
-
-

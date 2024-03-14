@@ -111,20 +111,20 @@ ard_paired_cohens_d <- function(data, by, variables, id, ...) {
   lapply(
     variables,
     function(variable) {
-  .format_cohens_d_results(
-    by = by,
-    variable = variable,
-    lst_tidy =
-      cards::eval_capture_conditions({
-        # adding this reshape inside the eval, so if there is an error it's captured in the ARD object
-        data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
-        # perform paired cohen's d test
-        effectsize::cohens_d(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...) |>
-          parameters::standardize_names(style = "broom")
-      }),
-    paired = TRUE,
-    ...
-  )
+      .format_cohens_d_results(
+        by = by,
+        variable = variable,
+        lst_tidy =
+          cards::eval_capture_conditions({
+            # adding this reshape inside the eval, so if there is an error it's captured in the ARD object
+            data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
+            # perform paired cohen's d test
+            effectsize::cohens_d(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...) |>
+              parameters::standardize_names(style = "broom")
+          }),
+        paired = TRUE,
+        ...
+      )
     }
   ) |>
     dplyr::bind_rows()
