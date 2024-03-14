@@ -23,12 +23,8 @@ test_that("ard_svychisq() works", {
     survey::svychisq(~ sch.wide + comp.imp, dclus2)[c("statistic", "p.value")],
     ignore_attr = TRUE
   )
-})
 
-test_that("ard_svychisq() works with multiple variables", {
-  data(api, package = "survey")
-  dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
-
+  # test that the function works with multiple variables
   expect_snapshot(
     ard_svychisq(
       dclus2,
@@ -40,5 +36,16 @@ test_that("ard_svychisq() works with multiple variables", {
       dplyr::group_by(variable) |>
       dplyr::slice_head(n = 3) |>
       as.data.frame()
+  )
+
+
+  expect_equal(
+    dplyr::bind_rows(
+      ard_svychisq,
+      dclus2 |>
+        ard_svychisq(by = comp.imp, variables = stype)
+    ),
+    dclus2 |>
+      ard_svychisq(by = comp.imp, variables = c(sch.wide, stype))
   )
 })

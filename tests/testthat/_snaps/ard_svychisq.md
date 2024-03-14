@@ -1,4 +1,4 @@
-# ard_svychisq() works with multiple variables
+# ard_svychisq() works
 
     Code
       as.data.frame(dplyr::slice_head(dplyr::group_by(dplyr::select(ard_svychisq(
