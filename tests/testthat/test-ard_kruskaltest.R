@@ -4,7 +4,7 @@ test_that("ard_kurskaltest() works", {
   expect_error(
     ard_kruskaltest <-
       cards::ADSL |>
-      ard_kruskaltest(by = ARM, variable = AGE),
+      ard_kruskaltest(by = ARM, variables = AGE),
     NA
   )
 
@@ -21,7 +21,18 @@ test_that("ard_kurskaltest() works", {
   # errors are properly handled
   expect_snapshot(
     cards::ADSL |>
-      ard_kruskaltest(by = "ARM", variable = "AGE") |>
+      ard_kruskaltest(by = "ARM", variables = "AGE") |>
       as.data.frame()
+  )
+
+  # test that the function works with multiple variables
+  expect_equal(
+    dplyr::bind_rows(
+      ard_kruskaltest,
+      cards::ADSL |>
+        ard_kruskaltest(by = ARM, variable = BMIBL)
+    ),
+    cards::ADSL |>
+      ard_kruskaltest(by = ARM, variable = c(AGE, BMIBL))
   )
 })

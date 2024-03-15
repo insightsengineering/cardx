@@ -4,7 +4,7 @@ test_that("ard_mcnemartest() works", {
   expect_error(
     ard_mcnemartest <-
       cards::ADSL |>
-      ard_mcnemartest(by = SEX, variable = EFFFL),
+      ard_mcnemartest(by = SEX, variables = EFFFL),
     NA
   )
 
@@ -20,7 +20,7 @@ test_that("ard_mcnemartest() works", {
   # errors are properly handled
   expect_equal(
     cards::ADSL |>
-      ard_mcnemartest(by = ARM, variable = AGE, correct = FALSE) |>
+      ard_mcnemartest(by = ARM, variables = AGE, correct = FALSE) |>
       dplyr::pull(error) |>
       getElement(1L),
     "'x' and 'y' must have the same number of levels (minimum 2)"
@@ -33,10 +33,21 @@ test_that("ard_mcnemartest() works", {
   expect_equal(
     cards::ADSL |>
       dplyr::rename(`Planned Tx` = TRT01P, `Age Group` = AGEGR1) |>
-      ard_mcnemartest(by = `Planned Tx`, variable = `Age Group`) |>
+      ard_mcnemartest(by = `Planned Tx`, variables = `Age Group`) |>
       cards::get_ard_statistics(),
     cards::ADSL |>
-      ard_mcnemartest(by = TRT01P, variable = AGEGR1) |>
+      ard_mcnemartest(by = TRT01P, variables = AGEGR1) |>
       cards::get_ard_statistics()
+  )
+
+  # test that the function works with multiple variables
+  expect_equal(
+    dplyr::bind_rows(
+      ard_mcnemartest,
+      cards::ADSL |>
+        ard_mcnemartest(by = SEX, variables = COMP16FL)
+    ),
+    cards::ADSL |>
+      ard_mcnemartest(by = SEX, variables = c(EFFFL, COMP16FL))
   )
 })

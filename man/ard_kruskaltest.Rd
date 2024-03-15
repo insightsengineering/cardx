@@ -4,17 +4,18 @@
 \alias{ard_kruskaltest}
 \title{ARD Kruskal-Wallis Test}
 \usage{
-ard_kruskaltest(data, by, variable)
+ard_kruskaltest(data, by, variables)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
 a data frame.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to compare by}
+column name to compare by.}
 
-\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to be compared}
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name to be compared. Independent tests will
+be computed for each variable.}
 }
 \value{
 ARD data frame
@@ -27,6 +28,6 @@ Calculated with \code{kruskal.test(data[[variable]], data[[by]], ...)}
 \examples{
 \dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
-  ard_kruskaltest(by = "ARM", variable = "AGE")
+  ard_kruskaltest(by = "ARM", variables = "AGE")
 \dontshow{\}) # examplesIf}
 }
