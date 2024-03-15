@@ -5,7 +5,7 @@ test_that("ard_cohens_d() works", {
     ard_cohens_d <-
       cards::ADSL |>
       dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-      ard_cohens_d(by = ARM, variable = AGE, pooled_sd = FALSE),
+      ard_cohens_d(by = ARM, variables = AGE, pooled_sd = FALSE),
     NA
   )
 
@@ -25,8 +25,19 @@ test_that("ard_cohens_d() works", {
   # errors are properly handled
   expect_snapshot(
     cards::ADSL |>
-      ard_cohens_d(by = ARM, variable = AGE) |>
+      ard_cohens_d(by = ARM, variables = AGE) |>
       dplyr::select(c("variable", "stat_name", "error")) |>
+      as.data.frame()
+  )
+
+  # test that the function works with multiple variables
+  expect_snapshot(
+    cards::ADSL |>
+      dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+      ard_cohens_d(by = ARM, variables = c(BMIBL, HEIGHTBL)) |>
+      dplyr::select(c(1:3, 5:6)) |>
+      dplyr::group_by(variable) |>
+      dplyr::slice_head(n = 3) |>
       as.data.frame()
   )
 })
