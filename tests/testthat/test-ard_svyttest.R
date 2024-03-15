@@ -34,6 +34,25 @@ test_that("ard_svyttest() works", {
       as.list(),
     ignore_attr = TRUE
   )
+
+  # check that is works with multiple variables
+  expect_equal(
+    dplyr::bind_rows(
+      ard_svyttest,
+      ard_svyttest(
+        dclus2,
+        variable = mobility,
+        by = comp.imp,
+        conf.level = 0.9
+      )
+    ),
+    ard_svyttest(
+      dclus2,
+      variable = c(enroll, mobility),
+      by = comp.imp,
+      conf.level = 0.9
+    )
+  )
 })
 
 test_that("ard_svyttest() messaging", {

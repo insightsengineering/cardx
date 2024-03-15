@@ -4,11 +4,11 @@
 #' Analysis results data for survey t-test using [`survey::svyttest()`].
 #'
 #' @param data (`survey.design`)\cr
-#'   a survey design object often created with
+#'   a survey design object often created with [`survey::svydesign()`]
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to compare by
-#' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name to be compared
+#' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column names to be compared. Independent tests will be run for each variable.
 #' @param conf.level (`double`)\cr
 #'   confidence level of the returned confidence interval. Must be between `c(0, 1)`.
 #'   Default is `0.95`
@@ -22,38 +22,43 @@
 #' dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 #'
 #' ard_svyttest(dclus2, variable = enroll, by = comp.imp, conf.level = 0.9)
-ard_svyttest <- function(data, by, variable, conf.level = 0.95, ...) {
+ard_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
-  check_not_missing(variable)
+  check_not_missing(variables)
   check_not_missing(by)
   check_range(conf.level, range = c(0, 1))
   check_class(data, cls = "survey.design")
-  cards::process_selectors(data[["variables"]], by = {{ by }}, variable = {{ variable }})
+  cards::process_selectors(data[["variables"]], by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
-  check_scalar(variable)
 
   # build ARD ------------------------------------------------------------------
-  .format_svyttest_results(
-    by = by,
-    variable = variable,
-    lst_tidy =
-      cards::eval_capture_conditions(
-        survey::svyttest(stats::reformulate(by, response = variable), design = data, ...) %>%
-          # a slightly enhanced tidier that allows us to specify the conf.level
-          {
-            dplyr::bind_cols(
-              broom::tidy(.) |> dplyr::select(-c("conf.low", "conf.high")),
-              dplyr::tibble(!!!stats::confint(., level = conf.level) |> set_names(c("conf.low", "conf.high"))) |>
-                dplyr::mutate(conf.level = conf.level)
-            )
-          }
-      ),
-    ...
-  )
+  lapply(
+    variables,
+    function(variable) {
+      .format_svyttest_results(
+        by = by,
+        variable = variable,
+        lst_tidy =
+          cards::eval_capture_conditions(
+            survey::svyttest(stats::reformulate(by, response = variable), design = data, ...) %>%
+              # a slightly enhanced tidier that allows us to specify the conf.level
+              {
+                dplyr::bind_cols(
+                  broom::tidy(.) |> dplyr::select(-c("conf.low", "conf.high")),
+                  dplyr::tibble(!!!stats::confint(., level = conf.level) |> set_names(c("conf.low", "conf.high"))) |>
+                    dplyr::mutate(conf.level = conf.level)
+                )
+              }
+          ),
+        ...
+      )
+    }
+  ) |>
+    dplyr::bind_rows()
 }
 
 .format_svyttest_results <- function(by, variable, lst_tidy, ...) {

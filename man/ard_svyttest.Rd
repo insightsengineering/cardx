@@ -4,17 +4,17 @@
 \alias{ard_svyttest}
 \title{ARD Survey t-test}
 \usage{
-ard_svyttest(data, by, variable, conf.level = 0.95, ...)
+ard_svyttest(data, by, variables, conf.level = 0.95, ...)
 }
 \arguments{
 \item{data}{(\code{survey.design})\cr
-a survey design object often created with}
+a survey design object often created with \code{\link[survey:svydesign]{survey::svydesign()}}}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to compare by}
 
-\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to be compared}
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column names to be compared. Independent tests will be run for each variable.}
 
 \item{conf.level}{(\code{double})\cr
 confidence level of the returned confidence interval. Must be between \code{c(0, 1)}.
