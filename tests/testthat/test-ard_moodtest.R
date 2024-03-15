@@ -24,4 +24,14 @@ test_that("ard_moodtest() works", {
       ard_moodtest(by = SEX, variable = AGE) |>
       as.data.frame()
   )
+
+  expect_equal(
+    dplyr::bind_rows(
+      ard_moodtest,
+      cards::ADSL |>
+        ard_moodtest(by = SEX, variable = BMIBL)
+    ),
+    cards::ADSL |>
+      ard_moodtest(by = SEX, variable = c(AGE, BMIBL))
+  )
 })
