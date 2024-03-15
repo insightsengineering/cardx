@@ -62,7 +62,7 @@ ard_svychisq <- function(data, by, variables, statistic = "F", ...) {
               .data$stat_name %in% "statistic" ~ "Statistic",
               .data$stat_name %in% "p.value" ~ "p-value",
               .data$stat_name %in% "ndf" ~ "Nominator Degrees of Freedom",
-              .data$stat_name %in% "ddf" ~ "Denominator Degrees of Freedom"
+              .data$stat_name %in% "ddf" ~ "Denominator Degrees of Freedom",
               TRUE ~ .data$stat_name,
             )
         )
