@@ -70,13 +70,14 @@ ard_moodtest <- function(data, by, variable, ...) {
 #'         broom::tidy()
 #'     )
 #' )
+#' @noRd
 .format_moodtest_results <- function(by, variable, lst_tidy, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
     cards::tidy_as_ard(
       lst_tidy = lst_tidy,
       tidy_result_names = c("statistic", "p.value", "method", "alternative"),
-      formals = formals(asNamespace("stats")[["mood.test.default"]]),
+      # formals = formals(asNamespace("stats")[["mood.test.default"]]),
       passed_args = c(dots_list(...)),
       lst_ard_columns = list(group1 = by, variable = variable, context = "moodtest")
     )

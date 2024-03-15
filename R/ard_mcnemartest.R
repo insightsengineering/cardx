@@ -76,6 +76,7 @@ ard_mcnemartest <- function(data, by, variable, ...) {
 #' )
 #'
 #' @keywords internal
+#' @noRd
 .format_mcnemartest_results <- function(by, variable, lst_tidy, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
@@ -83,7 +84,7 @@ ard_mcnemartest <- function(data, by, variable, ...) {
       lst_tidy = lst_tidy,
       tidy_result_names = c("statistic", "p.value", "method"),
       fun_args_to_record = c("correct"),
-      formals = formals(asNamespace("stats")[["mcnemar.test"]]),
+      # formals = formals(asNamespace("stats")[["mcnemar.test"]]),
       passed_args = dots_list(...),
       lst_ard_columns = list(group1 = by, variable = variable, context = "mcnemartest")
     )

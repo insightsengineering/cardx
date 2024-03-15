@@ -134,6 +134,7 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
 #' )
 #'
 #' @keywords internal
+#' @noRd
 .format_wilcoxtest_results <- function(by, variable, lst_tidy, paired, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
@@ -144,7 +145,7 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
         "mu", "paired", "exact", "correct", "conf.int",
         "conf.level", "tol.root", "digits.rank"
       ),
-      formals = formals(asNamespace("stats")[["wilcox.test.default"]]),
+      # formals = formals(asNamespace("stats")[["wilcox.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
       lst_ard_columns = list(group1 = by, variable = variable, context = "ttest")
     )
@@ -157,41 +158,6 @@ ard_paired_wilcoxtest <- function(data, by, variable, id, ...) {
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
     cards::tidy_ard_column_order()
-}
-
-
-#' Convert long paired data to wide
-#'
-#'
-#' @param data (`data.frame`)\cr a data frame that is one line per subject per group
-#' @param by (`string`)\cr by column name
-#' @param variable (`string`)\cr variable column name
-#' @param id (`string`)\cr subject id column name
-#' @param env (`environment`) used for error messaging. Default is `rlang::caller_env()`
-#'
-#' @return a wide data frame
-#' @keywords internal
-#' @examples
-#' cards::ADSL[c("ARM", "AGE")] |>
-#'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
-#'   dplyr::arrange(USUBJID, ARM) |>
-#'   cardx:::.paired_data_pivot_wider(by = "ARM", variable = "AGE", id = "USUBJID")
-.paired_data_pivot_wider <- function(data, by, variable, id, env = rlang::caller_env()) {
-  # check the number of levels before pivoting data to wider format
-  if (dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {
-    cli::cli_abort("The {.arg by} argument must have two and only two levels.", call = env)
-  }
-
-  data |>
-    # arrange data so the first group always appears first
-    dplyr::arrange(.data[[by]]) |>
-    tidyr::pivot_wider(
-      id_cols = all_of(id),
-      names_from = all_of(by),
-      values_from = all_of(variable)
-    ) |>
-    stats::setNames(c(id, "by1", "by2"))
 }
 
 .df_wilcoxtest_stat_labels <- function() {

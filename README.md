@@ -1,4 +1,4 @@
-# cardx <a href="https://insightsengineering.github.io/cardx"><img src="man/figures/logo.png" align="right" height="138" alt="cardx website" /></a>
+# cardx <a href="https://insightsengineering.github.io/cardx/"><img src="man/figures/logo.png" align="right" height="138" alt="cardx website" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml)
@@ -11,9 +11,16 @@ This is the source repository of the `cardx` R package.
 
 ## Installation
 
-The latest development version of `{cardx}` can directly be installed from GitHub by running the following:
+Install cards from CRAN with:
 
-```r
-if (!require("pak")) install.packages("pak")
-pak::pak("insightsengineering/cardx")
+``` r
+install.packages("cardx")
+```
+
+You can install the development version of cards from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("insightsengineering/cardx")
 ```

@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Extra Analysis Results Data (ARD) functions. The package supplements the ARD functions from the 'cards' package, exporting functions to put statistical results in the ARD format.
+Create extra Analysis Results Data (ARD) summary objects. The package supplements the simple ARD functions from the 'cards' package, exporting functions to put statistical results in the ARD format. These objects are used and re-used to construct summary tables, visualizations, and written reports.
 }
 \seealso{
 Useful links:
@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Daniel Sjoberg \email{sjobergd@gene.com}
+\strong{Maintainer}: Daniel Sjoberg \email{danield.sjoberg@gmail.com}
 
 Other contributors:
 \itemize{

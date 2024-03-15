@@ -34,3 +34,4 @@ pkgdown
 # others
 ^renv$
 ^renv\.lock$
+^cran-comments\.md$

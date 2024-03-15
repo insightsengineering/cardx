@@ -1,4 +1,3 @@
-# cardx 0.0.0.9042
+# cardx 0.1.0
 
-### New Features
-* New package!
+* Initial release.

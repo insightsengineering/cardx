@@ -14,10 +14,10 @@
       8     ARM      AGE   ttest   conf.high      CI Upper Bound  NULL   NULL    NULL
       9     ARM      AGE   ttest      method              method  NULL   NULL    NULL
       10    ARM      AGE   ttest alternative         alternative  NULL   NULL    NULL
-      11    ARM      AGE   ttest          mu             H0 Mean     0      1    NULL
+      11    ARM      AGE   ttest          mu             H0 Mean  NULL   NULL    NULL
       12    ARM      AGE   ttest      paired       Paired t-test FALSE   NULL    NULL
       13    ARM      AGE   ttest   var.equal     Equal Variances  TRUE   NULL    NULL
-      14    ARM      AGE   ttest  conf.level CI Confidence Level  0.95      1    NULL
+      14    ARM      AGE   ttest  conf.level CI Confidence Level  NULL   NULL    NULL
                                               error
       1  grouping factor must have exactly 2 levels
       2  grouping factor must have exactly 2 levels
@@ -51,10 +51,10 @@
       8     ARM      AGE   ttest   conf.high      CI Upper Bound NULL   NULL    NULL
       9     ARM      AGE   ttest      method              method NULL   NULL    NULL
       10    ARM      AGE   ttest alternative         alternative NULL   NULL    NULL
-      11    ARM      AGE   ttest          mu             H0 Mean    0      1    NULL
+      11    ARM      AGE   ttest          mu             H0 Mean NULL   NULL    NULL
       12    ARM      AGE   ttest      paired       Paired t-test TRUE   NULL    NULL
       13    ARM      AGE   ttest   var.equal     Equal Variances TRUE   NULL    NULL
-      14    ARM      AGE   ttest  conf.level CI Confidence Level 0.95      1    NULL
+      14    ARM      AGE   ttest  conf.level CI Confidence Level NULL   NULL    NULL
                                                         error
       1  The `by` argument must have two and only two levels.
       2  The `by` argument must have two and only two levels.

@@ -126,6 +126,7 @@ ard_paired_ttest <- function(data, by, variable, id, ...) {
 #'         broom::tidy()
 #'     )
 #' )
+#' @noRd
 .format_ttest_results <- function(by, variable, lst_tidy, paired, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
@@ -137,7 +138,7 @@ ard_paired_ttest <- function(data, by, variable, id, ...) {
         "method", "alternative"
       ),
       fun_args_to_record = c("mu", "paired", "var.equal", "conf.level"),
-      formals = formals(asNamespace("stats")[["t.test.default"]]),
+      # formals = formals(asNamespace("stats")[["t.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
       lst_ard_columns = list(group1 = by, variable = variable, context = "ttest")
     )
@@ -170,6 +171,7 @@ ard_paired_ttest <- function(data, by, variable, id, ...) {
 #'   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
 #'   dplyr::arrange(USUBJID, ARM) |>
 #'   cardx:::.paired_data_pivot_wider(by = "ARM", variable = "AGE", id = "USUBJID")
+#' @noRd
 .paired_data_pivot_wider <- function(data, by, variable, id, env = rlang::caller_env()) {
   # check the number of levels before pivoting data to wider format
   if (dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {

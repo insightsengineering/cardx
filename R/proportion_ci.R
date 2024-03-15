@@ -344,6 +344,7 @@ proportion_ci_strat_wilson <- function(x,
 #' weights <- rep(1 / length(ns), length(ns))
 #'
 #' cardx:::.strata_normal_quantile(vars, weights, 0.95)
+#' @noRd
 .strata_normal_quantile <- function(vars, weights, conf.level) {
   summands <- weights^2 * vars
   # Stratified quantile
@@ -377,6 +378,7 @@ proportion_ci_strat_wilson <- function(x,
 #' ns <- c(22, 18, 17, 17, 14, 12)
 #'
 #' cardx:::.update_weights_strat_wilson(vs, sq, ws, ns, 100, 0.95, 0.001)
+#' @noRd
 .update_weights_strat_wilson <- function(vars,
                                          strata_qnorm,
                                          initial_weights,
