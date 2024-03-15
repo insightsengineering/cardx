@@ -15,3 +15,12 @@
     Message
       i 2 more variables: warning, error
 
+# ard_car_anova() messaging
+
+    Code
+      ard_car_anova(mtcars)
+    Condition
+      Error in `ard_car_anova()`:
+      ! There was an error running `car::Anova()`. See error message below.
+      x no applicable method for 'vcov' applied to an object of class "data.frame"
+
