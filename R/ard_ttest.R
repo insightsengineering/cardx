@@ -38,7 +38,7 @@
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
 #'   dplyr::arrange(USUBJID, ARM) |>
-#'   ard_paired_ttest(by = ARM, variable = AGE, id = USUBJID)
+#'   ard_paired_ttest(by = ARM, variables = AGE, id = USUBJID)
 NULL
 
 #' @rdname ard_ttest

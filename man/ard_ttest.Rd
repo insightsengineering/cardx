@@ -14,7 +14,7 @@ ard_paired_ttest(data, by, variables, id, ...)
 a data frame. See below for details.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to compare by}
+column name to compare by.}
 
 \item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column names to be compared. Independent t-tests will be computed for
@@ -45,7 +45,7 @@ The data are then passed as
 \dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
-  ard_ttest(by = ARM, variable = c(AGE, BMIBL))
+  ard_ttest(by = ARM, variables = c(AGE, BMIBL))
 
 # constructing a paired data set,
 # where patients receive both treatments
@@ -53,6 +53,6 @@ cards::ADSL[c("ARM", "AGE")] |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
   dplyr::arrange(USUBJID, ARM) |>
-  ard_paired_ttest(by = ARM, variable = AGE, id = USUBJID)
+  ard_paired_ttest(by = ARM, variables = AGE, id = USUBJID)
 \dontshow{\}) # examplesIf}
 }
