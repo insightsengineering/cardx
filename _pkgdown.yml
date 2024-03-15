@@ -33,6 +33,7 @@ reference:
       - ard_mcnemartest
       - ard_onewaytest
       - ard_proptest
+      - ard_svychisq
       - ard_ttest
       - ard_wilcoxtest
 
