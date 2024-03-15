@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9055</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9056</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,21 +104,21 @@ The data are then passed as
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">cards</span><span class="fu">::</span><span class="va"><a href="https://insightsengineering.github.io/cards/latest-tag/reference/adam.html" class="external-link">ADSL</a></span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ARM</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Placebo"</span>, <span class="st">"Xanomeline High Dose"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">ard_wilcoxtest</span><span class="op">(</span>by <span class="op">=</span> <span class="st">"ARM"</span>, variable <span class="op">=</span> <span class="st">"AGE"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">ard_wilcoxtest</span><span class="op">(</span>by <span class="op">=</span> <span class="st">"ARM"</span>, variables <span class="op">=</span> <span class="st">"AGE"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 12 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable context   stat_name stat_label      stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     ARM      AGE   ttest   statistic  X-square…    3862.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     ARM      AGE   ttest     p.value    p-value     0.435</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     ARM      AGE   ttest      method     method Wilcoxon…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     ARM      AGE   ttest alternative  alternat… two.sided</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     ARM      AGE   ttest          mu         mu         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     ARM      AGE   ttest      paired  Paired t…     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     ARM      AGE   ttest       exact      exact          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     ARM      AGE   ttest     correct    correct      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     ARM      AGE   ttest    conf.int   conf.int     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    ARM      AGE   ttest  conf.level  CI Confi…      0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    ARM      AGE   ttest    tol.root   tol.root         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    ARM      AGE   ttest digits.rank  digits.r…       Inf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable   context   stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     ARM      AGE wilcoxte…   statistic  X-square…    3862.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     ARM      AGE wilcoxte…     p.value    p-value     0.435</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     ARM      AGE wilcoxte…      method     method Wilcoxon…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     ARM      AGE wilcoxte… alternative  alternat… two.sided</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     ARM      AGE wilcoxte…          mu         mu         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     ARM      AGE wilcoxte…      paired  Paired t…     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     ARM      AGE wilcoxte…       exact      exact          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     ARM      AGE wilcoxte…     correct    correct      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     ARM      AGE wilcoxte…    conf.int   conf.int     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    ARM      AGE wilcoxte…  conf.level  CI Confi…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    ARM      AGE wilcoxte…    tol.root   tol.root         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    ARM      AGE wilcoxte… digits.rank  digits.r…       Inf</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># constructing a paired data set,</span></span></span>
@@ -127,21 +127,21 @@ The data are then passed as
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ARM</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Placebo"</span>, <span class="st">"Xanomeline High Dose"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="va">ARM</span>, USUBJID <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">ARM</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">ard_paired_wilcoxtest</span><span class="op">(</span>by <span class="op">=</span> <span class="va">ARM</span>, variable <span class="op">=</span> <span class="va">AGE</span>, id <span class="op">=</span> <span class="va">USUBJID</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">ard_paired_wilcoxtest</span><span class="op">(</span>by <span class="op">=</span> <span class="va">ARM</span>, variables <span class="op">=</span> <span class="va">AGE</span>, id <span class="op">=</span> <span class="va">USUBJID</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 12 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable context   stat_name stat_label      stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     ARM      AGE   ttest   statistic  X-square…      1754</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     ARM      AGE   ttest     p.value    p-value     0.522</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     ARM      AGE   ttest      method     method Wilcoxon…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     ARM      AGE   ttest alternative  alternat… two.sided</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     ARM      AGE   ttest          mu         mu         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     ARM      AGE   ttest      paired  Paired t…      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     ARM      AGE   ttest       exact      exact          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     ARM      AGE   ttest     correct    correct      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     ARM      AGE   ttest    conf.int   conf.int     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    ARM      AGE   ttest  conf.level  CI Confi…      0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    ARM      AGE   ttest    tol.root   tol.root         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    ARM      AGE   ttest digits.rank  digits.r…       Inf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable   context   stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     ARM      AGE wilcoxte…   statistic  X-square…      1754</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     ARM      AGE wilcoxte…     p.value    p-value     0.522</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     ARM      AGE wilcoxte…      method     method Wilcoxon…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     ARM      AGE wilcoxte… alternative  alternat… two.sided</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     ARM      AGE wilcoxte…          mu         mu         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     ARM      AGE wilcoxte…      paired  Paired t…      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     ARM      AGE wilcoxte…       exact      exact          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     ARM      AGE wilcoxte…     correct    correct      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     ARM      AGE wilcoxte…    conf.int   conf.int     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    ARM      AGE wilcoxte…  conf.level  CI Confi…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    ARM      AGE wilcoxte…    tol.root   tol.root         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    ARM      AGE wilcoxte… digits.rank  digits.r…       Inf</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 </code></pre></div>
     </div>
