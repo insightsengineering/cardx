@@ -109,7 +109,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
   # tidy survfit results
   tidy_x <- broom::tidy(x)
 
-  # process multi-state models
+  # process competing risks/multi-state models
   multi_state <- inherits(x, "survfitms")
 
   if (multi_state == TRUE) {
@@ -236,16 +236,23 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
 #'
 #' @keywords internal
 .format_survfit_results <- function(tidy_survfit) {
+  type <- if ("time" %in% names(tidy_survfit)) "time" else "prob"
+
   ret <- tidy_survfit %>%
     dplyr::mutate(dplyr::across(
       dplyr::any_of(c("estimate", "conf.high", "conf.low", "time", "prob")), ~ as.list(.)
     )) %>%
     tidyr::pivot_longer(
-      cols = dplyr::any_of(c("estimate", "conf.high", "conf.low", "time", "prob")),
+      cols = dplyr::any_of(c("estimate", "conf.high", "conf.low")),
       names_to = "stat_name",
       values_to = "stat"
     ) %>%
-    tidyr::separate_wider_delim("strata", "=", names = c("variable", "variable_level"))
+    tidyr::separate_wider_delim("strata", "=", names = c("group1", "group1_level")) %>%
+    dplyr::mutate(
+      variable = type,
+      variable_level = .data[[type]]
+    ) %>%
+    dplyr::select(-all_of(type))
 
   ret %>%
     dplyr::left_join(

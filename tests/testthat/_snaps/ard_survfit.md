@@ -5,35 +5,29 @@
         TRTA, cards::ADTTE), times = c(60, 180)), stat = lapply(stat, function(x)
         ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 24 x 7
+      {cards} data frame: 18 x 9
     Output
-         variable variable_level  context stat_name stat_label  stat
-      1      TRTA        Placebo survival  estimate  Survival… 0.893
-      2      TRTA        Placebo survival conf.high  CI Upper… 0.966
-      3      TRTA        Placebo survival  conf.low  CI Lower… 0.825
-      4      TRTA        Placebo survival      time       Time    60
-      5      TRTA        Placebo survival  estimate  Survival… 0.651
-      6      TRTA        Placebo survival conf.high  CI Upper… 0.783
-      7      TRTA        Placebo survival  conf.low  CI Lower… 0.541
-      8      TRTA        Placebo survival      time       Time   180
-      9      TRTA      Xanomeli… survival  estimate  Survival… 0.694
-      10     TRTA      Xanomeli… survival conf.high  CI Upper… 0.849
-      11     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.568
-      12     TRTA      Xanomeli… survival      time       Time    60
-      13     TRTA      Xanomeli… survival  estimate  Survival… 0.262
-      14     TRTA      Xanomeli… survival conf.high  CI Upper… 0.749
-      15     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.092
-      16     TRTA      Xanomeli… survival      time       Time   180
-      17     TRTA      Xanomeli… survival  estimate  Survival… 0.732
-      18     TRTA      Xanomeli… survival conf.high  CI Upper… 0.878
-      19     TRTA      Xanomeli… survival  conf.low  CI Lower…  0.61
-      20     TRTA      Xanomeli… survival      time       Time    60
-      21     TRTA      Xanomeli… survival  estimate  Survival… 0.381
-      22     TRTA      Xanomeli… survival conf.high  CI Upper… 0.743
-      23     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.195
-      24     TRTA      Xanomeli… survival      time       Time   180
+         group1 group1_level variable variable_level stat_name stat_label  stat
+      1    TRTA      Placebo     time             60  estimate  Survival… 0.893
+      2    TRTA      Placebo     time             60 conf.high  CI Upper… 0.966
+      3    TRTA      Placebo     time             60  conf.low  CI Lower… 0.825
+      4    TRTA      Placebo     time            180  estimate  Survival… 0.651
+      5    TRTA      Placebo     time            180 conf.high  CI Upper… 0.783
+      6    TRTA      Placebo     time            180  conf.low  CI Lower… 0.541
+      7    TRTA    Xanomeli…     time             60  estimate  Survival… 0.694
+      8    TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.849
+      9    TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.568
+      10   TRTA    Xanomeli…     time            180  estimate  Survival… 0.262
+      11   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.749
+      12   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.092
+      13   TRTA    Xanomeli…     time             60  estimate  Survival… 0.732
+      14   TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.878
+      15   TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.61
+      16   TRTA    Xanomeli…     time            180  estimate  Survival… 0.381
+      17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.743
+      18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.195
     Message
-      i 1 more variable: fmt_fn
+      i 2 more variables: context, fmt_fn
 
 # ard_survfit() works with different type
 
@@ -42,35 +36,29 @@
         TRTA, cards::ADTTE), times = c(60, 180), type = "risk"), stat = lapply(stat,
         function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 24 x 7
+      {cards} data frame: 18 x 9
     Output
-         variable variable_level context stat_name stat_label  stat
-      1      TRTA        Placebo    risk  estimate  Survival… 0.107
-      2      TRTA        Placebo    risk conf.high  CI Upper… 0.175
-      3      TRTA        Placebo    risk  conf.low  CI Lower… 0.034
-      4      TRTA        Placebo    risk      time       Time    60
-      5      TRTA        Placebo    risk  estimate  Survival… 0.349
-      6      TRTA        Placebo    risk conf.high  CI Upper… 0.459
-      7      TRTA        Placebo    risk  conf.low  CI Lower… 0.217
-      8      TRTA        Placebo    risk      time       Time   180
-      9      TRTA      Xanomeli…    risk  estimate  Survival… 0.306
-      10     TRTA      Xanomeli…    risk conf.high  CI Upper… 0.432
-      11     TRTA      Xanomeli…    risk  conf.low  CI Lower… 0.151
-      12     TRTA      Xanomeli…    risk      time       Time    60
-      13     TRTA      Xanomeli…    risk  estimate  Survival… 0.738
-      14     TRTA      Xanomeli…    risk conf.high  CI Upper… 0.908
-      15     TRTA      Xanomeli…    risk  conf.low  CI Lower… 0.251
-      16     TRTA      Xanomeli…    risk      time       Time   180
-      17     TRTA      Xanomeli…    risk  estimate  Survival… 0.268
-      18     TRTA      Xanomeli…    risk conf.high  CI Upper…  0.39
-      19     TRTA      Xanomeli…    risk  conf.low  CI Lower… 0.122
-      20     TRTA      Xanomeli…    risk      time       Time    60
-      21     TRTA      Xanomeli…    risk  estimate  Survival… 0.619
-      22     TRTA      Xanomeli…    risk conf.high  CI Upper… 0.805
-      23     TRTA      Xanomeli…    risk  conf.low  CI Lower… 0.257
-      24     TRTA      Xanomeli…    risk      time       Time   180
+         group1 group1_level variable variable_level stat_name stat_label  stat
+      1    TRTA      Placebo     time             60  estimate  Survival… 0.107
+      2    TRTA      Placebo     time             60 conf.high  CI Upper… 0.175
+      3    TRTA      Placebo     time             60  conf.low  CI Lower… 0.034
+      4    TRTA      Placebo     time            180  estimate  Survival… 0.349
+      5    TRTA      Placebo     time            180 conf.high  CI Upper… 0.459
+      6    TRTA      Placebo     time            180  conf.low  CI Lower… 0.217
+      7    TRTA    Xanomeli…     time             60  estimate  Survival… 0.306
+      8    TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.432
+      9    TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.151
+      10   TRTA    Xanomeli…     time            180  estimate  Survival… 0.738
+      11   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.908
+      12   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.251
+      13   TRTA    Xanomeli…     time             60  estimate  Survival… 0.268
+      14   TRTA    Xanomeli…     time             60 conf.high  CI Upper…  0.39
+      15   TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.122
+      16   TRTA    Xanomeli…     time            180  estimate  Survival… 0.619
+      17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.805
+      18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.257
     Message
-      i 1 more variable: fmt_fn
+      i 2 more variables: context, fmt_fn
 
 # ard_survfit() works with probs provided
 
@@ -80,35 +68,29 @@
         stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       The `type` argument is ignored for survival quantile estimation.
-      {cards} data frame: 24 x 7
+      {cards} data frame: 18 x 9
     Output
-         variable variable_level  context stat_name stat_label stat
-      1      TRTA        Placebo survival  estimate  Survival…  142
-      2      TRTA        Placebo survival conf.high  CI Upper…  181
-      3      TRTA        Placebo survival  conf.low  CI Lower…   70
-      4      TRTA        Placebo survival      prob   Quantile 0.25
-      5      TRTA      Xanomeli… survival  estimate  Survival…   44
-      6      TRTA      Xanomeli… survival conf.high  CI Upper…  180
-      7      TRTA      Xanomeli… survival  conf.low  CI Lower…   22
-      8      TRTA      Xanomeli… survival      prob   Quantile 0.25
-      9      TRTA      Xanomeli… survival  estimate  Survival…   49
-      10     TRTA      Xanomeli… survival conf.high  CI Upper…  180
-      11     TRTA      Xanomeli… survival  conf.low  CI Lower…   37
-      12     TRTA      Xanomeli… survival      prob   Quantile 0.25
-      13     TRTA        Placebo survival  estimate  Survival…  184
-      14     TRTA        Placebo survival conf.high  CI Upper…  191
-      15     TRTA        Placebo survival  conf.low  CI Lower…  183
-      16     TRTA        Placebo survival      prob   Quantile 0.75
-      17     TRTA      Xanomeli… survival  estimate  Survival…  188
-      18     TRTA      Xanomeli… survival conf.high  CI Upper…   NA
-      19     TRTA      Xanomeli… survival  conf.low  CI Lower…  167
-      20     TRTA      Xanomeli… survival      prob   Quantile 0.75
-      21     TRTA      Xanomeli… survival  estimate  Survival…  184
-      22     TRTA      Xanomeli… survival conf.high  CI Upper…   NA
-      23     TRTA      Xanomeli… survival  conf.low  CI Lower…  180
-      24     TRTA      Xanomeli… survival      prob   Quantile 0.75
+         group1 group1_level variable variable_level stat_name stat_label stat
+      1    TRTA      Placebo     prob           0.25  estimate  Survival…  142
+      2    TRTA      Placebo     prob           0.25 conf.high  CI Upper…  181
+      3    TRTA      Placebo     prob           0.25  conf.low  CI Lower…   70
+      4    TRTA      Placebo     prob           0.75  estimate  Survival…  184
+      5    TRTA      Placebo     prob           0.75 conf.high  CI Upper…  191
+      6    TRTA      Placebo     prob           0.75  conf.low  CI Lower…  183
+      7    TRTA    Xanomeli…     prob           0.25  estimate  Survival…   44
+      8    TRTA    Xanomeli…     prob           0.25 conf.high  CI Upper…  180
+      9    TRTA    Xanomeli…     prob           0.25  conf.low  CI Lower…   22
+      10   TRTA    Xanomeli…     prob           0.75  estimate  Survival…  188
+      11   TRTA    Xanomeli…     prob           0.75 conf.high  CI Upper…   NA
+      12   TRTA    Xanomeli…     prob           0.75  conf.low  CI Lower…  167
+      13   TRTA    Xanomeli…     prob           0.25  estimate  Survival…   49
+      14   TRTA    Xanomeli…     prob           0.25 conf.high  CI Upper…  180
+      15   TRTA    Xanomeli…     prob           0.25  conf.low  CI Lower…   37
+      16   TRTA    Xanomeli…     prob           0.75  estimate  Survival…  184
+      17   TRTA    Xanomeli…     prob           0.75 conf.high  CI Upper…   NA
+      18   TRTA    Xanomeli…     prob           0.75  conf.low  CI Lower…  180
     Message
-      i 1 more variable: fmt_fn
+      i 2 more variables: context, fmt_fn
 
 # ard_survfit() works with competing risks
 
@@ -118,35 +100,29 @@
         is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       Multi-state model detected. Showing probabilities into state 'death from cancer'.
-      {cards} data frame: 24 x 7
+      {cards} data frame: 18 x 9
     Output
-         variable variable_level  context stat_name stat_label  stat
-      1      TRTA        Placebo survival  estimate  Survival… 0.054
-      2      TRTA        Placebo survival conf.high  CI Upper…  0.14
-      3      TRTA        Placebo survival  conf.low  CI Lower… 0.021
-      4      TRTA        Placebo survival      time       Time    60
-      5      TRTA        Placebo survival  estimate  Survival… 0.226
-      6      TRTA        Placebo survival conf.high  CI Upper… 0.361
-      7      TRTA        Placebo survival  conf.low  CI Lower… 0.142
-      8      TRTA        Placebo survival      time       Time   180
-      9      TRTA      Xanomeli… survival  estimate  Survival… 0.137
-      10     TRTA      Xanomeli… survival conf.high  CI Upper… 0.311
-      11     TRTA      Xanomeli… survival  conf.low  CI Lower…  0.06
-      12     TRTA      Xanomeli… survival      time       Time    60
-      13     TRTA      Xanomeli… survival  estimate  Survival…  0.51
-      14     TRTA      Xanomeli… survival conf.high  CI Upper… 0.892
-      15     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.292
-      16     TRTA      Xanomeli… survival      time       Time   180
-      17     TRTA      Xanomeli… survival  estimate  Survival… 0.162
-      18     TRTA      Xanomeli… survival conf.high  CI Upper…  0.33
-      19     TRTA      Xanomeli… survival  conf.low  CI Lower…  0.08
-      20     TRTA      Xanomeli… survival      time       Time    60
-      21     TRTA      Xanomeli… survival  estimate  Survival… 0.244
-      22     TRTA      Xanomeli… survival conf.high  CI Upper… 0.516
-      23     TRTA      Xanomeli… survival  conf.low  CI Lower… 0.115
-      24     TRTA      Xanomeli… survival      time       Time   180
+         group1 group1_level variable variable_level stat_name stat_label  stat
+      1    TRTA      Placebo     time             60  estimate  Survival… 0.054
+      2    TRTA      Placebo     time             60 conf.high  CI Upper…  0.14
+      3    TRTA      Placebo     time             60  conf.low  CI Lower… 0.021
+      4    TRTA      Placebo     time            180  estimate  Survival… 0.226
+      5    TRTA      Placebo     time            180 conf.high  CI Upper… 0.361
+      6    TRTA      Placebo     time            180  conf.low  CI Lower… 0.142
+      7    TRTA    Xanomeli…     time             60  estimate  Survival… 0.137
+      8    TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.311
+      9    TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.06
+      10   TRTA    Xanomeli…     time            180  estimate  Survival…  0.51
+      11   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.892
+      12   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.292
+      13   TRTA    Xanomeli…     time             60  estimate  Survival… 0.162
+      14   TRTA    Xanomeli…     time             60 conf.high  CI Upper…  0.33
+      15   TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.08
+      16   TRTA    Xanomeli…     time            180  estimate  Survival… 0.244
+      17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.516
+      18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.115
     Message
-      i 1 more variable: fmt_fn
+      i 2 more variables: context, fmt_fn
 
 # ard_survfit() errors are properly handled
 
