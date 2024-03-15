@@ -1,6 +1,7 @@
 ARD
 Biopharmaceutical
 CMD
+Chisq
 Clopper
 Codecov
 Hoffmann
@@ -9,8 +10,10 @@ Kaplan
 Lifecycle
 McNemar's
 Newcombe
+Rao
 Rua
 Su
+VIF
 XG
 Xin
 agresti
@@ -21,6 +24,7 @@ funder
 jeffreys
 pearson
 strat
+vif
 wald
 waldcc
 wilson

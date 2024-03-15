@@ -31,6 +31,7 @@ reference:
       - ard_moodtest
       - ard_mcnemartest
       - ard_proptest
+      - ard_svychisq
       - ard_ttest
       - ard_wilcoxtest
 
@@ -43,7 +44,8 @@ reference:
       - ard_regression_basic
       - ard_smd
       - ard_survfit
-      
+      - ard_vif
+
   - title: "Helpers"
   - contents:
       - proportion_ci
