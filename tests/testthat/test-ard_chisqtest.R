@@ -4,7 +4,7 @@ test_that("ard_chisqtest() works", {
   expect_error(
     ard_chisqtest <-
       cards::ADSL |>
-      ard_chisqtest(by = ARM, variable = AGEGR1),
+      ard_chisqtest(by = ARM, variables = AGEGR1),
     NA
   )
 
@@ -17,6 +17,17 @@ test_that("ard_chisqtest() works", {
       unclass(),
     ignore_attr = TRUE
   )
+
+  # function works with multiple variables
+  expect_equal(
+    dplyr::bind_rows(
+      ard_chisqtest,
+      cards::ADSL |>
+        ard_chisqtest(by = ARM, variables = BMIBLGR1)
+    ),
+    cards::ADSL |>
+      ard_chisqtest(by = ARM, variables = c(AGEGR1, BMIBLGR1))
+  )
 })
 
 test_that("shuffle_ard fills missing group levels if the group is meaningful", {
@@ -27,12 +38,12 @@ test_that("shuffle_ard fills missing group levels if the group is meaningful", {
       ard_chisqtest(
         data = adsl_sub,
         by = "ARM",
-        variable = "AGEGR1"
+        variables = "AGEGR1"
       ),
       ard_chisqtest(
         data = adsl_sub,
         by = "SEX",
-        variable = "AGEGR1"
+        variables = "AGEGR1"
       )
     ) |>
       cards::shuffle_ard() |>

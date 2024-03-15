@@ -4,14 +4,18 @@
 \alias{ard_fishertest}
 \title{ARD Fisher's Exact Test}
 \usage{
-ard_fishertest(data, by, variable, ...)
+ard_fishertest(data, by, variables, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
 a data frame.}
 
-\item{by, variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column names to compare}
+\item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name to compare by}
+
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column names to be compared. Independent tests will be computed for
+each variable.}
 
 \item{...}{additional arguments passed to \code{fisher.test(...)}}
 }
@@ -25,6 +29,6 @@ Calculated with \code{fisher.test(x = data[[variable]], y = data[[by]], ...)}
 \examples{
 \dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL[1:30, ] |>
-  ard_fishertest(by = "ARM", variable = "AGEGR1")
+  ard_fishertest(by = "ARM", variables = "AGEGR1")
 \dontshow{\}) # examplesIf}
 }
