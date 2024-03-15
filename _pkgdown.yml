@@ -31,6 +31,7 @@ reference:
       - ard_moodtest
       - ard_mcnemartest
       - ard_proptest
+      - ard_svychisq
       - ard_svyttest
       - ard_ttest
       - ard_wilcoxtest
