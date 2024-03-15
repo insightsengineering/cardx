@@ -35,3 +35,4 @@ pkgdown
 ^renv$
 ^renv\.lock$
 ^cran-comments\.md$
+^CRAN-SUBMISSION$
