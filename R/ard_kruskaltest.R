@@ -10,7 +10,7 @@
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to compare by.
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name to be compared. Independent tests will
+#'   column names to be compared. Independent tests will
 #'   be computed for each variable.
 #'
 #' @return ARD data frame

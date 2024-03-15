@@ -14,7 +14,7 @@ a data frame. See below for details.}
 column name to compare by.}
 
 \item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to be compared. Independent tests will
+column names to be compared. Independent tests will
 be computed for each variable.}
 
 \item{...}{arguments passed to \code{stats::mcnemar.test(...)}}
