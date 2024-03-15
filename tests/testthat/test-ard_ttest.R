@@ -30,7 +30,7 @@ test_that("ard_ttest() works", {
       as.data.frame()
   )
 
-  # test that the function works with multiple variables as once
+  # test that the function works with multiple variables at once
   expect_equal(
     dplyr::bind_rows(
       ard_ttest,
