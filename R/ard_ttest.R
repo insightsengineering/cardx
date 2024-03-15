@@ -30,7 +30,7 @@
 #' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   ard_ttest(by = ARM, variable = c(AGE, BMIBL))
+#'   ard_ttest(by = ARM, variables = c(AGE, BMIBL))
 #'
 #' # constructing a paired data set,
 #' # where patients receive both treatments
