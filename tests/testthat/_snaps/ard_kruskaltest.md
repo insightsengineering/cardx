@@ -1,7 +1,7 @@
 # ard_kurskaltest() works
 
     Code
-      as.data.frame(ard_kruskaltest(cards::ADSL, by = "ARM", variable = "AGE"))
+      as.data.frame(ard_kruskaltest(cards::ADSL, by = "ARM", variables = "AGE"))
     Output
         group1 variable     context stat_name                           stat_label
       1    ARM      AGE kruskaltest statistic Kruskal-Wallis chi-squared Statistic
