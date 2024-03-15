@@ -12,7 +12,7 @@
       4     api00 continuo…            max    Maximum      905      1
       5     api00 continuo…            sum        Sum  3989985      1
       6     api00 continuo…            var   Variance 11182.82      1
-      7     api00 continuo…             sd         SD  105.749      1
+      7     api00 continuo…             sd  Standard…  105.749      1
       8     api00 continuo… mean.std.error   SE(Mean)   23.542      1
       9     api00 continuo…           deff  Design E…    9.346      1
       10    api00 continuo…            p75  75% Perc…      719      1
