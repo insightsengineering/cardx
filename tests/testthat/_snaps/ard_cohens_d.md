@@ -1,7 +1,7 @@
 # ard_cohens_d() works
 
     Code
-      as.data.frame(dplyr::select(ard_cohens_d(cards::ADSL, by = ARM, variable = AGE),
+      as.data.frame(dplyr::select(ard_cohens_d(cards::ADSL, by = ARM, variables = AGE),
       c("variable", "stat_name", "error")))
     Output
         variable   stat_name                                           error
@@ -13,6 +13,21 @@
       6      AGE      paired Grouping variable y must have exactly 2 levels.
       7      AGE   pooled_sd Grouping variable y must have exactly 2 levels.
       8      AGE alternative Grouping variable y must have exactly 2 levels.
+
+---
+
+    Code
+      as.data.frame(dplyr::slice_head(dplyr::group_by(dplyr::select(ard_cohens_d(
+        dplyr::filter(cards::ADSL, ARM %in% c("Placebo", "Xanomeline High Dose")),
+        by = ARM, variables = c(BMIBL, HEIGHTBL)), c(1:3, 5:6)), variable), n = 3))
+    Output
+        group1 variable  context           stat_label       stat
+      1    ARM    BMIBL cohens_d Effect Size Estimate -0.4366533
+      2    ARM    BMIBL cohens_d  CI Confidence Level       0.95
+      3    ARM    BMIBL cohens_d       CI Lower Bound -0.7402823
+      4    ARM HEIGHTBL cohens_d Effect Size Estimate -0.2990562
+      5    ARM HEIGHTBL cohens_d  CI Confidence Level       0.95
+      6    ARM HEIGHTBL cohens_d       CI Lower Bound -0.6009749
 
 # ard_paired_cohens_d() works
 

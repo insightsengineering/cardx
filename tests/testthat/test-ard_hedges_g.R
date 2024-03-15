@@ -28,6 +28,17 @@ test_that("ard_hedges_g() works", {
       dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
+
+  # test that the function works with multiple variables as once
+  expect_snapshot(
+    cards::ADSL |>
+      dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+      ard_hedges_g(by = ARM, variables = c(BMIBL, HEIGHTBL)) |>
+      dplyr::select(c(1:3, 5:6)) |>
+      dplyr::group_by(variable) |>
+      dplyr::slice_head(n = 3) |>
+      as.data.frame()
+  )
 })
 
 test_that("ard_paired_hedges_g() works", {
