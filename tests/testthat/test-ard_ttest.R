@@ -29,6 +29,19 @@ test_that("ard_ttest() works", {
       ard_ttest(by = ARM, variable = AGE, var.equal = TRUE) |>
       as.data.frame()
   )
+
+  # test that the function works with multiple variables at once
+  expect_equal(
+    dplyr::bind_rows(
+      ard_ttest,
+      cards::ADSL |>
+        dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+        ard_ttest(by = ARM, variable = BMIBL, var.equal = TRUE)
+    ),
+    cards::ADSL |>
+      dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+      ard_ttest(by = ARM, variable = c(AGE, BMIBL), var.equal = TRUE)
+  )
 })
 
 test_that("ard_paired_ttest() works", {
