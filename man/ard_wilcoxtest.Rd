@@ -5,9 +5,9 @@
 \alias{ard_paired_wilcoxtest}
 \title{ARD Wilcoxon Rank-Sum Test}
 \usage{
-ard_wilcoxtest(data, by, variable, ...)
+ard_wilcoxtest(data, by, variables, ...)
 
-ard_paired_wilcoxtest(data, by, variable, id, ...)
+ard_paired_wilcoxtest(data, by, variables, id, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
@@ -16,8 +16,9 @@ a data frame. See below for details.}
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to compare by.}
 
-\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to be compared.}
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column names to be compared. Independent tests will be computed for
+each variable.}
 
 \item{...}{arguments passed to \code{wilcox.test(...)}}
 

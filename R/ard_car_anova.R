@@ -8,7 +8,7 @@
 #' @return data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("car", reference_pkg = "cardx")
+#' @examplesIf cards::is_pkg_installed(c("broom.helpers", "car"), reference_pkg = "cardx")
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_car_anova()
 #'
