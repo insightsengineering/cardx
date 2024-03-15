@@ -1,6 +1,7 @@
 ARD
 Biopharmaceutical
 CMD
+Chisq
 Clopper
 Codecov
 Hoffmann
@@ -8,6 +9,7 @@ Jeffreys
 Lifecycle
 McNemar's
 Newcombe
+Rao
 Su
 VIF
 XG
