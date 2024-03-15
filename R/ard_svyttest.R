@@ -21,7 +21,7 @@
 #' data(api, package = "survey")
 #' dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 #'
-#' ard_svyttest(dclus2, variable = enroll, by = comp.imp, conf.level = 0.9)
+#' ard_svyttest(dclus2, variables = enroll, by = comp.imp, conf.level = 0.9)
 ard_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
