@@ -1,6 +1,7 @@
 ARD
 Biopharmaceutical
 CMD
+Chisq
 Clopper
 Codecov
 Hoffmann
@@ -14,7 +15,6 @@ VIF
 XG
 Xin
 agresti
-chisq
 clopper
 coull
 funder
