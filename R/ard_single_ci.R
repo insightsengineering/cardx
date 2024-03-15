@@ -40,10 +40,10 @@ ard_single_ci <- function(data,
       ~ list(
         single_ci =
           switch(method,
-                 "mean_with_T" = \(x, ...) single_ci_mean(x, conf.level = conf.level, use_t = TRUE),
-                 "mean_with_Z" = \(x, ...) single_ci_mean(x, conf.level = conf.level, use_t = FALSE),
-                 "sd" = \(x, ...) single_ci_sd(x, conf.level = conf.level),
-                 "var"= \(x, ...) single_ci_sd(x, conf.level = conf.level)
+            "mean_with_T" = \(x, ...) single_ci_mean(x, conf.level = conf.level, use_t = TRUE),
+            "mean_with_Z" = \(x, ...) single_ci_mean(x, conf.level = conf.level, use_t = FALSE),
+            "sd" = \(x, ...) single_ci_sd(x, conf.level = conf.level),
+            "var" = \(x, ...) single_ci_sd(x, conf.level = conf.level)
           )
       )
   ) |>

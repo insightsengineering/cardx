@@ -30,7 +30,7 @@ Functions to calculate different univariate/single statistic confidence interval
 }
 \section{Functions}{
 \itemize{
-\item \code{single_ci_mean()}: Calculates the mean confidenence interval by following
+\item \code{single_ci_mean()}: Calculates the mean confidence interval by following
 the usual textbook definition with either the normal or t distribution
 
 \item \code{single_ci_sd()}: Calculates the standard deviation confidence interval by following

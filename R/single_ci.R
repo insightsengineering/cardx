@@ -21,13 +21,13 @@
 #' single_ci_var(x, conf.level = 0.9)
 NULL
 
-#' @describeIn single_ci Calculates the mean confidenence interval by following
+#' @describeIn single_ci Calculates the mean confidence interval by following
 #' the usual textbook definition with either the normal or t distribution
 #'
 #' @param use_t (`logical`)\cr use t-distribution vs normal distribution
 #'
 #' @export
-single_ci_mean  <- function(x, conf.level = 0.95, use_t = TRUE) {
+single_ci_mean <- function(x, conf.level = 0.95, use_t = TRUE) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
   check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))
@@ -65,7 +65,7 @@ single_ci_mean  <- function(x, conf.level = 0.95, use_t = TRUE) {
 #' the usual textbook definition with the chi-sq distribution
 #'
 #' @export
-single_ci_sd  <- function(x, conf.level = 0.95) {
+single_ci_sd <- function(x, conf.level = 0.95) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
   check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))
@@ -78,8 +78,8 @@ single_ci_sd  <- function(x, conf.level = 0.95) {
   crit_value_left <- stats::qchisq((1 - (alpha / 2)), df = n - 1)
   crit_value_right <- stats::qchisq(alpha / 2, df = n - 1)
 
-  l_ci <- sqrt((n - 1) * sd^2 / crit_value_left )
-  u_ci <- sqrt((n - 1) * sd^2 / crit_value_right )
+  l_ci <- sqrt((n - 1) * sd^2 / crit_value_left)
+  u_ci <- sqrt((n - 1) * sd^2 / crit_value_right)
 
   list(
     N = n,
@@ -96,7 +96,7 @@ single_ci_sd  <- function(x, conf.level = 0.95) {
 #' the usual textbook definition with the chi-sq distribution
 #'
 #' @export
-single_ci_var  <- function(x, conf.level = 0.95) {
+single_ci_var <- function(x, conf.level = 0.95) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
   check_range(conf.level, range = c(0, 1), include_bounds = c(FALSE, FALSE))

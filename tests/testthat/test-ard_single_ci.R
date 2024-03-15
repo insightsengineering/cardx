@@ -36,4 +36,3 @@ test_that("ard_single_ci(method='var') works", {
   ard_single_var <- ard_single_ci(cards::ADSL, variables = c(AGE), method = "var")
   expect_snapshot(ard_single_var)
 })
-
