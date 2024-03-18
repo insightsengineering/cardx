@@ -7,8 +7,9 @@
 ard_smd(data, by, variables, ...)
 }
 \arguments{
-\item{data}{(\code{data.frame})\cr
-a data frame.}
+\item{data}{(\code{data.frame}/\code{survey.design})\cr
+a data frame or object of class 'survey.design'
+(typically created with \code{\link[survey:svydesign]{survey::svydesign()}}).}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to compare by.}

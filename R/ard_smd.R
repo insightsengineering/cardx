@@ -3,8 +3,9 @@
 #' @description
 #' Standardized mean difference calculated via [`smd::smd()`] with `na.rm = TRUE`.
 #'
-#' @param data (`data.frame`)\cr
-#'   a data frame.
+#' @param data (`data.frame`/`survey.design`)\cr
+#'   a data frame or object of class 'survey.design'
+#'   (typically created with [`survey::svydesign()`]).
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to compare by.
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
@@ -26,6 +27,15 @@ ard_smd <- function(data, by, variables, ...) {
   check_not_missing(data)
   check_not_missing(variables)
   check_not_missing(by)
+
+  # grab design object if from `survey` ----------------------------------------
+  is_survey <- inherits(data, "survey.design")
+  if (is_survey) {
+    design <- data
+    data <- design$variables
+  }
+
+  # continue check/process inputs ----------------------------------------------
   check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
@@ -45,7 +55,10 @@ ard_smd <- function(data, by, variables, ...) {
         variable = variable,
         lst_tidy =
           cards::eval_capture_conditions(
-            smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, ...) |>
+            switch(as.character(is_survey),
+              "TRUE" = smd::smd(x = data[[variable]], g = data[[by]], w = stats::weights(design), na.rm = TRUE, ...),
+              "FALSE" = smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, ...)
+            ) |>
               dplyr::select(-any_of("term"))
           ),
         ...

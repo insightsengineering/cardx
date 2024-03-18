@@ -29,6 +29,28 @@ test_that("ard_smd() works", {
   )
 })
 
+test_that("ard_smd() works with survey data", {
+  skip_if_not(cards::is_pkg_installed("survey", reference_pkg = "cardx"))
+  data(api, package = "survey")
+  dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
+
+  expect_error(
+    ard_smd <-
+      dclus1 |>
+      ard_smd(by = both, variable = api00, std.error = TRUE),
+    NA
+  )
+
+  expect_equal(
+    ard_smd |>
+      cards::get_ard_statistics(stat_name %in% c("estimate", "std.error")),
+    smd::smd(x = apiclus1$api00, g = apiclus1$both, w = weights(dclus1), std.error = TRUE) |>
+      dplyr::select(-term) |>
+      unclass(),
+    ignore_attr = TRUE
+  )
+})
+
 test_that("ard_proptest() error messaging", {
   # mis-specify the gref argument
   expect_error(
