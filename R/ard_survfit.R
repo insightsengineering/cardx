@@ -122,7 +122,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
   # adding time 0 to data frame
   tidy_x <- tidy_x %>%
     # make strata a fct to preserve ordering
-    dplyr::mutate_at("strata", ~ factor(., levels = unique(.))) %>%
+    dplyr::mutate(dplyr::across(dplyr::any_of("strata"), ~ factor(., levels = unique(.)))) %>%
     # if CI is missing and SE is 0, use estimate as the CI
     dplyr::mutate_at(
       dplyr::vars("conf.high", "conf.low"),
@@ -131,7 +131,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
     dplyr::select(dplyr::any_of(c("time", "estimate", "conf.high", "conf.low", "strata"))) %>%
     # add data for time 0
     dplyr::bind_rows(
-      dplyr::group_by(., .data$strata) %>%
+      dplyr::group_by_at(., dplyr::vars(dplyr::any_of("strata"))) %>%
         dplyr::slice(1) %>%
         dplyr::mutate(
           time = 0,
@@ -142,27 +142,35 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
     ) %>%
     dplyr::ungroup()
 
+  strat <- "strata" %in% names(tidy_x)
+
   # get requested estimates
   df_stat <- tidy_x %>%
     # find max time
-    dplyr::group_by(., .data$strata) %>%
+    dplyr::group_by_at(., dplyr::vars(dplyr::any_of("strata"))) %>%
     dplyr::mutate(time_max = max(.data$time)) %>%
     dplyr::ungroup() %>%
     # add requested timepoints
     dplyr::full_join(
       tidy_x %>%
-        dplyr::select("strata") %>%
+        dplyr::select(any_of("strata")) %>%
         dplyr::distinct() %>%
         dplyr::mutate(
           time = list(.env$times),
           col_name = list(paste("stat", seq_len(length(.env$times)), sep = "_"))
         ) %>%
         tidyr::unnest(cols = c("time", "col_name")),
-      by = unlist(c("strata", "time"))
-    ) %>%
+      by = unlist(intersect(c("strata", "time"), names(tidy_x)))
+    )
+
+  if (strat) {
+    df_stat <- df_stat %>% dplyr::arrange(.data$strata)
+  }
+
+  df_stat <- df_stat %>%
     # if user-specifed time is unobserved, fill estimate with previous value
-    dplyr::arrange(.data$strata, .data$time) %>%
-    dplyr::group_by(.data$strata) %>%
+    dplyr::arrange(.data$time) %>%
+    dplyr::group_by_at(dplyr::vars(dplyr::any_of("strata"))) %>%
     tidyr::fill(
       "estimate", "conf.high", "conf.low", "time_max",
       .direction = "down"
@@ -212,13 +220,15 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
       as.data.frame() %>%
       set_names(c("estimate", "conf.low", "conf.high")) %>%
       dplyr::mutate(strata = row.names(.)) %>%
-      dplyr::select(strata, estimate, conf.low, conf.high) %>%
+      dplyr::select(dplyr::any_of(c("strata", "estimate", "conf.low", "conf.high"))) %>%
       dplyr::mutate(prob = .x)
   ) %>%
     dplyr::bind_rows() %>%
     `rownames<-`(NULL) %>%
     dplyr::mutate(context = "survival") %>%
     dplyr::as_tibble()
+
+  if (length(x$n) == 1) df_stat <- df_stat %>% dplyr::select(-strata)
 
   df_stat
 }
@@ -236,7 +246,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
 #'
 #' @keywords internal
 .format_survfit_results <- function(tidy_survfit) {
-  type <- if ("time" %in% names(tidy_survfit)) "time" else "prob"
+  est <- if ("time" %in% names(tidy_survfit)) "time" else "prob"
 
   ret <- tidy_survfit %>%
     dplyr::mutate(dplyr::across(
@@ -247,12 +257,16 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
       names_to = "stat_name",
       values_to = "stat"
     ) %>%
-    tidyr::separate_wider_delim("strata", "=", names = c("group1", "group1_level")) %>%
     dplyr::mutate(
-      variable = type,
-      variable_level = .data[[type]]
+      variable = est,
+      variable_level = .data[[est]]
     ) %>%
-    dplyr::select(-all_of(type))
+    dplyr::select(-all_of(est))
+
+  if ("strata" %in% names(ret)) {
+    ret <- ret %>%
+      tidyr::separate_wider_delim("strata", "=", names = c("group1", "group1_level"))
+  }
 
   ret %>%
     dplyr::left_join(

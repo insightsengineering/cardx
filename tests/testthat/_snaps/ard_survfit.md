@@ -92,6 +92,44 @@
     Message
       i 2 more variables: context, fmt_fn
 
+# ard_survfit() works with unstratified model
+
+    Code
+      print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(time, status) ~
+        1, data = lung), times = c(60, 180)), stat = lapply(stat, function(x) ifelse(
+        is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+    Message
+      {cards} data frame: 6 x 7
+    Output
+        variable variable_level  context stat_name stat_label  stat
+      1     time             60 survival  estimate  Survival… 0.925
+      2     time             60 survival conf.high  CI Upper…  0.96
+      3     time             60 survival  conf.low  CI Lower… 0.892
+      4     time            180 survival  estimate  Survival… 0.722
+      5     time            180 survival conf.high  CI Upper… 0.783
+      6     time            180 survival  conf.low  CI Lower… 0.666
+    Message
+      i 1 more variable: fmt_fn
+
+---
+
+    Code
+      print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(time, status) ~
+        1, data = lung), probs = c(0.5, 0.75)), stat = lapply(stat, function(x)
+        ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+    Message
+      {cards} data frame: 6 x 7
+    Output
+        variable variable_level  context stat_name stat_label stat
+      1     prob            0.5 survival  estimate  Survival…  310
+      2     prob            0.5 survival conf.high  CI Upper…  363
+      3     prob            0.5 survival  conf.low  CI Lower…  285
+      4     prob           0.75 survival  estimate  Survival…  550
+      5     prob           0.75 survival conf.high  CI Upper…  654
+      6     prob           0.75 survival  conf.low  CI Lower…  460
+    Message
+      i 1 more variable: fmt_fn
+
 # ard_survfit() works with competing risks
 
     Code

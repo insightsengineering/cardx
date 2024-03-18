@@ -33,6 +33,26 @@ test_that("ard_survfit() works with probs provided", {
   )
 })
 
+test_that("ard_survfit() works with unstratified model", {
+  expect_snapshot(
+    survival::survfit(survival::Surv(time, status) ~ 1, data = lung) |>
+      ard_survfit(times = c(60, 180)) |>
+      dplyr::mutate(
+        stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+      ) |>
+      print(n = Inf)
+  )
+
+  expect_snapshot(
+    survival::survfit(survival::Surv(time, status) ~ 1, data = lung) |>
+      ard_survfit(probs = c(0.5, 0.75)) |>
+      dplyr::mutate(
+        stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+      ) |>
+      print(n = Inf)
+  )
+})
+
 test_that("ard_survfit() works with competing risks", {
   set.seed(1)
   ADTTE_MS <- cards::ADTTE %>%
