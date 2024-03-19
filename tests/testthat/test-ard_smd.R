@@ -4,7 +4,7 @@ test_that("ard_smd() works", {
   expect_error(
     ard_smd <-
       mtcars |>
-      ard_smd(by = vs, variable = am, std.error = TRUE),
+      ard_smd(by = vs, variables = am, std.error = TRUE),
     NA
   )
 
@@ -15,6 +15,17 @@ test_that("ard_smd() works", {
       dplyr::select(-term) |>
       unclass(),
     ignore_attr = TRUE
+  )
+
+  # test that the function works with multiple variables at once
+  expect_equal(
+    dplyr::bind_rows(
+      ard_smd,
+      mtcars |>
+        ard_smd(by = vs, variables = gear, std.error = TRUE)
+    ),
+    mtcars |>
+      ard_smd(by = vs, variables = c(am, gear), std.error = TRUE)
   )
 })
 
@@ -44,7 +55,7 @@ test_that("ard_proptest() error messaging", {
   # mis-specify the gref argument
   expect_error(
     bad_gref <-
-      ard_smd(cards::ADSL, by = ARM, variable = AGE, std.error = TRUE, gref = 0) |>
+      ard_smd(cards::ADSL, by = ARM, variables = AGE, std.error = TRUE, gref = 0) |>
       as.data.frame(),
     NA
   )
