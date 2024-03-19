@@ -4,17 +4,19 @@
 \alias{ard_smd}
 \title{ARD Standardized Mean Difference}
 \usage{
-ard_smd(data, by, variable, ...)
+ard_smd(data, by, variables, ...)
 }
 \arguments{
-\item{data}{(\code{data.frame})\cr
-a data frame.}
+\item{data}{(\code{data.frame}/\code{survey.design})\cr
+a data frame or object of class 'survey.design'
+(typically created with \code{\link[survey:svydesign]{survey::svydesign()}}).}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to compare by}
+column name to compare by.}
 
-\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to be compared.}
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column names to be compared. Independent tests will be computed for
+each variable.}
 
 \item{...}{
   Arguments passed on to \code{\link[smd:smd]{smd::smd}}
@@ -33,7 +35,7 @@ Standardized mean difference calculated via \code{\link[smd:smd]{smd::smd()}} wi
 }
 \examples{
 \dontshow{if (cards::is_pkg_installed("smd", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-ard_smd(cards::ADSL, by = ARM, variable = AGE, std.error = TRUE)
-ard_smd(cards::ADSL, by = ARM, variable = AGEGR1, std.error = TRUE)
+ard_smd(cards::ADSL, by = ARM, variables = AGE, std.error = TRUE)
+ard_smd(cards::ADSL, by = ARM, variables = AGEGR1, std.error = TRUE)
 \dontshow{\}) # examplesIf}
 }

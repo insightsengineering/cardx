@@ -1,14 +1,16 @@
 Package: cardx
 Title: Extra Analysis Results Data Utilities
-Version: 0.0.0.9057
+Version: 0.1.0.9003
 Authors@R: c(
-    person("Daniel", "Sjoberg", , "sjobergd@gene.com", role = c("aut", "cre")),
+    person("Daniel", "Sjoberg", , "danield.sjoberg@gmail.com", role = c("aut", "cre")),
     person("Abinaya", "Yogasekaram", , "abinaya.yogasekaram@contractors.roche.com", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
-Description: Extra Analysis Results Data (ARD) functions. The package
-    supplements the ARD functions from the 'cards' package, exporting
-    functions to put statistical results in the ARD format.
+Description: Create extra Analysis Results Data (ARD) summary objects.
+    The package supplements the simple ARD functions from the 'cards'
+    package, exporting functions to put statistical results in the ARD
+    format. These objects are used and re-used to construct summary
+    tables, visualizations, and written reports.
 License: Apache License 2.0
 URL: https://github.com/insightsengineering/cardx
 BugReports: https://github.com/insightsengineering/cardx/issues
