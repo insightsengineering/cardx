@@ -196,6 +196,8 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
       dplyr::rename(conf.low = "conf.high", conf.high = "conf.low")
   }
 
+  df_stat <- extract_multi_strata(x, df_stat)
+
   df_stat
 }
 
@@ -230,6 +232,31 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
 
   if (length(x$n) == 1) df_stat <- df_stat %>% dplyr::select(-strata)
 
+  df_stat <- extract_multi_strata(x, df_stat)
+
+  df_stat
+}
+
+# process multiple stratifying variables
+extract_multi_strata <- function(x, df_stat) {
+  x_terms <- attr(terms(as.formula(x$call$formula)), "term.labels")
+  if (length(x_terms) > 1) {
+    strata_lvls <- data.frame()
+
+    for (i in df_stat$strata) {
+      terms_str <- strsplit(i, paste(c(paste0(x_terms, "="), paste0(", ", x_terms, "=")), collapse = "|"))[[1]]
+      s_lvl <- terms_str[nchar(terms_str) > 0]
+      strata_lvls <- rbind(strata_lvls, s_lvl)
+    }
+    if (nrow(strata_lvls) > 0) {
+      strata_lvls <- cbind(strata_lvls, t(x_terms))
+      names(strata_lvls) <- c(
+        t(sapply(seq_along(x_terms), function(i) c(paste0("group", i, "_level"), paste0("group", i))))
+      )
+      df_stat <- cbind(df_stat, strata_lvls) %>%
+        dplyr::select(-strata)
+    }
+  }
   df_stat
 }
 
