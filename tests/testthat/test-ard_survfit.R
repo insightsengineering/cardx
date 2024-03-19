@@ -53,6 +53,26 @@ test_that("ard_survfit() works with unstratified model", {
   )
 })
 
+test_that("ard_survfit() works with multiple stratification variables", {
+  expect_snapshot(
+    survival::survfit(survival::Surv(time, status) ~ sex + ph.ecog, data = lung) |>
+      ard_survfit(times = c(60, 180)) |>
+      dplyr::mutate(
+        stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+      ) |>
+      print(n = Inf)
+  )
+
+  expect_snapshot(
+    survival::survfit(survival::Surv(time, status) ~ sex + ph.ecog, data = lung) |>
+      ard_survfit(probs = c(0.5, 0.75)) |>
+      dplyr::mutate(
+        stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+      ) |>
+      print(n = Inf)
+  )
+})
+
 test_that("ard_survfit() works with competing risks", {
   set.seed(1)
   ADTTE_MS <- cards::ADTTE %>%
