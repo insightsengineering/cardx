@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9001</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9002</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,12 +24,6 @@
 <li class="active nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -51,8 +45,29 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.0.9001" id="cardx-0109001">cardx 0.1.0.9001<a class="anchor" aria-label="anchor" href="#cardx-0109001"></a></h2>
-</div>
+<h2 class="pkg-version" data-toc-text="0.1.0.9002" id="cardx-0109002">cardx 0.1.0.9002<a class="anchor" aria-label="anchor" href="#cardx-0109002"></a></h2>
+<ul><li>Added the following functions for calculating Analysis Results Data (ARD).
+<ul><li>
+<code><a href="../reference/ard_car_anova.html">ard_car_anova()</a></code> for calculating ANOVA results using <code><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">car::Anova()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/3" class="external-link">#3</a>)</li>
+<li>
+<code><a href="../reference/ard_cohens_d.html">ard_cohens_d()</a></code>, <code><a href="../reference/ard_cohens_d.html">ard_paired_cohens_d()</a></code>, <code><a href="../reference/ard_hedges_g.html">ard_hedges_g()</a></code>, and <code><a href="../reference/ard_hedges_g.html">ard_paired_hedges_g()</a></code> for standardized differences using <code><a href="https://easystats.github.io/effectsize/reference/cohens_d.html" class="external-link">effectsize::cohens_d()</a></code> and <code><a href="https://easystats.github.io/effectsize/reference/cohens_d.html" class="external-link">effectsize::hedges_g()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/50" class="external-link">#50</a>)</li>
+<li>
+<code><a href="../reference/ard_proptest.html">ard_proptest()</a></code> for tests of proportions using <code><a href="https://rdrr.io/r/stats/prop.test.html" class="external-link">stats::prop.test()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/64" class="external-link">#64</a>)</li>
+<li>
+<code><a href="../reference/ard_regression_basic.html">ard_regression_basic()</a></code> for basic regression models. The function focuses on matching terms to underlying variables names. (<a href="https://github.com/insightsengineering/cardx/issues/46" class="external-link">#46</a>)</li>
+<li>
+<code><a href="../reference/ard_smd.html">ard_smd()</a></code> for calculating standardized mean differences using <code><a href="https://rdrr.io/pkg/smd/man/smd.html" class="external-link">smd::smd()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/4" class="external-link">#4</a>)</li>
+<li>
+<code><a href="../reference/ard_svycontinuous.html">ard_svycontinuous()</a></code> for calculating univariate summary statistics from weighted/survey data using many functions from the {survey} package. (<a href="https://github.com/insightsengineering/cardx/issues/68" class="external-link">#68</a>)</li>
+<li>
+<code><a href="../reference/ard_svychisq.html">ard_svychisq()</a></code> for weighted/survey chi-squared test using <code><a href="https://rdrr.io/pkg/survey/man/svychisq.html" class="external-link">survey::svychisq()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/72" class="external-link">#72</a>)</li>
+<li>
+<code><a href="../reference/ard_svyttest.html">ard_svyttest()</a></code> for weighted/survey t-tests using <code><a href="https://rdrr.io/pkg/survey/man/svyttest.html" class="external-link">survey::svyttest()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/70" class="external-link">#70</a>)</li>
+<li>
+<code><a href="../reference/ard_vif.html">ard_vif()</a></code> for calculating the variance inflation factor using <code><a href="https://rdrr.io/pkg/car/man/vif.html" class="external-link">car::vif()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/10" class="external-link">#10</a>)</li>
+</ul></li>
+<li>Updated functions <code><a href="../reference/ard_ttest.html">ard_ttest()</a></code>, <code><a href="../reference/ard_ttest.html">ard_paired_ttest()</a></code>, <code><a href="../reference/ard_wilcoxtest.html">ard_wilcoxtest()</a></code>, <code><a href="../reference/ard_wilcoxtest.html">ard_paired_wilcoxtest()</a></code>, <code><a href="../reference/ard_chisqtest.html">ard_chisqtest()</a></code>, <code><a href="../reference/ard_fishertest.html">ard_fishertest()</a></code>, <code><a href="../reference/ard_kruskaltest.html">ard_kruskaltest()</a></code>, <code><a href="../reference/ard_mcnemartest.html">ard_mcnemartest()</a></code>, and <code><a href="../reference/ard_moodtest.html">ard_moodtest()</a></code> to accept multiple variables at once. Independent tests are calculated for each variable. The <code>variable</code> argument is renamed to <code>variables</code>. (<a href="https://github.com/insightsengineering/cardx/issues/77" class="external-link">#77</a>)</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="cardx-010">cardx 0.1.0<a class="anchor" aria-label="anchor" href="#cardx-010"></a></h2><p class="text-muted">CRAN release: 2024-03-18</p>
 <ul><li>Initial release.</li>
