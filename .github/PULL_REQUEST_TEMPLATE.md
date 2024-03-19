@@ -12,6 +12,7 @@ Pre-review Checklist (if item does not apply, mark is as complete)
 - [ ] **All** GitHub Action workflows pass with a :white_check_mark:
 - [ ] PR branch has pulled the most recent updates from master branch: `usethis::pr_merge_main()`
 - [ ] If a bug was fixed, a unit test was added.
+- [ ] If a new `ard_*()` function was added, it passes the ARD structural checks from `cards::check_ard_structure()`.
 - [ ] Code coverage is suitable for any new functions/features (generally, 100% coverage for new code): `devtools::test_coverage()`
 - [ ] Request a reviewer
 
