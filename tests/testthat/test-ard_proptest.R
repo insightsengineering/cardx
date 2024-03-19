@@ -4,7 +4,7 @@ test_that("ard_proptest() works", {
   expect_error(
     ard_proptest <-
       mtcars |>
-      ard_proptest(by = vs, variable = am, conf.level = 0.90),
+      ard_proptest(by = vs, variables = am, conf.level = 0.90),
     NA
   )
 
@@ -25,6 +25,17 @@ test_that("ard_proptest() works", {
       unclass(),
     ignore_attr = TRUE
   )
+
+  # test that the function works with multiple variables
+  expect_equal(
+    dplyr::bind_rows(
+      ard_proptest,
+      mtcars |>
+        ard_proptest(by = vs, variables = gear, conf.level = 0.90)
+    ),
+    mtcars |>
+      ard_proptest(by = vs, variables = c(am, gear), conf.level = 0.90)
+  )
 })
 
 test_that("ard_proptest() error messaging", {
@@ -32,7 +43,7 @@ test_that("ard_proptest() error messaging", {
   expect_error(
     non_binary <-
       cards::ADSL |>
-      ard_proptest(by = ARM, variable = AGE) |>
+      ard_proptest(by = ARM, variables = AGE) |>
       as.data.frame(),
     NA
   )
@@ -55,7 +66,7 @@ test_that("ard_proptest() error messaging", {
   expect_error(
     too_many_levels <-
       mtcars |>
-      ard_proptest(by = cyl, variable = vs) |>
+      ard_proptest(by = cyl, variables = vs) |>
       as.data.frame(),
     NA
   )
