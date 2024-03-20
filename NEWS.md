@@ -1,4 +1,4 @@
-# cardx 0.1.0.9004
+# cardx 0.1.0.9005
 
 * Added the following functions for calculating Analysis Results Data (ARD).
   - `ard_car_anova()` for calculating ANOVA results using `car::Anova()`. (#3)
