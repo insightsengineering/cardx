@@ -34,11 +34,11 @@ ard_aod_wald_test <- function(x, ...) {
 
   reg_model[["result"]] %>%
     dplyr::select(c(
-      term = "variable",
+      variable = "variable",
       model_terms = "stat"
     )) %>%
     dplyr::mutate(term_id = dplyr::row_number()) %>%
-    tidyr::nest(data = -"term") %>%
+    tidyr::nest(data = -"variable") %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
       model_terms = unlist(.data$data[["model_terms"]]) %>%
@@ -53,11 +53,11 @@ ard_aod_wald_test <- function(x, ...) {
     ) %>%
     dplyr::ungroup() %>%
     dplyr::select(
-      "term",
+      "variable",
       "df", "statistic", "p.value"
     ) %>%
     tidyr::pivot_longer(
-      cols = -"term",
+      cols = -"variable",
       names_to = "stat_name",
       values_to = "stat"
     ) |>
@@ -85,5 +85,6 @@ ard_aod_wald_test <- function(x, ...) {
       warning = reg_model["warning"],
       error = reg_model["error"]
     ) %>%
-    as.data.frame()
+    cards::tidy_ard_column_order() %>%
+    {structure(., class = c("card", class(.)))}
 }
