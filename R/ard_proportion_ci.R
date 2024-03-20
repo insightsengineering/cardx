@@ -14,7 +14,7 @@
 #'   Default is `0.95`
 #' @param method (`string`)\cr
 #'   string indicating the type of confidence interval to calculate.
-#'   Must be one of `r formals(ard_proportion_ci)[["method"]] |> eval() |> shQuote()`.
+#'   Must be one of `r formals(ard_proportion_ci)[["method"]] |> eval() |> shQuote("sh")`.
 #'   See `?proportion_ci` for details.
 #' @param strata,weights,max.iterations arguments passed to `proportion_ci_strat_wilson()`,
 #'   when `method='strat_wilson'`

@@ -27,7 +27,7 @@
 #' @section statistic argument:
 #'
 #' The following statistics are available:
-#' `r cardx:::accepted_svy_stats(FALSE) |> shQuote() |> paste(collapse = ", ")`,
+#' `r cardx:::accepted_svy_stats(FALSE) |> shQuote("sh") |> paste(collapse = ", ")`,
 #' where 'p##' is are the percentiles and `##` is an integer between 0 and 100.
 #'
 #'
