@@ -86,5 +86,7 @@ ard_aod_wald_test <- function(x, ...) {
       error = reg_model["error"]
     ) %>%
     cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))}
+    {
+      structure(., class = c("card", class(.)))
+    }
 }
