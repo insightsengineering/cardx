@@ -112,3 +112,18 @@ test_that("ard_survfit() errors are properly handled", {
     error = TRUE
   )
 })
+
+test_that("ard_survfit() works with non-syntactic names", {
+  expect_equal(
+    survival::survfit(survival::Surv(time, status) ~ factor(sex) + `ph.ecog`, data = lung) |>
+      ard_survfit(times = c(60, 180)) |>
+      dplyr::mutate(
+        stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+      ),
+    survival::survfit(survival::Surv(time, status) ~ sex + ph.ecog, data = lung) |>
+      ard_survfit(times = c(60, 180)) |>
+      dplyr::mutate(
+        stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+      )
+  )
+})

@@ -5,7 +5,7 @@
         TRTA, cards::ADTTE), times = c(60, 180)), stat = lapply(stat, function(x)
         ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 18 x 9
+      {cards} data frame: 18 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label  stat
       1    TRTA      Placebo     time             60  estimate  Survival… 0.893
@@ -27,7 +27,7 @@
       17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.743
       18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.195
     Message
-      i 2 more variables: context, fmt_fn
+      i 4 more variables: context, fmt_fn, warning, error
 
 # ard_survfit() works with different type
 
@@ -36,7 +36,7 @@
         TRTA, cards::ADTTE), times = c(60, 180), type = "risk"), stat = lapply(stat,
         function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 18 x 9
+      {cards} data frame: 18 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label  stat
       1    TRTA      Placebo     time             60  estimate  Survival… 0.107
@@ -58,7 +58,7 @@
       17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.805
       18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.257
     Message
-      i 2 more variables: context, fmt_fn
+      i 4 more variables: context, fmt_fn, warning, error
 
 # ard_survfit() works with probs provided
 
@@ -68,7 +68,7 @@
         stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       The `type` argument is ignored for survival quantile estimation.
-      {cards} data frame: 18 x 9
+      {cards} data frame: 18 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label stat
       1    TRTA      Placebo     prob           0.25  estimate  Survival…  142
@@ -90,7 +90,7 @@
       17   TRTA    Xanomeli…     prob           0.75 conf.high  CI Upper…   NA
       18   TRTA    Xanomeli…     prob           0.75  conf.low  CI Lower…  180
     Message
-      i 2 more variables: context, fmt_fn
+      i 4 more variables: context, fmt_fn, warning, error
 
 # ard_survfit() works with unstratified model
 
@@ -99,7 +99,7 @@
         1, data = lung), times = c(60, 180)), stat = lapply(stat, function(x) ifelse(
         is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 6 x 7
+      {cards} data frame: 6 x 9
     Output
         variable variable_level  context stat_name stat_label  stat
       1     time             60 survival  estimate  Survival… 0.925
@@ -109,7 +109,7 @@
       5     time            180 survival conf.high  CI Upper… 0.783
       6     time            180 survival  conf.low  CI Lower… 0.666
     Message
-      i 1 more variable: fmt_fn
+      i 3 more variables: fmt_fn, warning, error
 
 ---
 
@@ -118,7 +118,7 @@
         1, data = lung), probs = c(0.5, 0.75)), stat = lapply(stat, function(x)
         ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 6 x 7
+      {cards} data frame: 6 x 9
     Output
         variable variable_level  context stat_name stat_label stat
       1     prob            0.5 survival  estimate  Survival…  310
@@ -128,7 +128,7 @@
       5     prob           0.75 survival conf.high  CI Upper…  654
       6     prob           0.75 survival  conf.low  CI Lower…  460
     Message
-      i 1 more variable: fmt_fn
+      i 3 more variables: fmt_fn, warning, error
 
 # ard_survfit() works with multiple stratification variables
 
@@ -137,7 +137,7 @@
         sex + ph.ecog, data = lung), times = c(60, 180)), stat = lapply(stat,
         function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 42 x 11
+      {cards} data frame: 42 x 13
     Output
          group1 group1_level  group2 group2_level variable variable_level stat_name
       1     sex            1 ph.ecog            0     time             60  estimate
@@ -226,7 +226,7 @@
       41  CI Upper… 0.931
       42  CI Lower… 0.511
     Message
-      i 2 more variables: context, fmt_fn
+      i 4 more variables: context, fmt_fn, warning, error
 
 ---
 
@@ -235,7 +235,7 @@
         sex + ph.ecog, data = lung), probs = c(0.5, 0.75)), stat = lapply(stat,
         function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 42 x 11
+      {cards} data frame: 42 x 13
     Output
          group1 group1_level  group2 group2_level variable variable_level stat_name
       1     sex            1 ph.ecog            0     prob            0.5  estimate
@@ -324,7 +324,7 @@
       41  CI Upper…   NA
       42  CI Lower…  285
     Message
-      i 2 more variables: context, fmt_fn
+      i 4 more variables: context, fmt_fn, warning, error
 
 # ard_survfit() works with competing risks
 
@@ -334,7 +334,7 @@
         is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       Multi-state model detected. Showing probabilities into state 'death from cancer'.
-      {cards} data frame: 18 x 9
+      {cards} data frame: 18 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label  stat
       1    TRTA      Placebo     time             60  estimate  Survival… 0.054
@@ -356,7 +356,7 @@
       17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.516
       18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.115
     Message
-      i 2 more variables: context, fmt_fn
+      i 4 more variables: context, fmt_fn, warning, error
 
 # ard_survfit() errors are properly handled
 

@@ -240,10 +240,12 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
 # process multiple stratifying variables
 extract_multi_strata <- function(x, df_stat) {
   x_terms <- attr(terms(as.formula(x$call$formula)), "term.labels")
+  x_terms <- gsub(".*\\(", "", gsub("\\)", "", x_terms))
   if (length(x_terms) > 1) {
     strata_lvls <- data.frame()
 
     for (i in df_stat$strata) {
+      i <- gsub(".*\\(", "", gsub("\\)", "", i))
       terms_str <- strsplit(i, paste(c(paste0(x_terms, "="), paste0(", ", x_terms, "=")), collapse = "|"))[[1]]
       s_lvl <- terms_str[nchar(terms_str) > 0]
       strata_lvls <- rbind(strata_lvls, s_lvl)
