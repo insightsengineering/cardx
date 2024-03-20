@@ -313,6 +313,11 @@ extract_multi_strata <- function(x, df_stat) {
       ),
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)
     ) %>%
+    dplyr::mutate(dplyr::across(matches("group[0-9]*_level"), ~ as.list(as.factor(.x)))) %>%
+    dplyr::mutate(
+      warning = list(NULL),
+      error = list(NULL)
+    ) %>%
     structure(., class = c("card", class(.))) %>%
     cards::tidy_ard_column_order() %>%
     cards::tidy_ard_row_order()
