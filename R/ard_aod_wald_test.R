@@ -47,9 +47,9 @@ ard_aod_wald_test <- function(x, ...) {
         Sigma = stats::vcov(x),
         b = stats::coef(x), Terms = .data$model_terms_id
       ) %>%
-        list(), df = .data$wald_test$result$chi2 %>% purrr::pluck("df"),
-      statistic = .data$wald_test$result$chi2 %>% purrr::pluck("chi2"),
-      p.value = .data$wald_test$result$chi2 %>% purrr::pluck("P"),
+        list(), df = .data$wald_test$result$chi2[("df")],
+      statistic = .data$wald_test$result$chi2[("chi2")],
+      p.value = .data$wald_test$result$chi2[("P")],
     ) %>%
     dplyr::ungroup() %>%
     dplyr::select(
