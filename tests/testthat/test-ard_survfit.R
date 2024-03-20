@@ -35,7 +35,7 @@ test_that("ard_survfit() works with probs provided", {
 
 test_that("ard_survfit() works with unstratified model", {
   expect_snapshot(
-    survival::survfit(survival::Surv(time, status) ~ 1, data = lung) |>
+    survival::survfit(survival::Surv(time, status) ~ 1, data = survival::lung) |>
       ard_survfit(times = c(60, 180)) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
@@ -44,7 +44,7 @@ test_that("ard_survfit() works with unstratified model", {
   )
 
   expect_snapshot(
-    survival::survfit(survival::Surv(time, status) ~ 1, data = lung) |>
+    survival::survfit(survival::Surv(time, status) ~ 1, data = survival::lung) |>
       ard_survfit(probs = c(0.5, 0.75)) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
@@ -55,7 +55,7 @@ test_that("ard_survfit() works with unstratified model", {
 
 test_that("ard_survfit() works with multiple stratification variables", {
   expect_snapshot(
-    survival::survfit(survival::Surv(time, status) ~ sex + ph.ecog, data = lung) |>
+    survival::survfit(survival::Surv(time, status) ~ sex + ph.ecog, data = survival::lung) |>
       ard_survfit(times = c(60, 180)) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
@@ -64,7 +64,7 @@ test_that("ard_survfit() works with multiple stratification variables", {
   )
 
   expect_snapshot(
-    survival::survfit(survival::Surv(time, status) ~ sex + ph.ecog, data = lung) |>
+    survival::survfit(survival::Surv(time, status) ~ sex + ph.ecog, data = survival::lung) |>
       ard_survfit(probs = c(0.5, 0.75)) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
@@ -115,12 +115,12 @@ test_that("ard_survfit() errors are properly handled", {
 
 test_that("ard_survfit() works with non-syntactic names", {
   expect_equal(
-    survival::survfit(survival::Surv(time, status) ~ factor(sex) + `ph.ecog`, data = lung) |>
+    survival::survfit(survival::Surv(time, status) ~ factor(sex) + `ph.ecog`, data = survival::lung) |>
       ard_survfit(times = c(60, 180)) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
       ),
-    survival::survfit(survival::Surv(time, status) ~ sex + ph.ecog, data = lung) |>
+    survival::survfit(survival::Surv(time, status) ~ sex + ph.ecog, data = survival::lung) |>
       ard_survfit(times = c(60, 180)) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))

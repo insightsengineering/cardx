@@ -230,7 +230,7 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
     dplyr::mutate(context = "survival") %>%
     dplyr::as_tibble()
 
-  if (length(x$n) == 1) df_stat <- df_stat %>% dplyr::select(-strata)
+  if (length(x$n) == 1) df_stat <- df_stat %>% dplyr::select(-"strata")
 
   df_stat <- extract_multi_strata(x, df_stat)
 
@@ -239,12 +239,12 @@ ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
 
 # process multiple stratifying variables
 extract_multi_strata <- function(x, df_stat) {
-  x_terms <- attr(terms(as.formula(x$call$formula)), "term.labels")
+  x_terms <- attr(stats::terms(stats::as.formula(x$call$formula)), "term.labels")
   x_terms <- gsub(".*\\(", "", gsub("\\)", "", x_terms))
   if (length(x_terms) > 1) {
     strata_lvls <- data.frame()
 
-    for (i in df_stat$strata) {
+    for (i in df_stat[["strata"]]) {
       i <- gsub(".*\\(", "", gsub("\\)", "", i))
       terms_str <- strsplit(i, paste(c(paste0(x_terms, "="), paste0(", ", x_terms, "=")), collapse = "|"))[[1]]
       s_lvl <- terms_str[nchar(terms_str) > 0]
@@ -256,7 +256,7 @@ extract_multi_strata <- function(x, df_stat) {
         t(sapply(seq_along(x_terms), function(i) c(paste0("group", i, "_level"), paste0("group", i))))
       )
       df_stat <- cbind(df_stat, strata_lvls) %>%
-        dplyr::select(-strata)
+        dplyr::select(-"strata")
     }
   }
   df_stat

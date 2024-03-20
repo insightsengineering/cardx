@@ -96,8 +96,8 @@
 
     Code
       print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(time, status) ~
-        1, data = lung), times = c(60, 180)), stat = lapply(stat, function(x) ifelse(
-        is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+        1, data = survival::lung), times = c(60, 180)), stat = lapply(stat, function(
+        x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       {cards} data frame: 6 x 9
     Output
@@ -115,8 +115,8 @@
 
     Code
       print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(time, status) ~
-        1, data = lung), probs = c(0.5, 0.75)), stat = lapply(stat, function(x)
-        ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+        1, data = survival::lung), probs = c(0.5, 0.75)), stat = lapply(stat,
+        function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       {cards} data frame: 6 x 9
     Output
@@ -134,8 +134,8 @@
 
     Code
       print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(time, status) ~
-        sex + ph.ecog, data = lung), times = c(60, 180)), stat = lapply(stat,
-        function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+        sex + ph.ecog, data = survival::lung), times = c(60, 180)), stat = lapply(
+        stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       {cards} data frame: 42 x 13
     Output
@@ -232,8 +232,8 @@
 
     Code
       print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(time, status) ~
-        sex + ph.ecog, data = lung), probs = c(0.5, 0.75)), stat = lapply(stat,
-        function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+        sex + ph.ecog, data = survival::lung), probs = c(0.5, 0.75)), stat = lapply(
+        stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       {cards} data frame: 42 x 13
     Output
