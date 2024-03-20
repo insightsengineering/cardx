@@ -41,21 +41,22 @@ ard_aod_wald_test <- function(x, ...) {
     tidyr::nest(data = -"variable") %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
-      model_terms = unlist(.data$data[["model_terms"]]) %>%
-        list(), model_terms_id = rlang::set_names(.data$data[["term_id"]]) %>%
-        list(), wald_test = aod::wald.test(
-        Sigma = stats::vcov(x),
-        b = stats::coef(x), Terms = .data$model_terms_id
-      ) %>%
-        list(), df = .data$wald_test$result$chi2[("df")],
+      # styler: off
+      model_terms = unlist(.data$data[["model_terms"]]) %>% list(),
+      model_terms_id = rlang::set_names(.data$data[["term_id"]]) %>% list(),
+      wald_test =
+        aod::wald.test(
+          Sigma = stats::vcov(x),
+          b = stats::coef(x), Terms = .data$model_terms_id
+        ) %>%
+        list(),
+      df = .data$wald_test$result$chi2[("df")],
       statistic = .data$wald_test$result$chi2[("chi2")],
       p.value = .data$wald_test$result$chi2[("P")],
+      # styler: on
     ) %>%
     dplyr::ungroup() %>%
-    dplyr::select(
-      "variable",
-      "df", "statistic", "p.value"
-    ) %>%
+    dplyr::select("variable", "df", "statistic", "p.value") %>%
     tidyr::pivot_longer(
       cols = -"variable",
       names_to = "stat_name",
@@ -86,7 +87,5 @@ ard_aod_wald_test <- function(x, ...) {
       error = reg_model["error"]
     ) %>%
     cards::tidy_ard_column_order() %>%
-    {
-      structure(., class = c("card", class(.)))
-    }
+    {structure(., class = c("card", class(.)))} #styler: off
 }
