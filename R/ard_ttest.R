@@ -160,7 +160,7 @@ ard_paired_ttest <- function(data, by, variables, id, ...) {
         "method", "alternative"
       ) |>
         # add estimate1 and estimate2 if there is a by variable
-        append(values = switch(!is_empty(by), c("estimate1", "estimate2")), after = 1L),
+        append(values = switch(!is_empty(by), c("estimate1", "estimate2")), after = 1L), # styler: off
       fun_args_to_record = c("mu", "paired", "var.equal", "conf.level"),
       formals = formals(asNamespace("stats")[["t.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
