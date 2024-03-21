@@ -3,8 +3,21 @@ skip_if_not(cards::is_pkg_installed("broom", reference_pkg = "cardx"))
 test_that("ard_ttest() works", {
   # One Sample t-test works
   expect_error(
-    ard_ttest(cards::ADSL, variable = AGE, var.equal = TRUE),
+    ard_single <- ard_ttest(cards::ADSL, variable = AGE, var.equal = TRUE),
     NA
+  )
+
+  expect_equal(
+    ard_single |>
+      cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
+    t.test(
+      cards::ADSL$AGE,
+      var.equal = TRUE
+    ) |>
+      broom::tidy() |>
+      dplyr::select(estimate, conf.low, conf.high) |>
+      unclass(),
+    ignore_attr = TRUE
   )
 
   # Two Sample t-test works
