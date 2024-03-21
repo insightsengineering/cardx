@@ -50,35 +50,59 @@ ard_ttest <- function(data, by, variables, ...) {
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variables)
-  check_not_missing(by)
+  #check_not_missing(by)
   check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
-  check_scalar(by)
+  #check_scalar(by)
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
     return(dplyr::tibble())
   }
 
-  # build ARD ------------------------------------------------------------------
-  lapply(
-    variables,
-    function(variable) {
-      .format_ttest_results(
-        by = by,
-        variable = variable,
-        lst_tidy =
-          cards::eval_capture_conditions(
-            stats::t.test(data[[variable]] ~ data[[by]], ...) |>
-              broom::tidy()
-          ),
-        paired = FALSE,
-        ...
-      )
-    }
-  ) |>
-    dplyr::bind_rows()
+  if (!is_empty(by)){
+    # build ARD ------------------------------------------------------------------
+    lapply(
+      variables,
+      function(variable) {
+        .format_ttest_results(
+          by = by,
+          variable = variable,
+          lst_tidy =
+            cards::eval_capture_conditions(
+              stats::t.test(data[[variable]] ~ data[[by]], ...) |>
+                broom::tidy()
+            ),
+          paired = FALSE,
+          ...
+        )
+      }
+    ) |>
+      dplyr::bind_rows()
+  }
+  else {
+    # build ARD ------------------------------------------------------------------
+    lapply(
+      variables,
+      function(variable) {
+        .format_ttest_results(
+          by = NULL,
+          variable = variable,
+          lst_tidy =
+            cards::eval_capture_conditions(
+              stats::t.test(data[[variable]], ...) |>
+                broom::tidy()
+            ),
+          paired = FALSE,
+          ...
+        )
+      }
+    ) |>
+      dplyr::bind_rows()
+  }
+
+
 }
 
 #' @rdname ard_ttest
@@ -147,7 +171,7 @@ ard_paired_ttest <- function(data, by, variables, id, ...) {
 #'         broom::tidy()
 #'     )
 #' )
-.format_ttest_results <- function(by, variable, lst_tidy, paired, ...) {
+.format_ttest_results <- function(by = NULL, variable, lst_tidy, paired, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
     cards::tidy_as_ard(
@@ -160,8 +184,13 @@ ard_paired_ttest <- function(data, by, variables, id, ...) {
       fun_args_to_record = c("mu", "paired", "var.equal", "conf.level"),
       formals = formals(asNamespace("stats")[["t.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "ttest")
+      lst_ard_columns = list(variable = variable, context = "ttest")
     )
+
+  if(!is.null(by)) {
+    ret <- ret |>
+      dplyr::mutate(group1 = by)
+  }
 
   # add the stat label ---------------------------------------------------------
   ret |>

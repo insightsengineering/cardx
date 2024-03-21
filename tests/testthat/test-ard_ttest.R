@@ -1,6 +1,13 @@
 skip_if_not(cards::is_pkg_installed("broom", reference_pkg = "cardx"))
 
 test_that("ard_ttest() works", {
+  # One Sample t-test works
+  expect_error(
+    ard_ttest(cards::ADSL, variable = AGE, var.equal = TRUE),
+    NA
+  )
+
+  # Two Sample t-test works
   expect_error(
     ard_ttest <-
       cards::ADSL |>
