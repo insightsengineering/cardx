@@ -43,62 +43,43 @@ NULL
 
 #' @rdname ard_ttest
 #' @export
-ard_ttest <- function(data, by, variables, ...) {
+ard_ttest <- function(data, variables, by = NULL, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variables)
-  # check_not_missing(by)
   check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
-  # check_scalar(by)
+  check_scalar(by, allow_empty = TRUE)
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
     return(dplyr::tibble())
   }
 
-  if (!is_empty(by)) {
-    # build ARD ------------------------------------------------------------------
-    lapply(
-      variables,
-      function(variable) {
-        .format_ttest_results(
-          by = by,
-          variable = variable,
-          lst_tidy =
-            cards::eval_capture_conditions(
-              stats::t.test(data[[variable]] ~ data[[by]], ...) |>
-                broom::tidy()
-            ),
-          paired = FALSE,
-          ...
-        )
-      }
-    ) |>
-      dplyr::bind_rows()
-  } else {
-    # build ARD ------------------------------------------------------------------
-    lapply(
-      variables,
-      function(variable) {
-        .format_ttest_results(
-          variable = variable,
-          lst_tidy =
-            cards::eval_capture_conditions(
-              stats::t.test(data[[variable]], ...) |>
-                broom::tidy()
-            ),
-          paired = FALSE,
-          ...
-        )
-      }
-    ) |>
-      dplyr::bind_rows()
-  }
+  # build ARD ------------------------------------------------------------------
+  lapply(
+    variables,
+    function(variable) {
+      .format_ttest_results(
+        by = by,
+        variable = variable,
+        lst_tidy =
+          # styler: off
+          cards::eval_capture_conditions(
+            if (!is_empty(by)) stats::t.test(data[[variable]] ~ data[[by]], ...) |> broom::tidy()
+            else stats::t.test(data[[variable]], ...) |> broom::tidy()
+          ),
+        # styler: on
+        paired = FALSE,
+        ...
+      )
+    }
+  ) |>
+    dplyr::bind_rows()
 }
 
 #' @rdname ard_ttest
@@ -172,18 +153,21 @@ ard_paired_ttest <- function(data, by, variables, id, ...) {
   ret <-
     cards::tidy_as_ard(
       lst_tidy = lst_tidy,
-      tidy_result_names = c(
-        "estimate", "estimate1", "estimate2", "statistic",
+      tidy_result_names =
+        c(
+        "estimate", "statistic",
         "p.value", "parameter", "conf.low", "conf.high",
         "method", "alternative"
-      ),
+      ) |>
+        # add estimate1 and estimate2 if there is a by variable
+        append(values = switch(!is_empty(by), c("estimate1", "estimate2")), after = 1L),
       fun_args_to_record = c("mu", "paired", "var.equal", "conf.level"),
       formals = formals(asNamespace("stats")[["t.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
       lst_ard_columns = list(variable = variable, context = "ttest")
     )
 
-  if (!is.null(by)) {
+  if (!is_empty(by)) {
     ret <- ret |>
       dplyr::mutate(group1 = by)
   }
@@ -191,7 +175,7 @@ ard_paired_ttest <- function(data, by, variables, id, ...) {
   # add the stat label ---------------------------------------------------------
   ret |>
     dplyr::left_join(
-      .df_ttest_stat_labels(),
+      .df_ttest_stat_labels(by = by),
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
@@ -233,12 +217,12 @@ ard_paired_ttest <- function(data, by, variables, id, ...) {
     stats::setNames(c(id, "by1", "by2"))
 }
 
-.df_ttest_stat_labels <- function() {
+.df_ttest_stat_labels <- function(by = NULL) {
   dplyr::tribble(
     ~stat_name, ~stat_label,
     "estimate1", "Group 1 Mean",
     "estimate2", "Group 2 Mean",
-    "estimate", "Mean Difference",
+    "estimate", ifelse(is_empty(by), "Mean", "Mean Difference"),
     "p.value", "p-value",
     "statistic", "t Statistic",
     "parameter", "Degrees of Freedom",
