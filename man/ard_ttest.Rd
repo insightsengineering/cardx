@@ -5,7 +5,7 @@
 \alias{ard_paired_ttest}
 \title{ARD t-test}
 \usage{
-ard_ttest(data, by, variables, ...)
+ard_ttest(data, variables, by = NULL, ...)
 
 ard_paired_ttest(data, by, variables, id, ...)
 }
@@ -13,12 +13,12 @@ ard_paired_ttest(data, by, variables, id, ...)
 \item{data}{(\code{data.frame})\cr
 a data frame. See below for details.}
 
-\item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to compare by.}
-
 \item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column names to be compared. Independent t-tests will be computed for
 each variable.}
+
+\item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name to compare by.}
 
 \item{...}{arguments passed to \code{t.test(...)}}
 
