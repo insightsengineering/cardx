@@ -18,7 +18,7 @@ column names to be compared. Independent t-tests will be computed for
 each variable.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to compare by.}
+optional column name to compare by.}
 
 \item{...}{arguments passed to \code{t.test(...)}}
 
