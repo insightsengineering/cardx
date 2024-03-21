@@ -50,18 +50,18 @@ ard_ttest <- function(data, by, variables, ...) {
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variables)
-  #check_not_missing(by)
+  # check_not_missing(by)
   check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
-  #check_scalar(by)
+  # check_scalar(by)
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
     return(dplyr::tibble())
   }
 
-  if (!is_empty(by)){
+  if (!is_empty(by)) {
     # build ARD ------------------------------------------------------------------
     lapply(
       variables,
@@ -80,14 +80,12 @@ ard_ttest <- function(data, by, variables, ...) {
       }
     ) |>
       dplyr::bind_rows()
-  }
-  else {
+  } else {
     # build ARD ------------------------------------------------------------------
     lapply(
       variables,
       function(variable) {
         .format_ttest_results(
-          by = NULL,
           variable = variable,
           lst_tidy =
             cards::eval_capture_conditions(
@@ -101,8 +99,6 @@ ard_ttest <- function(data, by, variables, ...) {
     ) |>
       dplyr::bind_rows()
   }
-
-
 }
 
 #' @rdname ard_ttest
@@ -187,7 +183,7 @@ ard_paired_ttest <- function(data, by, variables, id, ...) {
       lst_ard_columns = list(variable = variable, context = "ttest")
     )
 
-  if(!is.null(by)) {
+  if (!is.null(by)) {
     ret <- ret |>
       dplyr::mutate(group1 = by)
   }
