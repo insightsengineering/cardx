@@ -43,7 +43,7 @@ NULL
 
 #' @rdname ard_wilcoxtest
 #' @export
-ard_wilcoxtest <- function(data, variables, by = NULL, conf.int = TRUE, conf.level = 0.95, ...) {
+ard_wilcoxtest <- function(data, variables, by, conf.int = TRUE, conf.level = 0.95, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
@@ -177,7 +177,7 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
       lst_ard_columns = list(variable = variable, context = "wilcoxtest")
     )
 
-  if (!is_null(by)) {
+  if (!is_empty(by)) {
     ret <- ret |>
       dplyr::mutate(group1 = by)
   }
