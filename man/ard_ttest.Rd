@@ -5,7 +5,7 @@
 \alias{ard_paired_ttest}
 \title{ARD t-test}
 \usage{
-ard_ttest(data, variables, by = NULL, ...)
+ard_ttest(data, variables, by = NULL, conf.level = 0.95, ...)
 
 ard_paired_ttest(data, by, variables, id, ...)
 }

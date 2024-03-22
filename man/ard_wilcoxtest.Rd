@@ -5,7 +5,14 @@
 \alias{ard_paired_wilcoxtest}
 \title{ARD Wilcoxon Rank-Sum Test}
 \usage{
-ard_wilcoxtest(data, variables, by = NULL, ...)
+ard_wilcoxtest(
+  data,
+  variables,
+  by = NULL,
+  conf.int = TRUE,
+  conf.level = 0.95,
+  ...
+)
 
 ard_paired_wilcoxtest(data, by, variables, id, ...)
 }

@@ -43,7 +43,7 @@ NULL
 
 #' @rdname ard_wilcoxtest
 #' @export
-ard_wilcoxtest <- function(data, variables, by = NULL, ...) {
+ard_wilcoxtest <- function(data, variables, by = NULL, conf.int = TRUE, conf.level = 0.95, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
@@ -70,8 +70,14 @@ ard_wilcoxtest <- function(data, variables, by = NULL, ...) {
         lst_tidy =
           # styler: off
           cards::eval_capture_conditions(
-            if (!is_empty(by)) stats::wilcox.test(data[[variable]] ~ data[[by]], ...) |> broom::tidy()
-            else stats::wilcox.test(data[[variable]], ...) |> broom::tidy()
+            if (!is_empty(by)) {
+              stats::wilcox.test(data[[variable]] ~ data[[by]], conf.int = conf.int, conf.level = conf.level, ...) |>
+                broom::tidy()
+            }
+            else {
+              stats::wilcox.test(data[[variable]], conf.int = conf.int, conf.level = conf.level, ...) |>
+                broom::tidy()
+            }
           ),
         # styler: on
         paired = FALSE,

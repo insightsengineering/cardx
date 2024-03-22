@@ -43,7 +43,7 @@ NULL
 
 #' @rdname ard_ttest
 #' @export
-ard_ttest <- function(data, variables, by = NULL, ...) {
+ard_ttest <- function(data, variables, by = NULL, conf.level = 0.95, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
@@ -70,8 +70,8 @@ ard_ttest <- function(data, variables, by = NULL, ...) {
         lst_tidy =
           # styler: off
           cards::eval_capture_conditions(
-            if (!is_empty(by)) stats::t.test(data[[variable]] ~ data[[by]], ...) |> broom::tidy()
-            else stats::t.test(data[[variable]], ...) |> broom::tidy()
+            if (!is_empty(by)) stats::t.test(data[[variable]] ~ data[[by]], conf.level = conf.level, ...) |> broom::tidy()
+            else stats::t.test(data[[variable]], conf.level = conf.level, ...) |> broom::tidy()
           ),
         # styler: on
         paired = FALSE,
