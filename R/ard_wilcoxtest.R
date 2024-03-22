@@ -6,7 +6,7 @@
 #' @param data (`data.frame`)\cr
 #'   a data frame. See below for details.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name to compare by.
+#'   optional column name to compare by.
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column names to be compared. Independent tests will be computed for
 #'   each variable.
@@ -50,55 +50,36 @@ ard_wilcoxtest <- function(data, by, variables, ...) {
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variables)
-  # check_not_missing(by)
   check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
-  # check_scalar(by)
+  check_scalar(by, allow_empty = TRUE)
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
     return(dplyr::tibble())
   }
 
-  if (!is_empty(by)) {
-    # build ARD ------------------------------------------------------------------
-    lapply(
-      variables,
-      function(variable) {
-        .format_wilcoxtest_results(
-          by = by,
-          variable = variable,
-          lst_tidy =
-            cards::eval_capture_conditions(
-              stats::wilcox.test(data[[variable]] ~ data[[by]], ...) |>
-                broom::tidy()
-            ),
-          paired = FALSE,
-          ...
-        )
-      }
-    ) |>
-      dplyr::bind_rows()
-  } else {
-    # build ARD ------------------------------------------------------------------
-    lapply(
-      variables,
-      function(variable) {
-        .format_wilcoxtest_results(
-          variable = variable,
-          lst_tidy =
-            cards::eval_capture_conditions(
-              stats::wilcox.test(data[[variable]], ...) |>
-                broom::tidy()
-            ),
-          paired = FALSE,
-          ...
-        )
-      }
-    ) |>
-      dplyr::bind_rows()
-  }
+  # build ARD ------------------------------------------------------------------
+  lapply(
+    variables,
+    function(variable) {
+      .format_ttest_results(
+        by = by,
+        variable = variable,
+        lst_tidy =
+          # styler: off
+          cards::eval_capture_conditions(
+            if (!is_empty(by)) stats::wilcox.test(data[[variable]] ~ data[[by]], ...) |> broom::tidy()
+            else stats::wilcox.test(data[[variable]], ...) |> broom::tidy()
+          ),
+        # styler: on
+        paired = FALSE,
+        ...
+      )
+    }
+  ) |>
+    dplyr::bind_rows()
 }
 
 #' @rdname ard_wilcoxtest

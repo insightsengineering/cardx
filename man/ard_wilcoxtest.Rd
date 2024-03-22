@@ -14,7 +14,7 @@ ard_paired_wilcoxtest(data, by, variables, id, ...)
 a data frame. See below for details.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to compare by.}
+optional column name to compare by.}
 
 \item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column names to be compared. Independent tests will be computed for
