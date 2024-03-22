@@ -12,6 +12,9 @@
 #'   each variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
+#' @param conf.level (`numeric`)\cr
+#'   a scalar in `(0, 1)` indicating the confidence level.
+#'   Default is `0.95`
 #' @param ... arguments passed to `t.test(...)`
 #'
 #' @return ARD data frame

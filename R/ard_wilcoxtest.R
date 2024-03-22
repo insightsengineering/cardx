@@ -12,6 +12,9 @@
 #'   each variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID.
+#' @param conf.level (`numeric`)\cr
+#'   a scalar in `(0, 1)` indicating the confidence level.
+#'   Default is `0.95`
 #' @param ... arguments passed to `wilcox.test(...)`
 #'
 #' @return ARD data frame
@@ -43,7 +46,7 @@ NULL
 
 #' @rdname ard_wilcoxtest
 #' @export
-ard_wilcoxtest <- function(data, variables, by, conf.int = TRUE, conf.level = 0.95, ...) {
+ard_wilcoxtest <- function(data, variables, by, conf.level = 0.95, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
@@ -71,11 +74,11 @@ ard_wilcoxtest <- function(data, variables, by, conf.int = TRUE, conf.level = 0.
           # styler: off
           cards::eval_capture_conditions(
             if (!is_empty(by)) {
-              stats::wilcox.test(data[[variable]] ~ data[[by]], conf.int = conf.int, conf.level = conf.level, ...) |>
+              stats::wilcox.test(data[[variable]] ~ data[[by]], conf.level = conf.level, ...) |>
                 broom::tidy()
             }
             else {
-              stats::wilcox.test(data[[variable]], conf.int = conf.int, conf.level = conf.level, ...) |>
+              stats::wilcox.test(data[[variable]], conf.level = conf.level, ...) |>
                 broom::tidy()
             }
           ),

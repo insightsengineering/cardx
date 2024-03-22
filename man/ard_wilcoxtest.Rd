@@ -5,7 +5,7 @@
 \alias{ard_paired_wilcoxtest}
 \title{ARD Wilcoxon Rank-Sum Test}
 \usage{
-ard_wilcoxtest(data, variables, by, conf.int = TRUE, conf.level = 0.95, ...)
+ard_wilcoxtest(data, variables, by, conf.level = 0.95, ...)
 
 ard_paired_wilcoxtest(data, by, variables, id, ...)
 }
@@ -19,6 +19,10 @@ each variable.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 optional column name to compare by.}
+
+\item{conf.level}{(\code{numeric})\cr
+a scalar in \verb{(0, 1)} indicating the confidence level.
+Default is \code{0.95}}
 
 \item{...}{arguments passed to \code{wilcox.test(...)}}
 

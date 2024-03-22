@@ -20,6 +20,10 @@ each variable.}
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 optional column name to compare by.}
 
+\item{conf.level}{(\code{numeric})\cr
+a scalar in \verb{(0, 1)} indicating the confidence level.
+Default is \code{0.95}}
+
 \item{...}{arguments passed to \code{t.test(...)}}
 
 \item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
