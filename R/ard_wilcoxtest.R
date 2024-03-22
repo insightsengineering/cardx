@@ -43,7 +43,7 @@ NULL
 
 #' @rdname ard_wilcoxtest
 #' @export
-ard_wilcoxtest <- function(data, by, variables, ...) {
+ard_wilcoxtest <- function(data, variables, by = NULL, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
@@ -64,7 +64,7 @@ ard_wilcoxtest <- function(data, by, variables, ...) {
   lapply(
     variables,
     function(variable) {
-      .format_ttest_results(
+      .format_wilcoxtest_results(
         by = by,
         variable = variable,
         lst_tidy =
@@ -171,7 +171,7 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
       lst_ard_columns = list(variable = variable, context = "wilcoxtest")
     )
 
-  if (!is.null(by)) {
+  if (!is_null(by)) {
     ret <- ret |>
       dplyr::mutate(group1 = by)
   }
@@ -179,7 +179,7 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
   # add the stat label ---------------------------------------------------------
   ret |>
     dplyr::left_join(
-      .df_wilcoxtest_stat_labels(),
+      .df_wilcoxtest_stat_labels(by = by),
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
