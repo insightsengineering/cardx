@@ -4,7 +4,7 @@
 \alias{.format_wilcoxtest_results}
 \title{Convert Wilcoxon test to ARD}
 \usage{
-.format_wilcoxtest_results(by, variable, lst_tidy, paired, ...)
+.format_wilcoxtest_results(by = NULL, variable, lst_tidy, paired, ...)
 }
 \arguments{
 \item{by}{(\code{string})\cr by column name}

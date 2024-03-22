@@ -4,7 +4,7 @@
 \alias{.format_ttest_results}
 \title{Convert t-test to ARD}
 \usage{
-.format_ttest_results(by, variable, lst_tidy, paired, ...)
+.format_ttest_results(by = NULL, variable, lst_tidy, paired, ...)
 }
 \arguments{
 \item{by}{(\code{string})\cr by column name}
