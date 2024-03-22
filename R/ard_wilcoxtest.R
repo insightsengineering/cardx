@@ -179,7 +179,7 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
   # add the stat label ---------------------------------------------------------
   ret |>
     dplyr::left_join(
-      .df_wilcoxtest_stat_labels(by = by),
+      .df_wilcoxtest_stat_labels(),
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
