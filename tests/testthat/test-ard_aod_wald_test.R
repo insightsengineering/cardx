@@ -8,4 +8,11 @@ test_that("ard_aod_wald_test() works", {
   )
   expect_equal(nrow(glm_ard_aod_wald_test), 6L)
   expect_snapshot(glm_ard_aod_wald_test[, 1:6])
+
+  # works when a regression model isn't passed
+
+  expect_snapshot(
+    ard_aod_wald_test(cards::ADSL) |>
+      dplyr::select(c(context, error))
+  )
 })
