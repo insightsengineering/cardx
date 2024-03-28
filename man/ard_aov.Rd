@@ -4,7 +4,7 @@
 \alias{ard_aov}
 \title{ARD ANOVA}
 \usage{
-ard_aov(x, data, ...)
+ard_aov(x, ...)
 }
 \arguments{
 \item{x}{regression model object}
@@ -16,7 +16,7 @@ ARD data frame
 }
 \description{
 Analysis results data for Analysis of Variance.
-Calculated with \code{aov(lm, data = data, ...)}
+Calculated with \code{stats::aov()}
 }
 \examples{
 lm(AGE ~ ARM, data = cards::ADSL) |>

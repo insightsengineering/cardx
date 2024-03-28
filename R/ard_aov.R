@@ -46,8 +46,8 @@ ard_aov <- function(x, ...) {
           TRUE ~ .data$stat_name
         ),
       context = "aov",
-      warning = lst_tidy["warning"],
-      error = lst_tidy["error"]
+      warning = aov["warning"],
+      error = aov["error"]
     ) |>
     cards::tidy_ard_column_order() %>%
     {
