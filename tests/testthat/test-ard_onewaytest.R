@@ -20,7 +20,7 @@ test_that("ard_onewaytest() works", {
 
   # errors are properly handled - "variable" should be continuous, not factor
   expect_snapshot(
-    lm(AGE ~ ARM, data = cards::ADSL) |>
+    lm(AGEGR1 ~ ARM, data = cards::ADSL) |>
       ard_onewaytest() |>
       dplyr::select(c("stat_name", "error")) |>
       as.data.frame()

@@ -26,7 +26,7 @@ ard_aov <- function(x, ...) {
       stats::aov(x, ...)
     )
   aov[["result"]] |>
-    broom.helpers::tidy_parameters() |> # using broom.helpers, because it handle non-syntactic names for us
+    broom.helpers::tidy_parameters() |> # using broom.helpers, because it handle non-syntactic names
     dplyr::filter(!(dplyr::row_number() == dplyr::n() & .data$term %in% "Residuals")) |> # removing Residual rows
     dplyr::rename(variable = "term") |>
     tidyr::pivot_longer(
