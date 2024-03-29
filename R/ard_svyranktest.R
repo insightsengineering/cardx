@@ -25,7 +25,6 @@
 #' ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "vanderWaerden")
 #' ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "median")
 #' ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "KruskalWallis")
-
 ard_svyranktest <- function(data, by, variables, test, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
