@@ -17,7 +17,7 @@ column name to compare by}
 column names to be compared. Independent tests will be run for each variable.}
 
 \item{test}{(\code{double})\cr
-a string to denote with rank test to use:
+a string to denote which rank test to use:
 \code{"wilcoxon"}, \code{"vanderWaerden"}, \code{"median"}, \code{"KruskalWallis"}}
 
 \item{...}{arguments passed to \code{\link[survey:svyranktest]{survey::svyranktest()}}}

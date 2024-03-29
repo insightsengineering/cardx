@@ -10,7 +10,7 @@
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column names to be compared. Independent tests will be run for each variable.
 #' @param test (`double`)\cr
-#'   a string to denote with rank test to use:
+#'   a string to denote which rank test to use:
 #'   `"wilcoxon"`, `"vanderWaerden"`, `"median"`, `"KruskalWallis"`
 #' @param ... arguments passed to [`survey::svyranktest()`]
 #'
