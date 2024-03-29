@@ -1,4 +1,4 @@
-# ard_svyranktest() snapshots
+# ard_svyranktest() works
 
     Code
       as.data.frame(svyranktest[[1]])
