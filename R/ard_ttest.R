@@ -12,9 +12,6 @@
 #'   each variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
-#' @param conf.level (`numeric`)\cr
-#'   a scalar in `(0, 1)` indicating the confidence level.
-#'   Default is `0.95`
 #' @param ... arguments passed to `t.test(...)`
 #'
 #' @return ARD data frame
@@ -46,7 +43,7 @@ NULL
 
 #' @rdname ard_ttest
 #' @export
-ard_ttest <- function(data, variables, by = NULL, conf.level = 0.95, ...) {
+ard_ttest <- function(data, variables, by = NULL, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
@@ -73,8 +70,8 @@ ard_ttest <- function(data, variables, by = NULL, conf.level = 0.95, ...) {
         lst_tidy =
           # styler: off
           cards::eval_capture_conditions(
-            if (!is_empty(by)) stats::t.test(data[[variable]] ~ data[[by]], conf.level = conf.level, ...) |> broom::tidy()
-            else stats::t.test(data[[variable]], conf.level = conf.level, ...) |> broom::tidy()
+            if (!is_empty(by)) stats::t.test(data[[variable]] ~ data[[by]], ...) |> broom::tidy()
+            else stats::t.test(data[[variable]], ...) |> broom::tidy()
           ),
         # styler: on
         paired = FALSE,

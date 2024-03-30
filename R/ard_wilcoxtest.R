@@ -12,9 +12,6 @@
 #'   each variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID.
-#' @param conf.level (`numeric`)\cr
-#'   a scalar in `(0, 1)` indicating the confidence level.
-#'   Default is `0.95`
 #' @param ... arguments passed to `wilcox.test(...)`
 #'
 #' @return ARD data frame
@@ -46,7 +43,7 @@ NULL
 
 #' @rdname ard_wilcoxtest
 #' @export
-ard_wilcoxtest <- function(data, variables, by, conf.level = 0.95, ...) {
+ard_wilcoxtest <- function(data, variables, by = NULL, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
@@ -74,11 +71,11 @@ ard_wilcoxtest <- function(data, variables, by, conf.level = 0.95, ...) {
           # styler: off
           cards::eval_capture_conditions(
             if (!is_empty(by)) {
-              stats::wilcox.test(data[[variable]] ~ data[[by]], conf.level = conf.level, ...) |>
+              stats::wilcox.test(data[[variable]] ~ data[[by]], ...) |>
                 broom::tidy()
             }
             else {
-              stats::wilcox.test(data[[variable]], conf.level = conf.level, ...) |>
+              stats::wilcox.test(data[[variable]], ...) |>
                 broom::tidy()
             }
           ),
@@ -188,7 +185,7 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
   # add the stat label ---------------------------------------------------------
   ret |>
     dplyr::left_join(
-      .df_wilcoxtest_stat_labels(),
+      .df_wilcoxtest_stat_labels(by),
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
@@ -230,10 +227,10 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
     stats::setNames(c(id, "by1", "by2"))
 }
 
-.df_wilcoxtest_stat_labels <- function() {
+.df_wilcoxtest_stat_labels <- function(by = NULL) {
   dplyr::tribble(
     ~stat_name, ~stat_label,
-    "statistic", "X-squared Statistic",
+    "statistic", ifelse(is.null(by), "V Statistic", "X-squared Statistic"),
     "parameter", "Degrees of Freedom",
     "estimate", "Median of the Difference",
     "p.value", "p-value",
