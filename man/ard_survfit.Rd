@@ -4,7 +4,7 @@
 \alias{ard_survfit}
 \title{ARD Survival Estimates}
 \usage{
-ard_survfit(x, times = NULL, probs = NULL, type = "survival")
+ard_survfit(x, times = NULL, probs = NULL, type = NULL)
 }
 \arguments{
 \item{x}{(\code{\link[survival:survfit]{survival::survfit()}})\cr
@@ -16,9 +16,9 @@ a vector of times for which to return survival probabilities.}
 \item{probs}{(\code{numeric})\cr
 a vector of probabilities with values in (0,1) specifying the survival quantiles to return.}
 
-\item{type}{(\code{character} or \code{NULL})\cr
+\item{type}{(\code{string} or \code{NULL})\cr
 type of statistic to report. Available for Kaplan-Meier time estimates only, otherwise \code{type}
-is ignored. Default is \code{"survival"}.
+is ignored. Default is \code{NULL}.
 Must be one of the following:\tabular{ll}{
    type \tab transformation \cr
    \code{"survival"} \tab \code{x} \cr

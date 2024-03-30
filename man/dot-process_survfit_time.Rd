@@ -13,9 +13,9 @@ a \code{\link[survival:survfit]{survival::survfit()}} object. See below for deta
 \item{times}{(\code{numeric})\cr
 a vector of times for which to return survival probabilities.}
 
-\item{type}{(\code{character} or \code{NULL})\cr
+\item{type}{(\code{string} or \code{NULL})\cr
 type of statistic to report. Available for Kaplan-Meier time estimates only, otherwise \code{type}
-is ignored. Default is \code{"survival"}.
+is ignored. Default is \code{NULL}.
 Must be one of the following:\tabular{ll}{
    type \tab transformation \cr
    \code{"survival"} \tab \code{x} \cr

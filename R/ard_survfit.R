@@ -10,9 +10,9 @@
 #'   a vector of times for which to return survival probabilities.
 #' @param probs (`numeric`)\cr
 #'   a vector of probabilities with values in (0,1) specifying the survival quantiles to return.
-#' @param type (`character` or `NULL`)\cr
+#' @param type (`string` or `NULL`)\cr
 #'   type of statistic to report. Available for Kaplan-Meier time estimates only, otherwise `type`
-#'   is ignored. Default is `"survival"`.
+#'   is ignored. Default is `NULL`.
 #'   Must be one of the following:
 #'   ```{r, echo = FALSE}
 #'   dplyr::tribble(
@@ -58,35 +58,40 @@ NULL
 
 #' @rdname ard_survfit
 #' @export
-ard_survfit <- function(x, times = NULL, probs = NULL, type = "survival") {
+ard_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(x)
-  check_class(type, "character")
-  if (!is.null(probs)) check_range(probs, c(0, 1))
-  if (!all(inherits(x, "survfit"))) {
-    cli::cli_abort(
-      "The {.arg x} argument must be class {.cls survfit} created using the {.fun survival::survfit} function."
-    )
+  check_class(x, cls = "survfit")
+  if (inherits(x, "survfitcox")) {
+    cli::cli_abort("Argument {.arg x} cannot be class {.cls survfitcox}.")
   }
+
+  # competing risks models cannot use the type argument
+  if (inherits(x, c("survfitms", "survfitcoxms")) && !is.null(type)) {
+    cli::cli_abort("Cannot use {.arg type} argument with {.code survfit} models with class {.cls {c('survfitms', 'survfitcoxms')}}.")
+  }
+  if (!is.null(probs)) check_range(probs, c(0, 1))
   if (sum(is.null(times), is.null(probs)) != 1) {
     cli::cli_abort("One and only one of {.arg times} and {.arg probs} must be specified.")
   }
-  if (!is.null(times) && !is.null(type) && !type %in% c("survival", "risk", "cumhaz")) {
-    cli::cli_abort(
-      "The {.arg type} argument is {.val {type}} but must be one of {.val survival}, {.val risk}, or {.val cumhaz}."
-    )
+
+  # for regular KM estimators, we allow the type argument
+  if (!inherits(x, "survfitms") && !is.null(type)) {
+    type <- arg_match(type, values = c("survival", "risk", "cumhaz"))
   }
-  if (type != "survival" && !is.null(probs)) {
-    cli::cli_inform("The {.arg type} argument is ignored for survival quantile estimation.")
+
+  # cannot specify type arg when probs supplied
+  if (!is.null(probs) && !is.null(type)) {
+    cli::cli_abort("Cannot use {.arg type} argument when {.arg probs} argument specifed.")
   }
 
   # build ARD ------------------------------------------------------------------
   est_type <- ifelse(is.null(probs), "times", "probs")
   tidy_survfit <- switch(est_type,
-    "times" = .process_survfit_time(x, times, type),
+    "times" = .process_survfit_time(x, times, type %||% "survival"),
     "probs" = .process_survfit_probs(x, probs)
   )
 

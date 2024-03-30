@@ -25,7 +25,7 @@ test_that("ard_survfit() works with different type", {
 test_that("ard_survfit() works with probs provided", {
   expect_snapshot(
     survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
-      ard_survfit(probs = c(0.25, 0.75), type = "cumhaz") |>
+      ard_survfit(probs = c(0.25, 0.75)) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
       ) |>
@@ -125,5 +125,15 @@ test_that("ard_survfit() works with non-syntactic names", {
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
       )
+  )
+})
+
+test_that("ard_survfit() errors with stratified Cox model", {
+  withr::local_namespace("survival")
+  expect_snapshot(
+    error = TRUE,
+    coxph(Surv(time, status) ~ age + strata(sex), survival::lung) |>
+      survfit() |>
+      ard_survfit()
   )
 })

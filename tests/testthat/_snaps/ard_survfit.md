@@ -64,10 +64,9 @@
 
     Code
       print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~
-        TRTA, cards::ADTTE), probs = c(0.25, 0.75), type = "cumhaz"), stat = lapply(
-        stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+        TRTA, cards::ADTTE), probs = c(0.25, 0.75)), stat = lapply(stat, function(x)
+        ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      The `type` argument is ignored for survival quantile estimation.
       {cards} data frame: 18 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label stat
@@ -364,7 +363,7 @@
       ard_survfit("not_survfit")
     Condition
       Error in `ard_survfit()`:
-      ! The `x` argument must be class <survfit> created using the `survival::survfit()` function.
+      ! The `x` argument must be class <survfit>, not a string.
 
 ---
 
@@ -373,7 +372,7 @@
       times = 100, type = "notatype")
     Condition
       Error in `ard_survfit()`:
-      ! The `type` argument is "notatype" but must be one of "survival", "risk", or "cumhaz".
+      ! `type` must be one of "survival", "risk", or "cumhaz", not "notatype".
 
 ---
 
@@ -383,4 +382,12 @@
     Condition
       Error in `ard_survfit()`:
       ! One and only one of `times` and `probs` must be specified.
+
+# ard_survfit() errors with stratified Cox model
+
+    Code
+      ard_survfit(survfit(coxph(Surv(time, status) ~ age + strata(sex), survival::lung)))
+    Condition
+      Error in `ard_survfit()`:
+      ! Argument `x` cannot be class <survfitcox>.
 
