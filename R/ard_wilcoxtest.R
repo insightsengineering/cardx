@@ -6,7 +6,7 @@
 #' @param data (`data.frame`)\cr
 #'   a data frame. See below for details.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name to compare by.
+#'   optional column name to compare by.
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column names to be compared. Independent tests will be computed for
 #'   each variable.
@@ -43,18 +43,17 @@ NULL
 
 #' @rdname ard_wilcoxtest
 #' @export
-ard_wilcoxtest <- function(data, by, variables, ...) {
+ard_wilcoxtest <- function(data, variables, by = NULL, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variables)
-  check_not_missing(by)
   check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
-  check_scalar(by)
+  check_scalar(by, allow_empty = TRUE)
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
@@ -69,10 +68,18 @@ ard_wilcoxtest <- function(data, by, variables, ...) {
         by = by,
         variable = variable,
         lst_tidy =
+          # styler: off
           cards::eval_capture_conditions(
-            stats::wilcox.test(data[[variable]] ~ data[[by]], ...) |>
-              broom::tidy()
+            if (!is_empty(by)) {
+              stats::wilcox.test(data[[variable]] ~ data[[by]], ...) |>
+                broom::tidy()
+            }
+            else {
+              stats::wilcox.test(data[[variable]], ...) |>
+                broom::tidy()
+            }
           ),
+        # styler: on
         paired = FALSE,
         ...
       )
@@ -155,7 +162,7 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
 #' )
 #'
 #' @keywords internal
-.format_wilcoxtest_results <- function(by, variable, lst_tidy, paired, ...) {
+.format_wilcoxtest_results <- function(by = NULL, variable, lst_tidy, paired, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
     cards::tidy_as_ard(
@@ -167,13 +174,18 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
       ),
       formals = formals(asNamespace("stats")[["wilcox.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "wilcoxtest")
+      lst_ard_columns = list(variable = variable, context = "wilcoxtest")
     )
+
+  if (!is_empty(by)) {
+    ret <- ret |>
+      dplyr::mutate(group1 = by)
+  }
 
   # add the stat label ---------------------------------------------------------
   ret |>
     dplyr::left_join(
-      .df_wilcoxtest_stat_labels(),
+      .df_wilcoxtest_stat_labels(by),
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
@@ -215,10 +227,10 @@ ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
     stats::setNames(c(id, "by1", "by2"))
 }
 
-.df_wilcoxtest_stat_labels <- function() {
+.df_wilcoxtest_stat_labels <- function(by = NULL) {
   dplyr::tribble(
     ~stat_name, ~stat_label,
-    "statistic", "X-squared Statistic",
+    "statistic", ifelse(is.null(by), "V Statistic", "X-squared Statistic"),
     "parameter", "Degrees of Freedom",
     "estimate", "Median of the Difference",
     "p.value", "p-value",

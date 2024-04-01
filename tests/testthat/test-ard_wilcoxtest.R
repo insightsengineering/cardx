@@ -1,6 +1,25 @@
 skip_if_not(cards::is_pkg_installed("broom", reference_pkg = "cardx"))
 
 test_that("ard_wilcoxtest() works", {
+  # One Sample Wilcox works
+  expect_error(
+    ard_single <- ard_wilcoxtest(cards::ADSL, variable = AGE),
+    NA
+  )
+
+  expect_equal(
+    ard_single |>
+      cards::get_ard_statistics(stat_name %in% c("statistic", "p.value")),
+    wilcox.test(
+      cards::ADSL$AGE
+    ) |>
+      broom::tidy() |>
+      dplyr::select(statistic, p.value) |>
+      unclass(),
+    ignore_attr = TRUE
+  )
+
+  # Two Sample Wilcox works
   expect_error(
     ard_wilcoxtest <-
       cards::ADSL |>
