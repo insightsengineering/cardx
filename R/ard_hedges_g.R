@@ -72,7 +72,7 @@ ard_hedges_g <- function(data, by, variables, ...) {
         variable = variable,
         lst_tidy =
           cards::eval_capture_conditions(
-            hedges_g(data[[variable]] ~ data[[by]], paired = FALSE, ...) |>
+            effectsize::hedges_g(data[[variable]] ~ data[[by]], paired = FALSE, ...) |>
               parameters::standardize_names(style = "broom")
           ),
         paired = FALSE,
