@@ -33,9 +33,9 @@ Analysis results data for survey wilcox test using \code{\link[survey:svyranktes
 data(api, package = "survey")
 dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 
-ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "wilcoxon")
-ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "vanderWaerden")
-ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "median")
-ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "KruskalWallis")
+ard_svyranktest(dclus2, variables = enroll, by = comp.imp, test = "wilcoxon")
+ard_svyranktest(dclus2, variables = enroll, by = comp.imp, test = "vanderWaerden")
+ard_svyranktest(dclus2, variables = enroll, by = comp.imp, test = "median")
+ard_svyranktest(dclus2, variables = enroll, by = comp.imp, test = "KruskalWallis")
 \dontshow{\}) # examplesIf}
 }

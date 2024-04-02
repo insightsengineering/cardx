@@ -15,10 +15,10 @@ test_that("ard_svyranktest() works", {
     }
   )
 
-  expect_snapshot(svyranktest[[1]] |> as.data.frame())
-  expect_snapshot(svyranktest[[2]] |> as.data.frame())
-  expect_snapshot(svyranktest[[3]] |> as.data.frame())
-  expect_snapshot(svyranktest[[4]] |> as.data.frame())
+  expect_snapshot(svyranktest[[1]] |> as.data.frame() |> dplyr::select(stat_label, stat))
+  expect_snapshot(svyranktest[[2]] |> as.data.frame() |> dplyr::select(stat_label, stat))
+  expect_snapshot(svyranktest[[3]] |> as.data.frame() |> dplyr::select(stat_label, stat))
+  expect_snapshot(svyranktest[[4]] |> as.data.frame() |> dplyr::select(stat_label, stat))
 })
 
 test_that("exact values match for ard_svyranktest works", {

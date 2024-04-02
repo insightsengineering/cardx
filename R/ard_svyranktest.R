@@ -21,10 +21,10 @@
 #' data(api, package = "survey")
 #' dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 #'
-#' ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "wilcoxon")
-#' ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "vanderWaerden")
-#' ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "median")
-#' ard_svyttest(dclus2, variables = enroll, by = comp.imp, test = "KruskalWallis")
+#' ard_svyranktest(dclus2, variables = enroll, by = comp.imp, test = "wilcoxon")
+#' ard_svyranktest(dclus2, variables = enroll, by = comp.imp, test = "vanderWaerden")
+#' ard_svyranktest(dclus2, variables = enroll, by = comp.imp, test = "median")
+#' ard_svyranktest(dclus2, variables = enroll, by = comp.imp, test = "KruskalWallis")
 ard_svyranktest <- function(data, by, variables, test, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
@@ -46,9 +46,8 @@ ard_svyranktest <- function(data, by, variables, test, ...) {
         variable = variable,
         lst_tidy =
           cards::eval_capture_conditions(
-            survey::svyranktest(stats::reformulate(by, response = variable), design = data, test = test, ...)
-          ),
-        ...
+            survey::svyranktest(stats::reformulate(by, response = variable), design = data, test = test, ...) |> broom::tidy()
+          )
       )
     }
   ) |>
@@ -83,7 +82,7 @@ ard_svyranktest <- function(data, by, variables, test, ...) {
 .df_surveyrank_stat_labels <- function() {
   dplyr::tribble(
     ~stat_name, ~stat_label,
-    "statistic", "X-squared Statistic",
+    "statistic", "Statistic",
     "parameter", "Degrees of Freedom",
     "estimate", "Median of the Difference",
     "null.value", "Null Value",
