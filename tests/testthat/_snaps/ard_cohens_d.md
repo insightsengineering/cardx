@@ -21,13 +21,13 @@
         dplyr::filter(cards::ADSL, ARM %in% c("Placebo", "Xanomeline High Dose")),
         by = ARM, variables = c(BMIBL, HEIGHTBL)), c(1:3, 5:6)), variable), n = 3))
     Output
-        group1 variable  context           stat_label       stat
-      1    ARM    BMIBL cohens_d Effect Size Estimate -0.4366533
-      2    ARM    BMIBL cohens_d  CI Confidence Level       0.95
-      3    ARM    BMIBL cohens_d       CI Lower Bound -0.7402822
-      4    ARM HEIGHTBL cohens_d Effect Size Estimate -0.2990562
-      5    ARM HEIGHTBL cohens_d  CI Confidence Level       0.95
-      6    ARM HEIGHTBL cohens_d       CI Lower Bound -0.6009749
+        group1 variable  context           stat_label      stat
+      1    ARM    BMIBL cohens_d Effect Size Estimate -0.436653
+      2    ARM    BMIBL cohens_d  CI Confidence Level      0.95
+      3    ARM    BMIBL cohens_d       CI Lower Bound -0.740282
+      4    ARM HEIGHTBL cohens_d Effect Size Estimate -0.299056
+      5    ARM HEIGHTBL cohens_d  CI Confidence Level      0.95
+      6    ARM HEIGHTBL cohens_d       CI Lower Bound -0.600975
 
 # ard_paired_cohens_d() works
 
