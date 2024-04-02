@@ -28,7 +28,7 @@
 #' The data are then passed as
 #' `effectsize::hedges_g(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examplesIf cards::is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
+#' @examplesIf cards::is_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_hedges_g(by = ARM, variables = AGE)
@@ -48,7 +48,7 @@ NULL
 #' @export
 ard_hedges_g <- function(data, by, variables, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
+  cards::check_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -72,7 +72,13 @@ ard_hedges_g <- function(data, by, variables, ...) {
         variable = variable,
         lst_tidy =
           cards::eval_capture_conditions(
-            effectsize::hedges_g(data[[variable]] ~ data[[by]], paired = FALSE, ...) |>
+            # Need to eval in NAMESAPCE DUE TO BUG IN effectsize v0.8.7.
+            # Can remove this later along with requirements for withr to be installed.
+            # Will also need to remove `hedges_g` from globalVariables()
+            withr::with_namespace(
+              package = "effectsize",
+              code = hedges_g(data[[variable]] ~ data[[by]], paired = FALSE, ...)
+            ) |>
               parameters::standardize_names(style = "broom")
           ),
         paired = FALSE,
@@ -118,7 +124,10 @@ ard_paired_hedges_g <- function(data, by, variables, id, ...) {
             # adding this reshape inside the eval, so if there is an error it's captured in the ARD object
             data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
             # perform paired cohen's d test
-            effectsize::hedges_g(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...) |>
+            withr::with_namespace(
+              package = "effectsize",
+              code = hedges_g(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...)
+            ) |>
               parameters::standardize_names(style = "broom")
           }),
         paired = TRUE,
