@@ -1,6 +1,9 @@
 skip_if_not(cards::is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx"))
 
 test_that("ard_cohens_d() works", {
+  # there were some discrepancies in the 7th decimal place on one system
+  withr::local_options(list(digits = 6))
+
   expect_error(
     ard_cohens_d <-
       cards::ADSL |>
