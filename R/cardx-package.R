@@ -6,4 +6,4 @@
 ## usethis namespace: end
 NULL
 
-utils::globalVariables(c("."))
+utils::globalVariables(c(".", "hedges_g"))
