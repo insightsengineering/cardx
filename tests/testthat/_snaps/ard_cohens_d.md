@@ -24,7 +24,7 @@
         group1 variable  context           stat_label       stat
       1    ARM    BMIBL cohens_d Effect Size Estimate -0.4366533
       2    ARM    BMIBL cohens_d  CI Confidence Level       0.95
-      3    ARM    BMIBL cohens_d       CI Lower Bound -0.7402823
+      3    ARM    BMIBL cohens_d       CI Lower Bound -0.7402822
       4    ARM HEIGHTBL cohens_d Effect Size Estimate -0.2990562
       5    ARM HEIGHTBL cohens_d  CI Confidence Level       0.95
       6    ARM HEIGHTBL cohens_d       CI Lower Bound -0.6009749
