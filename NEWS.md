@@ -1,4 +1,4 @@
-# cardx 0.1.0.9005
+# cardx 0.1.0.9008
 
 * Added the following functions for calculating Analysis Results Data (ARD).
   - `ard_car_anova()` for calculating ANOVA results using `car::Anova()`. (#3)
@@ -12,6 +12,8 @@
   - `ard_vif()` for calculating the variance inflation factor using `car::vif()`. (#10)
 
 * Updated functions `ard_ttest()`, `ard_paired_ttest()`, `ard_wilcoxtest()`, `ard_paired_wilcoxtest()`, `ard_chisqtest()`, `ard_fishertest()`, `ard_kruskaltest()`, `ard_mcnemartest()`, and `ard_moodtest()` to accept multiple variables at once. Independent tests are calculated for each variable. The `variable` argument is renamed to `variables`. (#77)
+
+* Updated `ard_ttest()` and `ard_wilcoxtest()` to no longer require the `by` argument, which yields central estimates with their confidence intervals. (#82)
 
 # cardx 0.1.0
 

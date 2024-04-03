@@ -1,3 +1,5 @@
+skip_if_not(cards::is_pkg_installed(c("broom.helpers", "car"), reference_pkg = "cardx"))
+
 test_that("ard_car_anova() works", {
   # works for a generic case
   expect_error(
