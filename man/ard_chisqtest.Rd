@@ -4,16 +4,20 @@
 \alias{ard_chisqtest}
 \title{ARD Chi-squared Test}
 \usage{
-ard_chisqtest(data, by, variable, ...)
+ard_chisqtest(data, by, variables, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
 a data frame.}
 
-\item{by, variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column names to compare}
+\item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name to compare by.}
 
-\item{...}{additional arguments passed to \code{fisher.test(...)}}
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column names to be compared. Independent tests will be computed for
+each variable.}
+
+\item{...}{additional arguments passed to \code{chisq.test(...)}}
 }
 \value{
 ARD data frame
@@ -25,6 +29,6 @@ Calculated with \code{chisq.test(x = data[[variable]], y = data[[by]], ...)}
 \examples{
 \dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
-  ard_chisqtest(by = "ARM", variable = "AGEGR1")
+  ard_chisqtest(by = "ARM", variables = "AGEGR1")
 \dontshow{\}) # examplesIf}
 }

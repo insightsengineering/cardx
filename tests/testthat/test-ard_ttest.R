@@ -1,6 +1,26 @@
 skip_if_not(cards::is_pkg_installed("broom", reference_pkg = "cardx"))
 
 test_that("ard_ttest() works", {
+  # One Sample t-test works
+  expect_error(
+    ard_single <- ard_ttest(cards::ADSL, variable = AGE, var.equal = TRUE),
+    NA
+  )
+
+  expect_equal(
+    ard_single |>
+      cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
+    t.test(
+      cards::ADSL$AGE,
+      var.equal = TRUE
+    ) |>
+      broom::tidy() |>
+      dplyr::select(estimate, conf.low, conf.high) |>
+      unclass(),
+    ignore_attr = TRUE
+  )
+
+  # Two Sample t-test works
   expect_error(
     ard_ttest <-
       cards::ADSL |>
@@ -28,6 +48,19 @@ test_that("ard_ttest() works", {
     cards::ADSL |>
       ard_ttest(by = ARM, variable = AGE, var.equal = TRUE) |>
       as.data.frame()
+  )
+
+  # test that the function works with multiple variables at once
+  expect_equal(
+    dplyr::bind_rows(
+      ard_ttest,
+      cards::ADSL |>
+        dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+        ard_ttest(by = ARM, variable = BMIBL, var.equal = TRUE)
+    ),
+    cards::ADSL |>
+      dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+      ard_ttest(by = ARM, variable = c(AGE, BMIBL), var.equal = TRUE)
   )
 })
 

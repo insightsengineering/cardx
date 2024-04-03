@@ -1,6 +1,8 @@
-skip_if_not(cards::is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx"))
+skip_if_not(cards::is_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx"))
 
 test_that("ard_hedges_g() works", {
+  withr::local_namespace("effectsize")
+
   expect_error(
     ard_hedges_g <-
       cards::ADSL |>
@@ -12,7 +14,7 @@ test_that("ard_hedges_g() works", {
   expect_equal(
     ard_hedges_g |>
       cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
-    effectsize::hedges_g(
+    hedges_g(
       AGE ~ ARM,
       data = cards::ADSL |> dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose"))
     ) |>
@@ -28,9 +30,22 @@ test_that("ard_hedges_g() works", {
       dplyr::select(c("variable", "stat_name", "error")) |>
       as.data.frame()
   )
+
+  # test that the function works with multiple variables as once
+  expect_snapshot(
+    cards::ADSL |>
+      dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+      ard_hedges_g(by = ARM, variables = c(BMIBL, HEIGHTBL)) |>
+      dplyr::select(c(1:3, 5:6)) |>
+      dplyr::group_by(variable) |>
+      dplyr::slice_head(n = 3) |>
+      as.data.frame()
+  )
 })
 
 test_that("ard_paired_hedges_g() works", {
+  withr::local_namespace("effectsize")
+
   ADSL_paired <-
     cards::ADSL[c("ARM", "AGE")] |>
     dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
@@ -56,7 +71,7 @@ test_that("ard_paired_hedges_g() works", {
           by = "USUBJID"
         ),
       expr =
-        effectsize::hedges_g(
+        hedges_g(
           x = AGE1,
           y = AGE2,
           paired = TRUE

@@ -7,9 +7,9 @@
 #'   a data frame.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to compare by
-#' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name to be compared. Must be a binary column coded as `TRUE`/`FALSE`
-#'   or `1`/`0`.
+#' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column names to be compared. Must be a binary column coded as `TRUE`/`FALSE`
+#'   or `1`/`0`. Independent tests will be computed for each variable.
 #' @param ... arguments passed to `prop.test(...)`
 #'
 #' @return ARD data frame
@@ -17,55 +17,65 @@
 #'
 #' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
 #' mtcars |>
-#'   ard_proptest(by = vs, variable = am)
-ard_proptest <- function(data, by, variable, ...) {
+#'   ard_proptest(by = vs, variables = am)
+ard_proptest <- function(data, by, variables, ...) {
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
-  check_not_missing(variable)
+  check_not_missing(variables)
   check_not_missing(by)
   check_data_frame(data)
 
   # process inputs -------------------------------------------------------------
-  cards::process_selectors(data, by = {{ by }}, variable = {{ variable }})
+  cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
-  check_scalar(variable)
-  data <- data[c(by, variable)] |> dplyr::ungroup() |> tidyr::drop_na() # styler: off
+  data <- data[c(by, variables)] |> dplyr::ungroup() |> tidyr::drop_na() # styler: off
+
+  # if no variables selected, return empty tibble ------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble())
+  }
 
   # build ARD ------------------------------------------------------------------
-  .format_proptest_results(
-    by = by,
-    variable = variable,
-    lst_tidy =
-      cards::eval_capture_conditions({
-        check_binary(data[[variable]], arg_name = "variable")
+  lapply(
+    variables,
+    function(variable) {
+      .format_proptest_results(
+        by = by,
+        variable = variable,
+        lst_tidy =
+          cards::eval_capture_conditions({
+            check_binary(data[[variable]], arg_name = "variable")
 
-        data_counts <-
-          dplyr::arrange(data, .data[[by]]) |>
-          dplyr::summarise(
-            .by = all_of(by),
-            x = sum(.data[[variable]]),
-            n = length(.data[[variable]])
-          )
+            data_counts <-
+              dplyr::arrange(data, .data[[by]]) |>
+              dplyr::summarise(
+                .by = all_of(by),
+                x = sum(.data[[variable]]),
+                n = length(.data[[variable]])
+              )
 
-        if (nrow(data_counts) != 2) {
-          cli::cli_abort(c(
-            "The {.arg by} column must have exactly 2 levels.",
-            "The levels are {.val {data_counts[[by]]}}"
-          ))
-        }
+            if (nrow(data_counts) != 2) {
+              cli::cli_abort(c(
+                "The {.arg by} column must have exactly 2 levels.",
+                "The levels are {.val {data_counts[[by]]}}"
+              ))
+            }
 
-        stats::prop.test(
-          x = data_counts[["x"]],
-          n = data_counts[["n"]],
-          ...
-        ) |>
-          broom::tidy() |>
-          # add central estimate for difference
-          dplyr::mutate(estimate = .data$estimate1 - .data$estimate2, .before = 1L)
-      }),
-    ...
-  )
+            stats::prop.test(
+              x = data_counts[["x"]],
+              n = data_counts[["n"]],
+              ...
+            ) |>
+              broom::tidy() |>
+              # add central estimate for difference
+              dplyr::mutate(estimate = .data$estimate1 - .data$estimate2, .before = 1L)
+          }),
+        ...
+      )
+    }
+  ) |>
+    dplyr::bind_rows()
 }
 
 

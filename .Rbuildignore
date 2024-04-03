@@ -15,6 +15,7 @@ LICENSE
 ^\.git$
 ^\.github$
 ^\.gitlab-ci\.yml$
+^codecov\.yml$
 
 # lintr
 ^\.lintr$

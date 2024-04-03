@@ -4,7 +4,7 @@
 \alias{ard_proptest}
 \title{ARD 2-sample proportion test}
 \usage{
-ard_proptest(data, by, variable, ...)
+ard_proptest(data, by, variables, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
@@ -13,9 +13,9 @@ a data frame.}
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to compare by}
 
-\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to be compared. Must be a binary column coded as \code{TRUE}/\code{FALSE}
-or \code{1}/\code{0}.}
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column names to be compared. Must be a binary column coded as \code{TRUE}/\code{FALSE}
+or \code{1}/\code{0}. Independent tests will be computed for each variable.}
 
 \item{...}{arguments passed to \code{prop.test(...)}}
 }
@@ -28,6 +28,6 @@ Analysis results data for a 2-sample test or proportions using \code{\link[stats
 \examples{
 \dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 mtcars |>
-  ard_proptest(by = vs, variable = am)
+  ard_proptest(by = vs, variables = am)
 \dontshow{\}) # examplesIf}
 }

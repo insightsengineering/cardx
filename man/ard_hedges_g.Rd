@@ -5,9 +5,9 @@
 \alias{ard_paired_hedges_g}
 \title{ARD Hedge's G Test}
 \usage{
-ard_hedges_g(data, by, variable, ...)
+ard_hedges_g(data, by, variables, ...)
 
-ard_paired_hedges_g(data, by, variable, id, ...)
+ard_paired_hedges_g(data, by, variables, id, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
@@ -16,8 +16,9 @@ a data frame. See below for details.}
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to compare by. Must be a categorical variable with exactly two levels.}
 
-\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to be compared. Must be a continuous variable.}
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column names to be compared. Must be a continuous variable. Independent
+tests will be run for each variable}
 
 \item{...}{arguments passed to \code{effectsize::hedges_g(...)}}
 
@@ -42,10 +43,10 @@ The data are then passed as
 \verb{effectsize::hedges_g(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)}.
 }
 \examples{
-\dontshow{if (cards::is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (cards::is_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
-  ard_hedges_g(by = ARM, variable = AGE)
+  ard_hedges_g(by = ARM, variables = AGE)
 
 # constructing a paired data set,
 # where patients receive both treatments
@@ -55,6 +56,6 @@ cards::ADSL[c("ARM", "AGE")] |>
   dplyr::arrange(USUBJID, ARM) |>
   dplyr::group_by(USUBJID) |>
   dplyr::filter(dplyr::n() > 1) |>
-  ard_paired_hedges_g(by = ARM, variable = AGE, id = USUBJID)
+  ard_paired_hedges_g(by = ARM, variables = AGE, id = USUBJID)
 \dontshow{\}) # examplesIf}
 }

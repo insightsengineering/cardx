@@ -1,6 +1,25 @@
 skip_if_not(cards::is_pkg_installed("broom", reference_pkg = "cardx"))
 
 test_that("ard_wilcoxtest() works", {
+  # One Sample Wilcox works
+  expect_error(
+    ard_single <- ard_wilcoxtest(cards::ADSL, variable = AGE),
+    NA
+  )
+
+  expect_equal(
+    ard_single |>
+      cards::get_ard_statistics(stat_name %in% c("statistic", "p.value")),
+    wilcox.test(
+      cards::ADSL$AGE
+    ) |>
+      broom::tidy() |>
+      dplyr::select(statistic, p.value) |>
+      unclass(),
+    ignore_attr = TRUE
+  )
+
+  # Two Sample Wilcox works
   expect_error(
     ard_wilcoxtest <-
       cards::ADSL |>
@@ -31,6 +50,19 @@ test_that("ard_wilcoxtest() works", {
       dplyr::pull(error) |>
       getElement(1L),
     "grouping factor must have exactly 2 levels"
+  )
+
+  # test that the function works with multiple variables as once
+  expect_equal(
+    dplyr::bind_rows(
+      ard_wilcoxtest,
+      cards::ADSL |>
+        dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+        ard_wilcoxtest(by = ARM, variable = BMIBL, correct = FALSE, conf.int = TRUE)
+    ),
+    cards::ADSL |>
+      dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+      ard_wilcoxtest(by = ARM, variable = c(AGE, BMIBL), correct = FALSE, conf.int = TRUE)
   )
 })
 

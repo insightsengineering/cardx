@@ -2,8 +2,8 @@
 
     Code
       as.data.frame(cards::shuffle_ard(cards::bind_ard(ard_chisqtest(data = adsl_sub,
-        by = "ARM", variable = "AGEGR1"), ard_chisqtest(data = adsl_sub, by = "SEX",
-        variable = "AGEGR1"))))
+        by = "ARM", variables = "AGEGR1"), ard_chisqtest(data = adsl_sub, by = "SEX",
+        variables = "AGEGR1"))))
     Output
                 ARM         SEX variable   context stat_name         stat
       1 Overall ARM        <NA>   AGEGR1 chisqtest statistic 5.079442e+00

@@ -4,7 +4,7 @@
 \alias{.format_wilcoxtest_results}
 \title{Convert Wilcoxon test to ARD}
 \usage{
-.format_wilcoxtest_results(by, variable, lst_tidy, paired, ...)
+.format_wilcoxtest_results(by = NULL, variable, lst_tidy, paired, ...)
 }
 \arguments{
 \item{by}{(\code{string})\cr by column name}
@@ -29,7 +29,7 @@ Convert Wilcoxon test to ARD
 # Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
 ADSL <- cards::ADSL |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
-  ard_wilcoxtest(by = "ARM", variable = "AGE")
+  ard_wilcoxtest(by = "ARM", variables = "AGE")
 
 cardx:::.format_wilcoxtest_results(
   by = "ARM",
