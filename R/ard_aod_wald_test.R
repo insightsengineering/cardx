@@ -20,7 +20,7 @@ ard_aod_wald_test <- function(x, ...) {
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
 
-  # run aod::wald.test() -----------------------------------------------------------
+  # run regression() -----------------------------------------------------------
   reg_model <- cards::eval_capture_conditions(
     ard_regression_basic(x, intercept = TRUE, stats_to_remove = c(
       "var_type",
@@ -51,7 +51,7 @@ ard_aod_wald_test <- function(x, ...) {
         model_terms = unlist(.data$data[["model_terms"]]) %>% list(),
         model_terms_id = rlang::set_names(.data$data[["term_id"]]) %>% list()
       )
-
+    # run wald.test() -----------------------------------------------------------
     wald_test <-
       cards::eval_capture_conditions(lapply(seq_along(1:length(aod$model_terms_id)), function(terms_id) {
         aod::wald.test(
