@@ -23,6 +23,5 @@ test_that("ard_onewaytest() works", {
       dplyr::select(c("stat_name", "warning")) |>
       as.data.frame() |>
       head(3)
-
   )
 })
