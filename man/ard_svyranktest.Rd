@@ -16,7 +16,7 @@ column name to compare by}
 \item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column names to be compared. Independent tests will be run for each variable.}
 
-\item{test}{(\code{double})\cr
+\item{test}{(\code{string})\cr
 a string to denote which rank test to use:
 \code{"wilcoxon"}, \code{"vanderWaerden"}, \code{"median"}, \code{"KruskalWallis"}}
 

@@ -9,7 +9,7 @@
 #'   column name to compare by
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column names to be compared. Independent tests will be run for each variable.
-#' @param test (`double`)\cr
+#' @param test (`string`)\cr
 #'   a string to denote which rank test to use:
 #'   `"wilcoxon"`, `"vanderWaerden"`, `"median"`, `"KruskalWallis"`
 #' @param ... arguments passed to [`survey::svyranktest()`]
@@ -46,7 +46,8 @@ ard_svyranktest <- function(data, by, variables, test, ...) {
         variable = variable,
         lst_tidy =
           cards::eval_capture_conditions(
-            survey::svyranktest(stats::reformulate(by, response = variable), design = data, test = test, ...) |> broom::tidy()
+            survey::svyranktest(stats::reformulate(by, response = variable), design = data, test = test, ...) |>
+              broom::tidy()
           )
       )
     }
