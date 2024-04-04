@@ -60,6 +60,8 @@ test_that("ard_survfit() works with multiple stratification variables", {
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
       ) |>
+      dplyr::select("group1", "group1_level", "group2", "group2_level") |>
+      head(20) |>
       print(n = Inf)
   )
 
@@ -69,6 +71,8 @@ test_that("ard_survfit() works with multiple stratification variables", {
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
       ) |>
+      dplyr::select("group1", "group1_level", "group2", "group2_level") |>
+      head(20) |>
       print(n = Inf)
   )
 })
