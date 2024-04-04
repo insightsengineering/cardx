@@ -4,6 +4,7 @@ Version: 0.1.0.9009
 Authors@R: c(
     person("Daniel", "Sjoberg", , "danield.sjoberg@gmail.com", role = c("aut", "cre")),
     person("Abinaya", "Yogasekaram", , "abinaya.yogasekaram@contractors.roche.com", role = "aut"),
+    person("Emily", "de la Rua", , "emily.de_la_rua@contractors.roche.com", role = c("aut")),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: Create extra Analysis Results Data (ARD) summary objects.
@@ -32,6 +33,7 @@ Suggests:
     smd (>= 0.6.6),
     spelling,
     survey (>= 4.1),
+    survival (>= 3.2-11),    
     testthat (>= 3.2.0),
     withr
 Remotes: 
