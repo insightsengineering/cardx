@@ -4,29 +4,28 @@
 #' Analysis results data for Analysis of Variance.
 #' Calculated with `stats::aov()`
 #'
-#' @param x linear model formula
-#' @param data (`data.frame`)\cr
-#' a data frame containing the variables in `x`
+#' @inheritParams stats::aov
 #' @param ... arguments passed to `stats::aov(...)`
 #'
 #' @return ARD data frame
 #' @export
 #'
-#' @examples
+#' @examplesIf cards::is_pkg_installed(c("broom.helpers"), reference_pkg = "cardx")
 #' ard_aov(AGE ~ ARM, data = cards::ADSL)
-ard_aov <- function(x, data, ...) {
+ard_aov <- function(formula, data, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("broom.helpers"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
-  check_not_missing(x)
+  check_not_missing(formula)
   check_not_missing(data)
   check_data_frame(data)
+  check_class(formula, cls = "formula")
 
   # build ARD ------------------------------------------------------------------
   aov <-
     cards::eval_capture_conditions(
-      stats::aov(x, data, ...)
+      stats::aov(formula, data, ...)
     )
   aov[["result"]] |>
     broom.helpers::tidy_parameters() |> # using broom.helpers, because it handle non-syntactic names
@@ -53,7 +52,5 @@ ard_aov <- function(x, data, ...) {
       error = aov["error"]
     ) |>
     cards::tidy_ard_column_order() %>%
-    {
-      structure(., class = c("card", class(.)))
-    }
+    {structure(., class = c("card", class(.)))} # styler: off
 }

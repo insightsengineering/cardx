@@ -4,13 +4,16 @@
 \alias{ard_onewaytest}
 \title{ARD One-way Test}
 \usage{
-ard_onewaytest(x, data, ...)
+ard_onewaytest(formula, data, ...)
 }
 \arguments{
-\item{x}{linear model formula}
+\item{formula}{a formula of the form \code{lhs ~ rhs} where \code{lhs}
+    gives the sample values and \code{rhs} the corresponding groups.}
 
-\item{data}{(\code{data.frame})\cr
-a data frame containing the variables in \code{x}}
+\item{data}{an optional matrix or data frame (or similar: see
+    \code{\link[stats]{model.frame}}) containing the variables in the
+    formula \code{formula}.  By default the variables are taken from
+    \code{environment(formula)}.}
 
 \item{...}{additional arguments passed to \code{oneway.test(...)}}
 }
@@ -22,5 +25,7 @@ Analysis results data for Testing Equal Means in a One-Way Layout.
 calculated with \code{oneway.test()}
 }
 \examples{
+\dontshow{if (cards::is_pkg_installed(c("broom"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ard_onewaytest(AGE ~ ARM, data = cards::ADSL)
+\dontshow{\}) # examplesIf}
 }

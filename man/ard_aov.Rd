@@ -4,13 +4,14 @@
 \alias{ard_aov}
 \title{ARD ANOVA}
 \usage{
-ard_aov(x, data, ...)
+ard_aov(formula, data, ...)
 }
 \arguments{
-\item{x}{linear model formula}
+\item{formula}{A formula specifying the model.}
 
-\item{data}{(\code{data.frame})\cr
-a data frame containing the variables in \code{x}}
+\item{data}{A data frame in which the variables specified in the
+    formula will be found. If missing, the variables are searched for in
+    the standard way.}
 
 \item{...}{arguments passed to \code{stats::aov(...)}}
 }
@@ -22,5 +23,7 @@ Analysis results data for Analysis of Variance.
 Calculated with \code{stats::aov()}
 }
 \examples{
+\dontshow{if (cards::is_pkg_installed(c("broom.helpers"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ard_aov(AGE ~ ARM, data = cards::ADSL)
+\dontshow{\}) # examplesIf}
 }

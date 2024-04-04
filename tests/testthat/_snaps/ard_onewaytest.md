@@ -1,15 +1,13 @@
 # ard_onewaytest() works
 
     Code
-      head(as.data.frame(dplyr::select(ard_onewaytest(AGEGR1 ~ ARM, data = cards::ADSL),
-      c("stat_name", "warning"))), 3)
+      head(dplyr::select(ard_onewaytest(AGEGR1 ~ ARM, data = cards::ADSL), c(
+        "stat_name", "stat", "warning")), 3)
+    Message
+      {cards} data frame: 3 x 3
     Output
-        stat_name
-      1    num.df
-      2    den.df
-      3 statistic
-                                                                                                                                                                                                                                         warning
-      1 argument is not numeric or logical: returning NA, argument is not numeric or logical: returning NA, argument is not numeric or logical: returning NA, NAs introduced by coercion, NAs introduced by coercion, NAs introduced by coercion
-      2 argument is not numeric or logical: returning NA, argument is not numeric or logical: returning NA, argument is not numeric or logical: returning NA, NAs introduced by coercion, NAs introduced by coercion, NAs introduced by coercion
-      3 argument is not numeric or logical: returning NA, argument is not numeric or logical: returning NA, argument is not numeric or logical: returning NA, NAs introduced by coercion, NAs introduced by coercion, NAs introduced by coercion
+        stat_name stat   warning
+      1    num.df    2 argument…
+      2    den.df   NA argument…
+      3 statistic   NA argument…
 
