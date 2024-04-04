@@ -9,6 +9,7 @@
   - `ard_svycontinuous()` for calculating univariate summary statistics from weighted/survey data using many functions from the {survey} package. (#68)
   - `ard_svychisq()` for weighted/survey chi-squared test using `survey::svychisq()`. (#72)
   - `ard_svyttest()` for weighted/survey t-tests using `survey::svyttest()`. (#70)
+  - `ard_svyranktest()` for weighted/survey rank tests using `survey::svyranktest()`. (#71)
   - `ard_vif()` for calculating the variance inflation factor using `car::vif()`. (#10)
 
 * Updated functions `ard_ttest()`, `ard_paired_ttest()`, `ard_wilcoxtest()`, `ard_paired_wilcoxtest()`, `ard_chisqtest()`, `ard_fishertest()`, `ard_kruskaltest()`, `ard_mcnemartest()`, and `ard_moodtest()` to accept multiple variables at once. Independent tests are calculated for each variable. The `variable` argument is renamed to `variables`. (#77)
