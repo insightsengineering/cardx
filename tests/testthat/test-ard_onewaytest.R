@@ -1,7 +1,6 @@
 test_that("ard_onewaytest() works", {
   expect_error(
-    ard_onewaytest <- lm(AGE ~ ARM, data = cards::ADSL) |>
-      ard_onewaytest(),
+    ard_onewaytest <- ard_onewaytest(AGE ~ ARM, data = cards::ADSL),
     NA
   )
 
@@ -18,11 +17,12 @@ test_that("ard_onewaytest() works", {
     ignore_attr = TRUE
   )
 
-  # errors are properly handled - "variable" should be continuous, not factor
+  # warnings are properly handled - "variable" should be continuous, not factor
   expect_snapshot(
-    lm(AGEGR1 ~ ARM, data = cards::ADSL) |>
-      ard_onewaytest() |>
-      dplyr::select(c("stat_name", "error")) |>
-      as.data.frame()
+    ard_onewaytest(AGEGR1 ~ ARM, data = cards::ADSL) |>
+      dplyr::select(c("stat_name", "warning")) |>
+      as.data.frame() |>
+      head(3)
+
   )
 })

@@ -4,28 +4,31 @@
 #' Analysis results data for Testing Equal Means in a One-Way Layout.
 #' calculated with `oneway.test()`
 #'
-#' @param x regression model object
+#' @param x linear model formula
+#' @param data (`data.frame`)\cr
+#' a data frame containing the variables in `x`
 #' @param ... additional arguments passed to `oneway.test(...)`
 #'
 #' @return ARD data frame
 #' @export
 #'
 #' @examples
-#' lm(AGE ~ ARM, data = cards::ADSL) |>
-#'   ard_onewaytest()
-ard_onewaytest <- function(x, ...) {
+#' ard_onewaytest(AGE ~ ARM, data = cards::ADSL)
+ard_onewaytest <- function(x, data, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("broom.helpers"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(x)
+  check_not_missing(data)
+  check_data_frame(data)
 
   # build ARD ------------------------------------------------------------------
 
   cards::tidy_as_ard(
     lst_tidy =
       cards::eval_capture_conditions(
-        stats::oneway.test(formula = x[["call"]][["formula"]], data = x$model, ...) |>
+        stats::oneway.test(formula = x, data = data, ...) |>
           broom::tidy()
       ),
     tidy_result_names = c("num.df", "den.df", "statistic", "p.value", "method"),

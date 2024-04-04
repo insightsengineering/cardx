@@ -4,10 +4,13 @@
 \alias{ard_onewaytest}
 \title{ARD One-way Test}
 \usage{
-ard_onewaytest(x, ...)
+ard_onewaytest(x, data, ...)
 }
 \arguments{
-\item{x}{regression model object}
+\item{x}{linear model formula}
+
+\item{data}{(\code{data.frame})\cr
+a data frame containing the variables in \code{x}}
 
 \item{...}{additional arguments passed to \code{oneway.test(...)}}
 }
@@ -19,6 +22,5 @@ Analysis results data for Testing Equal Means in a One-Way Layout.
 calculated with \code{oneway.test()}
 }
 \examples{
-lm(AGE ~ ARM, data = cards::ADSL) |>
-  ard_onewaytest()
+ard_onewaytest(AGE ~ ARM, data = cards::ADSL)
 }

@@ -1,8 +1,7 @@
 test_that("ard_aov() works", {
   expect_error(
     ard_aov <-
-      lm(AGE ~ ARM, data = cards::ADSL) |>
-      ard_aov(),
+      ard_aov(AGE ~ ARM, data = cards::ADSL),
     NA
   )
 
@@ -22,8 +21,7 @@ test_that("ard_aov() works", {
 
   # see if it can handle multiple variables
   expect_snapshot(
-    lm(AGE ~ ARM + SEX, data = cards::ADSL) |>
-      ard_aov() |>
+    ard_aov(AGE ~ ARM + SEX, data = cards::ADSL) |>
       as.data.frame()
   )
 })

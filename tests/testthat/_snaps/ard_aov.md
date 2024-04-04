@@ -1,7 +1,7 @@
 # ard_aov() works
 
     Code
-      as.data.frame(ard_aov(lm(AGE ~ ARM + SEX, data = cards::ADSL)))
+      as.data.frame(ard_aov(AGE ~ ARM + SEX, data = cards::ADSL))
     Output
          variable context stat_name             stat_label      stat warning error
       1       ARM     aov     sumsq         Sum of Squares  71.38574    NULL  NULL
