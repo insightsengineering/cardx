@@ -64,6 +64,9 @@
     <loc>https://insightsengineering.github.io/cardx/dev/reference/ard_smd.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/dev/reference/ard_survfit.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/dev/reference/ard_svychisq.html</loc>
   </url>
   <url>
@@ -103,6 +106,9 @@
     <loc>https://insightsengineering.github.io/cardx/dev/reference/dot-format_proptest_results.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/dev/reference/dot-format_survfit_results.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/dev/reference/dot-format_ttest_results.html</loc>
   </url>
   <url>
@@ -110,6 +116,12 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/dev/reference/dot-paired_data_pivot_wider.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/dev/reference/dot-process_survfit_probs.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/dev/reference/dot-process_survfit_time.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/dev/reference/dot-strata_normal_quantile.html</loc>
