@@ -47,6 +47,7 @@ reference:
       - ard_regression
       - ard_regression_basic
       - ard_smd
+      - ard_survfit
       - ard_svycontinuous
       - ard_vif
 
