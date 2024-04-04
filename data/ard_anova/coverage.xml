@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.96100278551532" branch-rate="0" lines-covered="1380" lines-valid="1436" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-03 04:05:04.106389">
+<coverage line-rate="0.962314939434724" branch-rate="0" lines-covered="1430" lines-valid="1486" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-04 13:57:45.286875">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.96100278551532" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.962314939434724" branch-rate="0" complexity="0">
       <classes>
         <class name="ard_aov.R" filename="R/ard_aov.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -2119,6 +2119,124 @@
             <line number="298" hits="6" branch="false"/>
             <line number="302" hits="76" branch="false"/>
             <line number="303" hits="76" branch="false"/>
+          </lines>
+        </class>
+        <class name="ard_svyranktest.R" filename="R/ard_svyranktest.R" line-rate="1" branch-rate="0" complexity="0">
+          <methods>
+            <method name="ard_svyranktest" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="30" hits="5" branch="false"/>
+                <line number="33" hits="5" branch="false"/>
+                <line number="34" hits="5" branch="false"/>
+                <line number="35" hits="5" branch="false"/>
+                <line number="36" hits="5" branch="false"/>
+                <line number="37" hits="5" branch="false"/>
+                <line number="38" hits="5" branch="false"/>
+                <line number="41" hits="5" branch="false"/>
+                <line number="42" hits="5" branch="false"/>
+                <line number="43" hits="5" branch="false"/>
+                <line number="44" hits="5" branch="false"/>
+                <line number="45" hits="5" branch="false"/>
+                <line number="46" hits="5" branch="false"/>
+                <line number="47" hits="5" branch="false"/>
+                <line number="48" hits="5" branch="false"/>
+                <line number="49" hits="5" branch="false"/>
+                <line number="50" hits="5" branch="false"/>
+                <line number="51" hits="5" branch="false"/>
+                <line number="52" hits="5" branch="false"/>
+                <line number="53" hits="5" branch="false"/>
+                <line number="54" hits="5" branch="false"/>
+                <line number="55" hits="5" branch="false"/>
+              </lines>
+            </method>
+            <method name=".format_svyranktest_results" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="60" hits="5" branch="false"/>
+                <line number="61" hits="5" branch="false"/>
+                <line number="62" hits="5" branch="false"/>
+                <line number="63" hits="5" branch="false"/>
+                <line number="64" hits="5" branch="false"/>
+                <line number="65" hits="5" branch="false"/>
+                <line number="66" hits="5" branch="false"/>
+                <line number="67" hits="5" branch="false"/>
+                <line number="68" hits="5" branch="false"/>
+                <line number="69" hits="5" branch="false"/>
+                <line number="70" hits="5" branch="false"/>
+                <line number="73" hits="5" branch="false"/>
+                <line number="74" hits="5" branch="false"/>
+                <line number="75" hits="5" branch="false"/>
+                <line number="76" hits="5" branch="false"/>
+                <line number="77" hits="5" branch="false"/>
+                <line number="78" hits="5" branch="false"/>
+                <line number="79" hits="5" branch="false"/>
+              </lines>
+            </method>
+            <method name=".df_surveyrank_stat_labels" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="84" hits="5" branch="false"/>
+                <line number="85" hits="5" branch="false"/>
+                <line number="86" hits="5" branch="false"/>
+                <line number="87" hits="5" branch="false"/>
+                <line number="88" hits="5" branch="false"/>
+                <line number="89" hits="5" branch="false"/>
+                <line number="90" hits="5" branch="false"/>
+                <line number="91" hits="5" branch="false"/>
+                <line number="92" hits="5" branch="false"/>
+                <line number="93" hits="5" branch="false"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="30" hits="5" branch="false"/>
+            <line number="33" hits="5" branch="false"/>
+            <line number="34" hits="5" branch="false"/>
+            <line number="35" hits="5" branch="false"/>
+            <line number="36" hits="5" branch="false"/>
+            <line number="37" hits="5" branch="false"/>
+            <line number="38" hits="5" branch="false"/>
+            <line number="41" hits="5" branch="false"/>
+            <line number="42" hits="5" branch="false"/>
+            <line number="43" hits="5" branch="false"/>
+            <line number="44" hits="5" branch="false"/>
+            <line number="45" hits="5" branch="false"/>
+            <line number="46" hits="5" branch="false"/>
+            <line number="47" hits="5" branch="false"/>
+            <line number="48" hits="5" branch="false"/>
+            <line number="49" hits="5" branch="false"/>
+            <line number="50" hits="5" branch="false"/>
+            <line number="51" hits="5" branch="false"/>
+            <line number="52" hits="5" branch="false"/>
+            <line number="53" hits="5" branch="false"/>
+            <line number="54" hits="5" branch="false"/>
+            <line number="55" hits="5" branch="false"/>
+            <line number="60" hits="5" branch="false"/>
+            <line number="61" hits="5" branch="false"/>
+            <line number="62" hits="5" branch="false"/>
+            <line number="63" hits="5" branch="false"/>
+            <line number="64" hits="5" branch="false"/>
+            <line number="65" hits="5" branch="false"/>
+            <line number="66" hits="5" branch="false"/>
+            <line number="67" hits="5" branch="false"/>
+            <line number="68" hits="5" branch="false"/>
+            <line number="69" hits="5" branch="false"/>
+            <line number="70" hits="5" branch="false"/>
+            <line number="73" hits="5" branch="false"/>
+            <line number="74" hits="5" branch="false"/>
+            <line number="75" hits="5" branch="false"/>
+            <line number="76" hits="5" branch="false"/>
+            <line number="77" hits="5" branch="false"/>
+            <line number="78" hits="5" branch="false"/>
+            <line number="79" hits="5" branch="false"/>
+            <line number="84" hits="5" branch="false"/>
+            <line number="85" hits="5" branch="false"/>
+            <line number="86" hits="5" branch="false"/>
+            <line number="87" hits="5" branch="false"/>
+            <line number="88" hits="5" branch="false"/>
+            <line number="89" hits="5" branch="false"/>
+            <line number="90" hits="5" branch="false"/>
+            <line number="91" hits="5" branch="false"/>
+            <line number="92" hits="5" branch="false"/>
+            <line number="93" hits="5" branch="false"/>
           </lines>
         </class>
         <class name="ard_svyttest.R" filename="R/ard_svyttest.R" line-rate="1" branch-rate="0" complexity="0">
