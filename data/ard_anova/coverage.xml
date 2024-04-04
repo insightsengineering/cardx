@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.963920625375827" branch-rate="0" lines-covered="1603" lines-valid="1663" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-04 23:07:59.32881">
+<coverage line-rate="0.963920625375827" branch-rate="0" lines-covered="1603" lines-valid="1663" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-04 23:51:05.138395">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
@@ -11,10 +11,12 @@
           <methods>
             <method name="ard_aov" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="19" hits="2" branch="false"/>
+                <line number="17" hits="2" branch="false"/>
+                <line number="20" hits="2" branch="false"/>
+                <line number="21" hits="2" branch="false"/>
                 <line number="22" hits="2" branch="false"/>
                 <line number="23" hits="2" branch="false"/>
-                <line number="24" hits="2" branch="false"/>
+                <line number="26" hits="2" branch="false"/>
                 <line number="27" hits="2" branch="false"/>
                 <line number="28" hits="2" branch="false"/>
                 <line number="29" hits="2" branch="false"/>
@@ -44,17 +46,16 @@
                 <line number="53" hits="2" branch="false"/>
                 <line number="54" hits="2" branch="false"/>
                 <line number="55" hits="2" branch="false"/>
-                <line number="56" hits="2" branch="false"/>
-                <line number="57" hits="2" branch="false"/>
-                <line number="58" hits="2" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="19" hits="2" branch="false"/>
+            <line number="17" hits="2" branch="false"/>
+            <line number="20" hits="2" branch="false"/>
+            <line number="21" hits="2" branch="false"/>
             <line number="22" hits="2" branch="false"/>
             <line number="23" hits="2" branch="false"/>
-            <line number="24" hits="2" branch="false"/>
+            <line number="26" hits="2" branch="false"/>
             <line number="27" hits="2" branch="false"/>
             <line number="28" hits="2" branch="false"/>
             <line number="29" hits="2" branch="false"/>
@@ -84,9 +85,6 @@
             <line number="53" hits="2" branch="false"/>
             <line number="54" hits="2" branch="false"/>
             <line number="55" hits="2" branch="false"/>
-            <line number="56" hits="2" branch="false"/>
-            <line number="57" hits="2" branch="false"/>
-            <line number="58" hits="2" branch="false"/>
           </lines>
         </class>
         <class name="ard_car_anova.R" filename="R/ard_car_anova.R" line-rate="0.951219512195122" branch-rate="0" complexity="0">
@@ -1041,10 +1039,12 @@
           <methods>
             <method name="ard_onewaytest" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="19" hits="2" branch="false"/>
+                <line number="17" hits="2" branch="false"/>
+                <line number="20" hits="2" branch="false"/>
+                <line number="21" hits="2" branch="false"/>
                 <line number="22" hits="2" branch="false"/>
                 <line number="23" hits="2" branch="false"/>
-                <line number="24" hits="2" branch="false"/>
+                <line number="27" hits="2" branch="false"/>
                 <line number="28" hits="2" branch="false"/>
                 <line number="29" hits="2" branch="false"/>
                 <line number="30" hits="2" branch="false"/>
@@ -1069,15 +1069,16 @@
                 <line number="49" hits="2" branch="false"/>
                 <line number="50" hits="2" branch="false"/>
                 <line number="51" hits="2" branch="false"/>
-                <line number="52" hits="2" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="19" hits="2" branch="false"/>
+            <line number="17" hits="2" branch="false"/>
+            <line number="20" hits="2" branch="false"/>
+            <line number="21" hits="2" branch="false"/>
             <line number="22" hits="2" branch="false"/>
             <line number="23" hits="2" branch="false"/>
-            <line number="24" hits="2" branch="false"/>
+            <line number="27" hits="2" branch="false"/>
             <line number="28" hits="2" branch="false"/>
             <line number="29" hits="2" branch="false"/>
             <line number="30" hits="2" branch="false"/>
@@ -1102,7 +1103,6 @@
             <line number="49" hits="2" branch="false"/>
             <line number="50" hits="2" branch="false"/>
             <line number="51" hits="2" branch="false"/>
-            <line number="52" hits="2" branch="false"/>
           </lines>
         </class>
         <class name="ard_proportion_ci.R" filename="R/ard_proportion_ci.R" line-rate="0.875" branch-rate="0" complexity="0">
