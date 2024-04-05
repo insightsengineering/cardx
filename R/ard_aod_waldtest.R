@@ -12,8 +12,8 @@
 #'
 #' @examplesIf cards::is_pkg_installed(c("aod"), reference_pkg = "cardx")
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
-#'   ard_aod_wald_test()
-ard_aod_wald_test <- function(x, ...) {
+#'   ard_aod_waldtest()
+ard_aod_waldtest <- function(x, ...) {
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("aod"), reference_pkg = "cardx")
 
