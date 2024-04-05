@@ -25,12 +25,14 @@ reference:
   - subtitle: "Inference"
   - contents:
       - ard_aod_wald_test
+      - ard_aov
       - ard_car_anova
       - ard_chisqtest
       - ard_fishertest
       - ard_kruskaltest
       - ard_moodtest
       - ard_mcnemartest
+      - ard_onewaytest
       - ard_proptest
       - ard_svychisq
       - ard_svyranktest
@@ -46,6 +48,7 @@ reference:
       - ard_regression
       - ard_regression_basic
       - ard_smd
+      - ard_survfit
       - ard_svycontinuous
       - ard_vif
 
