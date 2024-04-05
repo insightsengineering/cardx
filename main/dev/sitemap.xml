@@ -25,6 +25,9 @@
     <loc>https://insightsengineering.github.io/cardx/dev/news/index.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/dev/reference/ard_aov.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/dev/reference/ard_car_anova.html</loc>
   </url>
   <url>
@@ -47,6 +50,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/dev/reference/ard_moodtest.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/dev/reference/ard_onewaytest.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/dev/reference/ard_proportion_ci.html</loc>
