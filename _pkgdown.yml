@@ -24,7 +24,7 @@ reference:
   - title: "ARD Creation"
   - subtitle: "Inference"
   - contents:
-      - ard_aod_wald_test
+      - ard_aod_waldtest
       - ard_aov
       - ard_car_anova
       - ard_chisqtest
