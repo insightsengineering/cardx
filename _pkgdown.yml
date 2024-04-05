@@ -24,12 +24,14 @@ reference:
   - title: "ARD Creation"
   - subtitle: "Inference"
   - contents:
+      - ard_aov
       - ard_car_anova
       - ard_chisqtest
       - ard_fishertest
       - ard_kruskaltest
       - ard_moodtest
       - ard_mcnemartest
+      - ard_onewaytest
       - ard_proptest
       - ard_svychisq
       - ard_svyranktest

@@ -1,7 +1,9 @@
 # cardx 0.1.0.9010
 
 * Added the following functions for calculating Analysis Results Data (ARD).
+  - `ard_aov()` for calculating ANOVA results using `stats::aov()`. (#3)
   - `ard_car_anova()` for calculating ANOVA results using `car::Anova()`. (#3)
+  - `ard_onewaytest()` for calculating ANOVA results using `stats::oneway.test()`. (#3)
   - `ard_cohens_d()`, `ard_paired_cohens_d()`, `ard_hedges_g()`, and `ard_paired_hedges_g()` for standardized differences using `effectsize::cohens_d()` and `effectsize::hedges_g()`. (#50)
   - `ard_proptest()` for tests of proportions using `stats::prop.test()`. (#64)
   - `ard_regression_basic()` for basic regression models. The function focuses on matching terms to underlying variables names. (#46)
