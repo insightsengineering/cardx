@@ -94,7 +94,7 @@ test_that("ard_stats_anova.list() works", {
     ) |>
       broom::tidy() |>
       dplyr::pull(p.value) |>
-      keep(~!is.na(.))
+      keep(~ !is.na(.))
   )
 
   # adding a testing with more complex env handling
