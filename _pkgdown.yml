@@ -12,9 +12,9 @@ template:
 #       icon: fa-github
 #       href: https://github.com/insightsengineering/cardx
 
-development:
-  mode: auto
-  version_label: default
+# development:
+#   mode: auto
+#   version_label: default
 
 authors:
   Daniel D. Sjoberg:
@@ -33,6 +33,7 @@ reference:
       - ard_mcnemartest
       - ard_onewaytest
       - ard_proptest
+      - ard_stats_anova
       - ard_svychisq
       - ard_svyranktest
       - ard_svyttest
