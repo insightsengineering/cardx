@@ -5,11 +5,11 @@
 #' formulas. In the latter case, the models will be constructed using the
 #' information passed and models will be passed to `stats::anova()`.
 #'
-#' @param x (`anova` or `list`)\cr
+#' @param x (`anova` or `data.frame`)\cr
 #'   an object of class `'anova'` created with `stats::anova()` or
+#'   a data frame
+#' @param formulas (`list`)\cr
 #'   a list of formulas
-#' @param data (`data.frame`)\cr
-#'   data frame
 #' @param fn (`string`)\cr
 #'   string naming the function to be called, e.g. `"glm"`.
 #'   If function belongs to a library that is not attached, the package name
@@ -53,15 +53,15 @@
 #'   ard_stats_anova()
 #'
 #' ard_stats_anova(
-#'   x = list(am ~ mpg, am ~ mpg + hp),
-#'   data = mtcars,
+#'   x = mtcars,
+#'   formulas = list(am ~ mpg, am ~ mpg + hp),
 #'   fn = "glm",
 #'   fn.args = list(family = binomial)
 #' )
 #'
 #' ard_stats_anova(
-#'   x = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
-#'   data = mtcars,
+#'   x = mtcars,
+#'   formulas = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
 #'   fn = "glmer",
 #'   fn.args = list(family = binomial),
 #'   package = "lme4"
@@ -95,22 +95,22 @@ ard_stats_anova.anova <- function(x, method = "ANOVA results from `stats::anova(
 
 #' @rdname ard_stats_anova
 #' @export
-ard_stats_anova.list <- function(x,
-                                 data,
-                                 fn,
-                                 fn.args = list(),
-                                 package = "base",
-                                 method = "ANOVA results from `stats::anova()`",
-                                 ...) {
+ard_stats_anova.data.frame <- function(x,
+                                       formulas,
+                                       fn,
+                                       fn.args = list(),
+                                       package = "base",
+                                       method = "ANOVA results from `stats::anova()`",
+                                       ...) {
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
   check_string(package)
   cards::check_pkg_installed(c("broom", "withr", package), reference_pkg = "cardx")
+  check_not_missing(formulas)
   check_not_missing(x)
-  check_not_missing(data)
   check_not_missing(fn)
   check_string(method, message = "Argument {.arg method} must be a string of a function name.")
-  check_data_frame(data)
+  check_data_frame(x)
   check_string(fn)
   if (str_detect(fn, "::")) {
     cli::cli_abort(c(
@@ -129,11 +129,11 @@ ard_stats_anova.list <- function(x,
       # first build the models
       models <-
         lapply(
-          x,
+          formulas,
           function(formula) {
             withr::with_namespace(
               package = package,
-              call2(.fn = fn, formula = formula, data = data, !!!fn.args) |>
+              call2(.fn = fn, formula = formula, data = x, !!!fn.args) |>
                 eval_tidy()
             )
           }
@@ -196,9 +196,9 @@ ard_stats_anova.list <- function(x,
         .data$stat,
         function(x) {
           switch(is.integer(x),
-            0L
+                 0L
           ) %||% switch(is.numeric(x),
-            1L
+                        1L
           )
         }
       ),

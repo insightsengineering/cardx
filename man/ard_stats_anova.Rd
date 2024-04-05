@@ -3,16 +3,16 @@
 \name{ard_stats_anova}
 \alias{ard_stats_anova}
 \alias{ard_stats_anova.anova}
-\alias{ard_stats_anova.list}
+\alias{ard_stats_anova.data.frame}
 \title{ARD ANOVA}
 \usage{
 ard_stats_anova(x, ...)
 
 \method{ard_stats_anova}{anova}(x, method = "ANOVA results from `stats::anova()`", ...)
 
-\method{ard_stats_anova}{list}(
+\method{ard_stats_anova}{data.frame}(
   x,
-  data,
+  formulas,
   fn,
   fn.args = list(),
   package = "base",
@@ -21,9 +21,9 @@ ard_stats_anova(x, ...)
 )
 }
 \arguments{
-\item{x}{(\code{anova} or \code{list})\cr
+\item{x}{(\code{anova} or \code{data.frame})\cr
 an object of class \code{'anova'} created with \code{stats::anova()} or
-a list of formulas}
+a data frame}
 
 \item{...}{These dots are for future extensions and must be empty.}
 
@@ -33,8 +33,8 @@ We provide the option to change this as \code{stats::anova()} can produce
 results from many types of models that may warrant a more precise
 description.}
 
-\item{data}{(\code{data.frame})\cr
-data frame}
+\item{formulas}{(\code{list})\cr
+a list of formulas}
 
 \item{fn}{(\code{string})\cr
 string naming the function to be called, e.g. \code{"glm"}.
@@ -81,15 +81,15 @@ anova(
   ard_stats_anova()
 
 ard_stats_anova(
-  x = list(am ~ mpg, am ~ mpg + hp),
-  data = mtcars,
+  x = mtcars,
+  formulas = list(am ~ mpg, am ~ mpg + hp),
   fn = "glm",
   fn.args = list(family = binomial)
 )
 
 ard_stats_anova(
-  x = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
-  data = mtcars,
+  x = mtcars,
+  formulas = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
   fn = "glmer",
   fn.args = list(family = binomial),
   package = "lme4"

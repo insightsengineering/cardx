@@ -2,7 +2,7 @@
 
 S3method(ard_regression,default)
 S3method(ard_stats_anova,anova)
-S3method(ard_stats_anova,list)
+S3method(ard_stats_anova,data.frame)
 export("%>%")
 export(all_of)
 export(any_of)

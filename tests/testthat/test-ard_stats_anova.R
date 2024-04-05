@@ -28,7 +28,7 @@ test_that("ard_stats_anova.anova() works", {
   )
 })
 
-test_that("ard_stats_anova.list() works", {
+test_that("ard_stats_anova.data.frame() works", {
   expect_equal(
     anova(
       lm(mpg ~ am, mtcars),
@@ -36,8 +36,8 @@ test_that("ard_stats_anova.list() works", {
     ) |>
       ard_stats_anova(),
     ard_stats_anova(
-      x = list(mpg ~ am, mpg ~ am + hp),
-      data = mtcars,
+      x = mtcars,
+      formulas = list(mpg ~ am, mpg ~ am + hp),
       fn = "lm"
     )
   )
@@ -46,8 +46,8 @@ test_that("ard_stats_anova.list() works", {
   expect_error(
     ard_anova_geeglm <-
       ard_stats_anova(
-        x = list(mpg ~ hp, mpg ~ hp + vs),
-        data = mtcars,
+        x = mtcars,
+        formulas = list(mpg ~ hp, mpg ~ hp + vs),
         fn = "geeglm",
         fn.args = list(id = cyl),
         package = "geepack"
@@ -73,8 +73,8 @@ test_that("ard_stats_anova.list() works", {
   expect_error(
     ard_anova_glmer <-
       ard_stats_anova(
-        x = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
-        data = mtcars,
+        x = mtcars,
+        formulas = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
         fn = "glmer",
         fn.args = list(family = binomial),
         package = "lme4"
@@ -100,8 +100,8 @@ test_that("ard_stats_anova.list() works", {
   # adding a testing with more complex env handling
   args_fun <- function(args) {
     ard_stats_anova(
-      x = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
-      data = mtcars,
+      x = mtcars,
+      formulas = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
       fn = "glmer",
       fn.args = {{ args }},
       package = "lme4"
@@ -116,8 +116,8 @@ test_that("ard_stats_anova.list() works", {
   # adding a testing with more complex env handling with NSE
   args_fun <- function(args) {
     ard_stats_anova(
-      x = list(mpg ~ hp, mpg ~ hp + vs),
-      data = mtcars,
+      x = mtcars,
+      formulas = list(mpg ~ hp, mpg ~ hp + vs),
       fn = "geeglm",
       fn.args = {{ args }},
       package = "geepack"
