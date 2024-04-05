@@ -6,10 +6,12 @@ Clopper
 Codecov
 Hoffmann
 Jeffreys
+Kaplan
 Lifecycle
 McNemar's
 Newcombe
 Rao
+Rua
 Su
 VIF
 XG
@@ -17,6 +19,7 @@ Xin
 agresti
 clopper
 coull
+de
 deff
 funder
 jeffreys
@@ -26,5 +29,6 @@ strat
 vif
 wald
 waldcc
+wilcox
 wilson
 wilsoncc
