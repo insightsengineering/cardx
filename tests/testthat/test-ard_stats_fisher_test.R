@@ -25,7 +25,6 @@ test_that("ard_stats_fisher_test() works", {
       cards::ADSL[1:20, ] |>
         ard_stats_fisher_test(by = ARM, variables = BMIBLGR1)
     ),
-
     cards::ADSL[1:20, ] |>
       ard_stats_fisher_test(by = ARM, variables = c(AGEGR1, BMIBLGR1))
   )

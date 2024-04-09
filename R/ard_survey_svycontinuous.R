@@ -44,9 +44,9 @@
 #'   by = stype
 #' )
 ard_survey_svycontinuous <- function(data, variables, by = NULL,
-                              statistic = everything() ~ c("median", "p25", "p75"),
-                              fmt_fn = NULL,
-                              stat_label = NULL) {
+                                     statistic = everything() ~ c("median", "p25", "p75"),
+                                     fmt_fn = NULL,
+                                     stat_label = NULL) {
   cards::check_pkg_installed("survey", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
