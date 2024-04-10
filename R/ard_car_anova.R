@@ -15,8 +15,10 @@
 #' glm(vs ~ factor(cyl) + factor(am), data = mtcars, family = binomial) |>
 #'   ard_car_anova(test.statistic = "Wald")
 ard_car_anova <- function(x, ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = c("broom.helpers", "car"), reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = c("broom.helpers", "car"), reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)

@@ -20,8 +20,10 @@
 #' cards::ADSL |>
 #'   ard_kruskaltest(by = "ARM", variables = "AGE")
 ard_kruskaltest <- function(data, by, variables) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

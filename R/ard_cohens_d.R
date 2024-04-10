@@ -47,8 +47,10 @@ NULL
 #' @rdname ard_cohens_d
 #' @export
 ard_cohens_d <- function(data, by, variables, ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = c("effectsize", "parameters"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -88,8 +90,10 @@ ard_cohens_d <- function(data, by, variables, ...) {
 #' @rdname ard_cohens_d
 #' @export
 ard_paired_cohens_d <- function(data, by, variables, id, ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = c("effectsize", "parameters"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

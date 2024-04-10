@@ -35,8 +35,10 @@ ard_regression_basic <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or
                                    "label", "contrasts_type", "contrasts", "var_nlevels"
                                  ),
                                  ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = "broom.helpers", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)

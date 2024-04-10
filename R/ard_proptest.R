@@ -19,8 +19,10 @@
 #' mtcars |>
 #'   ard_proptest(by = vs, variables = am)
 ard_proptest <- function(data, by, variables, ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)

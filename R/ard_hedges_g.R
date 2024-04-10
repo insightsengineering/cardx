@@ -47,8 +47,10 @@ NULL
 #' @rdname ard_hedges_g
 #' @export
 ard_hedges_g <- function(data, by, variables, ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = c("effectsize", "parameters", "withr"), reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -92,8 +94,10 @@ ard_hedges_g <- function(data, by, variables, ...) {
 #' @rdname ard_hedges_g
 #' @export
 ard_paired_hedges_g <- function(data, by, variables, id, ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = c("effectsize", "parameters", "withr"), reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

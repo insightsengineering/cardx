@@ -35,8 +35,10 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
                                 "strat_wilson", "strat_wilsoncc",
                                 "agresti-coull", "jeffreys"
                               )) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # process inputs -------------------------------------------------------------
   cards::process_selectors(data, variables = {{ variables }}, by = {{ by }})

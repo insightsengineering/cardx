@@ -20,8 +20,10 @@
 #' ard_smd(cards::ADSL, by = ARM, variables = AGE, std.error = TRUE)
 #' ard_smd(cards::ADSL, by = ARM, variables = AGEGR1, std.error = TRUE)
 ard_smd <- function(data, by, variables, ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "smd", reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = "smd", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

@@ -44,8 +44,10 @@ NULL
 #' @rdname ard_wilcoxtest
 #' @export
 ard_wilcoxtest <- function(data, variables, by = NULL, ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -91,8 +93,10 @@ ard_wilcoxtest <- function(data, variables, by = NULL, ...) {
 #' @rdname ard_wilcoxtest
 #' @export
 ard_paired_wilcoxtest <- function(data, by, variables, id, ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

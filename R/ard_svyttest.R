@@ -23,8 +23,10 @@
 #'
 #' ard_svyttest(dclus2, variables = enroll, by = comp.imp, conf.level = 0.9)
 ard_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = c("survey", "broom"), reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = c("survey", "broom"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

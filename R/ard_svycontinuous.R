@@ -47,8 +47,10 @@ ard_svycontinuous <- function(data, variables, by = NULL,
                               statistic = everything() ~ c("median", "p25", "p75"),
                               fmt_fn = NULL,
                               stat_label = NULL) {
+  cardx:::set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "survey", reference_pkg = "cardx"))
+  cardx:::check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
