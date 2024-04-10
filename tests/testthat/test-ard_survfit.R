@@ -1,4 +1,4 @@
-skip_if_not(do.call(asNamespace("cards")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx")))
+skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx")))
 
 test_that("ard_survfit() works with times provided", {
   expect_snapshot(

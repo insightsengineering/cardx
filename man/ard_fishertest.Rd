@@ -27,7 +27,7 @@ Analysis results data for Fisher's Exact Test.
 Calculated with \code{fisher.test(x = data[[variable]], y = data[[by]], ...)}
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL[1:30, ] |>
   ard_fishertest(by = "ARM", variables = "AGEGR1")
 \dontshow{\}) # examplesIf}

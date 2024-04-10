@@ -7,7 +7,7 @@
 #' @return Confidence interval of a proportion.
 #'
 #' @name proportion_ci
-#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' x <- c(
 #'   TRUE, TRUE, TRUE, TRUE, TRUE,
 #'   FALSE, FALSE, FALSE, FALSE, FALSE
@@ -29,7 +29,7 @@ NULL
 #'
 #' @export
 proportion_ci_wald <- function(x, conf.level = 0.95, correct = FALSE) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
@@ -72,10 +72,10 @@ proportion_ci_wald <- function(x, conf.level = 0.95, correct = FALSE) {
 #'
 #' @export
 proportion_ci_wilson <- function(x, conf.level = 0.95, correct = FALSE) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cardx:::check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
@@ -110,10 +110,10 @@ proportion_ci_wilson <- function(x, conf.level = 0.95, correct = FALSE) {
 #'
 #' @export
 proportion_ci_clopper_pearson <- function(x, conf.level = 0.95) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cardx:::check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
@@ -141,7 +141,7 @@ proportion_ci_clopper_pearson <- function(x, conf.level = 0.95) {
 #'
 #' @export
 proportion_ci_agresti_coull <- function(x, conf.level = 0.95) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
@@ -184,7 +184,7 @@ proportion_ci_agresti_coull <- function(x, conf.level = 0.95) {
 #'
 #' @export
 proportion_ci_jeffreys <- function(x, conf.level = 0.95) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
@@ -271,7 +271,7 @@ proportion_ci_strat_wilson <- function(x,
                                        conf.level = 0.95,
                                        max.iterations = 10L,
                                        correct = FALSE) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)

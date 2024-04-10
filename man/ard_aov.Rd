@@ -23,7 +23,7 @@ Analysis results data for Analysis of Variance.
 Calculated with \code{stats::aov()}
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ard_aov(AGE ~ ARM, data = cards::ADSL)
 \dontshow{\}) # examplesIf}
 }

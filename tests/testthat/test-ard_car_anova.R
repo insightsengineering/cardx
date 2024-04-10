@@ -1,5 +1,5 @@
 skip_if_not(
-  do.call(asNamespace("cards")$is_pkg_installed, list(pkg = c("broom.helpers", "car"), reference_pkg = "cardx"))
+  do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom.helpers", "car"), reference_pkg = "cardx"))
 )
 
 test_that("ard_car_anova() works", {

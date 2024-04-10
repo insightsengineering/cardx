@@ -17,14 +17,14 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   ard_chisqtest(by = "ARM", variables = "AGEGR1")
 ard_chisqtest <- function(data, by, variables, ...) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cardx:::check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

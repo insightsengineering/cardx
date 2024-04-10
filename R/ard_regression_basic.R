@@ -26,7 +26,7 @@
 #' @name ard_regression_basic
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx"))
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_regression_basic()
 ard_regression_basic <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or_parameters,
@@ -35,10 +35,10 @@ ard_regression_basic <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or
                                    "label", "contrasts_type", "contrasts", "var_nlevels"
                                  ),
                                  ...) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cardx:::check_pkg_installed(pkg = "broom.helpers", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom.helpers", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)

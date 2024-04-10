@@ -34,7 +34,7 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "survey", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "survey", reference_pkg = "cardx"))
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
@@ -47,10 +47,10 @@ ard_svycontinuous <- function(data, variables, by = NULL,
                               statistic = everything() ~ c("median", "p25", "p75"),
                               fmt_fn = NULL,
                               stat_label = NULL) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cardx:::check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)

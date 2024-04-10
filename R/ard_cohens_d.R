@@ -28,7 +28,7 @@
 #' The data are then passed as
 #' `effectsize::cohens_d(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_cohens_d(by = ARM, variables = AGE)
@@ -47,10 +47,10 @@ NULL
 #' @rdname ard_cohens_d
 #' @export
 ard_cohens_d <- function(data, by, variables, ...) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cardx:::check_pkg_installed(pkg = c("effectsize", "parameters"), reference_pkg = "cardx")
+  check_pkg_installed(pkg = c("effectsize", "parameters"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -90,10 +90,10 @@ ard_cohens_d <- function(data, by, variables, ...) {
 #' @rdname ard_cohens_d
 #' @export
 ard_paired_cohens_d <- function(data, by, variables, id, ...) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cardx:::check_pkg_installed(pkg = c("effectsize", "parameters"), reference_pkg = "cardx")
+  check_pkg_installed(pkg = c("effectsize", "parameters"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

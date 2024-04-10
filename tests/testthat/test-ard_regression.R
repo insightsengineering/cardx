@@ -1,4 +1,4 @@
-skip_if_not(do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx")))
+skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx")))
 
 test_that("ard_regression() works", {
   expect_snapshot(

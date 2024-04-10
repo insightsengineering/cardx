@@ -17,7 +17,7 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = c("survey", "broom"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survey", "broom"), reference_pkg = "cardx"))
 #' data(api, package = "survey")
 #' dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 #'
@@ -26,10 +26,10 @@
 #' ard_svyranktest(dclus2, variables = enroll, by = comp.imp, test = "median")
 #' ard_svyranktest(dclus2, variables = enroll, by = comp.imp, test = "KruskalWallis")
 ard_svyranktest <- function(data, by, variables, test, ...) {
-  cardx:::set_cli_abort_call()
+  set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cardx:::check_pkg_installed(pkg = c("survey", "broom"), reference_pkg = "cardx")
+  check_pkg_installed(pkg = c("survey", "broom"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

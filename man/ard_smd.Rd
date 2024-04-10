@@ -34,7 +34,7 @@ ARD data frame
 Standardized mean difference calculated via \code{\link[smd:smd]{smd::smd()}} with \code{na.rm = TRUE}.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "smd", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ard_smd(cards::ADSL, by = ARM, variables = AGE, std.error = TRUE)
 ard_smd(cards::ADSL, by = ARM, variables = AGEGR1, std.error = TRUE)
 \dontshow{\}) # examplesIf}
