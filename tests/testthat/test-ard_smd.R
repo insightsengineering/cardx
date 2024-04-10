@@ -1,4 +1,4 @@
-skip_if_not(cards::is_pkg_installed("smd", reference_pkg = "cardx"))
+skip_if_not(do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "smd", reference_pkg = "cardx")))
 
 test_that("ard_smd() works", {
   expect_error(
@@ -30,7 +30,8 @@ test_that("ard_smd() works", {
 })
 
 test_that("ard_smd() works with survey data", {
-  skip_if_not(cards::is_pkg_installed("survey", reference_pkg = "cardx"))
+  skip_if_not(do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "survey", reference_pkg = "cardx")))
+
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 

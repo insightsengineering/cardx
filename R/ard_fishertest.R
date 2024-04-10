@@ -17,12 +17,12 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL[1:30, ] |>
 #'   ard_fishertest(by = "ARM", variables = "AGEGR1")
 ard_fishertest <- function(data, by, variables, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

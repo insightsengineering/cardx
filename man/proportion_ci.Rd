@@ -101,7 +101,7 @@ z_{\alpha/2} \sqrt{\frac{\hat{p}_j(1 - \hat{p}_j)}{n_j} +
 
 }}
 \examples{
-\dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 x <- c(
   TRUE, TRUE, TRUE, TRUE, TRUE,
   FALSE, FALSE, FALSE, FALSE, FALSE

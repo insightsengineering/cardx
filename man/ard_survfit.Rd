@@ -41,7 +41,7 @@ survival fit model.
 }
 }
 \examples{
-\dontshow{if (cards::is_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cards")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(survival)
 
 survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>

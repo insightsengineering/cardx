@@ -15,11 +15,13 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' mtcars |>
 #'   ard_proptest(by = vs, variables = am)
 ard_proptest <- function(data, by, variables, ...) {
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  # check installed packages ---------------------------------------------------
+  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variables)

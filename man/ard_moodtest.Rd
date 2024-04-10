@@ -31,7 +31,7 @@ For the \code{ard_moodtest()} function, the data is expected to be one row per s
 The data is passed as \code{mood.test(data[[variable]] ~ data[[by]], ...)}.
 }
 \examples{
-\dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
   ard_moodtest(by = "SEX", variables = "AGE")
 \dontshow{\}) # examplesIf}

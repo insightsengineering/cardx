@@ -1,4 +1,4 @@
-skip_if_not(cards::is_pkg_installed(c("survey", "broom"), reference_pkg = "cardx"))
+skip_if_not(do.call(asNamespace("cards")$is_pkg_installed, list(pkg = c("survey", "broom"), reference_pkg = "cardx")))
 
 test_that("ard_svychisq() works", {
   data(api, package = "survey")

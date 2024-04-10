@@ -11,7 +11,7 @@
 #' @return data frame
 #' @name ard_regression
 #'
-#' @examplesIf cards::is_pkg_installed("broom.helpers", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx"))
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_regression(add_estimate_to_reference_rows = TRUE)
 NULL
@@ -26,7 +26,7 @@ ard_regression <- function(x, ...) {
 #' @export
 ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or_parameters, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom.helpers", reference_pkg = "cardx")
+  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx"))
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)

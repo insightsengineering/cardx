@@ -1,4 +1,4 @@
-skip_if_not(cards::is_pkg_installed("broom", reference_pkg = "cardx"))
+skip_if_not(do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx")))
 
 test_that("ard_ttest() works", {
   # One Sample t-test works

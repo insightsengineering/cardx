@@ -22,7 +22,7 @@
 #' @return an ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' ard_proportion_ci(mtcars, variables = c(vs, am), method = "wilson")
 ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
                               conf.level = 0.95,
@@ -35,6 +35,9 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
                                 "strat_wilson", "strat_wilsoncc",
                                 "agresti-coull", "jeffreys"
                               )) {
+  # check installed packages ---------------------------------------------------
+  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+
   # process inputs -------------------------------------------------------------
   cards::process_selectors(data, variables = {{ variables }}, by = {{ by }})
   method <- arg_match(method)

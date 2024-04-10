@@ -20,12 +20,12 @@
 #' The data is passed as `stats::mcnemar.test(x = data[[variable]], y = data[[by]], ...)`.
 #' Please use `table(x = data[[variable]], y = data[[by]])` to check the contingency table.
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   ard_mcnemartest(by = "SEX", variables = "EFFFL")
 ard_mcnemartest <- function(data, by, variables, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

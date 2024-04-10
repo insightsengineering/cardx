@@ -17,14 +17,14 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = c("survey", "broom"), reference_pkg = "cardx"))
 #' data(api, package = "survey")
 #' dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 #'
 #' ard_svyttest(dclus2, variables = enroll, by = comp.imp, conf.level = 0.9)
 ard_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
+  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = c("survey", "broom"), reference_pkg = "cardx"))
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

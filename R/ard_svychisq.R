@@ -20,14 +20,14 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cards")$is_pkg_installed, list(pkg = c("survey", "broom"), reference_pkg = "cardx"))
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
 #' ard_svychisq(dclus1, variables = sch.wide, by = comp.imp, statistic = "F")
 ard_svychisq <- function(data, by, variables, statistic = "F", ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
+  do.call(asNamespace("cards")$check_pkg_installed, list(pkg = c("survey", "broom"), reference_pkg = "cardx"))
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
