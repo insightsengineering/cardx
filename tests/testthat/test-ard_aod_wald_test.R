@@ -1,18 +1,18 @@
-test_that("ard_aod_waldtest() works", {
+test_that("ard_aod_wald_test() works", {
   # works for a generic case
   expect_error(
     glm_ard_aod_waldtest <-
       suppressWarnings(lm(AGE ~ ARM, data = cards::ADSL)) |>
-      ard_aod_waldtest(),
+      ard_aod_wald_test(),
     NA
   )
   expect_equal(nrow(glm_ard_aod_waldtest), 6L)
   expect_snapshot(glm_ard_aod_waldtest[, 1:6])
 
-  # works when a regression model isn't passed
+  # error returned when a regression model isn't passed
 
-  expect_snapshot(
-    ard_aod_waldtest(cards::ADSL) |>
+  expect_error(
+    ard_aod_wald_test(cards::ADSL) |>
       dplyr::select(c(context, error))
   )
 })
