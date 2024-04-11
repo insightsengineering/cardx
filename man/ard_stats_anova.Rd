@@ -27,7 +27,7 @@ a data frame}
 
 \item{...}{These dots are for future extensions and must be empty.}
 
-\item{method}{(\code{string}\cr)
+\item{method}{(\code{string})\cr
 string of the method used. Default is \verb{"ANOVA results from }stats::anova()\verb{"}.
 We provide the option to change this as \code{stats::anova()} can produce
 results from many types of models that may warrant a more precise
