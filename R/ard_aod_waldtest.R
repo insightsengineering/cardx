@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Function takes a regression model object and calculates Wald
-#' statistical test using [`aod::wald.test`].
+#' statistical test using [`aod::wald.test()`].
 #'
 #' @param x regression model object
 #' @param ... arguments passed to `aod::wald.test(...)`
@@ -15,7 +15,7 @@
 #'   ard_aod_waldtest()
 ard_aod_waldtest <- function(x, ...) {
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("aod"), reference_pkg = "cardx")
+  cards::check_pkg_installed("aod", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
@@ -53,7 +53,7 @@ ard_aod_waldtest <- function(x, ...) {
       )
     # run wald.test() -----------------------------------------------------------
     wald_test <-
-      cards::eval_capture_conditions(lapply(seq_along(1:length(aod$model_terms_id)), function(terms_id) {
+      cards::eval_capture_conditions(lapply(seq_len(length(aod$model_terms_id)), function(terms_id) {
         aod::wald.test(
           Sigma = stats::vcov(x),
           b = stats::coef(x), Terms = aod$model_terms_id[[terms_id]]
@@ -103,8 +103,6 @@ ard_aod_waldtest <- function(x, ...) {
         error = wald_test["error"]
       ) |>
       cards::tidy_ard_column_order() %>%
-      {
-        structure(., class = c("card", class(.)))
-      }
+      {structure(., class = c("card", class(.)))} # styler: off
   }
 }
