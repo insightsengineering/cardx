@@ -19,7 +19,7 @@
 #' @param package (`string`)\cr
 #'   string of package name that will be temporarily loaded when function
 #'   specified in `method` is executed.
-#' @param method (`string`\cr)
+#' @param method (`string`)\cr
 #'   string of the method used. Default is `"ANOVA results from `stats::anova()`"`.
 #'   We provide the option to change this as `stats::anova()` can produce
 #'   results from many types of models that may warrant a more precise
