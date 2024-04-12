@@ -25,6 +25,7 @@ reference:
   - subtitle: "Inference"
   - contents:
       - ard_car_anova
+      - ard_stats_anova
       - ard_stats_aov
       - ard_stats_chisq_test
       - ard_stats_fisher_test
