@@ -11,10 +11,10 @@ template:
 #     github:
 #       icon: fa-github
 #       href: https://github.com/insightsengineering/cardx
-
-development:
-  mode: auto
-  version_label: default
+#
+# development:
+#   mode: auto
+#   version_label: default
 
 authors:
   Daniel D. Sjoberg:
@@ -24,32 +24,32 @@ reference:
   - title: "ARD Creation"
   - subtitle: "Inference"
   - contents:
-      - ard_aov
       - ard_car_anova
-      - ard_chisqtest
-      - ard_fishertest
-      - ard_kruskaltest
-      - ard_moodtest
-      - ard_mcnemartest
-      - ard_onewaytest
-      - ard_proptest
-      - ard_svychisq
-      - ard_svyranktest
-      - ard_svyttest
-      - ard_ttest
-      - ard_wilcoxtest
+      - ard_stats_aov
+      - ard_stats_chisq_test
+      - ard_stats_fisher_test
+      - ard_stats_kruskal_test
+      - ard_stats_mood_test
+      - ard_stats_mcnemar_test
+      - ard_stats_oneway_test
+      - ard_stats_prop_test
+      - ard_stats_t_test
+      - ard_stats_wilcox_test
+      - ard_survey_svychisq
+      - ard_survey_svyranktest
+      - ard_survey_svyttest
 
   - subtitle: "Estimation"
   - contents:
-      - ard_cohens_d
-      - ard_hedges_g
+      - ard_car_vif
+      - ard_effectsize_cohens_d
+      - ard_effectsize_hedges_g
       - ard_proportion_ci
       - ard_regression
       - ard_regression_basic
-      - ard_smd
-      - ard_survfit
-      - ard_svycontinuous
-      - ard_vif
+      - ard_smd_smd
+      - ard_survival_survfit
+      - ard_survey_svycontinuous
 
   - title: "Helpers"
   - contents:
