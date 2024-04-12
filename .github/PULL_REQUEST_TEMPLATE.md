@@ -14,12 +14,10 @@ Pre-review Checklist (if item does not apply, mark is as complete)
 - [ ] If a bug was fixed, a unit test was added.
 - [ ] If a new `ard_*()` function was added, it passes the ARD structural checks from `cards::check_ard_structure()`.
 - [ ] Code coverage is suitable for any new functions/features (generally, 100% coverage for new code): `devtools::test_coverage()`
-- [ ] Request a reviewer
 
 Reviewer Checklist (if item does not apply, mark is as complete)
 
 - [ ] If a bug was fixed, a unit test was added.
-- [ ] Run `pkgdown::build_site()`. Check the R console for errors, and review the rendered website.
 - [ ] Code coverage is suitable for any new functions/features: `devtools::test_coverage()`
 
 When the branch is ready to be merged:
