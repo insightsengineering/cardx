@@ -23,7 +23,7 @@ Reviewer Checklist (if item does not apply, mark is as complete)
 - [ ] Code coverage is suitable for any new functions/features: `devtools::test_coverage()`
 
 When the branch is ready to be merged:
-- [ ] Update `NEWS.md` with the changes from this pull request under the heading "`# cards (development version)`". If there is an issue associated with the pull request, reference it in parentheses at the end update (see `NEWS.md` for examples).
+- [ ] Update `NEWS.md` with the changes from this pull request under the heading "`# cardx (development version)`". If there is an issue associated with the pull request, reference it in parentheses at the end update (see `NEWS.md` for examples).
 - [ ] **All** GitHub Action workflows pass with a :white_check_mark:
 - [ ] Approve Pull Request
 - [ ] Merge the PR. Please use "Squash and merge" or "Rebase and merge".
