@@ -205,6 +205,10 @@ ard_stats_anova.data.frame <- function(x,
       stat_label =
         dplyr::case_when(
           .data$stat_name %in% "p.value" ~ "p-value",
+          .data$stat_name %in% "sumsq" ~ "Sum of Squares",
+          .data$stat_name %in% "rss" ~ "Residual Sum of Squares",
+          .data$stat_name %in% "df" ~ "Degrees of Freedom",
+          .data$stat_name %in% "df.residual" ~ "df for residuals",
           .default = .data$stat_name
         )
     ) |>
