@@ -2,7 +2,7 @@
 
 ### Breaking Changes
 
-* Updated function names have been updated to follow the pattern `ard_<pkgname>_<fnname>()`. Former functions names have _not_ been deprecated. (#106)
+* Updated function names to follow the pattern `ard_<pkgname>_<fnname>()`. Former functions names have _not_ been deprecated. (#106)
 
 ```r
 ard_ttest()             -> ard_stats_t_test()
@@ -19,7 +19,8 @@ ard_moodtest()          -> ard_stats_mood_test()
 ### New Features
 
 * Added the following functions for calculating Analysis Results Data (ARD).
-  - `ard_aov()` for calculating ANOVA results using `stats::aov()`. (#3)
+  - `ard_stats_aov()` for calculating ANOVA results using `stats::aov()`. (#3)
+  - `ard_aod_wald_test()` for calculating Wald Tests for regression models using `aod::wald.test()`. (#3)
   - `ard_car_anova()` for calculating ANOVA results using `car::Anova()`. (#3)
   - `ard_onewaytest()` for calculating ANOVA results using `stats::oneway.test()`. (#3)
   - `ard_cohens_d()`, `ard_paired_cohens_d()`, `ard_hedges_g()`, and `ard_paired_hedges_g()` for standardized differences using `effectsize::cohens_d()` and `effectsize::hedges_g()`. (#50)
