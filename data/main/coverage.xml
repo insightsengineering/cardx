@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.960276338514681" branch-rate="0" lines-covered="1668" lines-valid="1737" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-14 22:29:49.236499">
+<coverage line-rate="0.957516339869281" branch-rate="0" lines-covered="1758" lines-valid="1836" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-14 22:52:39.437186">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.960276338514681" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.957516339869281" branch-rate="0" complexity="0">
       <classes>
         <class name="ard_aod_wald_test.R" filename="R/ard_aod_wald_test.R" line-rate="0.918918918918919" branch-rate="0" complexity="0">
           <methods>
@@ -1123,6 +1123,230 @@
             <line number="95" hits="6" branch="false"/>
             <line number="96" hits="6" branch="false"/>
             <line number="97" hits="6" branch="false"/>
+          </lines>
+        </class>
+        <class name="ard_stats_anova.R" filename="R/ard_stats_anova.R" line-rate="0.909090909090909" branch-rate="0" complexity="0">
+          <methods>
+            <method name="ard_stats_anova" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="74" hits="7" branch="false"/>
+              </lines>
+            </method>
+            <method name="ard_stats_anova.anova" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="81" hits="2" branch="false"/>
+                <line number="82" hits="2" branch="false"/>
+                <line number="83" hits="2" branch="false"/>
+                <line number="86" hits="2" branch="false"/>
+                <line number="87" hits="2" branch="false"/>
+                <line number="88" hits="2" branch="false"/>
+                <line number="89" hits="2" branch="false"/>
+                <line number="92" hits="2" branch="false"/>
+              </lines>
+            </method>
+            <method name="ard_stats_anova.data.frame" signature="" line-rate="0.875" branch-rate="0" complexity="0">
+              <lines>
+                <line number="106" hits="5" branch="false"/>
+                <line number="107" hits="5" branch="false"/>
+                <line number="108" hits="5" branch="false"/>
+                <line number="109" hits="5" branch="false"/>
+                <line number="110" hits="5" branch="false"/>
+                <line number="111" hits="5" branch="false"/>
+                <line number="112" hits="5" branch="false"/>
+                <line number="113" hits="5" branch="false"/>
+                <line number="114" hits="5" branch="false"/>
+                <line number="115" hits="5" branch="false"/>
+                <line number="116" hits="0" branch="false"/>
+                <line number="117" hits="0" branch="false"/>
+                <line number="118" hits="0" branch="false"/>
+                <line number="119" hits="0" branch="false"/>
+                <line number="124" hits="5" branch="false"/>
+                <line number="127" hits="5" branch="false"/>
+                <line number="128" hits="5" branch="false"/>
+                <line number="130" hits="5" branch="false"/>
+                <line number="131" hits="5" branch="false"/>
+                <line number="132" hits="5" branch="false"/>
+                <line number="133" hits="5" branch="false"/>
+                <line number="134" hits="5" branch="false"/>
+                <line number="135" hits="5" branch="false"/>
+                <line number="136" hits="5" branch="false"/>
+                <line number="137" hits="5" branch="false"/>
+                <line number="138" hits="5" branch="false"/>
+                <line number="139" hits="5" branch="false"/>
+                <line number="140" hits="5" branch="false"/>
+                <line number="143" hits="5" branch="false"/>
+                <line number="144" hits="5" branch="false"/>
+                <line number="145" hits="5" branch="false"/>
+                <line number="148" hits="5" branch="false"/>
+              </lines>
+            </method>
+            <method name=".anova_tidy_and_reshape" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
+                <line number="152" hits="7" branch="false"/>
+                <line number="153" hits="7" branch="false"/>
+                <line number="154" hits="7" branch="false"/>
+                <line number="155" hits="7" branch="false"/>
+                <line number="156" hits="7" branch="false"/>
+                <line number="157" hits="7" branch="false"/>
+                <line number="158" hits="7" branch="false"/>
+                <line number="159" hits="7" branch="false"/>
+                <line number="160" hits="7" branch="false"/>
+                <line number="161" hits="7" branch="false"/>
+                <line number="162" hits="7" branch="false"/>
+                <line number="164" hits="7" branch="false"/>
+                <line number="165" hits="7" branch="false"/>
+                <line number="166" hits="7" branch="false"/>
+                <line number="167" hits="7" branch="false"/>
+                <line number="168" hits="7" branch="false"/>
+                <line number="169" hits="7" branch="false"/>
+                <line number="170" hits="7" branch="false"/>
+                <line number="171" hits="7" branch="false"/>
+                <line number="172" hits="7" branch="false"/>
+                <line number="173" hits="7" branch="false"/>
+              </lines>
+            </method>
+            <method name=".anova_final_ard_prep" signature="" line-rate="0.864864864864865" branch-rate="0" complexity="0">
+              <lines>
+                <line number="178" hits="7" branch="false"/>
+                <line number="179" hits="7" branch="false"/>
+                <line number="180" hits="7" branch="false"/>
+                <line number="181" hits="7" branch="false"/>
+                <line number="182" hits="0" branch="false"/>
+                <line number="183" hits="0" branch="false"/>
+                <line number="184" hits="0" branch="false"/>
+                <line number="185" hits="0" branch="false"/>
+                <line number="186" hits="0" branch="false"/>
+                <line number="187" hits="7" branch="false"/>
+                <line number="190" hits="7" branch="false"/>
+                <line number="191" hits="7" branch="false"/>
+                <line number="192" hits="7" branch="false"/>
+                <line number="193" hits="7" branch="false"/>
+                <line number="194" hits="7" branch="false"/>
+                <line number="195" hits="7" branch="false"/>
+                <line number="196" hits="7" branch="false"/>
+                <line number="197" hits="7" branch="false"/>
+                <line number="198" hits="7" branch="false"/>
+                <line number="199" hits="7" branch="false"/>
+                <line number="200" hits="7" branch="false"/>
+                <line number="201" hits="7" branch="false"/>
+                <line number="202" hits="7" branch="false"/>
+                <line number="203" hits="7" branch="false"/>
+                <line number="204" hits="7" branch="false"/>
+                <line number="205" hits="7" branch="false"/>
+                <line number="206" hits="7" branch="false"/>
+                <line number="207" hits="7" branch="false"/>
+                <line number="208" hits="7" branch="false"/>
+                <line number="209" hits="7" branch="false"/>
+                <line number="210" hits="7" branch="false"/>
+                <line number="211" hits="7" branch="false"/>
+                <line number="212" hits="7" branch="false"/>
+                <line number="213" hits="7" branch="false"/>
+                <line number="214" hits="7" branch="false"/>
+                <line number="215" hits="7" branch="false"/>
+                <line number="216" hits="7" branch="false"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="74" hits="7" branch="false"/>
+            <line number="81" hits="2" branch="false"/>
+            <line number="82" hits="2" branch="false"/>
+            <line number="83" hits="2" branch="false"/>
+            <line number="86" hits="2" branch="false"/>
+            <line number="87" hits="2" branch="false"/>
+            <line number="88" hits="2" branch="false"/>
+            <line number="89" hits="2" branch="false"/>
+            <line number="92" hits="2" branch="false"/>
+            <line number="106" hits="5" branch="false"/>
+            <line number="107" hits="5" branch="false"/>
+            <line number="108" hits="5" branch="false"/>
+            <line number="109" hits="5" branch="false"/>
+            <line number="110" hits="5" branch="false"/>
+            <line number="111" hits="5" branch="false"/>
+            <line number="112" hits="5" branch="false"/>
+            <line number="113" hits="5" branch="false"/>
+            <line number="114" hits="5" branch="false"/>
+            <line number="115" hits="5" branch="false"/>
+            <line number="116" hits="0" branch="false"/>
+            <line number="117" hits="0" branch="false"/>
+            <line number="118" hits="0" branch="false"/>
+            <line number="119" hits="0" branch="false"/>
+            <line number="124" hits="5" branch="false"/>
+            <line number="127" hits="5" branch="false"/>
+            <line number="128" hits="5" branch="false"/>
+            <line number="130" hits="5" branch="false"/>
+            <line number="131" hits="5" branch="false"/>
+            <line number="132" hits="5" branch="false"/>
+            <line number="133" hits="5" branch="false"/>
+            <line number="134" hits="5" branch="false"/>
+            <line number="135" hits="5" branch="false"/>
+            <line number="136" hits="5" branch="false"/>
+            <line number="137" hits="5" branch="false"/>
+            <line number="138" hits="5" branch="false"/>
+            <line number="139" hits="5" branch="false"/>
+            <line number="140" hits="5" branch="false"/>
+            <line number="143" hits="5" branch="false"/>
+            <line number="144" hits="5" branch="false"/>
+            <line number="145" hits="5" branch="false"/>
+            <line number="148" hits="5" branch="false"/>
+            <line number="152" hits="7" branch="false"/>
+            <line number="153" hits="7" branch="false"/>
+            <line number="154" hits="7" branch="false"/>
+            <line number="155" hits="7" branch="false"/>
+            <line number="156" hits="7" branch="false"/>
+            <line number="157" hits="7" branch="false"/>
+            <line number="158" hits="7" branch="false"/>
+            <line number="159" hits="7" branch="false"/>
+            <line number="160" hits="7" branch="false"/>
+            <line number="161" hits="7" branch="false"/>
+            <line number="162" hits="7" branch="false"/>
+            <line number="164" hits="7" branch="false"/>
+            <line number="165" hits="7" branch="false"/>
+            <line number="166" hits="7" branch="false"/>
+            <line number="167" hits="7" branch="false"/>
+            <line number="168" hits="7" branch="false"/>
+            <line number="169" hits="7" branch="false"/>
+            <line number="170" hits="7" branch="false"/>
+            <line number="171" hits="7" branch="false"/>
+            <line number="172" hits="7" branch="false"/>
+            <line number="173" hits="7" branch="false"/>
+            <line number="178" hits="7" branch="false"/>
+            <line number="179" hits="7" branch="false"/>
+            <line number="180" hits="7" branch="false"/>
+            <line number="181" hits="7" branch="false"/>
+            <line number="182" hits="0" branch="false"/>
+            <line number="183" hits="0" branch="false"/>
+            <line number="184" hits="0" branch="false"/>
+            <line number="185" hits="0" branch="false"/>
+            <line number="186" hits="0" branch="false"/>
+            <line number="187" hits="7" branch="false"/>
+            <line number="190" hits="7" branch="false"/>
+            <line number="191" hits="7" branch="false"/>
+            <line number="192" hits="7" branch="false"/>
+            <line number="193" hits="7" branch="false"/>
+            <line number="194" hits="7" branch="false"/>
+            <line number="195" hits="7" branch="false"/>
+            <line number="196" hits="7" branch="false"/>
+            <line number="197" hits="7" branch="false"/>
+            <line number="198" hits="7" branch="false"/>
+            <line number="199" hits="7" branch="false"/>
+            <line number="200" hits="7" branch="false"/>
+            <line number="201" hits="7" branch="false"/>
+            <line number="202" hits="7" branch="false"/>
+            <line number="203" hits="7" branch="false"/>
+            <line number="204" hits="7" branch="false"/>
+            <line number="205" hits="7" branch="false"/>
+            <line number="206" hits="7" branch="false"/>
+            <line number="207" hits="7" branch="false"/>
+            <line number="208" hits="7" branch="false"/>
+            <line number="209" hits="7" branch="false"/>
+            <line number="210" hits="7" branch="false"/>
+            <line number="211" hits="7" branch="false"/>
+            <line number="212" hits="7" branch="false"/>
+            <line number="213" hits="7" branch="false"/>
+            <line number="214" hits="7" branch="false"/>
+            <line number="215" hits="7" branch="false"/>
+            <line number="216" hits="7" branch="false"/>
           </lines>
         </class>
         <class name="ard_stats_aov.R" filename="R/ard_stats_aov.R" line-rate="1" branch-rate="0" complexity="0">
