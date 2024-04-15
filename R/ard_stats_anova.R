@@ -81,7 +81,7 @@ ard_stats_anova.anova <- function(x, method = "ANOVA results from `stats::anova(
 
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom", reference_pkg = "cardx")
   check_string(method, message = "Argument {.arg method} must be a string of a function name.")
 
   # return df in cards formats -------------------------------------------------
@@ -109,7 +109,7 @@ ard_stats_anova.data.frame <- function(x,
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
   check_string(package)
-  cards::check_pkg_installed(c("broom", "withr", package), reference_pkg = "cardx")
+  check_pkg_installed(c("broom", "withr", package), reference_pkg = "cardx")
   check_not_missing(formulas)
   check_not_missing(x)
   check_not_missing(fn)

@@ -26,7 +26,7 @@ ard_survey_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
+  check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

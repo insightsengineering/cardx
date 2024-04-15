@@ -29,7 +29,7 @@ ard_survey_svyranktest <- function(data, by, variables, test, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
+  check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

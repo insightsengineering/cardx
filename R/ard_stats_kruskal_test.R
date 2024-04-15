@@ -23,7 +23,7 @@ ard_stats_kruskal_test <- function(data, by, variables) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

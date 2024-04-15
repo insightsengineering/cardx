@@ -23,7 +23,7 @@ ard_smd_smd <- function(data, by, variables, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("smd", reference_pkg = "cardx")
+  check_pkg_installed("smd", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

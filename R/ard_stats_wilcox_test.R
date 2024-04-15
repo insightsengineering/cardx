@@ -47,7 +47,7 @@ ard_stats_wilcox_test <- function(data, variables, by = NULL, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -96,7 +96,7 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

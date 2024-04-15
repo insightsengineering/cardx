@@ -62,7 +62,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")
+  check_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(x)

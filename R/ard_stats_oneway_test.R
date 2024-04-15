@@ -16,7 +16,7 @@ ard_stats_oneway_test <- function(formula, data, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("broom"), reference_pkg = "cardx")
+  check_pkg_installed(c("broom"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(formula)

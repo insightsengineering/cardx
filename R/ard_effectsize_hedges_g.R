@@ -50,7 +50,7 @@ ard_effectsize_hedges_g <- function(data, by, variables, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
+  check_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -97,7 +97,7 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
+  check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
