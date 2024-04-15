@@ -1,9 +1,9 @@
-# ard_svychisq() works
+# ard_survey_svychisq() works
 
     Code
-      as.data.frame(dplyr::slice_head(dplyr::group_by(dplyr::select(ard_svychisq(
-        dclus2, variables = c(sch.wide, stype), by = comp.imp, statistic = "adjWald"),
-      c(1:3, 5:6)), variable), n = 3))
+      as.data.frame(dplyr::slice_head(dplyr::group_by(dplyr::select(
+        ard_survey_svychisq(dclus2, variables = c(sch.wide, stype), by = comp.imp,
+        statistic = "adjWald"), c(1:3, 5:6)), variable), n = 3))
     Output
           group1 variable  context                     stat_label     stat
       1 comp.imp sch.wide svychisq   Nominator Degrees of Freedom        1

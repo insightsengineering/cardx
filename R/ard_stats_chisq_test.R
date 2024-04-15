@@ -21,6 +21,8 @@
 #' cards::ADSL |>
 #'   ard_stats_chisq_test(by = "ARM", variables = "AGEGR1")
 ard_stats_chisq_test <- function(data, by, variables, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 

@@ -1,3 +1,5 @@
+skip_if_not(is_pkg_installed("car", reference_pkg = "cardx"))
+
 test_that("ard_car_vif() works", {
   expect_snapshot(
     lm(AGE ~ ARM + SEX, data = cards::ADSL) |>

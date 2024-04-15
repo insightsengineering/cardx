@@ -24,6 +24,8 @@
 #' cards::ADSL |>
 #'   ard_stats_mcnemar_test(by = "SEX", variables = "EFFFL")
 ard_stats_mcnemar_test <- function(data, by, variables, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 

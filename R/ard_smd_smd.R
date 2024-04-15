@@ -16,10 +16,12 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("smd", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd", reference_pkg = "cardx"))
 #' ard_smd_smd(cards::ADSL, by = ARM, variables = AGE, std.error = TRUE)
 #' ard_smd_smd(cards::ADSL, by = ARM, variables = AGEGR1, std.error = TRUE)
 ard_smd_smd <- function(data, by, variables, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("smd", reference_pkg = "cardx")
 

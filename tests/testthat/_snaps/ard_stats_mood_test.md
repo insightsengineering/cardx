@@ -1,7 +1,7 @@
-# ard_moodtest() works
+# ard_stats_mood_test() works
 
     Code
-      as.data.frame(ard_moodtest(cards::ADSL, by = SEX, variable = AGE))
+      as.data.frame(ard_stats_mood_test(cards::ADSL, by = SEX, variable = AGE))
     Output
         group1 variable  context   stat_name             stat_label
       1    SEX      AGE moodtest   statistic            Z-Statistic

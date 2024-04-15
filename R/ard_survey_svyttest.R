@@ -23,6 +23,8 @@
 #'
 #' ard_survey_svyttest(dclus2, variables = enroll, by = comp.imp, conf.level = 0.9)
 ard_survey_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
 

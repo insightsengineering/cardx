@@ -20,6 +20,8 @@
 #' cards::ADSL |>
 #'   ard_stats_kruskal_test(by = "ARM", variables = "AGE")
 ard_stats_kruskal_test <- function(data, by, variables) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 

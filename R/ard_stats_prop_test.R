@@ -19,7 +19,11 @@
 #' mtcars |>
 #'   ard_stats_prop_test(by = vs, variables = am)
 ard_stats_prop_test <- function(data, by, variables, ...) {
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  set_cli_abort_call()
+
+  # check installed packages ---------------------------------------------------
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
+
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variables)
@@ -56,10 +60,13 @@ ard_stats_prop_test <- function(data, by, variables, ...) {
               )
 
             if (nrow(data_counts) != 2) {
-              cli::cli_abort(c(
-                "The {.arg by} column must have exactly 2 levels.",
-                "The levels are {.val {data_counts[[by]]}}"
-              ))
+              cli::cli_abort(
+                c(
+                  "The {.arg by} column must have exactly 2 levels.",
+                  "The levels are {.val {data_counts[[by]]}}"
+                ),
+                call = get_cli_abort_call()
+              )
             }
 
             stats::prop.test(

@@ -1,4 +1,4 @@
-skip_if_not(cards::is_pkg_installed("survey", reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed("survey", reference_pkg = "cardx"))
 
 test_that("unstratified ard_survey_svycontinuous() works", {
   data(api, package = "survey")

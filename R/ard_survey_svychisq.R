@@ -26,6 +26,8 @@
 #'
 #' ard_survey_svychisq(dclus1, variables = sch.wide, by = comp.imp, statistic = "F")
 ard_survey_svychisq <- function(data, by, variables, statistic = "F", ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
 

@@ -59,6 +59,8 @@ NULL
 #' @rdname ard_survival_survfit
 #' @export
 ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")
 
@@ -66,12 +68,16 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   check_not_missing(x)
   check_class(x, cls = "survfit")
   if (inherits(x, "survfitcox")) {
-    cli::cli_abort("Argument {.arg x} cannot be class {.cls survfitcox}.")
+    cli::cli_abort("Argument {.arg x} cannot be class {.cls survfitcox}.",
+      call = get_cli_abort_call()
+    )
   }
 
   # competing risks models cannot use the type argument
   if (inherits(x, c("survfitms", "survfitcoxms")) && !is.null(type)) {
-    cli::cli_abort("Cannot use {.arg type} argument with {.code survfit} models with class {.cls {c('survfitms', 'survfitcoxms')}}.")
+    cli::cli_abort("Cannot use {.arg type} argument with {.code survfit} models with class {.cls {c('survfitms', 'survfitcoxms')}}.",
+      call = get_cli_abort_call()
+    )
   }
   if (!is.null(probs)) check_range(probs, c(0, 1))
   if (sum(is.null(times), is.null(probs)) != 1) {
@@ -85,7 +91,9 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
 
   # cannot specify type arg when probs supplied
   if (!is.null(probs) && !is.null(type)) {
-    cli::cli_abort("Cannot use {.arg type} argument when {.arg probs} argument specifed.")
+    cli::cli_abort("Cannot use {.arg type} argument when {.arg probs} argument specifed.",
+      call = get_cli_abort_call()
+    )
   }
 
   # build ARD ------------------------------------------------------------------

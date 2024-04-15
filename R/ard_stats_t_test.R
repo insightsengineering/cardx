@@ -44,6 +44,8 @@ NULL
 #' @rdname ard_stats_t_test
 #' @export
 ard_stats_t_test <- function(data, variables, by = NULL, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
@@ -85,6 +87,8 @@ ard_stats_t_test <- function(data, variables, by = NULL, ...) {
 #' @rdname ard_stats_t_test
 #' @export
 ard_stats_paired_t_test <- function(data, by, variables, id, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
 
@@ -190,7 +194,6 @@ ard_stats_paired_t_test <- function(data, by, variables, id, ...) {
 #' @param by (`string`)\cr by column name
 #' @param variable (`string`)\cr variable column name
 #' @param id (`string`)\cr subject id column name
-#' @param env (`environment`) used for error messaging. Default is `rlang::caller_env()`
 #'
 #' @return a wide data frame
 #' @keywords internal
@@ -200,10 +203,12 @@ ard_stats_paired_t_test <- function(data, by, variables, id, ...) {
 #'   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
 #'   dplyr::arrange(USUBJID, ARM) |>
 #'   cardx:::.paired_data_pivot_wider(by = "ARM", variable = "AGE", id = "USUBJID")
-.paired_data_pivot_wider <- function(data, by, variable, id, env = rlang::caller_env()) {
+.paired_data_pivot_wider <- function(data, by, variable, id) {
   # check the number of levels before pivoting data to wider format
   if (dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {
-    cli::cli_abort("The {.arg by} argument must have two and only two levels.", call = env)
+    cli::cli_abort("The {.arg by} argument must have two and only two levels.",
+      call = get_cli_abort_call()
+    )
   }
 
   data |>
