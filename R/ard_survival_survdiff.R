@@ -85,8 +85,15 @@ ard_survival_survdiff <- function(formula, data, rho = 0, ...) {
     .add_survdiff_stat_labels() |>
     dplyr::mutate(
       context = "survival_survdiff",
-      warning = lst_glance[["warning"]],
-      error = lst_glance[["error"]]
+      warning = lst_glance["warning"],
+      error = lst_glance["error"],
+      fmt_fn = map(
+        .data$stat,
+        function(x) {
+          if (is.numeric(x)) return(1L)
+          NULL
+        }
+      )
     ) |>
     cards::tidy_ard_column_order() %>%
     {structure(., class = c("card", class(.)))} # styler: off
