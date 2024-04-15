@@ -15,7 +15,7 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' mtcars |>
 #'   ard_stats_prop_test(by = vs, variables = am)
 ard_stats_prop_test <- function(data, by, variables, ...) {

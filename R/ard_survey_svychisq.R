@@ -20,7 +20,7 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survey", "broom"), reference_pkg = "cardx"))
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'

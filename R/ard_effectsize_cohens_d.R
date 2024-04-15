@@ -28,7 +28,7 @@
 #' The data are then passed as
 #' `effectsize::cohens_d(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examplesIf cards::is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_effectsize_cohens_d(by = ARM, variables = AGE)

@@ -34,7 +34,7 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("survey", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "survey", reference_pkg = "cardx"))
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'

@@ -45,7 +45,7 @@
 #' @return ARD data frame
 #' @name ard_stats_anova
 #'
-#' @examplesIf cards::is_pkg_installed(c("broom", "withr", "lme4"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom", "withr", "lme4"), reference_pkg = "cardx"))
 #' anova(
 #'   lm(mpg ~ am, mtcars),
 #'   lm(mpg ~ am + hp, mtcars)

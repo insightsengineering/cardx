@@ -17,7 +17,7 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL[1:30, ] |>
 #'   ard_stats_fisher_test(by = "ARM", variables = "AGEGR1")
 ard_stats_fisher_test <- function(data, by, variables, ...) {

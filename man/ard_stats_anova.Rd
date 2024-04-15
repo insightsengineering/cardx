@@ -73,7 +73,7 @@ e.g. \code{package = 'lme4'} must be specified when \code{fn = 'glmer'}.
 See example below.
 }
 \examples{
-\dontshow{if (cards::is_pkg_installed(c("broom", "withr", "lme4"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom", "withr", "lme4"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 anova(
   lm(mpg ~ am, mtcars),
   lm(mpg ~ am + hp, mtcars)

@@ -28,7 +28,7 @@
 #' The data are then passed as
 #' `effectsize::hedges_g(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examplesIf cards::is_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters", "withr"), reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_effectsize_hedges_g(by = ARM, variables = AGE)
