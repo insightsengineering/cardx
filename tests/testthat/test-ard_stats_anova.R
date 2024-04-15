@@ -38,7 +38,7 @@ test_that("ard_stats_anova.data.frame() works", {
     ard_stats_anova(
       x = mtcars,
       formulas = list(mpg ~ am, mpg ~ am + hp),
-      fn = "lm"
+      method = "lm"
     )
   )
 
@@ -48,8 +48,8 @@ test_that("ard_stats_anova.data.frame() works", {
       ard_stats_anova(
         x = mtcars,
         formulas = list(mpg ~ hp, mpg ~ hp + vs),
-        fn = "geeglm",
-        fn.args = list(id = cyl),
+        method = "geeglm",
+        method.args = list(id = cyl),
         package = "geepack"
       ),
     NA
@@ -75,8 +75,8 @@ test_that("ard_stats_anova.data.frame() works", {
       ard_stats_anova(
         x = mtcars,
         formulas = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
-        fn = "glmer",
-        fn.args = list(family = binomial),
+        method = "glmer",
+        method.args = list(family = binomial),
         package = "lme4"
       ),
     NA
@@ -102,8 +102,8 @@ test_that("ard_stats_anova.data.frame() works", {
     ard_stats_anova(
       x = mtcars,
       formulas = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
-      fn = "glmer",
-      fn.args = {{ args }},
+      method = "glmer",
+      method.args = {{ args }},
       package = "lme4"
     )
   }
@@ -118,8 +118,8 @@ test_that("ard_stats_anova.data.frame() works", {
     ard_stats_anova(
       x = mtcars,
       formulas = list(mpg ~ hp, mpg ~ hp + vs),
-      fn = "geeglm",
-      fn.args = {{ args }},
+      method = "geeglm",
+      method.args = {{ args }},
       package = "geepack"
     )
   }
