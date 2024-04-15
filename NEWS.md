@@ -1,7 +1,27 @@
-# cardx 0.1.0.9011
+# cardx 0.1.0.9014
+
+### Breaking Changes
+
+* Updated function names to follow the pattern `ard_<pkgname>_<fnname>()`. Former functions names have _not_ been deprecated. (#106)
+
+```r
+ard_ttest()             -> ard_stats_t_test()
+ard_paired_ttest()      -> ard_stats_paired_t_test()
+ard_wilcoxtest()        -> ard_stats_wilcox_test()
+ard_paired_wilcoxtest() -> ard_stats_paired_wilcox_test()
+ard_chisqtest()         -> ard_stats_chisq_test()
+ard_fishertest()        -> ard_stats_fisher_test()
+ard_kruskaltest()       -> ard_stats_kruskal_test()
+ard_mcnemartest()       -> ard_stats_mcnemar_test()
+ard_moodtest()          -> ard_stats_mood_test()
+```
+
+### New Features
 
 * Added the following functions for calculating Analysis Results Data (ARD).
-  - `ard_aov()` for calculating ANOVA results using `stats::aov()`. (#3)
+  - `ard_stats_aov()` for calculating ANOVA results using `stats::aov()`. (#3)
+  - `ard_stats_anova()` for calculating ANOVA results using `stats::anova()`. (#12) 
+  - `ard_aod_wald_test()` for calculating Wald Tests for regression models using `aod::wald.test()`. (#84)
   - `ard_car_anova()` for calculating ANOVA results using `car::Anova()`. (#3)
   - `ard_onewaytest()` for calculating ANOVA results using `stats::oneway.test()`. (#3)
   - `ard_cohens_d()`, `ard_paired_cohens_d()`, `ard_hedges_g()`, and `ard_paired_hedges_g()` for standardized differences using `effectsize::cohens_d()` and `effectsize::hedges_g()`. (#50)
@@ -15,9 +35,9 @@
   - `ard_svyranktest()` for weighted/survey rank tests using `survey::svyranktest()`. (#71)
   - `ard_vif()` for calculating the variance inflation factor using `car::vif()`. (#10)
 
-* Updated functions `ard_ttest()`, `ard_paired_ttest()`, `ard_wilcoxtest()`, `ard_paired_wilcoxtest()`, `ard_chisqtest()`, `ard_fishertest()`, `ard_kruskaltest()`, `ard_mcnemartest()`, and `ard_moodtest()` to accept multiple variables at once. Independent tests are calculated for each variable. The `variable` argument is renamed to `variables`. (#77)
+* Updated functions `ard_stats_t_test()`, `ard_stats_paired_t_test()`, `ard_stats_wilcox_test()`, `ard_stats_paired_wilcox_test()`, `ard_stats_chisq_test()`, `ard_stats_fisher_test()`, `ard_stats_kruskal_test()`, `ard_stats_mcnemar_test()`, and `ard_stats_mood_test()` to accept multiple variables at once. Independent tests are calculated for each variable. The `variable` argument is renamed to `variables`. (#77)
 
-* Updated `ard_ttest()` and `ard_wilcoxtest()` to no longer require the `by` argument, which yields central estimates with their confidence intervals. (#82)
+* Updated `ard_stats_t_test()` and `ard_stats_wilcox_test()` to no longer require the `by` argument, which yields central estimates with their confidence intervals. (#82)
 
 # cardx 0.1.0
 
