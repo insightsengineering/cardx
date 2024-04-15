@@ -51,7 +51,9 @@ ard_survival_survdiff <- function(formula, data, rho = 0, ...) {
 
   # tidy results up in an ARD format -------------------------------------------
   # extract variable names from formula
-  variables <- stats::terms(formula) |> attr("term.labels") |> .strip_backticks()
+  variables <- stats::terms(formula) |>
+    attr("term.labels") |>
+    .strip_backticks()
 
   # if there was an error, return results early
   if (is.null(lst_glance[["result"]])) {
@@ -61,7 +63,8 @@ ard_survival_survdiff <- function(formula, data, rho = 0, ...) {
       cli::cli_abort(
         message =
           c("There was an error in {.fun survival::survdiff}. See below:",
-            "x" = lst_glance[["error"]]),
+            "x" = lst_glance[["error"]]
+          ),
         call = get_cli_abort_call()
       )
     }
@@ -77,7 +80,7 @@ ard_survival_survdiff <- function(formula, data, rho = 0, ...) {
     stats =
       if (!is.null(lst_glance[["result"]])) unname(as.list(lst_glance[["result"]]))
       else rep_along(c("statistic", "df", "p.value"), list(NULL)) |> c(list(method = method))
-    #styler: on
+    # styler: on
   ) |>
     .add_survdiff_stat_labels() |>
     dplyr::mutate(
