@@ -19,10 +19,10 @@
 #' @name ard_effectsize_hedges_g
 #'
 #' @details
-#' For the `ard_hedges_g()` function, the data is expected to be one row per subject.
+#' For the `ard_effectsize_hedges_g()` function, the data is expected to be one row per subject.
 #' The data is passed as `effectsize::hedges_g(data[[variable]]~data[[by]], data, paired = FALSE, ...)`.
 #'
-#' For the `ard_paired_hedges_g()` function, the data is expected to be one row
+#' For the `ard_effectsize_paired_hedges_g()` function, the data is expected to be one row
 #' per subject per by level. Before the effect size is calculated, the data are
 #' reshaped to a wide format to be one row per subject.
 #' The data are then passed as

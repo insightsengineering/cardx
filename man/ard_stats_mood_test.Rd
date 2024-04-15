@@ -27,7 +27,7 @@ Analysis results data for Mood two sample test of scale. Note this not to be con
 the Brown-Mood test of medians.
 }
 \details{
-For the \code{ard_moodtest()} function, the data is expected to be one row per subject.
+For the \code{ard_stats_mood_test()} function, the data is expected to be one row per subject.
 The data is passed as \code{mood.test(data[[variable]] ~ data[[by]], ...)}.
 }
 \examples{

@@ -36,7 +36,7 @@ using \code{\link[effectsize:cohens_d]{effectsize::cohens_d()}}.
 For the \code{ard_effectsize_cohens_d()} function, the data is expected to be one row per subject.
 The data is passed as \code{effectsize::cohens_d(data[[variable]]~data[[by]], data, paired = FALSE, ...)}.
 
-For the \code{ard_paired_cohens_d()} function, the data is expected to be one row
+For the \code{ard_effectsize_paired_cohens_d()} function, the data is expected to be one row
 per subject per by level. Before the effect size is calculated, the data are
 reshaped to a wide format to be one row per subject.
 The data are then passed as

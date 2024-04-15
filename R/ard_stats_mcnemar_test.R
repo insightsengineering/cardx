@@ -16,7 +16,7 @@
 #' @export
 #'
 #' @details
-#' For the `ard_mcnemartest()` function, the data is expected to be one row per subject.
+#' For the `ard_stats_mcnemar_test()` function, the data is expected to be one row per subject.
 #' The data is passed as `stats::mcnemar.test(x = data[[variable]], y = data[[by]], ...)`.
 #' Please use `table(x = data[[variable]], y = data[[by]])` to check the contingency table.
 #'

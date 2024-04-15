@@ -26,7 +26,7 @@ ARD data frame
 Analysis results data for McNemar's statistical test.
 }
 \details{
-For the \code{ard_mcnemartest()} function, the data is expected to be one row per subject.
+For the \code{ard_stats_mcnemar_test()} function, the data is expected to be one row per subject.
 The data is passed as \code{stats::mcnemar.test(x = data[[variable]], y = data[[by]], ...)}.
 Please use \code{table(x = data[[variable]], y = data[[by]])} to check the contingency table.
 }
