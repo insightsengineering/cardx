@@ -71,7 +71,7 @@ ard_stats_mcnemar_test <- function(data, by, variables, ...) {
 #'
 #' @return ARD data frame
 #'
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cardx:::.format_mcnemartest_results(
 #'   by = "ARM",
 #'   variable = "AGE",

@@ -159,7 +159,7 @@ ard_effectsize_paired_cohens_d <- function(data, by, variables, id, ...) {
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
 #' cardx:::.format_cohens_d_results(
 #'   by = "ARM",
 #'   variable = "AGE",

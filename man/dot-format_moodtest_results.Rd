@@ -24,6 +24,7 @@ ARD data frame
 Convert mood test results to ARD
 }
 \examples{
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cardx:::.format_moodtest_results(
   by = "SEX",
   variable = "AGE",
@@ -33,5 +34,6 @@ cardx:::.format_moodtest_results(
         broom::tidy()
     )
 )
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}
