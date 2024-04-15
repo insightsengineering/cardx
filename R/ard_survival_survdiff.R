@@ -41,6 +41,7 @@ ard_survival_survdiff <- function(formula, data, rho = 0, ...) {
   ) |>
     as.character()
 
+  # calculate survdiff() results -----------------------------------------------
   lst_glance <-
     cards::eval_capture_conditions(
       survival::survdiff(formula = formula, data = data, rho = rho, ...) |>
@@ -48,19 +49,22 @@ ard_survival_survdiff <- function(formula, data, rho = 0, ...) {
         dplyr::mutate(method = .env$method)
     )
 
+  # tidy results up in an ARD format -------------------------------------------
   # extract variable names from formula
   variables <- stats::terms(formula) |> attr("term.labels") |> .strip_backticks()
 
   # if there was an error, return results early
   if (is.null(lst_glance[["result"]])) {
     # if no variables in formula, then return an error
+    # otherwise, if we do have variable names, then we can construct an empty ARD which will be done below
     if (is_empty(variables)) {
       cli::cli_abort(
-        message = lst_glance[["error"]],
+        message =
+          c("There was an error in {.fun survival::survdiff}. See below:",
+            "x" = lst_glance[["error"]]),
         call = get_cli_abort_call()
       )
     }
-    # otherwise, if we do have variable names, then we can construct an empty ARD which will be done below
   }
 
   .variables_to_survdiff_ard(
