@@ -93,8 +93,8 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   # build ARD ------------------------------------------------------------------
   est_type <- ifelse(is.null(probs), "times", "probs")
   tidy_survfit <- switch(est_type,
-                         "times" = .process_survfit_time(x, times, type %||% "survival"),
-                         "probs" = .process_survfit_probs(x, probs)
+    "times" = .process_survfit_time(x, times, type %||% "survival"),
+    "probs" = .process_survfit_probs(x, probs)
   )
 
   .format_survfit_results(tidy_survfit)
@@ -314,9 +314,9 @@ extract_multi_strata <- function(x, df_stat) {
         .data$stat,
         function(x) {
           switch(is.integer(x),
-                 0L
+            0L
           ) %||% switch(is.numeric(x),
-                        1L
+            1L
           )
         }
       ),

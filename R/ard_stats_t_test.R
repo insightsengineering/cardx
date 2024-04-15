@@ -163,7 +163,7 @@ ard_stats_paired_t_test <- function(data, by, variables, id, ...) {
           "p.value", "parameter", "conf.low", "conf.high",
           "method", "alternative"
         ) |>
-        # add estimate1 and estimate2 if there is a by variable
+          # add estimate1 and estimate2 if there is a by variable
         append(values = switch(!is_empty(by), c("estimate1", "estimate2")), after = 1L), # styler: off
       fun_args_to_record = c("mu", "paired", "var.equal", "conf.level"),
       formals = formals(asNamespace("stats")[["t.test.default"]]),
