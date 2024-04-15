@@ -16,12 +16,14 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   ard_stats_kruskal_test(by = "ARM", variables = "AGE")
 ard_stats_kruskal_test <- function(data, by, variables) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

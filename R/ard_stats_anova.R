@@ -77,6 +77,7 @@ ard_stats_anova <- function(x, ...) {
 #' @rdname ard_stats_anova
 #' @export
 ard_stats_anova.anova <- function(x, method = "ANOVA results from `stats::anova()`", ...) {
+  set_cli_abort_call()
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
   cards::check_pkg_installed("broom", reference_pkg = "cardx")
@@ -102,6 +103,7 @@ ard_stats_anova.data.frame <- function(x,
                                        package = "base",
                                        method = "ANOVA results from `stats::anova()`",
                                        ...) {
+  set_cli_abort_call()
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
   check_string(package)

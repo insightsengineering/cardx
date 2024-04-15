@@ -1,4 +1,4 @@
-skip_if_not(cards::is_pkg_installed("broom.helpers", reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed("broom.helpers", reference_pkg = "cardx"))
 
 test_that("ard_aov() works", {
   expect_error(

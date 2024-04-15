@@ -27,7 +27,7 @@
 #' The data are then passed as
 #' `t.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_stats_t_test(by = ARM, variables = c(AGE, BMIBL))
@@ -44,8 +44,10 @@ NULL
 #' @rdname ard_stats_t_test
 #' @export
 ard_stats_t_test <- function(data, variables, by = NULL, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -85,8 +87,10 @@ ard_stats_t_test <- function(data, variables, by = NULL, ...) {
 #' @rdname ard_stats_t_test
 #' @export
 ard_stats_paired_t_test <- function(data, by, variables, id, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -159,7 +163,7 @@ ard_stats_paired_t_test <- function(data, by, variables, id, ...) {
           "p.value", "parameter", "conf.low", "conf.high",
           "method", "alternative"
         ) |>
-          # add estimate1 and estimate2 if there is a by variable
+        # add estimate1 and estimate2 if there is a by variable
         append(values = switch(!is_empty(by), c("estimate1", "estimate2")), after = 1L), # styler: off
       fun_args_to_record = c("mu", "paired", "var.equal", "conf.level"),
       formals = formals(asNamespace("stats")[["t.test.default"]]),

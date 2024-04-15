@@ -17,17 +17,19 @@
 #' @name ard_stats_mood_test
 #'
 #' @details
-#' For the `ard_stats_mood_test()` function, the data is expected to be one row per subject.
+#' For the `ard_moodtest()` function, the data is expected to be one row per subject.
 #' The data is passed as `mood.test(data[[variable]] ~ data[[by]], ...)`.
 #' @rdname ard_stats_mood_test
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   ard_stats_mood_test(by = "SEX", variables = "AGE")
 ard_stats_mood_test <- function(data, by, variables, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

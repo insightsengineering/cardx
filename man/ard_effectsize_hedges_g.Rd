@@ -33,17 +33,17 @@ Analysis results data for paired and non-paired Hedge's G Effect Size Test
 using \code{\link[effectsize:cohens_d]{effectsize::hedges_g()}}.
 }
 \details{
-For the \code{ard_effectsize_hedges_g()} function, the data is expected to be one row per subject.
+For the \code{ard_hedges_g()} function, the data is expected to be one row per subject.
 The data is passed as \code{effectsize::hedges_g(data[[variable]]~data[[by]], data, paired = FALSE, ...)}.
 
-For the \code{ard_effectsize_paired_hedges_g()} function, the data is expected to be one row
+For the \code{ard_paired_hedges_g()} function, the data is expected to be one row
 per subject per by level. Before the effect size is calculated, the data are
 reshaped to a wide format to be one row per subject.
 The data are then passed as
 \verb{effectsize::hedges_g(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)}.
 }
 \examples{
-\dontshow{if (cards::is_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters", "withr"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
   ard_effectsize_hedges_g(by = ARM, variables = AGE)

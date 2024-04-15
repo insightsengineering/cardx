@@ -1,4 +1,4 @@
-skip_if_not(cards::is_pkg_installed(c("survival", "broom"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("survival", "broom"), reference_pkg = "cardx"))
 
 test_that("ard_survival_survfit() works with times provided", {
   expect_snapshot(

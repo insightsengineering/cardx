@@ -32,7 +32,7 @@
 #' * Times should be provided using the same scale as the time variable used to fit the provided
 #'   survival fit model.
 #'
-#' @examplesIf cards::is_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))
 #' library(survival)
 #'
 #' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
@@ -59,8 +59,10 @@ NULL
 #' @rdname ard_survival_survfit
 #' @export
 ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")
+  check_pkg_installed(pkg = c("survival", "broom"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(x)
@@ -91,8 +93,8 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   # build ARD ------------------------------------------------------------------
   est_type <- ifelse(is.null(probs), "times", "probs")
   tidy_survfit <- switch(est_type,
-    "times" = .process_survfit_time(x, times, type %||% "survival"),
-    "probs" = .process_survfit_probs(x, probs)
+                         "times" = .process_survfit_time(x, times, type %||% "survival"),
+                         "probs" = .process_survfit_probs(x, probs)
   )
 
   .format_survfit_results(tidy_survfit)
@@ -312,9 +314,9 @@ extract_multi_strata <- function(x, df_stat) {
         .data$stat,
         function(x) {
           switch(is.integer(x),
-            0L
+                 0L
           ) %||% switch(is.numeric(x),
-            1L
+                        1L
           )
         }
       ),

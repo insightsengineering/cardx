@@ -27,11 +27,11 @@ Analysis results data for Mood two sample test of scale. Note this not to be con
 the Brown-Mood test of medians.
 }
 \details{
-For the \code{ard_stats_mood_test()} function, the data is expected to be one row per subject.
+For the \code{ard_moodtest()} function, the data is expected to be one row per subject.
 The data is passed as \code{mood.test(data[[variable]] ~ data[[by]], ...)}.
 }
 \examples{
-\dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
   ard_stats_mood_test(by = "SEX", variables = "AGE")
 \dontshow{\}) # examplesIf}

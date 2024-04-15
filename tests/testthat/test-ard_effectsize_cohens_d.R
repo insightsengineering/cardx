@@ -1,4 +1,4 @@
-skip_if_not(cards::is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx"))
 
 test_that("ard_effectsize_cohens_d() works", {
   # there were some discrepancies in the 7th decimal place on one system

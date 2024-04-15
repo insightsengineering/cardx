@@ -16,16 +16,18 @@
 #' @export
 #'
 #' @details
-#' For the `ard_stats_mcnemar_test()` function, the data is expected to be one row per subject.
+#' For the `ard_mcnemartest()` function, the data is expected to be one row per subject.
 #' The data is passed as `stats::mcnemar.test(x = data[[variable]], y = data[[by]], ...)`.
 #' Please use `table(x = data[[variable]], y = data[[by]])` to check the contingency table.
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   ard_stats_mcnemar_test(by = "SEX", variables = "EFFFL")
 ard_stats_mcnemar_test <- function(data, by, variables, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

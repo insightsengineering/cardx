@@ -34,7 +34,7 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("survey", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "survey", reference_pkg = "cardx"))
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
@@ -44,10 +44,13 @@
 #'   by = stype
 #' )
 ard_survey_svycontinuous <- function(data, variables, by = NULL,
-                                     statistic = everything() ~ c("median", "p25", "p75"),
-                                     fmt_fn = NULL,
-                                     stat_label = NULL) {
-  cards::check_pkg_installed("survey", reference_pkg = "cardx")
+                              statistic = everything() ~ c("median", "p25", "p75"),
+                              fmt_fn = NULL,
+                              stat_label = NULL) {
+  set_cli_abort_call()
+
+  # check installed packages ---------------------------------------------------
+  check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
@@ -71,7 +74,7 @@ ard_survey_svycontinuous <- function(data, variables, by = NULL,
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats()),
     error_msg = c("Error in the values of the {.arg statistic} argument.",
-      i = "Values must be in {.val {accepted_svy_stats(FALSE)}}"
+                  i = "Values must be in {.val {accepted_svy_stats(FALSE)}}"
     )
   )
 
@@ -107,8 +110,8 @@ ard_survey_svycontinuous <- function(data, variables, by = NULL,
           variable = names(stat_label),
           stat_name = map(.data$variable, ~ names(stat_label[[.x]])),
           stat_label = map(.data$variable, ~ stat_label[[.x]] |>
-            unname() |>
-            unlist())
+                             unname() |>
+                             unlist())
         ) |>
           tidyr::unnest(cols = c("stat_name", "stat_label")),
         by = "stat_name",

@@ -14,10 +14,12 @@
 #' @rdname ard_car_vif
 #' @export
 #'
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "car", reference_pkg = "cardx"))
 #' lm(AGE ~ ARM + SEX, data = cards::ADSL) |>
 #'   ard_car_vif()
 ard_car_vif <- function(x, ...) {
+  set_cli_abort_call()
+  check_pkg_installed("car", reference_pkg = "cardx")
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
 

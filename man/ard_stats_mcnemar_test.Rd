@@ -26,12 +26,12 @@ ARD data frame
 Analysis results data for McNemar's statistical test.
 }
 \details{
-For the \code{ard_stats_mcnemar_test()} function, the data is expected to be one row per subject.
+For the \code{ard_mcnemartest()} function, the data is expected to be one row per subject.
 The data is passed as \code{stats::mcnemar.test(x = data[[variable]], y = data[[by]], ...)}.
 Please use \code{table(x = data[[variable]], y = data[[by]])} to check the contingency table.
 }
 \examples{
-\dontshow{if (cards::is_pkg_installed("broom", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
   ard_stats_mcnemar_test(by = "SEX", variables = "EFFFL")
 \dontshow{\}) # examplesIf}

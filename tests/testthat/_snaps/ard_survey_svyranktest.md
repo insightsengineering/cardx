@@ -1,4 +1,4 @@
-# ard_svyranktest() works
+# ard_survey_svyranktest() works
 
     Code
       dplyr::select(as.data.frame(svyranktest[[1]]), stat_label, stat)

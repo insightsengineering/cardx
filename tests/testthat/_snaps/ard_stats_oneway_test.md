@@ -1,7 +1,7 @@
-# ard_onewaytest() works
+# ard_stats_oneway_test() works
 
     Code
-      head(dplyr::select(ard_onewaytest(AGEGR1 ~ ARM, data = cards::ADSL), c(
+      head(dplyr::select(ard_stats_oneway_test(AGEGR1 ~ ARM, data = cards::ADSL), c(
         "stat_name", "stat", "warning")), 3)
     Message
       {cards} data frame: 3 x 3

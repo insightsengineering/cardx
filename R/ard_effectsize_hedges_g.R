@@ -19,16 +19,16 @@
 #' @name ard_effectsize_hedges_g
 #'
 #' @details
-#' For the `ard_effectsize_hedges_g()` function, the data is expected to be one row per subject.
+#' For the `ard_hedges_g()` function, the data is expected to be one row per subject.
 #' The data is passed as `effectsize::hedges_g(data[[variable]]~data[[by]], data, paired = FALSE, ...)`.
 #'
-#' For the `ard_effectsize_paired_hedges_g()` function, the data is expected to be one row
+#' For the `ard_paired_hedges_g()` function, the data is expected to be one row
 #' per subject per by level. Before the effect size is calculated, the data are
 #' reshaped to a wide format to be one row per subject.
 #' The data are then passed as
 #' `effectsize::hedges_g(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examplesIf cards::is_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters", "withr"), reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_effectsize_hedges_g(by = ARM, variables = AGE)
@@ -47,8 +47,10 @@ NULL
 #' @rdname ard_effectsize_hedges_g
 #' @export
 ard_effectsize_hedges_g <- function(data, by, variables, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
+  check_pkg_installed(pkg = c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -92,9 +94,10 @@ ard_effectsize_hedges_g <- function(data, by, variables, ...) {
 #' @rdname ard_effectsize_hedges_g
 #' @export
 ard_effectsize_paired_hedges_g <- function(data, by, variables, id, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("effectsize", reference_pkg = "cardx")
-  cards::check_pkg_installed("parameters", reference_pkg = "cardx")
+  check_pkg_installed(pkg = c("effectsize", "parameters", "withr"), reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

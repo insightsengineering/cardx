@@ -16,12 +16,14 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("smd", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd", reference_pkg = "cardx"))
 #' ard_smd_smd(cards::ADSL, by = ARM, variables = AGE, std.error = TRUE)
 #' ard_smd_smd(cards::ADSL, by = ARM, variables = AGEGR1, std.error = TRUE)
 ard_smd_smd <- function(data, by, variables, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("smd", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "smd", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -56,8 +58,8 @@ ard_smd_smd <- function(data, by, variables, ...) {
         lst_tidy =
           cards::eval_capture_conditions(
             switch(as.character(is_survey),
-              "TRUE" = smd::smd(x = data[[variable]], g = data[[by]], w = stats::weights(design), na.rm = TRUE, ...),
-              "FALSE" = smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, ...)
+                   "TRUE" = smd::smd(x = data[[variable]], g = data[[by]], w = stats::weights(design), na.rm = TRUE, ...),
+                   "FALSE" = smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, ...)
             ) |>
               dplyr::select(-any_of("term"))
           ),

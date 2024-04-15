@@ -27,7 +27,7 @@
 #' The data are then passed as
 #' `wilcox.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_stats_wilcox_test(by = "ARM", variables = "AGE")
@@ -44,8 +44,10 @@ NULL
 #' @rdname ard_stats_wilcox_test
 #' @export
 ard_stats_wilcox_test <- function(data, variables, by = NULL, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -91,8 +93,10 @@ ard_stats_wilcox_test <- function(data, variables, by = NULL, ...) {
 #' @rdname ard_stats_wilcox_test
 #' @export
 ard_stats_paired_wilcox_test <- function(data, by, variables, id, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

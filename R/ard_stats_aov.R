@@ -10,11 +10,13 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed(c("broom.helpers"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx"))
 #' ard_stats_aov(AGE ~ ARM, data = cards::ADSL)
 ard_stats_aov <- function(formula, data, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("broom.helpers"), reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom.helpers", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(formula)
