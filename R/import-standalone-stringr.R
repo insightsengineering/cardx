@@ -2,12 +2,11 @@
 # Source: <https://github.com/ddsjoberg/standalone/blob/main/R/standalone-stringr.R>
 # ----------------------------------------------------------------------
 #
-# DO NOT MODIFY THIS FILE. INSTEAD MODIFY THE VERSION IN https://github.com/ddsjoberg/standalone/tree/main/R
 # ---
 # file: standalone-stringr.R
 # last-updated: 2024-01-24
 # license: https://unlicense.org
-# imports:
+# imports: rlang
 # ---
 #
 # This file provides a minimal shim to provide a stringr-like API on top of

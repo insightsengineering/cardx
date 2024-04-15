@@ -17,6 +17,8 @@ VIF
 XG
 Xin
 agresti
+anova
+cli
 clopper
 coull
 de
@@ -24,6 +26,7 @@ deff
 funder
 jeffreys
 pearson
+pre
 sd
 strat
 vif
