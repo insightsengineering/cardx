@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.958966565349544" branch-rate="0" lines-covered="1893" lines-valid="1974" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-15 21:18:02.525807">
+<coverage line-rate="0.959111559818274" branch-rate="0" lines-covered="1900" lines-valid="1981" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-15 21:43:40.111804">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.958966565349544" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.959111559818274" branch-rate="0" complexity="0">
       <classes>
         <class name="ard_aod_wald_test.R" filename="R/ard_aod_wald_test.R" line-rate="0.896103896103896" branch-rate="0" complexity="0">
           <methods>
@@ -3461,50 +3461,57 @@
                 <line number="90" hits="3" branch="false"/>
                 <line number="91" hits="3" branch="false"/>
                 <line number="92" hits="3" branch="false"/>
+                <line number="93" hits="3" branch="false"/>
+                <line number="94" hits="3" branch="false"/>
+                <line number="95" hits="3" branch="false"/>
+                <line number="96" hits="3" branch="false"/>
+                <line number="97" hits="3" branch="false"/>
+                <line number="98" hits="3" branch="false"/>
+                <line number="99" hits="3" branch="false"/>
               </lines>
             </method>
             <method name=".variables_to_survdiff_ard" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="99" hits="3" branch="false"/>
-                <line number="101" hits="3" branch="false"/>
-                <line number="102" hits="3" branch="false"/>
-                <line number="103" hits="3" branch="false"/>
-                <line number="104" hits="3" branch="false"/>
-                <line number="105" hits="3" branch="false"/>
                 <line number="106" hits="3" branch="false"/>
-                <line number="107" hits="3" branch="false"/>
                 <line number="108" hits="3" branch="false"/>
+                <line number="109" hits="3" branch="false"/>
                 <line number="110" hits="3" branch="false"/>
                 <line number="111" hits="3" branch="false"/>
                 <line number="112" hits="3" branch="false"/>
                 <line number="113" hits="3" branch="false"/>
                 <line number="114" hits="3" branch="false"/>
                 <line number="115" hits="3" branch="false"/>
-                <line number="116" hits="3" branch="false"/>
-              </lines>
-            </method>
-            <method name=".add_survdiff_stat_labels" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
+                <line number="117" hits="3" branch="false"/>
+                <line number="118" hits="3" branch="false"/>
+                <line number="119" hits="3" branch="false"/>
                 <line number="120" hits="3" branch="false"/>
                 <line number="121" hits="3" branch="false"/>
                 <line number="122" hits="3" branch="false"/>
                 <line number="123" hits="3" branch="false"/>
-                <line number="124" hits="3" branch="false"/>
-                <line number="125" hits="3" branch="false"/>
-                <line number="126" hits="3" branch="false"/>
+              </lines>
+            </method>
+            <method name=".add_survdiff_stat_labels" signature="" line-rate="1" branch-rate="0" complexity="0">
+              <lines>
                 <line number="127" hits="3" branch="false"/>
                 <line number="128" hits="3" branch="false"/>
                 <line number="129" hits="3" branch="false"/>
                 <line number="130" hits="3" branch="false"/>
+                <line number="131" hits="3" branch="false"/>
+                <line number="132" hits="3" branch="false"/>
+                <line number="133" hits="3" branch="false"/>
+                <line number="134" hits="3" branch="false"/>
+                <line number="135" hits="3" branch="false"/>
+                <line number="136" hits="3" branch="false"/>
+                <line number="137" hits="3" branch="false"/>
               </lines>
             </method>
             <method name=".strip_backticks" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="134" hits="4" branch="false"/>
-                <line number="135" hits="4" branch="false"/>
-                <line number="136" hits="4" branch="false"/>
-                <line number="137" hits="4" branch="false"/>
-                <line number="138" hits="4" branch="false"/>
+                <line number="141" hits="4" branch="false"/>
+                <line number="142" hits="4" branch="false"/>
+                <line number="143" hits="4" branch="false"/>
+                <line number="144" hits="4" branch="false"/>
+                <line number="145" hits="4" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -3559,38 +3566,45 @@
             <line number="90" hits="3" branch="false"/>
             <line number="91" hits="3" branch="false"/>
             <line number="92" hits="3" branch="false"/>
+            <line number="93" hits="3" branch="false"/>
+            <line number="94" hits="3" branch="false"/>
+            <line number="95" hits="3" branch="false"/>
+            <line number="96" hits="3" branch="false"/>
+            <line number="97" hits="3" branch="false"/>
+            <line number="98" hits="3" branch="false"/>
             <line number="99" hits="3" branch="false"/>
-            <line number="101" hits="3" branch="false"/>
-            <line number="102" hits="3" branch="false"/>
-            <line number="103" hits="3" branch="false"/>
-            <line number="104" hits="3" branch="false"/>
-            <line number="105" hits="3" branch="false"/>
             <line number="106" hits="3" branch="false"/>
-            <line number="107" hits="3" branch="false"/>
             <line number="108" hits="3" branch="false"/>
+            <line number="109" hits="3" branch="false"/>
             <line number="110" hits="3" branch="false"/>
             <line number="111" hits="3" branch="false"/>
             <line number="112" hits="3" branch="false"/>
             <line number="113" hits="3" branch="false"/>
             <line number="114" hits="3" branch="false"/>
             <line number="115" hits="3" branch="false"/>
-            <line number="116" hits="3" branch="false"/>
+            <line number="117" hits="3" branch="false"/>
+            <line number="118" hits="3" branch="false"/>
+            <line number="119" hits="3" branch="false"/>
             <line number="120" hits="3" branch="false"/>
             <line number="121" hits="3" branch="false"/>
             <line number="122" hits="3" branch="false"/>
             <line number="123" hits="3" branch="false"/>
-            <line number="124" hits="3" branch="false"/>
-            <line number="125" hits="3" branch="false"/>
-            <line number="126" hits="3" branch="false"/>
             <line number="127" hits="3" branch="false"/>
             <line number="128" hits="3" branch="false"/>
             <line number="129" hits="3" branch="false"/>
             <line number="130" hits="3" branch="false"/>
-            <line number="134" hits="4" branch="false"/>
-            <line number="135" hits="4" branch="false"/>
-            <line number="136" hits="4" branch="false"/>
-            <line number="137" hits="4" branch="false"/>
-            <line number="138" hits="4" branch="false"/>
+            <line number="131" hits="3" branch="false"/>
+            <line number="132" hits="3" branch="false"/>
+            <line number="133" hits="3" branch="false"/>
+            <line number="134" hits="3" branch="false"/>
+            <line number="135" hits="3" branch="false"/>
+            <line number="136" hits="3" branch="false"/>
+            <line number="137" hits="3" branch="false"/>
+            <line number="141" hits="4" branch="false"/>
+            <line number="142" hits="4" branch="false"/>
+            <line number="143" hits="4" branch="false"/>
+            <line number="144" hits="4" branch="false"/>
+            <line number="145" hits="4" branch="false"/>
           </lines>
         </class>
         <class name="ard_survival_survfit.R" filename="R/ard_survival_survfit.R" line-rate="0.955555555555556" branch-rate="0" complexity="0">
