@@ -90,7 +90,7 @@ ard_survival_survdiff <- function(formula, data, rho = 0, ...) {
       fmt_fn = map(
         .data$stat,
         function(x) {
-          if (is.numeric(x)) return(1L)
+          if (is.numeric(x)) return(1L) # styler: off
           NULL
         }
       )
