@@ -115,11 +115,13 @@ ard_stats_anova.data.frame <- function(x,
   check_data_frame(x)
   check_string(fn)
   if (str_detect(fn, "::")) {
-    cli::cli_abort(c(
-      "Argument {.arg fn} cannot be namespaced.",
-      i = "Put the package name in the {.arg package} argument."
-    ),
-    call = get_cli_abort_call())
+    cli::cli_abort(
+      c(
+        "Argument {.arg fn} cannot be namespaced.",
+        i = "Put the package name in the {.arg package} argument."
+      ),
+      call = get_cli_abort_call()
+    )
   }
 
   # calculate results and return df in cards formats ---------------------------

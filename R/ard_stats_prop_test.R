@@ -60,11 +60,13 @@ ard_stats_prop_test <- function(data, by, variables, ...) {
               )
 
             if (nrow(data_counts) != 2) {
-              cli::cli_abort(c(
-                "The {.arg by} column must have exactly 2 levels.",
-                "The levels are {.val {data_counts[[by]]}}"
-              ),
-              call = get_cli_abort_call())
+              cli::cli_abort(
+                c(
+                  "The {.arg by} column must have exactly 2 levels.",
+                  "The levels are {.val {data_counts[[by]]}}"
+                ),
+                call = get_cli_abort_call()
+              )
             }
 
             stats::prop.test(

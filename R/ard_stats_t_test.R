@@ -207,7 +207,8 @@ ard_stats_paired_t_test <- function(data, by, variables, id, ...) {
   # check the number of levels before pivoting data to wider format
   if (dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {
     cli::cli_abort("The {.arg by} argument must have two and only two levels.",
-                   call = get_cli_abort_call())
+      call = get_cli_abort_call()
+    )
   }
 
   data |>
