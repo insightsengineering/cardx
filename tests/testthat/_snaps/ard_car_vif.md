@@ -1,7 +1,7 @@
-# ard_vif() works
+# ard_car_vif() works
 
     Code
-      as.data.frame(ard_vif(lm(AGE ~ ARM + SEX, data = cards::ADSL)))
+      as.data.frame(ard_car_vif(lm(AGE ~ ARM + SEX, data = cards::ADSL)))
     Output
         variable context stat_name    stat_label     stat fmt_fn warning error
       1      ARM     vif      GVIF          GVIF 1.015675      1    NULL  NULL
@@ -14,16 +14,16 @@
 ---
 
     Code
-      as.data.frame(ard_vif(lm(AGE ~ BMIBL + EDUCLVL, data = cards::ADSL)))
+      as.data.frame(ard_car_vif(lm(AGE ~ BMIBL + EDUCLVL, data = cards::ADSL)))
     Output
         variable context stat_name stat_label     stat fmt_fn warning error
       1    BMIBL     vif       VIF        VIF 1.010522      1    NULL  NULL
       2  EDUCLVL     vif       VIF        VIF 1.010522      1    NULL  NULL
 
-# ard_vif() appropriate errors are given for model with only 1 term
+# ard_car_vif() appropriate errors are given for model with only 1 term
 
     Code
-      as.data.frame(ard_vif(lm(AGE ~ ARM, data = cards::ADSL)))
+      as.data.frame(ard_car_vif(lm(AGE ~ ARM, data = cards::ADSL)))
     Output
         variable context stat_name    stat_label stat fmt_fn warning
       1      ARM     vif       VIF           VIF NULL   NULL    NULL
@@ -42,6 +42,5 @@
       ard_vif(cards::ADSL)
     Condition
       Error in `ard_vif()`:
-      ! There was an error running `car::vif()`. See below.
-      x no applicable method for 'vcov' applied to an object of class "c('tbl_df', 'tbl', 'data.frame')"
+      ! could not find function "ard_vif"
 

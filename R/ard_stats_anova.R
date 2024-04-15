@@ -45,7 +45,7 @@
 #' @return ARD data frame
 #' @name ard_stats_anova
 #'
-#' @examplesIf cards::is_pkg_installed(c("broom", "withr", "lme4"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom", "withr", "lme4"), reference_pkg = "cardx"))
 #' anova(
 #'   lm(mpg ~ am, mtcars),
 #'   lm(mpg ~ am + hp, mtcars)
@@ -77,9 +77,11 @@ ard_stats_anova <- function(x, ...) {
 #' @rdname ard_stats_anova
 #' @export
 ard_stats_anova.anova <- function(x, method = "ANOVA results from `stats::anova()`", ...) {
+  set_cli_abort_call()
+
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom", reference_pkg = "cardx")
   check_string(method, message = "Argument {.arg method} must be a string of a function name.")
 
   # return df in cards formats -------------------------------------------------
@@ -102,10 +104,12 @@ ard_stats_anova.data.frame <- function(x,
                                        package = "base",
                                        method = "ANOVA results from `stats::anova()`",
                                        ...) {
+  set_cli_abort_call()
+
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
   check_string(package)
-  cards::check_pkg_installed(c("broom", "withr", package), reference_pkg = "cardx")
+  check_pkg_installed(c("broom", "withr", package), reference_pkg = "cardx")
   check_not_missing(formulas)
   check_not_missing(x)
   check_not_missing(fn)
@@ -113,10 +117,13 @@ ard_stats_anova.data.frame <- function(x,
   check_data_frame(x)
   check_string(fn)
   if (str_detect(fn, "::")) {
-    cli::cli_abort(c(
-      "Argument {.arg fn} cannot be namespaced.",
-      i = "Put the package name in the {.arg package} argument."
-    ))
+    cli::cli_abort(
+      c(
+        "Argument {.arg fn} cannot be namespaced.",
+        i = "Put the package name in the {.arg package} argument."
+      ),
+      call = get_cli_abort_call()
+    )
   }
 
   # calculate results and return df in cards formats ---------------------------

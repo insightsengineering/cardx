@@ -1,4 +1,4 @@
-skip_if_not(cards::is_pkg_installed(c("broom", "withr", "lme4", "survival"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("broom", "withr", "lme4", "survival"), reference_pkg = "cardx"))
 
 test_that("ard_stats_anova.anova() works", {
   expect_equal(

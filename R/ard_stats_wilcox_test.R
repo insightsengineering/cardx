@@ -27,7 +27,7 @@
 #' The data are then passed as
 #' `wilcox.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_stats_wilcox_test(by = "ARM", variables = "AGE")
@@ -44,8 +44,10 @@ NULL
 #' @rdname ard_stats_wilcox_test
 #' @export
 ard_stats_wilcox_test <- function(data, variables, by = NULL, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -91,8 +93,10 @@ ard_stats_wilcox_test <- function(data, variables, by = NULL, ...) {
 #' @rdname ard_stats_wilcox_test
 #' @export
 ard_stats_paired_wilcox_test <- function(data, by, variables, id, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom", reference_pkg = "cardx")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -192,40 +196,6 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, ...) {
     cards::tidy_ard_column_order()
 }
 
-
-#' Convert long paired data to wide
-#'
-#'
-#' @param data (`data.frame`)\cr a data frame that is one line per subject per group
-#' @param by (`string`)\cr by column name
-#' @param variable (`string`)\cr variable column name
-#' @param id (`string`)\cr subject id column name
-#' @param env (`environment`) used for error messaging. Default is `rlang::caller_env()`
-#'
-#' @return a wide data frame
-#' @keywords internal
-#' @examples
-#' cards::ADSL[c("ARM", "AGE")] |>
-#'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
-#'   dplyr::arrange(USUBJID, ARM) |>
-#'   cardx:::.paired_data_pivot_wider(by = "ARM", variable = "AGE", id = "USUBJID")
-.paired_data_pivot_wider <- function(data, by, variable, id, env = rlang::caller_env()) {
-  # check the number of levels before pivoting data to wider format
-  if (dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {
-    cli::cli_abort("The {.arg by} argument must have two and only two levels.", call = env)
-  }
-
-  data |>
-    # arrange data so the first group always appears first
-    dplyr::arrange(.data[[by]]) |>
-    tidyr::pivot_wider(
-      id_cols = all_of(id),
-      names_from = all_of(by),
-      values_from = all_of(variable)
-    ) |>
-    stats::setNames(c(id, "by1", "by2"))
-}
 
 .df_wilcoxtest_stat_labels <- function(by = NULL) {
   dplyr::tribble(

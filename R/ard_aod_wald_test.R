@@ -10,12 +10,13 @@
 #' @return data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed(c("aod"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "aod", reference_pkg = "cardx"))
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_aod_wald_test()
 ard_aod_wald_test <- function(x, ...) {
+  set_cli_abort_call()
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed("aod", reference_pkg = "cardx")
+  check_pkg_installed("aod", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
@@ -32,10 +33,12 @@ ard_aod_wald_test <- function(x, ...) {
   )
 
   if (!is.null(reg_model[["error"]])) {
-    cli::cli_abort(c(
-      "Unable to identify underlying variable names in regression model.",
-      i = "Is this model type supported by {.fun broom.helpers::tidy_plus_plus}, which is the function used to identify variable names?"
-    ))
+    cli::cli_abort(
+      c("Unable to identify underlying variable names in regression model.",
+        i = "Is this model type supported by {.fun broom.helpers::tidy_plus_plus}, which is the function used to identify variable names?"
+      ),
+      call = get_cli_abort_call()
+    )
   }
   aod <-
     reg_model[["result"]] %>%

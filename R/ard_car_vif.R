@@ -14,10 +14,15 @@
 #' @rdname ard_car_vif
 #' @export
 #'
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "car", reference_pkg = "cardx"))
 #' lm(AGE ~ ARM + SEX, data = cards::ADSL) |>
 #'   ard_car_vif()
 ard_car_vif <- function(x, ...) {
+  set_cli_abort_call()
+
+  # check installed packages ---------------------------------------------------
+  check_pkg_installed("car", reference_pkg = "cardx")
+
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
 
@@ -30,7 +35,8 @@ ard_car_vif <- function(x, ...) {
     # we cannot get variable names, error out
     if (!is.null(lst_terms[["error"]])) {
       cli::cli_abort(
-        c("There was an error running {.fun car::vif}. See below.", x = vif[["error"]])
+        c("There was an error running {.fun car::vif}. See below.", x = vif[["error"]]),
+        call = get_cli_abort_call()
       )
     }
     vif$result <- dplyr::tibble(

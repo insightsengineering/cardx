@@ -1,4 +1,4 @@
-skip_if_not(cards::is_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx"))
 
 test_that("ard_effectsize_hedges_g() works", {
   withr::local_namespace("effectsize")

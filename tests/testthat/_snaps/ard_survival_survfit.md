@@ -1,9 +1,9 @@
-# ard_survfit() works with times provided
+# ard_survival_survfit() works with times provided
 
     Code
-      print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~
-        TRTA, cards::ADTTE), times = c(60, 180)), stat = lapply(stat, function(x)
-        ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+      print(dplyr::mutate(ard_survival_survfit(survival::survfit(survival::Surv(AVAL,
+        CNSR) ~ TRTA, cards::ADTTE), times = c(60, 180)), stat = lapply(stat,
+        function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       {cards} data frame: 18 x 11
     Output
@@ -29,12 +29,12 @@
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
-# ard_survfit() works with different type
+# ard_survival_survfit() works with different type
 
     Code
-      print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~
-        TRTA, cards::ADTTE), times = c(60, 180), type = "risk"), stat = lapply(stat,
-        function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+      print(dplyr::mutate(ard_survival_survfit(survival::survfit(survival::Surv(AVAL,
+        CNSR) ~ TRTA, cards::ADTTE), times = c(60, 180), type = "risk"), stat = lapply(
+        stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       {cards} data frame: 18 x 11
     Output
@@ -60,12 +60,12 @@
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
-# ard_survfit() works with probs provided
+# ard_survival_survfit() works with probs provided
 
     Code
-      print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~
-        TRTA, cards::ADTTE), probs = c(0.25, 0.75)), stat = lapply(stat, function(x)
-        ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+      print(dplyr::mutate(ard_survival_survfit(survival::survfit(survival::Surv(AVAL,
+        CNSR) ~ TRTA, cards::ADTTE), probs = c(0.25, 0.75)), stat = lapply(stat,
+        function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       {cards} data frame: 18 x 11
     Output
@@ -91,12 +91,12 @@
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
-# ard_survfit() works with unstratified model
+# ard_survival_survfit() works with unstratified model
 
     Code
-      print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(time, status) ~
-        1, data = survival::lung), times = c(60, 180)), stat = lapply(stat, function(
-        x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+      print(dplyr::mutate(ard_survival_survfit(survival::survfit(survival::Surv(time,
+        status) ~ 1, data = survival::lung), times = c(60, 180)), stat = lapply(stat,
+        function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       {cards} data frame: 6 x 9
     Output
@@ -113,9 +113,9 @@
 ---
 
     Code
-      print(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(time, status) ~
-        1, data = survival::lung), probs = c(0.5, 0.75)), stat = lapply(stat,
-        function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+      print(dplyr::mutate(ard_survival_survfit(survival::survfit(survival::Surv(time,
+        status) ~ 1, data = survival::lung), probs = c(0.5, 0.75)), stat = lapply(
+        stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       {cards} data frame: 6 x 9
     Output
@@ -129,13 +129,13 @@
     Message
       i 3 more variables: fmt_fn, warning, error
 
-# ard_survfit() works with multiple stratification variables
+# ard_survival_survfit() works with multiple stratification variables
 
     Code
-      print(head(dplyr::select(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(
-        time, status) ~ sex + ph.ecog, data = survival::lung), times = c(60, 180)),
-      stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))),
-      "group1", "group1_level", "group2", "group2_level"), 20), n = Inf)
+      print(head(dplyr::select(dplyr::mutate(ard_survival_survfit(survival::survfit(
+        survival::Surv(time, status) ~ sex + ph.ecog, data = survival::lung), times = c(
+        60, 180)), stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(
+        x, 3), x))), "group1", "group1_level", "group2", "group2_level"), 20), n = Inf)
     Message
       {cards} data frame: 20 x 4
     Output
@@ -164,10 +164,10 @@
 ---
 
     Code
-      print(head(dplyr::select(dplyr::mutate(ard_survfit(survival::survfit(survival::Surv(
-        time, status) ~ sex + ph.ecog, data = survival::lung), probs = c(0.5, 0.75)),
-      stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))),
-      "group1", "group1_level", "group2", "group2_level"), 20), n = Inf)
+      print(head(dplyr::select(dplyr::mutate(ard_survival_survfit(survival::survfit(
+        survival::Surv(time, status) ~ sex + ph.ecog, data = survival::lung), probs = c(
+        0.5, 0.75)), stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(
+        x, 3), x))), "group1", "group1_level", "group2", "group2_level"), 20), n = Inf)
     Message
       {cards} data frame: 20 x 4
     Output
@@ -193,12 +193,12 @@
       19    sex            1 ph.ecog            3
       20    sex            1 ph.ecog            3
 
-# ard_survfit() works with competing risks
+# ard_survival_survfit() works with competing risks
 
     Code
       print(dplyr::mutate(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, data = ADTTE_MS) %>%
-        ard_survfit(times = c(60, 180)), stat = lapply(stat, function(x) ifelse(
-        is.numeric(x), cards::round5(x, 3), x))), n = Inf)
+        ard_survival_survfit(times = c(60, 180)), stat = lapply(stat, function(x)
+        ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       Multi-state model detected. Showing probabilities into state 'death from cancer'.
       {cards} data frame: 18 x 11
@@ -225,37 +225,38 @@
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
-# ard_survfit() errors are properly handled
+# ard_survival_survfit() errors are properly handled
 
     Code
-      ard_survfit("not_survfit")
+      ard_survival_survfit("not_survfit")
     Condition
-      Error in `ard_survfit()`:
+      Error in `ard_survival_survfit()`:
       ! The `x` argument must be class <survfit>, not a string.
 
 ---
 
     Code
-      ard_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE),
-      times = 100, type = "notatype")
+      ard_survival_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA,
+      cards::ADTTE), times = 100, type = "notatype")
     Condition
-      Error in `ard_survfit()`:
+      Error in `ard_survival_survfit()`:
       ! `type` must be one of "survival", "risk", or "cumhaz", not "notatype".
 
 ---
 
     Code
-      ard_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE),
-      times = 100, probs = c(0.25, 0.75))
+      ard_survival_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA,
+      cards::ADTTE), times = 100, probs = c(0.25, 0.75))
     Condition
-      Error in `ard_survfit()`:
+      Error in `ard_survival_survfit()`:
       ! One and only one of `times` and `probs` must be specified.
 
-# ard_survfit() errors with stratified Cox model
+# ard_survival_survfit() errors with stratified Cox model
 
     Code
-      ard_survfit(survfit(coxph(Surv(time, status) ~ age + strata(sex), survival::lung)))
+      ard_survival_survfit(survfit(coxph(Surv(time, status) ~ age + strata(sex),
+      survival::lung)))
     Condition
-      Error in `ard_survfit()`:
+      Error in `ard_survival_survfit()`:
       ! Argument `x` cannot be class <survfitcox>.
 
