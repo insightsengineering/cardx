@@ -27,10 +27,13 @@ ard_car_anova <- function(x, ...) {
   car_anova <- cards::eval_capture_conditions(car::Anova(x, ...))
 
   if (!is.null(car_anova[["error"]])) {
-    cli::cli_abort(c(
-      "There was an error running {.fun car::Anova}. See error message below.",
-      x = car_anova[["error"]]
-    ))
+    cli::cli_abort(
+      c(
+        "There was an error running {.fun car::Anova}. See error message below.",
+        x = car_anova[["error"]]
+      ),
+      call = get_cli_abort_call()
+    )
   }
 
   car_anova[["result"]] |>
