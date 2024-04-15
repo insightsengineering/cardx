@@ -33,10 +33,11 @@ ard_aod_wald_test <- function(x, ...) {
   )
 
   if (!is.null(reg_model[["error"]])) {
-    cli::cli_abort(c(
-      "Unable to identify underlying variable names in regression model.",
-      i = "Is this model type supported by {.fun broom.helpers::tidy_plus_plus}, which is the function used to identify variable names?"
-    ))
+    cli::cli_abort(
+      c("Unable to identify underlying variable names in regression model.",
+      i = "Is this model type supported by {.fun broom.helpers::tidy_plus_plus}, which is the function used to identify variable names?"),
+      call = get_cli_abort_call()
+    )
   }
   aod <-
     reg_model[["result"]] %>%

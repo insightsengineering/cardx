@@ -32,7 +32,8 @@ ard_car_vif <- function(x, ...) {
     # we cannot get variable names, error out
     if (!is.null(lst_terms[["error"]])) {
       cli::cli_abort(
-        c("There was an error running {.fun car::vif}. See below.", x = vif[["error"]])
+        c("There was an error running {.fun car::vif}. See below.", x = vif[["error"]]),
+        call = get_cli_abort_call()
       )
     }
     vif$result <- dplyr::tibble(
