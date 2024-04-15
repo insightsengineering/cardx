@@ -73,7 +73,7 @@ ard_stats_mood_test <- function(data, by, variables, ...) {
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cardx:::.format_moodtest_results(
 #'   by = "SEX",
 #'   variable = "AGE",

@@ -28,6 +28,7 @@ ARD data frame
 Convert Cohen's D Test to ARD
 }
 \examples{
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cardx:::.format_cohens_d_results(
   by = "ARM",
   variable = "AGE",
@@ -38,5 +39,6 @@ cardx:::.format_cohens_d_results(
         parameters::standardize_names(style = "broom")
     )
 )
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

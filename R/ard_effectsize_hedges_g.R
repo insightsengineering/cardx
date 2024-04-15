@@ -151,7 +151,7 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, ...) {
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
 #' cardx:::.format_hedges_g_results(
 #'   by = "ARM",
 #'   variable = "AGE",

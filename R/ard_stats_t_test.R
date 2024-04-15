@@ -141,7 +141,7 @@ ard_stats_paired_t_test <- function(data, by, variables, id, ...) {
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cardx:::.format_ttest_results(
 #'   by = "ARM",
 #'   variable = "AGE",

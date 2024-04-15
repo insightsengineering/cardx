@@ -30,8 +30,9 @@ a \code{tibble}
 Process Survival Fit For Time Estimates
 }
 \examples{
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
   cardx:::.process_survfit_time(times = c(60, 180), type = "risk")
-
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

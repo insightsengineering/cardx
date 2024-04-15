@@ -104,12 +104,10 @@ ard_aod_wald_test <- function(x, ...) {
 
 #' Extract data from wald.test object
 #'
-#'
 #' @param wald_test (`data.frame`)\cr wald test object object from `aod::wald.test()`
 #'
 #' @return a data frame containing the wald test results.
 #' @keywords internal
-
 .extract_wald_results <- function(wald_test) {
   df <- wald_test$result$chi2[("df")]
   statistic <- wald_test$result$chi2[("chi2")]
