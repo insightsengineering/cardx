@@ -24,14 +24,6 @@
 <li class="nav-item">
   <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -56,7 +48,7 @@
 <p><strong>What changes are proposed in this pull request?</strong> * Style this entry in a way that can be copied directly into <code>NEWS.md</code>. (#<issue number>, @<username>)</username></issue></p>
 <p>Provide more detail here as needed.</p>
 <p><strong>Reference GitHub issue associated with pull request.</strong> <em>e.g., ‘closes #<issue number>’</issue></em></p>
-<hr><p>Pre-review Checklist (if item does not apply, mark is as complete) - [ ] <strong>All</strong> GitHub Action workflows pass with a <span class="emoji" data-emoji="white_check_mark">✅</span> - [ ] PR branch has pulled the most recent updates from master branch: <code><a href="https://usethis.r-lib.org/reference/pull-requests.html" class="external-link">usethis::pr_merge_main()</a></code> - [ ] If a bug was fixed, a unit test was added. - [ ] If a new <code>ard_*()</code> function was added, it passes the ARD structural checks from <code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/check_ard_structure.html" class="external-link">cards::check_ard_structure()</a></code>. - [ ] Code coverage is suitable for any new functions/features (generally, 100% coverage for new code): <code><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">devtools::test_coverage()</a></code></p>
+<hr><p>Pre-review Checklist (if item does not apply, mark is as complete) - [ ] <strong>All</strong> GitHub Action workflows pass with a <span class="emoji" data-emoji="white_check_mark">✅</span> - [ ] PR branch has pulled the most recent updates from master branch: <code><a href="https://usethis.r-lib.org/reference/pull-requests.html" class="external-link">usethis::pr_merge_main()</a></code> - [ ] If a bug was fixed, a unit test was added. - [ ] If a new <code>ard_*()</code> function was added, it passes the ARD structural checks from <code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/check_ard_structure.html" class="external-link">cards::check_ard_structure()</a></code>. - [ ] If a new <code>ard_*()</code> function was added, <code>set_cli_abort_call()</code> has been set. - [ ] If a new <code>ard_*()</code> function was added and it depends on another package (such as, <code>broom</code>), <code>is_pkg_installed("broom", reference_pkg = "cardx")</code> has been set in the function call and the following added to the roxygen comments: <code>@examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"", reference_pkg = "cardx"))</code> - [ ] Code coverage is suitable for any new functions/features (generally, 100% coverage for new code): <code><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">devtools::test_coverage()</a></code></p>
 <p>Reviewer Checklist (if item does not apply, mark is as complete)</p>
 <ul class="task-list"><li>
 <input type="checkbox">If a bug was fixed, a unit test was added.</li>

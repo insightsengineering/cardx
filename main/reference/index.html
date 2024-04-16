@@ -24,14 +24,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -59,7 +51,7 @@
       
     </div><div class="section level2">
       
-      <h3 id="-stats-package">{stats} package<a class="anchor" aria-label="anchor" href="#-stats-package"></a></h3>
+      <h3 id="inference">Inference<a class="anchor" aria-label="anchor" href="#inference"></a></h3>
       
 
       
@@ -69,6 +61,16 @@
       
 
       <dl><dt>
+          
+          <code><a href="ard_aod_wald_test.html">ard_aod_wald_test()</a></code> 
+        </dt>
+        <dd>ARD Wald Test</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ard_car_anova.html">ard_car_anova()</a></code> 
+        </dt>
+        <dd>ARD ANOVA from car Package</dd>
+      </dl><dl><dt>
           
           <code><a href="ard_stats_anova.html">ard_stats_anova()</a></code> 
         </dt>
@@ -123,101 +125,11 @@
           <code><a href="ard_stats_wilcox_test.html">ard_stats_wilcox_test()</a></code> <code><a href="ard_stats_wilcox_test.html">ard_stats_paired_wilcox_test()</a></code> 
         </dt>
         <dd>ARD Wilcoxon Rank-Sum Test</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="-aod-package">{aod} package<a class="anchor" aria-label="anchor" href="#-aod-package"></a></h3>
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="ard_aod_wald_test.html">ard_aod_wald_test()</a></code> 
-        </dt>
-        <dd>ARD Wald Test</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="-car-package">{car} package<a class="anchor" aria-label="anchor" href="#-car-package"></a></h3>
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="ard_car_anova.html">ard_car_anova()</a></code> 
-        </dt>
-        <dd>ARD ANOVA from car Package</dd>
       </dl><dl><dt>
-          
-          <code><a href="ard_car_vif.html">ard_car_vif()</a></code> 
-        </dt>
-        <dd>Regression VIF ARD</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="-effectsize-package">{effectsize} package<a class="anchor" aria-label="anchor" href="#-effectsize-package"></a></h3>
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="ard_effectsize_cohens_d.html">ard_effectsize_cohens_d()</a></code> <code><a href="ard_effectsize_cohens_d.html">ard_effectsize_paired_cohens_d()</a></code> 
-        </dt>
-        <dd>ARD Cohen's D Test</dd>
-      </dl><dl><dt>
-          
-          <code><a href="ard_effectsize_hedges_g.html">ard_effectsize_hedges_g()</a></code> <code><a href="ard_effectsize_hedges_g.html">ard_effectsize_paired_hedges_g()</a></code> 
-        </dt>
-        <dd>ARD Hedge's G Test</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="-smd-package">{smd} package<a class="anchor" aria-label="anchor" href="#-smd-package"></a></h3>
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="ard_smd_smd.html">ard_smd_smd()</a></code> 
-        </dt>
-        <dd>ARD Standardized Mean Difference</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="-survey-package">{survey} package<a class="anchor" aria-label="anchor" href="#-survey-package"></a></h3>
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
           
           <code><a href="ard_survey_svychisq.html">ard_survey_svychisq()</a></code> 
         </dt>
         <dd>ARD Survey Chi-Square Test</dd>
-      </dl><dl><dt>
-          
-          <code><a href="ard_survey_svycontinuous.html">ard_survey_svycontinuous()</a></code> 
-        </dt>
-        <dd>ARD Continuous Survey Statistics</dd>
       </dl><dl><dt>
           
           <code><a href="ard_survey_svyranktest.html">ard_survey_svyranktest()</a></code> 
@@ -228,9 +140,14 @@
           <code><a href="ard_survey_svyttest.html">ard_survey_svyttest()</a></code> 
         </dt>
         <dd>ARD Survey t-test</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ard_survival_survdiff.html">ard_survival_survdiff()</a></code> 
+        </dt>
+        <dd>ARD for Difference in Survival</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="-survival-package">{survival} package<a class="anchor" aria-label="anchor" href="#-survival-package"></a></h3>
+      <h3 id="estimation">Estimation<a class="anchor" aria-label="anchor" href="#estimation"></a></h3>
       
 
       
@@ -241,21 +158,20 @@
 
       <dl><dt>
           
-          <code><a href="ard_survival_survfit.html">ard_survival_survfit()</a></code> 
+          <code><a href="ard_car_vif.html">ard_car_vif()</a></code> 
         </dt>
-        <dd>ARD Survival Estimates</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="other-ard-functions">Other ARD functions<a class="anchor" aria-label="anchor" href="#other-ard-functions"></a></h3>
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
+        <dd>Regression VIF ARD</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ard_effectsize_cohens_d.html">ard_effectsize_cohens_d()</a></code> <code><a href="ard_effectsize_cohens_d.html">ard_effectsize_paired_cohens_d()</a></code> 
+        </dt>
+        <dd>ARD Cohen's D Test</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ard_effectsize_hedges_g.html">ard_effectsize_hedges_g()</a></code> <code><a href="ard_effectsize_hedges_g.html">ard_effectsize_paired_hedges_g()</a></code> 
+        </dt>
+        <dd>ARD Hedge's G Test</dd>
+      </dl><dl><dt>
           
           <code><a href="ard_proportion_ci.html">ard_proportion_ci()</a></code> 
         </dt>
@@ -270,6 +186,21 @@
           <code><a href="ard_regression_basic.html">ard_regression_basic()</a></code> 
         </dt>
         <dd>Basic Regression ARD</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ard_smd_smd.html">ard_smd_smd()</a></code> 
+        </dt>
+        <dd>ARD Standardized Mean Difference</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ard_survival_survfit.html">ard_survival_survfit()</a></code> 
+        </dt>
+        <dd>ARD Survival Estimates</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ard_survey_svycontinuous.html">ard_survey_svycontinuous()</a></code> 
+        </dt>
+        <dd>ARD Continuous Survey Statistics</dd>
       </dl></div><div class="section level2">
       <h2 id="helpers">Helpers<a class="anchor" aria-label="anchor" href="#helpers"></a></h2>
       
