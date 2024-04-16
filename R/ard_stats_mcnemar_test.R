@@ -71,7 +71,7 @@ ard_stats_mcnemar_test <- function(data, by, variables, ...) {
 #'
 #' @return ARD data frame
 #'
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cardx:::.format_mcnemartest_results(
 #'   by = "ARM",
 #'   variable = "AGE",
@@ -92,7 +92,7 @@ ard_stats_mcnemar_test <- function(data, by, variables, ...) {
       fun_args_to_record = c("correct"),
       formals = formals(asNamespace("stats")[["mcnemar.test"]]),
       passed_args = dots_list(...),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "mcnemartest")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "stats_mcnemar_test")
     )
 
   # add the stat label ---------------------------------------------------------

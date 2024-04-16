@@ -26,6 +26,7 @@ ARD data frame
 Convert Wilcoxon test to ARD
 }
 \examples{
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
 ADSL <- cards::ADSL |>
   dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
@@ -41,6 +42,6 @@ cardx:::.format_wilcoxtest_results(
         broom::tidy()
     )
 )
-
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

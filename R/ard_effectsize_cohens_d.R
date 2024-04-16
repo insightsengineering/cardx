@@ -159,7 +159,7 @@ ard_effectsize_paired_cohens_d <- function(data, by, variables, id, ...) {
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
 #' cardx:::.format_cohens_d_results(
 #'   by = "ARM",
 #'   variable = "AGE",
@@ -181,7 +181,7 @@ ard_effectsize_paired_cohens_d <- function(data, by, variables, id, ...) {
       fun_args_to_record = c("mu", "paired", "pooled_sd", "alternative"),
       formals = formals(asNamespace("effectsize")[["cohens_d"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "cohens_d")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "effectsize_cohens_d")
     )
 
   # add the stat label ---------------------------------------------------------
