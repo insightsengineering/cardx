@@ -151,7 +151,7 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, ...) {
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
 #' cardx:::.format_hedges_g_results(
 #'   by = "ARM",
 #'   variable = "AGE",
@@ -173,7 +173,7 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, ...) {
       fun_args_to_record = c("mu", "paired", "pooled_sd", "alternative"),
       formals = formals(asNamespace("effectsize")[["hedges_g"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "hedges_g")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "effectsize_hedges_g")
     )
 
   # add the stat label ---------------------------------------------------------

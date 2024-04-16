@@ -148,7 +148,7 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, ...) {
 #'
 #' @return ARD data frame
 #'
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' # Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
 #' ADSL <- cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
@@ -178,7 +178,7 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, ...) {
       ),
       formals = formals(asNamespace("stats")[["wilcox.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(variable = variable, context = "wilcoxtest")
+      lst_ard_columns = list(variable = variable, context = "stats_wilcox_test")
     )
 
   if (!is_empty(by)) {

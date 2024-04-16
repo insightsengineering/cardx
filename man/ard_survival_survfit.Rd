@@ -43,11 +43,12 @@ survival fit model.
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(survival)
+library(ggsurvfit)
 
-survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
   ard_survival_survfit(times = c(60, 180))
 
-survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
   ard_survival_survfit(probs = c(0.25, 0.5, 0.75))
 
 # Competing Risks Example ---------------------------

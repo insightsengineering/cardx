@@ -34,11 +34,12 @@
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))
 #' library(survival)
+#' library(ggsurvfit)
 #'
-#' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+#' survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
 #'   ard_survival_survfit(times = c(60, 180))
 #'
-#' survfit(Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+#' survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
 #'   ard_survival_survfit(probs = c(0.25, 0.5, 0.75))
 #'
 #' # Competing Risks Example ---------------------------
@@ -113,7 +114,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
 #'
 #' @return a `tibble`
 #'
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))
 #' survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
 #'   cardx:::.process_survfit_time(times = c(60, 180), type = "risk")
 #'
@@ -221,7 +222,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
 #'
 #' @return a `tibble`
 #'
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "survival", reference_pkg = "cardx"))
 #' survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
 #'   cardx:::.process_survfit_probs(probs = c(0.25, 0.75))
 #'
@@ -240,7 +241,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   ) %>%
     dplyr::bind_rows() %>%
     `rownames<-`(NULL) %>%
-    dplyr::mutate(context = "survival") %>%
+    dplyr::mutate(context = "survival_survfit") %>%
     dplyr::as_tibble()
 
   if (length(x$n) == 1) df_stat <- df_stat %>% dplyr::select(-"strata")
@@ -281,7 +282,7 @@ extract_multi_strata <- function(x, df_stat) {
 #'
 #' @return an ARD data frame of class 'card'
 #'
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))
 #' cardx:::.format_survfit_results(
 #'   broom::tidy(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE))
 #' )

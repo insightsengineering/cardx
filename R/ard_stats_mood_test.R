@@ -73,7 +73,7 @@ ard_stats_mood_test <- function(data, by, variables, ...) {
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cardx:::.format_moodtest_results(
 #'   by = "SEX",
 #'   variable = "AGE",
@@ -91,7 +91,7 @@ ard_stats_mood_test <- function(data, by, variables, ...) {
       tidy_result_names = c("statistic", "p.value", "method", "alternative"),
       formals = formals(asNamespace("stats")[["mood.test.default"]]),
       passed_args = c(dots_list(...)),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "moodtest")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "stats_mood_test")
     )
 
   # add the stat label ---------------------------------------------------------

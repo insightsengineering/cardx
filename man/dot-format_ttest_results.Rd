@@ -27,6 +27,7 @@ ARD data frame
 Convert t-test to ARD
 }
 \examples{
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cardx:::.format_ttest_results(
   by = "ARM",
   variable = "AGE",
@@ -37,5 +38,6 @@ cardx:::.format_ttest_results(
         broom::tidy()
     )
 )
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

@@ -375,6 +375,7 @@ proportion_ci_strat_wilson <- function(x,
 #' @seealso [proportion_ci_strat_wilson()]
 #'
 #' @keywords internal
+#'
 #' @examples
 #' strata_data <- table(data.frame(
 #'   "f1" = sample(c(TRUE, FALSE), 100, TRUE),

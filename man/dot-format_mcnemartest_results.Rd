@@ -24,6 +24,7 @@ ARD data frame
 Convert McNemar's test to ARD
 }
 \examples{
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cardx:::.format_mcnemartest_results(
   by = "ARM",
   variable = "AGE",
@@ -33,6 +34,6 @@ cardx:::.format_mcnemartest_results(
         broom::tidy()
     )
 )
-
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

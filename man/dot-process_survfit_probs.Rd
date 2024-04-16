@@ -20,8 +20,9 @@ a \code{tibble}
 Process Survival Fit For Quantile Estimates
 }
 \examples{
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "survival", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
   cardx:::.process_survfit_probs(probs = c(0.25, 0.75))
-
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

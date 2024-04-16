@@ -141,7 +141,7 @@ ard_stats_paired_t_test <- function(data, by, variables, id, ...) {
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cardx:::.format_ttest_results(
 #'   by = "ARM",
 #'   variable = "AGE",
@@ -168,7 +168,7 @@ ard_stats_paired_t_test <- function(data, by, variables, id, ...) {
       fun_args_to_record = c("mu", "paired", "var.equal", "conf.level"),
       formals = formals(asNamespace("stats")[["t.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(variable = variable, context = "ttest")
+      lst_ard_columns = list(variable = variable, context = "stats_t_test")
     )
 
   if (!is_empty(by)) {

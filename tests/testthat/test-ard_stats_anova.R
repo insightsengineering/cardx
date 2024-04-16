@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("broom", "withr", "lme4", "survival"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("broom", "withr", "lme4", "survival", "geepack"), reference_pkg = "cardx"))
 
 test_that("ard_stats_anova.anova() works", {
   expect_equal(
@@ -127,5 +127,16 @@ test_that("ard_stats_anova.data.frame() works", {
   expect_equal(
     ard_anova_geeglm2,
     ard_anova_geeglm
+  )
+})
+
+test_that("ard_stats_anova.data.frame() error messaging", {
+  expect_error(
+    ard_stats_anova(
+      x = mtcars,
+      formulas = list(mpg ~ am, mpg ~ am + hp),
+      fn = "base::lm"
+    ),
+    "cannot be namespaced"
   )
 })
