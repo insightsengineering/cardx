@@ -106,8 +106,12 @@ reformulate2 <- function(termlabels, response = NULL, intercept = TRUE,
 #' @rdname construction_helpers
 #' @export
 bt <- function(x, pattern = " ") {
-  if (is_empty(x)) return(x)
-  if (is_empty(pattern)) return(x)
+  if (is_empty(x)) {
+    return(x)
+  }
+  if (is_empty(pattern)) {
+    return(x)
+  }
   ifelse(
     str_detect(x, pattern = pattern),
     paste0("`", x, "`"),
@@ -133,8 +137,9 @@ check_not_namespaced <- function(x,
 
   if (str_detect(x, "::")) {
     c("Argument {.arg fn} cannot be namespaced.",
-      i = "Put the package name in the {.arg package} argument.") |>
-    cli::cli_abort(call = call, class = class)
+      i = "Put the package name in the {.arg package} argument."
+    ) |>
+      cli::cli_abort(call = call, class = class)
   }
 
   invisible(x)
