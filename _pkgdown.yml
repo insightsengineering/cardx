@@ -22,10 +22,9 @@ authors:
 
 reference:
   - title: "ARD Creation"
-  - subtitle: "Inference"
+
+  - subtitle: "{stats} package"
   - contents:
-      - ard_aod_wald_test
-      - ard_car_anova
       - ard_stats_anova
       - ard_stats_aov
       - ard_stats_chisq_test
@@ -37,21 +36,41 @@ reference:
       - ard_stats_prop_test
       - ard_stats_t_test
       - ard_stats_wilcox_test
+
+  - subtitle: "{aod} package"
+  - contents:
+      - ard_aod_wald_test
+
+  - subtitle: "{car} package"
+  - contents:
+      - ard_car_anova
+      - ard_car_vif
+
+  - subtitle: "{effectsize} package"
+  - contents:
+      - ard_effectsize_cohens_d
+      - ard_effectsize_hedges_g
+
+  - subtitle: "{smd} package"
+  - contents:
+      - ard_smd_smd
+
+  - subtitle: "{survey} package"
+  - contents:
       - ard_survey_svychisq
+      - ard_survey_svycontinuous
       - ard_survey_svyranktest
       - ard_survey_svyttest
 
-  - subtitle: "Estimation"
+  - subtitle: "{survival} package"
   - contents:
-      - ard_car_vif
-      - ard_effectsize_cohens_d
-      - ard_effectsize_hedges_g
+    - ard_survival_survfit
+
+  - subtitle: "Other ARD functions"
+  - contents:
       - ard_proportion_ci
       - ard_regression
       - ard_regression_basic
-      - ard_smd_smd
-      - ard_survival_survfit
-      - ard_survey_svycontinuous
 
   - title: "Helpers"
   - contents:
