@@ -81,7 +81,7 @@ ard_smd_smd <- function(data, by, variables, ...) {
       formals = formals(smd::smd)["gref"],
       # removing the `std.error` ARGUMENT (not the result)
       passed_args = dots_list(...) |> utils::modifyList(list(std.error = NULL)),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "smd")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "smd_smd")
     )
 
   # add the stat label ---------------------------------------------------------

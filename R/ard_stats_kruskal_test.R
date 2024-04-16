@@ -48,7 +48,7 @@ ard_stats_kruskal_test <- function(data, by, variables) {
               broom::tidy()
           ),
         tidy_result_names = c("statistic", "p.value", "parameter", "method"),
-        lst_ard_columns = list(group1 = by, variable = variable, context = "kruskaltest")
+        lst_ard_columns = list(group1 = by, variable = variable, context = "stats_kruskal_test")
       ) |>
         dplyr::mutate(
           .after = "stat_name",
