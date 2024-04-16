@@ -55,7 +55,7 @@ ard_survey_svychisq <- function(data, by, variables, statistic = "F", ...) {
           ),
         tidy_result_names = c("statistic", "p.value", "ndf", "ddf", "method"),
         passed_args = dots_list(...),
-        lst_ard_columns = list(group1 = by, variable = variable, context = "svychisq")
+        lst_ard_columns = list(group1 = by, variable = variable, context = "survey_svychisq")
       ) |>
         dplyr::mutate(
           .after = "stat_name",

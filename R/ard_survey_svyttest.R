@@ -75,7 +75,7 @@ ard_survey_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
         "conf.level", "method", "alternative"
       ),
       passed_args = dots_list(...),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "svyttest")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "survey_svyttest")
     )
 
   # add the stat label ---------------------------------------------------------

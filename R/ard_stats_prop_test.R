@@ -108,7 +108,7 @@ ard_stats_prop_test <- function(data, by, variables, ...) {
       fun_args_to_record = c("p", "conf.level", "correct"),
       formals = formals(stats::prop.test),
       passed_args = dots_list(...),
-      lst_ard_columns = list(group1 = by, variable = variable, context = "proptest")
+      lst_ard_columns = list(group1 = by, variable = variable, context = "stats_prop_test")
     )
 
   # add the stat label ---------------------------------------------------------

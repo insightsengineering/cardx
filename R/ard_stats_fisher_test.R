@@ -57,7 +57,7 @@ ard_stats_fisher_test <- function(data, by, variables, ...) {
           ),
         formals = formals(stats::fisher.test),
         passed_args = dots_list(...),
-        lst_ard_columns = list(group1 = by, variable = variable, context = "fishertest")
+        lst_ard_columns = list(group1 = by, variable = variable, context = "stats_fisher_test")
       ) |>
         dplyr::mutate(
           .after = "stat_name",

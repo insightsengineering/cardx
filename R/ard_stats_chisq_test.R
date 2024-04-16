@@ -53,7 +53,7 @@ ard_stats_chisq_test <- function(data, by, variables, ...) {
           c("correct", "p", "rescale.p", "simulate.p.value", "B"),
         formals = formals(stats::chisq.test),
         passed_args = dots_list(...),
-        lst_ard_columns = list(group1 = by, variable = variable, context = "chisqtest")
+        lst_ard_columns = list(group1 = by, variable = variable, context = "stats_chisq_test")
       ) |>
         dplyr::mutate(
           .after = "stat_name",
