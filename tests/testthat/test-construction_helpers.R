@@ -6,6 +6,17 @@ test_that("construct_model() works", {
       method = "lm"
     ) |>
       ard_regression() |>
+      as.data.frame() |>
       dplyr::filter(stat_name %in% c("term", "estimate", "p.value"))
+  )
+
+  expect_equal(
+    bt_strip(c("`complex variable name`", "east_variable_name")),
+    c("complex variable name", "east_variable_name")
+  )
+
+  expect_error(
+    check_not_namespaced("geepack::geeglm"),
+    "cannot be namespaced"
   )
 })

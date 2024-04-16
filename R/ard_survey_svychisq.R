@@ -50,7 +50,7 @@ ard_survey_svychisq <- function(data, by, variables, statistic = "F", ...) {
       cards::tidy_as_ard(
         lst_tidy =
           cards::eval_capture_conditions(
-            survey::svychisq(stats::reformulate(termlabels = paste(variable, by, sep = "+"), response = NULL), design = data, statistic = statistic, ...) |>
+            survey::svychisq(reformulate2(termlabels = c(variable, by)), design = data, statistic = statistic, ...) |>
               broom::tidy()
           ),
         tidy_result_names = c("statistic", "p.value", "ndf", "ddf", "method"),

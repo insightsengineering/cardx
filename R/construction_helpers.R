@@ -106,7 +106,8 @@ reformulate2 <- function(termlabels, response = NULL, intercept = TRUE,
 #' @rdname construction_helpers
 #' @export
 bt <- function(x, pattern = " ") {
-  if (is.null(pattern)) return(x)
+  if (is_empty(x)) return(x)
+  if (is_empty(pattern)) return(x)
   ifelse(
     str_detect(x, pattern = pattern),
     paste0("`", x, "`"),
