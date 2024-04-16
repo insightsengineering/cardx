@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.959111559818274" branch-rate="0" lines-covered="1900" lines-valid="1981" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-15 21:59:49.017967">
+<coverage line-rate="0.959111559818274" branch-rate="0" lines-covered="1900" lines-valid="1981" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-16 23:17:39.097461">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
@@ -88,10 +88,10 @@
             </method>
             <method name=".extract_wald_results" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
+                <line number="112" hits="2" branch="false"/>
+                <line number="113" hits="2" branch="false"/>
                 <line number="114" hits="2" branch="false"/>
                 <line number="115" hits="2" branch="false"/>
-                <line number="116" hits="2" branch="false"/>
-                <line number="117" hits="2" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -169,10 +169,10 @@
             <line number="100" hits="1" branch="false"/>
             <line number="101" hits="1" branch="false"/>
             <line number="102" hits="1" branch="false"/>
+            <line number="112" hits="2" branch="false"/>
+            <line number="113" hits="2" branch="false"/>
             <line number="114" hits="2" branch="false"/>
             <line number="115" hits="2" branch="false"/>
-            <line number="116" hits="2" branch="false"/>
-            <line number="117" hits="2" branch="false"/>
           </lines>
         </class>
         <class name="ard_car_anova.R" filename="R/ard_car_anova.R" line-rate="0.955555555555556" branch-rate="0" complexity="0">
@@ -4197,15 +4197,14 @@
             </method>
             <method name=".strata_normal_quantile" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="391" hits="2" branch="false"/>
-                <line number="393" hits="2" branch="false"/>
+                <line number="392" hits="2" branch="false"/>
+                <line number="394" hits="2" branch="false"/>
               </lines>
             </method>
             <method name=".update_weights_strat_wilson" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="430" hits="0" branch="false"/>
                 <line number="431" hits="0" branch="false"/>
-                <line number="433" hits="0" branch="false"/>
+                <line number="432" hits="0" branch="false"/>
                 <line number="434" hits="0" branch="false"/>
                 <line number="435" hits="0" branch="false"/>
                 <line number="436" hits="0" branch="false"/>
@@ -4216,13 +4215,14 @@
                 <line number="441" hits="0" branch="false"/>
                 <line number="442" hits="0" branch="false"/>
                 <line number="443" hits="0" branch="false"/>
-                <line number="445" hits="0" branch="false"/>
+                <line number="444" hits="0" branch="false"/>
                 <line number="446" hits="0" branch="false"/>
-                <line number="449" hits="0" branch="false"/>
+                <line number="447" hits="0" branch="false"/>
                 <line number="450" hits="0" branch="false"/>
                 <line number="451" hits="0" branch="false"/>
                 <line number="452" hits="0" branch="false"/>
                 <line number="453" hits="0" branch="false"/>
+                <line number="454" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -4399,11 +4399,10 @@
             <line number="360" hits="2" branch="false"/>
             <line number="361" hits="2" branch="false"/>
             <line number="362" hits="2" branch="false"/>
-            <line number="391" hits="2" branch="false"/>
-            <line number="393" hits="2" branch="false"/>
-            <line number="430" hits="0" branch="false"/>
+            <line number="392" hits="2" branch="false"/>
+            <line number="394" hits="2" branch="false"/>
             <line number="431" hits="0" branch="false"/>
-            <line number="433" hits="0" branch="false"/>
+            <line number="432" hits="0" branch="false"/>
             <line number="434" hits="0" branch="false"/>
             <line number="435" hits="0" branch="false"/>
             <line number="436" hits="0" branch="false"/>
@@ -4414,13 +4413,14 @@
             <line number="441" hits="0" branch="false"/>
             <line number="442" hits="0" branch="false"/>
             <line number="443" hits="0" branch="false"/>
-            <line number="445" hits="0" branch="false"/>
+            <line number="444" hits="0" branch="false"/>
             <line number="446" hits="0" branch="false"/>
-            <line number="449" hits="0" branch="false"/>
+            <line number="447" hits="0" branch="false"/>
             <line number="450" hits="0" branch="false"/>
             <line number="451" hits="0" branch="false"/>
             <line number="452" hits="0" branch="false"/>
             <line number="453" hits="0" branch="false"/>
+            <line number="454" hits="0" branch="false"/>
           </lines>
         </class>
       </classes>
