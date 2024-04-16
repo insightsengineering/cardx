@@ -100,16 +100,20 @@ ard_stats_anova.data.frame <- function(x,
 
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
-  check_string(package)
   check_pkg_installed(c("broom", "withr", package), reference_pkg = "cardx")
   check_not_missing(formulas)
-  check_not_missing(x)
-  check_not_missing(method)
+  check_class(formulas, cls = "list")
+  walk(
+    formulas,
+    ~ check_class(
+      .x,
+      cls = "formula",
+      arg_name = "formulas",
+      message = "Each element of {.arg formulas} must be class {.cls formula}"
+    )
+  )
 
   # calculate results and return df in cards formats ---------------------------
-  # process method.args argument
-  # method.args <- rlang::call_args(rlang::enexpr(method.args))
-
   # create models
   lst_results <-
     cards::eval_capture_conditions({
@@ -119,11 +123,6 @@ ard_stats_anova.data.frame <- function(x,
           formulas,
           function(formula) {
             construct_model(x = x, formula = formula, method = method, method.args = {{ method.args }}, package = package)
-            # withr::with_namespace(
-            #   package = package,
-            #   call2(.fn = method, formula = formula, data = x, !!!method.args) |>
-            #     eval_tidy()
-            # )
           }
         )
 

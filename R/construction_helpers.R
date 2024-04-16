@@ -48,6 +48,14 @@
 #'   method.args = list(family = binomial),
 #'   package = "lme4"
 #' )
+#'
+#' construct_model(
+#'   x = mtcars |> dplyr::rename(`M P G` = mpg),
+#'   formula = reformulate2(c("M P G", "cyl"), response = "hp"),
+#'   method = "lm"
+#' ) |>
+#'   ard_regression() |>
+#'   dplyr::filter(stat_name %in% c("term", "estimate", "p.value"))
 NULL
 
 #' @rdname construction_helpers
