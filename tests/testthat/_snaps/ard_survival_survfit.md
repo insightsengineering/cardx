@@ -119,13 +119,13 @@
     Message
       {cards} data frame: 6 x 9
     Output
-        variable variable_level  context stat_name stat_label stat
-      1     prob            0.5 survival  estimate  Survival…  310
-      2     prob            0.5 survival conf.high  CI Upper…  363
-      3     prob            0.5 survival  conf.low  CI Lower…  285
-      4     prob           0.75 survival  estimate  Survival…  550
-      5     prob           0.75 survival conf.high  CI Upper…  654
-      6     prob           0.75 survival  conf.low  CI Lower…  460
+        variable variable_level   context stat_name stat_label stat
+      1     prob            0.5 survival…  estimate  Survival…  310
+      2     prob            0.5 survival… conf.high  CI Upper…  363
+      3     prob            0.5 survival…  conf.low  CI Lower…  285
+      4     prob           0.75 survival…  estimate  Survival…  550
+      5     prob           0.75 survival… conf.high  CI Upper…  654
+      6     prob           0.75 survival…  conf.low  CI Lower…  460
     Message
       i 3 more variables: fmt_fn, warning, error
 

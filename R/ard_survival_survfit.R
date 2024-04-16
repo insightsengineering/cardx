@@ -240,7 +240,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   ) %>%
     dplyr::bind_rows() %>%
     `rownames<-`(NULL) %>%
-    dplyr::mutate(context = "survival") %>%
+    dplyr::mutate(context = "survival_survfit") %>%
     dplyr::as_tibble()
 
   if (length(x$n) == 1) df_stat <- df_stat %>% dplyr::select(-"strata")

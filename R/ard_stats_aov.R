@@ -49,7 +49,7 @@ ard_stats_aov <- function(formula, data, ...) {
           .data$stat_name %in% "meansq" ~ "Mean of Sum of Squares",
           TRUE ~ .data$stat_name
         ),
-      context = "aov",
+      context = "stats_aov",
       warning = aov["warning"],
       error = aov["error"]
     ) |>
