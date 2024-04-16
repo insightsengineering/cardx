@@ -37,7 +37,7 @@ ard_stats_oneway_test <- function(formula, data, ...) {
       c("var.equal"),
     formals = formals(stats::oneway.test),
     passed_args = dots_list(...),
-    lst_ard_columns = list(context = "oneway.test")
+    lst_ard_columns = list(context = "stats_oneway_test")
   ) |>
     dplyr::mutate(
       .after = "stat_name",
