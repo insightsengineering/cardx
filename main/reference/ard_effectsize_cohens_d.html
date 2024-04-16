@@ -12,7 +12,7 @@ using effectsize::cohens_d()."><meta property="og:image" content="https://insigh
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9015</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9017</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,14 +26,6 @@ using effectsize::cohens_d()."><meta property="og:image" content="https://insigh
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -117,15 +109,15 @@ The data are then passed as
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ARM</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Placebo"</span>, <span class="st">"Xanomeline High Dose"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_effectsize_cohens_d</span><span class="op">(</span>by <span class="op">=</span> <span class="va">ARM</span>, variables <span class="op">=</span> <span class="va">AGE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 8 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable  context   stat_name stat_label      stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    ARM      AGE cohens_d    estimate  Effect S…       0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    ARM      AGE cohens_d  conf.level  CI Confi…      0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    ARM      AGE cohens_d    conf.low  CI Lower…    -0.201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    ARM      AGE cohens_d   conf.high  CI Upper…     0.401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    ARM      AGE cohens_d          mu    H0 Mean         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    ARM      AGE cohens_d      paired  Paired t…     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    ARM      AGE cohens_d   pooled_sd  Pooled S…      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    ARM      AGE cohens_d alternative  Alternat… two.sided</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable   context   stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    ARM      AGE effectsi…    estimate  Effect S…       0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    ARM      AGE effectsi…  conf.level  CI Confi…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    ARM      AGE effectsi…    conf.low  CI Lower…    -0.201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    ARM      AGE effectsi…   conf.high  CI Upper…     0.401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    ARM      AGE effectsi…          mu    H0 Mean         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    ARM      AGE effectsi…      paired  Paired t…     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    ARM      AGE effectsi…   pooled_sd  Pooled S…      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    ARM      AGE effectsi… alternative  Alternat… two.sided</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># constructing a paired data set,</span></span></span>
@@ -138,15 +130,15 @@ The data are then passed as
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_effectsize_paired_cohens_d</span><span class="op">(</span>by <span class="op">=</span> <span class="va">ARM</span>, variables <span class="op">=</span> <span class="va">AGE</span>, id <span class="op">=</span> <span class="va">USUBJID</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 8 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable  context   stat_name stat_label      stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    ARM      AGE cohens_d    estimate  Effect S…     0.069</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    ARM      AGE cohens_d  conf.level  CI Confi…      0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    ARM      AGE cohens_d    conf.low  CI Lower…    -0.146</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    ARM      AGE cohens_d   conf.high  CI Upper…     0.282</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    ARM      AGE cohens_d          mu    H0 Mean         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    ARM      AGE cohens_d      paired  Paired t…      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    ARM      AGE cohens_d   pooled_sd  Pooled S…      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    ARM      AGE cohens_d alternative  Alternat… two.sided</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable   context   stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    ARM      AGE effectsi…    estimate  Effect S…     0.069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    ARM      AGE effectsi…  conf.level  CI Confi…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    ARM      AGE effectsi…    conf.low  CI Lower…    -0.146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    ARM      AGE effectsi…   conf.high  CI Upper…     0.282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    ARM      AGE effectsi…          mu    H0 Mean         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    ARM      AGE effectsi…      paired  Paired t…      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    ARM      AGE effectsi…   pooled_sd  Pooled S…      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    ARM      AGE effectsi… alternative  Alternat… two.sided</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 </code></pre></div>
     </div>
