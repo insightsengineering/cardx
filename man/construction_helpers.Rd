@@ -25,12 +25,12 @@ reformulate2(
   termlabels,
   response = NULL,
   intercept = TRUE,
-  pattern_term = " ",
-  pattern_response = " ",
+  pattern_term = "[ \\n\\r]",
+  pattern_response = "[ \\n\\r]",
   env = parent.frame()
 )
 
-bt(x, pattern = " ")
+bt(x, pattern = "[ \\n\\r]")
 
 bt_strip(x)
 }
