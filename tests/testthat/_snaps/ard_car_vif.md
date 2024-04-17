@@ -39,8 +39,9 @@
 # ard_vif() issues friendly messaging for incorrect object passed in/can't get terms of model
 
     Code
-      ard_vif(cards::ADSL)
+      ard_car_vif(cards::ADSL)
     Condition
-      Error in `ard_vif()`:
-      ! could not find function "ard_vif"
+      Error in `ard_car_vif()`:
+      ! There was an error running `car::vif()`. See below.
+      x no applicable method for 'vcov' applied to an object of class "c('tbl_df', 'tbl', 'data.frame')"
 
