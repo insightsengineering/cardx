@@ -131,12 +131,15 @@ test_that("ard_stats_anova.data.frame() works", {
 })
 
 test_that("ard_stats_anova.data.frame() error messaging", {
-  expect_error(
+  expect_true(
     ard_stats_anova(
       x = mtcars,
       formulas = list(mpg ~ am, mpg ~ am + hp),
-      fn = "base::lm"
-    ),
-    "cannot be namespaced"
+      method = "base::lm"
+    ) |>
+      dplyr::pull("error") |>
+      unique() |>
+      unlist() |>
+      grepl(pattern = "^Argument `method` cannot be namespaced*", x = _)
   )
 })

@@ -136,7 +136,7 @@ check_not_namespaced <- function(x,
   check_string(x, arg_name = arg_name, call = call, class = "check_not_namespaced")
 
   if (str_detect(x, "::")) {
-    c("Argument {.arg fn} cannot be namespaced.",
+    c("Argument {.arg {arg_name}} cannot be namespaced.",
       i = "Put the package name in the {.arg package} argument."
     ) |>
       cli::cli_abort(call = call, class = class)
