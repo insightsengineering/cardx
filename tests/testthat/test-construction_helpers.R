@@ -11,6 +11,14 @@ test_that("construct_model() works", {
   )
 
   expect_equal(
+    mtcars[c("mpg", "hp", "vs")] |>
+      dplyr::rename(`M P G` = mpg, `h\np` = hp) |>
+      names() |>
+      bt(),
+    c("`M P G`", "`h\np`", "vs")
+  )
+
+  expect_equal(
     bt_strip(c("`complex variable name`", "east_variable_name")),
     c("complex variable name", "east_variable_name")
   )

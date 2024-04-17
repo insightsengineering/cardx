@@ -93,7 +93,7 @@ construct_model.data.frame <- function(x, formula, method, method.args = list(),
 #' @rdname construction_helpers
 #' @export
 reformulate2 <- function(termlabels, response = NULL, intercept = TRUE,
-                         pattern_term = " ", pattern_response = " ",
+                         pattern_term = "[ \n\r]", pattern_response = "[ \n\r]",
                          env = parent.frame()) {
   stats::reformulate(
     termlabels = bt(termlabels, pattern_term),
@@ -105,7 +105,7 @@ reformulate2 <- function(termlabels, response = NULL, intercept = TRUE,
 
 #' @rdname construction_helpers
 #' @export
-bt <- function(x, pattern = " ") {
+bt <- function(x, pattern = "[ \n\r]") {
   if (is_empty(x)) {
     return(x)
   }
