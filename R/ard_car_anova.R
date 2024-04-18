@@ -8,15 +8,17 @@
 #' @return data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed(c("broom.helpers", "car"), reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom.helpers", "car"), reference_pkg = "cardx"))
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_car_anova()
 #'
 #' glm(vs ~ factor(cyl) + factor(am), data = mtcars, family = binomial) |>
 #'   ard_car_anova(test.statistic = "Wald")
 ard_car_anova <- function(x, ...) {
+  set_cli_abort_call()
+
   # check installed packages ---------------------------------------------------
-  cards::check_pkg_installed(c("broom.helpers", "car"), reference_pkg = "cardx")
+  check_pkg_installed(pkg = c("broom.helpers", "car"), reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
@@ -25,10 +27,13 @@ ard_car_anova <- function(x, ...) {
   car_anova <- cards::eval_capture_conditions(car::Anova(x, ...))
 
   if (!is.null(car_anova[["error"]])) {
-    cli::cli_abort(c(
-      "There was an error running {.fun car::Anova}. See error message below.",
-      x = car_anova[["error"]]
-    ))
+    cli::cli_abort(
+      c(
+        "There was an error running {.fun car::Anova}. See error message below.",
+        x = car_anova[["error"]]
+      ),
+      call = get_cli_abort_call()
+    )
   }
 
   car_anova[["result"]] |>

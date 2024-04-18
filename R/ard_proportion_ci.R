@@ -14,7 +14,7 @@
 #'   Default is `0.95`
 #' @param method (`string`)\cr
 #'   string indicating the type of confidence interval to calculate.
-#'   Must be one of `r formals(ard_proportion_ci)[["method"]] |> eval() |> shQuote()`.
+#'   Must be one of `r formals(ard_proportion_ci)[["method"]] |> eval() |> shQuote("sh")`.
 #'   See `?proportion_ci` for details.
 #' @param strata,weights,max.iterations arguments passed to `proportion_ci_strat_wilson()`,
 #'   when `method='strat_wilson'`
@@ -22,7 +22,7 @@
 #' @return an ARD data frame
 #' @export
 #'
-#' @examplesIf cards::is_pkg_installed("broom", reference_pkg = "cardx")
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' ard_proportion_ci(mtcars, variables = c(vs, am), method = "wilson")
 ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
                               conf.level = 0.95,
@@ -35,6 +35,11 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
                                 "strat_wilson", "strat_wilsoncc",
                                 "agresti-coull", "jeffreys"
                               )) {
+  set_cli_abort_call()
+
+  # check installed packages ---------------------------------------------------
+  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
+
   # process inputs -------------------------------------------------------------
   cards::process_selectors(data, variables = {{ variables }}, by = {{ by }})
   method <- arg_match(method)
