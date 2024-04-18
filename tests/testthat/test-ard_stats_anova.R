@@ -129,3 +129,14 @@ test_that("ard_stats_anova.data.frame() works", {
     ard_anova_geeglm
   )
 })
+
+test_that("ard_stats_anova.data.frame() error messaging", {
+  expect_error(
+    ard_stats_anova(
+      x = mtcars,
+      formulas = list(mpg ~ am, mpg ~ am + hp),
+      fn = "base::lm"
+    ),
+    "cannot be namespaced"
+  )
+})

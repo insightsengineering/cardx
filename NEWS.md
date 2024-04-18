@@ -1,4 +1,4 @@
-# cardx 0.1.0.9017
+# cardx 0.1.0.9021
 
 ### Breaking Changes
 
@@ -39,8 +39,9 @@ ard_moodtest()          -> ard_stats_mood_test()
 
 * Updated `ard_stats_t_test()` and `ard_stats_wilcox_test()` to no longer require the `by` argument, which yields central estimates with their confidence intervals. (#82)
 
-* Import cli call environment functions from `https://github.com/ddsjoberg/standalone/blob/main/R/standalone-cli_call_env.R` and implement `set_cli_abort_call` in user-facing functions. (#111, @edelarua)
+* Imported cli call environment functions from `https://github.com/ddsjoberg/standalone/blob/main/R/standalone-cli_call_env.R` and implemented `set_cli_abort_call` in user-facing functions. (#111)
 
+* Added `ard_survival_survdiff()` for creating results from `survival::survdiff()`. (#113)
 
 # cardx 0.1.0
 

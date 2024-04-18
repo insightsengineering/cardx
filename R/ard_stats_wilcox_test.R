@@ -178,7 +178,7 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, ...) {
       ),
       formals = formals(asNamespace("stats")[["wilcox.test.default"]]),
       passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(variable = variable, context = "wilcoxtest")
+      lst_ard_columns = list(variable = variable, context = "stats_wilcox_test")
     )
 
   if (!is_empty(by)) {
