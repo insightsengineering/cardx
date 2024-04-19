@@ -1,3 +1,5 @@
+skip_if_not(is_pkg_installed(c("withr", "survey"), reference_pkg = "cardx"))
+
 test_that("construct_model() works", {
   expect_snapshot(
     construct_model(
@@ -26,5 +28,22 @@ test_that("construct_model() works", {
   expect_error(
     check_not_namespaced("geepack::geeglm"),
     "cannot be namespaced"
+  )
+
+  # now the survey method -------
+  expect_equal({
+    data(api, package = "survey")
+    # stratified sample
+    survey::svydesign(id = ~1, strata = ~stype, weights = ~pw, data = apistrat, fpc = ~fpc) |>
+      construct_model(formula = api00 ~ api99, method = "svyglm") |>
+      ard_regression() |>
+      cards::get_ard_statistics(stat_name %in% "estimate")},
+    survey::svyglm(
+      api00 ~ api99,
+      design = survey::svydesign(id = ~1, strata = ~stype, weights = ~pw, data = apistrat, fpc = ~fpc)
+    ) |>
+      coef() |>
+      getElement(2L) |>
+      list(estimate = _)
   )
 })
