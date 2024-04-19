@@ -31,6 +31,7 @@ test_that("construct_model() works", {
   )
 
   # now the survey method -------
+  # styler: off
   expect_equal({
     data(api, package = "survey")
     # stratified sample
@@ -46,4 +47,5 @@ test_that("construct_model() works", {
       getElement(2L) |>
       list(estimate = _)
   )
+  # styler: on
 })
