@@ -10,21 +10,13 @@
 #'   a data frame
 #' @param formulas (`list`)\cr
 #'   a list of formulas
-#' @param fn (`string`)\cr
-#'   string naming the function to be called, e.g. `"glm"`.
-#'   If function belongs to a library that is not attached, the package name
-#'   must be specified in the `package` argument.
-#' @param fn.args (named `list`)\cr
-#'   named list of arguments that will be passed to `fn`.
-#' @param package (`string`)\cr
-#'   string of package name that will be temporarily loaded when function
-#'   specified in `method` is executed.
-#' @param method (`string`)\cr
+#' @param method_text (`string`)\cr
 #'   string of the method used. Default is `"ANOVA results from `stats::anova()`"`.
 #'   We provide the option to change this as `stats::anova()` can produce
 #'   results from many types of models that may warrant a more precise
 #'   description.
 #' @inheritParams rlang::args_dots_empty
+#' @inheritParams construction_helpers
 #'
 #' @details
 #' When a list of formulas is supplied to `ard_stats_anova()`, these formulas
@@ -34,12 +26,12 @@
 #' The models are constructed using `rlang::exec()`, which is similar to `do.call()`.
 #'
 #' ```r
-#' rlang::exec(.fn = fn, formula = formula, data = data, !!!fn.args)
+#' rlang::exec(.fn = method, formula = formula, data = data, !!!method.args)
 #' ```
 #'
 #' The above function is executed in `withr::with_namespace(package)`, which
-#' allows for the use of `ard_stats_anova(fn)` from packages,
-#' e.g. `package = 'lme4'` must be specified when `fn = 'glmer'`.
+#' allows for the use of `ard_stats_anova(method)` from packages,
+#' e.g. `package = 'lme4'` must be specified when `method = 'glmer'`.
 #' See example below.
 #'
 #' @return ARD data frame
@@ -55,15 +47,15 @@
 #' ard_stats_anova(
 #'   x = mtcars,
 #'   formulas = list(am ~ mpg, am ~ mpg + hp),
-#'   fn = "glm",
-#'   fn.args = list(family = binomial)
+#'   method = "glm",
+#'   method.args = list(family = binomial)
 #' )
 #'
 #' ard_stats_anova(
 #'   x = mtcars,
 #'   formulas = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
-#'   fn = "glmer",
-#'   fn.args = list(family = binomial),
+#'   method = "glmer",
+#'   method.args = list(family = binomial),
 #'   package = "lme4"
 #' )
 NULL
@@ -76,22 +68,22 @@ ard_stats_anova <- function(x, ...) {
 
 #' @rdname ard_stats_anova
 #' @export
-ard_stats_anova.anova <- function(x, method = "ANOVA results from `stats::anova()`", ...) {
+ard_stats_anova.anova <- function(x, method_text = "ANOVA results from `stats::anova()`", ...) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
   check_pkg_installed("broom", reference_pkg = "cardx")
-  check_string(method, message = "Argument {.arg method} must be a string of a function name.")
+  check_string(method_text)
 
   # return df in cards formats -------------------------------------------------
   lst_results <-
     cards::eval_capture_conditions(
-      .anova_tidy_and_reshape(x, method = method)
+      .anova_tidy_and_reshape(x, method_text = method_text)
     )
 
   # final tidying up of cards data frame ---------------------------------------
-  .anova_final_ard_prep(lst_results, method = method)
+  .anova_final_ard_prep(lst_results, method_text = method_text)
 }
 
 
@@ -99,37 +91,29 @@ ard_stats_anova.anova <- function(x, method = "ANOVA results from `stats::anova(
 #' @export
 ard_stats_anova.data.frame <- function(x,
                                        formulas,
-                                       fn,
-                                       fn.args = list(),
+                                       method,
+                                       method.args = list(),
                                        package = "base",
-                                       method = "ANOVA results from `stats::anova()`",
+                                       method_text = "ANOVA results from `stats::anova()`",
                                        ...) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
-  check_string(package)
   check_pkg_installed(c("broom", "withr", package), reference_pkg = "cardx")
   check_not_missing(formulas)
-  check_not_missing(x)
-  check_not_missing(fn)
-  check_string(method, message = "Argument {.arg method} must be a string of a function name.")
-  check_data_frame(x)
-  check_string(fn)
-  if (str_detect(fn, "::")) {
-    cli::cli_abort(
-      c(
-        "Argument {.arg fn} cannot be namespaced.",
-        i = "Put the package name in the {.arg package} argument."
-      ),
-      call = get_cli_abort_call()
+  check_class(formulas, cls = "list")
+  walk(
+    formulas,
+    ~ check_class(
+      .x,
+      cls = "formula",
+      arg_name = "formulas",
+      message = "Each element of {.arg formulas} must be class {.cls formula}"
     )
-  }
+  )
 
   # calculate results and return df in cards formats ---------------------------
-  # process fn.args argument
-  fn.args <- rlang::call_args(rlang::enexpr(fn.args))
-
   # create models
   lst_results <-
     cards::eval_capture_conditions({
@@ -138,24 +122,20 @@ ard_stats_anova.data.frame <- function(x,
         lapply(
           formulas,
           function(formula) {
-            withr::with_namespace(
-              package = package,
-              call2(.fn = fn, formula = formula, data = x, !!!fn.args) |>
-                eval_tidy()
-            )
+            construct_model(x = x, formula = formula, method = method, method.args = {{ method.args }}, package = package)
           }
         )
 
       # now calculate `stats::anova()` and reshape results
       rlang::inject(stats::anova(!!!models)) |>
-        .anova_tidy_and_reshape(method = method)
+        .anova_tidy_and_reshape(method_text = method_text)
     })
 
   # final tidying up of cards data frame ---------------------------------------
-  .anova_final_ard_prep(lst_results, method = method)
+  .anova_final_ard_prep(lst_results, method_text = method_text)
 }
 
-.anova_tidy_and_reshape <- function(x, method) {
+.anova_tidy_and_reshape <- function(x, method_text) {
   broom::tidy(x) |>
     dplyr::mutate(
       across(everything(), as.list),
@@ -174,13 +154,13 @@ ard_stats_anova.data.frame <- function(x,
         dplyr::filter(., dplyr::n() == dplyr::row_number()) |>
           dplyr::mutate(
             stat_name = "method",
-            stat = list(.env$method)
+            stat = list(.env$method_text)
           )
       )
     }
 }
 
-.anova_final_ard_prep <- function(lst_results, method) {
+.anova_final_ard_prep <- function(lst_results, method_text) {
   # saving the results in data frame -------------------------------------------
   df_card <-
     if (!is.null(lst_results[["result"]])) {
@@ -189,7 +169,7 @@ ard_stats_anova.data.frame <- function(x,
       dplyr::tibble(
         variable = "model_1",
         stat_name = c("p.value", "method"),
-        stat = list(NULL, method)
+        stat = list(NULL, method_text)
       )
     }
 
