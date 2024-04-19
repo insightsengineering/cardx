@@ -32,7 +32,7 @@
 #' * Times should be provided using the same scale as the time variable used to fit the provided
 #'   survival fit model.
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit"), reference_pkg = "cardx"))
 #' library(survival)
 #' library(ggsurvfit)
 #'
