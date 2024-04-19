@@ -4,6 +4,7 @@
 \alias{construction_helpers}
 \alias{construct_model}
 \alias{construct_model.data.frame}
+\alias{construct_model.survey.design}
 \alias{reformulate2}
 \alias{bt}
 \alias{bt_strip}
@@ -17,6 +18,16 @@ construct_model(x, ...)
   method,
   method.args = list(),
   package = "base",
+  env = caller_env(),
+  ...
+)
+
+\method{construct_model}{survey.design}(
+  x,
+  formula,
+  method,
+  method.args = list(),
+  package = "survey",
   env = caller_env(),
   ...
 )
@@ -35,8 +46,11 @@ bt(x, pattern = "[ \\n\\r]")
 bt_strip(x)
 }
 \arguments{
-\item{x}{(\code{character})\cr
-character vector, typically of variable names}
+\item{x}{\itemize{
+\item \code{construct_model.data.frame()} (\code{data.frame}) a data frame
+\item \code{construct_model.survey.design()} (\code{survey.design}) a survey design object
+\item \code{bt()}/\code{bt_strip()} (\code{character}) character vector, typically of variable names
+}}
 
 \item{...}{These dots are for future extensions and must be empty.}
 

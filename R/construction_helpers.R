@@ -13,8 +13,10 @@
 #'
 #' - `bt_strip()`: Removes backticks from a string if it begins and ends with a backtick.
 #'
-#' @param x (`data.frame`)\cr
-#'   a data frame
+#' @param x
+#'  - `construct_model.data.frame()` (`data.frame`) a data frame
+#'  - `construct_model.survey.design()` (`survey.design`) a survey design object
+#'  - `bt()`/`bt_strip()` (`character`) character vector, typically of variable names
 #' @param formula (`formula`)\cr
 #'   a formula
 #' @param method (`string`)\cr
@@ -26,8 +28,6 @@
 #' @param package (`string`)\cr
 #'   string of package name that will be temporarily loaded when function
 #'   specified in `method` is executed.
-#' @param x (`character`)\cr
-#'   character vector, typically of variable names
 #' @param pattern (`string`)\cr
 #'   regular expression string. If the regex matches, backticks are added
 #'   to the string. When `NULL`, backticks are not added.
@@ -80,7 +80,7 @@ construct_model.data.frame <- function(x, formula, method, method.args = list(),
   check_not_namespaced(method)
 
   # convert method.args to list of expressions (to account for NSE inputs) -----
-  method.args <- call_args(enexpr(method.args))
+  method.args <- .as_list_of_exprs({{ method.args }})
 
   # build model ----------------------------------------------------------------
   withr::with_namespace(
@@ -88,6 +88,36 @@ construct_model.data.frame <- function(x, formula, method, method.args = list(),
     call2(.fn = method, formula = formula, data = x, !!!method.args) |>
       eval_tidy(env = env)
   )
+}
+
+#' @rdname construction_helpers
+#' @export
+construct_model.survey.design <- function(x, formula, method, method.args = list(), package = "survey", env = caller_env(), ...) {
+  set_cli_abort_call()
+  # check pkg installations ----------------------------------------------------
+  check_dots_empty()
+  check_pkg_installed(c("withr", package), reference_pkg = "cardx")
+
+  check_not_missing(formula)
+  check_class(formula, cls = "formula")
+
+  check_not_missing(method)
+  check_string(method)
+  check_not_namespaced(method)
+
+  # convert method.args to list of expressions (to account for NSE inputs) -----
+  method.args <- .as_list_of_exprs({{ method.args }})
+
+  # build model ----------------------------------------------------------------
+  withr::with_namespace(
+    package = package,
+    call2(.fn = method, formula = formula, design = x, !!!method.args) |>
+      eval_tidy(env = env)
+  )
+}
+
+.as_list_of_exprs <- function(x) {
+  call_args(enexpr(x))
 }
 
 #' @rdname construction_helpers
