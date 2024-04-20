@@ -124,8 +124,6 @@ ard_stats_mcnemar_test_long <- function(data, by, variables, id, ...) {
     }
   ) |>
     dplyr::bind_rows()
-
-
 }
 
 #' Convert McNemar's test to ARD
