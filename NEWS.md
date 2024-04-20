@@ -21,6 +21,7 @@ ard_moodtest()          -> ard_stats_mood_test()
 * Added the following functions for calculating Analysis Results Data (ARD).
   - `ard_stats_aov()` for calculating ANOVA results using `stats::aov()`. (#3)
   - `ard_stats_anova()` for calculating ANOVA results using `stats::anova()`. (#12) 
+  - `ard_stats_mcnemar_test_long()` for McNemar's test from long data using `stats::mcnemar.test()`. 
   - `ard_aod_wald_test()` for calculating Wald Tests for regression models using `aod::wald.test()`. (#84)
   - `ard_car_anova()` for calculating ANOVA results using `car::Anova()`. (#3)
   - `ard_stats_oneway_test()` for calculating ANOVA results using `stats::oneway.test()`. (#3)
