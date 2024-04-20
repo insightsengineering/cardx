@@ -68,7 +68,7 @@ test_that("ard_emmeans_mean_difference() works", {
       )},
     NA
   )
-  #styler: on
+  # styler: on
   expect_equal(
     cards::get_ard_statistics(ard_emmeans_mean_difference_svy, stat_name %in% "method"),
     list(method = "Least-squares mean difference")

@@ -35,6 +35,7 @@ ard_moodtest()          -> ard_stats_mood_test()
   - `ard_survey_svyttest()` for weighted/survey t-tests using `survey::svyttest()`. (#70)
   - `ard_survey_svyranktest()` for weighted/survey rank tests using `survey::svyranktest()`. (#71)
   - `ard_car_vif()` for calculating the variance inflation factor using `car::vif()`. (#10)
+  - `ard_emmeans_mean_difference()` for calculating the least-squares mean differences using the {emmeans} package. (#34)
 
 * Updated functions `ard_stats_t_test()`, `ard_stats_paired_t_test()`, `ard_stats_wilcox_test()`, `ard_stats_paired_wilcox_test()`, `ard_stats_chisq_test()`, `ard_stats_fisher_test()`, `ard_stats_kruskal_test()`, `ard_stats_mcnemar_test()`, and `ard_stats_mood_test()` to accept multiple variables at once. Independent tests are calculated for each variable. The `variable` argument is renamed to `variables`. (#77)
 

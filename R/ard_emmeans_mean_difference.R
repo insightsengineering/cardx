@@ -49,7 +49,9 @@ ard_emmeans_mean_difference <- function(data, formula, method,
                                         response_type = c("continuous", "binary"),
                                         conf.level = 0.95,
                                         primary_covariate =
-                                          stats::terms(formula) |> attr("term.labels") |> getElement(1L)) {
+                                          stats::terms(formula) |>
+                                            attr("term.labels") |>
+                                            getElement(1L)) {
   set_cli_abort_call()
 
   # check package installation -------------------------------------------------
@@ -106,7 +108,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
       conf.level = .env$conf.level,
       method =
         ifelse(
-          length(attr(stats::terms(formula), "term.labels") |> discard(~startsWith(., "1 |"))) == 1L,
+          length(attr(stats::terms(formula), "term.labels") |> discard(~ startsWith(., "1 |"))) == 1L,
           "Least-squares mean difference",
           "Least-squares adjusted mean difference"
         ),
