@@ -8,7 +8,7 @@ test_that("ard_emmeans_mean_difference() works", {
         formula = vs ~ am + mpg,
         method = "glm",
         method.args = list(family = binomial),
-        response_type = "binary"
+        response_type = "dichotomous"
       ),
     NA
   )
@@ -36,7 +36,7 @@ test_that("ard_emmeans_mean_difference() works", {
         method = "glmer",
         method.args = list(family = binomial),
         package = "lme4",
-        response_type = "binary"
+        response_type = "dichotomous"
       ),
     NA
   )

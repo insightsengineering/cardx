@@ -10,7 +10,7 @@ ard_emmeans_mean_difference(
   method,
   method.args = list(),
   package = "base",
-  response_type = c("continuous", "binary"),
+  response_type = c("continuous", "dichotomous"),
   conf.level = 0.95,
   primary_covariate = getElement(attr(stats::terms(formula), "term.labels"), 1L)
 )
@@ -36,7 +36,7 @@ specified in \code{method} is executed.}
 
 \item{response_type}{(\code{string})
 string indicating whether the model outcome is \code{'continuous'}
-or \code{'binary'}. When \code{'binary'}, the call to \code{emmeans::emmeans()} is
+or \code{'dichotomous'}. When \code{'dichotomous'}, the call to \code{emmeans::emmeans()} is
 supplemented with argument \code{regrid="response"}.}
 
 \item{conf.level}{(scalar \code{numeric})\cr
@@ -74,7 +74,7 @@ ard_emmeans_mean_difference(
   formula = vs ~ am + mpg,
   method = "glm",
   method.args = list(family = binomial),
-  response_type = "binary"
+  response_type = "dichotomous"
 )
 \dontshow{\}) # examplesIf}
 }

@@ -18,7 +18,7 @@
 #' @inheritParams construct_model
 #' @param response_type (`string`)
 #'   string indicating whether the model outcome is `'continuous'`
-#'   or `'binary'`. When `'binary'`, the call to `emmeans::emmeans()` is
+#'   or `'dichotomous'`. When `'dichotomous'`, the call to `emmeans::emmeans()` is
 #'   supplemented with argument `regrid="response"`.
 #' @param conf.level (scalar `numeric`)\cr
 #'   confidence level for confidence interval. Default is `0.95`.
@@ -41,12 +41,12 @@
 #'   formula = vs ~ am + mpg,
 #'   method = "glm",
 #'   method.args = list(family = binomial),
-#'   response_type = "binary"
+#'   response_type = "dichotomous"
 #' )
 ard_emmeans_mean_difference <- function(data, formula, method,
                                         method.args = list(),
                                         package = "base",
-                                        response_type = c("continuous", "binary"),
+                                        response_type = c("continuous", "dichotomous"),
                                         conf.level = 0.95,
                                         primary_covariate =
                                           stats::terms(formula) |>
@@ -77,7 +77,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
 
   # emmeans --------------------------------------------------------------------
   emmeans_args <- list(object = mod, specs = reformulate2(primary_covariate))
-  if (response_type %in% "binary") emmeans_args <- c(emmeans_args, list(regrid = "response"))
+  if (response_type %in% "dichotomous") emmeans_args <- c(emmeans_args, list(regrid = "response"))
   emmeans <-
     withr::with_namespace(
       package = "emmeans",
