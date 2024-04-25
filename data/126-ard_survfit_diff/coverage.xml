@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.924119241192412" branch-rate="0" lines-covered="2046" lines-valid="2214" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-25 14:49:17.01721">
+<coverage line-rate="0.923285198555957" branch-rate="0" lines-covered="2046" lines-valid="2216" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-25 14:58:50.63665">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.924119241192412" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.923285198555957" branch-rate="0" complexity="0">
       <classes>
         <class name="ard_aod_wald_test.R" filename="R/ard_aod_wald_test.R" line-rate="0.896103896103896" branch-rate="0" complexity="0">
           <methods>
@@ -3807,9 +3807,7 @@
           <methods>
             <method name="ard_survival_survfit_diff" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="19" hits="0" branch="false"/>
-                <line number="22" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
+                <line number="21" hits="0" branch="false"/>
                 <line number="24" hits="0" branch="false"/>
                 <line number="25" hits="0" branch="false"/>
                 <line number="26" hits="0" branch="false"/>
@@ -3817,8 +3815,8 @@
                 <line number="28" hits="0" branch="false"/>
                 <line number="29" hits="0" branch="false"/>
                 <line number="30" hits="0" branch="false"/>
+                <line number="31" hits="0" branch="false"/>
                 <line number="32" hits="0" branch="false"/>
-                <line number="33" hits="0" branch="false"/>
                 <line number="34" hits="0" branch="false"/>
                 <line number="35" hits="0" branch="false"/>
                 <line number="36" hits="0" branch="false"/>
@@ -3828,8 +3826,8 @@
                 <line number="40" hits="0" branch="false"/>
                 <line number="41" hits="0" branch="false"/>
                 <line number="42" hits="0" branch="false"/>
-                <line number="46" hits="0" branch="false"/>
-                <line number="47" hits="0" branch="false"/>
+                <line number="43" hits="0" branch="false"/>
+                <line number="44" hits="0" branch="false"/>
                 <line number="48" hits="0" branch="false"/>
                 <line number="49" hits="0" branch="false"/>
                 <line number="50" hits="0" branch="false"/>
@@ -3881,14 +3879,14 @@
                 <line number="96" hits="0" branch="false"/>
                 <line number="97" hits="0" branch="false"/>
                 <line number="98" hits="0" branch="false"/>
+                <line number="99" hits="0" branch="false"/>
+                <line number="100" hits="0" branch="false"/>
+                <line number="101" hits="0" branch="false"/>
+                <line number="102" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="tidy_summary.survfit" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="103" hits="0" branch="false"/>
-                <line number="104" hits="0" branch="false"/>
-                <line number="105" hits="0" branch="false"/>
-                <line number="106" hits="0" branch="false"/>
                 <line number="107" hits="0" branch="false"/>
                 <line number="108" hits="0" branch="false"/>
                 <line number="109" hits="0" branch="false"/>
@@ -3896,13 +3894,15 @@
                 <line number="111" hits="0" branch="false"/>
                 <line number="112" hits="0" branch="false"/>
                 <line number="113" hits="0" branch="false"/>
+                <line number="114" hits="0" branch="false"/>
+                <line number="115" hits="0" branch="false"/>
+                <line number="116" hits="0" branch="false"/>
+                <line number="117" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="19" hits="0" branch="false"/>
-            <line number="22" hits="0" branch="false"/>
-            <line number="23" hits="0" branch="false"/>
+            <line number="21" hits="0" branch="false"/>
             <line number="24" hits="0" branch="false"/>
             <line number="25" hits="0" branch="false"/>
             <line number="26" hits="0" branch="false"/>
@@ -3910,8 +3910,8 @@
             <line number="28" hits="0" branch="false"/>
             <line number="29" hits="0" branch="false"/>
             <line number="30" hits="0" branch="false"/>
+            <line number="31" hits="0" branch="false"/>
             <line number="32" hits="0" branch="false"/>
-            <line number="33" hits="0" branch="false"/>
             <line number="34" hits="0" branch="false"/>
             <line number="35" hits="0" branch="false"/>
             <line number="36" hits="0" branch="false"/>
@@ -3921,8 +3921,8 @@
             <line number="40" hits="0" branch="false"/>
             <line number="41" hits="0" branch="false"/>
             <line number="42" hits="0" branch="false"/>
-            <line number="46" hits="0" branch="false"/>
-            <line number="47" hits="0" branch="false"/>
+            <line number="43" hits="0" branch="false"/>
+            <line number="44" hits="0" branch="false"/>
             <line number="48" hits="0" branch="false"/>
             <line number="49" hits="0" branch="false"/>
             <line number="50" hits="0" branch="false"/>
@@ -3974,10 +3974,10 @@
             <line number="96" hits="0" branch="false"/>
             <line number="97" hits="0" branch="false"/>
             <line number="98" hits="0" branch="false"/>
-            <line number="103" hits="0" branch="false"/>
-            <line number="104" hits="0" branch="false"/>
-            <line number="105" hits="0" branch="false"/>
-            <line number="106" hits="0" branch="false"/>
+            <line number="99" hits="0" branch="false"/>
+            <line number="100" hits="0" branch="false"/>
+            <line number="101" hits="0" branch="false"/>
+            <line number="102" hits="0" branch="false"/>
             <line number="107" hits="0" branch="false"/>
             <line number="108" hits="0" branch="false"/>
             <line number="109" hits="0" branch="false"/>
@@ -3985,6 +3985,10 @@
             <line number="111" hits="0" branch="false"/>
             <line number="112" hits="0" branch="false"/>
             <line number="113" hits="0" branch="false"/>
+            <line number="114" hits="0" branch="false"/>
+            <line number="115" hits="0" branch="false"/>
+            <line number="116" hits="0" branch="false"/>
+            <line number="117" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="ard_survival_survfit.R" filename="R/ard_survival_survfit.R" line-rate="0.955555555555556" branch-rate="0" complexity="0">
