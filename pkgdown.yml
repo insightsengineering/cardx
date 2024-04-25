@@ -2,7 +2,7 @@ pandoc: 3.1.1
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-04-21T03:46Z
+last_built: 2024-04-25T15:23Z
 urls:
   reference: https://insightsengineering.github.io/cardx/main/reference
   article: https://insightsengineering.github.io/cardx/main/articles
