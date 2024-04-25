@@ -12,6 +12,9 @@ object of class \code{'survfit'} typically created with \code{\link[survival:sur
 
 \item{times}{(\code{numeric})\cr
 a vector of times for which to return survival probabilities.}
+
+\item{conf.level}{(scalar \code{numeric})\cr
+confidence level for confidence interval. Default is \code{0.95}.}
 }
 \value{
 an ARD data frame of class 'card'

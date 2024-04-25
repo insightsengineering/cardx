@@ -29,7 +29,7 @@
 #'   Note that this list may contain non-standard evaluation components.
 #'   If you are wrapping this function in other functions, the argument
 #'   must be passed in a way that does not evaluate the list, e.g.
-#'   using rlang's  embrace opoerator `{{ . }}`.
+#'   using rlang's  embrace operator `{{ . }}`.
 #' @param package (`string`)\cr
 #'   string of package name that will be temporarily loaded when function
 #'   specified in `method` is executed.

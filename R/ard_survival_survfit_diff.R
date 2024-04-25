@@ -5,6 +5,8 @@
 #'
 #' @param x (`survift`)\cr
 #'   object of class `'survfit'` typically created with [`survival::survfit()`]
+#' @param conf.level (scalar `numeric`)\cr
+#'   confidence level for confidence interval. Default is `0.95`.
 #' @inheritParams ard_survival_survfit
 #'
 #' @return an ARD data frame of class 'card'
@@ -31,7 +33,7 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
   }
   check_range(conf.level, range = c(0, 1))
   check_length(
-    as.list(sf$call)[["formula"]] |> as.formula() |> stats::terms() |> attr("term.labels"),
+    as.list(x$call)[["formula"]] |> stats::as.formula() |> stats::terms() |> attr("term.labels"),
     length = 1L,
     message = "The {.cls survift} object passed in argument {.arg x} must be stratified by a single variable."
   )
@@ -46,20 +48,22 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
   summary(x, times = times) |>
     tidy_summary.survfit() |>
     dplyr::select(any_of(c("strata", "time", "estimate", "std.error"))) %>%
-    {dplyr::left_join(
-      dplyr::filter(., .data$strata != .data$strata[1]) |> dplyr::mutate(reference = .$strata[1]),
-      dplyr::filter(., .data$strata == .data$strata[1]) |>
-        dplyr::select(-"strata") |>
-        dplyr::rename_with(.fn = ~paste0(., "0"), .cols = -"time"),
-      by = "time"
-    )} |>
+    {
+      dplyr::left_join(
+        dplyr::filter(., .data$strata != .data$strata[1]) |> dplyr::mutate(reference = .$strata[1]),
+        dplyr::filter(., .data$strata == .data$strata[1]) |>
+          dplyr::select(-"strata") |>
+          dplyr::rename_with(.fn = ~ paste0(., "0"), .cols = -"time"),
+        by = "time"
+      )
+    } |>
     dplyr::mutate(
       difference = .data$estimate0 - .data$estimate,
       difference.std.error = sqrt(.data$std.error0^2 + .data$std.error^2),
-      statistic = difference / difference.std.error,
-      conf.low = difference - difference.std.error * stats::qnorm(1 - (1 - .env$conf.level) / 2),
-      conf.high = difference + difference.std.error * stats::qnorm(1 - (1 - .env$conf.level) / 2),
-      p.value = 2 * (1 - stats::pnorm(abs(statistic)))
+      statistic = .data$difference / .data$difference.std.error,
+      conf.low = .data$difference - .data$difference.std.error * stats::qnorm(1 - (1 - .env$conf.level) / 2),
+      conf.high = .data$difference + .data$difference.std.error * stats::qnorm(1 - (1 - .env$conf.level) / 2),
+      p.value = 2 * (1 - stats::pnorm(abs(.data$statistic)))
     ) |>
     dplyr::select(
       "strata", "reference", "time",
@@ -112,4 +116,3 @@ tidy_summary.survfit <- function(x) {
     conf.high = x$upper
   )
 }
-
