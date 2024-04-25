@@ -20,3 +20,7 @@ test_that("ard_regression() works", {
     "Treatment Arm"
   )
 })
+
+test_that("ard_regression() does not produce `variable_level` column where not applicable", {
+  expect_true(!"variable_level" %in% names(lm(mpg ~ hp, mtcars) |> ard_regression()))
+})
