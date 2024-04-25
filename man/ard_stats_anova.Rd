@@ -42,7 +42,12 @@ If function belongs to a library that is not attached, the package name
 must be specified in the \code{package} argument.}
 
 \item{method.args}{(named \code{list})\cr
-named list of arguments that will be passed to \code{fn}.}
+named list of arguments that will be passed to \code{fn}.
+
+Note that this list may contain non-standard evaluation components.
+If you are wrapping this function in other functions, the argument
+must be passed in a way that does not evaluate the list, e.g.
+using rlang's  embrace opoerator \code{{{ . }}}.}
 
 \item{package}{(\code{string})\cr
 string of package name that will be temporarily loaded when function

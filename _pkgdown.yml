@@ -41,6 +41,7 @@ reference:
       - ard_survey_svyranktest
       - ard_survey_svyttest
       - ard_survival_survdiff
+      - ard_survival_survfit_diff
 
   - subtitle: "Estimation"
   - contents:
