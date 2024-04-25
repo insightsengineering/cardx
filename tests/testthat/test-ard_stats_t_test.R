@@ -48,7 +48,7 @@ test_that("ard_stats_t_test() works", {
     cards::ADSL |>
       ard_stats_t_test(by = ARM, variable = AGE, var.equal = TRUE) |>
       dplyr::select(error) %>%
-      is.null,
+      is.null(),
     FALSE
   )
 
@@ -111,7 +111,7 @@ test_that("ard_stats_paired_t_test() works", {
       ) |>
       ard_stats_paired_t_test(by = ARM, variable = AGE, id = USUBJID, var.equal = TRUE) |>
       dplyr::select(error) %>%
-      is.null,
+      is.null(),
     FALSE
   )
 })

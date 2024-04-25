@@ -19,7 +19,7 @@ test_that("ard_car_vif() appropriate errors are given for model with only 1 term
     lm(AGE ~ ARM, data = cards::ADSL) |>
       ard_car_vif() |>
       dplyr::select(error) %>%
-      is.null,
+      is.null(),
     FALSE
   )
 })

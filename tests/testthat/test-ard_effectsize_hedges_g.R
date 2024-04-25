@@ -28,7 +28,7 @@ test_that("ard_effectsize_hedges_g() works", {
     cards::ADSL |>
       ard_effectsize_hedges_g(by = ARM, variable = AGE) |>
       dplyr::select(error) %>%
-      is.null,
+      is.null(),
     FALSE
   )
 
@@ -91,7 +91,7 @@ test_that("ard_effectsize_paired_hedges_g() works", {
       ) |>
       ard_effectsize_paired_hedges_g(by = ARM, variable = AGE, id = USUBJID) |>
       dplyr::select(error) %>%
-      is.null,
+      is.null(),
     FALSE
   )
 })

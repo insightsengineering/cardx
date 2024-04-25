@@ -28,9 +28,9 @@ test_that("ard_effectsize_cohens_d() works", {
   # errors are properly handled
   expect_equal(
     cards::ADSL |>
-      ard_effectsize_cohens_d(by = ARM, variables = AGE)  |>
+      ard_effectsize_cohens_d(by = ARM, variables = AGE) |>
       dplyr::select(error) %>%
-      is.null,
+      is.null(),
     FALSE
   )
 
@@ -91,7 +91,7 @@ test_that("ard_effectsize_paired_cohens_d() works", {
       ) |>
       ard_effectsize_paired_cohens_d(by = ARM, variable = AGE, id = USUBJID) |>
       dplyr::select(error) %>%
-      is.null,
+      is.null(),
     FALSE
   )
 })
