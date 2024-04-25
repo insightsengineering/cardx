@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("withr", "survey"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("broom.helpers", "withr", "survey"), reference_pkg = "cardx"))
 
 test_that("construct_model() works", {
   expect_snapshot(
