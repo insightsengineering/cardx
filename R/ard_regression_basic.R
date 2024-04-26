@@ -55,5 +55,6 @@ ard_regression_basic <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or
     utils::modifyList(val = rlang::dots_list(...))
 
   rlang::inject(ard_regression(x = x, tidy_fun = tidy_fun, !!!args)) |>
-    dplyr::filter(!.data$stat_name %in% stats_to_remove)
+    dplyr::filter(!.data$stat_name %in% stats_to_remove) |>
+    dplyr::select(-(cards::all_ard_variables("levels") & dplyr::where(\(x) all(is.na(x)))))
 }

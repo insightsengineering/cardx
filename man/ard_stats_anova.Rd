@@ -8,15 +8,15 @@
 \usage{
 ard_stats_anova(x, ...)
 
-\method{ard_stats_anova}{anova}(x, method = "ANOVA results from `stats::anova()`", ...)
+\method{ard_stats_anova}{anova}(x, method_text = "ANOVA results from `stats::anova()`", ...)
 
 \method{ard_stats_anova}{data.frame}(
   x,
   formulas,
-  fn,
-  fn.args = list(),
+  method,
+  method.args = list(),
   package = "base",
-  method = "ANOVA results from `stats::anova()`",
+  method_text = "ANOVA results from `stats::anova()`",
   ...
 )
 }
@@ -27,7 +27,7 @@ a data frame}
 
 \item{...}{These dots are for future extensions and must be empty.}
 
-\item{method}{(\code{string})\cr
+\item{method_text}{(\code{string})\cr
 string of the method used. Default is \verb{"ANOVA results from }stats::anova()\verb{"}.
 We provide the option to change this as \code{stats::anova()} can produce
 results from many types of models that may warrant a more precise
@@ -36,12 +36,12 @@ description.}
 \item{formulas}{(\code{list})\cr
 a list of formulas}
 
-\item{fn}{(\code{string})\cr
+\item{method}{(\code{string})\cr
 string naming the function to be called, e.g. \code{"glm"}.
 If function belongs to a library that is not attached, the package name
 must be specified in the \code{package} argument.}
 
-\item{fn.args}{(named \code{list})\cr
+\item{method.args}{(named \code{list})\cr
 named list of arguments that will be passed to \code{fn}.}
 
 \item{package}{(\code{string})\cr
@@ -64,12 +64,12 @@ and pass those models to \code{stats::anova()}.
 
 The models are constructed using \code{rlang::exec()}, which is similar to \code{do.call()}.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{rlang::exec(.fn = fn, formula = formula, data = data, !!!fn.args)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{rlang::exec(.fn = method, formula = formula, data = data, !!!method.args)
 }\if{html}{\out{</div>}}
 
 The above function is executed in \code{withr::with_namespace(package)}, which
-allows for the use of \code{ard_stats_anova(fn)} from packages,
-e.g. \code{package = 'lme4'} must be specified when \code{fn = 'glmer'}.
+allows for the use of \code{ard_stats_anova(method)} from packages,
+e.g. \code{package = 'lme4'} must be specified when \code{method = 'glmer'}.
 See example below.
 }
 \examples{
@@ -83,15 +83,15 @@ anova(
 ard_stats_anova(
   x = mtcars,
   formulas = list(am ~ mpg, am ~ mpg + hp),
-  fn = "glm",
-  fn.args = list(family = binomial)
+  method = "glm",
+  method.args = list(family = binomial)
 )
 
 ard_stats_anova(
   x = mtcars,
   formulas = list(am ~ 1 + (1 | vs), am ~ mpg + (1 | vs)),
-  fn = "glmer",
-  fn.args = list(family = binomial),
+  method = "glmer",
+  method.args = list(family = binomial),
   package = "lme4"
 )
 \dontshow{\}) # examplesIf}

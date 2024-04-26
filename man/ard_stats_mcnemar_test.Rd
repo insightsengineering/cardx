@@ -2,9 +2,12 @@
 % Please edit documentation in R/ard_stats_mcnemar_test.R
 \name{ard_stats_mcnemar_test}
 \alias{ard_stats_mcnemar_test}
+\alias{ard_stats_mcnemar_test_long}
 \title{ARD McNemar's Test}
 \usage{
 ard_stats_mcnemar_test(data, by, variables, ...)
+
+ard_stats_mcnemar_test_long(data, by, variables, id, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
@@ -18,12 +21,20 @@ column names to be compared. Independent tests will
 be computed for each variable.}
 
 \item{...}{arguments passed to \code{stats::mcnemar.test(...)}}
+
+\item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name of the subject or participant ID}
 }
 \value{
 ARD data frame
 }
 \description{
 Analysis results data for McNemar's statistical test.
+We have two functions depending on the structure of the data.
+\itemize{
+\item \code{ard_stats_mcnemar_test()} is the structure expected by \code{\link[stats:mcnemar.test]{stats::mcnemar.test()}}
+\item \code{ard_stats_mcnemar_test_long()} is one row per ID per group
+}
 }
 \details{
 For the \code{ard_stats_mcnemar_test()} function, the data is expected to be one row per subject.
@@ -34,5 +45,16 @@ Please use \code{table(x = data[[variable]], y = data[[by]])} to check the conti
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
   ard_stats_mcnemar_test(by = "SEX", variables = "EFFFL")
+
+set.seed(1234)
+cards::ADSL[c("USUBJID", "TRT01P")] |>
+  dplyr::mutate(TYPE = "PLANNED") |>
+  dplyr::rename(TRT01 = TRT01P) \%>\%
+  dplyr::bind_rows(dplyr::mutate(., TYPE = "ACTUAL", TRT01 = sample(TRT01))) |>
+  ard_stats_mcnemar_test_long(
+    by = TYPE,
+    variable = TRT01,
+    id = USUBJID
+  )
 \dontshow{\}) # examplesIf}
 }
