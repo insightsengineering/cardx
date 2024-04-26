@@ -49,6 +49,7 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
       values_to = "stat"
     ) |>
     dplyr::filter(map_lgl(.data$stat, Negate(is.na))) |>
+    dplyr::select(-(cards::all_ard_variables("levels") & dplyr::where(\(x) all(is.na(x))))) |>
     dplyr::mutate(
       fmt_fn =
         lapply(
