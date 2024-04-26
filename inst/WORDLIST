@@ -1,4 +1,5 @@
 ARD
+ARDs
 Biopharmaceutical
 CMD
 Chisq
@@ -18,17 +19,20 @@ XG
 Xin
 agresti
 anova
+aod
 cli
 clopper
 coull
 de
 deff
 funder
+gtsummary
 jeffreys
 pearson
 pre
 sd
 strat
+ttest
 vif
 wald
 waldcc

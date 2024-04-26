@@ -73,3 +73,26 @@ cards::ADSL |>
 ```
 
 <img src="man/figures/README-t_test_print_simple.png" width="75%"/>
+
+Note that the returned ARD contains the analysis results in addition to
+the function parameters used to calculate the results allowing for
+reproducible future analyses and further customization.
+
+### Model Input
+
+Some {cardx} functions accept regression model objects as input:
+
+``` r
+lm(AGE ~ ARM, data = cards::ADSL) |>
+ ard_aod_wald_test()
+```
+
+<img src="man/figures/README-model-input.png" width="75%"/>
+
+## Additional Resources
+
+-   The best resources are the help documents accompanying each {cardx}
+    function.
+-   Supporting documentation for both companion packages {cards} and
+    {[gtsummary](https://www.danieldsjoberg.com/gtsummary/index.html)}
+    will be useful for understanding the ARD workflow and capabilities.
