@@ -35,3 +35,5 @@ pkgdown
 # others
 ^renv$
 ^renv\.lock$
+^revdeprefs\.yaml$
+^revdep$
