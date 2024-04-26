@@ -142,7 +142,10 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
       dplyr::vars("conf.high", "conf.low"),
       ~ ifelse(is.na(.) & .data$std.error == 0, .data$estimate, .)
     ) %>%
-    dplyr::select(dplyr::any_of(c("time", "estimate", "conf.high", "conf.low", "strata"))) %>%
+    dplyr::select(dplyr::any_of(c(
+      "time", "estimate", "std.error", "conf.high", "conf.low",
+      "strata", "n.risk"
+    ))) %>%
     # add data for time 0
     dplyr::bind_rows(
       dplyr::group_by_at(., dplyr::vars(dplyr::any_of("strata"))) %>%

@@ -48,15 +48,16 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
   summary(x, times = times) |>
     tidy_summary.survfit() |>
     dplyr::select(any_of(c("strata", "time", "estimate", "std.error"))) %>%
-    {
-      dplyr::left_join(
-        dplyr::filter(., .data$strata != .data$strata[1]) |> dplyr::mutate(reference = .$strata[1]),
-        dplyr::filter(., .data$strata == .data$strata[1]) |>
-          dplyr::select(-"strata") |>
-          dplyr::rename_with(.fn = ~ paste0(., "0"), .cols = -"time"),
-        by = "time"
-      )
-    } |>
+    # styler: off
+    {dplyr::left_join(
+      dplyr::filter(., .data$strata != .data$strata[1]) |>
+        dplyr::mutate(contrast = paste(.$strata[1], "-", .data$strata)),
+      dplyr::filter(., .data$strata == .data$strata[1]) |>
+        dplyr::select(-"strata") |>
+        dplyr::rename_with(.fn = ~ paste0(., "0"), .cols = -"time"),
+      by = "time"
+    )} |>
+    # styler: on
     dplyr::mutate(
       difference = .data$estimate0 - .data$estimate,
       difference.std.error = sqrt(.data$std.error0^2 + .data$std.error^2),
@@ -66,12 +67,13 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
       p.value = 2 * (1 - stats::pnorm(abs(.data$statistic)))
     ) |>
     dplyr::select(
-      "strata", "reference", "time",
+      "strata", "contrast", "time",
       estimate = "difference",
       std.error = "difference.std.error",
       "statistic", "conf.low", "conf.high", "p.value"
     ) |>
-    tidyr::separate_wider_delim("strata", "=", names = c("group1", "group1_level")) |>
+    extract_multi_strata(x = x, df_stat = _)
+  tidyr::separate_wider_delim("strata", "=", names = c("group1", "group1_level")) |>
     dplyr::mutate(
       across(-cards::all_ard_groups("names"), as.list)
     ) |>
@@ -88,7 +90,6 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
       fmt_fn = list(1L),
       stat_label =
         dplyr::case_when(
-          .data$stat_name %in% "reference" ~ "Reference Group (ref - est)",
           .data$stat_name %in% "estimate" ~ "Survival Difference",
           .data$stat_name %in% "std.error" ~ "Survival Difference Standard Error",
           .data$stat_name %in% "conf.low" ~ "CI Lower Bound",
