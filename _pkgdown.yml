@@ -47,6 +47,7 @@ reference:
       - ard_car_vif
       - ard_effectsize_cohens_d
       - ard_effectsize_hedges_g
+      - ard_emmeans_mean_difference
       - ard_proportion_ci
       - ard_regression
       - ard_regression_basic
@@ -57,3 +58,4 @@ reference:
   - title: "Helpers"
   - contents:
       - proportion_ci
+      - construction_helpers
