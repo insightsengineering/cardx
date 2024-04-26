@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("broom", reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("broom", "withr"), reference_pkg = "cardx"))
 
 test_that("ard_stats_mcnemar_test() works", {
   expect_error(
@@ -50,4 +50,21 @@ test_that("ard_stats_mcnemar_test() works", {
     cards::ADSL |>
       ard_stats_mcnemar_test(by = SEX, variables = c(EFFFL, COMP16FL))
   )
+
+  # testing long format version
+  withr::local_seed(1234)
+  expect_error(
+    ard_stats_mcnemar_test_long <-
+      cards::ADSL[c("USUBJID", "TRT01P")] |>
+      dplyr::mutate(TYPE = "PLANNED") |>
+      dplyr::rename(TRT01 = TRT01P) %>%
+      dplyr::bind_rows(dplyr::mutate(., TYPE = "ACTUAL", TRT01 = sample(TRT01))) |>
+      ard_stats_mcnemar_test_long(
+        by = TYPE,
+        variable = TRT01,
+        id = USUBJID
+      ),
+    NA
+  )
+  expect_null(ard_stats_mcnemar_test_long$error |> unique() |> unlist())
 })

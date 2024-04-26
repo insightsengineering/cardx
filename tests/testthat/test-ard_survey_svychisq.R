@@ -48,4 +48,20 @@ test_that("ard_survey_svychisq() works", {
     dclus2 |>
       ard_survey_svychisq(by = comp.imp, variables = c(sch.wide, stype))
   )
+
+  # works with non-syntactic names
+  expect_equal(
+    {
+      dclus2_syntactic <- dclus2
+      dclus2_syntactic$variables <-
+        dplyr::rename(dclus2_syntactic$variables, `comp imp` = comp.imp)
+      ard_survey_svychisq(
+        dclus2,
+        variables = sch.wide,
+        by = comp.imp,
+        statistic = "F"
+      )[c("context", "stat_name", "stat_label", "stat")]
+    },
+    ard_svychisq[c("context", "stat_name", "stat_label", "stat")]
+  )
 })
