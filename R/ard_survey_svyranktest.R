@@ -48,7 +48,7 @@ ard_survey_svyranktest <- function(data, by, variables, test, ...) {
         variable = variable,
         lst_tidy =
           cards::eval_capture_conditions(
-            survey::svyranktest(stats::reformulate(by, response = variable), design = data, test = test, ...) |>
+            survey::svyranktest(reformulate2(termlabels = by, response = variable), design = data, test = test, ...) |>
               broom::tidy()
           )
       )
