@@ -36,3 +36,6 @@ pkgdown
 ^renv$
 ^renv\.lock$
 ^README\.Rmd$
+^.revdeprefs\.yaml$
+^revdep$
+^\.covrignore$
