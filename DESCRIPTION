@@ -1,6 +1,6 @@
 Package: cardx
 Title: Extra Analysis Results Data Utilities
-Version: 0.1.0.9028
+Version: 0.1.0.9031
 Authors@R: c(
     person("Daniel", "Sjoberg", , "danield.sjoberg@gmail.com", role = c("aut", "cre")),
     person("Abinaya", "Yogasekaram", , "abinaya.yogasekaram@contractors.roche.com", role = "aut"),
@@ -28,6 +28,7 @@ Suggests:
     aod (>= 1.3.3),
     broom (>= 1.0.5),
     broom.helpers (>= 1.15.0),
+    broom.mixed (>= 0.2.9),
     car (>= 3.0-11),
     effectsize (>= 0.6.0),
     emmeans (>= 1.7.3),

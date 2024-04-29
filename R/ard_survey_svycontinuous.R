@@ -213,7 +213,7 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
 
   # if no by variable, calculate univariate statistics
   if (is_empty(by)) {
-    args$x <- stats::reformulate(variable)
+    args$x <- reformulate2(variable)
     # calculate statistic (and remove FUN from the argument list)
     stat <-
       cards::eval_capture_conditions(
@@ -244,8 +244,8 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
 
   # if there is by variable(s), calculate statistics for the combinations
   else {
-    args$formula <- stats::reformulate(variable)
-    args$by <- stats::reformulate(by)
+    args$formula <- reformulate2(variable)
+    args$by <- reformulate2(by)
     stat <-
       if (stat_name %in% c("median", paste0("p", 0:100))) {
         cards::eval_capture_conditions(

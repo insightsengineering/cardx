@@ -46,7 +46,7 @@ ard_survey_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
         variable = variable,
         lst_tidy =
           cards::eval_capture_conditions(
-            survey::svyttest(stats::reformulate(by, response = variable), design = data, ...) %>%
+            survey::svyttest(reformulate2(termlabels = by, response = variable), design = data, ...) %>%
               # a slightly enhanced tidier that allows us to specify the conf.level
               {
                 dplyr::bind_cols(
