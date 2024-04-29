@@ -46,9 +46,9 @@ Example ttest:
 library(cardx)
 
 # summarize the data with our package
-cards::ADSL |> 
+cards::ADSL |>
   # keep two treatment arms for the t-test calculation
-  dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |> 
+  dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
   cardx::ard_stats_t_test(by = ARM, variable = AGE)
 ```
 
@@ -82,7 +82,7 @@ Some {cardx} functions accept regression model objects as input:
 
 ``` r
 lm(AGE ~ ARM, data = cards::ADSL) |>
- ard_aod_wald_test()
+  ard_aod_wald_test()
 ```
 
     ## {cards} data frame: 6 x 8
