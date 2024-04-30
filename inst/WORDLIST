@@ -19,7 +19,6 @@ XG
 Xin
 agresti
 anova
-aod
 backtick
 cli
 clopper
@@ -30,12 +29,12 @@ emmeans
 funder
 gtsummary
 jeffreys
+mmrm
 pearson
 pre
 quosures
 sd
 strat
-ttest
 vif
 wald
 waldcc
