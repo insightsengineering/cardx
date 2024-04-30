@@ -24,7 +24,7 @@ test_that("ard_regression() works", {
 test_that("ard_regression() works specifying custom tidier", {
   skip_if_not(is_pkg_installed(pkg = c("lme4", "broom.mixed"), reference_pkg = "cardx"))
   expect_snapshot(
-   lme4::lmer(mpg ~ hp + (1 | cyl), data = mtcars) |>
+    lme4::lmer(mpg ~ hp + (1 | cyl), data = mtcars) |>
       ard_regression(tidy_fun = broom.mixed::tidy) |>
       as.data.frame() |>
       dplyr::select(-context, -stat_label, -fmt_fn) |>

@@ -1,0 +1,87 @@
+---
+output: github_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# cardx <a href="https://insightsengineering.github.io/cardx"><img src="man/figures/logo.png" alt="cardx website" align="right" height="138"/></a>
+
+[![R-CMD-check](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/insightsengineering/cardx/branch/main/graph/badge.svg)](https://app.codecov.io/gh/insightsengineering/cardx?branch=main)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+The **{cardx}** package is an extension of the {cards} package, providing additional functions to create Analysis Results Data Objects (ARDs) using the **R** programming language.
+The {cardx} package exports ARD functions that uses utility functions from {cards} and statistical functions from additional packages (such as, {stats}, {mmrm}, {emmeans}, {car}, {survey}, etc.) to construct summary objects.
+
+Summary objects can be used to:
+
+-   **Generate Tables and visualizations for Regulatory Submission**
+    easily in **R**. Perfect for presenting descriptive statistics,
+    statistical analyses, regressions, etc. and more.
+
+-   **Conduct Quality Control checks on existing Tables** in R.
+    Storing both the results and test parameters supports the re-use and
+    verification of data analyses.
+
+## Installation
+
+Install cards from CRAN with:
+
+```r
+install.packages("cardx")
+```
+
+You can install the development version of cards from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("insightsengineering/cardx")
+```
+
+## Examples
+
+### Example ARD Creation
+
+Example t-test:
+
+```{r}
+library(cardx)
+
+cards::ADSL |>
+  # keep two treatment arms for the t-test calculation
+  dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
+  cardx::ard_stats_t_test(by = ARM, variable = AGE)
+```
+
+Note that the returned ARD contains the analysis results in addition to
+the function parameters used to calculate the results allowing for
+reproducible future analyses and further customization.
+
+### Model Input
+
+Some {cardx} functions accept regression model objects as input:
+
+```{r, eval=FALSE}
+lm(AGE ~ ARM, data = cards::ADSL) |>
+  ard_aod_wald_test()
+```
+
+Note that the [Analysis Results Standard](https://www.cdisc.org/standards/foundational/analysis-results-standard) should begin with a data set rather than a model object.
+To accomplish this we include model construction helpers.
+
+```{r}
+construct_model(
+  x = cards::ADSL,
+  formula = reformulate2("ARM", response = "AGE"),
+  method = "lm"
+) |>
+  ard_aod_wald_test()
+```
+
+## Additional Resources
+
+-   The best resources are the help documents accompanying each {cardx} function.
+-   Supporting documentation for both companion packages [{cards}](https://insightsengineering.github.io/cards/) and {[gtsummary](https://www.danieldsjoberg.com/gtsummary/index.html)} will be useful for understanding the ARD workflow and capabilities.
