@@ -7,45 +7,48 @@ coverage](https://codecov.io/gh/insightsengineering/cardx/branch/main/graph/badg
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
-This is the source repository of the `cardx` R package.
-
-The {cardx} package is an extension of the {cards} package, providing
-additional functions to create Analysis Results Data Objects (ARDs)
-using the **R** programming language. The {cardx} package exports ARD
-functions that uses utility functions from {cards} and statistical
-functions from additional packages (such as {stats}, {aod}, {car},
-{survey}, etc.) to construct summary objects.
+The **{cardx}** package is an extension of the {cards} package,
+providing additional functions to create Analysis Results Data Objects
+(ARDs) using the **R** programming language. The {cardx} package exports
+ARD functions that uses utility functions from {cards} and statistical
+functions from additional packages (such as, {stats}, {mmrm}, {emmeans},
+{car}, {survey}, etc.) to construct summary objects.
 
 Summary objects can be used to:
 
-- \[**Generate Tables and visualizations for Regulatory Submission**\]
+- **Generate Tables and visualizations for Regulatory Submission**
   easily in **R**. Perfect for presenting descriptive statistics,
   statistical analyses, regressions, etc. and more.
 
-- \[**Conduct Quality Control checks on existing Tables** \] in R.
-  Storing both the results and test parameters supports the re-use and
+- **Conduct Quality Control checks on existing Tables** in R. Storing
+  both the results and test parameters supports the re-use and
   verification of data analyses.
 
 ## Installation
 
-The latest development version of `{cardx}` can directly be installed
-from GitHub by running the following:
+Install cards from CRAN with:
 
 ``` r
-if (!require("pak")) install.packages("pak")
-pak::pak("insightsengineering/cardx")
+install.packages("cardx")
+```
+
+You can install the development version of cards from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("insightsengineering/cardx")
 ```
 
 ## Examples
 
 ### Example ARD Creation
 
-Example ttest:
+Example t-test:
 
 ``` r
 library(cardx)
 
-# summarize the data with our package
 cards::ADSL |>
   # keep two treatment arms for the t-test calculation
   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
@@ -85,6 +88,20 @@ lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_aod_wald_test()
 ```
 
+Note that the [Analysis Results
+Standard](https://www.cdisc.org/standards/foundational/analysis-results-standard)
+should begin with a data set rather than a model object. To accomplish
+this we include model construction helpers.
+
+``` r
+construct_model(
+  x = cards::ADSL,
+  formula = reformulate2("ARM", response = "AGE"),
+  method = "lm"
+) |>
+  ard_aod_wald_test()
+```
+
     ## {cards} data frame: 6 x 8
 
     ##      variable   context stat_name stat_label     stat fmt_fn
@@ -101,6 +118,7 @@ lm(AGE ~ ARM, data = cards::ADSL) |>
 
 - The best resources are the help documents accompanying each {cardx}
   function.
-- Supporting documentation for both companion packages {cards} and
+- Supporting documentation for both companion packages
+  [{cards}](https://insightsengineering.github.io/cards/) and
   {[gtsummary](https://www.danieldsjoberg.com/gtsummary/index.html)}
   will be useful for understanding the ARD workflow and capabilities.
