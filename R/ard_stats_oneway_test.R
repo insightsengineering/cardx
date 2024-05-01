@@ -25,20 +25,20 @@ ard_stats_oneway_test <- function(formula, data, ...) {
   check_class(formula, cls = "formula")
 
   # build ARD ------------------------------------------------------------------
-
-  cards::tidy_as_ard(
-    lst_tidy =
-      cards::eval_capture_conditions(
-        stats::oneway.test(formula, data = data, ...) |>
-          broom::tidy()
-      ),
-    tidy_result_names = c("num.df", "den.df", "statistic", "p.value", "method"),
-    fun_args_to_record =
-      c("var.equal"),
-    formals = formals(stats::oneway.test),
-    passed_args = dots_list(...),
-    lst_ard_columns = list(context = "stats_oneway_test")
-  ) |>
+  df_results <-
+    cards::tidy_as_ard(
+      lst_tidy =
+        cards::eval_capture_conditions(
+          stats::oneway.test(formula, data = data, ...) |>
+            broom::tidy()
+        ),
+      tidy_result_names = c("num.df", "den.df", "statistic", "p.value", "method"),
+      fun_args_to_record =
+        c("var.equal"),
+      formals = formals(stats::oneway.test),
+      passed_args = dots_list(...),
+      lst_ard_columns = list(context = "stats_oneway_test")
+    ) |>
     dplyr::mutate(
       .after = "stat_name",
       stat_label =
@@ -51,4 +51,12 @@ ard_stats_oneway_test <- function(formula, data, ...) {
           TRUE ~ .data$stat_name,
         )
     )
+
+  # add variable/groups to results and return result
+  df_results |>
+    dplyr::bind_cols(
+      dplyr::tibble(!!!map(as.list(attr(stats::terms(formula), "variables"))[-1], as_label)) %>%
+        set_names(., c("variable", paste0("group", seq_len(length(.) - 1L))))
+    ) |>
+    cards::tidy_ard_column_order()
 }
