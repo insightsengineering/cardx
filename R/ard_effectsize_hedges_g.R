@@ -13,6 +13,8 @@
 #'   tests will be run for each variable
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
+#' @param conf.level (scalar `numeric`)\cr
+#'   confidence level for confidence interval. Default is `0.95`.
 #' @param ... arguments passed to `effectsize::hedges_g(...)`
 #'
 #' @return ARD data frame
@@ -46,7 +48,7 @@ NULL
 
 #' @rdname ard_effectsize_hedges_g
 #' @export
-ard_effectsize_hedges_g <- function(data, by, variables, ...) {
+ard_effectsize_hedges_g <- function(data, by, variables, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -79,7 +81,7 @@ ard_effectsize_hedges_g <- function(data, by, variables, ...) {
             # Will also need to remove `hedges_g` from globalVariables()
             withr::with_namespace(
               package = "effectsize",
-              code = hedges_g(data[[variable]] ~ data[[by]], paired = FALSE, ...)
+              code = hedges_g(data[[variable]] ~ data[[by]], paired = FALSE, ci = conf.level, ...)
             ) |>
               parameters::standardize_names(style = "broom")
           ),
@@ -93,7 +95,7 @@ ard_effectsize_hedges_g <- function(data, by, variables, ...) {
 
 #' @rdname ard_effectsize_hedges_g
 #' @export
-ard_effectsize_paired_hedges_g <- function(data, by, variables, id, ...) {
+ard_effectsize_paired_hedges_g <- function(data, by, variables, id, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -129,7 +131,7 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, ...) {
             # perform paired cohen's d test
             withr::with_namespace(
               package = "effectsize",
-              code = hedges_g(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...)
+              code = hedges_g(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ci = conf.level, ...)
             ) |>
               parameters::standardize_names(style = "broom")
           }),

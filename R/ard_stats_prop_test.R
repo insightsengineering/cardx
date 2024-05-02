@@ -10,6 +10,8 @@
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column names to be compared. Must be a binary column coded as `TRUE`/`FALSE`
 #'   or `1`/`0`. Independent tests will be computed for each variable.
+#' @param conf.level (scalar `numeric`)\cr
+#'   confidence level for confidence interval. Default is `0.95`.
 #' @param ... arguments passed to `prop.test(...)`
 #'
 #' @return ARD data frame
@@ -18,7 +20,7 @@
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' mtcars |>
 #'   ard_stats_prop_test(by = vs, variables = am)
-ard_stats_prop_test <- function(data, by, variables, ...) {
+ard_stats_prop_test <- function(data, by, variables, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -72,6 +74,7 @@ ard_stats_prop_test <- function(data, by, variables, ...) {
             stats::prop.test(
               x = data_counts[["x"]],
               n = data_counts[["n"]],
+              conf.level = conf.level,
               ...
             ) |>
               broom::tidy() |>
