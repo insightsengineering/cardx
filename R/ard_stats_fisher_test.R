@@ -35,6 +35,7 @@ ard_stats_fisher_test <- function(data, by, variables, conf.level = 0.95, ...) {
   check_data_frame(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
+  check_range(conf.level, range = c(0, 1))
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {

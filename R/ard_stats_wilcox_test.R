@@ -58,6 +58,7 @@ ard_stats_wilcox_test <- function(data, variables, by = NULL, conf.level = 0.95,
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by, allow_empty = TRUE)
+  check_range(conf.level, range = c(0, 1))
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {

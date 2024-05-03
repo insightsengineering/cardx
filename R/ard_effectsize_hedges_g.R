@@ -61,6 +61,7 @@ ard_effectsize_hedges_g <- function(data, by, variables, conf.level = 0.95, ...)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
+  check_range(conf.level, range = c(0, 1))
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
@@ -111,6 +112,7 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, conf.level =
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }}, id = {{ id }})
   check_scalar(by)
   check_scalar(id)
+  check_range(conf.level, range = c(0, 1))
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
