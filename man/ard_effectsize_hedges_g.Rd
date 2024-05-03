@@ -5,9 +5,9 @@
 \alias{ard_effectsize_paired_hedges_g}
 \title{ARD Hedge's G Test}
 \usage{
-ard_effectsize_hedges_g(data, by, variables, ...)
+ard_effectsize_hedges_g(data, by, variables, conf.level = 0.95, ...)
 
-ard_effectsize_paired_hedges_g(data, by, variables, id, ...)
+ard_effectsize_paired_hedges_g(data, by, variables, id, conf.level = 0.95, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
@@ -19,6 +19,9 @@ column name to compare by. Must be a categorical variable with exactly two level
 \item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column names to be compared. Must be a continuous variable. Independent
 tests will be run for each variable}
+
+\item{conf.level}{(scalar \code{numeric})\cr
+confidence level for confidence interval. Default is \code{0.95}.}
 
 \item{...}{arguments passed to \code{effectsize::hedges_g(...)}}
 
