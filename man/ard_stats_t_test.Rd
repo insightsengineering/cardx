@@ -5,9 +5,9 @@
 \alias{ard_stats_paired_t_test}
 \title{ARD t-test}
 \usage{
-ard_stats_t_test(data, variables, by = NULL, ...)
+ard_stats_t_test(data, variables, by = NULL, conf.level = 0.95, ...)
 
-ard_stats_paired_t_test(data, by, variables, id, ...)
+ard_stats_paired_t_test(data, by, variables, id, conf.level = 0.95, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
@@ -19,6 +19,9 @@ each variable.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 optional column name to compare by.}
+
+\item{conf.level}{(scalar \code{numeric})\cr
+confidence level for confidence interval. Default is \code{0.95}.}
 
 \item{...}{arguments passed to \code{t.test(...)}}
 

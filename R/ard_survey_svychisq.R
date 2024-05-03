@@ -5,7 +5,7 @@
 #' Only two-way comparisons are supported.
 #'
 #' @param data (`survey.design`)\cr
-#'   a survey design object often created with the {survey} package
+#'   a survey design object often created with the \{survey\} package
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name to compare by.
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr

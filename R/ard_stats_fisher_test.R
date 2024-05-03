@@ -12,6 +12,8 @@
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column names to be compared. Independent tests will be computed for
 #'   each variable.
+#' @param conf.level (scalar `numeric`)\cr
+#'   confidence level for confidence interval. Default is `0.95`.
 #' @param ... additional arguments passed to `fisher.test(...)`
 #'
 #' @return ARD data frame
@@ -20,7 +22,7 @@
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL[1:30, ] |>
 #'   ard_stats_fisher_test(by = "ARM", variables = "AGEGR1")
-ard_stats_fisher_test <- function(data, by, variables, ...) {
+ard_stats_fisher_test <- function(data, by, variables, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -33,6 +35,7 @@ ard_stats_fisher_test <- function(data, by, variables, ...) {
   check_data_frame(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
+  check_range(conf.level, range = c(0, 1))
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
@@ -45,7 +48,7 @@ ard_stats_fisher_test <- function(data, by, variables, ...) {
       cards::tidy_as_ard(
         lst_tidy =
           cards::eval_capture_conditions(
-            stats::fisher.test(x = data[[variable]], y = data[[by]], ...) |>
+            stats::fisher.test(x = data[[variable]], y = data[[by]], conf.level = conf.level, ...) |>
               broom::tidy()
           ),
         tidy_result_names =

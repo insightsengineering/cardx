@@ -13,6 +13,8 @@
 #'   Independent tests will be run for each variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID
+#' @param conf.level (scalar `numeric`)\cr
+#'   confidence level for confidence interval. Default is `0.95`.
 #' @param ... arguments passed to `effectsize::cohens_d(...)`
 #'
 #' @return ARD data frame
@@ -46,7 +48,7 @@ NULL
 
 #' @rdname ard_effectsize_cohens_d
 #' @export
-ard_effectsize_cohens_d <- function(data, by, variables, ...) {
+ard_effectsize_cohens_d <- function(data, by, variables, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -60,7 +62,7 @@ ard_effectsize_cohens_d <- function(data, by, variables, ...) {
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
-
+  check_range(conf.level, range = c(0, 1))
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
     return(dplyr::tibble())
@@ -75,7 +77,7 @@ ard_effectsize_cohens_d <- function(data, by, variables, ...) {
         variable = variable,
         lst_tidy =
           cards::eval_capture_conditions(
-            effectsize::cohens_d(data[[variable]] ~ data[[by]], data = data, paired = FALSE, ...) |>
+            effectsize::cohens_d(data[[variable]] ~ data[[by]], data = data, paired = FALSE, ci = conf.level, ...) |>
               parameters::standardize_names(style = "broom")
           ),
         paired = FALSE,
@@ -89,7 +91,7 @@ ard_effectsize_cohens_d <- function(data, by, variables, ...) {
 
 #' @rdname ard_effectsize_cohens_d
 #' @export
-ard_effectsize_paired_cohens_d <- function(data, by, variables, id, ...) {
+ard_effectsize_paired_cohens_d <- function(data, by, variables, id, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -105,6 +107,7 @@ ard_effectsize_paired_cohens_d <- function(data, by, variables, id, ...) {
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }}, id = {{ id }})
   check_scalar(by)
   check_scalar(id)
+  check_range(conf.level, range = c(0, 1))
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
@@ -123,7 +126,7 @@ ard_effectsize_paired_cohens_d <- function(data, by, variables, id, ...) {
             # adding this reshape inside the eval, so if there is an error it's captured in the ARD object
             data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
             # perform paired cohen's d test
-            effectsize::cohens_d(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...) |>
+            effectsize::cohens_d(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ci = conf.level, ...) |>
               parameters::standardize_names(style = "broom")
           }),
         paired = TRUE,

@@ -12,6 +12,8 @@
 #'   each variable.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of the subject or participant ID.
+#' @param conf.level (scalar `numeric`)\cr
+#'   confidence level for confidence interval. Default is `0.95`.
 #' @param ... arguments passed to `wilcox.test(...)`
 #'
 #' @return ARD data frame
@@ -43,7 +45,7 @@ NULL
 
 #' @rdname ard_stats_wilcox_test
 #' @export
-ard_stats_wilcox_test <- function(data, variables, by = NULL, ...) {
+ard_stats_wilcox_test <- function(data, variables, by = NULL, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -56,6 +58,7 @@ ard_stats_wilcox_test <- function(data, variables, by = NULL, ...) {
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by, allow_empty = TRUE)
+  check_range(conf.level, range = c(0, 1))
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
@@ -73,7 +76,7 @@ ard_stats_wilcox_test <- function(data, variables, by = NULL, ...) {
           # styler: off
           cards::eval_capture_conditions(
             if (!is_empty(by)) {
-              stats::wilcox.test(data[[variable]] ~ data[[by]], ...) |>
+              stats::wilcox.test(data[[variable]] ~ data[[by]], conf.level = conf.level, ...) |>
                 broom::tidy()
             }
             else {
@@ -92,7 +95,7 @@ ard_stats_wilcox_test <- function(data, variables, by = NULL, ...) {
 
 #' @rdname ard_stats_wilcox_test
 #' @export
-ard_stats_paired_wilcox_test <- function(data, by, variables, id, ...) {
+ard_stats_paired_wilcox_test <- function(data, by, variables, id, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -126,7 +129,7 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, ...) {
             # adding this reshape inside the eval, so if there is an error it's captured in the ARD object
             data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
             # perform paired wilcox test
-            stats::wilcox.test(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ...) |>
+            stats::wilcox.test(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, conf.level = conf.level, ...) |>
               broom::tidy()
           }),
         paired = TRUE,
