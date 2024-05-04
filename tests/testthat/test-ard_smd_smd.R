@@ -52,7 +52,7 @@ test_that("ard_smd() works with survey data", {
   )
 })
 
-test_that("ard_proptest() error messaging", {
+test_that("ard_smd_smd() error messaging", {
   # mis-specify the gref argument
   expect_error(
     bad_gref <-

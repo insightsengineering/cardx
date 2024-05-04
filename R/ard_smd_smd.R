@@ -24,8 +24,8 @@
 #' @export
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd", reference_pkg = "cardx"))
-#' ard_smd_smd(cards::ADSL, by = SEX, variables = AGE, std.error = TRUE)
-#' ard_smd_smd(cards::ADSL, by = SEX, variables = AGEGR1, std.error = TRUE)
+#' ard_smd_smd(cards::ADSL, by = SEX, variables = AGE)
+#' ard_smd_smd(cards::ADSL, by = SEX, variables = AGEGR1)
 ard_smd_smd <- function(data, by, variables, std.error = TRUE, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
@@ -72,6 +72,7 @@ ard_smd_smd <- function(data, by, variables, std.error = TRUE, conf.level = 0.95
               "FALSE" = smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, std.error = std.error, ...)
             ) |>
               dplyr::select(-any_of("term")) %>%
+              # styler: off
               {if (isTRUE(std.error))
                 dplyr::mutate(
                   .,
@@ -84,6 +85,7 @@ ard_smd_smd <- function(data, by, variables, std.error = TRUE, conf.level = 0.95
                    .,
                    method = "Standardized Mean Difference"
                  )}
+            # styler: on
           ),
         ...
       )

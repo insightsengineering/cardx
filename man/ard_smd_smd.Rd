@@ -18,11 +18,16 @@ column name to compare by.}
 column names to be compared. Independent tests will be computed for
 each variable.}
 
+\item{std.error}{(scalar \code{logical})\cr
+Logical indicator for computing standard errors using \code{smd::compute_smd_var()}.
+Default is \code{TRUE}.}
+
+\item{conf.level}{(scalar \code{numeric})\cr
+confidence level for confidence interval. Default is \code{0.95}.}
+
 \item{...}{
   Arguments passed on to \code{\link[smd:smd]{smd::smd}}
   \describe{
-    \item{\code{std.error}}{Logical indicator for computing standard errors using
-\code{\link[smd]{compute_smd_var}}. Defaults to \code{FALSE}.}
     \item{\code{gref}}{an integer indicating which level of \code{g} to use as the reference
 group. Defaults to \code{1}.}
   }}
@@ -37,7 +42,7 @@ Additionally, this function add a confidence interval to the SMD when
 }
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-ard_smd_smd(cards::ADSL, by = SEX, variables = AGE, std.error = TRUE)
-ard_smd_smd(cards::ADSL, by = SEX, variables = AGEGR1, std.error = TRUE)
+ard_smd_smd(cards::ADSL, by = SEX, variables = AGE)
+ard_smd_smd(cards::ADSL, by = SEX, variables = AGEGR1)
 \dontshow{\}) # examplesIf}
 }
