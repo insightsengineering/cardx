@@ -2,6 +2,8 @@
 #'
 #' @description
 #' Standardized mean difference calculated via [`smd::smd()`] with `na.rm = TRUE`.
+#' Additionally, this function add a confidence interval to the SMD when
+#' `std.error=TRUE`, which the original `smd::smd()` does not include.
 #'
 #' @param data (`data.frame`/`survey.design`)\cr
 #'   a data frame or object of class 'survey.design'
@@ -11,15 +13,20 @@
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column names to be compared. Independent tests will be computed for
 #'   each variable.
+#' @param conf.level (scalar `numeric`)\cr
+#'   confidence level for confidence interval. Default is `0.95`.
+#' @param std.error (scalar `logical`)\cr
+#'   Logical indicator for computing standard errors using `smd::compute_smd_var()`.
+#'   Default is `TRUE`.
 #' @inheritDotParams smd::smd -x -g -w -na.rm
 #'
 #' @return ARD data frame
 #' @export
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd", reference_pkg = "cardx"))
-#' ard_smd_smd(cards::ADSL, by = ARM, variables = AGE, std.error = TRUE)
-#' ard_smd_smd(cards::ADSL, by = ARM, variables = AGEGR1, std.error = TRUE)
-ard_smd_smd <- function(data, by, variables, ...) {
+#' ard_smd_smd(cards::ADSL, by = SEX, variables = AGE, std.error = TRUE)
+#' ard_smd_smd(cards::ADSL, by = SEX, variables = AGEGR1, std.error = TRUE)
+ard_smd_smd <- function(data, by, variables, std.error = TRUE, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -37,11 +44,19 @@ ard_smd_smd <- function(data, by, variables, ...) {
     data <- design$variables
   }
 
+
   # continue check/process inputs ----------------------------------------------
   check_data_frame(data)
   data <- dplyr::ungroup(data)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
+  # This check can be relaxed, but would require some changes to handle multi-row outputs
+  if (dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {
+    cli::cli_abort(
+      "The vector from the {.arg by} argument must have two levels.",
+      call = get_cli_abort_call()
+    )
+  }
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
@@ -58,10 +73,22 @@ ard_smd_smd <- function(data, by, variables, ...) {
         lst_tidy =
           cards::eval_capture_conditions(
             switch(as.character(is_survey),
-              "TRUE" = smd::smd(x = data[[variable]], g = data[[by]], w = stats::weights(design), na.rm = TRUE, ...),
-              "FALSE" = smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, ...)
+              "TRUE" = smd::smd(x = data[[variable]], g = data[[by]], w = stats::weights(design), na.rm = TRUE, std.error = std.error, ...),
+              "FALSE" = smd::smd(x = data[[variable]], g = data[[by]], na.rm = TRUE, std.error = std.error, ...)
             ) |>
-              dplyr::select(-any_of("term"))
+              dplyr::select(-any_of("term")) %>%
+              {if (isTRUE(std.error))
+                dplyr::mutate(
+                  .,
+                  conf.low = .data$estimate + stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error,
+                  conf.high = .data$estimate - stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error,
+                  method = "Standardized Mean Difference"
+                )
+               else
+                 dplyr::mutate(
+                   .,
+                   method = "Standardized Mean Difference"
+                 )}
           ),
         ...
       )
@@ -77,8 +104,8 @@ ard_smd_smd <- function(data, by, variables, ...) {
     cards::tidy_as_ard(
       lst_tidy = lst_tidy,
       tidy_result_names = c("estimate", "std.error"),
-      fun_args_to_record = "gref",
-      formals = formals(smd::smd)["gref"],
+      fun_args_to_record = c("gref"),
+      formals = formals(smd::smd)[c("gref")],
       # removing the `std.error` ARGUMENT (not the result)
       passed_args = dots_list(...) |> utils::modifyList(list(std.error = NULL)),
       lst_ard_columns = list(group1 = by, variable = variable, context = "smd_smd")

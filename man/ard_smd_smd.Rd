@@ -4,7 +4,7 @@
 \alias{ard_smd_smd}
 \title{ARD Standardized Mean Difference}
 \usage{
-ard_smd_smd(data, by, variables, ...)
+ard_smd_smd(data, by, variables, std.error = TRUE, conf.level = 0.95, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame}/\code{survey.design})\cr
@@ -32,10 +32,12 @@ ARD data frame
 }
 \description{
 Standardized mean difference calculated via \code{\link[smd:smd]{smd::smd()}} with \code{na.rm = TRUE}.
+Additionally, this function add a confidence interval to the SMD when
+\code{std.error=TRUE}, which the original \code{smd::smd()} does not include.
 }
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-ard_smd_smd(cards::ADSL, by = ARM, variables = AGE, std.error = TRUE)
-ard_smd_smd(cards::ADSL, by = ARM, variables = AGEGR1, std.error = TRUE)
+ard_smd_smd(cards::ADSL, by = SEX, variables = AGE, std.error = TRUE)
+ard_smd_smd(cards::ADSL, by = SEX, variables = AGEGR1, std.error = TRUE)
 \dontshow{\}) # examplesIf}
 }
