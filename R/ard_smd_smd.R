@@ -51,12 +51,7 @@ ard_smd_smd <- function(data, by, variables, std.error = TRUE, conf.level = 0.95
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
   # This check can be relaxed, but would require some changes to handle multi-row outputs
-  if (dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {
-    cli::cli_abort(
-      "The vector from the {.arg by} argument must have two levels.",
-      call = get_cli_abort_call()
-    )
-  }
+  check_n_levels(data[[by]], 2L, message = "The {.arg by} column must have {.val {length}} levels.")
 
   # if no variables selected, return empty tibble ------------------------------
   if (is_empty(variables)) {
