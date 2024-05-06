@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.961978928080623" branch-rate="0" lines-covered="2100" lines-valid="2183" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-05-06 04:26:04.09165">
+<coverage line-rate="0.962013729977117" branch-rate="0" lines-covered="2102" lines-valid="2185" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-05-06 04:34:57.83853">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.961978928080623" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.962013729977117" branch-rate="0" complexity="0">
       <classes>
         <class name="ard_aod_wald_test.R" filename="R/ard_aod_wald_test.R" line-rate="0.896103896103896" branch-rate="0" complexity="0">
           <methods>
@@ -407,7 +407,7 @@
             <line number="104" hits="2" branch="false"/>
           </lines>
         </class>
-        <class name="ard_effectsize_cohens_d.R" filename="R/ard_effectsize_cohens_d.R" line-rate="0.98019801980198" branch-rate="0" complexity="0">
+        <class name="ard_effectsize_cohens_d.R" filename="R/ard_effectsize_cohens_d.R" line-rate="0.980392156862745" branch-rate="0" complexity="0">
           <methods>
             <method name="ard_effectsize_cohens_d" signature="" line-rate="0.972222222222222" branch-rate="0" complexity="0">
               <lines>
@@ -449,7 +449,7 @@
                 <line number="95" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="ard_effectsize_paired_cohens_d" signature="" line-rate="0.972222222222222" branch-rate="0" complexity="0">
+            <method name="ard_effectsize_paired_cohens_d" signature="" line-rate="0.972972972972973" branch-rate="0" complexity="0">
               <lines>
                 <line number="102" hits="2" branch="false"/>
                 <line number="105" hits="2" branch="false"/>
@@ -477,21 +477,21 @@
                 <line number="135" hits="2" branch="false"/>
                 <line number="136" hits="2" branch="false"/>
                 <line number="137" hits="2" branch="false"/>
-                <line number="139" hits="1" branch="false"/>
+                <line number="138" hits="2" branch="false"/>
                 <line number="140" hits="1" branch="false"/>
                 <line number="141" hits="1" branch="false"/>
-                <line number="142" hits="2" branch="false"/>
+                <line number="142" hits="1" branch="false"/>
                 <line number="143" hits="2" branch="false"/>
                 <line number="144" hits="2" branch="false"/>
                 <line number="145" hits="2" branch="false"/>
                 <line number="146" hits="2" branch="false"/>
                 <line number="147" hits="2" branch="false"/>
                 <line number="148" hits="2" branch="false"/>
+                <line number="149" hits="2" branch="false"/>
               </lines>
             </method>
             <method name=".df_effectsize_stat_labels" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="152" hits="12" branch="false"/>
                 <line number="153" hits="12" branch="false"/>
                 <line number="154" hits="12" branch="false"/>
                 <line number="155" hits="12" branch="false"/>
@@ -502,11 +502,11 @@
                 <line number="160" hits="12" branch="false"/>
                 <line number="161" hits="12" branch="false"/>
                 <line number="162" hits="12" branch="false"/>
+                <line number="163" hits="12" branch="false"/>
               </lines>
             </method>
             <method name=".format_cohens_d_results" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="189" hits="6" branch="false"/>
                 <line number="190" hits="6" branch="false"/>
                 <line number="191" hits="6" branch="false"/>
                 <line number="192" hits="6" branch="false"/>
@@ -517,13 +517,14 @@
                 <line number="197" hits="6" branch="false"/>
                 <line number="198" hits="6" branch="false"/>
                 <line number="199" hits="6" branch="false"/>
-                <line number="202" hits="6" branch="false"/>
+                <line number="200" hits="6" branch="false"/>
                 <line number="203" hits="6" branch="false"/>
                 <line number="204" hits="6" branch="false"/>
                 <line number="205" hits="6" branch="false"/>
                 <line number="206" hits="6" branch="false"/>
                 <line number="207" hits="6" branch="false"/>
                 <line number="208" hits="6" branch="false"/>
+                <line number="209" hits="6" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -590,17 +591,17 @@
             <line number="135" hits="2" branch="false"/>
             <line number="136" hits="2" branch="false"/>
             <line number="137" hits="2" branch="false"/>
-            <line number="139" hits="1" branch="false"/>
+            <line number="138" hits="2" branch="false"/>
             <line number="140" hits="1" branch="false"/>
             <line number="141" hits="1" branch="false"/>
-            <line number="142" hits="2" branch="false"/>
+            <line number="142" hits="1" branch="false"/>
             <line number="143" hits="2" branch="false"/>
             <line number="144" hits="2" branch="false"/>
             <line number="145" hits="2" branch="false"/>
             <line number="146" hits="2" branch="false"/>
             <line number="147" hits="2" branch="false"/>
             <line number="148" hits="2" branch="false"/>
-            <line number="152" hits="12" branch="false"/>
+            <line number="149" hits="2" branch="false"/>
             <line number="153" hits="12" branch="false"/>
             <line number="154" hits="12" branch="false"/>
             <line number="155" hits="12" branch="false"/>
@@ -611,7 +612,7 @@
             <line number="160" hits="12" branch="false"/>
             <line number="161" hits="12" branch="false"/>
             <line number="162" hits="12" branch="false"/>
-            <line number="189" hits="6" branch="false"/>
+            <line number="163" hits="12" branch="false"/>
             <line number="190" hits="6" branch="false"/>
             <line number="191" hits="6" branch="false"/>
             <line number="192" hits="6" branch="false"/>
@@ -622,16 +623,17 @@
             <line number="197" hits="6" branch="false"/>
             <line number="198" hits="6" branch="false"/>
             <line number="199" hits="6" branch="false"/>
-            <line number="202" hits="6" branch="false"/>
+            <line number="200" hits="6" branch="false"/>
             <line number="203" hits="6" branch="false"/>
             <line number="204" hits="6" branch="false"/>
             <line number="205" hits="6" branch="false"/>
             <line number="206" hits="6" branch="false"/>
             <line number="207" hits="6" branch="false"/>
             <line number="208" hits="6" branch="false"/>
+            <line number="209" hits="6" branch="false"/>
           </lines>
         </class>
-        <class name="ard_effectsize_hedges_g.R" filename="R/ard_effectsize_hedges_g.R" line-rate="0.979166666666667" branch-rate="0" complexity="0">
+        <class name="ard_effectsize_hedges_g.R" filename="R/ard_effectsize_hedges_g.R" line-rate="0.979381443298969" branch-rate="0" complexity="0">
           <methods>
             <method name="ard_effectsize_hedges_g" signature="" line-rate="0.974358974358974" branch-rate="0" complexity="0">
               <lines>
@@ -676,7 +678,7 @@
                 <line number="102" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="ard_effectsize_paired_hedges_g" signature="" line-rate="0.974358974358974" branch-rate="0" complexity="0">
+            <method name="ard_effectsize_paired_hedges_g" signature="" line-rate="0.975" branch-rate="0" complexity="0">
               <lines>
                 <line number="108" hits="2" branch="false"/>
                 <line number="111" hits="2" branch="false"/>
@@ -704,24 +706,24 @@
                 <line number="141" hits="2" branch="false"/>
                 <line number="142" hits="2" branch="false"/>
                 <line number="143" hits="2" branch="false"/>
-                <line number="145" hits="1" branch="false"/>
+                <line number="144" hits="2" branch="false"/>
                 <line number="146" hits="1" branch="false"/>
                 <line number="147" hits="1" branch="false"/>
                 <line number="148" hits="1" branch="false"/>
                 <line number="149" hits="1" branch="false"/>
                 <line number="150" hits="1" branch="false"/>
-                <line number="151" hits="2" branch="false"/>
+                <line number="151" hits="1" branch="false"/>
                 <line number="152" hits="2" branch="false"/>
                 <line number="153" hits="2" branch="false"/>
                 <line number="154" hits="2" branch="false"/>
                 <line number="155" hits="2" branch="false"/>
                 <line number="156" hits="2" branch="false"/>
                 <line number="157" hits="2" branch="false"/>
+                <line number="158" hits="2" branch="false"/>
               </lines>
             </method>
             <method name=".format_hedges_g_results" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="183" hits="6" branch="false"/>
                 <line number="184" hits="6" branch="false"/>
                 <line number="185" hits="6" branch="false"/>
                 <line number="186" hits="6" branch="false"/>
@@ -732,13 +734,14 @@
                 <line number="191" hits="6" branch="false"/>
                 <line number="192" hits="6" branch="false"/>
                 <line number="193" hits="6" branch="false"/>
-                <line number="196" hits="6" branch="false"/>
+                <line number="194" hits="6" branch="false"/>
                 <line number="197" hits="6" branch="false"/>
                 <line number="198" hits="6" branch="false"/>
                 <line number="199" hits="6" branch="false"/>
                 <line number="200" hits="6" branch="false"/>
                 <line number="201" hits="6" branch="false"/>
                 <line number="202" hits="6" branch="false"/>
+                <line number="203" hits="6" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -808,20 +811,20 @@
             <line number="141" hits="2" branch="false"/>
             <line number="142" hits="2" branch="false"/>
             <line number="143" hits="2" branch="false"/>
-            <line number="145" hits="1" branch="false"/>
+            <line number="144" hits="2" branch="false"/>
             <line number="146" hits="1" branch="false"/>
             <line number="147" hits="1" branch="false"/>
             <line number="148" hits="1" branch="false"/>
             <line number="149" hits="1" branch="false"/>
             <line number="150" hits="1" branch="false"/>
-            <line number="151" hits="2" branch="false"/>
+            <line number="151" hits="1" branch="false"/>
             <line number="152" hits="2" branch="false"/>
             <line number="153" hits="2" branch="false"/>
             <line number="154" hits="2" branch="false"/>
             <line number="155" hits="2" branch="false"/>
             <line number="156" hits="2" branch="false"/>
             <line number="157" hits="2" branch="false"/>
-            <line number="183" hits="6" branch="false"/>
+            <line number="158" hits="2" branch="false"/>
             <line number="184" hits="6" branch="false"/>
             <line number="185" hits="6" branch="false"/>
             <line number="186" hits="6" branch="false"/>
@@ -832,13 +835,14 @@
             <line number="191" hits="6" branch="false"/>
             <line number="192" hits="6" branch="false"/>
             <line number="193" hits="6" branch="false"/>
-            <line number="196" hits="6" branch="false"/>
+            <line number="194" hits="6" branch="false"/>
             <line number="197" hits="6" branch="false"/>
             <line number="198" hits="6" branch="false"/>
             <line number="199" hits="6" branch="false"/>
             <line number="200" hits="6" branch="false"/>
             <line number="201" hits="6" branch="false"/>
             <line number="202" hits="6" branch="false"/>
+            <line number="203" hits="6" branch="false"/>
           </lines>
         </class>
         <class name="ard_emmeans_mean_difference.R" filename="R/ard_emmeans_mean_difference.R" line-rate="1" branch-rate="0" complexity="0">
