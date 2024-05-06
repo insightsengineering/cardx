@@ -140,7 +140,8 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, conf.level =
             data_wide <-
               data |>
               tidyr::drop_na(all_of(c(id, by, variable))) |>
-              .paired_data_pivot_wider(by = by, variable = variable, id = id)
+              .paired_data_pivot_wider(by = by, variable = variable, id = id) |>
+              tidyr::drop_na(any_of(c("by1", "by2")))
             # perform paired cohen's d test
             withr::with_namespace(
               package = "effectsize",
