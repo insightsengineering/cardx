@@ -30,6 +30,23 @@ test_that("construct_model() works", {
     "cannot be namespaced"
   )
 
+  expect_equal({
+    outside_fun <- function() {
+      method.args <- list()
+
+      construct_model.data.frame(
+        mtcars,
+        formula = mpg ~ cyl,
+        method = "lm",
+        method.args = method.args
+      ) |>
+        coef()
+    }
+
+    outside_fun()},
+    lm(mpg ~ cyl, mtcars) |> coef()
+  )
+
   # now the survey method -------
   # styler: off
   expect_equal({
