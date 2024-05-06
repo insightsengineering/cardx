@@ -118,7 +118,7 @@ construct_model.survey.design <- function(x, formula, method, method.args = list
 
 .as_list_of_exprs <- function(x) {
   x_enexpr <- enexpr(x)
-  if (isTRUE(tryCatch(inherits(x, "list")))) return(x)
+  if (tryCatch(inherits(x, "list"), error = \(x) FALSE)) return(x)
   call_args(x_enexpr)
 }
 

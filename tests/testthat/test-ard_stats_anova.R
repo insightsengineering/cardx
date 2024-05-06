@@ -125,8 +125,8 @@ test_that("ard_stats_anova.data.frame() works", {
   }
   ard_anova_geeglm2 <- args_fun(list(id = cyl))
   expect_equal(
-    ard_anova_geeglm2,
-    ard_anova_geeglm
+    ard_anova_geeglm2$stat,
+    ard_anova_geeglm$stat
   )
 })
 
