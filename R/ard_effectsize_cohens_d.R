@@ -78,7 +78,8 @@ ard_effectsize_cohens_d <- function(data, by, variables, conf.level = 0.95, ...)
         lst_tidy =
           cards::eval_capture_conditions(
             effectsize::cohens_d(data[[variable]] ~ data[[by]], data = data, paired = FALSE, ci = conf.level, ...) |>
-              parameters::standardize_names(style = "broom")
+              parameters::standardize_names(style = "broom") |>
+              dplyr::mutate(method = "Cohen's D")
           ),
         paired = FALSE,
         ...
@@ -127,7 +128,8 @@ ard_effectsize_paired_cohens_d <- function(data, by, variables, id, conf.level =
             data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
             # perform paired cohen's d test
             effectsize::cohens_d(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ci = conf.level, ...) |>
-              parameters::standardize_names(style = "broom")
+              parameters::standardize_names(style = "broom") |>
+              dplyr::mutate(method = "Paired Cohen's D")
           }),
         paired = TRUE,
         ...

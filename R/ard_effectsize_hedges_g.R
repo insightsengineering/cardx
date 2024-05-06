@@ -84,7 +84,8 @@ ard_effectsize_hedges_g <- function(data, by, variables, conf.level = 0.95, ...)
               package = "effectsize",
               code = hedges_g(data[[variable]] ~ data[[by]], paired = FALSE, ci = conf.level, ...)
             ) |>
-              parameters::standardize_names(style = "broom")
+              parameters::standardize_names(style = "broom") |>
+              dplyr::mutate(method = "Hedge's G")
           ),
         paired = FALSE,
         ...
@@ -135,7 +136,8 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, conf.level =
               package = "effectsize",
               code = hedges_g(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ci = conf.level, ...)
             ) |>
-              parameters::standardize_names(style = "broom")
+              parameters::standardize_names(style = "broom") |>
+              dplyr::mutate(method = "Paired Hedge's G")
           }),
         paired = TRUE,
         ...
