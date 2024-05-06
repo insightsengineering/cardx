@@ -134,7 +134,8 @@ ard_effectsize_paired_cohens_d <- function(data, by, variables, id, conf.level =
             data_wide <-
               data |>
               tidyr::drop_na(all_of(c(id, by, variable))) |>
-              .paired_data_pivot_wider(by = by, variable = variable, id = id)
+              .paired_data_pivot_wider(by = by, variable = variable, id = id) |>
+              tidyr::drop_na(any_of(c("by1", "by2")))
             # perform paired cohen's d test
             effectsize::cohens_d(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, ci = conf.level, ...) |>
               parameters::standardize_names(style = "broom") |>
