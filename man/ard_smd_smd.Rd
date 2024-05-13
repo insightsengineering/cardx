@@ -25,12 +25,7 @@ Default is \code{TRUE}.}
 \item{conf.level}{(scalar \code{numeric})\cr
 confidence level for confidence interval. Default is \code{0.95}.}
 
-\item{...}{
-  Arguments passed on to \code{\link[smd:smd]{smd::smd}}
-  \describe{
-    \item{\code{gref}}{an integer indicating which level of \code{g} to use as the reference
-group. Defaults to \code{1}.}
-  }}
+\item{...}{arguments passed to \code{smd::smd()}}
 }
 \value{
 ARD data frame

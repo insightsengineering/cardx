@@ -18,7 +18,7 @@
 #' @param std.error (scalar `logical`)\cr
 #'   Logical indicator for computing standard errors using `smd::compute_smd_var()`.
 #'   Default is `TRUE`.
-#' @inheritDotParams smd::smd -x -g -w -na.rm
+#' @param ... arguments passed to `smd::smd()`
 #'
 #' @return ARD data frame
 #' @export
