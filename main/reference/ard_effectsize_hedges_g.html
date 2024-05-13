@@ -12,7 +12,7 @@ using effectsize::hedges_g()."><meta property="og:image" content="https://insigh
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9034</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9039</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,14 +26,6 @@ using effectsize::hedges_g()."><meta property="og:image" content="https://insigh
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -121,17 +113,18 @@ The data are then passed as
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">cards</span><span class="fu">::</span><span class="va"><a href="https://insightsengineering.github.io/cards/latest-tag/reference/adam.html" class="external-link">ADSL</a></span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ARM</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Placebo"</span>, <span class="st">"Xanomeline High Dose"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_effectsize_hedges_g</span><span class="op">(</span>by <span class="op">=</span> <span class="va">ARM</span>, variables <span class="op">=</span> <span class="va">AGE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 8 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable   context   stat_name stat_label      stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    ARM      AGE effectsi…    estimate  Effect S…       0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    ARM      AGE effectsi…  conf.level  CI Confi…      0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    ARM      AGE effectsi…    conf.low  CI Lower…      -0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    ARM      AGE effectsi…   conf.high  CI Upper…     0.399</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    ARM      AGE effectsi…          mu    H0 Mean         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    ARM      AGE effectsi…      paired  Paired t…     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    ARM      AGE effectsi…   pooled_sd  Pooled S…      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    ARM      AGE effectsi… alternative  Alternat… two.sided</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 9 x 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable          context   stat_name       stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    ARM      AGE effectsi&lt;U+2026&gt;    estimate Effect S&lt;U+2026&gt;       0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    ARM      AGE effectsi&lt;U+2026&gt;  conf.level CI Confi&lt;U+2026&gt;      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    ARM      AGE effectsi&lt;U+2026&gt;    conf.low CI Lower&lt;U+2026&gt;      -0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    ARM      AGE effectsi&lt;U+2026&gt;   conf.high CI Upper&lt;U+2026&gt;     0.399</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    ARM      AGE effectsi&lt;U+2026&gt;      method           method Hedge's G</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    ARM      AGE effectsi&lt;U+2026&gt;          mu          H0 Mean         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    ARM      AGE effectsi&lt;U+2026&gt;      paired Paired t&lt;U+2026&gt;     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    ARM      AGE effectsi&lt;U+2026&gt;   pooled_sd Pooled S&lt;U+2026&gt;      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    ARM      AGE effectsi&lt;U+2026&gt; alternative Alternat&lt;U+2026&gt; two.sided</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># constructing a paired data set,</span></span></span>
 <span class="r-in"><span><span class="co"># where patients receive both treatments</span></span></span>
@@ -142,17 +135,28 @@ The data are then passed as
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">USUBJID</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_effectsize_paired_hedges_g</span><span class="op">(</span>by <span class="op">=</span> <span class="va">ARM</span>, variables <span class="op">=</span> <span class="va">AGE</span>, id <span class="op">=</span> <span class="va">USUBJID</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 8 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable   context   stat_name stat_label      stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    ARM      AGE effectsi…    estimate  Effect S…     0.068</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    ARM      AGE effectsi…  conf.level  CI Confi…      0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    ARM      AGE effectsi…    conf.low  CI Lower…    -0.144</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    ARM      AGE effectsi…   conf.high  CI Upper…      0.28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    ARM      AGE effectsi…          mu    H0 Mean         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    ARM      AGE effectsi…      paired  Paired t…      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    ARM      AGE effectsi…   pooled_sd  Pooled S…      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    ARM      AGE effectsi… alternative  Alternat… two.sided</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 9 x 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable          context   stat_name       stat_label</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    ARM      AGE effectsi&lt;U+2026&gt;    estimate Effect S&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    ARM      AGE effectsi&lt;U+2026&gt;  conf.level CI Confi&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    ARM      AGE effectsi&lt;U+2026&gt;    conf.low CI Lower&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    ARM      AGE effectsi&lt;U+2026&gt;   conf.high CI Upper&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    ARM      AGE effectsi&lt;U+2026&gt;      method           method</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    ARM      AGE effectsi&lt;U+2026&gt;          mu          H0 Mean</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    ARM      AGE effectsi&lt;U+2026&gt;      paired Paired t&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    ARM      AGE effectsi&lt;U+2026&gt;   pooled_sd Pooled S&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    ARM      AGE effectsi&lt;U+2026&gt; alternative Alternat&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            0.068</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2             0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3           -0.144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             0.28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Paired H&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7             TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8             TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9        two.sided</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

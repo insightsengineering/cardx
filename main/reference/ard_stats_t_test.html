@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9034</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9039</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,14 +24,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -119,20 +111,31 @@ The data are then passed as
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ARM</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Placebo"</span>, <span class="st">"Xanomeline High Dose"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_stats_t_test</span><span class="op">(</span>by <span class="op">=</span> <span class="va">ARM</span>, variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">AGE</span>, <span class="va">BMIBL</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 28 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable   context   stat_name stat_label      stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     ARM      AGE stats_t_…    estimate  Mean Dif…     0.828</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     ARM      AGE stats_t_…   estimate1  Group 1 …    75.209</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     ARM      AGE stats_t_…   estimate2  Group 2 …    74.381</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     ARM      AGE stats_t_…   statistic  t Statis…     0.655</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     ARM      AGE stats_t_…     p.value    p-value     0.513</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     ARM      AGE stats_t_…   parameter  Degrees …   167.362</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     ARM      AGE stats_t_…    conf.low  CI Lower…    -1.668</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     ARM      AGE stats_t_…   conf.high  CI Upper…     3.324</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     ARM      AGE stats_t_…      method     method Welch Tw…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    ARM      AGE stats_t_… alternative  alternat… two.sided</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">18 more rows</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">Use `print(n = ...)` to see more rows</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable          context   stat_name       stat_label</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     ARM      AGE stats_t_&lt;U+2026&gt;    estimate Mean Dif&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     ARM      AGE stats_t_&lt;U+2026&gt;   estimate1 Group 1 &lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     ARM      AGE stats_t_&lt;U+2026&gt;   estimate2 Group 2 &lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     ARM      AGE stats_t_&lt;U+2026&gt;   statistic t Statis&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     ARM      AGE stats_t_&lt;U+2026&gt;     p.value          p-value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     ARM      AGE stats_t_&lt;U+2026&gt;   parameter Degrees &lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     ARM      AGE stats_t_&lt;U+2026&gt;    conf.low CI Lower&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     ARM      AGE stats_t_&lt;U+2026&gt;   conf.high CI Upper&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     ARM      AGE stats_t_&lt;U+2026&gt;      method           method</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    ARM      AGE stats_t_&lt;U+2026&gt; alternative alternat&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1             0.828</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            75.209</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            74.381</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             0.655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5             0.513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6           167.362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7            -1.668</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8             3.324</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Welch Tw&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        two.sided</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">18 more rows</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">Use `print(n = ...)` to see more rows</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># constructing a paired data set,</span></span></span>
 <span class="r-in"><span><span class="co"># where patients receive both treatments</span></span></span>
@@ -142,20 +145,33 @@ The data are then passed as
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">ARM</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_stats_paired_t_test</span><span class="op">(</span>by <span class="op">=</span> <span class="va">ARM</span>, variables <span class="op">=</span> <span class="va">AGE</span>, id <span class="op">=</span> <span class="va">USUBJID</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 12 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable   context   stat_name stat_label      stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     ARM      AGE stats_t_…    estimate  Mean Dif…     0.798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     ARM      AGE stats_t_…   statistic  t Statis…     0.628</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     ARM      AGE stats_t_…     p.value    p-value     0.531</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     ARM      AGE stats_t_…   parameter  Degrees …        83</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     ARM      AGE stats_t_…    conf.low  CI Lower…    -1.727</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     ARM      AGE stats_t_…   conf.high  CI Upper…     3.322</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     ARM      AGE stats_t_…      method     method Paired t…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     ARM      AGE stats_t_… alternative  alternat… two.sided</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     ARM      AGE stats_t_…          mu    H0 Mean         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    ARM      AGE stats_t_…      paired  Paired t…      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    ARM      AGE stats_t_…   var.equal  Equal Va…     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    ARM      AGE stats_t_…  conf.level  CI Confi…      0.95</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable          context   stat_name       stat_label</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     ARM      AGE stats_t_&lt;U+2026&gt;    estimate Mean Dif&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     ARM      AGE stats_t_&lt;U+2026&gt;   statistic t Statis&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     ARM      AGE stats_t_&lt;U+2026&gt;     p.value          p-value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     ARM      AGE stats_t_&lt;U+2026&gt;   parameter Degrees &lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     ARM      AGE stats_t_&lt;U+2026&gt;    conf.low CI Lower&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     ARM      AGE stats_t_&lt;U+2026&gt;   conf.high CI Upper&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     ARM      AGE stats_t_&lt;U+2026&gt;      method           method</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     ARM      AGE stats_t_&lt;U+2026&gt; alternative alternat&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     ARM      AGE stats_t_&lt;U+2026&gt;          mu          H0 Mean</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    ARM      AGE stats_t_&lt;U+2026&gt;      paired Paired t&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    ARM      AGE stats_t_&lt;U+2026&gt;   var.equal Equal Va&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    ARM      AGE stats_t_&lt;U+2026&gt;  conf.level CI Confi&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1             0.798</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2             0.628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             0.531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                83</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5            -1.727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6             3.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Paired t&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         two.sided</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10             TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11            FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12             0.95</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

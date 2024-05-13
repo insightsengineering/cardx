@@ -12,7 +12,7 @@ structure using the broom.helpers package."><meta property="og:image" content="h
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9034</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9039</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,14 +26,6 @@ structure using the broom.helpers package."><meta property="og:image" content="h
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -95,20 +87,31 @@ a tidier. Default is <code><a href="https://larmarange.github.io/broom.helpers/r
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">AGE</span> <span class="op">~</span> <span class="va">ARM</span>, data <span class="op">=</span> <span class="fu">cards</span><span class="fu">::</span><span class="va"><a href="https://insightsengineering.github.io/cards/latest-tag/reference/adam.html" class="external-link">ADSL</a></span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_regression</span><span class="op">(</span>add_estimate_to_reference_rows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 43 x 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    variable variable_level   context      stat_name stat_label      stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       ARM        Placebo regressi…           term       term ARMPlace…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       ARM        Placebo regressi…      var_label      Label Descript…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       ARM        Placebo regressi…      var_class      Class character</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       ARM        Placebo regressi…       var_type       Type categori…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       ARM        Placebo regressi…    var_nlevels   N Levels         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       ARM        Placebo regressi…      contrasts  contrasts contr.tr…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       ARM        Placebo regressi… contrasts_type  Contrast… treatment</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       ARM        Placebo regressi…  reference_row  referenc…      TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       ARM        Placebo regressi…          label  Level La…   Placebo</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      ARM        Placebo regressi…          n_obs     N Obs.        86</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">33 more rows</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">Use `print(n = ...)` to see more rows</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">1 more variable: fmt_fn</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    variable variable_level          context      stat_name       stat_label</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       ARM        Placebo regressi&lt;U+2026&gt;           term             term</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       ARM        Placebo regressi&lt;U+2026&gt;      var_label            Label</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       ARM        Placebo regressi&lt;U+2026&gt;      var_class            Class</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       ARM        Placebo regressi&lt;U+2026&gt;       var_type             Type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       ARM        Placebo regressi&lt;U+2026&gt;    var_nlevels         N Levels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       ARM        Placebo regressi&lt;U+2026&gt;      contrasts        contrasts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       ARM        Placebo regressi&lt;U+2026&gt; contrasts_type Contrast&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       ARM        Placebo regressi&lt;U+2026&gt;  reference_row referenc&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       ARM        Placebo regressi&lt;U+2026&gt;          label Level La&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      ARM        Placebo regressi&lt;U+2026&gt;          n_obs           N Obs.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  ARMPlace&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Descript&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  categori&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  contr.tr&lt;U+2026&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         treatment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8              TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9           Placebo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10               86</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">33 more rows</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">Use `print(n = ...)` to see more rows</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">1 more variable: fmt_fn</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
