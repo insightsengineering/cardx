@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.874371859296482" branch-rate="0" lines-covered="1914" lines-valid="2189" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-05-14 21:43:10.955888">
+<coverage line-rate="0.873573710634413" branch-rate="0" lines-covered="1914" lines-valid="2191" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-05-14 22:07:11.91384">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.874371859296482" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.873573710634413" branch-rate="0" complexity="0">
       <classes>
         <class name="ard_aod_wald_test.R" filename="R/ard_aod_wald_test.R" line-rate="0.896103896103896" branch-rate="0" complexity="0">
           <methods>
@@ -173,6 +173,20 @@
             <line number="113" hits="2" branch="false"/>
             <line number="114" hits="2" branch="false"/>
             <line number="115" hits="2" branch="false"/>
+          </lines>
+        </class>
+        <class name="ard_attributes.survey.design.R" filename="R/ard_attributes.survey.design.R" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="ard_attributes.survey.design" signature="" line-rate="0" branch-rate="0" complexity="0">
+              <lines>
+                <line number="34" hits="0" branch="false"/>
+                <line number="36" hits="0" branch="false"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="34" hits="0" branch="false"/>
+            <line number="36" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="ard_car_anova.R" filename="R/ard_car_anova.R" line-rate="0.955555555555556" branch-rate="0" complexity="0">
