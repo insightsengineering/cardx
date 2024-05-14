@@ -77,7 +77,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats()),
     error_msg = c("Error in the values of the {.arg statistic} argument.",
-                  i = "Values must be in {.val {accepted_svy_stats(FALSE)}}"
+      i = "Values must be in {.val {accepted_svy_stats(FALSE)}}"
     )
   )
 
@@ -113,8 +113,8 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
           variable = names(stat_label),
           stat_name = map(.data$variable, ~ names(stat_label[[.x]])),
           stat_label = map(.data$variable, ~ stat_label[[.x]] |>
-                             unname() |>
-                             unlist())
+            unname() |>
+            unlist())
         ) |>
           tidyr::unnest(cols = c("stat_name", "stat_label")),
         by = "stat_name",
