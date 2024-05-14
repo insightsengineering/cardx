@@ -61,7 +61,7 @@ reference:
   - subtitle: "{survey} package"
   - contents:
       - ard_survey_svychisq
-      - ard_survey_svycontinuous
+      - ard_continuous.survey.design
       - ard_survey_svyranktest
       - ard_survey_svyttest
 
