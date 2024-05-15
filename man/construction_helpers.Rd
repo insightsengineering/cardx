@@ -114,7 +114,7 @@ construct_model(
   method.args = list(family = binomial),
   package = "lme4"
 ) |>
-  broom::tidy()
+  broom.mixed::tidy()
 
 construct_model(
   x = mtcars |> dplyr::rename(`M P G` = mpg),

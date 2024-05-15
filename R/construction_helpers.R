@@ -40,7 +40,7 @@
 #' @return depends on the calling function
 #' @name construction_helpers
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed"), reference_pkg = "cardx"))
 #' construct_model(
 #'   x = mtcars,
 #'   formula = am ~ mpg + (1 | vs),
@@ -48,7 +48,7 @@
 #'   method.args = list(family = binomial),
 #'   package = "lme4"
 #' ) |>
-#'   broom::tidy()
+#'   broom.mixed::tidy()
 #'
 #' construct_model(
 #'   x = mtcars |> dplyr::rename(`M P G` = mpg),
