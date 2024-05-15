@@ -47,7 +47,8 @@
 #'   method = "glmer",
 #'   method.args = list(family = binomial),
 #'   package = "lme4"
-#' )
+#' ) |>
+#'   broom::tidy()
 #'
 #' construct_model(
 #'   x = mtcars |> dplyr::rename(`M P G` = mpg),
