@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9039</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9040</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,14 +24,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -190,57 +182,9 @@ names that contain a space are wrapped in backticks.</p></li>
 <span class="r-in"><span>  method <span class="op">=</span> <span class="st">"glmer"</span>,</span></span>
 <span class="r-in"><span>  method.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  package <span class="op">=</span> <span class="st">"lme4"</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Generalized linear mixed model fit by maximum likelihood (Laplace</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Approximation) [glmerMod]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Family: binomial  ( logit )</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Formula: am ~ mpg + (1 | vs)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Data: structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24.4, 22.8, 19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30.4, 33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19.7, 15, 21.4), cyl = c(6, 6, 4, 6, 8, 6, 8, 4, 4, 6, 6, 8,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8, 8, 8, 8, 8, 4, 4, 4, 4, 8, 8, 8, 8, 4, 4, 4, 8, 6, 8, 4),  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     disp = c(160, 160, 108, 258, 360, 225, 360, 146.7, 140.8,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     167.6, 167.6, 275.8, 275.8, 275.8, 472, 460, 440, 78.7, 75.7,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     71.1, 120.1, 318, 304, 350, 400, 79, 120.3, 95.1, 351, 145,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     301, 121), hp = c(110, 110, 93, 110, 175, 105, 245, 62, 95,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     123, 123, 180, 180, 180, 205, 215, 230, 66, 52, 65, 97, 150,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     150, 245, 175, 66, 91, 113, 264, 175, 335, 109), drat = c(3.9,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3.9, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.92, 3.92,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3.07, 3.07, 3.07, 2.93, 3, 3.23, 4.08, 4.93, 4.22, 3.7, 2.76,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3.15, 3.73, 3.08, 4.08, 4.43, 3.77, 4.22, 3.62, 3.54, 4.11 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, 3.57, 3.19,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, 5.345, 2.2,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, 1.935, 2.14,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1.513, 3.17, 2.77, 3.57, 2.78), qsec = c(16.46, 17.02, 18.61,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     19.44, 17.02, 20.22, 15.84, 20, 22.9, 18.3, 18.9, 17.4, 17.6,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     18, 17.98, 17.82, 17.42, 19.47, 18.52, 19.9, 20.01, 16.87,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     17.3, 15.41, 17.05, 18.9, 16.7, 16.9, 14.5, 15.5, 14.6, 18.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ), vs = c(0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1), am = c(1,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1), gear = c(4, 4, 4, 3,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 4, 3, 3, 3,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3, 3, 4, 5, 5, 5, 5, 5, 4), carb = c(4, 4, 1, 1, 2, 1, 4,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1, 2, 2, 4, 2, 1,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2, 2, 4, 6, 8, 2)), row.names = c("Mazda RX4", "Mazda RX4 Wag",  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "Datsun 710", "Hornet 4 Drive", "Hornet Sportabout", "Valiant",  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "Duster 360", "Merc 240D", "Merc 230", "Merc 280", "Merc 280C",  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "Merc 450SE", "Merc 450SL", "Merc 450SLC", "Cadillac Fleetwood",  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "Lincoln Continental", "Chrysler Imperial", "Fiat 128", "Honda Civic",  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "Toyota Corolla", "Toyota Corona", "Dodge Challenger", "AMC Javelin",  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "Camaro Z28", "Pontiac Firebird", "Fiat X1-9", "Porsche 914-2",  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "Lotus Europa", "Ford Pantera L", "Ferrari Dino", "Maserati Bora",  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "Volvo 142E"), class = "data.frame")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      AIC      BIC   logLik deviance df.resid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  35.2503  39.6475 -14.6251  29.2503       29 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Random effects:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Groups Name        Std.Dev.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  vs     (Intercept) 0.7896  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of obs: 32, groups:  vs, 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fixed Effects:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)          mpg  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     -8.7018       0.4085  </span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> No tidy method for objects of class glmerMod</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">construct_model</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  x <span class="op">=</span> <span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>`M P G` <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span>,</span></span>
