@@ -5,27 +5,39 @@
         CNSR) ~ TRTA, cards::ADTTE), times = c(60, 180)), stat = lapply(stat,
         function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 18 x 11
+      {cards} data frame: 30 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label  stat
-      1    TRTA      Placebo     time             60  estimate  Survival… 0.893
-      2    TRTA      Placebo     time             60 conf.high  CI Upper… 0.966
-      3    TRTA      Placebo     time             60  conf.low  CI Lower… 0.825
-      4    TRTA      Placebo     time            180  estimate  Survival… 0.651
-      5    TRTA      Placebo     time            180 conf.high  CI Upper… 0.783
-      6    TRTA      Placebo     time            180  conf.low  CI Lower… 0.541
-      7    TRTA    Xanomeli…     time             60  estimate  Survival… 0.694
-      8    TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.849
-      9    TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.568
-      10   TRTA    Xanomeli…     time            180  estimate  Survival… 0.262
-      11   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.749
-      12   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.092
-      13   TRTA    Xanomeli…     time             60  estimate  Survival… 0.732
-      14   TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.878
-      15   TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.61
-      16   TRTA    Xanomeli…     time            180  estimate  Survival… 0.381
-      17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.743
-      18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.195
+      1    TRTA      Placebo     time             60    n.risk  Number o…    59
+      2    TRTA      Placebo     time             60  estimate  Survival… 0.893
+      3    TRTA      Placebo     time             60 std.error  Standard… 0.036
+      4    TRTA      Placebo     time             60 conf.high  CI Upper… 0.966
+      5    TRTA      Placebo     time             60  conf.low  CI Lower… 0.825
+      6    TRTA      Placebo     time            180    n.risk  Number o…    35
+      7    TRTA      Placebo     time            180  estimate  Survival… 0.651
+      8    TRTA      Placebo     time            180 std.error  Standard… 0.061
+      9    TRTA      Placebo     time            180 conf.high  CI Upper… 0.783
+      10   TRTA      Placebo     time            180  conf.low  CI Lower… 0.541
+      11   TRTA    Xanomeli…     time             60    n.risk  Number o…    14
+      12   TRTA    Xanomeli…     time             60  estimate  Survival… 0.694
+      13   TRTA    Xanomeli…     time             60 std.error  Standard… 0.071
+      14   TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.849
+      15   TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.568
+      16   TRTA    Xanomeli…     time            180    n.risk  Number o…     3
+      17   TRTA    Xanomeli…     time            180  estimate  Survival… 0.262
+      18   TRTA    Xanomeli…     time            180 std.error  Standard…  0.14
+      19   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.749
+      20   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.092
+      21   TRTA    Xanomeli…     time             60    n.risk  Number o…    20
+      22   TRTA    Xanomeli…     time             60  estimate  Survival… 0.732
+      23   TRTA    Xanomeli…     time             60 std.error  Standard… 0.068
+      24   TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.878
+      25   TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.61
+      26   TRTA    Xanomeli…     time            180    n.risk  Number o…     5
+      27   TRTA    Xanomeli…     time            180  estimate  Survival… 0.381
+      28   TRTA    Xanomeli…     time            180 std.error  Standard…  0.13
+      29   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.743
+      30   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.195
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
@@ -36,27 +48,39 @@
         CNSR) ~ TRTA, cards::ADTTE), times = c(60, 180), type = "risk"), stat = lapply(
         stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 18 x 11
+      {cards} data frame: 30 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label  stat
-      1    TRTA      Placebo     time             60  estimate  Survival… 0.107
-      2    TRTA      Placebo     time             60 conf.high  CI Upper… 0.175
-      3    TRTA      Placebo     time             60  conf.low  CI Lower… 0.034
-      4    TRTA      Placebo     time            180  estimate  Survival… 0.349
-      5    TRTA      Placebo     time            180 conf.high  CI Upper… 0.459
-      6    TRTA      Placebo     time            180  conf.low  CI Lower… 0.217
-      7    TRTA    Xanomeli…     time             60  estimate  Survival… 0.306
-      8    TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.432
-      9    TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.151
-      10   TRTA    Xanomeli…     time            180  estimate  Survival… 0.738
-      11   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.908
-      12   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.251
-      13   TRTA    Xanomeli…     time             60  estimate  Survival… 0.268
-      14   TRTA    Xanomeli…     time             60 conf.high  CI Upper…  0.39
-      15   TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.122
-      16   TRTA    Xanomeli…     time            180  estimate  Survival… 0.619
-      17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.805
-      18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.257
+      1    TRTA      Placebo     time             60    n.risk  Number o…    59
+      2    TRTA      Placebo     time             60  estimate  Survival… 0.107
+      3    TRTA      Placebo     time             60 std.error  Standard… 0.964
+      4    TRTA      Placebo     time             60 conf.high  CI Upper… 0.175
+      5    TRTA      Placebo     time             60  conf.low  CI Lower… 0.034
+      6    TRTA      Placebo     time            180    n.risk  Number o…    35
+      7    TRTA      Placebo     time            180  estimate  Survival… 0.349
+      8    TRTA      Placebo     time            180 std.error  Standard… 0.939
+      9    TRTA      Placebo     time            180 conf.high  CI Upper… 0.459
+      10   TRTA      Placebo     time            180  conf.low  CI Lower… 0.217
+      11   TRTA    Xanomeli…     time             60    n.risk  Number o…    14
+      12   TRTA    Xanomeli…     time             60  estimate  Survival… 0.306
+      13   TRTA    Xanomeli…     time             60 std.error  Standard… 0.929
+      14   TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.432
+      15   TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.151
+      16   TRTA    Xanomeli…     time            180    n.risk  Number o…     3
+      17   TRTA    Xanomeli…     time            180  estimate  Survival… 0.738
+      18   TRTA    Xanomeli…     time            180 std.error  Standard…  0.86
+      19   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.908
+      20   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.251
+      21   TRTA    Xanomeli…     time             60    n.risk  Number o…    20
+      22   TRTA    Xanomeli…     time             60  estimate  Survival… 0.268
+      23   TRTA    Xanomeli…     time             60 std.error  Standard… 0.932
+      24   TRTA    Xanomeli…     time             60 conf.high  CI Upper…  0.39
+      25   TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.122
+      26   TRTA    Xanomeli…     time            180    n.risk  Number o…     5
+      27   TRTA    Xanomeli…     time            180  estimate  Survival… 0.619
+      28   TRTA    Xanomeli…     time            180 std.error  Standard…  0.87
+      29   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.805
+      30   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.257
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
@@ -98,15 +122,19 @@
         status) ~ 1, data = survival::lung), times = c(60, 180)), stat = lapply(stat,
         function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
-      {cards} data frame: 6 x 9
+      {cards} data frame: 10 x 9
     Output
-        variable variable_level  context stat_name stat_label  stat
-      1     time             60 survival  estimate  Survival… 0.925
-      2     time             60 survival conf.high  CI Upper…  0.96
-      3     time             60 survival  conf.low  CI Lower… 0.892
-      4     time            180 survival  estimate  Survival… 0.722
-      5     time            180 survival conf.high  CI Upper… 0.783
-      6     time            180 survival  conf.low  CI Lower… 0.666
+         variable variable_level  context stat_name stat_label  stat
+      1      time             60 survival    n.risk  Number o…   213
+      2      time             60 survival  estimate  Survival… 0.925
+      3      time             60 survival std.error  Standard… 0.017
+      4      time             60 survival conf.high  CI Upper…  0.96
+      5      time             60 survival  conf.low  CI Lower… 0.892
+      6      time            180 survival    n.risk  Number o…   160
+      7      time            180 survival  estimate  Survival… 0.722
+      8      time            180 survival std.error  Standard…  0.03
+      9      time            180 survival conf.high  CI Upper… 0.783
+      10     time            180 survival  conf.low  CI Lower… 0.666
     Message
       i 3 more variables: fmt_fn, warning, error
 
@@ -146,20 +174,20 @@
       4     sex            1 ph.ecog            0
       5     sex            1 ph.ecog            0
       6     sex            1 ph.ecog            0
-      7     sex            1 ph.ecog            1
-      8     sex            1 ph.ecog            1
-      9     sex            1 ph.ecog            1
-      10    sex            1 ph.ecog            1
+      7     sex            1 ph.ecog            0
+      8     sex            1 ph.ecog            0
+      9     sex            1 ph.ecog            0
+      10    sex            1 ph.ecog            0
       11    sex            1 ph.ecog            1
       12    sex            1 ph.ecog            1
-      13    sex            1 ph.ecog            2
-      14    sex            1 ph.ecog            2
-      15    sex            1 ph.ecog            2
-      16    sex            1 ph.ecog            2
-      17    sex            1 ph.ecog            2
-      18    sex            1 ph.ecog            2
-      19    sex            1 ph.ecog            3
-      20    sex            1 ph.ecog            3
+      13    sex            1 ph.ecog            1
+      14    sex            1 ph.ecog            1
+      15    sex            1 ph.ecog            1
+      16    sex            1 ph.ecog            1
+      17    sex            1 ph.ecog            1
+      18    sex            1 ph.ecog            1
+      19    sex            1 ph.ecog            1
+      20    sex            1 ph.ecog            1
 
 ---
 
@@ -201,27 +229,39 @@
         ifelse(is.numeric(x), cards::round5(x, 3), x))), n = Inf)
     Message
       Multi-state model detected. Showing probabilities into state 'death from cancer'.
-      {cards} data frame: 18 x 11
+      {cards} data frame: 30 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label  stat
-      1    TRTA      Placebo     time             60  estimate  Survival… 0.054
-      2    TRTA      Placebo     time             60 conf.high  CI Upper…  0.14
-      3    TRTA      Placebo     time             60  conf.low  CI Lower… 0.021
-      4    TRTA      Placebo     time            180  estimate  Survival… 0.226
-      5    TRTA      Placebo     time            180 conf.high  CI Upper… 0.361
-      6    TRTA      Placebo     time            180  conf.low  CI Lower… 0.142
-      7    TRTA    Xanomeli…     time             60  estimate  Survival… 0.137
-      8    TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.311
-      9    TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.06
-      10   TRTA    Xanomeli…     time            180  estimate  Survival…  0.51
-      11   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.892
-      12   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.292
-      13   TRTA    Xanomeli…     time             60  estimate  Survival… 0.162
-      14   TRTA    Xanomeli…     time             60 conf.high  CI Upper…  0.33
-      15   TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.08
-      16   TRTA    Xanomeli…     time            180  estimate  Survival… 0.244
-      17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.516
-      18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.115
+      1    TRTA      Placebo     time             60    n.risk  Number o…    59
+      2    TRTA      Placebo     time             60  estimate  Survival… 0.054
+      3    TRTA      Placebo     time             60 std.error  Standard… 0.026
+      4    TRTA      Placebo     time             60 conf.high  CI Upper…  0.14
+      5    TRTA      Placebo     time             60  conf.low  CI Lower… 0.021
+      6    TRTA      Placebo     time            180    n.risk  Number o…    35
+      7    TRTA      Placebo     time            180  estimate  Survival… 0.226
+      8    TRTA      Placebo     time            180 std.error  Standard… 0.054
+      9    TRTA      Placebo     time            180 conf.high  CI Upper… 0.361
+      10   TRTA      Placebo     time            180  conf.low  CI Lower… 0.142
+      11   TRTA    Xanomeli…     time             60    n.risk  Number o…    14
+      12   TRTA    Xanomeli…     time             60  estimate  Survival… 0.137
+      13   TRTA    Xanomeli…     time             60 std.error  Standard… 0.057
+      14   TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.311
+      15   TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.06
+      16   TRTA    Xanomeli…     time            180    n.risk  Number o…     3
+      17   TRTA    Xanomeli…     time            180  estimate  Survival…  0.51
+      18   TRTA    Xanomeli…     time            180 std.error  Standard… 0.145
+      19   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.892
+      20   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.292
+      21   TRTA    Xanomeli…     time             60    n.risk  Number o…    20
+      22   TRTA    Xanomeli…     time             60  estimate  Survival… 0.162
+      23   TRTA    Xanomeli…     time             60 std.error  Standard… 0.059
+      24   TRTA    Xanomeli…     time             60 conf.high  CI Upper…  0.33
+      25   TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.08
+      26   TRTA    Xanomeli…     time            180    n.risk  Number o…     5
+      27   TRTA    Xanomeli…     time            180  estimate  Survival… 0.244
+      28   TRTA    Xanomeli…     time            180 std.error  Standard… 0.093
+      29   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.516
+      30   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.115
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
