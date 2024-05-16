@@ -146,7 +146,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
     x$n.risk <- x$n.risk[, 1]
     ms_cols <- c("pstate", "std.err", "upper", "lower")
     state_col <- which(colnames(x$pstate) == state)
-    x[ms_cols] <- lapply(x[ms_cols], function(m) {m[, state_col]})
+    x[ms_cols] <- lapply(x[ms_cols], function(m) m[, state_col])
     x$surv <- x$pstate
   }
 
