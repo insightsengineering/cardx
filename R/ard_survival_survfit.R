@@ -111,6 +111,8 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
 #'
 #' @inheritParams cards::tidy_as_ard
 #' @inheritParams ard_survival_survfit
+#' @param start.time (`numeric`)\cr
+#'   default starting time. See [survival::survfit0()] for more details.
 #'
 #' @return a `tibble`
 #'
@@ -151,7 +153,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   # tidy survfit results
   x_cols <- intersect(names(x), c("time", "n.risk", "surv", "std.err", "upper", "lower", "strata"))
   tidy_x <- data.frame(x[x_cols]) %>%
-    dplyr::rename(estimate = surv, std.error = std.err, conf.high = upper, conf.low = lower)
+    dplyr::rename(estimate = "surv", std.error = "std.err", conf.high = "upper", conf.low = "lower")
 
   strat <- "strata" %in% names(tidy_x)
 
