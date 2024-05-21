@@ -194,7 +194,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   if (type != "survival") {
     df_stat <- df_stat %>%
       dplyr::mutate(dplyr::across(
-        any_of(c("estimate", "std.error", "conf.low", "conf.high")),
+        any_of(c("estimate", "conf.low", "conf.high")),
         if (type == "cumhaz") ~ -log(.x) else ~ 1 - .x
       )) %>%
       dplyr::rename(conf.low = "conf.high", conf.high = "conf.low")
@@ -334,7 +334,7 @@ extract_multi_strata <- function(x, df_stat) {
     ~stat_name, ~stat_label,
     "n.risk", "Number of Subjects at Risk",
     "estimate", "Survival Probability",
-    "std.error", "Standard Error",
+    "std.error", "Standard Error (untransformed)",
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
     "conf.level", "CI Confidence Level",

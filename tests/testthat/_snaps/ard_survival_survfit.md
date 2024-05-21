@@ -53,32 +53,32 @@
          group1 group1_level variable variable_level stat_name stat_label  stat
       1    TRTA      Placebo     time             60    n.risk  Number o…    59
       2    TRTA      Placebo     time             60  estimate  Survival… 0.107
-      3    TRTA      Placebo     time             60 std.error  Standard… 0.964
+      3    TRTA      Placebo     time             60 std.error  Standard… 0.036
       4    TRTA      Placebo     time             60 conf.high  CI Upper… 0.175
       5    TRTA      Placebo     time             60  conf.low  CI Lower… 0.034
       6    TRTA      Placebo     time            180    n.risk  Number o…    35
       7    TRTA      Placebo     time            180  estimate  Survival… 0.349
-      8    TRTA      Placebo     time            180 std.error  Standard… 0.939
+      8    TRTA      Placebo     time            180 std.error  Standard… 0.061
       9    TRTA      Placebo     time            180 conf.high  CI Upper… 0.459
       10   TRTA      Placebo     time            180  conf.low  CI Lower… 0.217
       11   TRTA    Xanomeli…     time             60    n.risk  Number o…    14
       12   TRTA    Xanomeli…     time             60  estimate  Survival… 0.306
-      13   TRTA    Xanomeli…     time             60 std.error  Standard… 0.929
+      13   TRTA    Xanomeli…     time             60 std.error  Standard… 0.071
       14   TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.432
       15   TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.151
       16   TRTA    Xanomeli…     time            180    n.risk  Number o…     3
       17   TRTA    Xanomeli…     time            180  estimate  Survival… 0.738
-      18   TRTA    Xanomeli…     time            180 std.error  Standard…  0.86
+      18   TRTA    Xanomeli…     time            180 std.error  Standard…  0.14
       19   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.908
       20   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.251
       21   TRTA    Xanomeli…     time             60    n.risk  Number o…    20
       22   TRTA    Xanomeli…     time             60  estimate  Survival… 0.268
-      23   TRTA    Xanomeli…     time             60 std.error  Standard… 0.932
+      23   TRTA    Xanomeli…     time             60 std.error  Standard… 0.068
       24   TRTA    Xanomeli…     time             60 conf.high  CI Upper…  0.39
       25   TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.122
       26   TRTA    Xanomeli…     time            180    n.risk  Number o…     5
       27   TRTA    Xanomeli…     time            180  estimate  Survival… 0.619
-      28   TRTA    Xanomeli…     time            180 std.error  Standard…  0.87
+      28   TRTA    Xanomeli…     time            180 std.error  Standard…  0.13
       29   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.805
       30   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.257
     Message
