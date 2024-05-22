@@ -1,3 +1,24 @@
+# cards ------------------------------------------------------------------------
+#' @importFrom cards ard_continuous
+#' @export
+cards::ard_continuous
+
+#' @importFrom cards ard_categorical
+#' @export
+cards::ard_categorical
+
+#' @importFrom cards ard_dichotomous
+#' @export
+cards::ard_dichotomous
+
+#' @importFrom cards ard_missing
+#' @export
+cards::ard_missing
+
+#' @importFrom cards ard_attributes
+#' @export
+cards::ard_attributes
+
 # dplyr ------------------------------------------------------------------------
 #' @export
 #' @importFrom dplyr %>%

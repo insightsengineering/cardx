@@ -3,6 +3,11 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
+\alias{ard_continuous}
+\alias{ard_categorical}
+\alias{ard_dichotomous}
+\alias{ard_missing}
+\alias{ard_attributes}
 \alias{\%>\%}
 \alias{starts_with}
 \alias{ends_with}
@@ -22,6 +27,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{cards}{\code{\link[cards]{ard_attributes}}, \code{\link[cards]{ard_categorical}}, \code{\link[cards]{ard_continuous}}, \code{\link[cards]{ard_dichotomous}}, \code{\link[cards]{ard_missing}}}
+
   \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}, \code{\link[dplyr:reexports]{all_of}}, \code{\link[dplyr:reexports]{any_of}}, \code{\link[dplyr:reexports]{contains}}, \code{\link[dplyr:reexports]{ends_with}}, \code{\link[dplyr:reexports]{everything}}, \code{\link[dplyr:reexports]{last_col}}, \code{\link[dplyr:reexports]{matches}}, \code{\link[dplyr:reexports]{num_range}}, \code{\link[dplyr:reexports]{one_of}}, \code{\link[dplyr:reexports]{starts_with}}, \code{\link[dplyr:reexports]{where}}}
 }}
 

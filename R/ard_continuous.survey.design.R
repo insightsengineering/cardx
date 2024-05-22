@@ -23,6 +23,7 @@
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
+#' @inheritParams rlang::args_dots_empty
 #'
 #' @section statistic argument:
 #'
@@ -38,16 +39,18 @@
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
-#' ard_survey_svycontinuous(
+#' ard_continuous(
 #'   data = dclus1,
 #'   variables = api00,
 #'   by = stype
 #' )
-ard_survey_svycontinuous <- function(data, variables, by = NULL,
-                                     statistic = everything() ~ c("median", "p25", "p75"),
-                                     fmt_fn = NULL,
-                                     stat_label = NULL) {
+ard_continuous.survey.design <- function(data, variables, by = NULL,
+                                         statistic = everything() ~ c("median", "p25", "p75"),
+                                         fmt_fn = NULL,
+                                         stat_label = NULL,
+                                         ...) {
   set_cli_abort_call()
+  check_dots_empty()
 
   # check installed packages ---------------------------------------------------
   check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
@@ -68,7 +71,7 @@ ard_survey_svycontinuous <- function(data, variables, by = NULL,
   )
   cards::fill_formula_selectors(
     data$variables[variables],
-    statistic = formals(ard_survey_svycontinuous)[["statistic"]] |> eval()
+    statistic = formals(asNamespace("cardx")[["ard_continuous.survey.design"]])[["statistic"]] |> eval()
   )
   cards::check_list_elements(
     x = statistic,
