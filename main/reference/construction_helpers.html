@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9041</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9042</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,14 +24,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -192,7 +184,7 @@ names that contain a space are wrapped in backticks.</p></li>
 <span class="r-in"><span>  package <span class="op">=</span> <span class="st">"lme4"</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">broom.mixed</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 x 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   effect   group term            estimate std.error statistic p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> fixed    <span style="color: #BB0000;">NA</span>    (Intercept)       -<span style="color: #BB0000;">8.70</span>      4.12      -<span style="color: #BB0000;">2.11</span>  0.034<span style="text-decoration: underline;">7</span></span>
@@ -207,13 +199,13 @@ names that contain a space are wrapped in backticks.</p></li>
 <span class="r-in"><span>  <span class="fu"><a href="ard_regression.html">ard_regression</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">stat_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"term"</span>, <span class="st">"estimate"</span>, <span class="st">"p.value"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 6 x 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   variable          context stat_name       stat_label    stat fmt_fn</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    M P G regressi&lt;U+2026&gt;      term             term `M P G`   NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    M P G regressi&lt;U+2026&gt;  estimate Coeffici&lt;U+2026&gt;  -2.775      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    M P G regressi&lt;U+2026&gt;   p.value          p-value   0.213      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      cyl regressi&lt;U+2026&gt;      term             term     cyl   NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      cyl regressi&lt;U+2026&gt;  estimate Coeffici&lt;U+2026&gt;  23.979      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      cyl regressi&lt;U+2026&gt;   p.value          p-value   0.003      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   variable   context stat_name stat_label    stat fmt_fn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    M P G regressi…      term       term `M P G`   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    M P G regressi…  estimate  Coeffici…  -2.775      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    M P G regressi…   p.value    p-value   0.213      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      cyl regressi…      term       term     cyl   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      cyl regressi…  estimate  Coeffici…  23.979      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      cyl regressi…   p.value    p-value   0.003      1</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

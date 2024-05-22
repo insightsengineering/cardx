@@ -31,10 +31,16 @@
     <loc>https://insightsengineering.github.io/cardx/reference/ard_aod_wald_test.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_attributes.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_car_anova.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_car_vif.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_continuous.survey.design.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_effectsize_cohens_d.html</loc>
@@ -92,9 +98,6 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_survey_svychisq.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/cardx/reference/ard_survey_svycontinuous.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_survey_svyranktest.html</loc>

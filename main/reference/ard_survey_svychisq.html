@@ -12,7 +12,7 @@ Only two-way comparisons are supported."><meta property="og:image" content="http
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9041</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9042</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,14 +26,6 @@ Only two-way comparisons are supported."><meta property="og:image" content="http
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -108,19 +100,13 @@ for available statistics options.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ard_survey_svychisq</span><span class="op">(</span><span class="va">dclus1</span>, variables <span class="op">=</span> <span class="va">sch.wide</span>, by <span class="op">=</span> <span class="va">comp.imp</span>, statistic <span class="op">=</span> <span class="st">"F"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 5 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     group1 variable          context stat_name       stat_label</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 comp.imp sch.wide survey_s&lt;U+2026&gt;       ndf Nominato&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 comp.imp sch.wide survey_s&lt;U+2026&gt;       ddf Denomina&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 comp.imp sch.wide survey_s&lt;U+2026&gt; statistic        Statistic</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 comp.imp sch.wide survey_s&lt;U+2026&gt;   p.value          p-value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 comp.imp sch.wide survey_s&lt;U+2026&gt;    method           method</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2               14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          236.895</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Pearson'&lt;U+2026&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     group1 variable   context stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 comp.imp sch.wide survey_s…       ndf  Nominato…         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 comp.imp sch.wide survey_s…       ddf  Denomina…        14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 comp.imp sch.wide survey_s… statistic  Statistic   236.895</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 comp.imp sch.wide survey_s…   p.value    p-value         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 comp.imp sch.wide survey_s…    method     method Pearson'…</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

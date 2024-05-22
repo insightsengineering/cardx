@@ -24,7 +24,7 @@ to construct the regression model via cardx::construct_model()."><meta property=
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9041</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9042</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,14 +38,6 @@ to construct the regression model via cardx::construct_model()."><meta property=
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -125,7 +117,7 @@ specified in <code>method</code> is executed.</p></dd>
 <dt>response_type</dt>
 <dd><p>(<code>string</code>)
 string indicating whether the model outcome is <code>'continuous'</code>
-or <code>'dichotomous'</code>. When <code>'dichotomous'</code>, the call to <code><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans::emmeans()</a></code> is
+or <code>'dichotomous'</code>. When <code>'dichotomous'</code>, the call to <code><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html" class="external-link">emmeans::emmeans()</a></code> is
 supplemented with argument <code>regrid="response"</code>.</p></dd>
 
 
@@ -155,16 +147,16 @@ Default is the first covariate listed in the formula.</p></dd>
 <span class="r-in"><span>  method <span class="op">=</span> <span class="st">"lm"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 8 x 10</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable variable_level  stat_name       stat_label             stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     am contrast      am0 - am1   estimate Mean Dif&lt;U+2026&gt;           -2.567</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     am contrast      am0 - am1  std.error        std.error            1.291</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     am contrast      am0 - am1         df               df               29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     am contrast      am0 - am1   conf.low CI Lower&lt;U+2026&gt;           -5.208</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     am contrast      am0 - am1  conf.high CI Upper&lt;U+2026&gt;            0.074</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     am contrast      am0 - am1    p.value          p-value            0.056</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     am contrast      am0 - am1 conf.level CI Confi&lt;U+2026&gt;             0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     am contrast      am0 - am1     method           method Least-sq&lt;U+2026&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">4 more variables: context, fmt_fn, warning, error</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable variable_level  stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     am contrast      am0 - am1   estimate  Mean Dif…    -2.567</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     am contrast      am0 - am1  std.error  std.error     1.291</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     am contrast      am0 - am1         df         df        29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     am contrast      am0 - am1   conf.low  CI Lower…    -5.208</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     am contrast      am0 - am1  conf.high  CI Upper…     0.074</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     am contrast      am0 - am1    p.value    p-value     0.056</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     am contrast      am0 - am1 conf.level  CI Confi…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     am contrast      am0 - am1     method     method Least-sq…</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">4 more variables: context, fmt_fn, warning, error</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ard_emmeans_mean_difference</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span></span>
@@ -174,16 +166,16 @@ Default is the first covariate listed in the formula.</p></dd>
 <span class="r-in"><span>  response_type <span class="op">=</span> <span class="st">"dichotomous"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 8 x 10</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable variable_level  stat_name       stat_label             stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     am contrast      am0 - am1   estimate Mean Dif&lt;U+2026&gt;             0.61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     am contrast      am0 - am1  std.error        std.error            0.229</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     am contrast      am0 - am1         df               df              Inf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     am contrast      am0 - am1   conf.low CI Lower&lt;U+2026&gt;            0.162</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     am contrast      am0 - am1  conf.high CI Upper&lt;U+2026&gt;            1.059</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     am contrast      am0 - am1    p.value          p-value            0.008</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     am contrast      am0 - am1 conf.level CI Confi&lt;U+2026&gt;             0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     am contrast      am0 - am1     method           method Least-sq&lt;U+2026&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">4 more variables: context, fmt_fn, warning, error</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   group1 variable variable_level  stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     am contrast      am0 - am1   estimate  Mean Dif…      0.61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     am contrast      am0 - am1  std.error  std.error     0.229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     am contrast      am0 - am1         df         df       Inf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     am contrast      am0 - am1   conf.low  CI Lower…     0.162</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     am contrast      am0 - am1  conf.high  CI Upper…     1.059</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     am contrast      am0 - am1    p.value    p-value     0.008</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     am contrast      am0 - am1 conf.level  CI Confi…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     am contrast      am0 - am1     method     method Least-sq…</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">4 more variables: context, fmt_fn, warning, error</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

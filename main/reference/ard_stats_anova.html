@@ -16,7 +16,7 @@ information passed and models will be passed to stats::anova()."><meta property=
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9041</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9042</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,14 +30,6 @@ information passed and models will be passed to stats::anova()."><meta property=
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -155,31 +147,19 @@ See example below.</p>
 <span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_stats_anova</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 11 x 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    variable          context   stat_name       stat_label             stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   model_1 stats_an&lt;U+2026&gt;        term             term         mpg ~ am</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   model_1 stats_an&lt;U+2026&gt; df.residual df for r&lt;U+2026&gt;               30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   model_1 stats_an&lt;U+2026&gt;         rss Residual&lt;U+2026&gt;          720.897</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   model_2 stats_an&lt;U+2026&gt;        term             term mpg ~ am&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   model_2 stats_an&lt;U+2026&gt; df.residual df for r&lt;U+2026&gt;               29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   model_2 stats_an&lt;U+2026&gt;         rss Residual&lt;U+2026&gt;          245.439</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   model_2 stats_an&lt;U+2026&gt;          df Degrees &lt;U+2026&gt;                1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   model_2 stats_an&lt;U+2026&gt;       sumsq Sum of S&lt;U+2026&gt;          475.457</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   model_2 stats_an&lt;U+2026&gt;   statistic        statistic           56.178</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  model_2 stats_an&lt;U+2026&gt;     p.value          p-value                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  model_2 stats_an&lt;U+2026&gt;      method           method ANOVA re&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    fmt_fn</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   NULL</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">2 more variables: warning, error</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    variable   context   stat_name stat_label      stat fmt_fn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   model_1 stats_an…        term       term  mpg ~ am   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   model_1 stats_an… df.residual  df for r…        30      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   model_1 stats_an…         rss  Residual…   720.897      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   model_2 stats_an…        term       term mpg ~ am…   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   model_2 stats_an… df.residual  df for r…        29      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   model_2 stats_an…         rss  Residual…   245.439      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   model_2 stats_an…          df  Degrees …         1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   model_2 stats_an…       sumsq  Sum of S…   475.457      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   model_2 stats_an…   statistic  statistic    56.178      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  model_2 stats_an…     p.value    p-value         0      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  model_2 stats_an…      method     method ANOVA re…   NULL</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">2 more variables: warning, error</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ard_stats_anova</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  x <span class="op">=</span> <span class="va">mtcars</span>,</span></span>
@@ -188,29 +168,18 @@ See example below.</p>
 <span class="r-in"><span>  method.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 10 x 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    variable          context         stat_name       stat_label</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   model_1 stats_an&lt;U+2026&gt;              term             term</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   model_1 stats_an&lt;U+2026&gt;       df.residual df for r&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   model_1 stats_an&lt;U+2026&gt; residual.deviance residual&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   model_2 stats_an&lt;U+2026&gt;              term             term</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   model_2 stats_an&lt;U+2026&gt;       df.residual df for r&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   model_2 stats_an&lt;U+2026&gt; residual.deviance residual&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   model_2 stats_an&lt;U+2026&gt;                df Degrees &lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   model_2 stats_an&lt;U+2026&gt;          deviance         deviance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   model_2 stats_an&lt;U+2026&gt;           p.value          p-value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  model_2 stats_an&lt;U+2026&gt;            method           method</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                stat fmt_fn</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          am ~ mpg   NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                30      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3            29.675      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  am ~ mpg&lt;U+2026&gt;   NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                29      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6            19.233      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                 1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8            10.443      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9             0.001      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 ANOVA re&lt;U+2026&gt;   NULL</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">2 more variables: warning, error</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    variable   context         stat_name stat_label      stat fmt_fn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   model_1 stats_an…              term       term  am ~ mpg   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   model_1 stats_an…       df.residual  df for r…        30      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   model_1 stats_an… residual.deviance  residual…    29.675      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   model_2 stats_an…              term       term am ~ mpg…   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   model_2 stats_an…       df.residual  df for r…        29      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   model_2 stats_an… residual.deviance  residual…    19.233      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   model_2 stats_an…                df  Degrees …         1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   model_2 stats_an…          deviance   deviance    10.443      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   model_2 stats_an…           p.value    p-value     0.001      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  model_2 stats_an…            method     method ANOVA re…   NULL</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">2 more variables: warning, error</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ard_stats_anova</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  x <span class="op">=</span> <span class="va">mtcars</span>,</span></span>
@@ -220,41 +189,24 @@ See example below.</p>
 <span class="r-in"><span>  package <span class="op">=</span> <span class="st">"lme4"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 16 x 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    variable          context stat_name       stat_label             stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   model_1 stats_an&lt;U+2026&gt;      term             term           MODEL1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   model_1 stats_an&lt;U+2026&gt;      npar             npar                2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   model_1 stats_an&lt;U+2026&gt;       AIC              AIC            47.23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   model_1 stats_an&lt;U+2026&gt;       BIC              BIC           50.161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   model_1 stats_an&lt;U+2026&gt;    logLik           logLik          -21.615</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   model_1 stats_an&lt;U+2026&gt;  deviance         deviance            43.23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   model_2 stats_an&lt;U+2026&gt;      term             term           MODEL2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   model_2 stats_an&lt;U+2026&gt;      npar             npar                3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   model_2 stats_an&lt;U+2026&gt;       AIC              AIC            35.25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  model_2 stats_an&lt;U+2026&gt;       BIC              BIC           39.647</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  model_2 stats_an&lt;U+2026&gt;    logLik           logLik          -14.625</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  model_2 stats_an&lt;U+2026&gt;  deviance         deviance            29.25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  model_2 stats_an&lt;U+2026&gt; statistic        statistic           13.979</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  model_2 stats_an&lt;U+2026&gt;        df Degrees &lt;U+2026&gt;                1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  model_2 stats_an&lt;U+2026&gt;   p.value          p-value                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  model_2 stats_an&lt;U+2026&gt;    method           method ANOVA re&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             warning</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 failed t&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 failed t&lt;U+2026&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">2 more variables: fmt_fn, error</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    variable   context stat_name stat_label      stat   warning</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   model_1 stats_an…      term       term    MODEL1 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   model_1 stats_an…      npar       npar         2 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   model_1 stats_an…       AIC        AIC     47.23 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   model_1 stats_an…       BIC        BIC    50.161 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   model_1 stats_an…    logLik     logLik   -21.615 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   model_1 stats_an…  deviance   deviance     43.23 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   model_2 stats_an…      term       term    MODEL2 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   model_2 stats_an…      npar       npar         3 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   model_2 stats_an…       AIC        AIC     35.25 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  model_2 stats_an…       BIC        BIC    39.647 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  model_2 stats_an…    logLik     logLik   -14.625 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  model_2 stats_an…  deviance   deviance     29.25 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  model_2 stats_an… statistic  statistic    13.979 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  model_2 stats_an…        df  Degrees …         1 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  model_2 stats_an…   p.value    p-value         0 failed t…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  model_2 stats_an…    method     method ANOVA re… failed t…</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">2 more variables: fmt_fn, error</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

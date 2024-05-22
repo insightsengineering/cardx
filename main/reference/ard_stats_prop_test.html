@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9041</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9042</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,14 +24,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -101,35 +93,21 @@ confidence level for confidence interval. Default is <code>0.95</code>.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">mtcars</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_stats_prop_test</span><span class="op">(</span>by <span class="op">=</span> <span class="va">vs</span>, variables <span class="op">=</span> <span class="va">am</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 13 x 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable          context   stat_name       stat_label</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      vs       am stats_pr&lt;U+2026&gt;    estimate Rate Dif&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      vs       am stats_pr&lt;U+2026&gt;   estimate1 Group 1 &lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      vs       am stats_pr&lt;U+2026&gt;   estimate2 Group 2 &lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      vs       am stats_pr&lt;U+2026&gt;   statistic X-square&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      vs       am stats_pr&lt;U+2026&gt;     p.value          p-value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      vs       am stats_pr&lt;U+2026&gt;   parameter Degrees &lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7      vs       am stats_pr&lt;U+2026&gt;    conf.low CI Lower&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8      vs       am stats_pr&lt;U+2026&gt;   conf.high CI Upper&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9      vs       am stats_pr&lt;U+2026&gt;      method           method</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10     vs       am stats_pr&lt;U+2026&gt; alternative alternat&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11     vs       am stats_pr&lt;U+2026&gt;           p                p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12     vs       am stats_pr&lt;U+2026&gt;  conf.level CI Confi&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13     vs       am stats_pr&lt;U+2026&gt;     correct Yates' c&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1            -0.167</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2             0.333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3               0.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4             0.348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5             0.556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7            -0.571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8             0.237</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2-sample&lt;U+2026&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        two.sided</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12             0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13             TRUE</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 variable   context   stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      vs       am stats_pr…    estimate  Rate Dif…    -0.167</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      vs       am stats_pr…   estimate1  Group 1 …     0.333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      vs       am stats_pr…   estimate2  Group 2 …       0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      vs       am stats_pr…   statistic  X-square…     0.348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      vs       am stats_pr…     p.value    p-value     0.556</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      vs       am stats_pr…   parameter  Degrees …         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      vs       am stats_pr…    conf.low  CI Lower…    -0.571</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      vs       am stats_pr…   conf.high  CI Upper…     0.237</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      vs       am stats_pr…      method     method 2-sample…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     vs       am stats_pr… alternative  alternat… two.sided</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     vs       am stats_pr…           p          p          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     vs       am stats_pr…  conf.level  CI Confi…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     vs       am stats_pr…     correct  Yates' c…      TRUE</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
