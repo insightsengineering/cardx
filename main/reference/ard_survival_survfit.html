@@ -12,7 +12,7 @@ from a survival::survfit() model."><meta property="og:image" content="https://in
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9043</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9044</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,26 +102,20 @@ survival fit model.</p></li>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/survfit.html" class="external-link">survfit</a></span><span class="op">(</span><span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/Surv_CNSR.html" class="external-link">Surv_CNSR</a></span><span class="op">(</span><span class="va">AVAL</span>, <span class="va">CNSR</span><span class="op">)</span> <span class="op">~</span> <span class="va">TRTA</span>, <span class="fu">cards</span><span class="fu">::</span><span class="va"><a href="https://insightsengineering.github.io/cards/latest-tag/reference/adam.html" class="external-link">ADTTE</a></span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_survival_survfit</span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">180</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 18 x 11</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 30 x 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    group1 group1_level variable variable_level stat_name stat_label  stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    TRTA      Placebo     time             60  estimate  Survival… 0.768</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    TRTA      Placebo     time             60 conf.high  CI Upper… 0.866</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    TRTA      Placebo     time             60  conf.low  CI Lower… 0.682</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    TRTA      Placebo     time            180  estimate  Survival… 0.626</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    TRTA      Placebo     time            180 conf.high  CI Upper… 0.746</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    TRTA      Placebo     time            180  conf.low  CI Lower… 0.526</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    TRTA    Xanomeli…     time             60  estimate  Survival… 0.243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.373</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.158</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   TRTA    Xanomeli…     time            180  estimate  Survival… 0.092</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.221</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.038</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   TRTA    Xanomeli…     time             60  estimate  Survival… 0.311</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14   TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.441</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   TRTA    Xanomeli…     time             60  conf.low  CI Lower… 0.219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   TRTA    Xanomeli…     time            180  estimate  Survival… 0.126</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.249</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.064</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    TRTA      Placebo     time             60    n.risk  Number o…    59</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    TRTA      Placebo     time             60  estimate  Survival… 0.768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    TRTA      Placebo     time             60 std.error  Standard… 0.047</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    TRTA      Placebo     time             60 conf.high  CI Upper… 0.866</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    TRTA      Placebo     time             60  conf.low  CI Lower… 0.682</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    TRTA      Placebo     time            180    n.risk  Number o…    35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    TRTA      Placebo     time            180  estimate  Survival… 0.626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    TRTA      Placebo     time            180 std.error  Standard… 0.056</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    TRTA      Placebo     time            180 conf.high  CI Upper… 0.746</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   TRTA      Placebo     time            180  conf.low  CI Lower… 0.526</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">20 more rows</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">Use `print(n = ...)` to see more rows</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">4 more variables: context, fmt_fn, warning, error</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/survfit.html" class="external-link">survfit</a></span><span class="op">(</span><span class="fu"><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/Surv_CNSR.html" class="external-link">Surv_CNSR</a></span><span class="op">(</span><span class="va">AVAL</span>, <span class="va">CNSR</span><span class="op">)</span> <span class="op">~</span> <span class="va">TRTA</span>, <span class="fu">cards</span><span class="fu">::</span><span class="va"><a href="https://insightsengineering.github.io/cards/latest-tag/reference/adam.html" class="external-link">ADTTE</a></span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
@@ -157,26 +151,20 @@ survival fit model.</p></li>
 <span class="r-in"><span>  <span class="fu">ard_survival_survfit</span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">180</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Multi-state model detected. Showing probabilities into state 'death from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> cancer'.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 18 x 11</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 30 x 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    group1 group1_level variable variable_level stat_name stat_label  stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    TRTA      Placebo     time             60  estimate  Survival… 0.054</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    TRTA      Placebo     time             60 conf.high  CI Upper…  0.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    TRTA      Placebo     time             60  conf.low  CI Lower… 0.021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    TRTA      Placebo     time            180  estimate  Survival… 0.226</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    TRTA      Placebo     time            180 conf.high  CI Upper… 0.361</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    TRTA      Placebo     time            180  conf.low  CI Lower… 0.142</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    TRTA    Xanomeli…     time             60  estimate  Survival… 0.137</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    TRTA    Xanomeli…     time             60 conf.high  CI Upper… 0.311</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   TRTA    Xanomeli…     time            180  estimate  Survival…  0.51</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.892</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.292</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   TRTA    Xanomeli…     time             60  estimate  Survival… 0.162</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14   TRTA    Xanomeli…     time             60 conf.high  CI Upper…  0.33</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   TRTA    Xanomeli…     time             60  conf.low  CI Lower…  0.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   TRTA    Xanomeli…     time            180  estimate  Survival… 0.244</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17   TRTA    Xanomeli…     time            180 conf.high  CI Upper… 0.516</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18   TRTA    Xanomeli…     time            180  conf.low  CI Lower… 0.115</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    TRTA      Placebo     time             60    n.risk  Number o…    59</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    TRTA      Placebo     time             60  estimate  Survival… 0.054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    TRTA      Placebo     time             60 std.error  Standard… 0.026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    TRTA      Placebo     time             60 conf.high  CI Upper…  0.14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    TRTA      Placebo     time             60  conf.low  CI Lower… 0.021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    TRTA      Placebo     time            180    n.risk  Number o…    35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    TRTA      Placebo     time            180  estimate  Survival… 0.226</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    TRTA      Placebo     time            180 std.error  Standard… 0.054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    TRTA      Placebo     time            180 conf.high  CI Upper… 0.361</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   TRTA      Placebo     time            180  conf.low  CI Lower… 0.142</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">20 more rows</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">Use `print(n = ...)` to see more rows</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">4 more variables: context, fmt_fn, warning, error</span></span>
 </code></pre></div>
     </div>

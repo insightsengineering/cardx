@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9043</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9044</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,30 +66,30 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">cardx</span><span class="fu">:::</span><span class="fu">.format_survfit_results</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="fu">survival</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/survfit.html" class="external-link">survfit</a></span><span class="op">(</span><span class="fu">survival</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">AVAL</span>, <span class="va">CNSR</span><span class="op">)</span> <span class="op">~</span> <span class="va">TRTA</span>, <span class="fu">cards</span><span class="fu">::</span><span class="va"><a href="https://insightsengineering.github.io/cards/latest-tag/reference/adam.html" class="external-link">ADTTE</a></span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 483 x 14</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 group1_level variable variable_level stat_name stat_label stat n.risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    TRTA      Placebo     time              1  estimate  Survival…    1     86</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    TRTA      Placebo     time              1 conf.high  CI Upper…    1     86</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    TRTA      Placebo     time              1  conf.low  CI Lower…    1     86</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    TRTA      Placebo     time              2  estimate  Survival…    1     85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    TRTA      Placebo     time              2 conf.high  CI Upper…    1     85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    TRTA      Placebo     time              2  conf.low  CI Lower…    1     85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    TRTA      Placebo     time              3  estimate  Survival…    1     84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    TRTA      Placebo     time              3 conf.high  CI Upper…    1     84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    TRTA      Placebo     time              3  conf.low  CI Lower…    1     84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   TRTA      Placebo     time              7  estimate  Survival…    1     82</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    n.event n.censor std.error</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        0        1         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        0        1         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        0        1         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        0        1         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        0        1         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        0        1         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        0        2         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        0        2         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        0        2         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10       0        1         0</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">473 more rows</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 805 x 12</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    group1 group1_level variable variable_level stat_name stat_label stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    TRTA      Placebo     time              1    n.risk  Number o…   86</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    TRTA      Placebo     time              1  estimate  Survival…    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    TRTA      Placebo     time              1 std.error  Standard…    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    TRTA      Placebo     time              1 conf.high  CI Upper…    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    TRTA      Placebo     time              1  conf.low  CI Lower…    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    TRTA      Placebo     time              2    n.risk  Number o…   85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    TRTA      Placebo     time              2  estimate  Survival…    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    TRTA      Placebo     time              2 std.error  Standard…    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    TRTA      Placebo     time              2 conf.high  CI Upper…    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   TRTA      Placebo     time              2  conf.low  CI Lower…    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    n.event n.censor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10       0        1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">795 more rows</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">Use `print(n = ...)` to see more rows</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 </code></pre></div>

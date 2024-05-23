@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9043</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9044</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.process_survfit_time</span><span class="op">(</span><span class="va">x</span>, <span class="va">times</span>, <span class="va">type</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.process_survfit_time</span><span class="op">(</span><span class="va">x</span>, <span class="va">times</span>, <span class="va">type</span>, start.time <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -72,6 +72,11 @@ type of statistic to report. Available for Kaplan-Meier time estimates only, oth
 is ignored. Default is <code>NULL</code>.
 Must be one of the following:</p><table class="table table"><tr><td>type</td><td>transformation</td></tr><tr><td><code>"survival"</code></td><td><code>x</code></td></tr><tr><td><code>"risk"</code></td><td><code>1 - x</code></td></tr><tr><td><code>"cumhaz"</code></td><td><code>-log(x)</code></td></tr></table></dd>
 
+
+<dt>start.time</dt>
+<dd><p>(<code>numeric</code>)<br>
+default starting time. See <code><a href="https://rdrr.io/pkg/survival/man/survfit0.html" class="external-link">survival::survfit0()</a></code> for more details.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -86,15 +91,15 @@ Must be one of the following:</p><table class="table table"><tr><td>type</td><td
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">survival</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/survfit.html" class="external-link">survfit</a></span><span class="op">(</span><span class="fu">survival</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">AVAL</span>, <span class="va">CNSR</span><span class="op">)</span> <span class="op">~</span> <span class="va">TRTA</span>, <span class="fu">cards</span><span class="fu">::</span><span class="va"><a href="https://insightsengineering.github.io/cards/latest-tag/reference/adam.html" class="external-link">ADTTE</a></span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">cardx</span><span class="fu">:::</span><span class="fu">.process_survfit_time</span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">180</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"risk"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    time estimate conf.low conf.high strata                    context</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    60    0.107   0.033<span style="text-decoration: underline;">8</span>     0.175 TRTA=Placebo              risk   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>    60    0.306   0.151      0.432 TRTA=Xanomeline High Dose risk   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    60    0.268   0.122      0.390 TRTA=Xanomeline Low Dose  risk   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>   180    0.349   0.217      0.459 TRTA=Placebo              risk   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>   180    0.738   0.251      0.908 TRTA=Xanomeline High Dose risk   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>   180    0.619   0.257      0.805 TRTA=Xanomeline Low Dose  risk   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    time n.risk estimate std.error strata              conf.high conf.low context</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    60     59    0.107    0.036<span style="text-decoration: underline;">0</span> TRTA=Placebo            0.175   0.033<span style="text-decoration: underline;">8</span> risk   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>    60     14    0.306    0.071<span style="text-decoration: underline;">2</span> TRTA=Xanomeline Hi…     0.432   0.151  risk   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    60     20    0.268    0.068<span style="text-decoration: underline;">0</span> TRTA=Xanomeline Lo…     0.390   0.122  risk   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>   180     35    0.349    0.061<span style="text-decoration: underline;">5</span> TRTA=Placebo            0.459   0.217  risk   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>   180      3    0.738    0.140  TRTA=Xanomeline Hi…     0.908   0.251  risk   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>   180      5    0.619    0.130  TRTA=Xanomeline Lo…     0.805   0.257  risk   </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
