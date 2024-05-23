@@ -36,6 +36,10 @@ test_that("ard_stats_t_test_onesample() works", {
       as.list()
   )
 
+  # test the structure is good
+  expect_silent(cards::check_ard_structure(ard1))
+
+  # empty tibble returned with no variables
   expect_equal(
     ard_stats_t_test_onesample(
       cards::ADSL,
