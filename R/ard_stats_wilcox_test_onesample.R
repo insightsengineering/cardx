@@ -51,11 +51,11 @@ ard_stats_wilcox_test_onesample <- function(data, variables, by = dplyr::group_v
         by = all_of(by),
         statistic =
           all_of(variables) ~
-          list(conf.level = \(x) {
-            formals(asNamespace("stats")[["wilcox.test.default"]])[c("mu", "exact", "conf.int", "tol.root", "digits.rank")] |>
-              utils::modifyList(list(conf.level = conf.level, ...)) |>
-              compact()
-          })
+            list(conf.level = \(x) {
+              formals(asNamespace("stats")[["wilcox.test.default"]])[c("mu", "exact", "conf.int", "tol.root", "digits.rank")] |>
+                utils::modifyList(list(conf.level = conf.level, ...)) |>
+                compact()
+            })
       )
     ) |>
     dplyr::select(-"stat_label") |>

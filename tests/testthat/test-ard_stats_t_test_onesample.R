@@ -44,4 +44,3 @@ test_that("ard_stats_t_test_onesample() works", {
     dplyr::tibble()
   )
 })
-

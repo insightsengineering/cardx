@@ -51,10 +51,10 @@ ard_stats_t_test_onesample <- function(data, variables, by = dplyr::group_vars(d
         by = all_of(by),
         statistic =
           all_of(variables) ~
-          list(conf.level = \(x) {
-            formals(asNamespace("stats")[["t.test.default"]])["mu"] |>
-              utils::modifyList(list(conf.level = conf.level, ...))
-          })
+            list(conf.level = \(x) {
+              formals(asNamespace("stats")[["t.test.default"]])["mu"] |>
+                utils::modifyList(list(conf.level = conf.level, ...))
+            })
       )
     ) |>
     dplyr::select(-"stat_label") |>

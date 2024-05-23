@@ -46,4 +46,3 @@ test_that("ard_stats_wilcox_test_onesample() works", {
     dplyr::tibble()
   )
 })
-
