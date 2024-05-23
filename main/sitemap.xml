@@ -94,7 +94,13 @@
     <loc>https://insightsengineering.github.io/cardx/reference/ard_stats_t_test.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_stats_t_test_onesample.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_stats_wilcox_test.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_stats_wilcox_test_onesample.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_survey_svychisq.html</loc>
