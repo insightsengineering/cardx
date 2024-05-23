@@ -63,7 +63,10 @@ ard_stats_wilcox_test_onesample <- function(data, variables, by = dplyr::group_v
       .df_ttest_stat_labels(by = NULL),
       by = "stat_name"
     ) |>
-    dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
+    dplyr::mutate(
+      stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
+      context = "ard_stats_wilcox_test_onesample",
+    ) |>
     cards::tidy_ard_row_order() |>
     cards::tidy_ard_column_order()
 }
