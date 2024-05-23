@@ -34,7 +34,9 @@ reference:
       - ard_stats_oneway_test
       - ard_stats_prop_test
       - ard_stats_t_test
+      - ard_stats_t_test_onesample
       - ard_stats_wilcox_test
+      - ard_stats_wilcox_test_onesample
 
   - subtitle: "{aod} package"
   - contents:
