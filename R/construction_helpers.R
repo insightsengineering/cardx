@@ -45,14 +45,15 @@
 #' @return depends on the calling function
 #' @name construction_helpers
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed"), reference_pkg = "cardx"))
 #' construct_model(
 #'   x = mtcars,
 #'   formula = am ~ mpg + (1 | vs),
 #'   method = "glmer",
 #'   method.args = list(family = binomial),
 #'   package = "lme4"
-#' )
+#' ) |>
+#'   broom.mixed::tidy()
 #'
 #' construct_model(
 #'   x = mtcars |> dplyr::rename(`M P G` = mpg),
@@ -122,7 +123,11 @@ construct_model.survey.design <- function(x, formula, method, method.args = list
 }
 
 .as_list_of_exprs <- function(x) {
-  call_args(enexpr(x))
+  x_enexpr <- enexpr(x)
+  if (tryCatch(inherits(x, "list"), error = \(x) FALSE)) {
+    return(x)
+  }
+  call_args(x_enexpr)
 }
 
 #' @rdname construction_helpers

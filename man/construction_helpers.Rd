@@ -111,14 +111,15 @@ names that contain a space are wrapped in backticks.
 }
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 construct_model(
   x = mtcars,
   formula = am ~ mpg + (1 | vs),
   method = "glmer",
   method.args = list(family = binomial),
   package = "lme4"
-)
+) |>
+  broom.mixed::tidy()
 
 construct_model(
   x = mtcars |> dplyr::rename(`M P G` = mpg),

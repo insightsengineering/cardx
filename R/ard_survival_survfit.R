@@ -111,6 +111,8 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
 #'
 #' @inheritParams cards::tidy_as_ard
 #' @inheritParams ard_survival_survfit
+#' @param start.time (`numeric`)\cr
+#'   default starting time. See [survival::survfit0()] for more details.
 #'
 #' @return a `tibble`
 #'
@@ -119,45 +121,39 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
 #'   cardx:::.process_survfit_time(times = c(60, 180), type = "risk")
 #'
 #' @keywords internal
-.process_survfit_time <- function(x, times, type) {
-  # tidy survfit results
-  tidy_x <- broom::tidy(x)
+.process_survfit_time <- function(x, times, type, start.time = NULL) {
+  # add start time
+  min_time <- min(x$time)
+  if (is.null(start.time) && min_time < 0) {
+    cli::cli_inform(paste(
+      "The {.arg start.time} argument has not been set and negative times have been observed. Please set start",
+      "time via the {.arg start.time} argument, otherwise the minimum observed time will be used by default."
+    ))
+    start.time <- min_time
+  } else if (is.null(start.time)) {
+    start.time <- 0
+  }
+  x <- survival::survfit0(x, start.time) %>%
+    summary(times)
 
   # process competing risks/multi-state models
-  multi_state <- inherits(x, "survfitms")
+  multi_state <- inherits(x, "summary.survfitms")
 
-  if (multi_state == TRUE) {
+  if (multi_state) {
     # selecting state to show
-    state <- setdiff(unique(tidy_x$state), "(s0)")[[1]]
+    state <- setdiff(unique(x$states), "(s0)")[[1]]
     cli::cli_inform("Multi-state model detected. Showing probabilities into state '{state}'.")
-    tidy_x <- dplyr::filter(tidy_x, .data$state == .env$state)
+    x$n.risk <- x$n.risk[, 1]
+    ms_cols <- c("pstate", "std.err", "upper", "lower")
+    state_col <- which(colnames(x$pstate) == state)
+    x[ms_cols] <- lapply(x[ms_cols], function(m) m[, state_col])
+    x$surv <- x$pstate
   }
 
-  # adding time 0 to data frame
-  tidy_x <- tidy_x %>%
-    # make strata a fct to preserve ordering
-    dplyr::mutate(dplyr::across(dplyr::any_of("strata"), ~ factor(., levels = unique(.)))) %>%
-    # if CI is missing and SE is 0, use estimate as the CI
-    dplyr::mutate_at(
-      dplyr::vars("conf.high", "conf.low"),
-      ~ ifelse(is.na(.) & .data$std.error == 0, .data$estimate, .)
-    ) %>%
-    dplyr::select(dplyr::any_of(c(
-      "time", "estimate", "std.error", "conf.high", "conf.low",
-      "strata", "n.risk"
-    ))) %>%
-    # add data for time 0
-    dplyr::bind_rows(
-      dplyr::group_by_at(., dplyr::vars(dplyr::any_of("strata"))) %>%
-        dplyr::slice(1) %>%
-        dplyr::mutate(
-          time = 0,
-          estimate = ifelse(multi_state, 0, 1),
-          conf.low = ifelse(multi_state, 0, 1),
-          conf.high = ifelse(multi_state, 0, 1)
-        )
-    ) %>%
-    dplyr::ungroup()
+  # tidy survfit results
+  x_cols <- intersect(names(x), c("time", "n.risk", "surv", "std.err", "upper", "lower", "strata"))
+  tidy_x <- data.frame(x[x_cols]) %>%
+    dplyr::rename(estimate = "surv", std.error = "std.err", conf.high = "upper", conf.low = "lower")
 
   strat <- "strata" %in% names(tidy_x)
 
@@ -185,16 +181,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   }
 
   df_stat <- df_stat %>%
-    # if user-specifed time is unobserved, fill estimate with previous value
     dplyr::arrange(.data$time) %>%
-    dplyr::group_by_at(dplyr::vars(dplyr::any_of("strata"))) %>%
-    tidyr::fill(
-      "estimate", "conf.high", "conf.low", "time_max",
-      .direction = "down"
-    ) %>%
-    dplyr::ungroup() %>%
-    # keep only user-specified times
-    dplyr::filter(!is.na(.data$col_name)) %>%
     # if user-specified time is after max time, make estimate NA
     dplyr::mutate_at(
       dplyr::vars("estimate", "conf.high", "conf.low"),
@@ -239,7 +226,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
       as.data.frame() %>%
       set_names(c("estimate", "conf.low", "conf.high")) %>%
       dplyr::mutate(strata = row.names(.)) %>%
-      dplyr::select(dplyr::any_of(c("strata", "estimate", "conf.low", "conf.high"))) %>%
+      dplyr::select(dplyr::any_of(c("n.risk", "strata", "estimate", "std.error", "conf.low", "conf.high"))) %>%
       dplyr::mutate(prob = .x)
   ) %>%
     dplyr::bind_rows() %>%
@@ -296,10 +283,10 @@ extract_multi_strata <- function(x, df_stat) {
 
   ret <- tidy_survfit %>%
     dplyr::mutate(dplyr::across(
-      dplyr::any_of(c("estimate", "conf.high", "conf.low", "time", "prob")), ~ as.list(.)
+      dplyr::any_of(c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "time", "prob")), ~ as.list(.)
     )) %>%
     tidyr::pivot_longer(
-      cols = dplyr::any_of(c("estimate", "conf.high", "conf.low")),
+      cols = dplyr::any_of(c("n.risk", "estimate", "std.error", "conf.high", "conf.low")),
       names_to = "stat_name",
       values_to = "stat"
     ) %>%
@@ -345,7 +332,9 @@ extract_multi_strata <- function(x, df_stat) {
 .df_survfit_stat_labels <- function() {
   dplyr::tribble(
     ~stat_name, ~stat_label,
+    "n.risk", "Number of Subjects at Risk",
     "estimate", "Survival Probability",
+    "std.error", "Standard Error (untransformed)",
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
     "conf.level", "CI Confidence Level",

@@ -50,3 +50,21 @@
       42      ARM  Xanomeline Low Dose       conf.low                     -2.039
       43      ARM  Xanomeline Low Dose      conf.high                      2.953
 
+# ard_regression() works specifying custom tidier
+
+    Code
+      dplyr::mutate(dplyr::filter(dplyr::select(as.data.frame(ard_regression(lme4::lmer(
+        mpg ~ hp + (1 | cyl), data = mtcars), tidy_fun = broom.mixed::tidy)),
+      -context, -stat_label, -fmt_fn), map_lgl(stat, is.numeric)), stat = lapply(stat,
+        function(x) ifelse(is.numeric(x), cards::round5(x, 3), x)))
+    Output
+                        variable           variable_level stat_name   stat
+      1                       hp                     <NA>     n_obs     32
+      2                       hp                     <NA>  estimate  -0.03
+      3                       hp                     <NA> std.error  0.015
+      4                       hp                     <NA> statistic -2.088
+      5                       hp                     <NA>  conf.low -0.059
+      6                       hp                     <NA> conf.high -0.002
+      7      cyl.sd__(Intercept)      cyl.sd__(Intercept)  estimate  4.023
+      8 Residual.sd__Observation Residual.sd__Observation  estimate  3.149
+

@@ -8,7 +8,7 @@
 #' @return data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom.helpers", "car"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom.helpers", "car", "parameters"), reference_pkg = "cardx"))
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_car_anova()
 #'
@@ -18,7 +18,7 @@ ard_car_anova <- function(x, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(pkg = c("broom.helpers", "car"), reference_pkg = "cardx")
+  check_pkg_installed(pkg = c("broom.helpers", "car", "parameters"), reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)

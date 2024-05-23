@@ -52,11 +52,11 @@ test_that("ard_smd() works with survey data", {
   )
 })
 
-test_that("ard_proptest() error messaging", {
+test_that("ard_smd_smd() error messaging", {
   # mis-specify the gref argument
   expect_error(
     bad_gref <-
-      ard_smd_smd(cards::ADSL, by = ARM, variables = AGE, std.error = TRUE, gref = 0) |>
+      ard_smd_smd(cards::ADSL, by = SEX, variables = AGE, std.error = TRUE, gref = 0) |>
       as.data.frame(),
     NA
   )
@@ -66,6 +66,6 @@ test_that("ard_proptest() error messaging", {
   # check the error message it the one we expect
   expect_equal(
     bad_gref$error |> unique() |> cli::ansi_strip(),
-    "gref must be an integer within 3"
+    "gref must be an integer within 2"
   )
 })
