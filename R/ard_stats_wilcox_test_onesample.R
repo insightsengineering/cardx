@@ -14,6 +14,7 @@
 #' @inheritParams ard_stats_wilcox_test
 #'
 #' @return ARD data frame
+#' @export
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cards::ADSL |>
