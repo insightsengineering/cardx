@@ -34,7 +34,9 @@ reference:
       - ard_stats_oneway_test
       - ard_stats_prop_test
       - ard_stats_t_test
+      - ard_stats_t_test_onesample
       - ard_stats_wilcox_test
+      - ard_stats_wilcox_test_onesample
 
   - subtitle: "{aod} package"
   - contents:
@@ -60,8 +62,9 @@ reference:
 
   - subtitle: "{survey} package"
   - contents:
+      - ard_continuous.survey.design
+      - ard_attributes.survey.design
       - ard_survey_svychisq
-      - ard_survey_svycontinuous
       - ard_survey_svyranktest
       - ard_survey_svyttest
 

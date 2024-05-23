@@ -1,4 +1,4 @@
-# unstratified ard_survey_svycontinuous() works
+# unstratified ard_continuous.survey.design() works
 
     Code
       ard_uni_svy_cont
@@ -19,12 +19,11 @@
     Message
       i 2 more variables: warning, error
 
-# ard_survey_svycontinuous(fmt_fn)
+# ard_continuous.survey.design(fmt_fn)
 
     Code
-      ard_survey_svycontinuous(dclus1, variables = api00, statistic = ~ c("mean",
-        "median", "min", "max"), fmt_fn = list(api00 = list(mean = 2, median = "xx.xx",
-        min = as.character)))
+      ard_continuous(dclus1, variables = api00, statistic = ~ c("mean", "median",
+        "min", "max"), fmt_fn = list(api00 = list(mean = 2, median = "xx.xx", min = as.character)))
     Message
       {cards} data frame: 4 x 8
     Output
@@ -36,12 +35,12 @@
     Message
       i 2 more variables: warning, error
 
-# ard_survey_svycontinuous(stat_label)
+# ard_continuous.survey.design(stat_label)
 
     Code
-      ard_survey_svycontinuous(dclus1, variables = api00, statistic = ~ c("mean",
-        "median", "min", "max"), stat_label = list(api00 = list(mean = "MeAn",
-        median = "MEDian", min = "MINimum")))
+      ard_continuous(dclus1, variables = api00, statistic = ~ c("mean", "median",
+        "min", "max"), stat_label = list(api00 = list(mean = "MeAn", median = "MEDian",
+        min = "MINimum")))
     Message
       {cards} data frame: 4 x 8
     Output
