@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.963371579876434" branch-rate="0" lines-covered="2183" lines-valid="2266" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-05-23 19:46:35.79778">
+<coverage line-rate="0.963468309859155" branch-rate="0" lines-covered="2189" lines-valid="2272" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-05-23 19:52:48.143595">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.963371579876434" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.963468309859155" branch-rate="0" complexity="0">
       <classes>
         <class name="ard_aod_wald_test.R" filename="R/ard_aod_wald_test.R" line-rate="0.896103896103896" branch-rate="0" complexity="0">
           <methods>
@@ -2988,6 +2988,9 @@
                 <line number="65" hits="1" branch="false"/>
                 <line number="66" hits="1" branch="false"/>
                 <line number="67" hits="1" branch="false"/>
+                <line number="68" hits="1" branch="false"/>
+                <line number="69" hits="1" branch="false"/>
+                <line number="70" hits="1" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -3029,6 +3032,9 @@
             <line number="65" hits="1" branch="false"/>
             <line number="66" hits="1" branch="false"/>
             <line number="67" hits="1" branch="false"/>
+            <line number="68" hits="1" branch="false"/>
+            <line number="69" hits="1" branch="false"/>
+            <line number="70" hits="1" branch="false"/>
           </lines>
         </class>
         <class name="ard_stats_t_test.R" filename="R/ard_stats_t_test.R" line-rate="0.981981981981982" branch-rate="0" complexity="0">
@@ -3321,6 +3327,9 @@
                 <line number="66" hits="1" branch="false"/>
                 <line number="67" hits="1" branch="false"/>
                 <line number="68" hits="1" branch="false"/>
+                <line number="69" hits="1" branch="false"/>
+                <line number="70" hits="1" branch="false"/>
+                <line number="71" hits="1" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -3363,6 +3372,9 @@
             <line number="66" hits="1" branch="false"/>
             <line number="67" hits="1" branch="false"/>
             <line number="68" hits="1" branch="false"/>
+            <line number="69" hits="1" branch="false"/>
+            <line number="70" hits="1" branch="false"/>
+            <line number="71" hits="1" branch="false"/>
           </lines>
         </class>
         <class name="ard_stats_wilcox_test.R" filename="R/ard_stats_wilcox_test.R" line-rate="0.979591836734694" branch-rate="0" complexity="0">
