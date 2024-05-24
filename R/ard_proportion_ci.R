@@ -34,7 +34,8 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
                                 "wilson", "wilsoncc",
                                 "strat_wilson", "strat_wilsoncc",
                                 "agresti-coull", "jeffreys"
-                              )) {
+                              ),
+                              value = list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------

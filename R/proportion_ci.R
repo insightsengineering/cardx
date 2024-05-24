@@ -362,6 +362,13 @@ proportion_ci_strat_wilson <- function(x,
     compact()
 }
 
+#' @describeIn proportion_ci Helper to determine if vector is binary (logical or 0/1)
+#'
+#' @export
+is_binary <- function(x) {
+  is.logical(x) || (is_integerish(x) && is_empty(setdiff(x, c(0, 1, NA))))
+}
+
 #' Helper Function for the Estimation of Stratified Quantiles
 #'
 #' This function wraps the estimation of stratified percentiles when we assume
