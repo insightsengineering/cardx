@@ -74,6 +74,8 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
     dplyr::mutate(
       # reference level
       reference_level = ard_survival_survfit[["group1_level"]][1],
+      # short description of method
+      method = "Survival Difference (Z-test)",
       # survival difference
       estimate = .data$stat0_estimate - .data$stat1_estimate,
       # survival difference standard error
@@ -85,7 +87,7 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
       conf.high = .data$estimate + .data$std.error * stats::qnorm(1 - (1 - .env$conf.level) / 2),
       # p-value for test where H0: no difference
       p.value = 2 * (1 - stats::pnorm(abs(.data$statistic))),
-      across(c("reference_level", "estimate", "std.error", "statistic", "conf.low", "conf.high", "p.value"), as.list)
+      across(c("reference_level", "estimate", "std.error", "statistic", "conf.low", "conf.high", "p.value", "method"), as.list)
     ) |>
     # reshape into the cards structure
     dplyr::select(-starts_with("stat0_"), -starts_with("stat1_")) |>

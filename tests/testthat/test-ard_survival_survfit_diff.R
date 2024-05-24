@@ -24,6 +24,11 @@ test_that("ard_survival_survfit_diff() works", {
       getElement("surv") |>
       reduce(`-`)
   )
+
+  # check the structure of the ARD object
+  expect_silent(
+    cards::check_ard_structure(ard1)
+  )
 })
 
 test_that("ard_survival_survfit_diff() messaging", {
