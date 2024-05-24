@@ -5,7 +5,7 @@
       times = c(25, 50))
     Condition
       Error in `ard_survival_survfit_diff()`:
-      ! The <survift> object passed in argument `x` must be stratified by a single variable.
+      ! The <survfit> object passed in argument `x` must be stratified by a single variable.
 
 ---
 
@@ -14,7 +14,7 @@
         cards::ADTTE, constant = 1L)), times = c(25, 50))
     Condition
       Error in `ard_survival_survfit_diff()`:
-      ! The <survift> object's stratifying variable must have 2 or more levels.
+      ! The <survfit> object's stratifying variable must have 2 or more levels.
 
 ---
 
