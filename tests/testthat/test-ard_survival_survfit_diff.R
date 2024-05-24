@@ -1,3 +1,5 @@
+skip_if_not(is_pkg_installed(c("survival", "broom"), reference_pkg = "cardx"))
+
 test_that("ard_survival_survfit_diff() works", {
   withr::local_package("survival")
   sf <- survfit(Surv(AVAL, 1 - CNSR) ~ SEX, cards::ADTTE)

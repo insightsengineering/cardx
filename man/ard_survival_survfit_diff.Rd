@@ -24,8 +24,11 @@ Calculate differences in the Kaplan-Meier estimator of survival using the
 results from \code{\link[survival:survfit]{survival::survfit()}}.
 }
 \examples{
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "ggsurvfit"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(ggsurvfit)
 library(survival)
 
-survfit(Surv(time, status) ~ ph.ecog, data = lung) |>
-  ard_survival_survfit_diff(times = c(100, 200))
+survfit(Surv_CNSR() ~ TRTA, data = cards::ADTTE) |>
+  ard_survival_survfit_diff(times = c(25, 50))
+\dontshow{\}) # examplesIf}
 }

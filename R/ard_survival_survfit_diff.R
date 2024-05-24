@@ -12,11 +12,12 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "ggsurvfit"), reference_pkg = "cardx"))
+#' library(ggsurvfit)
 #' library(survival)
 #'
-#' survfit(Surv(time, status) ~ ph.ecog, data = lung) |>
-#'   ard_survival_survfit_diff(times = c(100, 200))
+#' survfit(Surv_CNSR() ~ TRTA, data = cards::ADTTE) |>
+#'   ard_survival_survfit_diff(times = c(25, 50))
 ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
   set_cli_abort_call()
 
