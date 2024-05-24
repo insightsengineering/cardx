@@ -1,6 +1,6 @@
 test_that("ard_survival_survfit_diff() works", {
   withr::local_package("survival")
-  sf <- survfit(Surv(AVAL, 1- CNSR) ~ SEX, cards::ADTTE)
+  sf <- survfit(Surv(AVAL, 1 - CNSR) ~ SEX, cards::ADTTE)
   expect_silent(
     ard1 <- ard_survival_survfit_diff(sf, times = c(25, 50))
   )
@@ -37,7 +37,7 @@ test_that("ard_survival_survfit_diff() messaging", {
   # we can only do one stratifying variable at a time
   expect_snapshot(
     error = TRUE,
-    survfit(Surv(AVAL, 1- CNSR) ~ SEX + TRTA, cards::ADTTE) |>
+    survfit(Surv(AVAL, 1 - CNSR) ~ SEX + TRTA, cards::ADTTE) |>
       ard_survival_survfit_diff(times = c(25, 50))
   )
 
@@ -45,7 +45,7 @@ test_that("ard_survival_survfit_diff() messaging", {
   expect_snapshot(
     error = TRUE,
     survfit(
-      Surv(AVAL, 1- CNSR) ~ constant,
+      Surv(AVAL, 1 - CNSR) ~ constant,
       cards::ADTTE |> dplyr::mutate(constant = 1L)
     ) |>
       ard_survival_survfit_diff(times = c(25, 50))
