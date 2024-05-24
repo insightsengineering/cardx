@@ -71,6 +71,7 @@ reference:
   - subtitle: "{survival} package"
   - contents:
     - ard_survival_survfit
+    - ard_survival_survfit_diff
     - ard_survival_survdiff
 
   - subtitle: "Other ARD functions"

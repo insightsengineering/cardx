@@ -64,7 +64,7 @@ ard_stats_t_test_onesample <- function(data, variables, by = dplyr::group_vars(d
     ) |>
     dplyr::mutate(
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
-      context = "ard_stats_t_test_onesample",
+      context = "stats_t_test_onesample",
     ) |>
     cards::tidy_ard_row_order() |>
     cards::tidy_ard_column_order()
