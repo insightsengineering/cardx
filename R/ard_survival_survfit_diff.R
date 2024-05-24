@@ -25,9 +25,10 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
   check_not_missing(x)
   check_not_missing(times)
   check_class(x, "survfit")
-  if (inherits(x, "survfitms")) {
+
+  if (inherits(x, c("survfitms", "survfitcox"))) {
     cli::cli_abort(
-      "Argument {.arg x} cannot be class {.cls survfitms}.",
+      "Argument {.arg x} cannot be class {.cls {c('survfitms', 'survfitcox')}}.",
       call = get_cli_abort_call()
     )
   }
@@ -39,7 +40,7 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
   )
   if (length(x$strata) < 2) {
     cli::cli_abort(
-      "The {.cls survift} object passed in argument {.arg x} must have more than 1 stratifying level.",
+      "The {.cls survift} object's stratifying variable must have 2 or more levels.",
       call = get_cli_abort_call()
     )
   }
