@@ -53,15 +53,15 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
   # transform the survival ARD into a cards object with the survival difference
   card <-
     ard_survival_survfit %>%
-    {dplyr::left_join(
-      # remove the first group from the data frame (this is our reference group)
-      dplyr::filter(., .by = cards::all_ard_groups(), dplyr::cur_group_id() > 1L) |>
-        dplyr::rename(stat1 = "stat"),
-      # merge the reference group data
-      dplyr::filter(., .by = cards::all_ard_groups(), dplyr::cur_group_id() == 1L) |>
-        dplyr::select(stat0 = "stat", everything(), -c("group1_level", "error", "warning")),
-      by = c("group1", "variable", "variable_level", "stat_name")
-    )} |>
+    {dplyr::left_join( # styler: off
+        # remove the first group from the data frame (this is our reference group)
+        dplyr::filter(., .by = cards::all_ard_groups(), dplyr::cur_group_id() > 1L) |>
+          dplyr::rename(stat1 = "stat"),
+        # merge the reference group data
+        dplyr::filter(., .by = cards::all_ard_groups(), dplyr::cur_group_id() == 1L) |>
+          dplyr::select(stat0 = "stat", everything(), -c("group1_level", "error", "warning")),
+        by = c("group1", "variable", "variable_level", "stat_name")
+    )} |> # styler: off
     # reshape to put the stats that need to be combined on the same row
     tidyr::pivot_wider(
       id_cols = c("group1", "group1_level", "variable", "variable_level"),
