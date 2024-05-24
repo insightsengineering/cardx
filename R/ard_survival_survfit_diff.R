@@ -41,7 +41,7 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
   )
   if (length(x$strata) < 2) {
     cli::cli_abort(
-      "The {.cls survift} object's stratifying variable must have 2 or more levels.",
+      "The {.cls survfit} object's stratifying variable must have 2 or more levels.",
       call = get_cli_abort_call()
     )
   }
