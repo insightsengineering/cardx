@@ -37,7 +37,7 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
   check_length(
     as.list(x$call)[["formula"]] |> stats::as.formula() |> stats::terms() |> attr("term.labels"),
     length = 1L,
-    message = "The {.cls survift} object passed in argument {.arg x} must be stratified by a single variable."
+    message = "The {.cls survfit} object passed in argument {.arg x} must be stratified by a single variable."
   )
   if (length(x$strata) < 2) {
     cli::cli_abort(
