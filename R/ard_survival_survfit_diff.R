@@ -31,7 +31,7 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
       call = get_cli_abort_call()
     )
   }
-  check_range(conf.level, range = c(0, 1))
+  check_scalar_range(conf.level, range = c(0, 1))
   check_length(
     as.list(x$call)[["formula"]] |> stats::as.formula() |> stats::terms() |> attr("term.labels"),
     length = 1L,
@@ -44,49 +44,61 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
     )
   }
 
-  # calculate survival at the specified times
-  summary(x, times = times) |>
-    tidy_summary.survfit() |>
-    dplyr::select(any_of(c("strata", "time", "estimate", "std.error"))) %>%
-    # styler: off
+  # calculate the survival at the specified times
+  ard_survival_survfit <-
+    ard_survival_survfit(x = x, times = times) |>
+    dplyr::filter(.data$stat_name %in% c("estimate", "std.error")) |>
+    dplyr::select(-c("stat_label", "context", "fmt_fn"))
+
+  # transform the survival ARD into a cards object with the survival difference
+  card <-
+    ard_survival_survfit %>%
     {dplyr::left_join(
-      dplyr::filter(., .data$strata != .data$strata[1]) |>
-        dplyr::mutate(contrast = paste(.$strata[1], "-", .data$strata)),
-      dplyr::filter(., .data$strata == .data$strata[1]) |>
-        dplyr::select(-"strata") |>
-        dplyr::rename_with(.fn = ~ paste0(., "0"), .cols = -"time"),
-      by = "time"
+      # remove the first group from the data frame (this is our reference group)
+      dplyr::filter(., .by = cards::all_ard_groups(), dplyr::cur_group_id() > 1L) |>
+        dplyr::rename(stat1 = "stat"),
+      # merge the reference group data
+      dplyr::filter(., .by = cards::all_ard_groups(), dplyr::cur_group_id() == 1L) |>
+        dplyr::select(stat0 = "stat", everything(), -c("group1_level", "error", "warning")),
+      by = c("group1", "variable", "variable_level", "stat_name")
     )} |>
-    # styler: on
+    # reshape to put the stats that need to be combined on the same row
+    tidyr::pivot_wider(
+      id_cols = c("group1", "group1_level", "variable", "variable_level"),
+      names_from = "stat_name",
+      values_from = c("stat0", "stat1"),
+      values_fn = unlist
+    ) |>
+    # calcualte the primary statistics to return
     dplyr::mutate(
-      difference = .data$estimate0 - .data$estimate,
-      difference.std.error = sqrt(.data$std.error0^2 + .data$std.error^2),
-      statistic = .data$difference / .data$difference.std.error,
-      conf.low = .data$difference - .data$difference.std.error * stats::qnorm(1 - (1 - .env$conf.level) / 2),
-      conf.high = .data$difference + .data$difference.std.error * stats::qnorm(1 - (1 - .env$conf.level) / 2),
-      p.value = 2 * (1 - stats::pnorm(abs(.data$statistic)))
+      # reference level
+      reference_level = ard_survival_survfit[["group1_level"]][1],
+      # survival difference
+      estimate = .data$stat0_estimate - .data$stat1_estimate,
+      # survival difference standard error
+      std.error = sqrt(.data$stat0_std.error^2 + .data$stat1_std.error^2),
+      # Z test statistic
+      statistic = .data$estimate / .data$std.error,
+      # confidence limits of the survival difference
+      conf.low = .data$estimate - .data$std.error * stats::qnorm(1 - (1 - .env$conf.level) / 2),
+      conf.high = .data$estimate + .data$std.error * stats::qnorm(1 - (1 - .env$conf.level) / 2),
+      # p-value for test where H0: no difference
+      p.value = 2 * (1 - stats::pnorm(abs(.data$statistic))),
+      across(c("reference_level", "estimate", "std.error", "statistic", "conf.low", "conf.high", "p.value"), as.list)
     ) |>
-    dplyr::select(
-      "strata", "contrast", "time",
-      estimate = "difference",
-      std.error = "difference.std.error",
-      "statistic", "conf.low", "conf.high", "p.value"
-    ) |>
-    extract_multi_strata(x = x, df_stat = _)
-  tidyr::separate_wider_delim("strata", "=", names = c("group1", "group1_level")) |>
-    dplyr::mutate(
-      across(-cards::all_ard_groups("names"), as.list)
-    ) |>
+    # reshape into the cards structure
+    dplyr::select(-starts_with("stat0_"), -starts_with("stat1_")) |>
     tidyr::pivot_longer(
-      cols = -c(cards::all_ard_groups(), "time"),
+      cols = -c(cards::all_ard_groups(), cards::all_ard_variables()),
       names_to = "stat_name",
       values_to = "stat"
-    ) |>
-    dplyr::rename(variable_level = "time") |>
+    )
+
+  # final prepping of the cards object -----------------------------------------
+  card |>
     dplyr::mutate(
-      variable = "time",
-      error = list(NULL),
-      warning = list(NULL),
+      warning = ard_survival_survfit[["warning"]][1],
+      error = ard_survival_survfit[["error"]][1],
       fmt_fn = list(1L),
       stat_label =
         dplyr::case_when(
@@ -94,6 +106,7 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
           .data$stat_name %in% "std.error" ~ "Survival Difference Standard Error",
           .data$stat_name %in% "conf.low" ~ "CI Lower Bound",
           .data$stat_name %in% "conf.high" ~ "CI Upper Bound",
+          .data$stat_name %in% "statistic" ~ "z statistic",
           .data$stat_name %in% "p.value" ~ "p-value",
           .default = .data$stat_name
         ),
@@ -101,19 +114,4 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
     ) |>
     cards::tidy_ard_column_order() %>%
     structure(., class = c("card", class(.)))
-}
-
-
-tidy_summary.survfit <- function(x) {
-  dplyr::tibble(
-    strata = x$strata,
-    time = x$time,
-    n.risk = x$n.risk,
-    n.event = x$n.event,
-    n.censor = x$n.censor,
-    estimate = x$surv,
-    std.error = x$std.err,
-    conf.low = x$lower,
-    conf.high = x$upper
-  )
 }
