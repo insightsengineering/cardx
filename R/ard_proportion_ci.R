@@ -24,7 +24,9 @@
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' ard_proportion_ci(mtcars, variables = c(vs, am), method = "wilson")
-ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
+ard_proportion_ci <- function(data,
+                              variables,
+                              by = dplyr::group_vars(data),
                               conf.level = 0.95,
                               strata,
                               weights = NULL,
@@ -48,8 +50,40 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
     cards::process_selectors(data, strata = strata)
     check_scalar(strata)
   }
+  cards::process_formula_selectors(
+    data[variables],
+    value = value
+  )
 
   # calculate confidence intervals ---------------------------------------------
+  map(
+    variables,
+    function(variable) {
+      levels <- .unique_values_sort(data, variable = variable, value = value[[variable]])
+
+      .calculate_ard_proportion(
+        data = .as_dummy(data, variable = variable, levels = levels, by = by),
+        variables = c(everything(), -all_of(by)),
+        by = all_of(by),
+        method = method,
+        conf.level = conf.level
+      ) %>%
+        # merge in the variable levels
+        dplyr::left_join(
+          dplyr::select(., "variable") |>
+            dplyr::distinct() |>
+            dplyr::mutate(variable_level = as.list(.env$levels)),
+          by = "variable"
+        ) |>
+        # rename variable column
+        dplyr::mutate(variable = .env$variable) |>
+        dplyr::relocate("variable_level", .after = "variable")
+    }
+  ) |>
+    dplyr::bind_rows()
+}
+
+.calculate_ard_proportion <- function(data, variables, by, method, conf.level) {
   cards::ard_complex(
     data = data,
     variables = {{ variables }},
@@ -58,31 +92,62 @@ ard_proportion_ci <- function(data, variables, by = dplyr::group_vars(data),
       ~ list(
         prop_ci =
           switch(method,
-            "waldcc" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = TRUE),
-            "wald" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = FALSE),
-            "wilsoncc" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = TRUE),
-            "wilson" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = FALSE),
-            "clopper-pearson" = \(x, ...) proportion_ci_clopper_pearson(x, conf.level = conf.level),
-            "agresti-coull" = \(x, ...) proportion_ci_agresti_coull(x, conf.level = conf.level),
-            "jeffreys" = \(x, ...) proportion_ci_jeffreys(x, conf.level = conf.level),
-            "strat_wilsoncc" = \(x, data, ...) {
-              proportion_ci_strat_wilson(x,
-                strata = data[[strata]], weights = weights,
-                max.iterations = max.iterations,
-                conf.level = conf.level, correct = TRUE
-              )
-            },
-            "strat_wilson" = \(x, data, ...) {
-              proportion_ci_strat_wilson(x,
-                strata = data[[strata]], weights = weights,
-                max.iterations = max.iterations,
-                conf.level = conf.level, correct = FALSE
-              )
-            }
+                 "waldcc" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = TRUE),
+                 "wald" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = FALSE),
+                 "wilsoncc" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = TRUE),
+                 "wilson" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = FALSE),
+                 "clopper-pearson" = \(x, ...) proportion_ci_clopper_pearson(x, conf.level = conf.level),
+                 "agresti-coull" = \(x, ...) proportion_ci_agresti_coull(x, conf.level = conf.level),
+                 "jeffreys" = \(x, ...) proportion_ci_jeffreys(x, conf.level = conf.level),
+                 "strat_wilsoncc" = \(x, data, ...) {
+                   proportion_ci_strat_wilson(x,
+                                              strata = data[[strata]], weights = weights,
+                                              max.iterations = max.iterations,
+                                              conf.level = conf.level, correct = TRUE
+                   )
+                 },
+                 "strat_wilson" = \(x, data, ...) {
+                   proportion_ci_strat_wilson(x,
+                                              strata = data[[strata]], weights = weights,
+                                              max.iterations = max.iterations,
+                                              conf.level = conf.level, correct = FALSE
+                   )
+                 }
           )
       )
   ) |>
     dplyr::mutate(
       context = "proportion_ci"
     )
+}
+
+.unique_values_sort <- function(data, variable, value = NULL) {
+  unique_levels <-
+    # styler: off
+    if (is.logical(data[[variable]])) c(TRUE, FALSE)
+    else if (is.factor(data[[variable]])) factor(levels(data[[variable]]), levels = levels(data[[variable]]))
+    else unique(data[[variable]]) |> sort()
+    # styler: on
+
+  if (!is_empty(value) && !value %in% unique_levels) {
+    cli::cli_warn(
+      c("A value of {.code value={.val {value}}} for variable {.val {variable}}
+         was passed, but is not one of the observed levels: {.val {unique_levels}}.",
+        i = "This may be an error.",
+        i = "If value is a valid, convert variable to factor with all levels specified to avoid this message.")
+    )
+  }
+  if (!is_empty(value)) {
+    unique_levels <- value
+  }
+
+  unique_levels
+}
+
+.as_dummy <- function(data, variable, levels, by) {
+  # define dummy variables and return tibble
+  map(levels, ~ data[[variable]] == .x) |>
+    set_names(paste0("this_is_not_a_column_name_anyone_would_choose_", variable, "_", levels, "...")) %>%
+    {dplyr::tibble(!!!.)} |>
+    dplyr::bind_cols(data[by])
 }
