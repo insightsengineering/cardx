@@ -18,6 +18,8 @@ ard_moodtest()          -> ard_stats_mood_test()
 
 ### New Features
 
+* The `ard_proportion_ci(value)` argument has been added. Previously, only binary variables (0/1 or TRUE/FALSE) could be summarized. Now, binary variables will have the value specified in `value` summarized. For non-binary, categorical variables, each level is summarized.
+
 * Added the following functions for calculating Analysis Results Data (ARD).
   - `ard_stats_aov()` for calculating ANOVA results using `stats::aov()`. (#3)
   - `ard_stats_anova()` for calculating ANOVA results using `stats::anova()`. (#12) 
