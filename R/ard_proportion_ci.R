@@ -18,6 +18,10 @@
 #'   See `?proportion_ci` for details.
 #' @param strata,weights,max.iterations arguments passed to `proportion_ci_strat_wilson()`,
 #'   when `method='strat_wilson'`
+#' @param value ([`formula-list-selector`][syntax])\cr
+#'   function will calculate the CIs for all levels of the variables specified.
+#'   Use this argument to instead request only a single level by summarized.
+#'   Default is `list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)`.
 #'
 #' @return an ARD data frame
 #' @export
@@ -28,7 +32,7 @@ ard_proportion_ci <- function(data,
                               variables,
                               by = dplyr::group_vars(data),
                               conf.level = 0.95,
-                              strata,
+                              strata = NULL,
                               weights = NULL,
                               max.iterations = 10,
                               method = c(
@@ -62,11 +66,13 @@ ard_proportion_ci <- function(data,
       levels <- .unique_values_sort(data, variable = variable, value = value[[variable]])
 
       .calculate_ard_proportion(
-        data = .as_dummy(data, variable = variable, levels = levels, by = by),
-        variables = c(everything(), -all_of(by)),
+        data = .as_dummy(data, variable = variable, levels = levels, by = by, strata = strata),
+        variables = c(everything(), -all_of(c(by, strata))),
         by = all_of(by),
         method = method,
-        conf.level = conf.level
+        conf.level = conf.level,
+        strata = strata,
+        weights = weights
       ) %>%
         # merge in the variable levels
         dplyr::left_join(
@@ -83,7 +89,7 @@ ard_proportion_ci <- function(data,
     dplyr::bind_rows()
 }
 
-.calculate_ard_proportion <- function(data, variables, by, method, conf.level) {
+.calculate_ard_proportion <- function(data, variables, by, method, conf.level, strata, weights) {
   cards::ard_complex(
     data = data,
     variables = {{ variables }},
@@ -144,10 +150,10 @@ ard_proportion_ci <- function(data,
   unique_levels
 }
 
-.as_dummy <- function(data, variable, levels, by) {
+.as_dummy <- function(data, variable, levels, by, strata) {
   # define dummy variables and return tibble
   map(levels, ~ data[[variable]] == .x) |>
     set_names(paste0("this_is_not_a_column_name_anyone_would_choose_", variable, "_", levels, "...")) %>%
     {dplyr::tibble(!!!.)} |>
-    dplyr::bind_cols(data[by])
+    dplyr::bind_cols(data[c(by, strata)])
 }

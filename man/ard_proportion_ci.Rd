@@ -9,11 +9,12 @@ ard_proportion_ci(
   variables,
   by = dplyr::group_vars(data),
   conf.level = 0.95,
-  strata,
+  strata = NULL,
   weights = NULL,
   max.iterations = 10,
   method = c("waldcc", "wald", "clopper-pearson", "wilson", "wilsoncc", "strat_wilson",
-    "strat_wilsoncc", "agresti-coull", "jeffreys")
+    "strat_wilsoncc", "agresti-coull", "jeffreys"),
+  value = list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)
 )
 }
 \arguments{
@@ -38,6 +39,11 @@ when \code{method='strat_wilson'}}
 string indicating the type of confidence interval to calculate.
 Must be one of 'waldcc', 'wald', 'clopper-pearson', 'wilson', 'wilsoncc', 'strat_wilson', 'strat_wilsoncc', 'agresti-coull', 'jeffreys'.
 See \code{?proportion_ci} for details.}
+
+\item{value}{(\code{\link[=syntax]{formula-list-selector}})\cr
+function will calculate the CIs for all levels of the variables specified.
+Use this argument to instead request only a single level by summarized.
+Default is \code{list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)}.}
 }
 \value{
 an ARD data frame

@@ -8,6 +8,7 @@
 \alias{proportion_ci_agresti_coull}
 \alias{proportion_ci_jeffreys}
 \alias{proportion_ci_strat_wilson}
+\alias{is_binary}
 \title{Functions for Calculating Proportion Confidence Intervals}
 \usage{
 proportion_ci_wald(x, conf.level = 0.95, correct = FALSE)
@@ -28,6 +29,8 @@ proportion_ci_strat_wilson(
   max.iterations = 10L,
   correct = FALSE
 )
+
+is_binary(x)
 }
 \arguments{
 \item{x}{vector of a binary values, i.e. a logical vector, or numeric with values \code{c(0, 1)}}
@@ -98,6 +101,8 @@ for multiple binomial proportions. \emph{Statistics in Biopharmaceutical Researc
 \deqn{\frac{\hat{p}_j + \frac{z^2_{\alpha/2}}{2n_j} \pm
 z_{\alpha/2} \sqrt{\frac{\hat{p}_j(1 - \hat{p}_j)}{n_j} +
 \frac{z^2_{\alpha/2}}{4n_j^2}}}{1 + \frac{z^2_{\alpha/2}}{n_j}}}
+
+\item \code{is_binary()}: Helper to determine if vector is binary (logical or 0/1)
 
 }}
 \examples{
