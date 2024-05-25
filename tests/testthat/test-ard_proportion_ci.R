@@ -51,7 +51,7 @@ test_that("ard_proportion_ci() works", {
     cards::get_ard_statistics(
       ard_factor,
       group1_level %in% 0,
-      map_lgl(variable_level, ~ .x == "10")
+      unlist(variable_level) == "10"
     )[c("estimate", "conf.low", "conf.high")],
     proportion_ci_wald(mtcars$cyl[mtcars$am == 0] == 10, correct = TRUE)[c("estimate", "conf.low", "conf.high")]
   )
