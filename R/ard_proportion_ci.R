@@ -36,17 +36,17 @@
 ard_proportion_ci <- function(data,
                               variables,
                               by = dplyr::group_vars(data),
-                              conf.level = 0.95,
-                              strata = NULL,
-                              weights = NULL,
-                              max.iterations = 10,
                               method = c(
                                 "waldcc", "wald", "clopper-pearson",
                                 "wilson", "wilsoncc",
                                 "strat_wilson", "strat_wilsoncc",
                                 "agresti-coull", "jeffreys"
                               ),
-                              value = list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)) {
+                              conf.level = 0.95,
+                              value = list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE),
+                              strata = NULL,
+                              weights = NULL,
+                              max.iterations = 10) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------

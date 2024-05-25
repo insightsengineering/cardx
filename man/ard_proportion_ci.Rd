@@ -8,13 +8,13 @@ ard_proportion_ci(
   data,
   variables,
   by = dplyr::group_vars(data),
-  conf.level = 0.95,
-  strata = NULL,
-  weights = NULL,
-  max.iterations = 10,
   method = c("waldcc", "wald", "clopper-pearson", "wilson", "wilsoncc", "strat_wilson",
     "strat_wilsoncc", "agresti-coull", "jeffreys"),
-  value = list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)
+  conf.level = 0.95,
+  value = list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE),
+  strata = NULL,
+  weights = NULL,
+  max.iterations = 10
 )
 }
 \arguments{
@@ -28,23 +28,23 @@ or \verb{<numeric>} values coded as \code{c(0, 1)}.}
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 columns to stratify calculations by}
 
-\item{conf.level}{(\code{numeric})\cr
-a scalar in \verb{(0, 1)} indicating the confidence level.
-Default is \code{0.95}}
-
-\item{strata, weights, max.iterations}{arguments passed to \code{proportion_ci_strat_wilson()},
-when \code{method='strat_wilson'}}
-
 \item{method}{(\code{string})\cr
 string indicating the type of confidence interval to calculate.
 Must be one of 'waldcc', 'wald', 'clopper-pearson', 'wilson', 'wilsoncc', 'strat_wilson', 'strat_wilsoncc', 'agresti-coull', 'jeffreys'.
 See \code{?proportion_ci} for details.}
+
+\item{conf.level}{(\code{numeric})\cr
+a scalar in \verb{(0, 1)} indicating the confidence level.
+Default is \code{0.95}}
 
 \item{value}{(\code{\link[=syntax]{formula-list-selector}})\cr
 function will calculate the CIs for all levels of the variables specified.
 Use this argument to instead request only a single level by summarized.
 Default is \code{list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)}, where
 columns coded as \code{0}/\code{1} and \code{TRUE}/\code{FALSE} will summarize the \code{1} and \code{TRUE} levels.}
+
+\item{strata, weights, max.iterations}{arguments passed to \code{proportion_ci_strat_wilson()},
+when \code{method='strat_wilson'}}
 }
 \value{
 an ARD data frame
