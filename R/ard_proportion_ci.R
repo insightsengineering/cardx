@@ -103,27 +103,27 @@ ard_proportion_ci <- function(data,
       ~ list(
         prop_ci =
           switch(method,
-                 "waldcc" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = TRUE),
-                 "wald" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = FALSE),
-                 "wilsoncc" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = TRUE),
-                 "wilson" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = FALSE),
-                 "clopper-pearson" = \(x, ...) proportion_ci_clopper_pearson(x, conf.level = conf.level),
-                 "agresti-coull" = \(x, ...) proportion_ci_agresti_coull(x, conf.level = conf.level),
-                 "jeffreys" = \(x, ...) proportion_ci_jeffreys(x, conf.level = conf.level),
-                 "strat_wilsoncc" = \(x, data, ...) {
-                   proportion_ci_strat_wilson(x,
-                                              strata = data[[strata]], weights = weights,
-                                              max.iterations = max.iterations,
-                                              conf.level = conf.level, correct = TRUE
-                   )
-                 },
-                 "strat_wilson" = \(x, data, ...) {
-                   proportion_ci_strat_wilson(x,
-                                              strata = data[[strata]], weights = weights,
-                                              max.iterations = max.iterations,
-                                              conf.level = conf.level, correct = FALSE
-                   )
-                 }
+            "waldcc" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = TRUE),
+            "wald" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = FALSE),
+            "wilsoncc" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = TRUE),
+            "wilson" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = FALSE),
+            "clopper-pearson" = \(x, ...) proportion_ci_clopper_pearson(x, conf.level = conf.level),
+            "agresti-coull" = \(x, ...) proportion_ci_agresti_coull(x, conf.level = conf.level),
+            "jeffreys" = \(x, ...) proportion_ci_jeffreys(x, conf.level = conf.level),
+            "strat_wilsoncc" = \(x, data, ...) {
+              proportion_ci_strat_wilson(x,
+                strata = data[[strata]], weights = weights,
+                max.iterations = max.iterations,
+                conf.level = conf.level, correct = TRUE
+              )
+            },
+            "strat_wilson" = \(x, data, ...) {
+              proportion_ci_strat_wilson(x,
+                strata = data[[strata]], weights = weights,
+                max.iterations = max.iterations,
+                conf.level = conf.level, correct = FALSE
+              )
+            }
           )
       )
   ) |>
@@ -138,14 +138,15 @@ ard_proportion_ci <- function(data,
     if (is.logical(data[[variable]])) c(TRUE, FALSE)
     else if (is.factor(data[[variable]])) factor(levels(data[[variable]]), levels = levels(data[[variable]]))
     else unique(data[[variable]]) |> sort()
-    # styler: on
+  # styler: on
 
   if (!is_empty(value) && !value %in% unique_levels) {
     cli::cli_warn(
       c("A value of {.code value={.val {value}}} for variable {.val {variable}}
          was passed, but is not one of the observed levels: {.val {unique_levels}}.",
         i = "This may be an error.",
-        i = "If value is a valid, convert variable to factor with all levels specified to avoid this message.")
+        i = "If value is a valid, convert variable to factor with all levels specified to avoid this message."
+      )
     )
   }
   if (!is_empty(value)) {
@@ -159,6 +160,6 @@ ard_proportion_ci <- function(data,
   # define dummy variables and return tibble
   map(levels, ~ data[[variable]] == .x) |>
     set_names(paste0("this_is_not_a_column_name_anyone_would_choose_", variable, "_", levels, "...")) %>%
-    {dplyr::tibble(!!!.)} |>
+    {dplyr::tibble(!!!.)} |> # styler: off
     dplyr::bind_cols(data[c(by, strata)])
 }
