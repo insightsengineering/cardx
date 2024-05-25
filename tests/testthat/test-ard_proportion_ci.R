@@ -55,6 +55,8 @@ test_that("ard_proportion_ci() works", {
     )[c("estimate", "conf.low", "conf.high")],
     proportion_ci_wald(mtcars$cyl[mtcars$am == 0] == 10, correct = TRUE)[c("estimate", "conf.low", "conf.high")]
   )
+  # checking structure
+  expect_silent(cards::check_ard_structure(ard_factor))
 })
 
 test_that("ard_proportion_ci(method='strat_wilson') works", {
