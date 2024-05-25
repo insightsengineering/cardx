@@ -43,7 +43,8 @@ See \code{?proportion_ci} for details.}
 \item{value}{(\code{\link[=syntax]{formula-list-selector}})\cr
 function will calculate the CIs for all levels of the variables specified.
 Use this argument to instead request only a single level by summarized.
-Default is \code{list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)}.}
+Default is \code{list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)}, where
+columns coded as \code{0}/\code{1} and \code{TRUE}/\code{FALSE} will summarize the \code{1} and \code{TRUE} levels.}
 }
 \value{
 an ARD data frame

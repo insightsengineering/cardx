@@ -21,7 +21,8 @@
 #' @param value ([`formula-list-selector`][syntax])\cr
 #'   function will calculate the CIs for all levels of the variables specified.
 #'   Use this argument to instead request only a single level by summarized.
-#'   Default is `list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)`.
+#'   Default is `list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)`, where
+#'   columns coded as `0`/`1` and `TRUE`/`FALSE` will summarize the `1` and `TRUE` levels.
 #'
 #' @return an ARD data frame
 #' @export
