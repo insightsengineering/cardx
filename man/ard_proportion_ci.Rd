@@ -55,6 +55,10 @@ Calculate confidence intervals for proportions.
 }
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# compute CI for binary variables
 ard_proportion_ci(mtcars, variables = c(vs, am), method = "wilson")
+
+# compute CIs for each level of a categorical variable
+ard_proportion_ci(mtcars, variables = cyl, method = "jeffreys")
 \dontshow{\}) # examplesIf}
 }

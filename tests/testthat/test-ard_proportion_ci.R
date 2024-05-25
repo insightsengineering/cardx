@@ -1,12 +1,13 @@
 skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx")))
 
 test_that("ard_proportion_ci() works", {
-  # testing the easy methods together
+  # testing the easy methods together for binary variables
   expect_error(
-    c(
-      "waldcc", "wald", "clopper-pearson",
-      "wilson", "wilsoncc", "agresti-coull", "jeffreys"
-    ) |>
+    lst_ard_props <-
+      c(
+        "waldcc", "wald", "clopper-pearson",
+        "wilson", "wilsoncc", "agresti-coull", "jeffreys"
+      ) |>
       lapply(
         \(x) {
           ard_proportion_ci(
@@ -17,6 +18,42 @@ test_that("ard_proportion_ci() works", {
         }
       ),
     NA
+  )
+  expect_equal(
+    lst_ard_props[[1]] |>
+      cards::get_ard_statistics(
+        stat_name %in% c("estimate", "conf.low", "conf.high"),
+        variable == "am"
+      ),
+    proportion_ci_wald(mtcars$am, correct = TRUE)[c("estimate", "conf.low", "conf.high")]
+  )
+
+  # testing a categorical variable
+  expect_error(
+    ard_factor <-
+      ard_proportion_ci(
+        mtcars |> dplyr::mutate(cyl = factor(cyl, levels = c(4, 6, 8, 10))),
+        variables = cyl,
+        by = am
+      ),
+    NA
+  )
+  expect_equal(
+    cards::get_ard_statistics(
+      ard_factor,
+      group1_level %in% 0,
+      map_lgl(variable_level, ~.x == "4")
+    )[c("estimate", "conf.low", "conf.high")],
+    proportion_ci_wald(mtcars$cyl[mtcars$am == 0] == 4, correct = TRUE)[c("estimate", "conf.low", "conf.high")]
+  )
+  # now checking the unobserved level of cyl
+  expect_equal(
+    cards::get_ard_statistics(
+      ard_factor,
+      group1_level %in% 0,
+      map_lgl(variable_level, ~.x == "10")
+    )[c("estimate", "conf.low", "conf.high")],
+    proportion_ci_wald(mtcars$cyl[mtcars$am == 0] == 10, correct = TRUE)[c("estimate", "conf.low", "conf.high")]
   )
 })
 
@@ -66,4 +103,15 @@ test_that("ard_proportion_ci(method='strat_wilson') works", {
     NA
   )
   expect_snapshot(ard_proportion_ci_strat_wilsoncc)
+})
+
+test_that("ard_proportion_ci() messaging", {
+  expect_snapshot(
+    ard <- ard_proportion_ci(
+      data = mtcars,
+      variables = cyl,
+      value = cyl ~ 10,
+      method = "jeffreys"
+    )
+  )
 })

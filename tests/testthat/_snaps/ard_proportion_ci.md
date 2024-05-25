@@ -32,3 +32,14 @@
     Message
       i 3 more variables: fmt_fn, warning, error
 
+# ard_proportion_ci() messaging
+
+    Code
+      ard <- ard_proportion_ci(data = mtcars, variables = cyl, value = cyl ~ 10,
+      method = "jeffreys")
+    Condition
+      Warning:
+      A value of `value=10` for variable "cyl" was passed, but is not one of the observed levels: 4, 6, and 8.
+      i This may be an error.
+      i If value is a valid, convert variable to factor with all levels specified to avoid this message.
+

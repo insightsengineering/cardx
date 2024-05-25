@@ -28,7 +28,11 @@
 #' @export
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' # compute CI for binary variables
 #' ard_proportion_ci(mtcars, variables = c(vs, am), method = "wilson")
+#'
+#' # compute CIs for each level of a categorical variable
+#' ard_proportion_ci(mtcars, variables = cyl, method = "jeffreys")
 ard_proportion_ci <- function(data,
                               variables,
                               by = dplyr::group_vars(data),
