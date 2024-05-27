@@ -28,7 +28,7 @@ If function belongs to a library that is not attached, the package name
 must be specified in the \code{package} argument.}
 
 \item{method.args}{(named \code{list})\cr
-named list of arguments that will be passed to \code{fn}.
+named list of arguments that will be passed to \code{method}.
 
 Note that this list may contain non-standard evaluation components.
 If you are wrapping this function in other functions, the argument

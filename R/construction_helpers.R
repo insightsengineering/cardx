@@ -25,7 +25,7 @@
 #'   If function belongs to a library that is not attached, the package name
 #'   must be specified in the `package` argument.
 #' @param method.args (named `list`)\cr
-#'   named list of arguments that will be passed to `fn`.
+#'   named list of arguments that will be passed to `method`.
 #'
 #'   Note that this list may contain non-standard evaluation components.
 #'   If you are wrapping this function in other functions, the argument
