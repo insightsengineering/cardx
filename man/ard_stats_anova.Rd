@@ -37,7 +37,7 @@ description.}
 a list of formulas}
 
 \item{method}{(\code{string})\cr
-string naming the function to be called, e.g. \code{"glm"}.
+string of function naming the function to be called, e.g. \code{"glm"}.
 If function belongs to a library that is not attached, the package name
 must be specified in the \code{package} argument.}
 

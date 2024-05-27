@@ -95,7 +95,7 @@ this we include model construction helpers.
 
 ``` r
 construct_model(
-  x = cards::ADSL,
+  data = cards::ADSL,
   formula = reformulate2("ARM", response = "AGE"),
   method = "lm"
 ) |>

@@ -1,9 +1,9 @@
-skip_if_not(is_pkg_installed(c("broom.helpers", "withr", "survey"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("broom.helpers", "withr", "survey", "survival"), reference_pkg = "cardx"))
 
 test_that("construct_model() works", {
   expect_snapshot(
     construct_model(
-      x = mtcars |> dplyr::rename(`M P G` = mpg),
+      data = mtcars |> dplyr::rename(`M P G` = mpg),
       formula = reformulate2(c("M P G", "cyl"), response = "hp"),
       method = "lm"
     ) |>
@@ -30,8 +30,8 @@ test_that("construct_model() works", {
     "cannot be namespaced"
   )
 
-  expect_equal(
-    {
+  # styler: off
+  expect_equal({
       outside_fun <- function() {
         method.args <- list()
 
@@ -44,9 +44,33 @@ test_that("construct_model() works", {
           coef()
       }
 
-      outside_fun()
-    },
+      outside_fun()},
     lm(mpg ~ cyl, mtcars) |> coef()
+  )
+  # styler: on
+
+  # test function works when passing a function in `method=`
+  expect_equal(
+    construct_model(
+      data = mtcars,
+      method = lm,
+      formula = mpg ~ cyl + am
+    ) |>
+      ard_regression(),
+    lm(mpg ~ cyl + am, mtcars) |>
+      ard_regression()
+  )
+
+  # test function works when passing a namespaced function in `method=`
+  expect_equal(
+    construct_model(
+      data = mtcars,
+      method = survival::coxph,
+      formula = survival::Surv(mpg, am) ~ cyl
+    ) |>
+      ard_regression(),
+    survival::coxph(survival::Surv(mpg, am) ~ cyl, mtcars) |>
+      ard_regression()
   )
 
   # now the survey method -------
@@ -67,4 +91,24 @@ test_that("construct_model() works", {
       list(estimate = _)
   )
   # styler: on
+})
+
+test_that("construct_model() messaging", {
+  expect_snapshot(
+    error = TRUE,
+    construct_model(
+      data = mtcars,
+      method = "survival::coxph",
+      formula = survival::Surv(mpg, am) ~ cyl
+    )
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    construct_model(
+      data = mtcars,
+      method = letters,
+      formula = am ~ cyl
+    )
+  )
 })
