@@ -201,5 +201,4 @@ check_string_or_function <- function(x,
   }
 
   invisible(x)
-
 }
