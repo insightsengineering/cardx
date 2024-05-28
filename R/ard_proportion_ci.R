@@ -94,7 +94,7 @@ ard_proportion_ci <- function(data,
     dplyr::bind_rows()
 }
 
-.calculate_ard_proportion <- function(data, variables, by, method, conf.level, strata, weights) {
+.calculate_ard_proportion <- function(data, variables, by, method, conf.level, strata, weights, max.iterations) {
   cards::ard_complex(
     data = data,
     variables = {{ variables }},
