@@ -77,7 +77,8 @@ ard_proportion_ci <- function(data,
         method = method,
         conf.level = conf.level,
         strata = strata,
-        weights = weights
+        weights = weights,
+        max.iterations = max.iterations
       ) %>%
         # merge in the variable levels
         dplyr::left_join(
