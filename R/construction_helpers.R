@@ -110,7 +110,7 @@ construct_model.survey.design <- function(data, formula, method, method.args = l
 
   check_not_missing(method)
   check_string_or_function(method)
-  check_not_namespaced(method)
+  if (is_string(method)) check_not_namespaced(method)
 
   # convert method.args to list of expressions (to account for NSE inputs) -----
   method.args <- .as_list_of_exprs({{ method.args }})
