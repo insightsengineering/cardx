@@ -12,7 +12,7 @@ Calculate confidence intervals for proportions."><meta property="og:image" conte
     
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9047</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9049</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,14 +26,6 @@ Calculate confidence intervals for proportions."><meta property="og:image" conte
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -66,12 +58,13 @@ Calculate confidence intervals for proportions.</p>
 <span>  <span class="va">data</span>,</span>
 <span>  <span class="va">variables</span>,</span>
 <span>  by <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_data.html" class="external-link">group_vars</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>,</span>
-<span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
-<span>  <span class="va">strata</span>,</span>
-<span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  max.iterations <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"waldcc"</span>, <span class="st">"wald"</span>, <span class="st">"clopper-pearson"</span>, <span class="st">"wilson"</span>, <span class="st">"wilsoncc"</span>, <span class="st">"strat_wilson"</span>,</span>
-<span>    <span class="st">"strat_wilsoncc"</span>, <span class="st">"agresti-coull"</span>, <span class="st">"jeffreys"</span><span class="op">)</span></span>
+<span>    <span class="st">"strat_wilsoncc"</span>, <span class="st">"agresti-coull"</span>, <span class="st">"jeffreys"</span><span class="op">)</span>,</span>
+<span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html" class="external-link">where</a></span><span class="op">(</span><span class="va">is_binary</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1L</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html" class="external-link">where</a></span><span class="op">(</span><span class="va">is.logical</span><span class="op">)</span> <span class="op">~</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  strata <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max.iterations <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -93,22 +86,30 @@ or <code>&lt;numeric&gt;</code> values coded as <code>c(0, 1)</code>.</p></dd>
 columns to stratify calculations by</p></dd>
 
 
+<dt>method</dt>
+<dd><p>(<code>string</code>)<br>
+string indicating the type of confidence interval to calculate.
+Must be one of 'waldcc', 'wald', 'clopper-pearson', 'wilson', 'wilsoncc', 'strat_wilson', 'strat_wilsoncc', 'agresti-coull', 'jeffreys'.
+See <code><a href="proportion_ci.html">?proportion_ci</a></code> for details.</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>(<code>numeric</code>)<br>
 a scalar in <code>(0, 1)</code> indicating the confidence level.
 Default is <code>0.95</code></p></dd>
 
 
+<dt>value</dt>
+<dd><p>(<code>formula-list-selector</code>)<br>
+function will calculate the CIs for all levels of the variables specified.
+Use this argument to instead request only a single level by summarized.
+Default is <code>list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)</code>, where
+columns coded as <code>0</code>/<code>1</code> and <code>TRUE</code>/<code>FALSE</code> will summarize the <code>1</code> and <code>TRUE</code> levels.</p></dd>
+
+
 <dt>strata, weights, max.iterations</dt>
 <dd><p>arguments passed to <code><a href="proportion_ci.html">proportion_ci_strat_wilson()</a></code>,
 when <code>method='strat_wilson'</code></p></dd>
-
-
-<dt>method</dt>
-<dd><p>(<code>string</code>)<br>
-string indicating the type of confidence interval to calculate.
-Must be one of 'waldcc', 'wald', 'clopper-pearson', 'wilson', 'wilsoncc', 'strat_wilson', 'strat_wilsoncc', 'agresti-coull', 'jeffreys'.
-See <code><a href="proportion_ci.html">?proportion_ci</a></code> for details.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -120,30 +121,55 @@ See <code><a href="proportion_ci.html">?proportion_ci</a></code> for details.</p
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">ard_proportion_ci</span><span class="op">(</span><span class="va">mtcars</span>, variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">vs</span>, <span class="va">am</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"wilson"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 20 x 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    variable   context   stat_name stat_label      stat fmt_fn</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        vs proporti…           N          N        32      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        vs proporti…  conf.level  conf.lev…      0.95      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        vs proporti…    estimate   estimate     0.438      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        vs proporti…   statistic  statistic       0.5      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        vs proporti…     p.value    p.value      0.48      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        vs proporti…   parameter  parameter         1      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        vs proporti…    conf.low   conf.low     0.282      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        vs proporti…   conf.high  conf.high     0.607      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        vs proporti…      method     method Wilson C…   &lt;fn&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10       vs proporti… alternative  alternat… two.sided   &lt;fn&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11       am proporti…           N          N        32      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       am proporti…  conf.level  conf.lev…      0.95      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13       am proporti…    estimate   estimate     0.406      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14       am proporti…   statistic  statistic     1.125      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15       am proporti…     p.value    p.value     0.289      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16       am proporti…   parameter  parameter         1      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17       am proporti…    conf.low   conf.low     0.255      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18       am proporti…   conf.high  conf.high     0.577      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19       am proporti…      method     method Wilson C…   &lt;fn&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20       am proporti… alternative  alternat… two.sided   &lt;fn&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">2 more variables: warning, error</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># compute CI for binary variables</span></span></span>
+<span class="r-in"><span><span class="fu">ard_proportion_ci</span><span class="op">(</span><span class="va">mtcars</span>, variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">vs</span>, <span class="va">am</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"wilson"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 20 x 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    variable variable_level   context   stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        vs              1 proporti…           N          N        32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        vs              1 proporti…  conf.level  conf.lev…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        vs              1 proporti…    estimate   estimate     0.438</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        vs              1 proporti…   statistic  statistic       0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        vs              1 proporti…     p.value    p.value      0.48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        vs              1 proporti…   parameter  parameter         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        vs              1 proporti…    conf.low   conf.low     0.282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        vs              1 proporti…   conf.high  conf.high     0.607</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9        vs              1 proporti…      method     method Wilson C…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10       vs              1 proporti… alternative  alternat… two.sided</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11       am              1 proporti…           N          N        32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       am              1 proporti…  conf.level  conf.lev…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       am              1 proporti…    estimate   estimate     0.406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14       am              1 proporti…   statistic  statistic     1.125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15       am              1 proporti…     p.value    p.value     0.289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16       am              1 proporti…   parameter  parameter         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17       am              1 proporti…    conf.low   conf.low     0.255</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18       am              1 proporti…   conf.high  conf.high     0.577</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19       am              1 proporti…      method     method Wilson C…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20       am              1 proporti… alternative  alternat… two.sided</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># compute CIs for each level of a categorical variable</span></span></span>
+<span class="r-in"><span><span class="fu">ard_proportion_ci</span><span class="op">(</span><span class="va">mtcars</span>, variables <span class="op">=</span> <span class="va">cyl</span>, method <span class="op">=</span> <span class="st">"jeffreys"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 18 x 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    variable variable_level   context  stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       cyl              4 proporti…          N          N        32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       cyl              4 proporti…   estimate   estimate     0.344</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       cyl              4 proporti…   conf.low   conf.low     0.198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       cyl              4 proporti…  conf.high  conf.high     0.516</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       cyl              4 proporti… conf.level  conf.lev…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       cyl              4 proporti…     method     method Jeffreys…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       cyl              6 proporti…          N          N        32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       cyl              6 proporti…   estimate   estimate     0.219</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       cyl              6 proporti…   conf.low   conf.low     0.104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      cyl              6 proporti…  conf.high  conf.high     0.382</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11      cyl              6 proporti… conf.level  conf.lev…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      cyl              6 proporti…     method     method Jeffreys…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13      cyl              8 proporti…          N          N        32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14      cyl              8 proporti…   estimate   estimate     0.438</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15      cyl              8 proporti…   conf.low   conf.low     0.277</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16      cyl              8 proporti…  conf.high  conf.high     0.609</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17      cyl              8 proporti… conf.level  conf.lev…      0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18      cyl              8 proporti…     method     method Jeffreys…</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
