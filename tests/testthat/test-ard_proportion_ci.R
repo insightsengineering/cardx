@@ -84,6 +84,7 @@ test_that("ard_proportion_ci(method='strat_wilson') works", {
         variables = rsp,
         strata = strata,
         weights = weights,
+        max.iterations = 10,
         method = "strat_wilson"
       ),
     NA
@@ -100,6 +101,7 @@ test_that("ard_proportion_ci(method='strat_wilson') works", {
         variables = rsp,
         strata = strata,
         weights = weights,
+        max.iterations = 10,
         method = "strat_wilsoncc"
       ),
     NA
