@@ -193,7 +193,7 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
   else if (stat_name %in% "max") args <- list(FUN = \(x, design, na.rm, ...) max(design$variables[[all.vars(x)]], na.rm = na.rm))
   # define functions for the quantiles
   else if (stat_name %in% c("median", paste0("p", 0:100))) {
-    quantile <- ifelse(stat_name %in% "median", 0.5, substr(stat_name, 2, nchar(stat_name)) |> as.numeric() %>% `/`(100))
+    quantile <- ifelse(stat_name %in% "median", 0.5, as.numeric(substr(stat_name, 2, nchar(stat_name))) / 100)
     # univariate results are returned in a different format from stratified.
     args <-
       if (is_empty(by)) list(FUN = \(...) survey::svyquantile(...)[[1]], quantiles = quantile)
