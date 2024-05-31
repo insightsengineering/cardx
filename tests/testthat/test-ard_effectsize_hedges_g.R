@@ -12,7 +12,7 @@ test_that("ard_effectsize_hedges_g() works", {
   expect_equal(
     ard_hedges_g |>
       cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
-    hedges_g(
+    effectsize::hedges_g(
       AGE ~ ARM,
       data = cards::ADSL |> dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose"))
     ) |>
@@ -68,7 +68,7 @@ test_that("ard_effectsize_paired_hedges_g() works", {
           by = "USUBJID"
         ),
       expr =
-        hedges_g(
+        effectsize::hedges_g(
           x = AGE1,
           y = AGE2,
           paired = TRUE
