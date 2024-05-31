@@ -10,10 +10,10 @@
 \alias{bt_strip}
 \title{Construction Helpers}
 \usage{
-construct_model(x, ...)
+construct_model(data, ...)
 
 \method{construct_model}{data.frame}(
-  x,
+  data,
   formula,
   method,
   method.args = list(),
@@ -23,7 +23,7 @@ construct_model(x, ...)
 )
 
 \method{construct_model}{survey.design}(
-  x,
+  data,
   formula,
   method,
   method.args = list(),
@@ -46,10 +46,9 @@ bt(x, pattern = "[ \\n\\r]")
 bt_strip(x)
 }
 \arguments{
-\item{x}{\itemize{
+\item{data}{\itemize{
 \item \code{construct_model.data.frame()} (\code{data.frame}) a data frame
 \item \code{construct_model.survey.design()} (\code{survey.design}) a survey design object
-\item \code{bt()}/\code{bt_strip()} (\code{character}) character vector, typically of variable names
 }}
 
 \item{...}{These dots are for future extensions and must be empty.}
@@ -58,12 +57,17 @@ bt_strip(x)
 a formula}
 
 \item{method}{(\code{string})\cr
-string naming the function to be called, e.g. \code{"glm"}.
+string of function naming the function to be called, e.g. \code{"glm"}.
 If function belongs to a library that is not attached, the package name
 must be specified in the \code{package} argument.}
 
 \item{method.args}{(named \code{list})\cr
-named list of arguments that will be passed to \code{fn}.}
+named list of arguments that will be passed to \code{method}.
+
+Note that this list may contain non-standard evaluation components.
+If you are wrapping this function in other functions, the argument
+must be passed in a way that does not evaluate the list, e.g.
+using rlang's  embrace operator \code{{{ . }}}.}
 
 \item{package}{(\code{string})\cr
 string of package name that will be temporarily loaded when function
@@ -83,6 +87,9 @@ their own environments.}
 
 \item{pattern_term, pattern_response}{passed to \code{bt(pattern)} for arguments
 \code{stats::reformulate(termlabels, response)}.}
+
+\item{x}{(\code{character})\cr
+character vector, typically of variable names}
 
 \item{pattern}{(\code{string})\cr
 regular expression string. If the regex matches, backticks are added
@@ -108,7 +115,7 @@ names that contain a space are wrapped in backticks.
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 construct_model(
-  x = mtcars,
+  data = mtcars,
   formula = am ~ mpg + (1 | vs),
   method = "glmer",
   method.args = list(family = binomial),
@@ -117,7 +124,7 @@ construct_model(
   broom.mixed::tidy()
 
 construct_model(
-  x = mtcars |> dplyr::rename(`M P G` = mpg),
+  data = mtcars |> dplyr::rename(`M P G` = mpg),
   formula = reformulate2(c("M P G", "cyl"), response = "hp"),
   method = "lm"
 ) |>

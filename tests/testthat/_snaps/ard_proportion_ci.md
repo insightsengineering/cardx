@@ -3,32 +3,43 @@
     Code
       ard_proportion_ci_strat_wilson
     Message
-      {cards} data frame: 6 x 8
+      {cards} data frame: 6 x 9
     Output
-        variable   context  stat_name stat_label      stat fmt_fn
-      1      rsp proporti…          N          N        80      0
-      2      rsp proporti…   estimate   estimate     0.625      1
-      3      rsp proporti…   conf.low   conf.low     0.487      1
-      4      rsp proporti…  conf.high  conf.high     0.719      1
-      5      rsp proporti… conf.level  conf.lev…      0.95      1
-      6      rsp proporti…     method     method Stratifi…   <fn>
+        variable variable_level   context  stat_name stat_label      stat
+      1      rsp           TRUE proporti…          N          N        80
+      2      rsp           TRUE proporti…   estimate   estimate     0.625
+      3      rsp           TRUE proporti…   conf.low   conf.low     0.487
+      4      rsp           TRUE proporti…  conf.high  conf.high     0.719
+      5      rsp           TRUE proporti… conf.level  conf.lev…      0.95
+      6      rsp           TRUE proporti…     method     method Stratifi…
     Message
-      i 2 more variables: warning, error
+      i 3 more variables: fmt_fn, warning, error
 
 ---
 
     Code
       ard_proportion_ci_strat_wilsoncc
     Message
-      {cards} data frame: 6 x 8
+      {cards} data frame: 6 x 9
     Output
-        variable   context  stat_name stat_label      stat fmt_fn
-      1      rsp proporti…          N          N        80      0
-      2      rsp proporti…   estimate   estimate     0.625      1
-      3      rsp proporti…   conf.low   conf.low     0.448      1
-      4      rsp proporti…  conf.high  conf.high     0.753      1
-      5      rsp proporti… conf.level  conf.lev…      0.95      1
-      6      rsp proporti…     method     method Stratifi…   <fn>
+        variable variable_level   context  stat_name stat_label      stat
+      1      rsp           TRUE proporti…          N          N        80
+      2      rsp           TRUE proporti…   estimate   estimate     0.625
+      3      rsp           TRUE proporti…   conf.low   conf.low     0.448
+      4      rsp           TRUE proporti…  conf.high  conf.high     0.753
+      5      rsp           TRUE proporti… conf.level  conf.lev…      0.95
+      6      rsp           TRUE proporti…     method     method Stratifi…
     Message
-      i 2 more variables: warning, error
+      i 3 more variables: fmt_fn, warning, error
+
+# ard_proportion_ci() messaging
+
+    Code
+      ard <- ard_proportion_ci(data = mtcars, variables = cyl, value = cyl ~ 10,
+      method = "jeffreys")
+    Condition
+      Warning:
+      A value of `value=10` for variable "cyl" was passed, but is not one of the observed levels: 4, 6, and 8.
+      i This may be an error.
+      i If value is a valid, convert variable to factor with all levels specified to avoid this message.
 

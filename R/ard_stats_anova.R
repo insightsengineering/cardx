@@ -122,7 +122,7 @@ ard_stats_anova.data.frame <- function(x,
         lapply(
           formulas,
           function(formula) {
-            construct_model(x = x, formula = formula, method = method, method.args = {{ method.args }}, package = package)
+            construct_model(data = x, formula = formula, method = method, method.args = {{ method.args }}, package = package)
           }
         )
 

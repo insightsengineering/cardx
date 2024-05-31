@@ -13,18 +13,24 @@
 #'
 #' - `bt_strip()`: Removes backticks from a string if it begins and ends with a backtick.
 #'
-#' @param x
+#' @param data
 #'  - `construct_model.data.frame()` (`data.frame`) a data frame
 #'  - `construct_model.survey.design()` (`survey.design`) a survey design object
-#'  - `bt()`/`bt_strip()` (`character`) character vector, typically of variable names
+#' @param x (`character`)\cr
+#'  character vector, typically of variable names
 #' @param formula (`formula`)\cr
 #'   a formula
 #' @param method (`string`)\cr
-#'   string naming the function to be called, e.g. `"glm"`.
+#'   string of function naming the function to be called, e.g. `"glm"`.
 #'   If function belongs to a library that is not attached, the package name
 #'   must be specified in the `package` argument.
 #' @param method.args (named `list`)\cr
-#'   named list of arguments that will be passed to `fn`.
+#'   named list of arguments that will be passed to `method`.
+#'
+#'   Note that this list may contain non-standard evaluation components.
+#'   If you are wrapping this function in other functions, the argument
+#'   must be passed in a way that does not evaluate the list, e.g.
+#'   using rlang's  embrace operator `{{ . }}`.
 #' @param package (`string`)\cr
 #'   string of package name that will be temporarily loaded when function
 #'   specified in `method` is executed.
@@ -42,7 +48,7 @@
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed"), reference_pkg = "cardx"))
 #' construct_model(
-#'   x = mtcars,
+#'   data = mtcars,
 #'   formula = am ~ mpg + (1 | vs),
 #'   method = "glmer",
 #'   method.args = list(family = binomial),
@@ -51,7 +57,7 @@
 #'   broom.mixed::tidy()
 #'
 #' construct_model(
-#'   x = mtcars |> dplyr::rename(`M P G` = mpg),
+#'   data = mtcars |> dplyr::rename(`M P G` = mpg),
 #'   formula = reformulate2(c("M P G", "cyl"), response = "hp"),
 #'   method = "lm"
 #' ) |>
@@ -61,13 +67,13 @@ NULL
 
 #' @rdname construction_helpers
 #' @export
-construct_model <- function(x, ...) {
+construct_model <- function(data, ...) {
   UseMethod("construct_model")
 }
 
 #' @rdname construction_helpers
 #' @export
-construct_model.data.frame <- function(x, formula, method, method.args = list(), package = "base", env = caller_env(), ...) {
+construct_model.data.frame <- function(data, formula, method, method.args = list(), package = "base", env = caller_env(), ...) {
   set_cli_abort_call()
   # check pkg installations ----------------------------------------------------
   check_dots_empty()
@@ -77,8 +83,8 @@ construct_model.data.frame <- function(x, formula, method, method.args = list(),
   check_class(formula, cls = "formula")
 
   check_not_missing(method)
-  check_string(method)
-  check_not_namespaced(method)
+  check_string_or_function(method)
+  if (is_string(method)) check_not_namespaced(method)
 
   # convert method.args to list of expressions (to account for NSE inputs) -----
   method.args <- .as_list_of_exprs({{ method.args }})
@@ -86,14 +92,14 @@ construct_model.data.frame <- function(x, formula, method, method.args = list(),
   # build model ----------------------------------------------------------------
   withr::with_namespace(
     package = package,
-    call2(.fn = method, formula = formula, data = x, !!!method.args) |>
+    call2(.fn = method, formula = formula, data = data, !!!method.args) |>
       eval_tidy(env = env)
   )
 }
 
 #' @rdname construction_helpers
 #' @export
-construct_model.survey.design <- function(x, formula, method, method.args = list(), package = "survey", env = caller_env(), ...) {
+construct_model.survey.design <- function(data, formula, method, method.args = list(), package = "survey", env = caller_env(), ...) {
   set_cli_abort_call()
   # check pkg installations ----------------------------------------------------
   check_dots_empty()
@@ -103,8 +109,8 @@ construct_model.survey.design <- function(x, formula, method, method.args = list
   check_class(formula, cls = "formula")
 
   check_not_missing(method)
-  check_string(method)
-  check_not_namespaced(method)
+  check_string_or_function(method)
+  if (is_string(method)) check_not_namespaced(method)
 
   # convert method.args to list of expressions (to account for NSE inputs) -----
   method.args <- .as_list_of_exprs({{ method.args }})
@@ -112,7 +118,7 @@ construct_model.survey.design <- function(x, formula, method, method.args = list
   # build model ----------------------------------------------------------------
   withr::with_namespace(
     package = package,
-    call2(.fn = method, formula = formula, design = x, !!!method.args) |>
+    call2(.fn = method, formula = formula, design = data, !!!method.args) |>
       eval_tidy(env = env)
   )
 }
@@ -171,10 +177,27 @@ check_not_namespaced <- function(x,
   check_string(x, arg_name = arg_name, call = call, class = "check_not_namespaced")
 
   if (str_detect(x, "::")) {
-    c("Argument {.arg {arg_name}} cannot be namespaced.",
-      i = "Put the package name in the {.arg package} argument."
-    ) |>
-      cli::cli_abort(call = call, class = class)
+    cli::cli_abort(
+      "Argument {.arg {arg_name}} cannot be namespaced when passed as a {.cls string}.",
+      call = call,
+      class = class
+    )
+  }
+
+  invisible(x)
+}
+
+
+check_string_or_function <- function(x,
+                                     arg_name = rlang::caller_arg(x),
+                                     class = "check_string_or_function",
+                                     call = get_cli_abort_call()) {
+  if (!is.function(x) && !is_string(x)) {
+    cli::cli_abort(
+      c("Argument {.arg {arg_name}} must be a {.cls string} or {.cls function}."),
+      call = call,
+      class = class
+    )
   }
 
   invisible(x)

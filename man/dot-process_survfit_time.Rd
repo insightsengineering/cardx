@@ -4,7 +4,7 @@
 \alias{.process_survfit_time}
 \title{Process Survival Fit For Time Estimates}
 \usage{
-.process_survfit_time(x, times, type)
+.process_survfit_time(x, times, type, start.time = NULL)
 }
 \arguments{
 \item{x}{(\code{\link[survival:survfit]{survival::survfit()}})\cr
@@ -22,6 +22,9 @@ Must be one of the following:\tabular{ll}{
    \code{"risk"} \tab \code{1 - x} \cr
    \code{"cumhaz"} \tab \code{-log(x)} \cr
 }}
+
+\item{start.time}{(\code{numeric})\cr
+default starting time. See \code{\link[survival:survfit0]{survival::survfit0()}} for more details.}
 }
 \value{
 a \code{tibble}

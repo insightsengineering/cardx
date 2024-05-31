@@ -1,5 +1,5 @@
 
-# cardx <a href="https://insightsengineering.github.io/cardx"><img src="man/figures/logo.png" alt="cardx website" align="right" height="138"/></a>
+# cardx <a href="https://insightsengineering.github.io/cardx/"><img src="man/figures/logo.png" alt="cardx website" align="right" height="138"/></a>
 
 [![R-CMD-check](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
@@ -95,7 +95,7 @@ this we include model construction helpers.
 
 ``` r
 construct_model(
-  x = cards::ADSL,
+  data = cards::ADSL,
   formula = reformulate2("ARM", response = "AGE"),
   method = "lm"
 ) |>

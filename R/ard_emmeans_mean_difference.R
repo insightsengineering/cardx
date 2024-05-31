@@ -70,7 +70,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
   # construct primary model ----------------------------------------------------
   mod <-
     construct_model(
-      x = data, formula = formula, method = method,
+      data = data, formula = formula, method = method,
       method.args = {{ method.args }},
       package = package, env = caller_env()
     )
