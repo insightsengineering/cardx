@@ -6,6 +6,7 @@
 #'
 #' @param x regression model object
 #' @param ... arguments passed to `aod::wald.test(...)`
+#' @inheritParams ard_regression
 #'
 #' @return data frame
 #' @export
@@ -13,8 +14,10 @@
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "aod", reference_pkg = "cardx"))
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_aod_wald_test()
-ard_aod_wald_test <- function(x, ...) {
+ard_aod_wald_test <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or_parameters, ...) {
   set_cli_abort_call()
+  check_pkg_installed("broom.helpers", reference_pkg = "cardx")
+
   # check installed packages ---------------------------------------------------
   check_pkg_installed("aod", reference_pkg = "cardx")
 
@@ -23,7 +26,7 @@ ard_aod_wald_test <- function(x, ...) {
 
   # run regression() -----------------------------------------------------------
   reg_model <- cards::eval_capture_conditions(
-    ard_regression_basic(x, intercept = TRUE, stats_to_remove = c(
+    ard_regression_basic(x, tidy_fun = tidy_fun, intercept = TRUE, stats_to_remove = c(
       "var_type",
       "var_label",
       "var_class", "label",
