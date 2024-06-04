@@ -4,10 +4,17 @@
 \alias{ard_aod_wald_test}
 \title{ARD Wald Test}
 \usage{
-ard_aod_wald_test(x, ...)
+ard_aod_wald_test(
+  x,
+  tidy_fun = broom.helpers::tidy_with_broom_or_parameters,
+  ...
+)
 }
 \arguments{
 \item{x}{regression model object}
+
+\item{tidy_fun}{(\code{function})\cr
+a tidier. Default is \code{\link[broom.helpers:tidy_with_broom_or_parameters]{broom.helpers::tidy_with_broom_or_parameters}}}
 
 \item{...}{arguments passed to \code{aod::wald.test(...)}}
 }
