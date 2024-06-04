@@ -1,8 +1,6 @@
-skip_if_not(is_pkg_installed(c("effectsize", "parameters", "withr"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx"))
 
 test_that("ard_effectsize_hedges_g() works", {
-  withr::local_namespace("effectsize")
-
   expect_error(
     ard_hedges_g <-
       cards::ADSL |>
@@ -14,7 +12,7 @@ test_that("ard_effectsize_hedges_g() works", {
   expect_equal(
     ard_hedges_g |>
       cards::get_ard_statistics(stat_name %in% c("estimate", "conf.low", "conf.high")),
-    hedges_g(
+    effectsize::hedges_g(
       AGE ~ ARM,
       data = cards::ADSL |> dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose"))
     ) |>
@@ -45,8 +43,6 @@ test_that("ard_effectsize_hedges_g() works", {
 })
 
 test_that("ard_effectsize_paired_hedges_g() works", {
-  withr::local_namespace("effectsize")
-
   ADSL_paired <-
     cards::ADSL[c("ARM", "AGE")] |>
     dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
@@ -72,7 +68,7 @@ test_that("ard_effectsize_paired_hedges_g() works", {
           by = "USUBJID"
         ),
       expr =
-        hedges_g(
+        effectsize::hedges_g(
           x = AGE1,
           y = AGE2,
           paired = TRUE
