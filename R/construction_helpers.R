@@ -46,7 +46,7 @@
 #' @return depends on the calling function
 #' @name construction_helpers
 #'
-#' @examplesIf FALSE && do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed"), reference_pkg = "cardx"))
 #' construct_model(
 #'   data = mtcars,
 #'   formula = am ~ mpg + (1 | vs),
