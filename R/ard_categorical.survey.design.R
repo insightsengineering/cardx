@@ -1,6 +1,11 @@
 #' ARD survey tabulation
 #'
+#' @description
 #' Compute tabulations on survey-weighted data.
+#'
+#' The counts and proportion (`"N"`, `"n"`, `"p"`) are calculated using `survey::svytable()`,
+#' and the standard errors and design effect (`"p.std.error"`, `"deff"`) are
+#' calculated using `survey::svymean()`.
 #'
 #' @param data (`survey.design`)\cr
 #'   a design object often created with [`survey::svydesign()`].
@@ -24,12 +29,14 @@
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
 #' @inheritParams rlang::args_dots_empty
-
 #'
-#' @return
+#' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examples
+#' @examplesIf cardx:::is_pkg_installed("survey", reference_pkg = "cardx")
+#' svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
+#'
+#' ard_categorical(svy_titanic, variables = Class, by = Survived)
 ard_categorical.survey.design <- function(data,
                                           variables = everything(),
                                           by = NULL,
@@ -104,14 +111,17 @@ ard_categorical.survey.design <- function(data,
     ) |>
     .default_svy_cat_fmt_fn()
 
-  # merge in statistic labels
+  # merge in statistic labels --------------------------------------------------
   cards <- cards |>
     .process_nested_list_as_df(
       arg = stat_label,
       new_column = "stat_label",
       unlist = TRUE
     ) |>
-    dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
+    dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name))
+
+  # return final object --------------------------------------------------------
+  cards |>
     dplyr::mutate(context = "categorical") |>
     cards::tidy_ard_column_order() %>%
     {structure(., class = c("card", class(.)))} # styler: off
@@ -154,7 +164,7 @@ ard_categorical.survey.design <- function(data,
   survey::svymean(reformulate2(variable), design = data, na.rm = TRUE, deff = deff) |>
     dplyr::as_tibble(rownames = "var_level") |>
     dplyr::mutate(
-      variable_level = stringr::str_remove(.data$var_level, pattern = paste0("^", .env$variable)),
+      variable_level = str_remove(.data$var_level, pattern = paste0("^", .env$variable)),
       variable = .env$variable
     ) |>
     dplyr::select("variable", "variable_level", p = "mean", p.std.error = "SE", any_of("deff"))
@@ -202,7 +212,7 @@ ard_categorical.survey.design <- function(data,
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-        stringr::str_remove_all("DEff\\.") %>%
+        str_remove_all("DEff\\.") %>%
         str_remove_all(by) %>%
         str_remove_all("`")
     ) |>
