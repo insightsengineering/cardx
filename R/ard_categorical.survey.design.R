@@ -75,7 +75,7 @@ ard_categorical.survey.design <- function(data,
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats),
     error_msg = c("Error in the values of the {.arg statistic} argument.",
-                  i = "Values must be in {.val {accepted_svy_stats}}"
+      i = "Values must be in {.val {accepted_svy_stats}}"
     )
   )
   denominator <- arg_match(denominator)
@@ -87,7 +87,8 @@ ard_categorical.survey.design <- function(data,
       if (all(is.na(data$variables[[.x]])) && !inherits(.x, c("logical", "factor"))) {
         cli::cli_abort(
           c("Column {.val {.x}} is all missing and cannot be tabulated.",
-            i = "Only columns of class {.cls logical} and {.cls factor} can be tabulated when all values are missing.")
+            i = "Only columns of class {.cls logical} and {.cls factor} can be tabulated when all values are missing."
+          )
         )
       }
     }
@@ -199,7 +200,7 @@ ard_categorical.survey.design <- function(data,
     )
 
   survey::svymean(
-    x = inject(~interaction(!!sym(bt(by)), !!sym(bt(variable)))),
+    x = inject(~ interaction(!!sym(bt(by)), !!sym(bt(variable)))),
     design = data,
     na.rm = TRUE,
     deff = deff
@@ -232,9 +233,9 @@ ard_categorical.survey.design <- function(data,
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-        str_remove_all("DEff\\.") %>%
-        str_remove_all(by) %>%
-        str_remove_all("`")
+          str_remove_all("DEff\\.") %>%
+          str_remove_all(by) %>%
+          str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
     set_names(c("variable_level", "group1_level", "p", "p.std.error", "deff")) |>
@@ -265,9 +266,9 @@ ard_categorical.survey.design <- function(data,
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-        str_remove_all("DEff\\.") %>%
-        str_remove_all(variable) %>%
-        str_remove_all("`")
+          str_remove_all("DEff\\.") %>%
+          str_remove_all(variable) %>%
+          str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
     set_names(c("group1_level", "variable_level", "p", "p.std.error", "deff")) |>
@@ -290,8 +291,7 @@ ard_categorical.survey.design <- function(data,
         if (is_empty(by)) {
           names(df_count) <- c("variable_level", "n")
           df_count$variable <- variable
-        }
-        else {
+        } else {
           names(df_count) <- c("group1_level", "variable_level", "n")
           df_count$variable <- variable
           df_count$group1 <- by
@@ -309,29 +309,28 @@ ard_categorical.survey.design <- function(data,
     dplyr::bind_rows()
 
   # add big N and p, then return data frame of results
-  switch(
-    denominator,
+  switch(denominator,
     "column" =
       df_counts |>
-      dplyr::mutate(
-        .by = any_of("group1_level"),
-        N = sum(.data$n),
-        p = .data$n / .data$N
-      ),
+        dplyr::mutate(
+          .by = any_of("group1_level"),
+          N = sum(.data$n),
+          p = .data$n / .data$N
+        ),
     "row" =
       df_counts |>
-      dplyr::mutate(
-        .by = any_of("variable_level"),
-        N = sum(.data$n),
-        p = .data$n / .data$N
-      ),
+        dplyr::mutate(
+          .by = any_of("variable_level"),
+          N = sum(.data$n),
+          p = .data$n / .data$N
+        ),
     "cell" =
       df_counts |>
-      dplyr::mutate(
-        .by = any_of(c("group1_level", "variable_level")),
-        N = sum(.data$n),
-        p = .data$n / .data$N
-      )
+        dplyr::mutate(
+          .by = any_of(c("group1_level", "variable_level")),
+          N = sum(.data$n),
+          p = .data$n / .data$N
+        )
   )
 }
 
@@ -346,8 +345,7 @@ ard_categorical.survey.design <- function(data,
   # renaming with variable colnames
   if (!is_empty(by)) {
     df <- dplyr::rename(df, variable = "group2", variable_level = "group2_level")
-  }
-  else {
+  } else {
     df <- dplyr::rename(df, variable = "group1", variable_level = "group1_level")
   }
 
@@ -464,4 +462,3 @@ case_switch <- function(..., .default = NULL) {
 
   x
 }
-
