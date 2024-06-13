@@ -1,4 +1,4 @@
-#' ARD survey tabulation
+#' ARD Categorical Survey Statistics
 #'
 #' @description
 #' Compute tabulations on survey-weighted data.
@@ -79,6 +79,19 @@ ard_categorical.survey.design <- function(data,
     )
   )
   denominator <- arg_match(denominator)
+
+  # check the missingness
+  walk(
+    variables,
+    \(.x) {
+      if (all(is.na(data$variables[[.x]])) && !inherits(.x, c("logical", "factor"))) {
+        cli::cli_abort(
+          c("Column {.val {.x}} is all missing and cannot be tabulated.",
+            i = "Only columns of class {.cls logical} and {.cls factor} can be tabulated when all values are missing.")
+        )
+      }
+    }
+  )
 
   # calculate counts -----------------------------------------------------------
   # this tabulation accounts for unobserved combinations
@@ -285,7 +298,8 @@ ard_categorical.survey.design <- function(data,
           dplyr::left_join(
             df_count,
             by = names(.)
-          )
+          ) |>
+          tidyr::replace_na(list(n = 0)) # unobserved levels assigned zero count
       }
     ) |>
     dplyr::bind_rows()

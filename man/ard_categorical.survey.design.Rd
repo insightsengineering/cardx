@@ -2,7 +2,7 @@
 % Please edit documentation in R/ard_categorical.survey.design.R
 \name{ard_categorical.survey.design}
 \alias{ard_categorical.survey.design}
-\title{ARD survey tabulation}
+\title{ARD Categorical Survey Statistics}
 \usage{
 \method{ard_categorical}{survey.design}(
   data,
@@ -31,6 +31,10 @@ and the variables. A single column may be specified.}
 a named list, a list of formulas,
 or a single formula where the list element is a character vector of
 statistic names to include. See default value for options.}
+
+\item{denominator}{(\code{string})\cr
+a string indicating the type proportions to calculate. Must be one of
+\code{"column"} (the default), \code{"row"}, and \code{"cell"}.}
 
 \item{fmt_fn}{(\code{\link[=syntax]{formula-list-selector}})\cr
 a named list, a list of formulas,
