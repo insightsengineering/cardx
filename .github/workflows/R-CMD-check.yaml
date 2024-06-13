@@ -29,7 +29,7 @@ jobs:
 
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
-          # - {os: ubuntu-latest,   r: 'oldrel-1'}
+          - {os: ubuntu-latest,   r: 'oldrel-1'}
           # - {os: ubuntu-latest,   r: 'oldrel-2'}
           # - {os: ubuntu-latest,   r: 'oldrel-3'}
           # - {os: ubuntu-latest,   r: 'oldrel-4'}
@@ -53,6 +53,13 @@ jobs:
         with:
           extra-packages: any::rcmdcheck
           needs: check
+
+      # https://github.com/lme4/lme4/issues/763
+      - name: Install Matrix/lme4
+        shell: Rscript {0}
+        run: |
+          utils::install.packages("Matrix", repos = c(CRAN = "https://cloud.r-project.org"))
+          utils::install.packages("lme4", repos = c(CRAN = "https://cloud.r-project.org"))
 
       - uses: r-lib/actions/check-r-package@v2
         with:
