@@ -8,11 +8,12 @@
   data,
   variables = everything(),
   by = NULL,
-  statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff"),
+  statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted",
+    "N_unweighted", "p_unweighted"),
   denominator = c("column", "row", "cell"),
   fmt_fn = NULL,
   stat_label = everything() ~ list(p = "\%", p.std.error = "SE(\%)", deff =
-    "Design Effect"),
+    "Design Effect", n = "Unweighted n", N = "Unweighted N", p = "Unweighted \%"),
   ...
 )
 }
@@ -59,6 +60,8 @@ Compute tabulations on survey-weighted data.
 The counts and proportion (\code{"N"}, \code{"n"}, \code{"p"}) are calculated using \code{survey::svytable()},
 and the standard errors and design effect (\code{"p.std.error"}, \code{"deff"}) are
 calculated using \code{survey::svymean()}.
+
+The unweighted statistics are calculated with \code{cards::ard_categorical.data.frame()}.
 }
 \examples{
 \dontshow{if (cardx:::is_pkg_installed("survey", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

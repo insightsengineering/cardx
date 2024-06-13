@@ -7,6 +7,8 @@
 #' and the standard errors and design effect (`"p.std.error"`, `"deff"`) are
 #' calculated using `survey::svymean()`.
 #'
+#' The unweighted statistics are calculated with `cards::ard_categorical.data.frame()`.
+#'
 #' @param data (`survey.design`)\cr
 #'   a design object often created with [`survey::svydesign()`].
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
@@ -43,10 +45,11 @@
 ard_categorical.survey.design <- function(data,
                                           variables = everything(),
                                           by = NULL,
-                                          statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff"),
+                                          statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted"),
                                           denominator = c("column", "row", "cell"),
                                           fmt_fn = NULL,
-                                          stat_label = everything() ~ list(p = "%", p.std.error = "SE(%)", deff = "Design Effect"),
+                                          stat_label = everything() ~ list(p = "%", p.std.error = "SE(%)", deff = "Design Effect",
+                                                                           "n" = "Unweighted n", "N" = "Unweighted N", "p" = "Unweighted %"),
                                           ...) {
   set_cli_abort_call()
   deff <- TRUE # we may update in the future to make this an argument for users
@@ -73,7 +76,7 @@ ard_categorical.survey.design <- function(data,
     data = data$variables[variables],
     statistic = formals(asNamespace("cardx")[["ard_categorical.survey.design"]])[["statistic"]] |> eval(),
   )
-  accepted_svy_stats <- c("n", "N", "p", "p.std.error", "deff")
+  accepted_svy_stats <- c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted")
   cards::check_list_elements(
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats),
@@ -124,6 +127,21 @@ ard_categorical.survey.design <- function(data,
       statistic |> enframe("variable", "stat_name") |> tidyr::unnest(cols = "stat_name"),
       by = c("variable", "stat_name")
     )
+
+  # add unweighted statistics --------------------------------------------------
+  cards_unweighted <-
+    ard_categorical(
+      data = data[["variables"]],
+      variables = all_of(variables),
+      by = any_of(by),
+      denominator = denominator
+    ) |>
+    dplyr::select(-c("stat_label", "fmt_fn", "warning", "error")) |>
+    dplyr::mutate(
+      stat_name =
+        dplyr::case_match(.data$stat_name, "n" ~ "n_unweighted", "N" ~ "N_unweighted", "p" ~ "p_unweighted")
+    )
+  cards <- cards |> dplyr::bind_rows(cards_unweighted) # styler: off
 
   # final processing of fmt_fn -------------------------------------------------
   cards <- cards |>
@@ -392,10 +410,10 @@ case_switch <- function(..., .default = NULL) {
             if (!is_empty(fmt_fn)) {
               return(fmt_fn)
             }
-            if (stat_name %in% c("p", "p_miss", "p_nonmiss")) {
+            if (stat_name %in% c("p", "p_miss", "p_nonmiss", "p_unweighted")) {
               return(cards::label_cards(digits = 1, scale = 100))
             }
-            if (stat_name %in% c("n", "N", "N_miss", "N_nonmiss", "N_obs")) {
+            if (stat_name %in% c("n", "N", "N_miss", "N_nonmiss", "N_obs", "n_unweighted", "N_unweighted")) {
               return(cards::label_cards(digits = 0))
             }
             if (is.integer(stat)) {
