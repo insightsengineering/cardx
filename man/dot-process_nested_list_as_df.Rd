@@ -29,6 +29,6 @@ function properly unnests these lists and adds them to the results data frame.
 \examples{
 ard <- ard_categorical(cards::ADSL, by = "ARM", variables = "AGEGR1")
 
-cards:::.process_nested_list_as_df(ard, NULL, "new_col")
+cardx:::.process_nested_list_as_df(ard, NULL, "new_col")
 }
 \keyword{internal}

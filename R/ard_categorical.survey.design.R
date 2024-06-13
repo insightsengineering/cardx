@@ -138,7 +138,11 @@ ard_categorical.survey.design <- function(data,
 
   # return final object --------------------------------------------------------
   cards |>
-    dplyr::mutate(context = "categorical") |>
+    dplyr::mutate(
+      context = "categorical",
+      warning = list(NULL),
+      error = list(NULL),
+    ) |>
     cards::tidy_ard_column_order() %>%
     {structure(., class = c("card", class(.)))} # styler: off
 }
@@ -417,7 +421,7 @@ case_switch <- function(..., .default = NULL) {
 #' @examples
 #' ard <- ard_categorical(cards::ADSL, by = "ARM", variables = "AGEGR1")
 #'
-#' cards:::.process_nested_list_as_df(ard, NULL, "new_col")
+#' cardx:::.process_nested_list_as_df(ard, NULL, "new_col")
 .process_nested_list_as_df <- function(x, arg, new_column, unlist = FALSE) {
   # add fmt_fn column if not already present
   if (!new_column %in% names(x)) {
