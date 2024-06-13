@@ -14,6 +14,9 @@
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   results are calculated for **all combinations** of the column specified
 #'   and the variables. A single column may be specified.
+#' @param denominator (`string`)\cr
+#'   a string indicating the type proportions to calculate. Must be one of
+#'   `"column"` (the default), `"row"`, and `"cell"`.
 #' @param statistic ([`formula-list-selector`][syntax])\cr
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a character vector of
@@ -398,7 +401,7 @@ case_switch <- function(..., .default = NULL) {
 #' @keywords internal
 #'
 #' @examples
-#' ard <- ard_categorical(ADSL, by = "ARM", variables = "AGEGR1")
+#' ard <- ard_categorical(cards::ADSL, by = "ARM", variables = "AGEGR1")
 #'
 #' cards:::.process_nested_list_as_df(ard, NULL, "new_col")
 .process_nested_list_as_df <- function(x, arg, new_column, unlist = FALSE) {
