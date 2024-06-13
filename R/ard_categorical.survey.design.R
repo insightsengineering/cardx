@@ -72,14 +72,12 @@ ard_categorical.survey.design <- function(data,
 
   # calculate counts -----------------------------------------------------------
   # this tabulation accounts for unobserved combinations
-  browser()
   svytable_counts <- .svytable_counts(data, variables, by, denominator)
 
   # calculate rates along with SE and DEFF -------------------------------------
   svytable_rates <- .svytable_rates(data, variables, by, denominator, deff)
 
   # convert results into a proper ARD object -----------------------------------
-  browser()
   cards <-
     svytable_counts |>
     dplyr::left_join(
@@ -96,11 +94,22 @@ ard_categorical.survey.design <- function(data,
     dplyr::inner_join(
       statistic |> enframe("variable", "stat_name") |> tidyr::unnest(cols = "stat_name"),
       by = c("variable", "stat_name")
+    )
+
+  # final processing of fmt_fn -------------------------------------------------
+  cards <- cards |>
+    .process_nested_list_as_df(
+      arg = fmt_fn,
+      new_column = "fmt_fn"
     ) |>
-    # merge in statistic labels
-    dplyr::left_join(
-      stat_label |> enframe("variable", "stat_label") |> tidyr::unnest(cols = "stat_label"),
-      by = c("variable", "stat_label")
+    .default_svy_cat_fmt_fn()
+
+  # merge in statistic labels
+  cards <- cards |>
+    .process_nested_list_as_df(
+      arg = stat_label,
+      new_column = "stat_label",
+      unlist = TRUE
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
     dplyr::mutate(context = "categorical") |>
@@ -142,7 +151,6 @@ ard_categorical.survey.design <- function(data,
 }
 
 .one_svytable_rates_no_by_column_and_cell <- function(data, variable, deff) {
-  browser()
   survey::svymean(reformulate2(variable), design = data, na.rm = TRUE, deff = deff) |>
     dplyr::as_tibble(rownames = "var_level") |>
     dplyr::mutate(
@@ -153,8 +161,6 @@ ard_categorical.survey.design <- function(data,
 }
 
 .one_svytable_rates_by_cell <- function(data, variable, by, deff) {
-  browser()
-
   df_interaction_id <-
     .df_all_combos(data, variable, by) |>
     dplyr::mutate(
@@ -334,5 +340,97 @@ case_switch <- function(..., .default = NULL) {
   }
 
   return(.default)
+}
+
+.default_svy_cat_fmt_fn <- function(x) {
+  x |>
+    dplyr::mutate(
+      fmt_fn =
+        pmap(
+          list(.data$stat_name, .data$stat, .data$fmt_fn),
+          function(stat_name, stat, fmt_fn) {
+            if (!is_empty(fmt_fn)) {
+              return(fmt_fn)
+            }
+            if (stat_name %in% c("p", "p_miss", "p_nonmiss")) {
+              return(cards::label_cards(digits = 1, scale = 100))
+            }
+            if (stat_name %in% c("n", "N", "N_miss", "N_nonmiss", "N_obs")) {
+              return(cards::label_cards(digits = 0))
+            }
+            if (is.integer(stat)) {
+              return(0L)
+            }
+            if (is.numeric(stat)) {
+              return(1L)
+            }
+            return(as.character)
+          }
+        )
+    )
+}
+
+#' Convert Nested Lists to Column
+#'
+#' Some arguments, such as `stat_label`, are passed as nested lists. This
+#' function properly unnests these lists and adds them to the results data frame.
+#'
+#' @param x (`data.frame`)\cr
+#'   result data frame
+#' @param arg (`list`)\cr
+#'   the nested list
+#' @param new_column (`string`)\cr
+#'   new column name
+#' @param unlist (`logical`)\cr
+#'   whether to fully unlist final results
+#'
+#' @return a data frame
+#' @keywords internal
+#'
+#' @examples
+#' ard <- ard_categorical(ADSL, by = "ARM", variables = "AGEGR1")
+#'
+#' cards:::.process_nested_list_as_df(ard, NULL, "new_col")
+.process_nested_list_as_df <- function(x, arg, new_column, unlist = FALSE) {
+  # add fmt_fn column if not already present
+  if (!new_column %in% names(x)) {
+    x[[new_column]] <- list(NULL)
+  }
+
+  # process argument if not NULL, and update new column
+  if (!is_empty(arg)) {
+    df_argument <-
+      imap(
+        arg,
+        function(enlst_arg, variable) {
+          lst_stat_names <-
+            x[c("variable", "stat_name")] |>
+            dplyr::filter(.data$variable %in% .env$variable) |>
+            unique() %>%
+            {stats::setNames(as.list(.[["stat_name"]]), .[["stat_name"]])} # styler: off
+
+          cards::compute_formula_selector(
+            data = lst_stat_names,
+            x = enlst_arg
+          ) %>%
+            # styler: off
+            {dplyr::tibble(
+              variable = variable,
+              stat_name = names(.),
+              "{new_column}" := unname(.)
+            )}
+          # styler: on
+        }
+      ) |>
+      dplyr::bind_rows()
+
+    x <- x |> dplyr::rows_update(df_argument, by = c("variable", "stat_name"), unmatched = "ignore")
+  }
+
+  if (isTRUE(unlist)) {
+    x[[new_column]] <- lapply(x[[new_column]], function(x) x %||% NA) |> unlist()
+  }
+
+  x
 }
 
