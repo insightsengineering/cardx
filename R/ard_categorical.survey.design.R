@@ -39,7 +39,7 @@
 #' @examplesIf cardx:::is_pkg_installed("survey", reference_pkg = "cardx")
 #' svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 #'
-#' ard_categorical(svy_titanic, variables = Class, by = Survived)
+#' ard_categorical(svy_titanic, variables = c(Class, Age), by = Survived)
 ard_categorical.survey.design <- function(data,
                                           variables = everything(),
                                           by = NULL,
@@ -59,6 +59,9 @@ ard_categorical.survey.design <- function(data,
   )
   variables <- setdiff(variables, by)
   check_scalar(by, allow_empty = TRUE)
+
+  # if no variables selected, return empty data frame
+  if (is_empty(variables)) return(dplyr::tibble()) # styler: off
 
   cards::process_formula_selectors(
     data = data$variables[variables],
@@ -98,16 +101,18 @@ ard_categorical.survey.design <- function(data,
   # this tabulation accounts for unobserved combinations
   svytable_counts <- .svytable_counts(data, variables, by, denominator)
 
-  # calculate rates along with SE and DEFF -------------------------------------
-  svytable_rates <- .svytable_rates(data, variables, by, denominator, deff)
+  # calculate rate SE and DEFF -------------------------------------------------
+  svytable_rates <- .svytable_rate_stats(data, variables, by, denominator, deff)
 
   # convert results into a proper ARD object -----------------------------------
   cards <-
     svytable_counts |>
+    # merge in the SE(p) and DEFF
     dplyr::left_join(
       svytable_rates |> dplyr::select(-"p"),
       by = intersect(c("group1", "group1_level", "variable", "variable_level"), names(svytable_counts))
     ) |>
+    # make columns list columns
     dplyr::mutate(across(-any_of(c("group1", "variable")), as.list)) |>
     tidyr::pivot_longer(
       cols = -c(cards::all_ard_groups(), cards::all_ard_variables()),
@@ -148,21 +153,27 @@ ard_categorical.survey.design <- function(data,
     {structure(., class = c("card", class(.)))} # styler: off
 }
 
-.svytable_rates <- function(data, variables, by, denominator, deff) {
+
+# this function returns a tibble with the SE(p) and DEFF
+.svytable_rate_stats <- function(data, variables, by, denominator, deff) {
   lapply(
     variables,
     \(variable) {
+      # each combination of denominator and whether there is a by variable is handled separately
       case_switch(
-        # first chunk with by variable specified
+        # by variable and column percentages
         !is_empty(by) && denominator == "column" ~
           .one_svytable_rates_by_column(data, variable, by, deff),
+        # by variable and row percentages
         !is_empty(by) && denominator == "row" ~
           .one_svytable_rates_by_row(data, variable, by, deff),
+        # by variable and cell percentages
         !is_empty(by) && denominator == "cell" ~
           .one_svytable_rates_by_cell(data, variable, by, deff),
-        # this chunk without a by variable
+        # no by variable and column/cell percentages
         denominator %in% c("column", "cell") ~
           .one_svytable_rates_no_by_column_and_cell(data, variable, deff),
+        # no by variable and row percentages
         denominator == "row" ~
           .one_svytable_rates_no_by_row(data, variable, deff)
       )
