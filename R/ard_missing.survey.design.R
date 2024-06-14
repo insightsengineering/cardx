@@ -15,21 +15,25 @@ ard_missing.survey.design <- function(data,
                                       variables,
                                       by = NULL,
                                       statistic =
-                                        everything() ~ c("N_obs", "N_miss", "N_nonmiss", "p_miss", "p_nonmiss",
-                                                         "N_obs_unweighted", "N_miss_unweighted", "N_nonmiss_unweighted",
-                                                         "p_miss_unweighted", "p_nonmiss_unweighted"),
+                                        everything() ~ c(
+                                          "N_obs", "N_miss", "N_nonmiss", "p_miss", "p_nonmiss",
+                                          "N_obs_unweighted", "N_miss_unweighted", "N_nonmiss_unweighted",
+                                          "p_miss_unweighted", "p_nonmiss_unweighted"
+                                        ),
                                       fmt_fn = NULL,
                                       stat_label =
-                                        everything() ~ list(N_obs = "Total N",
-                                                            N_miss = "N Missing",
-                                                            N_nonmiss = "N not Missing",
-                                                            p_miss = "% Missing",
-                                                            p_nonmiss = "% not Missing",
-                                                            N_obs_unweighted = "Total N (unweighted)",
-                                                            N_miss_unweighted = "N Missing (unweighted)",
-                                                            N_nonmiss_unweighted = "N not Missing (unweighted)",
-                                                            p_miss_unweighted = "% Missing (unweighted)",
-                                                            p_nonmiss_unweighted = "% not Missing (unweighted)"),
+                                        everything() ~ list(
+                                          N_obs = "Total N",
+                                          N_miss = "N Missing",
+                                          N_nonmiss = "N not Missing",
+                                          p_miss = "% Missing",
+                                          p_nonmiss = "% not Missing",
+                                          N_obs_unweighted = "Total N (unweighted)",
+                                          N_miss_unweighted = "N Missing (unweighted)",
+                                          N_nonmiss_unweighted = "N not Missing (unweighted)",
+                                          p_miss_unweighted = "% Missing (unweighted)",
+                                          p_nonmiss_unweighted = "% not Missing (unweighted)"
+                                        ),
                                       ...) {
   set_cli_abort_call()
   check_dots_empty()
@@ -58,9 +62,11 @@ ard_missing.survey.design <- function(data,
     statistic = formals(asNamespace("cards")[["ard_missing.survey.design"]])[["statistic"]] |> eval()
   )
 
-  stats_available <- c("N_obs", "N_miss", "N_nonmiss", "p_miss", "p_nonmiss",
-                       "N_obs_unweighted", "N_miss_unweighted", "N_nonmiss_unweighted",
-                       "p_miss_unweighted", "p_nonmiss_unweighted")
+  stats_available <- c(
+    "N_obs", "N_miss", "N_nonmiss", "p_miss", "p_nonmiss",
+    "N_obs_unweighted", "N_miss_unweighted", "N_nonmiss_unweighted",
+    "p_miss_unweighted", "p_nonmiss_unweighted"
+  )
   cards::check_list_elements(
     x = statistic,
     predicate = \(x) is.character(x) && all(x %in% stats_available),
@@ -115,7 +121,7 @@ ard_missing.survey.design <- function(data,
 
   # return final object --------------------------------------------------------
   result |>
-    dplyr::mutate(context = "missing")  |>
+    dplyr::mutate(context = "missing") |>
     cards::tidy_ard_column_order() %>%
     {structure(., class = c("card", class(.)))} # styler: off
 }

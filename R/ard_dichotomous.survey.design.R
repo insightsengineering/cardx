@@ -21,8 +21,10 @@ ard_dichotomous.survey.design <- function(data,
                                           statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted"),
                                           denominator = c("column", "row", "cell"),
                                           fmt_fn = NULL,
-                                          stat_label = everything() ~ list(p = "%", p.std.error = "SE(%)", deff = "Design Effect",
-                                                                           "n" = "Unweighted n", "N" = "Unweighted N", "p" = "Unweighted %"),
+                                          stat_label = everything() ~ list(
+                                            p = "%", p.std.error = "SE(%)", deff = "Design Effect",
+                                            "n" = "Unweighted n", "N" = "Unweighted N", "p" = "Unweighted %"
+                                          ),
                                           ...) {
   set_cli_abort_call()
   check_dots_empty()

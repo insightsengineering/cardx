@@ -48,8 +48,10 @@ ard_categorical.survey.design <- function(data,
                                           statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted"),
                                           denominator = c("column", "row", "cell"),
                                           fmt_fn = NULL,
-                                          stat_label = everything() ~ list(p = "%", p.std.error = "SE(%)", deff = "Design Effect",
-                                                                           "n" = "Unweighted n", "N" = "Unweighted N", "p" = "Unweighted %"),
+                                          stat_label = everything() ~ list(
+                                            p = "%", p.std.error = "SE(%)", deff = "Design Effect",
+                                            "n" = "Unweighted n", "N" = "Unweighted N", "p" = "Unweighted %"
+                                          ),
                                           ...) {
   set_cli_abort_call()
   check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
@@ -84,7 +86,7 @@ ard_categorical.survey.design <- function(data,
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats),
     error_msg = c("Error in the values of the {.arg statistic} argument.",
-                  i = "Values must be in {.val {accepted_svy_stats}}"
+      i = "Values must be in {.val {accepted_svy_stats}}"
     )
   )
   denominator <- arg_match(denominator)
@@ -143,7 +145,7 @@ ard_categorical.survey.design <- function(data,
     dplyr::mutate(
       across(
         c(cards::all_ard_groups("levels"), cards::all_ard_variables("levels")),
-        ~map(.x, as.character)
+        ~ map(.x, as.character)
       )
     ) |>
     dplyr::select(-c("stat_label", "fmt_fn", "warning", "error")) |>
@@ -176,7 +178,7 @@ ard_categorical.survey.design <- function(data,
       context = "categorical",
       warning = list(NULL),
       error = list(NULL),
-    )  |>
+    ) |>
     cards::tidy_ard_column_order() %>%
     {structure(., class = c("card", class(.)))} |> # styler: off
     cards::tidy_ard_row_order()
@@ -301,9 +303,9 @@ ard_categorical.survey.design <- function(data,
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-        str_remove_all("DEff\\.") %>%
-        str_remove_all(by) %>%
-        str_remove_all("`")
+          str_remove_all("DEff\\.") %>%
+          str_remove_all(by) %>%
+          str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
     set_names(c("variable_level", "group1_level", "p", "p.std.error", "deff")) |>
@@ -334,9 +336,9 @@ ard_categorical.survey.design <- function(data,
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-        str_remove_all("DEff\\.") %>%
-        str_remove_all(variable) %>%
-        str_remove_all("`")
+          str_remove_all("DEff\\.") %>%
+          str_remove_all(variable) %>%
+          str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
     set_names(c("group1_level", "variable_level", "p", "p.std.error", "deff")) |>
@@ -378,27 +380,27 @@ ard_categorical.survey.design <- function(data,
 
   # add big N and p, then return data frame of results
   switch(denominator,
-         "column" =
-           df_counts |>
-           dplyr::mutate(
-             .by = any_of("group1_level"),
-             N = sum(.data$n),
-             p = .data$n / .data$N
-           ),
-         "row" =
-           df_counts |>
-           dplyr::mutate(
-             .by = any_of("variable_level"),
-             N = sum(.data$n),
-             p = .data$n / .data$N
-           ),
-         "cell" =
-           df_counts |>
-           dplyr::mutate(
-             .by = any_of(c("group1_level", "variable_level")),
-             N = sum(.data$n),
-             p = .data$n / .data$N
-           )
+    "column" =
+      df_counts |>
+        dplyr::mutate(
+          .by = any_of("group1_level"),
+          N = sum(.data$n),
+          p = .data$n / .data$N
+        ),
+    "row" =
+      df_counts |>
+        dplyr::mutate(
+          .by = any_of("variable_level"),
+          N = sum(.data$n),
+          p = .data$n / .data$N
+        ),
+    "cell" =
+      df_counts |>
+        dplyr::mutate(
+          .by = any_of(c("group1_level", "variable_level")),
+          N = sum(.data$n),
+          p = .data$n / .data$N
+        )
   )
 }
 
