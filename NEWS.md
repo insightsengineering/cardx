@@ -34,6 +34,8 @@ ard_moodtest()          -> ard_stats_mood_test()
   - `ard_survival_survfit()` for survival analyses using `survival::survfit()`. (#43)
   - `ard_continuous.survey.design()` for calculating univariate summary statistics from weighted/survey data using many functions from the {survey} package. (#68)
   - `ard_categorical.survey.design()` for tabulating summary statistics from weighted/survey data using many functions from the {survey} package. (#140)
+  - `ard_dichotomous.survey.design()` for tabulating dichotomous summary statistics from weighted/survey data using many functions from the {survey} package. (#2)
+  - `ard_missing.survey.design()` for tabulating missing summary statistics from weighted/survey data using many functions from the {survey} package. (#2)
   - `ard_attributes.survey.design()` for summarizing labels and attributes from weighted/survey data using many functions from the {survey} package.
   - `ard_survey_svychisq()` for weighted/survey chi-squared test using `survey::svychisq()`. (#72)
   - `ard_survey_svyttest()` for weighted/survey t-tests using `survey::svyttest()`. (#70)
