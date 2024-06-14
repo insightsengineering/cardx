@@ -3,6 +3,8 @@
 S3method(ard_attributes,survey.design)
 S3method(ard_categorical,survey.design)
 S3method(ard_continuous,survey.design)
+S3method(ard_dichotomous,survey.design)
+S3method(ard_missing,survey.design)
 S3method(ard_regression,default)
 S3method(ard_stats_anova,anova)
 S3method(ard_stats_anova,data.frame)

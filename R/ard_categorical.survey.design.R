@@ -12,7 +12,7 @@
 #' @param data (`survey.design`)\cr
 #'   a design object often created with [`survey::svydesign()`].
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   columns to include in summaries. Default is `everything()`.
+#'   columns to include in summaries.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   results are calculated for **all combinations** of the column specified
 #'   and the variables. A single column may be specified.
@@ -43,7 +43,7 @@
 #'
 #' ard_categorical(svy_titanic, variables = c(Class, Age), by = Survived)
 ard_categorical.survey.design <- function(data,
-                                          variables = everything(),
+                                          variables,
                                           by = NULL,
                                           statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted"),
                                           denominator = c("column", "row", "cell"),
@@ -52,9 +52,12 @@ ard_categorical.survey.design <- function(data,
                                                                            "n" = "Unweighted n", "N" = "Unweighted N", "p" = "Unweighted %"),
                                           ...) {
   set_cli_abort_call()
+  check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
+  check_dots_empty()
   deff <- TRUE # we may update in the future to make this an argument for users
 
   # process arguments ----------------------------------------------------------
+  check_not_missing(variables)
   cards::process_selectors(
     data = data$variables,
     variables = {{ variables }},
@@ -81,7 +84,7 @@ ard_categorical.survey.design <- function(data,
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats),
     error_msg = c("Error in the values of the {.arg statistic} argument.",
-      i = "Values must be in {.val {accepted_svy_stats}}"
+                  i = "Values must be in {.val {accepted_svy_stats}}"
     )
   )
   denominator <- arg_match(denominator)
@@ -136,6 +139,13 @@ ard_categorical.survey.design <- function(data,
       by = any_of(by),
       denominator = denominator
     ) |>
+    # all the survey levels are reported as character, so we do the same here.
+    dplyr::mutate(
+      across(
+        c(cards::all_ard_groups("levels"), cards::all_ard_variables("levels")),
+        ~map(.x, as.character)
+      )
+    ) |>
     dplyr::select(-c("stat_label", "fmt_fn", "warning", "error")) |>
     dplyr::mutate(
       stat_name =
@@ -166,9 +176,10 @@ ard_categorical.survey.design <- function(data,
       context = "categorical",
       warning = list(NULL),
       error = list(NULL),
-    ) |>
+    )  |>
     cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))} # styler: off
+    {structure(., class = c("card", class(.)))} |> # styler: off
+    cards::tidy_ard_row_order()
 }
 
 
@@ -177,24 +188,52 @@ ard_categorical.survey.design <- function(data,
   lapply(
     variables,
     \(variable) {
+      # convert the variable to a factor if not already one or a lgl, so we get the correct rate stats from svymean
+      if (!inherits(data$variables[[variable]], c("factor", "logical"))) {
+        data$variables[[variable]] <- factor(data$variables[[variable]])
+      }
+
+      # there are issues with svymean() when a variable has only one level. adding a second as needed
+      variable_lvls <- .unique_values_sort(data$variables, variable)
+      if (!is_empty(by)) by_lvls <- .unique_values_sort(data$variables, by) # styler: off
+      if (length(variable_lvls) == 1L) {
+        data$variables[[variable]] <-
+          factor(data$variables[[variable]], levels = c(variable_lvls, paste("not", variable_lvls)))
+      }
+      if (!is_empty(by) && length(by_lvls) == 1L) {
+        data$variables[[by]] <-
+          factor(data$variables[[by]], levels = c(by_lvls, paste("not", by_lvls)))
+      }
+
       # each combination of denominator and whether there is a by variable is handled separately
-      case_switch(
-        # by variable and column percentages
-        !is_empty(by) && denominator == "column" ~
-          .one_svytable_rates_by_column(data, variable, by, deff),
-        # by variable and row percentages
-        !is_empty(by) && denominator == "row" ~
-          .one_svytable_rates_by_row(data, variable, by, deff),
-        # by variable and cell percentages
-        !is_empty(by) && denominator == "cell" ~
-          .one_svytable_rates_by_cell(data, variable, by, deff),
-        # no by variable and column/cell percentages
-        denominator %in% c("column", "cell") ~
-          .one_svytable_rates_no_by_column_and_cell(data, variable, deff),
-        # no by variable and row percentages
-        denominator == "row" ~
-          .one_svytable_rates_no_by_row(data, variable, deff)
-      )
+      result <-
+        case_switch(
+          # by variable and column percentages
+          !is_empty(by) && denominator == "column" ~
+            .one_svytable_rates_by_column(data, variable, by, deff),
+          # by variable and row percentages
+          !is_empty(by) && denominator == "row" ~
+            .one_svytable_rates_by_row(data, variable, by, deff),
+          # by variable and cell percentages
+          !is_empty(by) && denominator == "cell" ~
+            .one_svytable_rates_by_cell(data, variable, by, deff),
+          # no by variable and column/cell percentages
+          denominator %in% c("column", "cell") ~
+            .one_svytable_rates_no_by_column_and_cell(data, variable, deff),
+          # no by variable and row percentages
+          denominator == "row" ~
+            .one_svytable_rates_no_by_row(data, variable, deff)
+        )
+
+      # if a level was added, remove the fake level
+      if (length(variable_lvls) == 1L) {
+        result <- result |> dplyr::filter(.data$variable_level %in% variable_lvls)
+      }
+      if (!is_empty(by) && length(by_lvls) == 1L) {
+        result <- result |> dplyr::filter(.data$group1_level %in% by_lvls)
+      }
+
+      result
     }
   ) |>
     dplyr::bind_rows()
@@ -262,9 +301,9 @@ ard_categorical.survey.design <- function(data,
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-          str_remove_all("DEff\\.") %>%
-          str_remove_all(by) %>%
-          str_remove_all("`")
+        str_remove_all("DEff\\.") %>%
+        str_remove_all(by) %>%
+        str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
     set_names(c("variable_level", "group1_level", "p", "p.std.error", "deff")) |>
@@ -295,9 +334,9 @@ ard_categorical.survey.design <- function(data,
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-          str_remove_all("DEff\\.") %>%
-          str_remove_all(variable) %>%
-          str_remove_all("`")
+        str_remove_all("DEff\\.") %>%
+        str_remove_all(variable) %>%
+        str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
     set_names(c("group1_level", "variable_level", "p", "p.std.error", "deff")) |>
@@ -339,27 +378,27 @@ ard_categorical.survey.design <- function(data,
 
   # add big N and p, then return data frame of results
   switch(denominator,
-    "column" =
-      df_counts |>
-        dplyr::mutate(
-          .by = any_of("group1_level"),
-          N = sum(.data$n),
-          p = .data$n / .data$N
-        ),
-    "row" =
-      df_counts |>
-        dplyr::mutate(
-          .by = any_of("variable_level"),
-          N = sum(.data$n),
-          p = .data$n / .data$N
-        ),
-    "cell" =
-      df_counts |>
-        dplyr::mutate(
-          .by = any_of(c("group1_level", "variable_level")),
-          N = sum(.data$n),
-          p = .data$n / .data$N
-        )
+         "column" =
+           df_counts |>
+           dplyr::mutate(
+             .by = any_of("group1_level"),
+             N = sum(.data$n),
+             p = .data$n / .data$N
+           ),
+         "row" =
+           df_counts |>
+           dplyr::mutate(
+             .by = any_of("variable_level"),
+             N = sum(.data$n),
+             p = .data$n / .data$N
+           ),
+         "cell" =
+           df_counts |>
+           dplyr::mutate(
+             .by = any_of(c("group1_level", "variable_level")),
+             N = sum(.data$n),
+             p = .data$n / .data$N
+           )
   )
 }
 
