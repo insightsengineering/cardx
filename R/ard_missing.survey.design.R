@@ -61,6 +61,10 @@ ard_missing.survey.design <- function(data,
     data$variables[variables],
     statistic = formals(asNamespace("cards")[["ard_missing.survey.design"]])[["statistic"]] |> eval()
   )
+  cards::fill_formula_selectors(
+    data$variables[variables],
+    stat_label = formals(asNamespace("cards")[["ard_missing.survey.design"]])[["stat_label"]] |> eval()
+  )
 
   stats_available <- c(
     "N_obs", "N_miss", "N_nonmiss", "p_miss", "p_nonmiss",
