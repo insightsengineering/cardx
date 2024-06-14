@@ -20,9 +20,16 @@ ard_missing.survey.design <- function(data,
                                                          "p_miss_unweighted", "p_nonmiss_unweighted"),
                                       fmt_fn = NULL,
                                       stat_label =
-                                        everything() ~ list("N_obs", "N_miss", "N_nonmiss", "p_miss", "p_nonmiss",
-                                                            "N_obs_unweighted", "N_miss_unweighted", "N_nonmiss_unweighted",
-                                                            "p_miss_unweighted", "p_nonmiss_unweighted"),
+                                        everything() ~ list(N_obs = "Total N",
+                                                            N_miss = "N Missing",
+                                                            N_nonmiss = "N not Missing",
+                                                            p_miss = "% Missing",
+                                                            p_nonmiss = "% not Missing",
+                                                            N_obs_unweighted = "Total N (unweighted)",
+                                                            N_miss_unweighted = "N Missing (unweighted)",
+                                                            N_nonmiss_unweighted = "N not Missing (unweighted)",
+                                                            p_miss_unweighted = "% Missing (unweighted)",
+                                                            p_nonmiss_unweighted = "% not Missing (unweighted)"),
                                       ...) {
   set_cli_abort_call()
   check_dots_empty()
