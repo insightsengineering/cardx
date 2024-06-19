@@ -320,11 +320,11 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 })
 
 # - Do we get results for unobserved logical levels in the `by` and `variable` variables?
-test_that("ard_categorical.survey.design() works for unobserved factor levels", {
+test_that("ard_categorical.survey.design() works for unobserved logical levels", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
-  svy_titanic$variables$Survived <- ifelse(svy_titanic$variables$Survived == "Yes", TRUE, FALSE)
-  svy_titanic$variables$Survived <- standalone:::fct_expand(svy_titanic$variables$Survived, "Unknown")
+  svy_titanic$variables$Survived <- rep(TRUE, length(svy_titanic$variables$Survived))
+  svy_titanic$variables$Survived <- as.logical(standalone:::fct_expand(svy_titanic$variables$Survived, FALSE))
 
   expect_error(
     ard_svy_cat_row <-
@@ -365,8 +365,8 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
   # variables have unobserved levels, no by variable
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
-  svy_titanic$variables$Age <- ifelse(svy_titanic$variables$Age == "Child", TRUE, FALSE)
-  svy_titanic$variables$Age <- standalone:::fct_expand(svy_titanic$variables$Survived, "Unknown")
+  svy_titanic$variables$Age <- rep(TRUE, length(svy_titanic$variables$Age))
+  svy_titanic$variables$Age <- as.logical(standalone:::fct_expand(svy_titanic$variables$Age, FALSE))
 
   expect_error(
     ard_svy_cat_row <-
@@ -402,8 +402,130 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
   expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
 
   # variable AND by have unobserved levels
-  svy_titanic$variables$Survived <- ifelse(svy_titanic$variables$Survived == "Yes", TRUE, FALSE)
-  svy_titanic$variables$Survived <- standalone:::fct_expand(svy_titanic$variables$Survived, "Unknown")
+  svy_titanic$variables$Survived <- rep(TRUE, length(svy_titanic$variables$Survived))
+  svy_titanic$variables$Survived <- as.logical(standalone:::fct_expand(svy_titanic$variables$Survived, FALSE))
+
+  expect_error(
+    ard_svy_cat_row <-
+      ard_categorical(
+        svy_titanic,
+        variables = c(Class, Age),
+        by = Survived,
+        denominator = "row"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+
+  expect_error(
+    ard_svy_cat_col <-
+      ard_categorical(
+        svy_titanic,
+        variables = c(Class, Age),
+        by = Survived,
+        denominator = "column"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+
+  expect_error(
+    ard_svy_cat_cell <-
+      ard_categorical(
+        svy_titanic,
+        variables = c(Class, Age),
+        by = Survived,
+        denominator = "cell"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+
+})
+
+# - Does the work around apply for variables with only 1 level
+test_that("ard_categorical.survey.design() works with variables with only 1 level", {
+  data(api, package = "survey")
+  svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
+  svy_titanic$variables$Survived <- rep("Yes", length(svy_titanic$variables$Survived))
+
+  # by variable only has 1 level
+  expect_error(
+    ard_svy_cat_row <-
+      ard_categorical(
+        svy_titanic,
+        variables = c(Class, Age),
+        by = Survived,
+        denominator = "row"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+
+  expect_error(
+    ard_svy_cat_col <-
+      ard_categorical(
+        svy_titanic,
+        variables = c(Class, Age),
+        by = Survived,
+        denominator = "column"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+
+  expect_error(
+    ard_svy_cat_cell <-
+      ard_categorical(
+        svy_titanic,
+        variables = c(Class, Age),
+        by = Survived,
+        denominator = "cell"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+
+  # variables have only 1 level, no by variable
+  data(api, package = "survey")
+  svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
+  svy_titanic$variables$Age <- as.factor(rep("Child", length(svy_titanic$variables$Age)))
+
+  expect_error(
+    ard_svy_cat_row <-
+      ard_categorical(
+        svy_titanic,
+        variables = c(Class, Age),
+        denominator = "row"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+
+  expect_error(
+    ard_svy_cat_col <-
+      ard_categorical(
+        svy_titanic,
+        variables = c(Class, Age),
+        denominator = "column"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+
+  expect_error(
+    ard_svy_cat_cell <-
+      ard_categorical(
+        svy_titanic,
+        variables = c(Class, Age),
+        denominator = "cell"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+
+  # variable AND by have only 1 level
+  svy_titanic$variables$Survived <- as.factor(rep("Yes", length(svy_titanic$variables$Survived)))
 
   expect_error(
     ard_svy_cat_row <-
