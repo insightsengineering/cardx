@@ -13,7 +13,8 @@
   denominator = c("column", "row", "cell"),
   fmt_fn = NULL,
   stat_label = everything() ~ list(p = "\%", p.std.error = "SE(\%)", deff =
-    "Design Effect", n = "Unweighted n", N = "Unweighted N", p = "Unweighted \%"),
+    "Design Effect", n_unweighted = "Unweighted n", N_unweighted = "Unweighted N",
+    p_unweighted = "Unweighted \%"),
   ...
 )
 }
