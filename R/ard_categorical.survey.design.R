@@ -197,7 +197,7 @@ check_na_factor_levels <- function(data, variables) {
     \(variable) {
       if (is.factor(data[[variable]]) && any(is.na(levels(data[[variable]])))) {
         cli::cli_abort(
-          "Factors with {.val {NA}} levels are not allowed, which are present in column {.val {variable}}.",
+          "Column {.val {variable}} is a factor with {.val {NA}} levels, which are not allowed.",
           call = get_cli_abort_call()
         )
       }
