@@ -61,6 +61,8 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   # process inputs -------------------------------------------------------------
   cards::process_selectors(data$variables, variables = {{ variables }}, by = {{ by }})
   variables <- setdiff(variables, by)
+  check_na_factor_levels(data$variables, by)
+
   cards::process_formula_selectors(
     data$variables[variables],
     statistic = statistic,
