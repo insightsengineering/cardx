@@ -49,8 +49,12 @@ ard_categorical.survey.design <- function(data,
                                           denominator = c("column", "row", "cell"),
                                           fmt_fn = NULL,
                                           stat_label = everything() ~ list(
-                                            p = "%", p.std.error = "SE(%)", deff = "Design Effect",
-                                            "n" = "Unweighted n", "N" = "Unweighted N", "p" = "Unweighted %"
+                                            p = "%",
+                                            p.std.error = "SE(%)",
+                                            deff = "Design Effect",
+                                            "n_unweighted" = "Unweighted n",
+                                            "N_unweighted" = "Unweighted N",
+                                            "p_unweighted" = "Unweighted %"
                                           ),
                                           ...) {
   set_cli_abort_call()
@@ -200,11 +204,18 @@ ard_categorical.survey.design <- function(data,
       if (!is_empty(by)) by_lvls <- .unique_values_sort(data$variables, by) # styler: off
       if (length(variable_lvls) == 1L) {
         data$variables[[variable]] <-
-          factor(data$variables[[variable]], levels = c(variable_lvls, paste("not", variable_lvls)))
+          case_switch(
+            inherits(data$variables[[by]], "factor") ~ fct_expand(data$variables[[variable]], paste("not", variable_lvls)),
+            .default = factor(data$variables[[variable]], levels = c(variable_lvls, paste("not", variable_lvls)))
+          )
+
       }
       if (!is_empty(by) && length(by_lvls) == 1L) {
         data$variables[[by]] <-
-          factor(data$variables[[by]], levels = c(by_lvls, paste("not", by_lvls)))
+          case_switch(
+            inherits(data$variables[[by]], "factor") ~ fct_expand(data$variables[[by]], paste("not", by_lvls)),
+            .default = factor(data$variables[[by]], levels = c(by_lvls, paste("not", by_lvls)))
+          )
       }
 
       # each combination of denominator and whether there is a by variable is handled separately

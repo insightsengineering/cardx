@@ -1,10 +1,13 @@
 # Items to test
-# - First, everything needs to be tested independently for denominator='column'|'row'|'cell' AND by whether there is a by variable
+# - First, everything needs to be tested independently for
+#    denominator='column'|'row'|'cell' AND by whether there is a by variable
 #    This is because these 6 scenarios are calculated entirely separately
-# - What happens with a variable that is all NA? How does that behavior compare to `ard_categorical()` for data frames
+# - What happens with a variable that is all NA? How does that behavior
+#    compare to `ard_categorical()` for data frames
 #    The function _should_ work if the underlying type is factor or logical
 # - Do we get results for unobserved factor levels in the `by` and `variable` variables?
-# - Do we get results for unobserved logical levels in the `by` and `variable` variables, e.g. if there are only TRUE, we should have FALSE rows too?
+# - Do we get results for unobserved logical levels in the `by` and `variable`
+#    variables, e.g. if there are only TRUE, we should have FALSE rows too?
 # - It turns out variables (both by and variables) that only have one level are problematic in some ways.
 #     I've coded around these issues, but we need thorough testing when either by or a variable has a single level.
 #     We need tests for when these variables are factor, logical, and other to ensure every case is handled properly.
