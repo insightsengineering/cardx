@@ -75,6 +75,8 @@ ard_categorical.survey.design <- function(data,
   # if no variables selected, return empty data frame
   if (is_empty(variables)) return(dplyr::tibble()) # styler: off
 
+  check_na_factor_levels(data$variables, c(by, variables))
+
   cards::process_formula_selectors(
     data = data$variables[variables],
     statistic = statistic,
@@ -188,6 +190,20 @@ ard_categorical.survey.design <- function(data,
     cards::tidy_ard_row_order()
 }
 
+# check for functions with NA factor levels (these are not allowed)
+check_na_factor_levels <- function(data, variables) {
+  walk(
+    variables,
+    \(variable) {
+      if (is.factor(data[[variable]]) && any(is.na(levels(data[[variable]])))) {
+        cli::cli_abort(
+          "Factors with {.val {NA}} levels are not allowed, which are present in column {.val {variable}}.",
+          call = get_cli_abort_call()
+        )
+      }
+    }
+  )
+}
 
 # this function returns a tibble with the SE(p) and DEFF
 .svytable_rate_stats <- function(data, variables, by, denominator, deff) {
