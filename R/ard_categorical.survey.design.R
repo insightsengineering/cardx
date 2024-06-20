@@ -271,7 +271,7 @@ check_na_factor_levels <- function(data, variables) {
 .one_svytable_rates_no_by_row <- function(data, variable, deff) {
   dplyr::tibble(
     variable = .env$variable,
-    variable_level = unique(data$variables[[variable]]) |> sort(),
+    variable_level = unique(data$variables[[variable]]) |> sort() |> as.character(),
     p = 1,
     p.std.error = 0,
     deff = NaN
