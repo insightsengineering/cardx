@@ -104,54 +104,53 @@ test_that("ard_categorical.survey.design() works", {
 
 
   # check the calculated stats are correct
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n") |> unlist(),
-  #   survey::svymean(x = ~api00, dclus1, na.rm = TRUE)[1] |> unlist(),
-  #   ignore_attr = TRUE
-  # )
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N") |> unlist(),
-  #   survey::svyquantile(x = ~api00, dclus1, na.rm = TRUE, quantiles = 0.5)[[1]][1] |> unlist(),
-  #   ignore_attr = TRUE
-  # )
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p") |> unlist(),
-  #   dclus1$variables$api00 |> min(na.rm = TRUE),
-  #   ignore_attr = TRUE
-  # )
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "deff") |> unlist(),
-  #   dclus1$variables$api00 |> max(na.rm = TRUE),
-  #   ignore_attr = TRUE
-  # )
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p.std.error") |> unlist(),
-  #   survey::svyvar(x = ~api00, dclus1, na.rm = TRUE)[1] |> unlist(),
-  #   ignore_attr = TRUE
-  # )
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_uni_svy_cont, stat_name %in% "sd") |> unlist(),
-  #   survey::svyvar(x = ~api00, dclus1, na.rm = TRUE)[1] |> unlist() |> sqrt(),
-  #   ignore_attr = TRUE
-  # )
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_uni_svy_cont, stat_name %in% "mean.std.error") |> unlist(),
-  #   survey::svymean(x = ~api00, dclus1, na.rm = TRUE) |> survey::SE() |> unlist(),
-  #   ignore_attr = TRUE
-  # )
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_uni_svy_cont, stat_name %in% "deff") |> unlist(),
-  #   survey::svymean(x = ~api00, dclus1, na.rm = TRUE, deff = TRUE) |>
-  #     as.data.frame() |>
-  #     dplyr::pull(deff),
-  #   ignore_attr = TRUE
-  # )
-  # expect_equal(
-  #   cards::get_ard_statistics(ard_uni_svy_cont, stat_name %in% "p75") |> unlist(),
-  #   survey::svyquantile(x = ~api00, dclus1, na.rm = TRUE, quantiles = 0.75)[[1]][1] |> unlist(),
-  #   ignore_attr = TRUE
-  # )
-
+  expect_equal(
+    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n") |> unlist(),
+    survey::svymean(x = ~api00, dclus1, na.rm = TRUE)[1] |> unlist(),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N") |> unlist(),
+    survey::svyquantile(x = ~api00, dclus1, na.rm = TRUE, quantiles = 0.5)[[1]][1] |> unlist(),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p") |> unlist(),
+    dclus1$variables$api00 |> min(na.rm = TRUE),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "deff") |> unlist(),
+    dclus1$variables$api00 |> max(na.rm = TRUE),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p.std.error") |> unlist(),
+    survey::svyvar(x = ~api00, dclus1, na.rm = TRUE)[1] |> unlist(),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    cards::get_ard_statistics(ard_uni_svy_cont, stat_name %in% "sd") |> unlist(),
+    survey::svyvar(x = ~api00, dclus1, na.rm = TRUE)[1] |> unlist() |> sqrt(),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    cards::get_ard_statistics(ard_uni_svy_cont, stat_name %in% "mean.std.error") |> unlist(),
+    survey::svymean(x = ~api00, dclus1, na.rm = TRUE) |> survey::SE() |> unlist(),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    cards::get_ard_statistics(ard_uni_svy_cont, stat_name %in% "deff") |> unlist(),
+    survey::svymean(x = ~api00, dclus1, na.rm = TRUE, deff = TRUE) |>
+      as.data.frame() |>
+      dplyr::pull(deff),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    cards::get_ard_statistics(ard_uni_svy_cont, stat_name %in% "p75") |> unlist(),
+    survey::svyquantile(x = ~api00, dclus1, na.rm = TRUE, quantiles = 0.75)[[1]][1] |> unlist(),
+    ignore_attr = TRUE
+  )
 })
 
 # - What happens with a variable that is all NA? How does that behavior compare to `ard_categorical()` for data frames ----
@@ -160,7 +159,7 @@ test_that("ard_categorical.survey.design() works when variables have all NAs", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
-  #row denom
+  # row denom
   svy_titanic$variables$Class <- NA
   svy_titanic$variables$Class <- fct_na_value_to_level(svy_titanic$variables$Class)
 
@@ -200,7 +199,6 @@ test_that("ard_categorical.survey.design() works when variables have all NAs", {
   #   NA
   # )
   # expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
-
 })
 
 # - Do we get results for unobserved factor levels in the `by` and `variable` variables?
@@ -321,7 +319,6 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
     NA
   )
   expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
-
 })
 
 # - Do we get results for unobserved logical levels in the `by` and `variable` variables?
@@ -443,7 +440,6 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
     NA
   )
   expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
-
 })
 
 # - Does the work around apply for variables with only 1 level
@@ -565,5 +561,4 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
     NA
   )
   expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
-
 })
