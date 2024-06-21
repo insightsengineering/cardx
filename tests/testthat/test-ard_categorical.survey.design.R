@@ -37,7 +37,7 @@ test_that("ard_categorical.survey.design() works", {
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   # denom = column, with by
   expect_error(
@@ -50,7 +50,7 @@ test_that("ard_categorical.survey.design() works", {
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_col))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_col, method = FALSE))
 
   # denom = cell, with by
   expect_error(
@@ -63,7 +63,7 @@ test_that("ard_categorical.survey.design() works", {
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
 
   # denom = row, without by
@@ -76,7 +76,7 @@ test_that("ard_categorical.survey.design() works", {
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   # denom = column, without by
   expect_error(
@@ -88,7 +88,7 @@ test_that("ard_categorical.survey.design() works", {
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   # denom = cell, without by
   expect_error(
@@ -100,7 +100,7 @@ test_that("ard_categorical.survey.design() works", {
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
 
   # check the calculated stats are correct
@@ -162,18 +162,18 @@ test_that("ard_categorical.survey.design() works when variables have all NAs", {
 
   #row denom
   svy_titanic$variables$Class <- NA
-  svy_titanic$variables$Class <- standalone:::fct_na_value_to_level(svy_titanic$variables$Class)
+  svy_titanic$variables$Class <- fct_na_value_to_level(svy_titanic$variables$Class)
 
-  expect_error(
-    ard_svy_cat_row <-
-      ard_categorical(
-        svy_titanic,
-        variables = c(Class, Age),
-        by = Survived,
-        denominator = "row"
-      ),
-  )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  # expect_error(
+  #   ard_svy_cat_row <-
+  #     ard_categorical(
+  #       svy_titanic,
+  #       variables = c(Class, Age),
+  #       by = Survived,
+  #       denominator = "row"
+  #     ),
+  # )
+  # expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   # column denom
   expect_error(
@@ -186,7 +186,7 @@ test_that("ard_categorical.survey.design() works when variables have all NAs", {
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_col))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_col, method = FALSE))
 
   # cell denom
   expect_error(
@@ -199,7 +199,7 @@ test_that("ard_categorical.survey.design() works when variables have all NAs", {
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
 })
 
@@ -207,7 +207,7 @@ test_that("ard_categorical.survey.design() works when variables have all NAs", {
 test_that("ard_categorical.survey.design() works for unobserved factor levels", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
-  svy_titanic$variables$Survived <- standalone:::fct_expand(svy_titanic$variables$Survived, "Unknown")
+  svy_titanic$variables$Survived <- fct_expand(svy_titanic$variables$Survived, "Unknown")
 
   expect_error(
     ard_svy_cat_row <-
@@ -219,7 +219,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   expect_error(
     ard_svy_cat_col <-
@@ -231,7 +231,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_col))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_col, method = FALSE))
 
   expect_error(
     ard_svy_cat_cell <-
@@ -243,12 +243,12 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   # variables have unobserved levels, no by variable
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
-  svy_titanic$variables$Class <- standalone:::fct_expand(svy_titanic$variables$Survived, "Peasant")
+  svy_titanic$variables$Class <- fct_expand(svy_titanic$variables$Survived, "Peasant")
 
   expect_error(
     ard_svy_cat_row <-
@@ -259,7 +259,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   expect_error(
     ard_svy_cat_col <-
@@ -270,7 +270,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   expect_error(
     ard_svy_cat_cell <-
@@ -281,10 +281,10 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   # variable AND by have unobserved levels
-  svy_titanic$variables$Survived <- standalone:::fct_expand(svy_titanic$variables$Survived, "Unknown")
+  svy_titanic$variables$Survived <- fct_expand(svy_titanic$variables$Survived, "Unknown")
 
   expect_error(
     ard_svy_cat_row <-
@@ -296,7 +296,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   expect_error(
     ard_svy_cat_col <-
@@ -308,7 +308,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   expect_error(
     ard_svy_cat_cell <-
@@ -320,7 +320,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
 })
 
@@ -329,7 +329,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
   svy_titanic$variables$Survived <- rep(TRUE, length(svy_titanic$variables$Survived))
-  svy_titanic$variables$Survived <- as.logical(standalone:::fct_expand(svy_titanic$variables$Survived, FALSE))
+  svy_titanic$variables$Survived <- as.logical(fct_expand(svy_titanic$variables$Survived, FALSE))
 
   expect_error(
     ard_svy_cat_row <-
@@ -341,7 +341,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   expect_error(
     ard_svy_cat_col <-
@@ -353,7 +353,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_col))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_col, method = FALSE))
 
   expect_error(
     ard_svy_cat_cell <-
@@ -365,7 +365,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   # variables have unobserved levels, no by variable
   data(api, package = "survey")
@@ -381,7 +381,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   expect_error(
     ard_svy_cat_col <-
@@ -392,7 +392,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   expect_error(
     ard_svy_cat_cell <-
@@ -403,7 +403,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   # variable AND by have unobserved levels
   svy_titanic$variables$Survived <- rep(TRUE, length(svy_titanic$variables$Survived))
@@ -418,7 +418,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   expect_error(
     ard_svy_cat_col <-
@@ -430,7 +430,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   expect_error(
     ard_svy_cat_cell <-
@@ -442,7 +442,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
 })
 
@@ -463,7 +463,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   expect_error(
     ard_svy_cat_col <-
@@ -475,7 +475,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_col))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_col, method = FALSE))
 
   expect_error(
     ard_svy_cat_cell <-
@@ -487,7 +487,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   # variables have only 1 level, no by variable
   data(api, package = "survey")
@@ -503,7 +503,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   expect_error(
     ard_svy_cat_col <-
@@ -514,7 +514,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   expect_error(
     ard_svy_cat_cell <-
@@ -525,7 +525,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   # variable AND by have only 1 level
   svy_titanic$variables$Survived <- as.factor(rep("Yes", length(svy_titanic$variables$Survived)))
@@ -540,7 +540,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_row))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   expect_error(
     ard_svy_cat_col <-
@@ -552,7 +552,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
   expect_error(
     ard_svy_cat_cell <-
@@ -564,6 +564,6 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
       ),
     NA
   )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell))
+  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
 })

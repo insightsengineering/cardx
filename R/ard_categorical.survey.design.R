@@ -92,7 +92,7 @@ ard_categorical.survey.design <- function(data,
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats),
     error_msg = c("Error in the values of the {.arg statistic} argument.",
-      i = "Values must be in {.val {accepted_svy_stats}}"
+                  i = "Values must be in {.val {accepted_svy_stats}}"
     )
   )
   denominator <- arg_match(denominator)
@@ -207,6 +207,18 @@ check_na_factor_levels <- function(data, variables) {
 
 # this function returns a tibble with the SE(p) and DEFF
 .svytable_rate_stats <- function(data, variables, by, denominator, deff) {
+  if (!is_empty(by)) by_lvls <- .unique_values_sort(data$variables, by) # styler: off
+  if (!is_empty(by) && length(by_lvls) == 1L) {
+    data$variables[[by]] <-
+      case_switch(
+        inherits(data$variables[[by]], "factor") ~ fct_expand(data$variables[[by]], paste("not", by_lvls)),
+        .default = factor(data$variables[[by]], levels = c(by_lvls, paste("not", by_lvls)))
+      )
+  }
+  if (!is_empty(by) && inherits(data$variables[[by]], "logical")) {
+    data$variables[[by]] <- factor(data$variables[[by]], levels = c(TRUE, FALSE))
+  }
+
   lapply(
     variables,
     \(variable) {
@@ -217,21 +229,16 @@ check_na_factor_levels <- function(data, variables) {
 
       # there are issues with svymean() when a variable has only one level. adding a second as needed
       variable_lvls <- .unique_values_sort(data$variables, variable)
-      if (!is_empty(by)) by_lvls <- .unique_values_sort(data$variables, by) # styler: off
       if (length(variable_lvls) == 1L) {
         data$variables[[variable]] <-
           case_switch(
-            inherits(data$variables[[by]], "factor") ~ fct_expand(data$variables[[variable]], paste("not", variable_lvls)),
+            inherits(data$variables[[variable]], "factor") ~ fct_expand(data$variables[[variable]], paste("not", variable_lvls)),
             .default = factor(data$variables[[variable]], levels = c(variable_lvls, paste("not", variable_lvls)))
           )
 
       }
-      if (!is_empty(by) && length(by_lvls) == 1L) {
-        data$variables[[by]] <-
-          case_switch(
-            inherits(data$variables[[by]], "factor") ~ fct_expand(data$variables[[by]], paste("not", by_lvls)),
-            .default = factor(data$variables[[by]], levels = c(by_lvls, paste("not", by_lvls)))
-          )
+      if (inherits(data$variables[[variable]], "logical")) {
+        data$variables[[variable]] <- factor(data$variables[[variable]], levels = c(TRUE, FALSE))
       }
 
       # each combination of denominator and whether there is a by variable is handled separately
@@ -330,9 +337,9 @@ check_na_factor_levels <- function(data, variables) {
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-          str_remove_all("DEff\\.") %>%
-          str_remove_all(by) %>%
-          str_remove_all("`")
+        str_remove_all("DEff\\.") %>%
+        str_remove_all(by) %>%
+        str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
     set_names(c("variable_level", "group1_level", "p", "p.std.error", "deff")) |>
@@ -363,9 +370,9 @@ check_na_factor_levels <- function(data, variables) {
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-          str_remove_all("DEff\\.") %>%
-          str_remove_all(variable) %>%
-          str_remove_all("`")
+        str_remove_all("DEff\\.") %>%
+        str_remove_all(variable) %>%
+        str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
     set_names(c("group1_level", "variable_level", "p", "p.std.error", "deff")) |>
@@ -407,27 +414,27 @@ check_na_factor_levels <- function(data, variables) {
 
   # add big N and p, then return data frame of results
   switch(denominator,
-    "column" =
-      df_counts |>
-        dplyr::mutate(
-          .by = any_of("group1_level"),
-          N = sum(.data$n),
-          p = .data$n / .data$N
-        ),
-    "row" =
-      df_counts |>
-        dplyr::mutate(
-          .by = any_of("variable_level"),
-          N = sum(.data$n),
-          p = .data$n / .data$N
-        ),
-    "cell" =
-      df_counts |>
-        dplyr::mutate(
-          .by = any_of(c("group1_level", "variable_level")),
-          N = sum(.data$n),
-          p = .data$n / .data$N
-        )
+         "column" =
+           df_counts |>
+           dplyr::mutate(
+             .by = any_of("group1_level"),
+             N = sum(.data$n),
+             p = .data$n / .data$N
+           ),
+         "row" =
+           df_counts |>
+           dplyr::mutate(
+             .by = any_of("variable_level"),
+             N = sum(.data$n),
+             p = .data$n / .data$N
+           ),
+         "cell" =
+           df_counts |>
+           dplyr::mutate(
+             .by = any_of(c("group1_level", "variable_level")),
+             N = sum(.data$n),
+             p = .data$n / .data$N
+           )
   )
 }
 
