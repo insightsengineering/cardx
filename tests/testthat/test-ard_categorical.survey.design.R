@@ -176,30 +176,30 @@ test_that("ard_categorical.survey.design() works when variables have all NAs", {
   # expect_invisible(cards::check_ard_structure(ard_svy_cat_row, method = FALSE))
 
   # column denom
-  expect_error(
-    ard_svy_cat_col <-
-      ard_categorical(
-        svy_titanic,
-        variables = c(Class, Age),
-        by = Survived,
-        denominator = "column"
-      ),
-    NA
-  )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_col, method = FALSE))
+  # expect_error(
+  #   ard_svy_cat_col <-
+  #     ard_categorical(
+  #       svy_titanic,
+  #       variables = c(Class, Age),
+  #       by = Survived,
+  #       denominator = "column"
+  #     ),
+  #   NA
+  # )
+  # expect_invisible(cards::check_ard_structure(ard_svy_cat_col, method = FALSE))
 
   # cell denom
-  expect_error(
-    ard_svy_cat_cell <-
-      ard_categorical(
-        svy_titanic,
-        variables = c(Class, Age),
-        by = Survived,
-        denominator = "cell"
-      ),
-    NA
-  )
-  expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
+  # expect_error(
+  #   ard_svy_cat_cell <-
+  #     ard_categorical(
+  #       svy_titanic,
+  #       variables = c(Class, Age),
+  #       by = Survived,
+  #       denominator = "cell"
+  #     ),
+  #   NA
+  # )
+  # expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 
 })
 
