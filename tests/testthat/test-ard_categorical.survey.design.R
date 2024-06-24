@@ -1,9 +1,3 @@
-# - A trick to test survey data is to take a normal data frame, convert it to survey using equal weights.
-#     Then all the results should equal the unweighted summaries and we can perform expect_equal() checks against the data.frame S3 methods.
-#    dplyr::tibble(y = rep(FALSE, 15), x = rep(TRUE, 15)) |>
-#      survey::svydesign(ids = ~1, data = _, weights = ~1) |>
-#      ard_categorical(by = y)
-
 test_that("multiplication works", {
   expect_equal(2 * 2, 4)
 })
@@ -382,8 +376,7 @@ test_that("ard_categorical.survey.design() works when variables have all NAs", {
         variables = c(Class, Age),
         by = Survived,
         denominator = "column"
-      ),
-    NA
+      )
   )
 
   # cell denom
