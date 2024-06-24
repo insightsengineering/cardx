@@ -382,8 +382,7 @@ test_that("ard_categorical.survey.design() works when variables have all NAs", {
         variables = c(Class, Age),
         by = Survived,
         denominator = "column"
-      ),
-    NA
+      )
   )
 
   # cell denom
