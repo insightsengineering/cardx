@@ -59,11 +59,11 @@ ard_missing.survey.design <- function(data,
   )
   cards::fill_formula_selectors(
     data$variables[variables],
-    statistic = formals(asNamespace("cards")[["ard_missing.survey.design"]])[["statistic"]] |> eval()
+    statistic = formals(asNamespace("cardx")[["ard_missing.survey.design"]])[["statistic"]] |> eval()
   )
   cards::fill_formula_selectors(
     data$variables[variables],
-    stat_label = formals(asNamespace("cards")[["ard_missing.survey.design"]])[["stat_label"]] |> eval()
+    stat_label = formals(asNamespace("cardx")[["ard_missing.survey.design"]])[["stat_label"]] |> eval()
   )
 
   stats_available <- c(
