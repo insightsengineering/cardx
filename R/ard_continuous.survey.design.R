@@ -73,12 +73,11 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
     data$variables[variables],
     statistic = formals(asNamespace("cardx")[["ard_continuous.survey.design"]])[["statistic"]] |> eval()
   )
-  browser()
   cards::check_list_elements(
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats()),
     error_msg = c("Error in the values of the {.arg statistic} argument.",
-      i = glue::glue("Values must be in {{.val {accepted_svy_stats(FALSE)}}}")
+      i = glue::glue("Values must be in {.val {cardx:::accepted_svy_stats(FALSE)}}")
     )
   )
 
