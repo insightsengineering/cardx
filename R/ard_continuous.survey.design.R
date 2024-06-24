@@ -77,7 +77,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats()),
     error_msg = c("Error in the values of the {.arg statistic} argument.",
-      i = glue::glue("Values must be in {.val {cardx:::accepted_svy_stats(FALSE)}}")
+      i = "Values must be in {.val {cardx:::accepted_svy_stats(FALSE)}}"
     )
   )
 
