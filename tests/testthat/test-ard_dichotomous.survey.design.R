@@ -4,10 +4,11 @@ test_that("ard_dichotomous.survey.design() works", {
 
   # row denom with by var
   expect_error(
-    ard_dichotomous_row <- ard_dichotomous(svy_dicho, by = vs,
-                                           variables = c(cyl, am),
-                                           value = list(cyl = 4),
-                                           denominator = "row"),
+    ard_dichotomous_row <-
+      ard_dichotomous(svy_dicho,
+                      by = vs,
+                      variables = c(cyl, am),
+                      value = list(cyl = 4)),
     NA
   )
   expect_invisible(cards::check_ard_structure(ard_dichotomous_row, method = FALSE))
@@ -38,7 +39,11 @@ test_that("ard_dichotomous.survey.design() works", {
   # section 1: by variable, row denominator
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "n") |> unlist(),
-    cards::ard_dichotomous(svy_dicho, by = vs, variables = c(cyl, am), value = list(cyl = 4), denominator = "row") |>
+    cards::ard_dichotomous(svy_dicho,
+                           by = vs,
+                           variables = c(cyl, am),
+                           value = list(cyl = 4),
+                           denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist()
   )
 
