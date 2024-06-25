@@ -40,7 +40,7 @@ test_that("ard_dichotomous.survey.design() works", {
   # section 1: by variable, row denominator
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "n") |> unlist(),
-    cards::ard_dichotomous(svy_dicho,
+    cards::ard_dichotomous(mtcars,
                            by = vs,
                            variables = c(cyl, am),
                            value = list(cyl = 4),
