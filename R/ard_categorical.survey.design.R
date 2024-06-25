@@ -223,6 +223,9 @@ check_na_factor_levels <- function(data, variables) {
   if (!is_empty(by) && inherits(data$variables[[by]], "logical")) {
     data$variables[[by]] <- factor(data$variables[[by]], levels = c(TRUE, FALSE))
   }
+  if (!inherits(data$variables[[by]], "factor")) {
+    data$variables[[by]] <- factor(data$variables[[by]])
+  }
 
   lapply(
     variables,
@@ -243,6 +246,9 @@ check_na_factor_levels <- function(data, variables) {
       }
       if (inherits(data$variables[[variable]], "logical")) {
         data$variables[[variable]] <- factor(data$variables[[variable]], levels = c(TRUE, FALSE))
+      }
+      if (!inherits(data$variables[[by]], "factor")) {
+        data$variables[[variable]] <- factor(data$variables[[variable]])
       }
 
       # each combination of denominator and whether there is a by variable is handled separately
