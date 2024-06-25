@@ -8,7 +8,8 @@ test_that("ard_dichotomous.survey.design() works", {
       ard_dichotomous(svy_dicho,
                       by = vs,
                       variables = c(cyl, am),
-                      value = list(cyl = 4)),
+                      value = list(cyl = 4),
+                      denominator = "row"),
     NA
   )
   expect_invisible(cards::check_ard_structure(ard_dichotomous_row, method = FALSE))
