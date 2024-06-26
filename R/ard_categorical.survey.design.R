@@ -427,21 +427,21 @@ check_na_factor_levels <- function(data, variables) {
     "column" =
       df_counts |>
         dplyr::mutate(
-          .by = any_of("group1_level"),
+          .by = c(cards::all_ard_groups(), cards::all_ard_variables("names")),
           N = sum(.data$n),
           p = .data$n / .data$N
         ),
     "row" =
       df_counts |>
         dplyr::mutate(
-          .by = any_of("variable_level"),
+          .by = cards::all_ard_variables(),
           N = sum(.data$n),
           p = .data$n / .data$N
         ),
     "cell" =
       df_counts |>
         dplyr::mutate(
-          .by = any_of(c("group1_level", "variable_level")),
+          .by = c(cards::all_ard_groups("names"), cards::all_ard_variables("names")),
           N = sum(.data$n),
           p = .data$n / .data$N
         )
