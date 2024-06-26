@@ -104,7 +104,7 @@ ard_missing.survey.design <- function(data,
         )
     ) |>
     dplyr::select(-cards::all_ard_variables("levels"), -"stat_label", -"fmt_fn") |>
-    dplyr::slice(1L, .by = "stat_name")
+    dplyr::slice(1L, .by = c(cards::all_ard_groups(), cards::all_ard_variables(), "stat_name"))
 
   # final processing of fmt_fn -------------------------------------------------
   result <- result |>
