@@ -224,7 +224,6 @@ check_na_factor_levels <- function(data, variables) {
             inherits(data$variables[[by]], "factor") ~ fct_expand(data$variables[[variable]], paste("not", variable_lvls)),
             .default = factor(data$variables[[variable]], levels = c(variable_lvls, paste("not", variable_lvls)))
           )
-
       }
       if (!is_empty(by) && length(by_lvls) == 1L) {
         data$variables[[by]] <-
