@@ -336,10 +336,11 @@ test_that("ard_continuous.survey.design(stat_label)", {
   expect_snapshot(
     ard_continuous(
       dclus1,
-      variables = api00,
+      variables = c(api00, api99),
       statistic = ~ c("mean", "median", "min", "max"),
       stat_label = list(api00 = list(mean = "MeAn", median = "MEDian", min = "MINimum"))
-    )
+    ) |>
+      as.data.frame()
   )
 })
 

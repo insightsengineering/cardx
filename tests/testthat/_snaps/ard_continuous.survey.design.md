@@ -38,17 +38,17 @@
 # ard_continuous.survey.design(stat_label)
 
     Code
-      ard_continuous(dclus1, variables = api00, statistic = ~ c("mean", "median",
-        "min", "max"), stat_label = list(api00 = list(mean = "MeAn", median = "MEDian",
-        min = "MINimum")))
-    Message
-      {cards} data frame: 4 x 8
+      as.data.frame(ard_continuous(dclus1, variables = c(api00, api99), statistic = ~
+      c("mean", "median", "min", "max"), stat_label = list(api00 = list(mean = "MeAn",
+        median = "MEDian", min = "MINimum"))))
     Output
-        variable   context stat_name stat_label    stat fmt_fn
-      1    api00 continuo…      mean       MeAn 644.169      1
-      2    api00 continuo…    median     MEDian     652      1
-      3    api00 continuo…       min    MINimum     411      1
-      4    api00 continuo…       max    Maximum     905      1
-    Message
-      i 2 more variables: warning, error
+        variable    context stat_name stat_label     stat fmt_fn warning error
+      1    api00 continuous      mean       MeAn 644.1694      1    NULL  NULL
+      2    api00 continuous    median     MEDian      652      1    NULL  NULL
+      3    api00 continuous       min    MINimum      411      1    NULL  NULL
+      4    api00 continuous       max    Maximum      905      1    NULL  NULL
+      5    api99 continuous      mean       Mean 606.9781      1    NULL  NULL
+      6    api99 continuous    median     Median      615      1    NULL  NULL
+      7    api99 continuous       min    Minimum      365      1    NULL  NULL
+      8    api99 continuous       max    Maximum      890      1    NULL  NULL
 

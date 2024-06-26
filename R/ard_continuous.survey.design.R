@@ -122,7 +122,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
             unlist())
         ) |>
           tidyr::unnest(cols = c("stat_name", "stat_label")),
-        by = "stat_name",
+        by = c("variable", "stat_name"),
         unmatched = "ignore"
       )
   }
