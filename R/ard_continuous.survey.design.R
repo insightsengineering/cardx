@@ -311,5 +311,11 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
   }
 
   df_stat |>
-    dplyr::mutate(stat_name = .env$stat_name)
+    dplyr::mutate(
+      stat_name = .env$stat_name,
+      across(
+        c(cards::all_ard_groups("levels"), cards::all_ard_variables("levels")),
+        ~ map(.x, as.character)
+      )
+    )
 }
