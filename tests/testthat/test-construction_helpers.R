@@ -112,3 +112,31 @@ test_that("construct_model() messaging", {
     )
   )
 })
+
+test_that("construct_model() works when called inside a wrapper function", {
+
+  wrapper_fun <- function() {
+
+    method.args <- list()
+
+    construct_model.data.frame(
+      mtcars,
+      formula = mpg ~ cyl,
+      method = "lm",
+      method.args = method.args,
+      package = "stats"
+    )
+  }
+
+  expect_equal(
+    wrapper_fun(),
+    construct_model.data.frame(
+      mtcars,
+      formula = mpg ~ cyl,
+      method = "lm",
+      package = "stats"
+    ),
+    ignore_attr = TRUE
+  )
+
+})
