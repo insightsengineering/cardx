@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.927958833619211" branch-rate="0" lines-covered="2705" lines-valid="2915" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-06-25 15:36:26.739936">
+<coverage line-rate="0.928106812735365" branch-rate="0" lines-covered="2711" lines-valid="2921" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-06-26 01:42:56.331762">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.927958833619211" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.928106812735365" branch-rate="0" complexity="0">
       <classes>
         <class name="ard_aod_wald_test.R" filename="R/ard_aod_wald_test.R" line-rate="0.897435897435897" branch-rate="0" complexity="0">
           <methods>
@@ -1241,7 +1241,7 @@
             <line number="577" hits="244" branch="false"/>
           </lines>
         </class>
-        <class name="ard_continuous.survey.design.R" filename="R/ard_continuous.survey.design.R" line-rate="0.984615384615385" branch-rate="0" complexity="0">
+        <class name="ard_continuous.survey.design.R" filename="R/ard_continuous.survey.design.R" line-rate="0.985074626865672" branch-rate="0" complexity="0">
           <methods>
             <method name="ard_continuous.survey.design" signature="" line-rate="0.987341772151899" branch-rate="0" complexity="0">
               <lines>
@@ -1353,7 +1353,7 @@
                 <line number="177" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name=".compute_svy_stat" signature="" line-rate="0.989690721649485" branch-rate="0" complexity="0">
+            <method name=".compute_svy_stat" signature="" line-rate="0.990291262135922" branch-rate="0" complexity="0">
               <lines>
                 <line number="186" hits="76" branch="false"/>
                 <line number="187" hits="0" branch="false"/>
@@ -1452,6 +1452,12 @@
                 <line number="309" hits="6" branch="false"/>
                 <line number="313" hits="76" branch="false"/>
                 <line number="314" hits="76" branch="false"/>
+                <line number="315" hits="76" branch="false"/>
+                <line number="316" hits="76" branch="false"/>
+                <line number="317" hits="76" branch="false"/>
+                <line number="318" hits="76" branch="false"/>
+                <line number="319" hits="76" branch="false"/>
+                <line number="320" hits="76" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1651,6 +1657,12 @@
             <line number="309" hits="6" branch="false"/>
             <line number="313" hits="76" branch="false"/>
             <line number="314" hits="76" branch="false"/>
+            <line number="315" hits="76" branch="false"/>
+            <line number="316" hits="76" branch="false"/>
+            <line number="317" hits="76" branch="false"/>
+            <line number="318" hits="76" branch="false"/>
+            <line number="319" hits="76" branch="false"/>
+            <line number="320" hits="76" branch="false"/>
           </lines>
         </class>
         <class name="ard_dichotomous.survey.design.R" filename="R/ard_dichotomous.survey.design.R" line-rate="0.6875" branch-rate="0" complexity="0">
