@@ -25,6 +25,11 @@ test_that("construct_model() works", {
     c("complex variable name", "east_variable_name")
   )
 
+  expect_equal(
+    cardx::bt("a b") |> cardx::bt(),
+    "`a b`"
+  )
+
   expect_error(
     check_not_namespaced("geepack::geeglm"),
     "cannot be namespaced"

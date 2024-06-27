@@ -153,11 +153,14 @@ bt <- function(x, pattern = "[ \n\r]") {
   if (is_empty(pattern)) {
     return(x)
   }
-  ifelse(
-    str_detect(x, pattern = pattern),
-    paste0("`", x, "`"),
-    x
-  )
+  if (!str_detect(x, pattern = pattern)) {
+    return(x)
+  }
+  if (startsWith(x, "`") & endsWith(x, "`")) {
+    return(x)
+  } else {
+    return(paste0("`", x, "`"))
+  }
 }
 
 #' @rdname construction_helpers
