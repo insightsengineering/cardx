@@ -79,7 +79,7 @@ test_that("ard_categorical.survey.design() works", {
         design = svy_titanic,
         FUN = survey::svymean,
         na.rm = TRUE,
-        deff = deff
+        deff = "Design Effect"
       )[, c("se.SurvivedYes", "se.SurvivedNo")] |> unlist(),
       survey::svyby(
         formula = reformulate2("Survived"),
@@ -87,7 +87,7 @@ test_that("ard_categorical.survey.design() works", {
         design = svy_titanic,
         FUN = survey::svymean,
         na.rm = TRUE,
-        deff = deff
+        deff = "Design Effect"
       )[, c("se.SurvivedYes", "se.SurvivedNo")] |> unlist()
     )) |> sort()
   )
@@ -141,7 +141,7 @@ test_that("ard_categorical.survey.design() works", {
         design = svy_titanic,
         FUN = survey::svymean,
         na.rm = TRUE,
-        deff = deff
+        deff = "Design Effect"
       )[, c("se.AgeAdult", "se.AgeChild")] |> unlist(),
       survey::svyby(
         formula = reformulate2("Class"),
@@ -149,7 +149,7 @@ test_that("ard_categorical.survey.design() works", {
         design = svy_titanic,
         FUN = survey::svymean,
         na.rm = TRUE,
-        deff = deff
+        deff = "Design Effect"
       )[, c("se.Class1st", "se.Class2nd", "se.Class3rd", "se.ClassCrew")] |> unlist()
     )) |> sort()
   )
@@ -201,13 +201,13 @@ test_that("ard_categorical.survey.design() works", {
         x = inject(~ interaction(!!sym(bt("Survived")), !!sym(bt("Class")))),
         design = svy_titanic,
         na.rm = TRUE,
-        deff = deff
+        deff = "Design Effect"
       ))[, "SE"] |> unlist(),
       as.data.frame(survey::svymean(
         x = inject(~ interaction(!!sym(bt("Survived")), !!sym(bt("Age")))),
         design = svy_titanic,
         na.rm = TRUE,
-        deff = deff
+        deff = "Design Effect"
       ))[, "SE"] |> unlist()
     )) |> sort()
   )
