@@ -1,5 +1,21 @@
-
-
+#' ARD survey one-sample CIs
+#'
+#' @inheritParams ard_continuous.survey.design
+#' @param method (`string`)\cr
+#'   Method passed to `survey::svyciprop(method)`
+#' @param conf.level (scalar `numeric`)\cr
+#'   confidence level for confidence interval. Default is `0.95`.
+#' @param ... arguments passed to `survey::svyciprop()`
+#'
+#' @return ARD data frame
+#' @export
+#'
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "survey", reference_pkg = "cardx"))
+#' data(api, package = "survey")
+#' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
+#'
+#' ard_survey_svyciprop(dclus1, variables = sch.wide)
+#' ard_survey_svyciprop(dclus1, variables = sch.wide, method = "xlogit")
 ard_survey_svyciprop <- function(data,
                                  variables,
                                  by = NULL,
@@ -22,8 +38,10 @@ ard_survey_svyciprop <- function(data,
   check_scalar_range(conf.level, range = c(0, 1))
   method <- arg_match(method)
 
+  # return empty data frame if no variables to process -------------------------
   if (is_empty(variables)) return(dplyr::tibble()) # styler: off
 
+  # calculate results ----------------------------------------------------------
   map(
     variables,
     function(variable) {
@@ -40,11 +58,19 @@ ard_survey_svyciprop <- function(data,
     dplyr::bind_rows()
 }
 
-.calculate_one_ard_svyciprop <- function(data, variable, by, conf.level, method, ...) {
+.calculate_one_ard_svyciprop <- function(data, variable, by, conf.level, method,
+                                         expected_results = c("estimate", "conf.level", "conf.high"), ...) {
   variable_levels <- .unique_values_sort(data$variables, variable = variable)
-  if (!is_empty(by)) by_levels <- .unique_values_sort(data$variables, variable = by) # styler: off
+  if (!is_empty(by)) {
+    by_levels <- .unique_values_sort(data$variables, variable = by)
+    lst_data <-
+      map(
+        by_levels,
+        ~call2("subset", expr(data), expr(!!sym(by) == !!.x)) |> eval()
+      ) |>
+      set_names(as.character(by_levels))
+  }
 
-  browser()
   df_full <-
     case_switch(
       !is_empty(by) ~
@@ -59,31 +85,44 @@ ard_survey_svyciprop <- function(data,
     ) |>
     dplyr::rowwise() |>
     dplyr::mutate(
-      data =
-        case_switch(
-          is_empty(.env$by) ~ data,
-          .default = inject(subset(data, !!.data$group1 == !!.data$group1_level))
+      lst_result =
+        .survey_fn_one_row(
+          data =
+            case_switch(
+              is_empty(.env$by) ~ data,
+              .default = lst_data[[.data$group1_level]]
+            ),
+          variable = .data$variable,
+          variable_level = .data$variable_level,
+          method = .env$method,
+          conf.level = .env$conf.level,
+          ...
         ) |>
         list(),
-      # lst_result =
-      #   .survey_fn_one_row(
-      #     data =
-      #       case_switch(
-      #         is_empty(.env$by) ~ data,
-      #         .default = inject(subset(data, !!.data$group1 == !!.data$group1_level))
-      #       ),
-      #     variable = .data$variable,
-      #     variable_level = .data$variable_level,
-      #     method = .env$method,
-      #     conf.level = .env$conf.level,
-      #     ...
-      #   ) |>
-      #   list()
-    )
+      result =
+        case_switch(
+          is_empty(.data$lst_result[["result"]]) ~ rep_named(expected_results, list(NULL)),
+          .default = .data$lst_result[["result"]]
+        ) |>
+        append(list(method = method, conf.level = conf.level)) |>
+        enframe("stat_name", "stat") |>
+        list(),
+      warning = .data$lst_result["warning"] |> unname(),
+      error = .data$lst_result["error"] |> unname(),
+      context = "survey_svyciprop"
+    ) |>
+    dplyr::select(-"lst_result") |>
+    dplyr::ungroup() |>
+    tidyr::unnest("result") |>
+    dplyr::mutate(
+      stat_label = .data$stat_name,
+      fmt_fn = map(.data$stat, ~case_switch(is.numeric(.x) ~ 2L, .default = as.character))
+    ) |>
+    cards::tidy_ard_column_order() %>%
+    structure(., class = c("card", class(.)))
 }
 
 .survey_fn_one_row <- function(data, variable, variable_level, method, conf.level, ...) {
-  browser()
   cards::eval_capture_conditions(
     survey::svyciprop(
       formula = inject(~I(!!sym(variable) == !!variable_level)),
