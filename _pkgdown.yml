@@ -64,6 +64,8 @@ reference:
   - contents:
       - ard_continuous.survey.design
       - ard_attributes.survey.design
+      - ard_survey_continuous_ci
+      - ard_survey_categorical_ci
       - ard_survey_svychisq
       - ard_survey_svyranktest
       - ard_survey_svyttest
