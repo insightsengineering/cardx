@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.959894059780552" branch-rate="0" lines-covered="2537" lines-valid="2643" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-06-28 15:51:53.303188">
+<coverage line-rate="0.95992438563327" branch-rate="0" lines-covered="2539" lines-valid="2645" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-06-28 15:56:59.620042">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.959894059780552" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.95992438563327" branch-rate="0" complexity="0">
       <classes>
         <class name="ard_aod_wald_test.R" filename="R/ard_aod_wald_test.R" line-rate="0.897435897435897" branch-rate="0" complexity="0">
           <methods>
@@ -3691,7 +3691,7 @@
             <line number="214" hits="8" branch="false"/>
           </lines>
         </class>
-        <class name="ard_survey_categorical_ci.R" filename="R/ard_survey_categorical_ci.R" line-rate="0.991228070175439" branch-rate="0" complexity="0">
+        <class name="ard_survey_categorical_ci.R" filename="R/ard_survey_categorical_ci.R" line-rate="0.991379310344828" branch-rate="0" complexity="0">
           <methods>
             <method name="ard_survey_categorical_ci" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
@@ -3793,12 +3793,12 @@
                 <line number="135" hits="18" branch="false"/>
                 <line number="136" hits="18" branch="false"/>
                 <line number="137" hits="18" branch="false"/>
+                <line number="138" hits="18" branch="false"/>
+                <line number="139" hits="18" branch="false"/>
               </lines>
             </method>
             <method name=".svyciprop_wrapper" signature="" line-rate="0.947368421052632" branch-rate="0" complexity="0">
               <lines>
-                <line number="142" hits="48" branch="false"/>
-                <line number="143" hits="48" branch="false"/>
                 <line number="144" hits="48" branch="false"/>
                 <line number="145" hits="48" branch="false"/>
                 <line number="146" hits="48" branch="false"/>
@@ -3812,19 +3812,21 @@
                 <line number="154" hits="48" branch="false"/>
                 <line number="155" hits="48" branch="false"/>
                 <line number="156" hits="48" branch="false"/>
-                <line number="159" hits="48" branch="false"/>
-                <line number="160" hits="0" branch="false"/>
-                <line number="164" hits="48" branch="false"/>
-                <line number="167" hits="48" branch="false"/>
+                <line number="157" hits="48" branch="false"/>
+                <line number="158" hits="48" branch="false"/>
+                <line number="161" hits="48" branch="false"/>
+                <line number="162" hits="0" branch="false"/>
+                <line number="166" hits="48" branch="false"/>
+                <line number="169" hits="48" branch="false"/>
               </lines>
             </method>
             <method name="case_switch" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="172" hits="522" branch="false"/>
                 <line number="174" hits="522" branch="false"/>
-                <line number="175" hits="522" branch="false"/>
-                <line number="176" hits="398" branch="false"/>
-                <line number="180" hits="124" branch="false"/>
+                <line number="176" hits="522" branch="false"/>
+                <line number="177" hits="522" branch="false"/>
+                <line number="178" hits="398" branch="false"/>
+                <line number="182" hits="124" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -3919,8 +3921,8 @@
             <line number="135" hits="18" branch="false"/>
             <line number="136" hits="18" branch="false"/>
             <line number="137" hits="18" branch="false"/>
-            <line number="142" hits="48" branch="false"/>
-            <line number="143" hits="48" branch="false"/>
+            <line number="138" hits="18" branch="false"/>
+            <line number="139" hits="18" branch="false"/>
             <line number="144" hits="48" branch="false"/>
             <line number="145" hits="48" branch="false"/>
             <line number="146" hits="48" branch="false"/>
@@ -3934,15 +3936,17 @@
             <line number="154" hits="48" branch="false"/>
             <line number="155" hits="48" branch="false"/>
             <line number="156" hits="48" branch="false"/>
-            <line number="159" hits="48" branch="false"/>
-            <line number="160" hits="0" branch="false"/>
-            <line number="164" hits="48" branch="false"/>
-            <line number="167" hits="48" branch="false"/>
-            <line number="172" hits="522" branch="false"/>
+            <line number="157" hits="48" branch="false"/>
+            <line number="158" hits="48" branch="false"/>
+            <line number="161" hits="48" branch="false"/>
+            <line number="162" hits="0" branch="false"/>
+            <line number="166" hits="48" branch="false"/>
+            <line number="169" hits="48" branch="false"/>
             <line number="174" hits="522" branch="false"/>
-            <line number="175" hits="522" branch="false"/>
-            <line number="176" hits="398" branch="false"/>
-            <line number="180" hits="124" branch="false"/>
+            <line number="176" hits="522" branch="false"/>
+            <line number="177" hits="522" branch="false"/>
+            <line number="178" hits="398" branch="false"/>
+            <line number="182" hits="124" branch="false"/>
           </lines>
         </class>
         <class name="ard_survey_continuous_ci.R" filename="R/ard_survey_continuous_ci.R" line-rate="0.970588235294118" branch-rate="0" complexity="0">
