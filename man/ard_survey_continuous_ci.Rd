@@ -10,6 +10,7 @@ ard_survey_continuous_ci(
   by = NULL,
   method = c("svymean", "mean", "beta", "xlogit", "asin", "score"),
   conf.level = 0.95,
+  df = survey::degf(data),
   ...
 )
 }
@@ -32,7 +33,11 @@ Otherwise, it is calculated via\code{survey::svyquantile(interval.type=method)}}
 \item{conf.level}{(scalar \code{numeric})\cr
 confidence level for confidence interval. Default is \code{0.95}.}
 
-\item{...}{arguments passed to \code{survey::svyciprop()}}
+\item{df}{(\code{numeric})\cr
+denominator degrees of freedom, passed to \code{survey::confint(df)}.
+Default is \code{survey::degf(data)}.}
+
+\item{...}{arguments passed to \code{survey::confint()}}
 }
 \value{
 ARD data frame

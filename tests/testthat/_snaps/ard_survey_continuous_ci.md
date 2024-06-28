@@ -7,13 +7,13 @@
          variable              context  stat_name stat_label     stat fmt_fn
       1     api00 survey_continuous_ci   estimate   estimate 644.1694      2
       2     api00 survey_continuous_ci  std.error  std.error 23.54224      2
-      3     api00 survey_continuous_ci   conf.low   conf.low 598.0275      2
-      4     api00 survey_continuous_ci  conf.high  conf.high 690.3113      2
+      3     api00 survey_continuous_ci   conf.low   conf.low 593.6763      2
+      4     api00 survey_continuous_ci  conf.high  conf.high 694.6625      2
       5     api00 survey_continuous_ci conf.level conf.level     0.95      2
       6     api99 survey_continuous_ci   estimate   estimate 606.9781      2
       7     api99 survey_continuous_ci  std.error  std.error 24.22504      2
-      8     api99 survey_continuous_ci   conf.low   conf.low 559.4979      2
-      9     api99 survey_continuous_ci  conf.high  conf.high 654.4583      2
+      8     api99 survey_continuous_ci   conf.low   conf.low 555.0206      2
+      9     api99 survey_continuous_ci  conf.high  conf.high 658.9357      2
       10    api99 survey_continuous_ci conf.level conf.level     0.95      2
 
 # ard_survey_continuous_ci() errors are captured
@@ -42,6 +42,7 @@
     Code
       ard_survey_continuous_ci(dclus1, variables = sch.wide, method = "beta")
     Message
+      Column "sch.wide" is not <numeric> and results may be an unexpected format.
       {cards} data frame: 5 x 8
     Output
         variable  stat_name stat_label stat   warning     error

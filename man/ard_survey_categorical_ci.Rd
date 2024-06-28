@@ -10,6 +10,7 @@ ard_survey_categorical_ci(
   by = NULL,
   method = c("logit", "likelihood", "asin", "beta", "mean", "xlogit"),
   conf.level = 0.95,
+  df = survey::degf(data),
   ...
 )
 }
@@ -29,6 +30,10 @@ Method passed to \code{survey::svyciprop(method)}}
 
 \item{conf.level}{(scalar \code{numeric})\cr
 confidence level for confidence interval. Default is \code{0.95}.}
+
+\item{df}{(\code{numeric})\cr
+denominator degrees of freedom, passed to \code{survey::svyciprop(df)}.
+Default is \code{survey::degf(data)}.}
 
 \item{...}{arguments passed to \code{survey::svyciprop()}}
 }

@@ -8,6 +8,9 @@
 #'   Method passed to `survey::svyciprop(method)`
 #' @param conf.level (scalar `numeric`)\cr
 #'   confidence level for confidence interval. Default is `0.95`.
+#' @param df (`numeric`)\cr
+#'   denominator degrees of freedom, passed to `survey::svyciprop(df)`.
+#'   Default is `survey::degf(data)`.
 #' @param ... arguments passed to `survey::svyciprop()`
 #'
 #' @return ARD data frame
@@ -24,6 +27,7 @@ ard_survey_categorical_ci <- function(data,
                                       by = NULL,
                                       method = c("logit", "likelihood", "asin", "beta", "mean","xlogit"),
                                       conf.level = 0.95,
+                                      df = survey::degf(data),
                                       ...) {
   set_cli_abort_call()
 
@@ -49,6 +53,7 @@ ard_survey_categorical_ci <- function(data,
     by = by,
     conf.level = conf.level,
     method = method,
+    df = df,
     ...
   )
 }
@@ -133,7 +138,7 @@ ard_survey_categorical_ci <- function(data,
 }
 
 
-.svyciprop_wrapper <- function(data, variable, variable_level, conf.level, method, ...) {
+.svyciprop_wrapper <- function(data, variable, variable_level, conf.level, method, df, ...) {
   lst_results <-
     cards::eval_capture_conditions(
       survey::svyciprop(
@@ -141,6 +146,7 @@ ard_survey_categorical_ci <- function(data,
         design = data,
         method = method,
         level = conf.level,
+        df = df,
         ...
       ) %>%
         {list(.[[1]], attr(., "ci"))} |>

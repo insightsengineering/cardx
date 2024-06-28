@@ -11,6 +11,9 @@
 #'   Otherwise, it is calculated via`survey::svyquantile(interval.type=method)`
 #' @param conf.level (scalar `numeric`)\cr
 #'   confidence level for confidence interval. Default is `0.95`.
+#' @param df (`numeric`)\cr
+#'   denominator degrees of freedom, passed to `survey::confint(df)`.
+#'   Default is `survey::degf(data)`.
 #' @param ... arguments passed to `survey::confint()`
 #'
 #' @return ARD data frame
@@ -23,11 +26,12 @@
 #' ard_survey_continuous_ci(dclus1, variables = api00)
 #' ard_survey_continuous_ci(dclus1, variables = api00, method = "xlogit")
 ard_survey_continuous_ci <- function(data,
-                                      variables,
-                                      by = NULL,
-                                      method = c("svymean", "mean", "beta", "xlogit", "asin", "score"),
-                                      conf.level = 0.95,
-                                      ...) {
+                                     variables,
+                                     by = NULL,
+                                     method = c("svymean", "mean", "beta", "xlogit", "asin", "score"),
+                                     conf.level = 0.95,
+                                     df = survey::degf(data),
+                                     ...) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
@@ -44,6 +48,17 @@ ard_survey_continuous_ci <- function(data,
   check_scalar_range(conf.level, range = c(0, 1))
   method <- arg_match(method)
 
+  walk(
+    variables,
+    \(variable) {
+      if (!is.numeric(data$variables[[variable]])) {
+        cli::cli_inform(
+          "Column {.val {variable}} is not {.cls numeric} and results may be an unexpected format."
+        )
+      }
+    }
+  )
+
   # calculate and return ARD of one sample CI ----------------------------------
   .calculate_ard_continuous_survey_ci(
     FUN = ifelse(method == "svymean", .svymean_confint_wrapper, .svyquantile_confint_wrapper),
@@ -52,6 +67,7 @@ ard_survey_continuous_ci <- function(data,
     by = by,
     conf.level = conf.level,
     method = method,
+    df = df,
     ...
   )
 }
@@ -131,7 +147,7 @@ ard_survey_continuous_ci <- function(data,
     structure(., class = c("card", class(.)))
 }
 
-.svymean_confint_wrapper <- function(data, variable, conf.level, ...) {
+.svymean_confint_wrapper <- function(data, variable, conf.level, df, ...) {
   lst_results <-
     cards::eval_capture_conditions({
       svymean <-
@@ -141,7 +157,7 @@ ard_survey_continuous_ci <- function(data,
         as.list() |>
         set_names(c("estimate", "std.error"))
 
-      lst_confint <- stats::confint(svymean, level = conf.level, ...) |>
+      lst_confint <- stats::confint(svymean, level = conf.level, df = df, ...) |>
         as.data.frame() |>
         as.list() |>
         set_names(c("conf.low", "conf.high"))
@@ -161,7 +177,7 @@ ard_survey_continuous_ci <- function(data,
   lst_results
 }
 
-.svyquantile_confint_wrapper <- function(data, variable, conf.level, method, ...) {
+.svyquantile_confint_wrapper <- function(data, variable, conf.level, method, df, ...) {
   lst_results <-
     cards::eval_capture_conditions({
       svyquantile <-
@@ -177,7 +193,7 @@ ard_survey_continuous_ci <- function(data,
         as.list() |>
         set_names(c("estimate", "std.error"))
 
-      lst_confint <- stats::confint(svyquantile, level = conf.level, ...) |>
+      lst_confint <- stats::confint(svyquantile, level = conf.level, df = df, ...) |>
         as.data.frame() |>
         as.list() |>
         set_names(c("conf.low", "conf.high"))

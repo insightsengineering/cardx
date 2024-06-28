@@ -27,10 +27,25 @@ test_that("ard_survey_continuous_ci(variables)", {
   expect_equal(
     cards::get_ard_statistics(ard, variable %in% "api00", stat_name %in% c("conf.low", "conf.high")),
     survey::svymean(~api00, design = dclus1) |>
-      confint(level = 0.95) |>
+      confint(level = 0.95, df = survey::degf(dclus1)) |>
       as.data.frame() |>
       as.list() |>
       set_names(c("conf.low", "conf.high"))
+  )
+
+  expect_equal(
+    ard_survey_continuous_ci(dclus1, variables = starts_with("xxxxxx")),
+    dplyr::tibble()
+  )
+
+  # check NA values don't affect result
+  dclus1_with_na <- dclus1
+  dclus1_with_na$variables[["api00"]][1:100] <- NA
+  expect_equal(
+    ard_survey_continuous_ci(dclus1_with_na, variables = api00),
+    dclus1_with_na |>
+      subset(!is.na(api00)) |>
+      ard_survey_continuous_ci(variables = api00, df = survey::degf(dclus1_with_na))
   )
 })
 
@@ -50,10 +65,25 @@ test_that("ard_survey_continuous_ci(by)", {
   expect_equal(
     cards::get_ard_statistics(ard, group1_level %in% "No", variable %in% "api00", stat_name %in% c("conf.low", "conf.high")),
     survey::svymean(~api00, design = dclus1 |> subset(sch.wide == "No")) |>
-      confint(level = 0.95) |>
+      confint(level = 0.95, df = survey::degf(dclus1)) |>
       as.data.frame() |>
       as.list() |>
       set_names(c("conf.low", "conf.high"))
+  )
+
+  # check that by variables of different classes still work
+  expect_equal(
+    ard$stat,
+    {dclus1_copy <- dclus1;
+    dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.integer();
+    ard_survey_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")}
+  )
+
+  expect_equal(
+    ard$stat,
+    {dclus1_copy <- dclus1;
+    dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.character();
+    ard_survey_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")}
   )
 })
 
@@ -65,7 +95,7 @@ test_that("ard_survey_continuous_ci(conf.level)", {
   expect_equal(
     cards::get_ard_statistics(ard, variable %in% "api00", stat_name %in% c("conf.low", "conf.high")),
     survey::svymean(~api00, design = dclus1) |>
-      confint(level = 0.80) |>
+      confint(level = 0.80, df = survey::degf(dclus1)) |>
       as.data.frame() |>
       as.list() |>
       set_names(c("conf.low", "conf.high"))
