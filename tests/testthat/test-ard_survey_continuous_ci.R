@@ -74,16 +74,20 @@ test_that("ard_survey_continuous_ci(by)", {
   # check that by variables of different classes still work
   expect_equal(
     ard$stat,
-    {dclus1_copy <- dclus1;
-    dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.integer();
-    ard_survey_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")}
+    {
+      dclus1_copy <- dclus1
+      dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.integer()
+      ard_survey_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")
+    }
   )
 
   expect_equal(
     ard$stat,
-    {dclus1_copy <- dclus1;
-    dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.character();
-    ard_survey_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")}
+    {
+      dclus1_copy <- dclus1
+      dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.character()
+      ard_survey_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")
+    }
   )
 })
 

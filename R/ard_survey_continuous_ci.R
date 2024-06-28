@@ -99,7 +99,7 @@ ard_survey_continuous_ci <- function(data,
     lst_data <-
       map(
         by_levels,
-        ~call2("subset", expr(data), expr(!!sym(by) == !!.x)) |> eval()
+        ~ call2("subset", expr(data), expr(!!sym(by) == !!.x)) |> eval()
       ) |>
       set_names(as.character(by_levels))
   }
@@ -127,11 +127,11 @@ ard_survey_continuous_ci <- function(data,
           conf.level = .env$conf.level,
           ...
         ) |>
-        list(),
+          list(),
       result =
-        .data$lst_result[["result"]]|>
-        enframe("stat_name", "stat") |>
-        list(),
+        .data$lst_result[["result"]] |>
+          enframe("stat_name", "stat") |>
+          list(),
       warning = .data$lst_result["warning"] |> unname(),
       error = .data$lst_result["error"] |> unname(),
       context = "survey_continuous_ci"
@@ -141,7 +141,7 @@ ard_survey_continuous_ci <- function(data,
     tidyr::unnest("result") |>
     dplyr::mutate(
       stat_label = .data$stat_name,
-      fmt_fn = map(.data$stat, ~case_switch(is.numeric(.x) ~ 2L, .default = as.character))
+      fmt_fn = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
     ) |>
     cards::tidy_ard_column_order() %>%
     structure(., class = c("card", class(.)))
@@ -212,4 +212,3 @@ ard_survey_continuous_ci <- function(data,
   # return list result
   lst_results
 }
-

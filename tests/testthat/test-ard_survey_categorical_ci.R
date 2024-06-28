@@ -18,8 +18,8 @@ test_that("ard_survey_categorical_ci(variables)", {
 
   expect_equal(
     cards::get_ard_statistics(ard, variable %in% "both", variable_level %in% "No")[c("estimate", "conf.low", "conf.high")],
-    survey::svyciprop(~I(both == "No"), design = dclus1, method = "logit", level = 0.95) %>%
-      {c(as.list(.), as.list(attr(., "ci")))} |>
+    survey::svyciprop(~ I(both == "No"), design = dclus1, method = "logit", level = 0.95) %>%
+      {c(as.list(.), as.list(attr(., "ci")))} |> # styler: off
       set_names(c("estimate", "conf.low", "conf.high"))
   )
 
@@ -61,24 +61,28 @@ test_that("ard_survey_categorical_ci(by)", {
       variable_level %in% "No",
       stat_name %in% c("estimate", "conf.low", "conf.high")
     ),
-    survey::svyciprop(~I(both == "No"), design = dclus1 |> subset(sch.wide == "No")) %>%
-      {c(as.list(.), attr(., "ci"))} |>
+    survey::svyciprop(~ I(both == "No"), design = dclus1 |> subset(sch.wide == "No")) %>%
+      {c(as.list(.), as.list(attr(., "ci")))} |> # styler: off
       set_names(c("estimate", "conf.low", "conf.high"))
   )
 
   # check that by variables of different classes still work
   expect_equal(
     ard$stat,
-    {dclus1_copy <- dclus1;
-    dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.integer();
-    ard_survey_categorical_ci(dclus1_copy, variables = c(both, awards), by = sch.wide) |> dplyr::pull("stat")}
+    {
+      dclus1_copy <- dclus1
+      dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.integer()
+      ard_survey_categorical_ci(dclus1_copy, variables = c(both, awards), by = sch.wide) |> dplyr::pull("stat")
+    }
   )
 
   expect_equal(
     ard$stat,
-    {dclus1_copy <- dclus1;
-    dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.character();
-    ard_survey_categorical_ci(dclus1_copy, variables = c(both, awards), by = sch.wide) |> dplyr::pull("stat")}
+    {
+      dclus1_copy <- dclus1
+      dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.character()
+      ard_survey_categorical_ci(dclus1_copy, variables = c(both, awards), by = sch.wide) |> dplyr::pull("stat")
+    }
   )
 })
 
@@ -89,8 +93,8 @@ test_that("ard_survey_categorical_ci(conf.level)", {
 
   expect_equal(
     cards::get_ard_statistics(ard, variable %in% "both", variable_level == "No", stat_name %in% c("estimate", "conf.low", "conf.high")),
-    survey::svyciprop(~I(both == "No"), design = dclus1, level = 0.80, df = survey::degf(dclus1)) %>%
-      {c(as.list(.), attr(., "ci"))} |>
+    survey::svyciprop(~ I(both == "No"), design = dclus1, level = 0.80, df = survey::degf(dclus1)) %>%
+      {c(as.list(.), as.list(attr(., "ci")))} |> # styler: off
       set_names(c("estimate", "conf.low", "conf.high"))
   )
 })
@@ -102,8 +106,8 @@ test_that("ard_survey_categorical_ci(method)", {
 
   expect_equal(
     cards::get_ard_statistics(ard, variable %in% "both", variable_level == "No", stat_name %in% c("estimate", "conf.low", "conf.high")),
-    survey::svyciprop(~I(both == "No"), design = dclus1, method = "likelihood", df = survey::degf(dclus1)) %>%
-      {c(as.list(.), attr(., "ci"))} |>
+    survey::svyciprop(~ I(both == "No"), design = dclus1, method = "likelihood", df = survey::degf(dclus1)) %>%
+      {c(as.list(.), as.list(attr(., "ci")))} |> # styler: off
       set_names(c("estimate", "conf.low", "conf.high"))
   )
 })

@@ -25,7 +25,7 @@
 ard_survey_categorical_ci <- function(data,
                                       variables,
                                       by = NULL,
-                                      method = c("logit", "likelihood", "asin", "beta", "mean","xlogit"),
+                                      method = c("logit", "likelihood", "asin", "beta", "mean", "xlogit"),
                                       conf.level = 0.95,
                                       df = survey::degf(data),
                                       ...) {
@@ -86,7 +86,7 @@ ard_survey_categorical_ci <- function(data,
     lst_data <-
       map(
         by_levels,
-        ~call2("subset", expr(data), expr(!!sym(by) == !!.x)) |> eval()
+        ~ call2("subset", expr(data), expr(!!sym(by) == !!.x)) |> eval()
       ) |>
       set_names(as.character(by_levels))
   }
@@ -100,8 +100,10 @@ ard_survey_categorical_ci <- function(data,
         ) |>
         dplyr::mutate(group1 = .env$by, variable = .env$variable),
       .default =
-        dplyr::tibble(variable = .env$variable,
-                      variable_level = as.character(variable_levels) |> as.list())
+        dplyr::tibble(
+          variable = .env$variable,
+          variable_level = as.character(variable_levels) |> as.list()
+        )
     ) |>
     dplyr::rowwise() |>
     dplyr::mutate(
@@ -117,11 +119,11 @@ ard_survey_categorical_ci <- function(data,
           conf.level = .env$conf.level,
           ...
         ) |>
-        list(),
+          list(),
       result =
-        .data$lst_result[["result"]]|>
-        enframe("stat_name", "stat") |>
-        list(),
+        .data$lst_result[["result"]] |>
+          enframe("stat_name", "stat") |>
+          list(),
       warning = .data$lst_result["warning"] |> unname(),
       error = .data$lst_result["error"] |> unname(),
       context = "survey_categorical_ci"
@@ -131,7 +133,7 @@ ard_survey_categorical_ci <- function(data,
     tidyr::unnest("result") |>
     dplyr::mutate(
       stat_label = .data$stat_name,
-      fmt_fn = map(.data$stat, ~case_switch(is.numeric(.x) ~ 2L, .default = as.character))
+      fmt_fn = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
     ) |>
     cards::tidy_ard_column_order() %>%
     structure(., class = c("card", class(.)))
@@ -142,14 +144,14 @@ ard_survey_categorical_ci <- function(data,
   lst_results <-
     cards::eval_capture_conditions(
       survey::svyciprop(
-        formula = inject(~I(!!sym(variable) == !!variable_level)),
+        formula = inject(~ I(!!sym(variable) == !!variable_level)),
         design = data,
         method = method,
         level = conf.level,
         df = df,
         ...
       ) %>%
-        {list(.[[1]], attr(., "ci"))} |>
+        {list(.[[1]], attr(., "ci"))} |> # styler: off
         unlist() |>
         set_names(c("estimate", "conf.low", "conf.high")) |>
         as.list()
