@@ -1,4 +1,7 @@
-#' ARD survey one-sample CIs
+#' ARD survey categorical CIs
+#'
+#' Confidence intervals for categorical variables calculated via
+#' [`survey::svyciprop()`].
 #'
 #' @inheritParams ard_continuous.survey.design
 #' @param method (`string`)\cr
@@ -14,14 +17,14 @@
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
-#' ard_survey_svyciprop(dclus1, variables = sch.wide)
-#' ard_survey_svyciprop(dclus1, variables = sch.wide, method = "xlogit")
-ard_survey_svyciprop <- function(data,
-                                 variables,
-                                 by = NULL,
-                                 method = c("logit", "likelihood", "asin", "beta", "mean","xlogit"),
-                                 conf.level = 0.95,
-                                 ...) {
+#' ard_survey_categorical_ci(dclus1, variables = sch.wide)
+#' ard_survey_categorical_ci(dclus1, variables = sch.wide, method = "xlogit")
+ard_survey_categorical_ci <- function(data,
+                                      variables,
+                                      by = NULL,
+                                      method = c("logit", "likelihood", "asin", "beta", "mean","xlogit"),
+                                      conf.level = 0.95,
+                                      ...) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
@@ -38,6 +41,19 @@ ard_survey_svyciprop <- function(data,
   check_scalar_range(conf.level, range = c(0, 1))
   method <- arg_match(method)
 
+  # calculate and return ARD of one sample CI ----------------------------------
+  .calculate_ard_onesample_survey_ci(
+    FUN = .svyciprop_wrapper,
+    data = data,
+    variables = variables,
+    by = by,
+    conf.level = conf.level,
+    method = method,
+    ...
+  )
+}
+
+.calculate_ard_onesample_survey_ci <- function(FUN, data, variables, by, conf.level, ...) {
   # return empty data frame if no variables to process -------------------------
   if (is_empty(variables)) return(dplyr::tibble()) # styler: off
 
@@ -45,12 +61,12 @@ ard_survey_svyciprop <- function(data,
   map(
     variables,
     function(variable) {
-      .calculate_one_ard_svyciprop(
+      .calculate_one_ard_categorical_survey_ci(
+        FUN = FUN,
         data = data,
         variable = variable,
         by = by,
         conf.level = conf.level,
-        method = method,
         ...
       )
     }
@@ -58,8 +74,7 @@ ard_survey_svyciprop <- function(data,
     dplyr::bind_rows()
 }
 
-.calculate_one_ard_svyciprop <- function(data, variable, by, conf.level, method,
-                                         expected_results = c("estimate", "conf.level", "conf.high"), ...) {
+.calculate_one_ard_categorical_survey_ci <- function(FUN, data, variable, by, conf.level, ...) {
   variable_levels <- .unique_values_sort(data$variables, variable = variable)
   if (!is_empty(by)) {
     by_levels <- .unique_values_sort(data$variables, variable = by)
@@ -86,7 +101,7 @@ ard_survey_svyciprop <- function(data,
     dplyr::rowwise() |>
     dplyr::mutate(
       lst_result =
-        .survey_fn_one_row(
+        FUN(
           data =
             case_switch(
               is_empty(.env$by) ~ data,
@@ -94,22 +109,17 @@ ard_survey_svyciprop <- function(data,
             ),
           variable = .data$variable,
           variable_level = .data$variable_level,
-          method = .env$method,
           conf.level = .env$conf.level,
           ...
         ) |>
         list(),
       result =
-        case_switch(
-          is_empty(.data$lst_result[["result"]]) ~ rep_named(expected_results, list(NULL)),
-          .default = .data$lst_result[["result"]]
-        ) |>
-        append(list(method = method, conf.level = conf.level)) |>
+        .data$lst_result[["result"]]|>
         enframe("stat_name", "stat") |>
         list(),
       warning = .data$lst_result["warning"] |> unname(),
       error = .data$lst_result["error"] |> unname(),
-      context = "survey_svyciprop"
+      context = "survey_categorical_ci"
     ) |>
     dplyr::select(-"lst_result") |>
     dplyr::ungroup() |>
@@ -122,20 +132,33 @@ ard_survey_svyciprop <- function(data,
     structure(., class = c("card", class(.)))
 }
 
-.survey_fn_one_row <- function(data, variable, variable_level, method, conf.level, ...) {
-  cards::eval_capture_conditions(
-    survey::svyciprop(
-      formula = inject(~I(!!sym(variable) == !!variable_level)),
-      design = data,
-      method = method,
-      level = conf.level,
-      ...
-    ) %>%
-      {list(.[[1]], attr(., "ci"))} |>
-      unlist() |>
-      set_names(c("estimate", "conf.low", "conf.high")) |>
-      as.list()
-  )
+
+.svyciprop_wrapper <- function(data, variable, variable_level, conf.level, method, ...) {
+  lst_results <-
+    cards::eval_capture_conditions(
+      survey::svyciprop(
+        formula = inject(~I(!!sym(variable) == !!variable_level)),
+        design = data,
+        method = method,
+        level = conf.level,
+        ...
+      ) %>%
+        {list(.[[1]], attr(., "ci"))} |>
+        unlist() |>
+        set_names(c("estimate", "conf.low", "conf.high")) |>
+        as.list()
+    )
+
+  # add NULL results if error
+  if (is_empty(lst_results[["result"]])) {
+    lst_results[["result"]] <- rep_named(c("estimate", "conf.low", "conf.high"), list(NULL))
+  }
+
+  # add other args
+  lst_results[["result"]] <- lst_results[["result"]] |> append(list(method = method, conf.level = conf.level))
+
+  # return list result
+  lst_results
 }
 
 
