@@ -111,4 +111,15 @@ test_that("construct_model() messaging", {
       formula = am ~ cyl
     )
   )
+
+  expect_snapshot(
+    error = TRUE,
+    construct_model(
+      data = mtcars,
+      method = "glm",
+      formula = am ~ cyl,
+      method.args = list(fomily = "binomial")
+    )
+  )
+
 })

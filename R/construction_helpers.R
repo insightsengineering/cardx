@@ -90,10 +90,20 @@ construct_model.data.frame <- function(data, formula, method, method.args = list
   method.args <- .as_list_of_exprs({{ method.args }})
 
   # build model ----------------------------------------------------------------
-  withr::with_namespace(
-    package = package,
-    call2(.fn = method, formula = formula, data = data, !!!method.args) |>
-      eval_tidy(env = env)
+  call_to_run <- call2(.fn = method, formula = formula, data = data, !!!method.args)
+
+  try_fetch(
+    withr::with_namespace(
+      package = package,
+      eval_tidy(call_to_run, env = env)
+    ),
+    error = function(e){
+      cli::cli_abort(
+        message = "There was an error evaluating model {.code {truncate_call(call_to_run)}}.",
+        parent = e,
+        call = env
+      )
+    }
   )
 }
 
@@ -201,4 +211,13 @@ check_string_or_function <- function(x,
   }
 
   invisible(x)
+}
+
+truncate_call <- function(call, max_out = 50){
+  call$data = expr(".")
+  call_text <- expr_text(call)
+  if(nchar(call_text) > max_out){
+    call_text <- paste(substr(call_text, 1, max_out), "...")
+  }
+  call_text
 }

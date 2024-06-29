@@ -30,3 +30,14 @@
       Error in `construct_model()`:
       ! Argument `method` must be a <string> or <function>.
 
+---
+
+    Code
+      construct_model(data = mtcars, method = "glm", formula = am ~ cyl, method.args = list(
+        fomily = "binomial"))
+    Condition
+      Error:
+      ! There was an error evaluating model `glm(formula = am ~ cyl, data = ".", fomily = "bino ...`.
+      Caused by error in `glm.control()`:
+      ! unused argument (fomily = "binomial")
+
