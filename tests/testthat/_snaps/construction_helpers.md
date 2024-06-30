@@ -89,7 +89,7 @@
       method.args = list(iamnotavalidparameter = stats::gaussian()))
     Condition
       Error in `construct_model()`:
-      ! There was an error evaluating the model `svyglm(formula = api00 ~ api99, design = structure(list(cluster = structure(list( id = 1:200), c ...`
+      ! There was an error evaluating the model `svyglm(formula = api00 ~ api99, design = ., iamnotavalidparameter = stats::gaussian())`
       Caused by error in `glm.control()`:
       ! unused argument (iamnotavalidparameter = list("gaussian", "identity", function (mu) 
       mu, function (eta) 
