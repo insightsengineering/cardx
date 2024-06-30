@@ -106,7 +106,7 @@ construct_model.data.frame <- function(data, formula, method, method.args = list
       cli::cli_abort(
         message = msg,
         parent = e,
-        call = env
+        call = get_cli_abort_call()
       )
     }
   )

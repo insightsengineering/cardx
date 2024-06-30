@@ -36,7 +36,7 @@
       construct_model(data = mtcars, method = "glm", formula = am ~ cyl, method.args = list(
         iamnotavalidparameter = "binomial"))
     Condition
-      Error:
+      Error in `construct_model()`:
       ! There was an error evaluating the model `glm(formula = am ~ cyl, data = ., iamnotavalidparameter = "binomial")`
       Caused by error in `glm.control()`:
       ! unused argument (iamnotavalidparameter = "binomial")
@@ -47,7 +47,7 @@
       construct_model(data = mtcars, method = glm, formula = am ~ cyl, method.args = list(
         iamnotavalidparameter = "binomial"))
     Condition
-      Error:
+      Error in `construct_model()`:
       ! There was an error evaluating the model
       Caused by error in `glm.control()`:
       ! unused argument (iamnotavalidparameter = "binomial")
