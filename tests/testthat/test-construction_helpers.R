@@ -121,5 +121,4 @@ test_that("construct_model() messaging", {
       method.args = list(fomily = "binomial")
     )
   )
-
 })
