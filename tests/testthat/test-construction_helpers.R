@@ -118,7 +118,17 @@ test_that("construct_model() messaging", {
       data = mtcars,
       method = "glm",
       formula = am ~ cyl,
-      method.args = list(fomily = "binomial")
+      method.args = list(iamnotavalidparameter = "binomial")
+    )
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    construct_model(
+      data = mtcars,
+      method = glm,
+      formula = am ~ cyl,
+      method.args = list(iamnotavalidparameter = "binomial")
     )
   )
 })

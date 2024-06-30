@@ -34,10 +34,21 @@
 
     Code
       construct_model(data = mtcars, method = "glm", formula = am ~ cyl, method.args = list(
-        fomily = "binomial"))
+        iamnotavalidparameter = "binomial"))
     Condition
       Error:
-      ! There was an error evaluating model `glm(formula = am ~ cyl, data = ".", fomily = "bino ...`.
+      ! There was an error evaluating the model `glm(formula = am ~ cyl, data = ., iamnotavalidparameter = "binomial")`
       Caused by error in `glm.control()`:
-      ! unused argument (fomily = "binomial")
+      ! unused argument (iamnotavalidparameter = "binomial")
+
+---
+
+    Code
+      construct_model(data = mtcars, method = glm, formula = am ~ cyl, method.args = list(
+        iamnotavalidparameter = "binomial"))
+    Condition
+      Error:
+      ! There was an error evaluating the model
+      Caused by error in `glm.control()`:
+      ! unused argument (iamnotavalidparameter = "binomial")
 
