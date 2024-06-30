@@ -123,12 +123,21 @@ construct_model.survey.design <- function(data, formula, method, method.args = l
   )
 }
 
-.as_list_of_exprs <- function(x) {
+.as_list_of_exprs <- function(x, arg_name = "method.args") {
   x_enexpr <- enexpr(x)
+  if (is_call_simple(x_enexpr)) {
+    return(call_args(x_enexpr))
+  }
+
   if (tryCatch(inherits(x, "list"), error = \(x) FALSE)) {
     return(x)
   }
-  call_args(x_enexpr)
+
+  cli::cli_abort(
+    c("There was an error processing the {.arg {argname}} argument.",
+      i = "Expecting a simple call. See {.help rlang::is_call_simple} for details."),
+    call = get_cli_abort_call()
+  )
 }
 
 #' @rdname construction_helpers
