@@ -131,4 +131,32 @@ test_that("construct_model() messaging", {
       method.args = list(iamnotavalidparameter = "binomial")
     )
   )
+
+  expect_snapshot(
+    error = TRUE,
+    {
+      data(api, package = "survey")
+      design <- survey::svydesign(id = ~1, weights = ~pw, data = apistrat)
+      construct_model(
+        data = design,
+        formula = api00 ~ api99,
+        method = survey::svyglm,
+        method.args = list(iamnotavalidparameter = stats::gaussian())
+      )
+    }
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    {
+      data(api, package = "survey")
+      design <- survey::svydesign(id = ~1, weights = ~pw, data = apistrat)
+      construct_model(
+        data = design,
+        formula = api00 ~ api99,
+        method = "svyglm",
+        method.args = list(iamnotavalidparameter = stats::gaussian())
+      )
+    }
+  )
 })
