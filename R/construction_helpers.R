@@ -163,7 +163,7 @@ bt <- function(x, pattern = "[ \n\r]") {
   if (is_empty(pattern)) {
     return(x)
   }
-  ifelse (
+  ifelse(
     str_detect(x, pattern = pattern) & !str_detect(x, "^`.*`$"),
     paste0("`", x, "`"),
     x
