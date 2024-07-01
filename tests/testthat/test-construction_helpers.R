@@ -140,8 +140,9 @@ test_that("construct_model() messaging", {
       construct_model(
         data = design,
         formula = api00 ~ api99,
-        method = survey::svyglm,
-        method.args = list(iamnotavalidparameter = stats::gaussian())
+        method = "svyglm",
+        method.args = list(iamnotavalidparameter = stats::gaussian()),
+        package = "survey"
       )
     }
   )
