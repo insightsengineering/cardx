@@ -26,7 +26,7 @@ test_that("construct_model() works", {
   )
 
   expect_equal(
-    cardx::bt("a b") |> cardx::bt(),
+    cardx::bt("`a b`"),
     "`a b`"
   )
 
