@@ -100,6 +100,7 @@ construct_model.data.frame <- function(data, formula, method, method.args = list
     error = function(e) {
       msg <- "There was an error evaluating the model"
       if (is_string(method)) {
+        call_to_run$data <- expr(.)
         msg <- paste(msg, "{.code {truncate_call(call_to_run)}}")
       }
 
@@ -141,7 +142,8 @@ construct_model.survey.design <- function(data, formula, method, method.args = l
     error = function(e) {
       msg <- "There was an error evaluating the model"
       if (is_string(method)) {
-        msg <- paste(msg, "{.code {truncate_call(call_to_run, data_field = 'design')}}")
+        call_to_run$design <- expr(.)
+        msg <- paste(msg, "{.code {truncate_call(call_to_run)}}")
       }
 
       cli::cli_abort(
@@ -243,8 +245,7 @@ check_string_or_function <- function(x,
   invisible(x)
 }
 
-truncate_call <- function(call, data_field = "data", max_out = 100) {
-  call[[data_field]] <- expr(.)
+truncate_call <- function(call, max_out = 100) {
   call_text <- expr_text(call)
   if (nchar(call_text) > max_out) {
     call_text <- paste(substr(call_text, 1, max_out), "...")
