@@ -90,10 +90,26 @@ construct_model.data.frame <- function(data, formula, method, method.args = list
   method.args <- .as_list_of_exprs({{ method.args }})
 
   # build model ----------------------------------------------------------------
-  withr::with_namespace(
-    package = package,
-    call2(.fn = method, formula = formula, data = data, !!!method.args) |>
-      eval_tidy(env = env)
+  call_to_run <- call2(.fn = method, formula = formula, data = data, !!!method.args)
+
+  try_fetch(
+    withr::with_namespace(
+      package = package,
+      eval_tidy(call_to_run, env = env)
+    ),
+    error = function(e) {
+      msg <- "There was an error evaluating the model"
+      if (is_string(method)) {
+        call_to_run$data <- expr(.)
+        msg <- paste(msg, "{.code {truncate_call(call_to_run)}}")
+      }
+
+      cli::cli_abort(
+        message = msg,
+        parent = e,
+        call = get_cli_abort_call()
+      )
+    }
   )
 }
 
@@ -116,19 +132,45 @@ construct_model.survey.design <- function(data, formula, method, method.args = l
   method.args <- .as_list_of_exprs({{ method.args }})
 
   # build model ----------------------------------------------------------------
-  withr::with_namespace(
-    package = package,
-    call2(.fn = method, formula = formula, design = data, !!!method.args) |>
-      eval_tidy(env = env)
+  call_to_run <- call2(.fn = method, formula = formula, design = data, !!!method.args)
+
+  try_fetch(
+    withr::with_namespace(
+      package = package,
+      eval_tidy(call_to_run, env = env)
+    ),
+    error = function(e) {
+      msg <- "There was an error evaluating the model"
+      if (is_string(method)) {
+        call_to_run$design <- expr(.)
+        msg <- paste(msg, "{.code {truncate_call(call_to_run)}}")
+      }
+
+      cli::cli_abort(
+        message = msg,
+        parent = e,
+        call = get_cli_abort_call()
+      )
+    }
   )
 }
 
-.as_list_of_exprs <- function(x) {
+.as_list_of_exprs <- function(x, arg_name = "method.args") {
   x_enexpr <- enexpr(x)
+  if (is_call_simple(x_enexpr)) {
+    return(call_args(x_enexpr))
+  }
+
   if (tryCatch(inherits(x, "list"), error = \(x) FALSE)) {
     return(x)
   }
-  call_args(x_enexpr)
+
+  cli::cli_abort(
+    c("There was an error processing the {.arg {argname}} argument.",
+      i = "Expecting a simple call. See {.help rlang::is_call_simple} for details."
+    ),
+    call = get_cli_abort_call()
+  )
 }
 
 #' @rdname construction_helpers
@@ -154,7 +196,7 @@ bt <- function(x, pattern = "[ \n\r]") {
     return(x)
   }
   ifelse(
-    str_detect(x, pattern = pattern),
+    str_detect(x, pattern = pattern) & !str_detect(x, "^`.*`$"),
     paste0("`", x, "`"),
     x
   )
@@ -201,4 +243,12 @@ check_string_or_function <- function(x,
   }
 
   invisible(x)
+}
+
+truncate_call <- function(call, max_out = 100) {
+  call_text <- expr_text(call)
+  if (nchar(call_text) > max_out) {
+    call_text <- paste(substr(call_text, 1, max_out), "...")
+  }
+  call_text
 }
