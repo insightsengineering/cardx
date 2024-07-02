@@ -272,130 +272,151 @@ test_that("ard_categorical.survey.design() works", {
   # section 4: without by variable, row denominator
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
+    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
+    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
+    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist()
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p.std.error") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
-      cards::get_ard_statistics(stat_name %in% "p.std.error") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_row |> dplyr::arrange_all(), stat_name %in% "p.std.error") |> unlist() |> unname() |> sort(),
+    c(dplyr::tibble(
+      variable_level = unique(svy_titanic$variables[["Class"]]) |> sort() |> as.character(),
+      p = 1,
+      p.std.error = 0,
+      deff = NaN
+    ) |> dplyr::select("p.std.error") |> unlist() |> unname(), dplyr::tibble(
+      variable_level = unique(svy_titanic$variables[["Age"]]) |> sort() |> as.character(),
+      p = 1,
+      p.std.error = 0,
+      deff = NaN
+    ) |> dplyr::select("p.std.error") |> unlist() |> unname())
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n_unweighted") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
-      cards::get_ard_statistics(stat_name %in% "n_unweighted") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n_unweighted") |> unlist() |> unname(),
+    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "row") |>
+      cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname()
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N_unweighted") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
-      cards::get_ard_statistics(stat_name %in% "N_unweighted") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N_unweighted") |> unlist() |> unname(),
+    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "row") |>
+      cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname()
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p_unweighted") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
-      cards::get_ard_statistics(stat_name %in% "p_unweighted") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p_unweighted") |> unlist() |> unname(),
+    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
+      cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname()
   )
 
   # section 5: without by variable, column denominator
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
+    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "N") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
+    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
+    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist()
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p.std.error") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
-      cards::get_ard_statistics(stat_name %in% "p.std.error") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p.std.error") |> unlist() |> unname(),
+    c(
+      survey::svymean(reformulate2("Class"), design = svy_titanic, na.rm = TRUE, deff = "Design Effect") |>
+        dplyr::as_tibble(rownames = "var_level") |>
+        dplyr::select("SE") |> unlist() |> unname(),
+      survey::svymean(reformulate2("Age"), design = svy_titanic, na.rm = TRUE, deff = "Design Effect") |>
+        dplyr::as_tibble(rownames = "var_level") |>
+        dplyr::select("SE") |> unlist() |> unname()
+    )
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n_unweighted") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
-      cards::get_ard_statistics(stat_name %in% "n_unweighted") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n_unweighted") |> unlist() |> unname(),
+    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "column") |>
+      cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname()
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "N_unweighted") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
-      cards::get_ard_statistics(stat_name %in% "N_unweighted") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "N_unweighted") |> unlist() |> unname(),
+    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "column") |>
+      cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname()
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p_unweighted") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
-      cards::get_ard_statistics(stat_name %in% "p_unweighted") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p_unweighted") |> unlist() |> unname(),
+    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "column") |>
+      cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname()
   )
 
   # section 6: without by variable, cell denominator
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
+    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "N") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
+    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
+    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist()
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p.std.error") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
-      cards::get_ard_statistics(stat_name %in% "p.std.error") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p.std.error") |> unlist() |> unname(),
+    c(
+      survey::svymean(reformulate2("Class"), design = svy_titanic, na.rm = TRUE, deff = "Design Effect") |>
+        dplyr::as_tibble(rownames = "var_level") |>
+        dplyr::select("SE") |> unlist() |> unname(),
+      survey::svymean(reformulate2("Age"), design = svy_titanic, na.rm = TRUE, deff = "Design Effect") |>
+        dplyr::as_tibble(rownames = "var_level") |>
+        dplyr::select("SE") |> unlist() |> unname()
+    )
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n_unweighted") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
-      cards::get_ard_statistics(stat_name %in% "n_unweighted") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n_unweighted") |> unlist() |> unname(),
+    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "cell") |>
+      cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname()
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "N_unweighted") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
-      cards::get_ard_statistics(stat_name %in% "N_unweighted") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "N_unweighted") |> unlist() |> unname(),
+    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "cell") |>
+      cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname()
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p_unweighted") |> unlist(),
-    cards::ard_categorical(svy_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
-      cards::get_ard_statistics(stat_name %in% "p_unweighted") |> unlist()
+    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p_unweighted") |> unlist() |> unname(),
+    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "cell") |>
+      cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname()
   )
 })
 

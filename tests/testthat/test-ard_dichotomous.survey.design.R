@@ -1,4 +1,6 @@
-# Test survey.design works
+skip_if_not(is_pkg_installed("survey", reference_pkg = "cardx"))
+
+#Test survey.design works
 test_that("ard_dichotomous.survey.design() works", {
   svy_dicho <- survey::svydesign(ids = ~1, data = mtcars, weights = ~1)
   # convert variables to factor
