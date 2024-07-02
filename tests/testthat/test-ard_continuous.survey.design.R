@@ -322,10 +322,12 @@ test_that("ard_continuous.survey.design(fmt_fn)", {
   expect_snapshot(
     ard_continuous(
       dclus1,
-      variables = api00,
+      variables = c(api99, api00),
       statistic = ~ c("mean", "median", "min", "max"),
       fmt_fn = list(api00 = list(mean = 2, median = "xx.xx", min = as.character))
-    )
+    ) |>
+      dplyr::select(-warning, -error) |>
+      as.data.frame()
   )
 })
 
@@ -336,10 +338,11 @@ test_that("ard_continuous.survey.design(stat_label)", {
   expect_snapshot(
     ard_continuous(
       dclus1,
-      variables = api00,
+      variables = c(api00, api99),
       statistic = ~ c("mean", "median", "min", "max"),
       stat_label = list(api00 = list(mean = "MeAn", median = "MEDian", min = "MINimum"))
-    )
+    ) |>
+      as.data.frame()
   )
 })
 
