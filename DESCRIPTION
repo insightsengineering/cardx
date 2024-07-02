@@ -1,6 +1,6 @@
 Package: cardx
 Title: Extra Analysis Results Data Utilities
-Version: 0.1.0.9056
+Version: 0.1.0.9060
 Authors@R: c(
     person("Daniel", "Sjoberg", , "danield.sjoberg@gmail.com", role = c("aut", "cre")),
     person("Abinaya", "Yogasekaram", , "abinaya.yogasekaram@contractors.roche.com", role = "aut"),
@@ -38,7 +38,7 @@ Suggests:
     parameters (>= 0.20.2),
     smd (>= 0.6.6),
     spelling,
-    survey (>= 4.1),
+    survey (>= 4.2),
     survival (>= 3.6-4),
     testthat (>= 3.2.0),
     withr (>= 2.5.0)
@@ -51,4 +51,4 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
