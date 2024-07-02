@@ -5,7 +5,7 @@
 #' @param data (`survey.design`)\cr
 #'   a design object often created with [`survey::svydesign()`].
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   columns to include in summaries. Default is `everything()`.
+#'   columns to include in summaries.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   results are calculated for **all combinations** of the columns specified,
 #'   including unobserved combinations and unobserved factor levels.
@@ -56,13 +56,13 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
-  check_not_missing(data)
-  check_class(data, cls = "survey.design")
   check_not_missing(variables)
 
   # process inputs -------------------------------------------------------------
   cards::process_selectors(data$variables, variables = {{ variables }}, by = {{ by }})
   variables <- setdiff(variables, by)
+  check_na_factor_levels(data$variables, by)
+
   cards::process_formula_selectors(
     data$variables[variables],
     statistic = statistic,
@@ -141,7 +141,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
 
   # add class and return ARD object --------------------------------------------
   df_stats |>
-    dplyr::mutate(context = "survey_svycontinuous") |>
+    dplyr::mutate(context = "continuous") |>
     cards::tidy_ard_column_order() %>%
     {structure(., class = c("card", class(.)))} # styler: off
 }
