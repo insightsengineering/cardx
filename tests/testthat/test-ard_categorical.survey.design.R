@@ -1,6 +1,4 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})
+skip_if_not(is_pkg_installed("survey", reference_pkg = "cardx"))
 
 # Test survey.design working (2x3)
 test_that("ard_categorical.survey.design() works", {
