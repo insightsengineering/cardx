@@ -19,7 +19,7 @@ ard_survey_continuous_ci(
 a design object often created with \code{\link[survey:svydesign]{survey::svydesign()}}.}
 
 \item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-columns to include in summaries. Default is \code{everything()}.}
+columns to include in summaries.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 results are calculated for \strong{all combinations} of the columns specified,

@@ -59,11 +59,11 @@ ard_missing.survey.design <- function(data,
   )
   cards::fill_formula_selectors(
     data$variables[variables],
-    statistic = formals(asNamespace("cards")[["ard_missing.survey.design"]])[["statistic"]] |> eval()
+    statistic = formals(asNamespace("cardx")[["ard_missing.survey.design"]])[["statistic"]] |> eval()
   )
   cards::fill_formula_selectors(
     data$variables[variables],
-    stat_label = formals(asNamespace("cards")[["ard_missing.survey.design"]])[["stat_label"]] |> eval()
+    stat_label = formals(asNamespace("cardx")[["ard_missing.survey.design"]])[["stat_label"]] |> eval()
   )
 
   stats_available <- c(
@@ -104,7 +104,7 @@ ard_missing.survey.design <- function(data,
         )
     ) |>
     dplyr::select(-cards::all_ard_variables("levels"), -"stat_label", -"fmt_fn") |>
-    dplyr::slice(1L, .by = "stat_name")
+    dplyr::slice(1L, .by = c(cards::all_ard_groups(), cards::all_ard_variables(), "stat_name"))
 
   # final processing of fmt_fn -------------------------------------------------
   result <- result |>

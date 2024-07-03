@@ -76,10 +76,15 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   cards::check_list_elements(
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats()),
-    error_msg = c("Error in the values of the {.arg statistic} argument.",
-      i = "Values must be in {.val {accepted_svy_stats(FALSE)}}"
+    error_msg = c("Error in the values of the {.arg statistic} argument for variable {.val {variable}}.",
+      i = "Values must be in {.val {cardx:::accepted_svy_stats(FALSE)}}"
     )
   )
+
+  # return empty tibble if no variables selected -------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble())
+  }
 
   # compute the weighted statistics --------------------------------------------
   df_stats <-
@@ -117,7 +122,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
             unlist())
         ) |>
           tidyr::unnest(cols = c("stat_name", "stat_label")),
-        by = "stat_name",
+        by = c("variable", "stat_name"),
         unmatched = "ignore"
       )
   }
@@ -134,7 +139,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
           fmt_fn = map(.data$variable, ~ fmt_fn[[.x]] |> unname())
         ) |>
           tidyr::unnest(cols = c("stat_name", "fmt_fn")),
-        by = "stat_name",
+        by = c("variable", "stat_name"),
         unmatched = "ignore"
       )
   }
@@ -306,5 +311,11 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
   }
 
   df_stat |>
-    dplyr::mutate(stat_name = .env$stat_name)
+    dplyr::mutate(
+      stat_name = .env$stat_name,
+      across(
+        c(cards::all_ard_groups("levels"), cards::all_ard_variables("levels")),
+        ~ map(.x, as.character)
+      )
+    )
 }

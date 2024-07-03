@@ -97,6 +97,11 @@ ard_categorical.survey.design <- function(data,
   )
   denominator <- arg_match(denominator)
 
+  # return empty tibble if no variables selected -------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble())
+  }
+
   # check the missingness
   walk(
     variables,
@@ -105,7 +110,8 @@ ard_categorical.survey.design <- function(data,
         cli::cli_abort(
           c("Column {.val {.x}} is all missing and cannot be tabulated.",
             i = "Only columns of class {.cls logical} and {.cls factor} can be tabulated when all values are missing."
-          )
+          ),
+          call = get_cli_abort_call()
         )
       }
     }
@@ -207,6 +213,21 @@ check_na_factor_levels <- function(data, variables) {
 
 # this function returns a tibble with the SE(p) and DEFF
 .svytable_rate_stats <- function(data, variables, by, denominator, deff) {
+  if (!is_empty(by)) by_lvls <- .unique_values_sort(data$variables, by) # styler: off
+  if (!is_empty(by) && length(by_lvls) == 1L) {
+    data$variables[[by]] <-
+      case_switch(
+        inherits(data$variables[[by]], "factor") ~ fct_expand(data$variables[[by]], paste("not", by_lvls)),
+        .default = factor(data$variables[[by]], levels = c(by_lvls, paste("not", by_lvls)))
+      )
+  }
+  if (!is_empty(by) && inherits(data$variables[[by]], "logical")) {
+    data$variables[[by]] <- factor(data$variables[[by]], levels = c(TRUE, FALSE))
+  }
+  if (!is_empty(by) && !inherits(data$variables[[by]], "factor")) {
+    data$variables[[by]] <- factor(data$variables[[by]])
+  }
+
   lapply(
     variables,
     \(variable) {
@@ -217,20 +238,18 @@ check_na_factor_levels <- function(data, variables) {
 
       # there are issues with svymean() when a variable has only one level. adding a second as needed
       variable_lvls <- .unique_values_sort(data$variables, variable)
-      if (!is_empty(by)) by_lvls <- .unique_values_sort(data$variables, by) # styler: off
       if (length(variable_lvls) == 1L) {
         data$variables[[variable]] <-
           case_switch(
-            inherits(data$variables[[by]], "factor") ~ fct_expand(data$variables[[variable]], paste("not", variable_lvls)),
+            inherits(data$variables[[variable]], "factor") ~ fct_expand(data$variables[[variable]], paste("not", variable_lvls)),
             .default = factor(data$variables[[variable]], levels = c(variable_lvls, paste("not", variable_lvls)))
           )
       }
-      if (!is_empty(by) && length(by_lvls) == 1L) {
-        data$variables[[by]] <-
-          case_switch(
-            inherits(data$variables[[by]], "factor") ~ fct_expand(data$variables[[by]], paste("not", by_lvls)),
-            .default = factor(data$variables[[by]], levels = c(by_lvls, paste("not", by_lvls)))
-          )
+      if (inherits(data$variables[[variable]], "logical")) {
+        data$variables[[variable]] <- factor(data$variables[[variable]], levels = c(TRUE, FALSE))
+      }
+      if (!inherits(data$variables[[variable]], "factor")) {
+        data$variables[[variable]] <- factor(data$variables[[variable]])
       }
 
       # each combination of denominator and whether there is a by variable is handled separately
@@ -409,21 +428,21 @@ check_na_factor_levels <- function(data, variables) {
     "column" =
       df_counts |>
         dplyr::mutate(
-          .by = any_of("group1_level"),
+          .by = c(cards::all_ard_groups(), cards::all_ard_variables("names")),
           N = sum(.data$n),
           p = .data$n / .data$N
         ),
     "row" =
       df_counts |>
         dplyr::mutate(
-          .by = any_of("variable_level"),
+          .by = cards::all_ard_variables(),
           N = sum(.data$n),
           p = .data$n / .data$N
         ),
     "cell" =
       df_counts |>
         dplyr::mutate(
-          .by = any_of(c("group1_level", "variable_level")),
+          .by = c(cards::all_ard_groups("names"), cards::all_ard_variables("names")),
           N = sum(.data$n),
           p = .data$n / .data$N
         )
