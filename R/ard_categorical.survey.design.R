@@ -110,7 +110,8 @@ ard_categorical.survey.design <- function(data,
         cli::cli_abort(
           c("Column {.val {.x}} is all missing and cannot be tabulated.",
             i = "Only columns of class {.cls logical} and {.cls factor} can be tabulated when all values are missing."
-          )
+          ),
+          call = get_cli_abort_call()
         )
       }
     }
