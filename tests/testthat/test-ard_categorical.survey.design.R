@@ -424,7 +424,6 @@ test_that("ard_categorical.survey.design() returns an error when variables have 
 
   # row denom
   svy_titanic$variables$Class <- NA
-  svy_titanic$variables$Class <- fct_na_value_to_level(svy_titanic$variables$Class)
 
   expect_snapshot(
     ard_categorical(
