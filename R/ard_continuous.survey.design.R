@@ -76,7 +76,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   cards::check_list_elements(
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats()),
-    error_msg = c("Error in the values of the {.arg statistic} argument.",
+    error_msg = c("Error in the values of the {.arg statistic} argument for variable {.val {variable}}.",
       i = "Values must be in {.val {cardx:::accepted_svy_stats(FALSE)}}"
     )
   )
