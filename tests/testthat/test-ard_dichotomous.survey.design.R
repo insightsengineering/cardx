@@ -32,7 +32,7 @@ test_that("ard_dichotomous.survey.design() works", {
   )
   expect_invisible(cards::check_ard_structure(ard_dichotomous_col, method = FALSE))
 
-  # col denom with by var
+  # cell denom with by var
   expect_error(
     ard_dichotomous_cell <- ard_dichotomous(svy_dicho,
       by = vs,
@@ -308,4 +308,145 @@ test_that("ard_dichotomous.survey.design() works", {
     NA
   )
   expect_invisible(cards::check_ard_structure(ard_dichotomous_cell, method = FALSE))
+})
+
+test_that("ard_dichotomous.survey.design() works with various input types", {
+  svy_dicho <- survey::svydesign(ids = ~1, data = mtcars, weights = ~1)
+
+  # logical variables
+  # convert variables to logical
+  svy_dicho$variables <- svy_dicho$variables |>
+    dplyr::mutate(across(c("cyl", "am", "vs"), as.logical))
+
+
+  # row denom with by var
+  expect_error(
+    ard_dichotomous_row <-
+      ard_dichotomous(svy_dicho,
+                      by = vs,
+                      variables = c(cyl, am),
+                      value = list(cyl = TRUE),
+                      denominator = "row"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_dichotomous_row, method = FALSE))
+
+  # col denom with by var
+  expect_error(
+    ard_dichotomous_col <- ard_dichotomous(svy_dicho,
+                                           by = vs,
+                                           variables = c(cyl, am),
+                                           value = list(cyl = TRUE),
+                                           denominator = "column"
+    ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_dichotomous_col, method = FALSE))
+
+  # cell denom with by var
+  expect_error(
+    ard_dichotomous_cell <- ard_dichotomous(svy_dicho,
+                                            by = vs,
+                                            variables = c(cyl, am),
+                                            value = list(cyl = TRUE),
+                                            denominator = "cell"
+    ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_dichotomous_cell, method = FALSE))
+
+
+  # variables that are neither logical or factor
+  svy_dicho <- survey::svydesign(ids = ~1, data = mtcars, weights = ~1)
+
+  svy_dicho$variables <- svy_dicho$variables |>
+    dplyr::mutate(across(c("cyl", "am"), as.numeric)) |>
+    dplyr::mutate(across("vs", as.character))
+
+  # row denom with by var
+  expect_error(
+    ard_dichotomous_row <-
+      ard_dichotomous(svy_dicho,
+                      by = vs,
+                      variables = c(cyl, am),
+                      value = list(cyl = 4),
+                      denominator = "row"
+      ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_dichotomous_row, method = FALSE))
+
+  # col denom with by var
+  expect_error(
+    ard_dichotomous_col <- ard_dichotomous(svy_dicho,
+                                           by = vs,
+                                           variables = c(cyl, am),
+                                           value = list(cyl = 4),
+                                           denominator = "column"
+    ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_dichotomous_col, method = FALSE))
+
+  # cell denom with by var
+  expect_error(
+    ard_dichotomous_cell <- ard_dichotomous(svy_dicho,
+                                            by = vs,
+                                            variables = c(cyl, am),
+                                            value = list(cyl = 4),
+                                            denominator = "cell"
+    ),
+    NA
+  )
+  expect_invisible(cards::check_ard_structure(ard_dichotomous_cell, method = FALSE))
+
+})
+
+
+test_that("ard_dichotomous.survey.design() returns an error with erroneous input", {
+
+  # value passed in is not logical should return an error
+  svy_dicho <- survey::svydesign(ids = ~1, data = mtcars, weights = ~1)
+
+  svy_dicho$variables <- svy_dicho$variables |>
+    dplyr::mutate(across(c("cyl", "am"), as.logical))
+
+  expect_snapshot(
+    ard_dichotomous(svy_dicho,
+                    by = vs,
+                    variables = c(cyl, am),
+                    value = list(cyl = 4),
+                    denominator = "row"
+    ),
+  error = TRUE
+)
+
+  # supplied factor value is not a level
+  svy_dicho$variables <- svy_dicho$variables |>
+    dplyr::mutate(across("vs", as.factor))
+
+  svy_dicho$variables$vs
+  expect_snapshot(
+    ard_dichotomous(svy_dicho,
+                    by = cyl,
+                    variables = c(vs, am),
+                    value = list(vs = 4),
+                    denominator = "row"
+    ),
+    error = TRUE
+  )
+
+  svy_dicho$variables <- svy_dicho$variables |>
+    dplyr::mutate(across("disp", as.numeric))
+
+  expect_snapshot(
+    ard_dichotomous(svy_dicho,
+                    by = cyl,
+                    variables = c(vs, disp),
+                    value = list(disp = "turn"),
+                    denominator = "row"
+    ),
+    error = TRUE
+  )
 })
