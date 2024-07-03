@@ -1,6 +1,6 @@
 skip_if_not(is_pkg_installed("survey", reference_pkg = "cardx"))
 
-#Test survey.design works
+# Test survey.design works
 test_that("ard_dichotomous.survey.design() works", {
   svy_dicho <- survey::svydesign(ids = ~1, data = mtcars, weights = ~1)
   # convert variables to factor
@@ -50,7 +50,7 @@ test_that("ard_dichotomous.survey.design() works", {
   # section 1: by variable, row denominator
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "n") |> unlist(),
-    cards::ard_dichotomous(mtcars,
+    ard_dichotomous(mtcars,
       by = vs,
       variables = c(cyl, am),
       value = list(cyl = 4),
@@ -323,10 +323,10 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
   expect_error(
     ard_dichotomous_row <-
       ard_dichotomous(svy_dicho,
-                      by = vs,
-                      variables = c(cyl, am),
-                      value = list(cyl = TRUE),
-                      denominator = "row"
+        by = vs,
+        variables = c(cyl, am),
+        value = list(cyl = TRUE),
+        denominator = "row"
       ),
     NA
   )
@@ -335,10 +335,10 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
   # col denom with by var
   expect_error(
     ard_dichotomous_col <- ard_dichotomous(svy_dicho,
-                                           by = vs,
-                                           variables = c(cyl, am),
-                                           value = list(cyl = TRUE),
-                                           denominator = "column"
+      by = vs,
+      variables = c(cyl, am),
+      value = list(cyl = TRUE),
+      denominator = "column"
     ),
     NA
   )
@@ -347,10 +347,10 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
   # cell denom with by var
   expect_error(
     ard_dichotomous_cell <- ard_dichotomous(svy_dicho,
-                                            by = vs,
-                                            variables = c(cyl, am),
-                                            value = list(cyl = TRUE),
-                                            denominator = "cell"
+      by = vs,
+      variables = c(cyl, am),
+      value = list(cyl = TRUE),
+      denominator = "cell"
     ),
     NA
   )
@@ -368,10 +368,10 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
   expect_error(
     ard_dichotomous_row <-
       ard_dichotomous(svy_dicho,
-                      by = vs,
-                      variables = c(cyl, am),
-                      value = list(cyl = 4),
-                      denominator = "row"
+        by = vs,
+        variables = c(cyl, am),
+        value = list(cyl = 4),
+        denominator = "row"
       ),
     NA
   )
@@ -380,10 +380,10 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
   # col denom with by var
   expect_error(
     ard_dichotomous_col <- ard_dichotomous(svy_dicho,
-                                           by = vs,
-                                           variables = c(cyl, am),
-                                           value = list(cyl = 4),
-                                           denominator = "column"
+      by = vs,
+      variables = c(cyl, am),
+      value = list(cyl = 4),
+      denominator = "column"
     ),
     NA
   )
@@ -392,20 +392,18 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
   # cell denom with by var
   expect_error(
     ard_dichotomous_cell <- ard_dichotomous(svy_dicho,
-                                            by = vs,
-                                            variables = c(cyl, am),
-                                            value = list(cyl = 4),
-                                            denominator = "cell"
+      by = vs,
+      variables = c(cyl, am),
+      value = list(cyl = 4),
+      denominator = "cell"
     ),
     NA
   )
   expect_invisible(cards::check_ard_structure(ard_dichotomous_cell, method = FALSE))
-
 })
 
 
 test_that("ard_dichotomous.survey.design() returns an error with erroneous input", {
-
   # value passed in is not logical should return an error
   svy_dicho <- survey::svydesign(ids = ~1, data = mtcars, weights = ~1)
 
@@ -414,13 +412,13 @@ test_that("ard_dichotomous.survey.design() returns an error with erroneous input
 
   expect_snapshot(
     ard_dichotomous(svy_dicho,
-                    by = vs,
-                    variables = c(cyl, am),
-                    value = list(cyl = 4),
-                    denominator = "row"
+      by = vs,
+      variables = c(cyl, am),
+      value = list(cyl = 4),
+      denominator = "row"
     ),
-  error = TRUE
-)
+    error = TRUE
+  )
 
   # supplied factor value is not a level
   svy_dicho$variables <- svy_dicho$variables |>
@@ -429,10 +427,10 @@ test_that("ard_dichotomous.survey.design() returns an error with erroneous input
   svy_dicho$variables$vs
   expect_snapshot(
     ard_dichotomous(svy_dicho,
-                    by = cyl,
-                    variables = c(vs, am),
-                    value = list(vs = 4),
-                    denominator = "row"
+      by = cyl,
+      variables = c(vs, am),
+      value = list(vs = 4),
+      denominator = "row"
     ),
     error = TRUE
   )
@@ -442,10 +440,10 @@ test_that("ard_dichotomous.survey.design() returns an error with erroneous input
 
   expect_snapshot(
     ard_dichotomous(svy_dicho,
-                    by = cyl,
-                    variables = c(vs, disp),
-                    value = list(disp = "turn"),
-                    denominator = "row"
+      by = cyl,
+      variables = c(vs, disp),
+      value = list(disp = "turn"),
+      denominator = "row"
     ),
     error = TRUE
   )

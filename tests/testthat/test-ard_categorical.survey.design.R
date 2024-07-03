@@ -429,33 +429,36 @@ test_that("ard_categorical.survey.design() returns an error when variables have 
   svy_titanic$variables$Class <- fct_na_value_to_level(svy_titanic$variables$Class)
 
   expect_snapshot(
-      ard_categorical(
-        svy_titanic,
-        variables = c(Class, Age),
-        by = Survived,
-        denominator = "row"
-      ), error = TRUE)
+    ard_categorical(
+      svy_titanic,
+      variables = c(Class, Age),
+      by = Survived,
+      denominator = "row"
+    ),
+    error = TRUE
+  )
 
   # column denom
   expect_snapshot(
-      ard_categorical(
-        svy_titanic,
-        variables = c(Class, Age),
-        by = Survived,
-        denominator = "column"
-      ), error = TRUE
+    ard_categorical(
+      svy_titanic,
+      variables = c(Class, Age),
+      by = Survived,
+      denominator = "column"
+    ),
+    error = TRUE
   )
 
   # cell denom
   expect_snapshot(
     ard_categorical(
-        svy_titanic,
-        variables = c(Class, Age),
-        by = Survived,
-        denominator = "cell"
-      ), error = TRUE
+      svy_titanic,
+      variables = c(Class, Age),
+      by = Survived,
+      denominator = "cell"
+    ),
+    error = TRUE
   )
-
 })
 
 # - Do we get results for unobserved factor levels in the `by` and `variable` variables?
@@ -527,25 +530,25 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
   )
 
   expect_equal(
-  cards::get_ard_statistics(ard_svy_cat_row |> dplyr::arrange_all(), stat_name %in% "p.std.error") |> unlist() |> unname() |> sort(),
-  unname(c(
-    survey::svyby(
-      formula = reformulate2("Survived"),
-      by = reformulate2("Age"),
-      design = svy_titanic,
-      FUN = survey::svymean,
-      na.rm = TRUE,
-      deff = "Design Effect"
-    )[, c("se.SurvivedYes", "se.SurvivedNo", "se.SurvivedUnknown")] |> unlist(),
-    survey::svyby(
-      formula = reformulate2("Survived"),
-      by = reformulate2("Class"),
-      design = svy_titanic,
-      FUN = survey::svymean,
-      na.rm = TRUE,
-      deff = "Design Effect"
-    )[, c("se.SurvivedYes", "se.SurvivedNo", "se.SurvivedUnknown")] |> unlist()
-  )) |> sort()
+    cards::get_ard_statistics(ard_svy_cat_row |> dplyr::arrange_all(), stat_name %in% "p.std.error") |> unlist() |> unname() |> sort(),
+    unname(c(
+      survey::svyby(
+        formula = reformulate2("Survived"),
+        by = reformulate2("Age"),
+        design = svy_titanic,
+        FUN = survey::svymean,
+        na.rm = TRUE,
+        deff = "Design Effect"
+      )[, c("se.SurvivedYes", "se.SurvivedNo", "se.SurvivedUnknown")] |> unlist(),
+      survey::svyby(
+        formula = reformulate2("Survived"),
+        by = reformulate2("Class"),
+        design = svy_titanic,
+        FUN = survey::svymean,
+        na.rm = TRUE,
+        deff = "Design Effect"
+      )[, c("se.SurvivedYes", "se.SurvivedNo", "se.SurvivedUnknown")] |> unlist()
+    )) |> sort()
   )
 
   expect_equal(
@@ -604,7 +607,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
         deff = "Design Effect"
       )[, c("se.Class1st", "se.Class2nd", "se.Class3rd", "se.ClassCrew")] |> unlist()
     )) |> sort()
- )
+  )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort(),
@@ -643,25 +646,25 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
   )
 
   expect_equal(
-  cards::get_ard_statistics(ard_svy_cat_cell |> dplyr::arrange_all(), stat_name %in% "p.std.error") |> unlist() |> unname() |> sort(),
-  unname(c(
-    as.data.frame(survey::svymean(
-      x = inject(~ interaction(!!sym(bt("Survived")), !!sym(bt("Class")))),
-      design = svy_titanic,
-      na.rm = TRUE,
-      deff = "Design Effect"
-    ))[, "SE"] |> unlist(),
-    as.data.frame(survey::svymean(
-      x = inject(~ interaction(!!sym(bt("Survived")), !!sym(bt("Age")))),
-      design = svy_titanic,
-      na.rm = TRUE,
-      deff = "Design Effect"
-    ))[, "SE"] |> unlist()
-  )) |> sort()
+    cards::get_ard_statistics(ard_svy_cat_cell |> dplyr::arrange_all(), stat_name %in% "p.std.error") |> unlist() |> unname() |> sort(),
+    unname(c(
+      as.data.frame(survey::svymean(
+        x = inject(~ interaction(!!sym(bt("Survived")), !!sym(bt("Class")))),
+        design = svy_titanic,
+        na.rm = TRUE,
+        deff = "Design Effect"
+      ))[, "SE"] |> unlist(),
+      as.data.frame(survey::svymean(
+        x = inject(~ interaction(!!sym(bt("Survived")), !!sym(bt("Age")))),
+        design = svy_titanic,
+        na.rm = TRUE,
+        deff = "Design Effect"
+      ))[, "SE"] |> unlist()
+    )) |> sort()
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort() ,
+    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort(),
     cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname() |> sort()
   )
@@ -939,7 +942,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_cell |> dplyr::arrange_all(), stat_name %in% "p.std.error") |> unlist() |> unname() |> sort(),
+    cards::get_ard_statistics(ard_svy_cat_cell |> dplyr::arrange_all(), stat_name %in% "p.std.error" & group1_level == TRUE) |> unlist() |> unname() |> sort(),
     unname(c(
       as.data.frame(survey::svymean(
         x = inject(~ interaction(!!sym(bt("Survived")), !!sym(bt("Class")))),
@@ -957,7 +960,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort() ,
+    cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort(),
     cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname() |> sort()
   )
