@@ -1,6 +1,4 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})
+skip_if_not(is_pkg_installed("survey", reference_pkg = "cardx"))
 
 # Test survey.design working (2x3)
 test_that("ard_categorical.survey.design() works", {
@@ -426,7 +424,6 @@ test_that("ard_categorical.survey.design() returns an error when variables have 
 
   # row denom
   svy_titanic$variables$Class <- NA
-  svy_titanic$variables$Class <- fct_na_value_to_level(svy_titanic$variables$Class)
 
   expect_snapshot(
     ard_categorical(
