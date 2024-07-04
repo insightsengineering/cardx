@@ -92,7 +92,7 @@ ard_categorical.survey.design <- function(data,
     x = statistic,
     predicate = \(x) all(x %in% accepted_svy_stats),
     error_msg = c("Error in the values of the {.arg statistic} argument.",
-                  i = "Values must be in {.val {accepted_svy_stats}}"
+      i = "Values must be in {.val {accepted_svy_stats}}"
     )
   )
   denominator <- arg_match(denominator)
@@ -348,9 +348,9 @@ check_na_factor_levels <- function(data, variables) {
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-        str_remove_all("DEff\\.") %>%
-        str_remove_all(by) %>%
-        str_remove_all("`")
+          str_remove_all("DEff\\.") %>%
+          str_remove_all(by) %>%
+          str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
     set_names(c("variable_level", "group1_level", "p", "p.std.error", "deff")) |>
@@ -381,9 +381,9 @@ check_na_factor_levels <- function(data, variables) {
         ),
       name =
         str_remove_all(.data$name, "se\\.") %>%
-        str_remove_all("DEff\\.") %>%
-        str_remove_all(variable) %>%
-        str_remove_all("`")
+          str_remove_all("DEff\\.") %>%
+          str_remove_all(variable) %>%
+          str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
     set_names(c("group1_level", "variable_level", "p", "p.std.error", "deff")) |>
@@ -425,34 +425,36 @@ check_na_factor_levels <- function(data, variables) {
 
   # add big N and p, then return data frame of results
   switch(denominator,
-         "column" =
-           df_counts |>
-           dplyr::mutate(
-             .by = c(cards::all_ard_groups(), cards::all_ard_variables("names")),
-             N = sum(.data$n),
-             p = .data$n / .data$N
-           ),
-         "row" =
-           df_counts |>
-           dplyr::mutate(
-             .by = cards::all_ard_variables(),
-             N = sum(.data$n),
-             p = .data$n / .data$N
-           ),
-         "cell" =
-           df_counts |>
-           dplyr::mutate(
-             .by = c(cards::all_ard_groups("names"), cards::all_ard_variables("names")),
-             N = sum(.data$n),
-             p = .data$n / .data$N
-           )
+    "column" =
+      df_counts |>
+        dplyr::mutate(
+          .by = c(cards::all_ard_groups(), cards::all_ard_variables("names")),
+          N = sum(.data$n),
+          p = .data$n / .data$N
+        ),
+    "row" =
+      df_counts |>
+        dplyr::mutate(
+          .by = cards::all_ard_variables(),
+          N = sum(.data$n),
+          p = .data$n / .data$N
+        ),
+    "cell" =
+      df_counts |>
+        dplyr::mutate(
+          .by = c(cards::all_ard_groups("names"), cards::all_ard_variables("names")),
+          N = sum(.data$n),
+          p = .data$n / .data$N
+        )
   )
 }
 
 .df_all_combos <- function(data, variable, by) {
   df <-
     tidyr::expand_grid(
-      group1_level = switch(!is_empty(by), .unique_and_sorted(data$variables[[by]])),
+      group1_level = switch(!is_empty(by),
+        .unique_and_sorted(data$variables[[by]])
+      ),
       variable_level = .unique_and_sorted(data$variables[[variable]])
     ) |>
     dplyr::mutate(variable = .env$variable)
