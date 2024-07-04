@@ -11,7 +11,7 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examples
+#' @examplesIf cardx:::is_pkg_installed("survey", reference_pkg = "cardx")
 #' survey::svydesign(ids = ~1, data = mtcars, weights = ~1) |>
 #'   ard_dichotomous(by = vs, variables = c(cyl, am), value = list(cyl = 4))
 ard_dichotomous.survey.design <- function(data,
