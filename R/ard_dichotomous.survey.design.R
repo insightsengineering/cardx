@@ -94,12 +94,23 @@ ard_dichotomous.survey.design <- function(data,
       accepted_values <- .unique_and_sorted(data[[column]])
       if (length(value) != 1L || !value %in% accepted_values) {
         message <- "Error in argument {.arg value} for variable {.val {column}}."
+        message <-
+          case_switch(
+            length(value) != 1L ~ c(message, "i" = "The value must be one of {.val {accepted_values}}."),
+            .default = c(message, "i" = "A value of {.val {value}} was passed, but must be one of {.val {accepted_values}}.")
+          )
+        if (length(value) == 1L) {
+          message <-
+            case_switch(
+              inherits(data[[column]], "factor") ~
+                c(message, i = "To summarize this value, use {.fun forcats::fct_expand} to add {.val {value}} as a level."),
+              .default = c(message, i = "To summarize this value, make the column a factor and include {.val {value}} as a level.")
+            )
+        }
+
+
         cli::cli_abort(
-          if (length(value) != 1L) {
-            c(message, "i" = "The value must be one of {.val {accepted_values}}.")
-          } else {
-            c(message, "i" = "A value of {.val {value}} was passed, but must be one of {.val {accepted_values}}.")
-          },
+          message = message,
           call = get_cli_abort_call()
         )
       }
