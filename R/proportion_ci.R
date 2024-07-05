@@ -2,7 +2,7 @@
 #'
 #' Functions to calculate different proportion confidence intervals for use in `ard_proportion()`.
 #'
-#' @inheritParams ard_proportion_ci
+#' @inheritParams ard_categorical_ci
 #' @param x vector of a binary values, i.e. a logical vector, or numeric with values `c(0, 1)`
 #' @return Confidence interval of a proportion.
 #'

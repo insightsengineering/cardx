@@ -1,8 +1,8 @@
-# ard_survey_categorical_ci(data)
+# ard_categorical_ci(data)
 
     Code
-      dplyr::select(as.data.frame(ard_survey_categorical_ci(dclus1, variables = c(
-        both, awards))), -warning, -error, -fmt_fn, -context)
+      dplyr::select(as.data.frame(ard_categorical_ci(dclus1, variables = c(both,
+        awards))), -warning, -error, -fmt_fn, -context)
     Output
          variable variable_level  stat_name stat_label      stat
       1      both             No   estimate   estimate  0.273224

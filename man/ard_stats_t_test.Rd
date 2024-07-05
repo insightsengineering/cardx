@@ -23,7 +23,7 @@ optional column name to compare by.}
 \item{conf.level}{(scalar \code{numeric})\cr
 confidence level for confidence interval. Default is \code{0.95}.}
 
-\item{...}{arguments passed to \code{t.test(...)}}
+\item{...}{arguments passed to \code{t.test()}}
 
 \item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name of the subject or participant ID}

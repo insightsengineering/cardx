@@ -42,7 +42,7 @@ ard_stats_wilcox_test_onesample <- function(data, variables, by = dplyr::group_v
     data = data,
     variables = all_of(variables),
     by = all_of(by),
-    statistic = all_of(variables) ~ list(t_test_onesample = \(x) stats::wilcox.test(x = x, conf.level = conf.level, ...) |> broom::tidy())
+    statistic = all_of(variables) ~ list(wilcox_test_onesample = \(x) stats::wilcox.test(x = x, conf.level = conf.level, ...) |> broom::tidy())
   ) |>
     cards::bind_ard(
       cards::ard_continuous(

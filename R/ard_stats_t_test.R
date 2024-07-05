@@ -14,7 +14,7 @@
 #'   column name of the subject or participant ID
 #' @param conf.level (scalar `numeric`)\cr
 #'   confidence level for confidence interval. Default is `0.95`.
-#' @param ... arguments passed to `t.test(...)`
+#' @param ... arguments passed to `t.test()`
 #'
 #' @return ARD data frame
 #' @name ard_stats_t_test

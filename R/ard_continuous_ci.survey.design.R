@@ -1,4 +1,4 @@
-#' ARD survey categorical CIs
+#' ARD survey continuous CIs
 #'
 #' One-sample confidence intervals for continuous variables' means and medians.
 #' Confidence limits are calculated with `survey::svymean()` and `survey::svyquantile()`.
@@ -23,15 +23,15 @@
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
-#' ard_survey_continuous_ci(dclus1, variables = api00)
-#' ard_survey_continuous_ci(dclus1, variables = api00, method = "xlogit")
-ard_survey_continuous_ci <- function(data,
-                                     variables,
-                                     by = NULL,
-                                     method = c("svymean", "mean", "beta", "xlogit", "asin", "score"),
-                                     conf.level = 0.95,
-                                     df = survey::degf(data),
-                                     ...) {
+#' ard_continuous_ci(dclus1, variables = api00)
+#' ard_continuous_ci(dclus1, variables = api00, method = "svymedian.xlogit")
+ard_continuous_ci.survey.design <- function(data,
+                                             variables,
+                                             by = NULL,
+                                             method = c("svymean", "svymedian.mean", "svymedian.beta", "svymedian.xlogit", "svymedian.asin", "svymedian.score"),
+                                             conf.level = 0.95,
+                                             df = survey::degf(data),
+                                             ...) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
@@ -127,11 +127,11 @@ ard_survey_continuous_ci <- function(data,
           conf.level = .env$conf.level,
           ...
         ) |>
-          list(),
+        list(),
       result =
         .data$lst_result[["result"]] |>
-          enframe("stat_name", "stat") |>
-          list(),
+        enframe("stat_name", "stat") |>
+        list(),
       warning = .data$lst_result["warning"] |> unname(),
       error = .data$lst_result["error"] |> unname(),
       context = "survey_continuous_ci"
@@ -183,7 +183,7 @@ ard_survey_continuous_ci <- function(data,
       svyquantile <-
         survey::svyquantile(
           x = reformulate2(variable), design = data, quantiles = 0.5,
-          na.rm = TRUE, interval.type = method
+          na.rm = TRUE, interval.type = str_remove(method, pattern = "^svymedian\\.")
         )
 
       lst_svyquantile <- svyquantile |>
