@@ -26,12 +26,12 @@
 #' ard_continuous_ci(dclus1, variables = api00)
 #' ard_continuous_ci(dclus1, variables = api00, method = "svymedian.xlogit")
 ard_continuous_ci.survey.design <- function(data,
-                                             variables,
-                                             by = NULL,
-                                             method = c("svymean", "svymedian.mean", "svymedian.beta", "svymedian.xlogit", "svymedian.asin", "svymedian.score"),
-                                             conf.level = 0.95,
-                                             df = survey::degf(data),
-                                             ...) {
+                                            variables,
+                                            by = NULL,
+                                            method = c("svymean", "svymedian.mean", "svymedian.beta", "svymedian.xlogit", "svymedian.asin", "svymedian.score"),
+                                            conf.level = 0.95,
+                                            df = survey::degf(data),
+                                            ...) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
@@ -127,11 +127,11 @@ ard_continuous_ci.survey.design <- function(data,
           conf.level = .env$conf.level,
           ...
         ) |>
-        list(),
+          list(),
       result =
         .data$lst_result[["result"]] |>
-        enframe("stat_name", "stat") |>
-        list(),
+          enframe("stat_name", "stat") |>
+          list(),
       warning = .data$lst_result["warning"] |> unname(),
       error = .data$lst_result["error"] |> unname(),
       context = "survey_continuous_ci"

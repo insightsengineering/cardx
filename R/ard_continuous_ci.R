@@ -33,8 +33,7 @@ ard_continuous_ci.data.frame <- function(data, variables, by = dplyr::group_vars
   method <- arg_match(method)
 
   # calculate CIs --------------------------------------------------------------
-  switch(
-    method,
+  switch(method,
     "t.test" =
       ard_stats_t_test_onesample(
         data = data,
