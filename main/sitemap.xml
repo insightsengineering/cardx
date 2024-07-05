@@ -43,7 +43,19 @@
     <loc>https://insightsengineering.github.io/cardx/reference/ard_categorical.survey.design.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_categorical_ci.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_categorical_ci.survey.design.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_continuous.survey.design.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_continuous_ci.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/cardx/reference/ard_continuous_ci.survey.design.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_dichotomous.survey.design.html</loc>
@@ -59,9 +71,6 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_missing.survey.design.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/cardx/reference/ard_proportion_ci.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_regression.html</loc>
@@ -110,12 +119,6 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_stats_wilcox_test_onesample.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/cardx/reference/ard_survey_categorical_ci.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/cardx/reference/ard_survey_continuous_ci.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/cardx/reference/ard_survey_svychisq.html</loc>
