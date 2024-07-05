@@ -1,7 +1,7 @@
-# ard_proportion_ci(method='strat_wilson') works
+# ard_categorical_ci(method='strat_wilson') works
 
     Code
-      ard_proportion_ci_strat_wilson
+      ard_categorical_ci_strat_wilson
     Message
       {cards} data frame: 6 x 9
     Output
@@ -18,7 +18,7 @@
 ---
 
     Code
-      ard_proportion_ci_strat_wilsoncc
+      ard_categorical_ci_strat_wilsoncc
     Message
       {cards} data frame: 6 x 9
     Output
@@ -32,10 +32,10 @@
     Message
       i 3 more variables: fmt_fn, warning, error
 
-# ard_proportion_ci() messaging
+# ard_categorical_ci() messaging
 
     Code
-      ard <- ard_proportion_ci(data = mtcars, variables = cyl, value = cyl ~ 10,
+      ard <- ard_categorical_ci(data = mtcars, variables = cyl, value = cyl ~ 10,
       method = "jeffreys")
     Condition
       Warning:

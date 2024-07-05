@@ -1,6 +1,6 @@
 skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx")))
 
-test_that("ard_proportion_ci() works", {
+test_that("ard_categorical_ci() works", {
   # testing the easy methods together for binary variables
   expect_error(
     lst_ard_props <-
@@ -10,7 +10,7 @@ test_that("ard_proportion_ci() works", {
       ) |>
       lapply(
         \(x) {
-          ard_proportion_ci(
+          ard_categorical_ci(
             data = mtcars,
             variables = c(am, vs),
             method = x
@@ -31,7 +31,7 @@ test_that("ard_proportion_ci() works", {
   # testing a categorical variable
   expect_error(
     ard_factor <-
-      ard_proportion_ci(
+      ard_categorical_ci(
         mtcars |> dplyr::mutate(cyl = factor(cyl, levels = c(4, 6, 8, 10))),
         variables = cyl,
         by = am
@@ -59,7 +59,7 @@ test_that("ard_proportion_ci() works", {
   expect_silent(cards::check_ard_structure(ard_factor))
 })
 
-test_that("ard_proportion_ci(method='strat_wilson') works", {
+test_that("ard_categorical_ci(method='strat_wilson') works", {
   withr::local_seed(1)
   rsp <- c(
     sample(c(TRUE, FALSE), size = 40, prob = c(3 / 4, 1 / 4), replace = TRUE),
@@ -75,8 +75,8 @@ test_that("ard_proportion_ci(method='strat_wilson') works", {
   weights <- 1:6 / sum(1:6)
 
   expect_error(
-    ard_proportion_ci_strat_wilson <-
-      ard_proportion_ci(
+    ard_categorical_ci_strat_wilson <-
+      ard_categorical_ci(
         data = data.frame(
           rsp = rsp,
           strata = interaction(strata_data)
@@ -89,11 +89,11 @@ test_that("ard_proportion_ci(method='strat_wilson') works", {
       ),
     NA
   )
-  expect_snapshot(ard_proportion_ci_strat_wilson)
+  expect_snapshot(ard_categorical_ci_strat_wilson)
 
   expect_error(
-    ard_proportion_ci_strat_wilsoncc <-
-      ard_proportion_ci(
+    ard_categorical_ci_strat_wilsoncc <-
+      ard_categorical_ci(
         data = data.frame(
           rsp = rsp,
           strata = interaction(strata_data)
@@ -106,12 +106,12 @@ test_that("ard_proportion_ci(method='strat_wilson') works", {
       ),
     NA
   )
-  expect_snapshot(ard_proportion_ci_strat_wilsoncc)
+  expect_snapshot(ard_categorical_ci_strat_wilsoncc)
 })
 
-test_that("ard_proportion_ci() messaging", {
+test_that("ard_categorical_ci() messaging", {
   expect_snapshot(
-    ard <- ard_proportion_ci(
+    ard <- ard_categorical_ci(
       data = mtcars,
       variables = cyl,
       value = cyl ~ 10,

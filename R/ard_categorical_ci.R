@@ -14,7 +14,7 @@
 #'   Default is `0.95`
 #' @param method (`string`)\cr
 #'   string indicating the type of confidence interval to calculate.
-#'   Must be one of `r formals(ard_proportion_ci)[["method"]] |> eval() |> shQuote("sh")`.
+#'   Must be one of `r formals(ard_categorical_ci)[["method"]] |> eval() |> shQuote("sh")`.
 #'   See `?proportion_ci` for details.
 #' @param strata,weights,max.iterations arguments passed to `proportion_ci_strat_wilson()`,
 #'   when `method='strat_wilson'`
@@ -25,29 +25,42 @@
 #'   columns coded as `0`/`1` and `TRUE`/`FALSE` will summarize the `1` and `TRUE` levels.
 #'
 #' @return an ARD data frame
-#' @export
+#' @name ard_categorical_ci
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' # compute CI for binary variables
-#' ard_proportion_ci(mtcars, variables = c(vs, am), method = "wilson")
+#' ard_categorical_ci(mtcars, variables = c(vs, am), method = "wilson")
 #'
 #' # compute CIs for each level of a categorical variable
-#' ard_proportion_ci(mtcars, variables = cyl, method = "jeffreys")
-ard_proportion_ci <- function(data,
-                              variables,
-                              by = dplyr::group_vars(data),
-                              method = c(
-                                "waldcc", "wald", "clopper-pearson",
-                                "wilson", "wilsoncc",
-                                "strat_wilson", "strat_wilsoncc",
-                                "agresti-coull", "jeffreys"
-                              ),
-                              conf.level = 0.95,
-                              value = list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE),
-                              strata = NULL,
-                              weights = NULL,
-                              max.iterations = 10) {
+#' ard_categorical_ci(mtcars, variables = cyl, method = "jeffreys")
+NULL
+
+#' @rdname ard_categorical_ci
+#' @export
+ard_categorical_ci <- function(data, ...) {
+  check_not_missing(data)
+  UseMethod("ard_categorical_ci")
+}
+
+#' @rdname ard_categorical_ci
+#' @export
+ard_categorical_ci.data.frame <- function(data,
+                                          variables,
+                                          by = dplyr::group_vars(data),
+                                          method = c(
+                                            "waldcc", "wald", "clopper-pearson",
+                                            "wilson", "wilsoncc",
+                                            "strat_wilson", "strat_wilsoncc",
+                                            "agresti-coull", "jeffreys"
+                                          ),
+                                          conf.level = 0.95,
+                                          value = list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE),
+                                          strata = NULL,
+                                          weights = NULL,
+                                          max.iterations = 10,
+                                          ...) {
   set_cli_abort_call()
+  check_dots_empty()
 
   # check installed packages ---------------------------------------------------
   check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
@@ -137,8 +150,8 @@ ard_proportion_ci <- function(data,
   unique_levels <-
     # styler: off
     if (is.logical(data[[variable]])) c(TRUE, FALSE)
-    else if (is.factor(data[[variable]])) factor(levels(data[[variable]]), levels = levels(data[[variable]]))
-    else unique(data[[variable]]) |> sort()
+  else if (is.factor(data[[variable]])) factor(levels(data[[variable]]), levels = levels(data[[variable]]))
+  else unique(data[[variable]]) |> sort()
   # styler: on
 
   if (!is_empty(value) && !value %in% unique_levels) {

@@ -1,8 +1,8 @@
-# ard_survey_continuous_ci(data)
+# ard_continuous_ci(data)
 
     Code
-      dplyr::select(as.data.frame(ard_survey_continuous_ci(dclus1, variables = c(
-        api00, api99))), -warning, -error)
+      dplyr::select(as.data.frame(ard_continuous_ci(dclus1, variables = c(api00,
+        api99))), -warning, -error)
     Output
          variable              context  stat_name stat_label     stat fmt_fn
       1     api00 survey_continuous_ci   estimate   estimate 644.1694      2
@@ -16,10 +16,10 @@
       9     api99 survey_continuous_ci  conf.high  conf.high 658.9357      2
       10    api99 survey_continuous_ci conf.level conf.level     0.95      2
 
-# ard_survey_continuous_ci() errors are captured
+# ard_continuous_ci() errors are captured
 
     Code
-      ard_survey_continuous_ci(dclus1, variables = c(api00, api99), df = letters)
+      ard_continuous_ci(dclus1, variables = c(api00, api99), df = letters)
     Message
       {cards} data frame: 10 x 8
     Output
@@ -40,7 +40,7 @@
 ---
 
     Code
-      ard_survey_continuous_ci(dclus1, variables = sch.wide, method = "beta")
+      ard_continuous_ci(dclus1, variables = sch.wide, method = "svymedian.beta")
     Message
       Column "sch.wide" is not <numeric> and results may be an unexpected format.
       {cards} data frame: 5 x 8

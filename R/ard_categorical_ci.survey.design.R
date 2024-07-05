@@ -4,10 +4,9 @@
 #' [`survey::svyciprop()`].
 #'
 #' @inheritParams ard_continuous.survey.design
+#' @inheritParams ard_categorical_ci.data.frame
 #' @param method (`string`)\cr
 #'   Method passed to `survey::svyciprop(method)`
-#' @param conf.level (scalar `numeric`)\cr
-#'   confidence level for confidence interval. Default is `0.95`.
 #' @param df (`numeric`)\cr
 #'   denominator degrees of freedom, passed to `survey::svyciprop(df)`.
 #'   Default is `survey::degf(data)`.
@@ -20,16 +19,18 @@
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
-#' ard_survey_categorical_ci(dclus1, variables = sch.wide)
-#' ard_survey_categorical_ci(dclus1, variables = sch.wide, method = "xlogit")
-ard_survey_categorical_ci <- function(data,
-                                      variables,
-                                      by = NULL,
-                                      method = c("logit", "likelihood", "asin", "beta", "mean", "xlogit"),
-                                      conf.level = 0.95,
-                                      df = survey::degf(data),
-                                      ...) {
+#' ard_categorical_ci(dclus1, variables = sch.wide)
+#' ard_categorical_ci(dclus1, variables = sch.wide, value = sch.wide ~ "Yes", method = "xlogit")
+ard_categorical_ci.survey.design <- function(data,
+                                             variables,
+                                             by = NULL,
+                                             method = c("logit", "likelihood", "asin", "beta", "mean", "xlogit"),
+                                             conf.level = 0.95,
+                                             value = list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE),
+                                             df = survey::degf(data),
+                                             ...) {
   set_cli_abort_call()
+  check_dots_empty()
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
@@ -40,6 +41,10 @@ ard_survey_categorical_ci <- function(data,
     data = data$variables,
     variables = {{ variables }},
     by = {{ by }}
+  )
+  cards::process_formula_selectors(
+    data = data$variables,
+    value = value
   )
   check_scalar(by, allow_empty = TRUE)
   check_scalar_range(conf.level, range = c(0, 1))
@@ -54,11 +59,12 @@ ard_survey_categorical_ci <- function(data,
     conf.level = conf.level,
     method = method,
     df = df,
+    value = value,
     ...
   )
 }
 
-.calculate_ard_onesample_survey_ci <- function(FUN, data, variables, by, conf.level, ...) {
+.calculate_ard_onesample_survey_ci <- function(FUN, data, variables, by, conf.level, value, ...) {
   # return empty data frame if no variables to process -------------------------
   if (is_empty(variables)) return(dplyr::tibble()) # styler: off
 
@@ -72,6 +78,7 @@ ard_survey_categorical_ci <- function(data,
         variable = variable,
         by = by,
         conf.level = conf.level,
+        value = value[[variable]],
         ...
       )
     }
@@ -79,7 +86,7 @@ ard_survey_categorical_ci <- function(data,
     dplyr::bind_rows()
 }
 
-.calculate_one_ard_categorical_survey_ci <- function(FUN, data, variable, by, conf.level, ...) {
+.calculate_one_ard_categorical_survey_ci <- function(FUN, data, variable, by, conf.level, value, ...) {
   variable_levels <- .unique_values_sort(data$variables, variable = variable)
   if (!is_empty(by)) {
     by_levels <- .unique_values_sort(data$variables, variable = by)
@@ -126,7 +133,7 @@ ard_survey_categorical_ci <- function(data,
           list(),
       warning = .data$lst_result["warning"] |> unname(),
       error = .data$lst_result["error"] |> unname(),
-      context = "survey_categorical_ci"
+      context = "categorical_ci"
     ) |>
     dplyr::select(-"lst_result") |>
     dplyr::ungroup() |>
@@ -137,6 +144,14 @@ ard_survey_categorical_ci <- function(data,
     ) |>
     cards::tidy_ard_column_order() %>%
     structure(., class = c("card", class(.)))
+
+  # if a value was passed for the variable, subset on those results
+  if (!is_empty(value)) {
+    df_full <- df_full |>
+      dplyr::filter(.data$variable_level %in% .env$value)
+  }
+
+  df_full
 }
 
 

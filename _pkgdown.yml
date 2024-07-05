@@ -67,8 +67,8 @@ reference:
       - ard_dichotomous.survey.design
       - ard_missing.survey.design
       - ard_attributes.survey.design
-      - ard_survey_continuous_ci
-      - ard_survey_categorical_ci
+      - ard_continuous_ci.survey.design
+      - ard_categorical_ci.survey.design
       - ard_survey_svychisq
       - ard_survey_svyranktest
       - ard_survey_svyttest
@@ -81,7 +81,8 @@ reference:
 
   - subtitle: "Other ARD functions"
   - contents:
-      - ard_proportion_ci
+      - ard_continuous_ci.data.frame
+      - ard_categorical_ci.data.frame
       - ard_regression
       - ard_regression_basic
 

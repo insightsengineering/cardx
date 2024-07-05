@@ -26,7 +26,7 @@ optional column name to stratify results by.}
 \item{conf.level}{(scalar \code{numeric})\cr
 confidence level for confidence interval. Default is \code{0.95}.}
 
-\item{...}{arguments passed to \code{t.test(...)}}
+\item{...}{arguments passed to \code{t.test()}}
 }
 \value{
 ARD data frame

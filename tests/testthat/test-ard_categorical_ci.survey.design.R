@@ -3,17 +3,17 @@ skip_if_not(is_pkg_installed("survey", reference_pkg = "cards"))
 data(api, package = "survey")
 dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
-test_that("ard_survey_categorical_ci(data)", {
+test_that("ard_categorical_ci(data)", {
   expect_snapshot(
-    ard_survey_categorical_ci(dclus1, variables = c(both, awards)) |>
+    ard_categorical_ci(dclus1, variables = c(both, awards)) |>
       as.data.frame() |>
       dplyr::select(-warning, -error, -fmt_fn, -context)
   )
 })
 
-test_that("ard_survey_categorical_ci(variables)", {
+test_that("ard_categorical_ci(variables)", {
   expect_silent(
-    ard <- ard_survey_categorical_ci(dclus1, variables = c(both, awards))
+    ard <- ard_categorical_ci(dclus1, variables = c(both, awards))
   )
 
   expect_equal(
@@ -24,7 +24,7 @@ test_that("ard_survey_categorical_ci(variables)", {
   )
 
   expect_equal(
-    ard_survey_categorical_ci(dclus1, variables = starts_with("xxxxxx")),
+    ard_categorical_ci(dclus1, variables = starts_with("xxxxxx")),
     dplyr::tibble()
   )
 
@@ -32,25 +32,25 @@ test_that("ard_survey_categorical_ci(variables)", {
   dclus1_with_dbl <- dclus1
   dclus1_with_dbl$variables[["both"]] <- dclus1_with_dbl$variables[["both"]] |> as.numeric()
   expect_equal(
-    ard_survey_categorical_ci(dclus1_with_dbl, variables = both) |> dplyr::select(-variable_level),
-    ard_survey_categorical_ci(dclus1, variables = both) |> dplyr::select(-variable_level)
+    ard_categorical_ci(dclus1_with_dbl, variables = both) |> dplyr::select(-variable_level),
+    ard_categorical_ci(dclus1, variables = both) |> dplyr::select(-variable_level)
   )
 
   # check NA values don't affect result
   dclus1_with_na <- dclus1
   dclus1_with_na$variables[["both"]][1:100] <- NA
   expect_equal(
-    ard_survey_categorical_ci(dclus1_with_na, variables = both),
+    ard_categorical_ci(dclus1_with_na, variables = both),
     dclus1_with_na |>
       subset(!is.na(both)) |>
-      ard_survey_categorical_ci(variables = both, df = survey::degf(dclus1_with_na))
+      ard_categorical_ci(variables = both, df = survey::degf(dclus1_with_na))
   )
 })
 
 
-test_that("ard_survey_categorical_ci(by)", {
+test_that("ard_categorical_ci(by)", {
   expect_silent(
-    ard <- ard_survey_categorical_ci(dclus1, variables = c(both, awards), by = sch.wide)
+    ard <- ard_categorical_ci(dclus1, variables = c(both, awards), by = sch.wide)
   )
 
   expect_equal(
@@ -72,7 +72,7 @@ test_that("ard_survey_categorical_ci(by)", {
     {
       dclus1_copy <- dclus1
       dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.integer()
-      ard_survey_categorical_ci(dclus1_copy, variables = c(both, awards), by = sch.wide) |> dplyr::pull("stat")
+      ard_categorical_ci(dclus1_copy, variables = c(both, awards), by = sch.wide) |> dplyr::pull("stat")
     }
   )
 
@@ -81,14 +81,14 @@ test_that("ard_survey_categorical_ci(by)", {
     {
       dclus1_copy <- dclus1
       dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.character()
-      ard_survey_categorical_ci(dclus1_copy, variables = c(both, awards), by = sch.wide) |> dplyr::pull("stat")
+      ard_categorical_ci(dclus1_copy, variables = c(both, awards), by = sch.wide) |> dplyr::pull("stat")
     }
   )
 })
 
-test_that("ard_survey_categorical_ci(conf.level)", {
+test_that("ard_categorical_ci(conf.level)", {
   expect_silent(
-    ard <- ard_survey_categorical_ci(dclus1, variables = c(both, awards), conf.level = 0.80)
+    ard <- ard_categorical_ci(dclus1, variables = c(both, awards), conf.level = 0.80)
   )
 
   expect_equal(
@@ -99,9 +99,9 @@ test_that("ard_survey_categorical_ci(conf.level)", {
   )
 })
 
-test_that("ard_survey_categorical_ci(method)", {
+test_that("ard_categorical_ci(method)", {
   expect_silent(
-    ard <- ard_survey_categorical_ci(dclus1, variables = c(both, awards), method = "likelihood")
+    ard <- ard_categorical_ci(dclus1, variables = c(both, awards), method = "likelihood")
   )
 
   expect_equal(

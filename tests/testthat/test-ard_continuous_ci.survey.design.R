@@ -3,17 +3,17 @@ skip_if_not(is_pkg_installed("survey", reference_pkg = "cards"))
 data(api, package = "survey")
 dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
-test_that("ard_survey_continuous_ci(data)", {
+test_that("ard_continuous_ci(data)", {
   expect_snapshot(
-    ard_survey_continuous_ci(dclus1, variables = c(api00, api99)) |>
+    ard_continuous_ci(dclus1, variables = c(api00, api99)) |>
       as.data.frame() |>
       dplyr::select(-warning, -error)
   )
 })
 
-test_that("ard_survey_continuous_ci(variables)", {
+test_that("ard_continuous_ci(variables)", {
   expect_silent(
-    ard <- ard_survey_continuous_ci(dclus1, variables = c(api00, api99))
+    ard <- ard_continuous_ci(dclus1, variables = c(api00, api99))
   )
 
   expect_equal(
@@ -34,7 +34,7 @@ test_that("ard_survey_continuous_ci(variables)", {
   )
 
   expect_equal(
-    ard_survey_continuous_ci(dclus1, variables = starts_with("xxxxxx")),
+    ard_continuous_ci(dclus1, variables = starts_with("xxxxxx")),
     dplyr::tibble()
   )
 
@@ -42,16 +42,16 @@ test_that("ard_survey_continuous_ci(variables)", {
   dclus1_with_na <- dclus1
   dclus1_with_na$variables[["api00"]][1:100] <- NA
   expect_equal(
-    ard_survey_continuous_ci(dclus1_with_na, variables = api00),
+    ard_continuous_ci(dclus1_with_na, variables = api00),
     dclus1_with_na |>
       subset(!is.na(api00)) |>
-      ard_survey_continuous_ci(variables = api00, df = survey::degf(dclus1_with_na))
+      ard_continuous_ci(variables = api00, df = survey::degf(dclus1_with_na))
   )
 })
 
-test_that("ard_survey_continuous_ci(by)", {
+test_that("ard_continuous_ci(by)", {
   expect_silent(
-    ard <- ard_survey_continuous_ci(dclus1, variables = c(api00, api99), by = sch.wide)
+    ard <- ard_continuous_ci(dclus1, variables = c(api00, api99), by = sch.wide)
   )
 
   expect_equal(
@@ -77,7 +77,7 @@ test_that("ard_survey_continuous_ci(by)", {
     {
       dclus1_copy <- dclus1
       dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.integer()
-      ard_survey_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")
+      ard_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")
     }
   )
 
@@ -86,14 +86,14 @@ test_that("ard_survey_continuous_ci(by)", {
     {
       dclus1_copy <- dclus1
       dclus1_copy$variables$sch.wide <- dclus1_copy$variables$sch.wide |> as.character()
-      ard_survey_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")
+      ard_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")
     }
   )
 })
 
-test_that("ard_survey_continuous_ci(conf.level)", {
+test_that("ard_continuous_ci(conf.level)", {
   expect_silent(
-    ard <- ard_survey_continuous_ci(dclus1, variables = c(api00, api99), conf.level = 0.80)
+    ard <- ard_continuous_ci(dclus1, variables = c(api00, api99), conf.level = 0.80)
   )
 
   expect_equal(
@@ -106,9 +106,9 @@ test_that("ard_survey_continuous_ci(conf.level)", {
   )
 })
 
-test_that("ard_survey_continuous_ci(method,variables)", {
+test_that("ard_continuous_ci(method,variables)", {
   expect_silent(
-    ard <- ard_survey_continuous_ci(dclus1, variables = c(api00, api99), method = "beta")
+    ard <- ard_continuous_ci(dclus1, variables = c(api00, api99), method = "svymedian.beta")
   )
 
   expect_equal(
@@ -131,9 +131,9 @@ test_that("ard_survey_continuous_ci(method,variables)", {
   )
 })
 
-test_that("ard_survey_continuous_ci(method,by)", {
+test_that("ard_continuous_ci(method,by)", {
   expect_silent(
-    ard <- ard_survey_continuous_ci(dclus1, variables = c(api00, api99), by = sch.wide, method = "beta")
+    ard <- ard_continuous_ci(dclus1, variables = c(api00, api99), by = sch.wide, method = "svymedian.beta")
   )
 
   expect_equal(
@@ -157,15 +157,15 @@ test_that("ard_survey_continuous_ci(method,by)", {
 })
 
 
-test_that("ard_survey_continuous_ci(...)", {
+test_that("ard_continuous_ci(...)", {
   # pass the df argument to `confint()`
   expect_silent(
     ard_svymean <-
-      ard_survey_continuous_ci(dclus1, variables = c(api00, api99), df = 50)
+      ard_continuous_ci(dclus1, variables = c(api00, api99), df = 50)
   )
   expect_silent(
     ard_svyquantile <-
-      ard_survey_continuous_ci(dclus1, variables = c(api00, api99), method = "beta", df = 50)
+      ard_continuous_ci(dclus1, variables = c(api00, api99), method = "svymedian.beta", df = 50)
   )
 
   expect_equal(
@@ -187,11 +187,11 @@ test_that("ard_survey_continuous_ci(...)", {
   )
 })
 
-test_that("ard_survey_continuous_ci() errors are captured", {
+test_that("ard_continuous_ci() errors are captured", {
   expect_snapshot(
-    ard_survey_continuous_ci(dclus1, variables = c(api00, api99), df = letters)
+    ard_continuous_ci(dclus1, variables = c(api00, api99), df = letters)
   )
   expect_snapshot(
-    ard_survey_continuous_ci(dclus1, variables = sch.wide, method = "beta")
+    ard_continuous_ci(dclus1, variables = sch.wide, method = "svymedian.beta")
   )
 })
