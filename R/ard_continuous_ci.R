@@ -2,9 +2,8 @@
 #'
 #' One-sample confidence intervals for continuous variable means and medians.
 #'
-#' @param data (`data.frame`)\cr
-#'   a data frame
-#' @param (`string`)\cr
+#' @inheritParams ard_stats_t_test
+#' @param method (`string`)\cr
 #'   a string indicating the method to use for the confidence interval
 #'   calculation. Must be one of `"t.test"` or `"wilcox.test"`
 #' @param ... arguments passed to `t.test()` or `wilcox.test()`

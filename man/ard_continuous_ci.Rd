@@ -18,11 +18,22 @@ ard_continuous_ci(data, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
-a data frame}
+a data frame. See below for details.}
 
 \item{...}{arguments passed to \code{t.test()} or \code{wilcox.test()}}
 
-\item{(`string`)\cr}{a string indicating the method to use for the confidence interval
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column names to be compared. Independent t-tests will be computed for
+each variable.}
+
+\item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+optional column name to compare by.}
+
+\item{conf.level}{(scalar \code{numeric})\cr
+confidence level for confidence interval. Default is \code{0.95}.}
+
+\item{method}{(\code{string})\cr
+a string indicating the method to use for the confidence interval
 calculation. Must be one of \code{"t.test"} or \code{"wilcox.test"}}
 }
 \value{
