@@ -133,7 +133,7 @@ ard_categorical_ci.survey.design <- function(data,
           list(),
       warning = .data$lst_result["warning"] |> unname(),
       error = .data$lst_result["error"] |> unname(),
-      context = "survey_categorical_ci"
+      context = "categorical_ci"
     ) |>
     dplyr::select(-"lst_result") |>
     dplyr::ungroup() |>
