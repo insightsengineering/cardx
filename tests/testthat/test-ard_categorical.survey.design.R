@@ -1172,3 +1172,29 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
   )
   expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 })
+
+
+test_that("ard_categorical.survey.design(by) messages about protected names", {
+  svy_mtcars <-
+    survey::svydesign(
+      ids = ~1,
+      data = mtcars |>
+        dplyr::mutate(
+          variable = am,
+          variable_level = cyl,
+          by = am,
+          by_level = cyl
+        ),
+      weights = ~1
+    )
+
+  expect_snapshot(
+    error = TRUE,
+    ard_categorical(svy_mtcars, by = variable, variables = gear)
+  )
+
+  expect_error(
+    ard_categorical(svy_mtcars, by = variable_level, variables = gear),
+    'The `by` argument cannot include variables named "variable" and "variable_level".'
+  )
+})
