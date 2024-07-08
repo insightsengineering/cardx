@@ -1186,5 +1186,4 @@ test_that("ard_categorical.survey.design(by) messages about protected names", {
     error = TRUE,
     ard_categorical(svy_trial, by = variable, variables = gear)
   )
-
 })
