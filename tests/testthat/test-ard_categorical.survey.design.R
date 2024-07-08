@@ -1178,13 +1178,13 @@ test_that("ard_categorical.survey.design(by) messages about protected names", {
   svy_trial <-
     survey::svydesign(
       ids = ~1,
-      data = gtsummary::trial |> dplyr::mutate(variable = trt, variable_level = grade),
+      data = mtcars |> dplyr::mutate(variable = am, variable_level = cyl),
       weights = ~1
     )
 
   expect_snapshot(
     error = TRUE,
-    ard_categorical(svy_trial, by = variable, variables = stage)
+    ard_categorical(svy_trial, by = variable, variables = gear)
   )
 
 })

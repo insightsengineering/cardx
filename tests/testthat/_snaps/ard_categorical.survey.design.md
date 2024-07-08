@@ -31,7 +31,7 @@
 # ard_categorical.survey.design(by) messages about protected names
 
     Code
-      ard_categorical(svy_trial, by = variable, variables = stage)
+      ard_categorical(svy_trial, by = variable, variables = gear)
     Condition
       Error in `ard_categorical()`:
       ! The `by` argument cannot include variables named "variable" and "variable_level"
