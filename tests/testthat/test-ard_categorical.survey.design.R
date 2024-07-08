@@ -1172,3 +1172,19 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
   )
   expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 })
+
+
+test_that("ard_categorical.survey.design(by) messages about protected names", {
+  svy_trial <-
+    survey::svydesign(
+      ids = ~1,
+      data = gtsummary::trial |> dplyr::mutate(variable = trt, variable_level = grade),
+      weights = ~1
+    )
+
+  expect_snapshot(
+    error = TRUE,
+    ard_categorical(svy_trial, by = variable, variables = stage)
+  )
+
+})
