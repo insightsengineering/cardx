@@ -34,5 +34,13 @@
       ard_categorical(svy_mtcars, by = variable, variables = gear)
     Condition
       Error in `ard_categorical()`:
-      ! The `by` argument cannot include variables named "variable" and "variable_level".
+      ! The `by` argument cannot include variables named "variable", "variable_level", "group1_level", "p", and "n".
+
+---
+
+    Code
+      ard_categorical(svy_mtcars, by = p.std.error, variables = name)
+    Condition
+      Error in `ard_categorical()`:
+      ! The `variables` argument cannot include variables named "by", "name", "n", "p", and "p.std.error".
 

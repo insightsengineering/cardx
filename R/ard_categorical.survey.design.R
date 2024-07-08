@@ -118,12 +118,20 @@ ard_categorical.survey.design <- function(data,
   )
 
   # return note about column names that result in errors -----------------------
-  if (any(by %in% c("variable", "variable_level"))) {
+  if (any(by %in% c("variable", "variable_level", "group1_level", "p", "n"))) {
     cli::cli_abort(
-      "The {.arg by} argument cannot include variables named {.val {c('variable', 'variable_level')}}.",
+      "The {.arg by} argument cannot include variables named {.val {c('variable', 'variable_level', 'group1_level', 'p', 'n')}}.",
       call = get_cli_abort_call()
     )
   }
+
+  if (any(variables %in% c("by", "name", "n", "p", "p.std.error"))) {
+    cli::cli_abort(
+      "The {.arg variables} argument cannot include variables named {.val {c('by', 'name', 'n', 'p', 'p.std.error')}}.",
+      call = get_cli_abort_call()
+    )
+  }
+
 
 
   # calculate counts -----------------------------------------------------------
