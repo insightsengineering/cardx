@@ -387,3 +387,127 @@ test_that("ard_continuous.survey.design(by) unobserved levels/combinations", {
     rep_len(list(NA_real_), 4L)
   )
 })
+
+
+# - test if function parameters can be used as variable names without error
+test_that("ard_continuous.survey.design() works when using generic names ", {
+  data(api, package = "survey")
+  dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
+
+
+  dclus2 <- dclus1
+  new_names <- c("variable_level", "variable", "median", "p25")
+  dclus2$variables <- dclus2$variables %>%
+    dplyr::rename_with(~new_names, .cols = c(cds, stype, dnum, snum))
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(variable_level, variable), by = median) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(dnum, snum), by = cds) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(median, p25), by = variable_level) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(dnum, snum), by = stype) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(median, p25), by = variable) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(dnum, cds), by = snum) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(median, variable_level), by = p25) |> dplyr::select(stat)
+  )
+
+  # rename vars
+
+  new_names <- c("by", "statistic", "weights", "p75")
+  dclus2$variables <- dclus1$variables %>%
+    dplyr::rename_with(~new_names, .cols = c(cds, stype, dnum, snum))
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(by, statistic), by = weights) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(stype, dnum), by = cds) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(statistic, weights), by = by) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, dnum), by = stype) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(by, weights), by = statistic) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, stype), by = snum) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(by, statistic), by = p75) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, snum), by = stype) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(by, p75), by = statistic) |> dplyr::select(stat)
+  )
+
+  # rename vars again
+  new_names <- c("mean", "sd", "var", "sum")
+  dclus2$variables <- dclus1$variables %>%
+    dplyr::rename_with(~new_names, .cols = c(cds, stype, dnum, snum))
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(mean, sd), by = var) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(stype, dnum), by = cds) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(sd, var), by = mean) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, dnum), by = stype) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(mean, var), by = sd) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, stype), by = snum) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(mean, sd), by = sum) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, snum), by = stype) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(mean, sum), by = sd) |> dplyr::select(stat)
+  )
+
+  # rename vars again
+  new_names <- c("deff", "min", "max", "mean.std.error")
+  dclus2$variables <- dclus1$variables %>%
+    dplyr::rename_with(~new_names, .cols = c(cds, stype, dnum, snum))
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(deff, min), by = max) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(stype, dnum), by = cds) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(min, max), by = deff) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, dnum), by = stype) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(deff, max), by = min) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, stype), by = snum) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(deff, min), by = mean.std.error) |> dplyr::select(stat)
+  )
+
+  expect_equal(
+    ard_continuous(dclus1, variables = c(cds, snum), by = stype) |> dplyr::select(stat),
+    ard_continuous(dclus2, variables = c(deff, mean.std.error), by = min) |> dplyr::select(stat)
+  )
+})
