@@ -161,10 +161,6 @@ construct_model.survey.design <- function(data, formula, method, method.args = l
     return(call_args(x_enexpr))
   }
 
-  if (tryCatch(inherits(x, "list"), error = \(x) FALSE)) {
-    return(x)
-  }
-
   cli::cli_abort(
     c("There was an error processing the {.arg {argname}} argument.",
       i = "Expecting a simple call. See {.help rlang::is_call_simple} for details."
