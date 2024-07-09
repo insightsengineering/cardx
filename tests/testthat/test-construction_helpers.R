@@ -36,19 +36,21 @@ test_that("construct_model() works", {
   )
 
   # styler: off
+  expect_error({
+    outside_fun <- function() .as_list_of_exprs(x = !!expr(list()))
+    outside_fun()},
+    NA
+  )
   expect_equal({
       outside_fun <- function() {
-        method.args <- list()
-
-        construct_model.data.frame(
+        construct_model(
           mtcars,
           formula = mpg ~ cyl,
           method = "lm",
-          method.args = method.args
+          method.args = !!expr(list())
         ) |>
           coef()
       }
-
       outside_fun()},
     lm(mpg ~ cyl, mtcars) |> coef()
   )
