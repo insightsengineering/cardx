@@ -1218,11 +1218,9 @@ test_that("ard_categorical.survey.design() works when using generic names ", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
-  # duplicate and rename some variables
   svy_titanic2 <- svy_titanic
-  new_names <- c("variable", "variable_level", "by", "group1_level")
-  svy_titanic2$variables <- svy_titanic2$variables %>%
-    dplyr::rename_with(~new_names, .cols = c(Class, Age, Survived, Sex))
+  svy_titanic2$variables <- svy_titanic$variables %>%
+    dplyr::rename("variable" = Class, "variable_level" = Age, "by" = Survived, "group1_level" = Sex)
 
 
   expect_equal(
@@ -1232,19 +1230,17 @@ test_that("ard_categorical.survey.design() works when using generic names ", {
 
   # rename vars
 
-  new_names <- c("N", "p", "name", "group1_level")
   svy_titanic2$variables <- svy_titanic$variables %>%
-    dplyr::rename_with(~new_names, .cols = c(Class, Age, Survived, Sex))
+    dplyr::rename("N" = Class, "p" = Age, "name" = Survived, "group1_level" = Sex)
 
   expect_equal(
     ard_categorical(svy_titanic, variables = c(Class), by = Survived, denominator = "row") |> dplyr::select(stat),
     ard_categorical(svy_titanic2, variables = c(N), by = name, denominator = "row") |> dplyr::select(stat)
   )
 
-  # rename vars again
-  new_names <- c("n", "mean", "p.std.error", "n_unweighted")
+  # rename vars
   svy_titanic2$variables <- svy_titanic$variables %>%
-    dplyr::rename_with(~new_names, .cols = c(Class, Age, Survived, Sex))
+    dplyr::rename("n" = Class, "mean" = Age, "p.std.error" = Survived, "n_unweighted" = Sex)
 
   expect_equal(
     ard_categorical(svy_titanic, variables = c(Sex, Age), by = Survived, denominator = "row") |> dplyr::select(stat),
@@ -1256,10 +1252,9 @@ test_that("ard_categorical.survey.design() works when using generic names ", {
     ard_categorical(svy_titanic2, variables = n_unweighted, by = p.std.error, denominator = "row") |> dplyr::select(stat)
   )
 
-  # rename vars again
-  new_names <- c("N_unweighted", "p_unweighted", "column", "row")
+  # rename vars
   svy_titanic2$variables <- svy_titanic$variables %>%
-    dplyr::rename_with(~new_names, .cols = c(Class, Age, Survived, Sex))
+    dplyr::rename("N_unweighted" = Class, "p_unweighted" = Age, "column" = Survived, "row" = Sex)
 
   expect_equal(
     ard_categorical(svy_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::select(stat),
@@ -1281,10 +1276,9 @@ test_that("ard_categorical.survey.design() works when using generic names ", {
     ard_categorical(svy_titanic2, variables = c(N_unweighted, column), by = row, denominator = "row") |> dplyr::select(stat)
   )
 
-  # rename vars again
-  new_names <- c("cell", "p_unweighted", "column", "row")
+  # rename vars
   svy_titanic2$variables <- svy_titanic$variables %>%
-    dplyr::rename_with(~new_names, .cols = c(Class, Age, Survived, Sex))
+    dplyr::rename("cell" = Class, "p_unweighted" = Age, "column" = Survived, "row" = Sex)
 
   expect_equal(
     ard_categorical(svy_titanic, variables = c(Class, Survived), by = Age, denominator = "row") |> dplyr::select(stat),

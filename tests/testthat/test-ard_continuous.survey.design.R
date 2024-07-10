@@ -396,9 +396,9 @@ test_that("ard_continuous.survey.design() works when using generic names ", {
 
 
   dclus2 <- dclus1
-  new_names <- c("variable_level", "variable", "median", "p25")
-  dclus2$variables <- dclus2$variables %>%
-    dplyr::rename_with(~new_names, .cols = c(cds, stype, dnum, snum))
+  dclus2$variables <- dclus1$variables %>%
+    dplyr::rename("variable_level" = cds, "variable" = stype, "median" = dnum, "p25" = snum)
+
 
   expect_equal(
     ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
@@ -421,10 +421,8 @@ test_that("ard_continuous.survey.design() works when using generic names ", {
   )
 
   # rename vars
-
-  new_names <- c("by", "statistic", "weights", "p75")
   dclus2$variables <- dclus1$variables %>%
-    dplyr::rename_with(~new_names, .cols = c(cds, stype, dnum, snum))
+    dplyr::rename("by" = cds, "statistic" = stype, "weights" = dnum, "p75" = snum)
 
   expect_equal(
     ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
@@ -451,10 +449,9 @@ test_that("ard_continuous.survey.design() works when using generic names ", {
     ard_continuous(dclus2, variables = c(by, p75), by = statistic) |> dplyr::select(stat)
   )
 
-  # rename vars again
-  new_names <- c("mean", "sd", "var", "sum")
+  # rename vars
   dclus2$variables <- dclus1$variables %>%
-    dplyr::rename_with(~new_names, .cols = c(cds, stype, dnum, snum))
+    dplyr::rename("mean" = cds, "sd" = stype, "var" = dnum, "sum" = snum)
 
   expect_equal(
     ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
@@ -484,7 +481,7 @@ test_that("ard_continuous.survey.design() works when using generic names ", {
   # rename vars again
   new_names <- c("deff", "min", "max", "mean.std.error")
   dclus2$variables <- dclus1$variables %>%
-    dplyr::rename_with(~new_names, .cols = c(cds, stype, dnum, snum))
+    dplyr::rename("deff" = cds, "min" = stype, "max" = dnum, "mean.std.error" = snum)
 
   expect_equal(
     ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
