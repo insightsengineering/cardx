@@ -18,7 +18,7 @@
 #'   See `?proportion_ci` for details.
 #' @param strata,weights,max.iterations arguments passed to `proportion_ci_strat_wilson()`,
 #'   when `method='strat_wilson'`
-#' @param value ([`formula-list-selector`][syntax])\cr
+#' @param value ([`formula-list-selector`][cards::syntax])\cr
 #'   function will calculate the CIs for all levels of the variables specified.
 #'   Use this argument to instead request only a single level by summarized.
 #'   Default is `list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)`, where

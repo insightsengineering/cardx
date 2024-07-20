@@ -29,7 +29,7 @@ columns to include in summaries.}
 results are calculated for \strong{all combinations} of the column specified
 and the variables. A single column may be specified.}
 
-\item{statistic}{(\code{\link[=syntax]{formula-list-selector}})\cr
+\item{statistic}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas,
 or a single formula where the list element is a character vector of
 statistic names to include. See default value for options.}
@@ -38,13 +38,13 @@ statistic names to include. See default value for options.}
 a string indicating the type proportions to calculate. Must be one of
 \code{"column"} (the default), \code{"row"}, and \code{"cell"}.}
 
-\item{fmt_fn}{(\code{\link[=syntax]{formula-list-selector}})\cr
+\item{fmt_fn}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas,
 or a single formula where the list element is a named list of functions
 (or the RHS of a formula),
 e.g. \verb{list(mpg = list(mean = \\(x) round(x, digits = 2) |> as.character))}.}
 
-\item{stat_label}{(\code{\link[=syntax]{formula-list-selector}})\cr
+\item{stat_label}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas, or a single formula where
 the list element is either a named list or a list of formulas defining the
 statistic labels, e.g. \code{everything() ~ list(mean = "Mean", sd = "SD")} or

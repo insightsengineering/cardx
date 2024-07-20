@@ -43,7 +43,7 @@ See \code{?proportion_ci} for details.}
 a scalar in \verb{(0, 1)} indicating the confidence level.
 Default is \code{0.95}}
 
-\item{value}{(\code{\link[=syntax]{formula-list-selector}})\cr
+\item{value}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 function will calculate the CIs for all levels of the variables specified.
 Use this argument to instead request only a single level by summarized.
 Default is \code{list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE)}, where

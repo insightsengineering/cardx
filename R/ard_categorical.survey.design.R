@@ -19,16 +19,16 @@
 #' @param denominator (`string`)\cr
 #'   a string indicating the type proportions to calculate. Must be one of
 #'   `"column"` (the default), `"row"`, and `"cell"`.
-#' @param statistic ([`formula-list-selector`][syntax])\cr
+#' @param statistic ([`formula-list-selector`][cards::syntax])\cr
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a character vector of
 #'   statistic names to include. See default value for options.
-#' @param fmt_fn ([`formula-list-selector`][syntax])\cr
+#' @param fmt_fn ([`formula-list-selector`][cards::syntax])\cr
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a named list of functions
 #'   (or the RHS of a formula),
 #'   e.g. `list(mpg = list(mean = \(x) round(x, digits = 2) |> as.character))`.
-#' @param stat_label ([`formula-list-selector`][syntax])\cr
+#' @param stat_label ([`formula-list-selector`][cards::syntax])\cr
 #'   a named list, a list of formulas, or a single formula where
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or

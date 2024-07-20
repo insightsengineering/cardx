@@ -39,3 +39,4 @@ pkgdown
 ^.revdeprefs\.yaml$
 ^revdep$
 ^\.covrignore$
+^cran-comments\.md$
