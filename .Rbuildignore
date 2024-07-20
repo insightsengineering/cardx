@@ -40,3 +40,4 @@ pkgdown
 ^revdep$
 ^\.covrignore$
 ^cran-comments\.md$
+^CRAN-SUBMISSION$
