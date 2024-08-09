@@ -14,8 +14,10 @@
 #'   name of the time variable to be summed for computing the denominator.
 #' @param conf.level (scalar `numeric`)\cr
 #'   confidence level for confidence interval. Default is `0.95`.
+#' @param na.rm (scalar `logical`)\cr
+#'   whether missing values should be removed before summing the numerator and the denominator. Default
+#'   is `TRUE`.
 #' @param ... arguments passed to [poisson.test()].
-#'
 #' @return an ARD data frame of class 'card'
 #' @name ard_stats_poisson_test
 #'

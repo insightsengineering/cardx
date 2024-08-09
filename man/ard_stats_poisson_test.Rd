@@ -24,6 +24,10 @@ name of the event variable to be summed for computing the numerator.}
 \item{denominator}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 name of the time variable to be summed for computing the denominator.}
 
+\item{na.rm}{(scalar \code{logical})\cr
+whether missing values should be removed before summing the numerator and the denominator. Default
+is \code{TRUE}.}
+
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 optional column name to compare by.}
 
