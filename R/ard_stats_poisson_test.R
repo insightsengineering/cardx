@@ -46,7 +46,7 @@ NULL
 
 #' @rdname ard_stats_poisson_test
 #' @export
-ard_stats_poisson_test <- function(data, variables, by = NULL, conf.level = 0.95, ...) {
+ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, by = NULL, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -54,93 +54,48 @@ ard_stats_poisson_test <- function(data, variables, by = NULL, conf.level = 0.95
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
-  check_not_missing(variables)
+  check_not_missing(numerator)
+  check_not_missing(denominator)
   check_data_frame(data)
   data <- dplyr::ungroup(data)
-  cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
+  cards::process_selectors(data, by = {{ by }}, numerator = {{ numerator }}, denominator = {{ denominator }})
+  check_logical(na.rm)
   check_scalar(by, allow_empty = TRUE)
   check_range(conf.level, range = c(0, 1))
 
-  # if no variables selected, return empty tibble ------------------------------
-  if (is_empty(variables)) {
-    return(dplyr::tibble())
+  # check number of levels in `by`
+  if (dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {
+    cli::cli_abort(
+      "The {.arg by} argument must have a maximum of two levels.",
+      call = get_cli_abort_call()
+    )
+  }
+
+  # calculate numerator and denominator values
+  if (!is_empty(by)) {
+    num <- data |>
+      dplyr::group_by(.data[[by]]) |>
+      dplyr::summarise(sum = sum(.data[[numerator]], na.rm = na.rm)) |>
+      dplyr::pull(sum)
+    denom <- data |>
+      dplyr::group_by(.data[[by]]) |>
+      dplyr::summarise(sum = sum(.data[[denominator]], na.rm = na.rm)) |>
+      dplyr::pull(sum)
+  } else {
+    num <- sum(data[[numerator]], na.rm = na.rm)
+    denom <- sum(data[[denominator]], na.rm = na.rm)
   }
 
   # build ARD ------------------------------------------------------------------
-  lapply(
-    variables,
-    function(variable) {
-      .format_poissontest_results(
-        by = by,
-        variable = variable,
-        lst_tidy =
-          # styler: off
-          cards::eval_capture_conditions(
-            if (!is_empty(by)) {
-              stats::poisson.test(data[[variable]] ~ data[[by]], conf.level = conf.level, ...) |>
-                broom::tidy()
-            }
-            else {
-              stats::poisson.test(data[[variable]], ...) |>
-                broom::tidy()
-            }
-          ),
-        # styler: on
-        paired = FALSE,
-        ...
-      )
-    }
-  ) |>
-    dplyr::bind_rows()
+  .format_poissontest_results(
+    by = by,
+    lst_tidy =
+      cards::eval_capture_conditions(
+        stats::poisson.test(x = num, T = denom, conf.level = conf.level, ...) |> broom::tidy()
+      ),
+    ...
+  )
 }
-
-#' @rdname ard_stats_poisson_test
-#' @export
-ard_stats_paired_poisson_test <- function(data, by, variables, id, conf.level = 0.95, ...) {
-  set_cli_abort_call()
-
-  # check installed packages ---------------------------------------------------
-  check_pkg_installed("broom", reference_pkg = "cardx")
-
-  # check/process inputs -------------------------------------------------------
-  check_not_missing(data)
-  check_not_missing(variables)
-  check_not_missing(by)
-  check_not_missing(id)
-  check_data_frame(data)
-  data <- dplyr::ungroup(data)
-  cards::process_selectors(data, by = {{ by }}, variables = {{ variables }}, id = {{ id }})
-  check_scalar(by)
-  check_scalar(id)
-
-  # if no variables selected, return empty tibble ------------------------------
-  if (is_empty(variables)) {
-    return(dplyr::tibble())
-  }
-
-  # build ARD ------------------------------------------------------------------
-  lapply(
-    variables,
-    function(variable) {
-      .format_poissontest_results(
-        by = by,
-        variable = variable,
-        lst_tidy =
-          cards::eval_capture_conditions({
-            # adding this reshape inside the eval, so if there is an error it's captured in the ARD object
-            data_wide <- .paired_data_pivot_wider(data, by = by, variable = variable, id = id)
-            # perform paired poisson test
-            stats::poisson.test(x = data_wide[["by1"]], y = data_wide[["by2"]], paired = TRUE, conf.level = conf.level, ...) |>
-              broom::tidy()
-          }),
-        paired = TRUE,
-        ...
-      )
-    }
-  ) |>
-    dplyr::bind_rows()
-}
-
 
 #' Convert Poisson test to ARD
 #'
@@ -151,39 +106,35 @@ ard_stats_paired_poisson_test <- function(data, by, variables, id, conf.level = 
 #' @param ... passed to `stats::poisson.test(...)`
 #'
 #' @return ARD data frame
-#'
+#' @keywords internal
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
-#' # Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
-#' ADSL <- cards::ADSL |>
-#'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   ard_stats_poisson_test(by = "ARM", variables = "AGE")
-#'
 #' cardx:::.format_poissontest_results(
 #'   by = "ARM",
-#'   variable = "AGE",
-#'   paired = FALSE,
 #'   lst_tidy =
 #'     cards::eval_capture_conditions(
-#'       stats::poisson.test(ADSL[["AGE"]] ~ ADSL[["ARM"]], paired = FALSE) |>
+#'       stats::poisson.test(sum(cards::ADTTE[["CNSR"]]), sum(cards::ADTTE[["AVAL"]])) |>
 #'         broom::tidy()
 #'     )
 #' )
-#'
-#' @keywords internal
-.format_poissontest_results <- function(by = NULL, variable, lst_tidy, paired, ...) {
+.format_poissontest_results <- function(by = NULL, lst_tidy, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
     cards::tidy_as_ard(
       lst_tidy = lst_tidy,
-      tidy_result_names = c("statistic", "p.value", "method", "alternative"),
-      fun_args_to_record = c(
-        "mu", "paired", "exact", "correct", "conf.int",
-        "conf.level", "tol.root", "digits.rank"
-      ),
-      formals = formals(asNamespace("stats")[["poisson.test.default"]]),
-      passed_args = c(list(paired = paired), dots_list(...)),
-      lst_ard_columns = list(variable = variable, context = "stats_poisson_test")
+      tidy_result_names =
+        c(
+          "estimate", "statistic",
+          "p.value", "parameter", "conf.low", "conf.high",
+          "method", "alternative"
+        ),
+      fun_args_to_record = c("conf.level", "r"),
+      formals = formals(asNamespace("stats")[["poisson.test"]]),
+      passed_args = dots_list(...),
+      lst_ard_columns = list(context = "stats_poisson_test")
     )
+
+  # rename "r" statistic to "mu"
+  ret$stat_name[ret$stat_name == "r"] <- "mu"
 
   if (!is_empty(by)) {
     ret <- ret |>
@@ -193,24 +144,23 @@ ard_stats_paired_poisson_test <- function(data, by, variables, id, conf.level = 
   # add the stat label ---------------------------------------------------------
   ret |>
     dplyr::left_join(
-      .df_poissontest_stat_labels(by),
+      .df_poissontest_stat_labels(by = by),
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
     cards::tidy_ard_column_order()
 }
 
-
 .df_poissontest_stat_labels <- function(by = NULL) {
   dplyr::tribble(
     ~stat_name, ~stat_label,
-    "statistic", ifelse(is.null(by), "V Statistic", "X-squared Statistic"),
-    "parameter", "Degrees of Freedom",
-    "estimate", "Median of the Difference",
+    "estimate", ifelse(is_empty(by), "Estimated Rate", "Estimated Rate Ratio"),
+    "statistic", ifelse(is_empty(by), "Number of Events", "Number of Events in First Sample"),
     "p.value", "p-value",
+    "parameter", "Expected Count",
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
-    "paired", "Paired test",
-    "conf.level", "CI Confidence Level",
+    "mu", "H0 Mean",
+    "conf.level", "CI Confidence Level"
   )
 }
