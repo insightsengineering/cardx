@@ -69,7 +69,6 @@ test_that("ard_stats_poisson_test() works for two sample tests", {
       unclass(),
     ignore_attr = TRUE
   )
-
 })
 
 test_that("ard_stats_poisson_test() errors are handled correctly", {
