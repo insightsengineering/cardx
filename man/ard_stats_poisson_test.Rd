@@ -33,28 +33,27 @@ confidence level for confidence interval. Default is \code{0.95}.}
 \item{...}{arguments passed to \code{\link[=poisson.test]{poisson.test()}}.}
 }
 \value{
-ARD data frame
+an ARD data frame of class 'card'
 }
 \description{
 Analysis results data for exact tests of a simple null hypothesis about the rate parameter
-in Poisson distribution, or the ratio between two rate parameters.
+in Poisson distribution, or the comparison of two rate parameters.
 }
 \details{
-For the \code{ard_stats_poisson_test()} function, the data is expected to be one row per subject.
-The data is passed as
-\code{poisson.test(x = sum(data[[numerator]], na.rm = na.rm), T = sum(data[[denominator]], na.rm = na.rm), ...)}.
-
-For the \code{ard_stats_paired_poisson_test()} function, the data is expected to be one row
-per subject per by level. Before the t-test is calculated, the data are
-reshaped to a wide format to be one row per subject.
-The data are then passed as
-\verb{poisson.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)}.
+\itemize{
+\item For the \code{ard_stats_poisson_test()} function, the data is expected to be one row per subject.
+\item If \code{by} is not specified, an exact Poisson test of the rate parameter will be performed. Otherwise, a
+Poisson comparison of two rate parameters will be performed on the levels of \code{by}. If \code{by} has more than 2
+levels, an error will occur.
+}
 }
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# Exact test of rate parameter against null hypothesis
 cards::ADTTE |>
   ard_stats_poisson_test(numerator = CNSR, denominator = AVAL)
 
+# Comparison test of ratio of 2 rate parameters against null hypothesis
 cards::ADTTE |>
   dplyr::filter(TRTA \%in\% c("Placebo", "Xanomeline High Dose")) |>
   ard_stats_poisson_test(by = TRTA, numerator = CNSR, denominator = AVAL)

@@ -21,13 +21,16 @@
 #'
 #' @details
 #' * For the `ard_stats_poisson_test()` function, the data is expected to be one row per subject.
-#' * If `by` is specified,
-#'
+#' * If `by` is not specified, an exact Poisson test of the rate parameter will be performed. Otherwise, a
+#'   Poisson comparison of two rate parameters will be performed on the levels of `by`. If `by` has more than 2
+#'   levels, an error will occur.
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' # Exact test of rate parameter against null hypothesis
 #' cards::ADTTE |>
 #'   ard_stats_poisson_test(numerator = CNSR, denominator = AVAL)
 #'
+#' # Comparison test of ratio of 2 rate parameters against null hypothesis
 #' cards::ADTTE |>
 #'   dplyr::filter(TRTA %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_stats_poisson_test(by = TRTA, numerator = CNSR, denominator = AVAL)
@@ -53,7 +56,7 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
   check_range(conf.level, range = c(0, 1))
 
   # check number of levels in `by`
-  if (dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {
+  if (!is_empty(by) && dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {
     cli::cli_abort(
       "The {.arg by} argument must have a maximum of two levels.",
       call = get_cli_abort_call()
