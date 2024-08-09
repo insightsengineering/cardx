@@ -4,18 +4,16 @@
 \alias{.format_poissontest_results}
 \title{Convert Poisson test to ARD}
 \usage{
-.format_poissontest_results(by = NULL, variable, lst_tidy, paired, ...)
+.format_poissontest_results(by = NULL, lst_tidy, ...)
 }
 \arguments{
 \item{by}{(\code{string})\cr by column name}
-
-\item{variable}{(\code{string})\cr variable column name}
 
 \item{lst_tidy}{(named \code{list})\cr
 list of tidied results constructed with \code{\link[cards:eval_capture_conditions]{eval_capture_conditions()}},
 e.g. \code{eval_capture_conditions(t.test(mtcars$mpg ~ mtcars$am) |> broom::tidy())}.}
 
-\item{...}{passed to \code{stats::poisson.test(...)}}
+\item{...}{passed to \code{\link[=poisson.test]{poisson.test()}}}
 }
 \value{
 ARD data frame
@@ -25,18 +23,11 @@ Convert Poisson test to ARD
 }
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
-ADSL <- cards::ADSL |>
-  dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
-  ard_stats_poisson_test(by = "ARM", variables = "AGE")
-
 cardx:::.format_poissontest_results(
   by = "ARM",
-  variable = "AGE",
-  paired = FALSE,
   lst_tidy =
     cards::eval_capture_conditions(
-      stats::poisson.test(ADSL[["AGE"]] ~ ADSL[["ARM"]], paired = FALSE) |>
+      stats::poisson.test(sum(cards::ADTTE[["CNSR"]]), sum(cards::ADTTE[["AVAL"]])) |>
         broom::tidy()
     )
 )

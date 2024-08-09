@@ -2,20 +2,27 @@
 % Please edit documentation in R/ard_stats_poisson_test.R
 \name{ard_stats_poisson_test}
 \alias{ard_stats_poisson_test}
-\alias{ard_stats_paired_poisson_test}
 \title{ARD Poisson Test}
 \usage{
-ard_stats_poisson_test(data, variables, by = NULL, conf.level = 0.95, ...)
-
-ard_stats_paired_poisson_test(data, by, variables, id, conf.level = 0.95, ...)
+ard_stats_poisson_test(
+  data,
+  numerator,
+  denominator,
+  na.rm = TRUE,
+  by = NULL,
+  conf.level = 0.95,
+  ...
+)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
 a data frame. See below for details.}
 
-\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column names to be compared. Independent tests will be computed for
-each variable.}
+\item{numerator}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+name of the event variable to be summed for computing the numerator.}
+
+\item{denominator}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+name of the time variable to be summed for computing the denominator.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 optional column name to compare by.}
@@ -23,10 +30,7 @@ optional column name to compare by.}
 \item{conf.level}{(scalar \code{numeric})\cr
 confidence level for confidence interval. Default is \code{0.95}.}
 
-\item{...}{arguments passed to \code{poisson.test(...)}}
-
-\item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name of the subject or participant ID.}
+\item{...}{arguments passed to \code{\link[=poisson.test]{poisson.test()}}.}
 }
 \value{
 ARD data frame
@@ -37,26 +41,22 @@ in Poisson distribution, or the ratio between two rate parameters.
 }
 \details{
 For the \code{ard_stats_poisson_test()} function, the data is expected to be one row per subject.
-The data is passed as \code{poisson.test(data[[variable]] ~ data[[by]], paired = FALSE, ...)}.
+The data is passed as
+\code{poisson.test(x = sum(data[[numerator]], na.rm = na.rm), T = sum(data[[denominator]], na.rm = na.rm), ...)}.
 
 For the \code{ard_stats_paired_poisson_test()} function, the data is expected to be one row
-per subject per by level. Before the test is calculated, the data are
+per subject per by level. Before the t-test is calculated, the data are
 reshaped to a wide format to be one row per subject.
 The data are then passed as
 \verb{poisson.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)}.
 }
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-cards::ADSL |>
-  dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
-  ard_stats_poisson_test(by = "ARM", variables = "AGE")
+cards::ADTTE |>
+  ard_stats_poisson_test(numerator = CNSR, denominator = AVAL)
 
-# constructing a paired data set,
-# where patients receive both treatments
-cards::ADSL[c("ARM", "AGE")] |>
-  dplyr::filter(ARM \%in\% c("Placebo", "Xanomeline High Dose")) |>
-  dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
-  dplyr::arrange(USUBJID, ARM) |>
-  ard_stats_paired_poisson_test(by = ARM, variables = AGE, id = USUBJID)
+cards::ADTTE |>
+  dplyr::filter(TRTA \%in\% c("Placebo", "Xanomeline High Dose")) |>
+  ard_stats_poisson_test(by = TRTA, numerator = CNSR, denominator = AVAL)
 \dontshow{\}) # examplesIf}
 }
