@@ -15,8 +15,7 @@
 #' @param conf.level (scalar `numeric`)\cr
 #'   confidence level for confidence interval. Default is `0.95`.
 #' @param na.rm (scalar `logical`)\cr
-#'   whether missing values should be removed before summing the numerator and the denominator. Default
-#'   is `TRUE`.
+#'   whether missing values should be removed before summing the numerator and the denominator. Default is `TRUE`.
 #' @param ... arguments passed to [poisson.test()].
 #' @return an ARD data frame of class 'card'
 #' @name ard_stats_poisson_test
@@ -124,7 +123,8 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
       formals = formals(asNamespace("stats")[["poisson.test"]]),
       passed_args = dots_list(...),
       lst_ard_columns = list(context = "stats_poisson_test")
-    )
+    ) |>
+    dplyr::distinct()
 
   # rename "r" statistic to "mu"
   ret$stat_name[ret$stat_name == "r"] <- "mu"
