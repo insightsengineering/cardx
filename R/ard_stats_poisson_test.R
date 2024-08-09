@@ -2,46 +2,35 @@
 #'
 #' @description
 #' Analysis results data for exact tests of a simple null hypothesis about the rate parameter
-#' in Poisson distribution, or the ratio between two rate parameters.
+#' in Poisson distribution, or the comparison of two rate parameters.
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame. See below for details.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   optional column name to compare by.
-#' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column names to be compared. Independent tests will be computed for
-#'   each variable.
-#' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name of the subject or participant ID.
+#' @param numerator ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   name of the event variable to be summed for computing the numerator.
+#' @param denominator ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   name of the time variable to be summed for computing the denominator.
 #' @param conf.level (scalar `numeric`)\cr
 #'   confidence level for confidence interval. Default is `0.95`.
-#' @param ... arguments passed to `poisson.test(...)`
+#' @param ... arguments passed to [poisson.test()].
 #'
-#' @return ARD data frame
+#' @return an ARD data frame of class 'card'
 #' @name ard_stats_poisson_test
 #'
 #' @details
-#' For the `ard_stats_poisson_test()` function, the data is expected to be one row per subject.
-#' The data is passed as `poisson.test(data[[variable]] ~ data[[by]], paired = FALSE, ...)`.
+#' * For the `ard_stats_poisson_test()` function, the data is expected to be one row per subject.
+#' * If `by` is specified,
 #'
-#' For the `ard_stats_paired_poisson_test()` function, the data is expected to be one row
-#' per subject per by level. Before the test is calculated, the data are
-#' reshaped to a wide format to be one row per subject.
-#' The data are then passed as
-#' `poisson.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
-#' cards::ADSL |>
-#'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   ard_stats_poisson_test(by = "ARM", variables = "AGE")
+#' cards::ADTTE |>
+#'   ard_stats_poisson_test(numerator = CNSR, denominator = AVAL)
 #'
-#' # constructing a paired data set,
-#' # where patients receive both treatments
-#' cards::ADSL[c("ARM", "AGE")] |>
-#'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   dplyr::mutate(.by = ARM, USUBJID = dplyr::row_number()) |>
-#'   dplyr::arrange(USUBJID, ARM) |>
-#'   ard_stats_paired_poisson_test(by = ARM, variables = AGE, id = USUBJID)
+#' cards::ADTTE |>
+#'   dplyr::filter(TRTA %in% c("Placebo", "Xanomeline High Dose")) |>
+#'   ard_stats_poisson_test(by = TRTA, numerator = CNSR, denominator = AVAL)
 NULL
 
 #' @rdname ard_stats_poisson_test
@@ -102,8 +91,7 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
 #' @inheritParams cards::tidy_as_ard
 #' @inheritParams stats::poisson.test
 #' @param by (`string`)\cr by column name
-#' @param variable (`string`)\cr variable column name
-#' @param ... passed to `stats::poisson.test(...)`
+#' @param ... passed to [poisson.test()]
 #'
 #' @return ARD data frame
 #' @keywords internal
