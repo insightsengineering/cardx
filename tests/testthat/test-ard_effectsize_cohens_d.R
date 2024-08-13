@@ -114,7 +114,7 @@ test_that("ard_effectsize_cohens_d() follows ard structure", {
 
   expect_silent(
     ADSL_paired |>
-      ard_effectsize_paired_cohens_d(by = ARM, variable = AGE, id = USUBJID)|>
+      ard_effectsize_paired_cohens_d(by = ARM, variable = AGE, id = USUBJID) |>
       cards::check_ard_structure()
   )
 })

@@ -72,7 +72,7 @@ test_that("ard_stats_mcnemar_test() works", {
 test_that("ard_stats_mcnemar_test() follows ard structure", {
   expect_silent(
     cards::ADSL |>
-      ard_stats_mcnemar_test(by = SEX, variables = EFFFL)|>
+      ard_stats_mcnemar_test(by = SEX, variables = EFFFL) |>
       cards::check_ard_structure()
   )
 })

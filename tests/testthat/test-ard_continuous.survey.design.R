@@ -518,4 +518,3 @@ test_that("ard_continuous.survey.design() follows ard structure", {
       cards::check_ard_structure(method = FALSE)
   )
 })
-

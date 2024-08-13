@@ -89,7 +89,7 @@ test_that("ard_stats_prop_test() error messaging", {
 test_that("ard_stats_prop_test() follows ard structure", {
   expect_silent(
     mtcars |>
-      ard_stats_prop_test(by = vs, variables = am, conf.level = 0.90)|>
+      ard_stats_prop_test(by = vs, variables = am, conf.level = 0.90) |>
       cards::check_ard_structure()
   )
 })

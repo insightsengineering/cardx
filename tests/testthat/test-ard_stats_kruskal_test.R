@@ -40,7 +40,7 @@ test_that("ard_stats_kruskal_test() works", {
 test_that("ard_stats_kruskal_test() follows ard structure", {
   expect_silent(
     cards::ADSL |>
-      ard_stats_kruskal_test(by = ARM, variable = BMIBL)|>
+      ard_stats_kruskal_test(by = ARM, variable = BMIBL) |>
       cards::check_ard_structure()
   )
 })

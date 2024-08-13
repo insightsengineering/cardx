@@ -57,7 +57,7 @@ test_that("ard_stats_t_test_onesample() follows ard structure", {
       by = ARM,
       conf.level = 0.9,
       mu = 1
-    )|>
+    ) |>
       cards::check_ard_structure()
   )
 })

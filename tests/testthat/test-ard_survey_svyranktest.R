@@ -49,7 +49,7 @@ test_that("ard_survey_svyranktest() follows ard structure", {
       variable = enroll,
       by = comp.imp,
       test = "wilcoxon"
-    )|>
+    ) |>
       cards::check_ard_structure()
   )
 })

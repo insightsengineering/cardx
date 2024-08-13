@@ -65,7 +65,7 @@ test_that("ard_survival_survdiff() follows ard structure", {
   data(api, package = "survey")
   dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
   expect_silent(
-    ard_survival_survdiff(survival::Surv(AVAL, CNSR) ~ TRTA, data = cards::ADTTE)|>
+    ard_survival_survdiff(survival::Surv(AVAL, CNSR) ~ TRTA, data = cards::ADTTE) |>
       cards::check_ard_structure()
   )
 })

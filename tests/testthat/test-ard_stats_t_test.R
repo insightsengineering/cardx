@@ -120,7 +120,7 @@ test_that("ard_stats_t_test() follows ard structure", {
   expect_silent(
     cards::ADSL |>
       dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-      ard_stats_t_test(by = ARM, variable = AGE, var.equal = TRUE)|>
+      ard_stats_t_test(by = ARM, variable = AGE, var.equal = TRUE) |>
       cards::check_ard_structure()
   )
 })

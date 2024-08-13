@@ -83,7 +83,7 @@ test_that("ard_survey_svyttest() follows ard structure", {
       variable = enroll,
       by = comp.imp,
       conf.level = 0.9
-    )|>
+    ) |>
       cards::check_ard_structure()
   )
 })

@@ -60,7 +60,7 @@ test_that("ard_stats_wilcox_test_onesample() follows ard structure", {
       conf.level = 0.9,
       conf.int = TRUE,
       mu = 1
-    )|>
+    ) |>
       cards::check_ard_structure()
   )
 })

@@ -127,7 +127,7 @@ test_that("ard_stats_wilcox_test() follows ard structure", {
   expect_silent(
     cards::ADSL |>
       dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
-      ard_stats_wilcox_test(by = ARM, variable = AGE, correct = FALSE, conf.int = TRUE)|>
+      ard_stats_wilcox_test(by = ARM, variable = AGE, correct = FALSE, conf.int = TRUE) |>
       cards::check_ard_structure()
   )
 })

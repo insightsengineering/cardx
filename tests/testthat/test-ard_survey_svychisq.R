@@ -75,7 +75,7 @@ test_that("ard_survey_svychisq() follows ard structure", {
       variables = sch.wide,
       by = comp.imp,
       statistic = "F"
-    )|>
+    ) |>
       cards::check_ard_structure()
   )
 })

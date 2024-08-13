@@ -54,7 +54,7 @@ test_that("shuffle_ard fills missing group levels if the group is meaningful", {
 test_that("ard_stats_chisq_test() follows ard structure", {
   expect_silent(
     cards::ADSL |>
-      ard_stats_chisq_test(by = ARM, variables = AGEGR1)|>
+      ard_stats_chisq_test(by = ARM, variables = AGEGR1) |>
       cards::check_ard_structure()
   )
 })
