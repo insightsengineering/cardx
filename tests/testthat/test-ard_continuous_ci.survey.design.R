@@ -195,3 +195,10 @@ test_that("ard_continuous_ci() errors are captured", {
     ard_continuous_ci(dclus1, variables = sch.wide, method = "svymedian.beta")
   )
 })
+
+test_that("ard_continuous_ci.survey.design() follows ard structure", {
+  expect_silent(
+    ard_continuous_ci(dclus1, variables = c(api00, api99), df = 50) |>
+      cards::check_ard_structure(method = FALSE)
+  )
+})

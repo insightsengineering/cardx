@@ -30,3 +30,14 @@ test_that("ard_continuous_ci.data.frame(method = 'wilcox.test')", {
       dplyr::select(-context)
   )
 })
+
+test_that("ard_continuous_ci.data.frame() follows ard structure", {
+  expect_silent(
+    ard_continuous_ci(
+      mtcars,
+      variables = mpg,
+      method = "wilcox.test"
+    ) |>
+      cards::check_ard_structure()
+  )
+})
