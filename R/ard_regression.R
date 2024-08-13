@@ -65,7 +65,7 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
     } else { # if there was an error return a shell of an ARD data frame
       dplyr::tibble(
         variable = "model_1",
-        stat_name = "method",
+        stat_name = "estimate",
         stat = list(NULL)
       )
     }
