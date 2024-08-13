@@ -73,8 +73,8 @@
     Code
       as.data.frame(ard_regression(mod))
     Output
-        variable    context stat_name stat_label stat fmt_fn
-      1  model_1 regression    method     method NULL   NULL
+        variable    context stat_name  stat_label stat fmt_fn
+      1  model_1 regression  estimate Coefficient NULL   NULL
                                                                                                            warning
       1 Could not access test statistic of model parameters., Could not access test statistic of model parameters.
                                error
