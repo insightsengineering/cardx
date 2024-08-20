@@ -1322,3 +1322,5 @@ test_that("ard_categorical follows ard structure", {
       denominator = "row"
     ) |>
       cards::check_ard_structure(method = FALSE)
+  )
+})
