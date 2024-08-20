@@ -43,6 +43,8 @@ ARD data frame
 One-sample confidence intervals for continuous variable means and medians.
 }
 \examples{
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ard_continuous_ci(mtcars, variables = c(mpg, hp), method = "wilcox.test")
 ard_continuous_ci(mtcars, variables = mpg, by = am, method = "t.test")
+\dontshow{\}) # examplesIf}
 }
