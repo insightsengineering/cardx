@@ -11,7 +11,7 @@
 #' @return ARD data frame
 #' @name ard_continuous_ci
 #'
-#' @examples
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' ard_continuous_ci(mtcars, variables = c(mpg, hp), method = "wilcox.test")
 #' ard_continuous_ci(mtcars, variables = mpg, by = am, method = "t.test")
 NULL
