@@ -164,7 +164,7 @@ ard_categorical.survey.design <- function(data,
 
   # add unweighted statistics --------------------------------------------------
   statistic_unweighted <- statistic |>
-    lapply(\(x) keep(x, ~endsWith(.x, "_unweighted")) |> str_remove("_unweighted$")) |>
+    lapply(\(x) keep(x, ~ endsWith(.x, "_unweighted")) |> str_remove("_unweighted$")) |>
     compact()
 
   if (!is_empty(statistic_unweighted)) {
