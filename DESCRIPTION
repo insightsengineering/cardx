@@ -19,7 +19,7 @@ BugReports: https://github.com/insightsengineering/cardx/issues
 Depends:
     R (>= 4.1)
 Imports:
-    cards (>= 0.2.0),
+    cards (>= 0.2.1.9003),
     cli (>= 3.6.1),
     dplyr (>= 1.1.2),
     glue (>= 1.6.2),
@@ -43,6 +43,7 @@ Suggests:
     survival (>= 3.6-4),
     testthat (>= 3.2.0),
     withr (>= 2.5.0)
+Remotes: insightsengineering/cards
 Config/Needs/website: insightsengineering/nesttemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: true
