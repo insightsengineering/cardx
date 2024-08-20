@@ -1,6 +1,6 @@
 Package: cardx
 Title: Extra Analysis Results Data Utilities
-Version: 0.2.0.9005
+Version: 0.2.0.9006
 Authors@R: c(
     person("Daniel", "Sjoberg", , "danield.sjoberg@gmail.com", role = c("aut", "cre")),
     person("Abinaya", "Yogasekaram", , "abinaya.yogasekaram@contractors.roche.com", role = "aut"),
@@ -43,7 +43,8 @@ Suggests:
     survival (>= 3.6-4),
     testthat (>= 3.2.0),
     withr (>= 2.5.0)
-Remotes: insightsengineering/cards
+Remotes: 
+    insightsengineering/cards
 Config/Needs/website: insightsengineering/nesttemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: true
