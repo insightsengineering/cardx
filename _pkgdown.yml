@@ -70,6 +70,7 @@ reference:
       - ard_attributes.survey.design
       - ard_continuous_ci.survey.design
       - ard_categorical_ci.survey.design
+      - ard_total_n.survey.design
       - ard_survey_svychisq
       - ard_survey_svyranktest
       - ard_survey_svyttest

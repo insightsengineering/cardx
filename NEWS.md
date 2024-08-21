@@ -1,4 +1,8 @@
-# cardx 0.2.0.9005
+# cardx 0.2.0.9006
+
+* Bug fix in `ard_categorical.survey.design()` where all unweighted statistics were returned, even in the case where they were explicitly not requested.
+
+* Added S3 method `ard_total_n.survey.design()` which returns an ARD with both the survey-weighted and unweighted total sample size.
 
 # cardx 0.2.0
 
