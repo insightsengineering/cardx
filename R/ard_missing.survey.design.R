@@ -47,6 +47,11 @@ ard_missing.survey.design <- function(data,
     by = {{ by }}
   )
 
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
+
   # convert all variables to T/F whether it's missing --------------------------
   data$variables <- data$variables |>
     dplyr::mutate(across(all_of(variables), Negate(is.na)))

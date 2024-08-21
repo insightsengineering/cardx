@@ -30,6 +30,12 @@ ard_continuous_ci.data.frame <- function(data, variables, by = dplyr::group_vars
 
   # check inputs ---------------------------------------------------------------
   method <- arg_match(method)
+  check_not_missing(variables)
+
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
 
   # calculate CIs --------------------------------------------------------------
   switch(method,

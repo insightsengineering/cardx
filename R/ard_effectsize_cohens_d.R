@@ -63,9 +63,10 @@ ard_effectsize_cohens_d <- function(data, by, variables, conf.level = 0.95, ...)
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
   check_range(conf.level, range = c(0, 1))
-  # if no variables selected, return empty tibble ------------------------------
+
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
 
   # build ARD ------------------------------------------------------------------

@@ -38,9 +38,9 @@ ard_stats_prop_test <- function(data, by, variables, conf.level = 0.95, ...) {
   check_scalar(by)
   data <- data[c(by, variables)] |> dplyr::ungroup() |> tidyr::drop_na() # styler: off
 
-  # if no variables selected, return empty tibble ------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
 
   # build ARD ------------------------------------------------------------------

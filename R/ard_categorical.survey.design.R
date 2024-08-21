@@ -72,8 +72,10 @@ ard_categorical.survey.design <- function(data,
   variables <- setdiff(variables, by)
   check_scalar(by, allow_empty = TRUE)
 
-  # if no variables selected, return empty data frame
-  if (is_empty(variables)) return(dplyr::tibble()) # styler: off
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
 
   check_na_factor_levels(data$variables, c(by, variables))
 

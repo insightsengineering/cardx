@@ -59,6 +59,11 @@ ard_continuous_ci.survey.design <- function(data,
     }
   )
 
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
+
   # calculate and return ARD of one sample CI ----------------------------------
   .calculate_ard_continuous_survey_ci(
     FUN = ifelse(method == "svymean", .svymean_confint_wrapper, .svyquantile_confint_wrapper),

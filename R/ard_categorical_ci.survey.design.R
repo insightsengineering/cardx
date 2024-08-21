@@ -50,6 +50,11 @@ ard_categorical_ci.survey.design <- function(data,
   check_scalar_range(conf.level, range = c(0, 1))
   method <- arg_match(method)
 
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
+
   # calculate and return ARD of one sample CI ----------------------------------
   .calculate_ard_onesample_survey_ci(
     FUN = .svyciprop_wrapper,

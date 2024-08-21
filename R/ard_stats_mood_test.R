@@ -40,11 +40,11 @@ ard_stats_mood_test <- function(data, by, variables, ...) {
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
 
-
-  # if no variables selected, return empty tibble ------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
+
   # build ARD ------------------------------------------------------------------
   lapply(
     variables,

@@ -39,6 +39,11 @@ ard_survey_svyranktest <- function(data, by, variables, test, ...) {
   cards::process_selectors(data[["variables"]], by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
 
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
+
   # build ARD ------------------------------------------------------------------
   lapply(
     variables,

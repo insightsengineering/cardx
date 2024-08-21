@@ -33,9 +33,9 @@ ard_stats_t_test_onesample <- function(data, variables, by = dplyr::group_vars(d
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar_range(conf.level, range = c(0, 1))
 
-  # if no variables selected, return empty tibble ------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
 
   cards::ard_continuous(
