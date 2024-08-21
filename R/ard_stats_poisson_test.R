@@ -56,6 +56,11 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
   check_scalar(by, allow_empty = TRUE)
   check_range(conf.level, range = c(0, 1))
 
+  # return empty ARD if no numerator/denominator selected ----------------------
+  if (is_empty(numerator) || is_empty(denominator)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
+
   # check number of levels in `by`
   if (!is_empty(by) && dplyr::n_distinct(data[[by]], na.rm = TRUE) != 2L) {
     cli::cli_abort(
@@ -141,6 +146,7 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
+    cards::as_card() |>
     cards::tidy_ard_column_order()
 }
 
