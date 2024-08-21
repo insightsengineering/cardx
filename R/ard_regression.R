@@ -34,51 +34,84 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
   check_not_missing(x)
 
   # summarize model ------------------------------------------------------------
-  broom.helpers::tidy_plus_plus(
-    model = x,
-    tidy_fun = tidy_fun,
-    ...
-  ) |>
+  lst_results <- cards::eval_capture_conditions(
+    broom.helpers::tidy_plus_plus(
+      model = x,
+      tidy_fun = tidy_fun,
+      ...
+    )
+  )
+
+  # final tidying up of cards data frame ---------------------------------------
+  .regression_final_ard_prep(lst_results)
+}
+
+.regression_final_ard_prep <- function(lst_results) {
+  # saving the results in data frame -------------------------------------------
+  df_card <-
+    if (!is.null(lst_results[["result"]])) {
+      lst_results[["result"]] |>
+        dplyr::mutate(
+          variable_level = dplyr::if_else(.data$var_type %in% "continuous", NA_character_, .data$label),
+          dplyr::across(-c("variable", "variable_level"), .fns = as.list)
+        ) |>
+        tidyr::pivot_longer(
+          cols = -c("variable", "variable_level"),
+          names_to = "stat_name",
+          values_to = "stat"
+        ) |>
+        dplyr::filter(map_lgl(.data$stat, Negate(is.na))) |>
+        dplyr::select(-(cards::all_ard_variables("levels") & dplyr::where(\(x) all(is.na(x)))))
+    } else { # if there was an error return a shell of an ARD data frame
+      dplyr::tibble(
+        variable = "model_1",
+        stat_name = "estimate",
+        stat = list(NULL)
+      )
+    }
+
+  # final tidying up of ARD data frame ---------------------------------------
+  df_card |>
     dplyr::mutate(
-      variable_level = dplyr::if_else(.data$var_type %in% "continuous", NA_character_, .data$label),
-      dplyr::across(-c("variable", "variable_level"), .fns = as.list)
+      warning = lst_results["warning"],
+      error = lst_results["error"],
+      fmt_fn = lapply(
+        .data$stat,
+        function(x) {
+          switch(is.integer(x),
+            0L
+          ) %||% switch(is.numeric(x),
+            1L
+          )
+        }
+      ),
+      context = "regression"
     ) |>
-    tidyr::pivot_longer(
-      cols = -c("variable", "variable_level"),
-      names_to = "stat_name",
-      values_to = "stat"
+    dplyr::left_join(
+      .df_regression_stat_labels(),
+      by = "stat_name"
     ) |>
-    dplyr::filter(map_lgl(.data$stat, Negate(is.na))) |>
-    dplyr::select(-(cards::all_ard_variables("levels") & dplyr::where(\(x) all(is.na(x))))) |>
-    dplyr::mutate(
-      fmt_fn =
-        lapply(
-          .data$stat,
-          function(x) {
-            switch(is.integer(x), 0L) %||% # styler: off
-              switch(is.numeric(x), 1L) # styler: off
-          }
-        ),
-      context = "regression",
-      stat_label =
-        dplyr::case_when(
-          .data$stat_name %in% "var_label" ~ "Label",
-          .data$stat_name %in% "var_class" ~ "Class",
-          .data$stat_name %in% "var_type" ~ "Type",
-          .data$stat_name %in% "var_nlevels" ~ "N Levels",
-          .data$stat_name %in% "contrasts_type" ~ "Contrast Type",
-          .data$stat_name %in% "label" ~ "Level Label",
-          .data$stat_name %in% "n_obs" ~ "N Obs.",
-          .data$stat_name %in% "n_event" ~ "N Events",
-          .data$stat_name %in% "exposure" ~ "Exposure Time",
-          .data$stat_name %in% "estimate" ~ "Coefficient",
-          .data$stat_name %in% "std.error" ~ "Standard Error",
-          .data$stat_name %in% "p.value" ~ "p-value",
-          .data$stat_name %in% "conf.low" ~ "CI Lower Bound",
-          .data$stat_name %in% "conf.high" ~ "CI Upper Bound",
-          TRUE ~ .data$stat_name
-        )
-    ) |>
+    dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
     cards::as_card() |>
     cards::tidy_ard_column_order()
+}
+
+.df_regression_stat_labels <- function() {
+  dplyr::tribble(
+    ~stat_name, ~stat_label,
+    "var_label", "Label",
+    "var_class", "Class",
+    "var_type", "Type",
+    "var_nlevels", "N Levels",
+    "contrasts_type", "Contrast Type",
+    "label", "Level Label",
+    "n_obs", "N Obs.",
+    "n_event", "N Events",
+    "exposure", "Exposure Time",
+    "estimate", "Coefficient",
+    "std.error", "Standard Error",
+    "p.value", "p-value",
+    "conf.low", "CI Lower Bound",
+    "conf.high", "CI Upper Bound",
+  )
 }
