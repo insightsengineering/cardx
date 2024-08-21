@@ -63,9 +63,9 @@ ard_effectsize_hedges_g <- function(data, by, variables, conf.level = 0.95, ...)
   check_scalar(by)
   check_range(conf.level, range = c(0, 1))
 
-  # if no variables selected, return empty tibble ------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
 
   # build ARD ------------------------------------------------------------------
@@ -115,12 +115,12 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, conf.level =
   check_scalar(id)
   check_range(conf.level, range = c(0, 1))
 
-  # if no variables selected, return empty tibble ------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
-  # build ARD ------------------------------------------------------------------
 
+  # build ARD ------------------------------------------------------------------
   lapply(
     variables,
     function(variable) {
@@ -190,5 +190,6 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, conf.level =
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
+    cards::as_card() |>
     cards::tidy_ard_column_order()
 }

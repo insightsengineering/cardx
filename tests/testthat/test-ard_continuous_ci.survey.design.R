@@ -35,7 +35,7 @@ test_that("ard_continuous_ci(variables)", {
 
   expect_equal(
     ard_continuous_ci(dclus1, variables = starts_with("xxxxxx")),
-    dplyr::tibble()
+    dplyr::tibble() |> cards::as_card()
   )
 
   # check NA values don't affect result

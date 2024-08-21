@@ -60,9 +60,9 @@ ard_stats_wilcox_test <- function(data, variables, by = NULL, conf.level = 0.95,
   check_scalar(by, allow_empty = TRUE)
   check_range(conf.level, range = c(0, 1))
 
-  # if no variables selected, return empty tibble ------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
 
   # build ARD ------------------------------------------------------------------
@@ -112,9 +112,9 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, conf.level = 0
   check_scalar(by)
   check_scalar(id)
 
-  # if no variables selected, return empty tibble ------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
 
   # build ARD ------------------------------------------------------------------
@@ -196,6 +196,7 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, conf.level = 0
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
+    cards::as_card() |>
     cards::tidy_ard_column_order()
 }
 
