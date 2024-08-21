@@ -163,26 +163,33 @@ ard_categorical.survey.design <- function(data,
     )
 
   # add unweighted statistics --------------------------------------------------
-  cards_unweighted <-
-    ard_categorical(
-      data = data[["variables"]],
-      variables = all_of(variables),
-      by = any_of(by),
-      denominator = denominator
-    ) |>
-    # all the survey levels are reported as character, so we do the same here.
-    dplyr::mutate(
-      across(
-        c(cards::all_ard_groups("levels"), cards::all_ard_variables("levels")),
-        ~ map(.x, as.character)
+  statistic_unweighted <- statistic |>
+    lapply(\(x) keep(x, ~ endsWith(.x, "_unweighted")) |> str_remove("_unweighted$")) |>
+    compact()
+
+  if (!is_empty(statistic_unweighted)) {
+    cards_unweighted <-
+      ard_categorical(
+        data = data[["variables"]],
+        variables = all_of(names(statistic_unweighted)),
+        by = any_of(by),
+        statistic = statistic_unweighted,
+        denominator = denominator
+      ) |>
+      # all the survey levels are reported as character, so we do the same here.
+      dplyr::mutate(
+        across(
+          c(cards::all_ard_groups("levels"), cards::all_ard_variables("levels")),
+          ~ map(.x, as.character)
+        )
+      ) |>
+      dplyr::select(-c("stat_label", "fmt_fn", "warning", "error")) |>
+      dplyr::mutate(
+        stat_name =
+          dplyr::case_match(.data$stat_name, "n" ~ "n_unweighted", "N" ~ "N_unweighted", "p" ~ "p_unweighted")
       )
-    ) |>
-    dplyr::select(-c("stat_label", "fmt_fn", "warning", "error")) |>
-    dplyr::mutate(
-      stat_name =
-        dplyr::case_match(.data$stat_name, "n" ~ "n_unweighted", "N" ~ "N_unweighted", "p" ~ "p_unweighted")
-    )
-  cards <- cards |> dplyr::bind_rows(cards_unweighted) # styler: off
+    cards <- cards |> dplyr::bind_rows(cards_unweighted) # styler: off
+  }
 
   # final processing of fmt_fn -------------------------------------------------
   cards <- cards |>
