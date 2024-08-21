@@ -78,9 +78,6 @@ ard_continuous_ci.survey.design <- function(data,
 }
 
 .calculate_ard_continuous_survey_ci <- function(FUN, data, variables, by, conf.level, ...) {
-  # return empty data frame if no variables to process -------------------------
-  if (is_empty(variables)) return(dplyr::tibble()) # styler: off
-
   # calculate results ----------------------------------------------------------
   map(
     variables,
