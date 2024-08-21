@@ -86,11 +86,6 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
     )
   )
 
-  # return empty tibble if no variables selected -------------------------------
-  if (is_empty(variables)) {
-    return(dplyr::tibble())
-  }
-
   # compute the weighted statistics --------------------------------------------
   df_stats <-
     map(

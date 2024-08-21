@@ -45,6 +45,6 @@ test_that("ard_stats_t_test_onesample() works", {
       cards::ADSL,
       variables = character(0)
     ),
-    dplyr::tibble()
+    dplyr::tibble() |> cards::as_card()
   )
 })

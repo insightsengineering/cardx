@@ -49,7 +49,6 @@ ard_smd_smd <- function(data, by, variables, std.error = TRUE, conf.level = 0.95
     data <- design$variables
   }
 
-
   # continue check/process inputs ----------------------------------------------
   check_data_frame(data)
   data <- dplyr::ungroup(data)
@@ -58,9 +57,9 @@ ard_smd_smd <- function(data, by, variables, std.error = TRUE, conf.level = 0.95
   # This check can be relaxed, but would require some changes to handle multi-row outputs
   check_n_levels(data[[by]], 2L, message = "The {.arg by} column must have {.val {length}} levels.")
 
-  # if no variables selected, return empty tibble ------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
 
   # build ARD ------------------------------------------------------------------

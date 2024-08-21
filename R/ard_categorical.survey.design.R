@@ -99,11 +99,6 @@ ard_categorical.survey.design <- function(data,
   )
   denominator <- arg_match(denominator)
 
-  # return empty tibble if no variables selected -------------------------------
-  if (is_empty(variables)) {
-    return(dplyr::tibble())
-  }
-
   # check the missingness
   walk(
     variables,

@@ -51,11 +51,6 @@ ard_dichotomous.survey.design <- function(data,
   )
   .check_dichotomous_value(data$variables, value)
 
-  # return empty tibble if no variables selected -------------------------------
-  if (is_empty(variables)) {
-    return(dplyr::tibble())
-  }
-
   # calculate summary statistics -----------------------------------------------
   ard_categorical(
     data = data,
