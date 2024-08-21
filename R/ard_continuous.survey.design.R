@@ -58,11 +58,6 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   # check inputs ---------------------------------------------------------------
   check_not_missing(variables)
 
-  # return empty ARD if no variables selected ----------------------------------
-  if (is_empty(variables)) {
-    return(dplyr::tibble() |> cards::as_card())
-  }
-
   # process inputs -------------------------------------------------------------
   cards::process_selectors(data$variables, variables = {{ variables }}, by = {{ by }})
   variables <- setdiff(variables, by)
@@ -85,6 +80,11 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
       i = "Values must be in {.val {cardx:::accepted_svy_stats(FALSE)}}"
     )
   )
+
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
 
   # compute the weighted statistics --------------------------------------------
   df_stats <-

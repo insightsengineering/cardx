@@ -37,11 +37,6 @@ ard_smd_smd <- function(data, by, variables, std.error = TRUE, conf.level = 0.95
   check_not_missing(variables)
   check_not_missing(by)
 
-  # return empty ARD if no variables selected ----------------------------------
-  if (is_empty(variables)) {
-    return(dplyr::tibble() |> cards::as_card())
-  }
-
   # grab design object if from `survey` ----------------------------------------
   is_survey <- inherits(data, "survey.design")
   if (is_survey) {
