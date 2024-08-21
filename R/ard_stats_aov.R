@@ -53,6 +53,6 @@ ard_stats_aov <- function(formula, data, ...) {
       warning = aov["warning"],
       error = aov["error"]
     ) |>
-    cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))} # styler: off
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }

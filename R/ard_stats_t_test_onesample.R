@@ -67,5 +67,6 @@ ard_stats_t_test_onesample <- function(data, variables, by = dplyr::group_vars(d
       context = "stats_t_test_onesample",
     ) |>
     cards::tidy_ard_row_order() |>
-    cards::tidy_ard_column_order()
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }

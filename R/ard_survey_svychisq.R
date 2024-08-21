@@ -70,5 +70,6 @@ ard_survey_svychisq <- function(data, by, variables, statistic = "F", ...) {
         )
     }
   ) |>
-    dplyr::bind_rows()
+    dplyr::bind_rows() |>
+    cards::as_card()
 }

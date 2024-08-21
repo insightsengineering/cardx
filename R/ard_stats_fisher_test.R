@@ -72,5 +72,6 @@ ard_stats_fisher_test <- function(data, by, variables, conf.level = 0.95, ...) {
         )
     }
   ) |>
-    dplyr::bind_rows()
+    dplyr::bind_rows() |>
+    cards::as_card()
 }

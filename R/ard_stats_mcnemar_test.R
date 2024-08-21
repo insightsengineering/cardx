@@ -167,7 +167,8 @@ ard_stats_mcnemar_test_long <- function(data, by, variables, id, ...) {
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
-    cards::tidy_ard_column_order()
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }
 
 .df_mcnemar_stat_labels <- function() {

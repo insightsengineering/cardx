@@ -143,8 +143,8 @@ ard_continuous_ci.survey.design <- function(data,
       stat_label = .data$stat_name,
       fmt_fn = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
     ) |>
-    cards::tidy_ard_column_order() %>%
-    structure(., class = c("card", class(.)))
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }
 
 .svymean_confint_wrapper <- function(data, variable, conf.level, df, ...) {

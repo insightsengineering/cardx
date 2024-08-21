@@ -67,5 +67,6 @@ ard_stats_chisq_test <- function(data, by, variables, ...) {
         )
     }
   ) |>
-    dplyr::bind_rows()
+    dplyr::bind_rows() |>
+    cards::as_card()
 }

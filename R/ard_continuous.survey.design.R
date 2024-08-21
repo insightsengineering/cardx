@@ -147,8 +147,8 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   # add class and return ARD object --------------------------------------------
   df_stats |>
     dplyr::mutate(context = "continuous") |>
-    cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))} # styler: off
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }
 
 .default_svy_stat_labels <- function(stat_label = NULL) {

@@ -79,6 +79,6 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
           TRUE ~ .data$stat_name
         )
     ) |>
-    cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))} # styler: off
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }

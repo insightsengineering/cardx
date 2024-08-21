@@ -101,8 +101,8 @@ ard_aod_wald_test <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or_pa
       warning = wald_test["warning"],
       error = wald_test["error"]
     ) |>
-    cards::tidy_ard_column_order() %>%
-      {structure(., class = c("card", class(.)))} # styler: off
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }
 
 #' Extract data from wald.test object

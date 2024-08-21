@@ -69,6 +69,6 @@ ard_car_anova <- function(x, ...) {
       warning = car_anova["warning"],
       error = car_anova["error"]
     ) |>
-    cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))} # styler: off
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }

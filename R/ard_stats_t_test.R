@@ -186,7 +186,8 @@ ard_stats_paired_t_test <- function(data, by, variables, id, conf.level = 0.95, 
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
-    cards::tidy_ard_column_order()
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }
 
 

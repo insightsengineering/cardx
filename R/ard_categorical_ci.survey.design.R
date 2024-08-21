@@ -142,8 +142,8 @@ ard_categorical_ci.survey.design <- function(data,
       stat_label = .data$stat_name,
       fmt_fn = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
     ) |>
-    cards::tidy_ard_column_order() %>%
-    structure(., class = c("card", class(.)))
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 
   # if a value was passed for the variable, subset on those results
   if (!is_empty(value)) {

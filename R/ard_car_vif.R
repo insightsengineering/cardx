@@ -100,6 +100,6 @@ ard_car_vif <- function(x, ...) {
 
   # Clean up return object
   vif_return |>
-    cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))}  # styler: off
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }

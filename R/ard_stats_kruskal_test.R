@@ -62,5 +62,6 @@ ard_stats_kruskal_test <- function(data, by, variables) {
         )
     }
   ) |>
-    dplyr::bind_rows()
+    dplyr::bind_rows() |>
+    cards::as_card()
 }

@@ -190,5 +190,6 @@ ard_effectsize_paired_hedges_g <- function(data, by, variables, id, conf.level =
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
-    cards::tidy_ard_column_order()
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }

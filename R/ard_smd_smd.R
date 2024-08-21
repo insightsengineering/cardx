@@ -120,5 +120,6 @@ ard_smd_smd <- function(data, by, variables, std.error = TRUE, conf.level = 0.95
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
-    cards::tidy_ard_column_order()
+    cards::tidy_ard_column_order() |>
+    cards::as_card()
 }
