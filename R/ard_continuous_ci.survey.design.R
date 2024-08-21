@@ -59,6 +59,11 @@ ard_continuous_ci.survey.design <- function(data,
     }
   )
 
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
+
   # calculate and return ARD of one sample CI ----------------------------------
   .calculate_ard_continuous_survey_ci(
     FUN = ifelse(method == "svymean", .svymean_confint_wrapper, .svyquantile_confint_wrapper),
@@ -73,9 +78,6 @@ ard_continuous_ci.survey.design <- function(data,
 }
 
 .calculate_ard_continuous_survey_ci <- function(FUN, data, variables, by, conf.level, ...) {
-  # return empty data frame if no variables to process -------------------------
-  if (is_empty(variables)) return(dplyr::tibble()) # styler: off
-
   # calculate results ----------------------------------------------------------
   map(
     variables,
@@ -143,8 +145,8 @@ ard_continuous_ci.survey.design <- function(data,
       stat_label = .data$stat_name,
       fmt_fn = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
     ) |>
-    cards::tidy_ard_column_order() %>%
-    structure(., class = c("card", class(.)))
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 }
 
 .svymean_confint_wrapper <- function(data, variable, conf.level, df, ...) {

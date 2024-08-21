@@ -6,6 +6,8 @@
 
 * Added `warning` and `error` columns to `ard_regression()` output. (#148)
 
+* Implemented `cards::as_card()` where needed in the package to convert data frames to class 'card'. (#200)
+
 # cardx 0.2.0
 
 ### Breaking Changes

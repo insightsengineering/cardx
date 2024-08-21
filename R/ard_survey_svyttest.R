@@ -37,6 +37,11 @@ ard_survey_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
   cards::process_selectors(data[["variables"]], by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
 
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
+
   # build ARD ------------------------------------------------------------------
   lapply(
     variables,
@@ -85,5 +90,6 @@ ard_survey_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
+    cards::as_card() |>
     cards::tidy_ard_column_order()
 }
