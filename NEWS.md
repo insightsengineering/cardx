@@ -4,6 +4,8 @@
 
 * Added S3 method `ard_total_n.survey.design()` which returns an ARD with both the survey-weighted and unweighted total sample size.
 
+* Added `warning` and `error` columns to `ard_regression()` output. (#148)
+
 # cardx 0.2.0
 
 ### Breaking Changes
