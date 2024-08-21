@@ -1291,6 +1291,25 @@ test_that("ard_categorical.survey.design() works when using generic names ", {
   )
 })
 
+test_that("ard_categorical.survey.design(statistic) properly excluded unweighted stats not selected", {
+  svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
+
+  expect_equal(
+    ard_categorical(
+      svy_titanic,
+      variables = Sex,
+      statistic = ~ c("N", "N_unweighted")
+    ) |>
+      dplyr::select(variable, variable_level, stat_name, stat_label, stat),
+    ard_categorical(
+      svy_titanic,
+      variables = Sex
+    ) |>
+      dplyr::filter(stat_name %in% c("N", "N_unweighted")) |>
+      dplyr::select(variable, variable_level, stat_name, stat_label, stat)
+  )
+})
+
 test_that("ard_categorical follows ard structure", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
@@ -1303,5 +1322,3 @@ test_that("ard_categorical follows ard structure", {
       denominator = "row"
     ) |>
       cards::check_ard_structure(method = FALSE)
-  )
-})

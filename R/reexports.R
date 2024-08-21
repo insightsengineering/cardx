@@ -19,6 +19,10 @@ cards::ard_missing
 #' @export
 cards::ard_attributes
 
+#' @importFrom cards ard_total_n
+#' @export
+cards::ard_total_n
+
 # dplyr ------------------------------------------------------------------------
 #' @export
 #' @importFrom dplyr %>%
