@@ -199,6 +199,6 @@ ard_stats_anova.data.frame <- function(x,
           .default = .data$stat_name
         )
     ) |>
-    cards::tidy_ard_column_order() |>
-    cards::as_card()
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 }

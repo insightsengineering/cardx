@@ -131,6 +131,6 @@ ard_missing.survey.design <- function(data,
   # return final object --------------------------------------------------------
   result |>
     dplyr::mutate(context = "missing") |>
-    cards::tidy_ard_column_order() |>
-    cards::as_card()
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 }

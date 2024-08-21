@@ -95,8 +95,8 @@ ard_survival_survdiff <- function(formula, data, rho = 0, ...) {
         }
       )
     ) |>
-    cards::tidy_ard_column_order() |>
-    cards::as_card()
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 }
 
 .variables_to_survdiff_ard <- function(variables,

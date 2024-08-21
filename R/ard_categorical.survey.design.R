@@ -217,9 +217,9 @@ ard_categorical.survey.design <- function(data,
       warning = list(NULL),
       error = list(NULL),
     ) |>
+    cards::as_card() |>
     cards::tidy_ard_column_order() |>
-    cards::tidy_ard_row_order() |>
-    cards::as_card()
+    cards::tidy_ard_row_order()
 }
 
 # check for functions with NA factor levels (these are not allowed)

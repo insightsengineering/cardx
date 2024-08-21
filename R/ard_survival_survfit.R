@@ -324,9 +324,9 @@ extract_multi_strata <- function(x, df_stat) {
       warning = list(NULL),
       error = list(NULL)
     ) %>%
+    cards::as_card() %>%
     cards::tidy_ard_column_order() %>%
-    cards::tidy_ard_row_order() %>%
-    cards::as_card()
+    cards::tidy_ard_row_order()
 }
 
 .df_survfit_stat_labels <- function() {

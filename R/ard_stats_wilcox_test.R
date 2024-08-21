@@ -196,8 +196,8 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, conf.level = 0
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
-    cards::tidy_ard_column_order() |>
-    cards::as_card()
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 }
 
 

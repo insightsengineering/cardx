@@ -101,8 +101,8 @@ ard_stats_mood_test <- function(data, by, variables, ...) {
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
-    cards::tidy_ard_column_order() |>
-    cards::as_card()
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 }
 
 .df_moodtest_stat_labels <- function() {

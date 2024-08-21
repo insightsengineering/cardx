@@ -67,7 +67,7 @@ ard_stats_wilcox_test_onesample <- function(data, variables, by = dplyr::group_v
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
       context = "stats_wilcox_test_onesample",
     ) |>
-    cards::tidy_ard_row_order() |>
+    cards::as_card() |>
     cards::tidy_ard_column_order() |>
-    cards::as_card()
+    cards::tidy_ard_row_order()
 }

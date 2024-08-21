@@ -116,6 +116,6 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
         ),
       context = "survival_survfit_diff",
     ) |>
-    cards::tidy_ard_column_order() |>
-    cards::as_card()
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 }
