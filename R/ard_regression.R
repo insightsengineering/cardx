@@ -92,8 +92,8 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
       by = "stat_name"
     ) |>
     dplyr::mutate(stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name)) |>
-    cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))} # styler: off
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 }
 
 .df_regression_stat_labels <- function() {
