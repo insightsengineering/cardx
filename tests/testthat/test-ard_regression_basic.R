@@ -1,7 +1,7 @@
 skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx")))
 
 test_that("ard_regression_basic() works", {
-  options(width = 100)
+  withr::local_options(list(width = 100))
 
   expect_error(
     ard <- lm(AGE ~ ARM, data = cards::ADSL) |>
