@@ -53,3 +53,11 @@ test_that("ard_regression() warnings and errors return correctly", {
       as.data.frame()
   )
 })
+
+test_that("ard_regression() follows ard structure", {
+  expect_silent(
+    lm(AGE ~ ARM, data = cards::ADSL) |>
+      ard_regression(add_estimate_to_reference_rows = TRUE)|>
+      cards::check_ard_structure(method = FALSE)
+  )
+})

@@ -50,6 +50,16 @@ ard_stats_aov <- function(formula, data, ...) {
           TRUE ~ .data$stat_name
         ),
       context = "stats_aov",
+      fmt_fn = lapply(
+        .data$stat,
+        function(x) {
+          switch(is.integer(x),
+                 0L
+          ) %||% switch(is.numeric(x),
+                        1L
+          )
+        }
+      ),
       warning = aov["warning"],
       error = aov["error"]
     ) |>

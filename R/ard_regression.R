@@ -52,7 +52,7 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
     if (!is.null(lst_results[["result"]])) {
       lst_results[["result"]] |>
         dplyr::mutate(
-          variable_level = dplyr::if_else(.data$var_type %in% "continuous", NA_character_, .data$label),
+          variable_level = as.list(dplyr::if_else(.data$var_type %in% "continuous", NA_character_, .data$label)),
           dplyr::across(-c("variable", "variable_level"), .fns = as.list)
         ) |>
         tidyr::pivot_longer(

@@ -74,6 +74,7 @@ ard_car_vif <- function(x, ...) {
     ) |>
     dplyr::mutate(
       context = "car_vif",
+      stat = as.list(.data$stat),
       stat_label = ifelse(
         .data$stat_name == "aGVIF",
         "Adjusted GVIF",
