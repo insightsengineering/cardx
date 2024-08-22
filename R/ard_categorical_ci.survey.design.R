@@ -50,6 +50,11 @@ ard_categorical_ci.survey.design <- function(data,
   check_scalar_range(conf.level, range = c(0, 1))
   method <- arg_match(method)
 
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
+
   # calculate and return ARD of one sample CI ----------------------------------
   .calculate_ard_onesample_survey_ci(
     FUN = .svyciprop_wrapper,
@@ -65,9 +70,6 @@ ard_categorical_ci.survey.design <- function(data,
 }
 
 .calculate_ard_onesample_survey_ci <- function(FUN, data, variables, by, conf.level, value, ...) {
-  # return empty data frame if no variables to process -------------------------
-  if (is_empty(variables)) return(dplyr::tibble()) # styler: off
-
   # calculate results ----------------------------------------------------------
   map(
     variables,
@@ -142,8 +144,8 @@ ard_categorical_ci.survey.design <- function(data,
       stat_label = .data$stat_name,
       fmt_fn = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
     ) |>
-    cards::tidy_ard_column_order() %>%
-    structure(., class = c("card", class(.)))
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 
   # if a value was passed for the variable, subset on those results
   if (!is_empty(value)) {

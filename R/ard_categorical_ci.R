@@ -76,6 +76,12 @@ ard_categorical_ci.data.frame <- function(data,
     data[variables],
     value = value
   )
+  check_not_missing(variables)
+
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
 
   # calculate confidence intervals ---------------------------------------------
   map(
