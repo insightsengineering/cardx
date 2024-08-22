@@ -54,9 +54,9 @@ ard_stats_aov <- function(formula, data, ...) {
         .data$stat,
         function(x) {
           switch(is.integer(x),
-                 0L
+            0L
           ) %||% switch(is.numeric(x),
-                        1L
+            1L
           )
         }
       ),

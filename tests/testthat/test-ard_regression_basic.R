@@ -19,7 +19,7 @@ test_that("ard_regression_basic() does not produce `variable_level` column where
 test_that("ard_regression_basic() follows ard structure", {
   expect_silent(
     lm(AGE ~ ARM, data = cards::ADSL) |>
-      ard_regression_basic()|>
+      ard_regression_basic() |>
       cards::check_ard_structure(method = FALSE)
   )
 })
