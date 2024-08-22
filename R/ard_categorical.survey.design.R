@@ -72,8 +72,10 @@ ard_categorical.survey.design <- function(data,
   variables <- setdiff(variables, by)
   check_scalar(by, allow_empty = TRUE)
 
-  # if no variables selected, return empty data frame
-  if (is_empty(variables)) return(dplyr::tibble()) # styler: off
+  # return empty ARD if no variables selected ----------------------------------
+  if (is_empty(variables)) {
+    return(dplyr::tibble() |> cards::as_card())
+  }
 
   check_na_factor_levels(data$variables, c(by, variables))
 
@@ -96,11 +98,6 @@ ard_categorical.survey.design <- function(data,
     )
   )
   denominator <- arg_match(denominator)
-
-  # return empty tibble if no variables selected -------------------------------
-  if (is_empty(variables)) {
-    return(dplyr::tibble())
-  }
 
   # check the missingness
   walk(
@@ -215,8 +212,8 @@ ard_categorical.survey.design <- function(data,
       warning = list(NULL),
       error = list(NULL),
     ) |>
-    cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))} |> # styler: off
+    cards::as_card() |>
+    cards::tidy_ard_column_order() |>
     cards::tidy_ard_row_order()
 }
 

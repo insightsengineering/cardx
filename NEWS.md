@@ -1,10 +1,12 @@
-# cardx 0.2.0.9007
+# cardx 0.2.0.9008
 
 * Bug fix in `ard_categorical.survey.design()` where all unweighted statistics were returned, even in the case where they were explicitly not requested.
 
 * Added S3 method `ard_total_n.survey.design()` which returns an ARD with both the survey-weighted and unweighted total sample size.
 
 * Added `warning` and `error` columns to `ard_regression()` output. (#148)
+
+* Implemented `cards::as_card()` where needed in the package to convert data frames to class 'card'. (#200)
 
 # cardx 0.2.0
 

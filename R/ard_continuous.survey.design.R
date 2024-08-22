@@ -81,9 +81,9 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
     )
   )
 
-  # return empty tibble if no variables selected -------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
 
   # compute the weighted statistics --------------------------------------------
@@ -147,8 +147,8 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   # add class and return ARD object --------------------------------------------
   df_stats |>
     dplyr::mutate(context = "continuous") |>
-    cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))} # styler: off
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 }
 
 .default_svy_stat_labels <- function(stat_label = NULL) {

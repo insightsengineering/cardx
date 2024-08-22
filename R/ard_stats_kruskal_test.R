@@ -33,10 +33,11 @@ ard_stats_kruskal_test <- function(data, by, variables) {
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar(by)
 
-  # if no variables selected, return empty tibble ------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
+
   # build ARD ------------------------------------------------------------------
   lapply(
     variables,
@@ -62,5 +63,6 @@ ard_stats_kruskal_test <- function(data, by, variables) {
         )
     }
   ) |>
-    dplyr::bind_rows()
+    dplyr::bind_rows() |>
+    cards::as_card()
 }

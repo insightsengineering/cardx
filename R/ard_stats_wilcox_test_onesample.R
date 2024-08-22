@@ -33,9 +33,9 @@ ard_stats_wilcox_test_onesample <- function(data, variables, by = dplyr::group_v
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
   check_scalar_range(conf.level, range = c(0, 1))
 
-  # if no variables selected, return empty tibble ------------------------------
+  # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble())
+    return(dplyr::tibble() |> cards::as_card())
   }
 
   cards::ard_continuous(
@@ -67,6 +67,7 @@ ard_stats_wilcox_test_onesample <- function(data, variables, by = dplyr::group_v
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
       context = "stats_wilcox_test_onesample",
     ) |>
-    cards::tidy_ard_row_order() |>
-    cards::tidy_ard_column_order()
+    cards::as_card() |>
+    cards::tidy_ard_column_order() |>
+    cards::tidy_ard_row_order()
 }
