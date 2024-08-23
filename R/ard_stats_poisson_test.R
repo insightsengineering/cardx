@@ -107,6 +107,7 @@ ard_stats_poisson_test <- function(data, variables, na.rm = TRUE, by = NULL, con
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' cardx:::.format_poissontest_results(
 #'   by = "ARM",
+#'   variables = c("CNSR", "AVAL"),
 #'   lst_tidy =
 #'     cards::eval_capture_conditions(
 #'       stats::poisson.test(sum(cards::ADTTE[["CNSR"]]), sum(cards::ADTTE[["AVAL"]])) |>
