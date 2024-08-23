@@ -1309,3 +1309,18 @@ test_that("ard_categorical.survey.design(statistic) properly excluded unweighted
       dplyr::select(variable, variable_level, stat_name, stat_label, stat)
   )
 })
+
+test_that("ard_categorical follows ard structure", {
+  data(api, package = "survey")
+  svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
+
+  expect_silent(
+    ard_categorical(
+      svy_titanic,
+      variables = c(Class, Age),
+      by = Survived,
+      denominator = "row"
+    ) |>
+      cards::check_ard_structure(method = FALSE)
+  )
+})

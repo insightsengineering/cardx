@@ -15,3 +15,11 @@ test_that("ard_regression_basic() works", {
 test_that("ard_regression_basic() does not produce `variable_level` column where not applicable", {
   expect_true(!"variable_level" %in% names(lm(mpg ~ hp, mtcars) |> ard_regression_basic()))
 })
+
+test_that("ard_regression_basic() follows ard structure", {
+  expect_silent(
+    lm(AGE ~ ARM, data = cards::ADSL) |>
+      ard_regression_basic() |>
+      cards::check_ard_structure(method = FALSE)
+  )
+})

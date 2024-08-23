@@ -59,12 +59,12 @@
       cards::round5(x, 3), x)))
     Output
                         variable           variable_level stat_name   stat warning error
-      1                       hp                     <NA>     n_obs     32    NULL  NULL
-      2                       hp                     <NA>  estimate  -0.03    NULL  NULL
-      3                       hp                     <NA> std.error  0.015    NULL  NULL
-      4                       hp                     <NA> statistic -2.088    NULL  NULL
-      5                       hp                     <NA>  conf.low -0.059    NULL  NULL
-      6                       hp                     <NA> conf.high -0.002    NULL  NULL
+      1                       hp                       NA     n_obs     32    NULL  NULL
+      2                       hp                       NA  estimate  -0.03    NULL  NULL
+      3                       hp                       NA std.error  0.015    NULL  NULL
+      4                       hp                       NA statistic -2.088    NULL  NULL
+      5                       hp                       NA  conf.low -0.059    NULL  NULL
+      6                       hp                       NA conf.high -0.002    NULL  NULL
       7      cyl.sd__(Intercept)      cyl.sd__(Intercept)  estimate  4.023    NULL  NULL
       8 Residual.sd__Observation Residual.sd__Observation  estimate  3.149    NULL  NULL
 

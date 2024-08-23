@@ -111,3 +111,10 @@ test_that("ard_categorical_ci(method)", {
       set_names(c("estimate", "conf.low", "conf.high"))
   )
 })
+
+test_that("ard_categorical_ci.survey.design() follows ard structure", {
+  expect_silent(
+    ard_categorical_ci(dclus1, variables = c(both, awards), method = "likelihood") |>
+      cards::check_ard_structure(method = TRUE)
+  )
+})

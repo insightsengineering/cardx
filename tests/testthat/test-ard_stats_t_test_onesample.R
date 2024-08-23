@@ -48,3 +48,16 @@ test_that("ard_stats_t_test_onesample() works", {
     dplyr::tibble() |> cards::as_card()
   )
 })
+
+test_that("ard_stats_t_test_onesample() follows ard structure", {
+  expect_silent(
+    ard_stats_t_test_onesample(
+      cards::ADSL,
+      variables = AGE,
+      by = ARM,
+      conf.level = 0.9,
+      mu = 1
+    ) |>
+      cards::check_ard_structure()
+  )
+})
