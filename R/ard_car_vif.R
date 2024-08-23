@@ -74,6 +74,7 @@ ard_car_vif <- function(x, ...) {
     ) |>
     dplyr::mutate(
       context = "car_vif",
+      stat = as.list(.data$stat),
       stat_label = ifelse(
         .data$stat_name == "aGVIF",
         "Adjusted GVIF",
@@ -100,6 +101,6 @@ ard_car_vif <- function(x, ...) {
 
   # Clean up return object
   vif_return |>
-    cards::tidy_ard_column_order() %>%
-    {structure(., class = c("card", class(.)))}  # styler: off
+    cards::as_card() |>
+    cards::tidy_ard_column_order()
 }
