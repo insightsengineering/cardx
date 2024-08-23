@@ -80,7 +80,7 @@ test_that("ard_stats_poisson_test() errors are handled correctly", {
 
 test_that("ard_stats_poisson_test() follows ard structure", {
   expect_silent(
-    ard_stats_poisson_test(cards::ADTTE, variables = c(CNSR, AVAL))|>
+    ard_stats_poisson_test(cards::ADTTE, variables = c(CNSR, AVAL)) |>
       cards::check_ard_structure(method = T)
   )
 })
