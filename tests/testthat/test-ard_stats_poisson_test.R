@@ -3,15 +3,14 @@ skip_if_not(is_pkg_installed("broom", reference_pkg = "cardx"))
 test_that("ard_stats_poisson_test() works for one sample tests", {
   # Default values work
   expect_silent(
-    ard_stats_poisson_test(cards::ADTTE, numerator = CNSR, denominator = AVAL)
+    ard_stats_poisson_test(cards::ADTTE, variables = c(CNSR, AVAL))
   )
 
   # Custom values work
   expect_silent(
     ard_single <- ard_stats_poisson_test(
       cards::ADTTE,
-      numerator = "CNSR",
-      denominator = "AVAL",
+      variables = c("CNSR", "AVAL"),
       conf.level = 0.90,
       r = 0.8,
       alternative = "greater"
@@ -43,7 +42,7 @@ test_that("ard_stats_poisson_test() works for two sample tests", {
     ard_compare <-
       cards::ADTTE |>
       dplyr::filter(TRTA %in% c("Placebo", "Xanomeline High Dose")) |>
-      ard_stats_poisson_test(by = TRTA, numerator = CNSR, denominator = AVAL)
+      ard_stats_poisson_test(by = TRTA, variables = c(CNSR, AVAL))
   )
 
   # Statistics calculated correctly
@@ -74,14 +73,14 @@ test_that("ard_stats_poisson_test() works for two sample tests", {
 test_that("ard_stats_poisson_test() errors are handled correctly", {
   expect_snapshot(
     cards::ADTTE |>
-      ard_stats_poisson_test(by = TRTA, numerator = CNSR, denominator = AVAL),
+      ard_stats_poisson_test(by = TRTA, variables = c(CNSR, AVAL)),
     error = TRUE
   )
 })
 
 test_that("ard_stats_poisson_test() follows ard structure", {
   expect_silent(
-    ard_stats_poisson_test(cards::ADTTE, numerator = CNSR, denominator = AVAL)|>
+    ard_stats_poisson_test(cards::ADTTE, variables = c(CNSR, AVAL))|>
       cards::check_ard_structure(method = T)
   )
 })

@@ -4,10 +4,12 @@
 \alias{.format_poissontest_results}
 \title{Convert Poisson test to ARD}
 \usage{
-.format_poissontest_results(by = NULL, lst_tidy, ...)
+.format_poissontest_results(by = NULL, variables, lst_tidy, ...)
 }
 \arguments{
 \item{by}{(\code{string})\cr by column name}
+
+\item{variables}{(\code{character})\cr names of the event and time variables}
 
 \item{lst_tidy}{(named \code{list})\cr
 list of tidied results constructed with \code{\link[cards:eval_capture_conditions]{eval_capture_conditions()}},

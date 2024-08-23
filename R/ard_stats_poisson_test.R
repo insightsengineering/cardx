@@ -6,16 +6,14 @@
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame. See below for details.
+#' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   names of the event and time variables (in that order) to be used in computations. Must be of length 2.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   optional column name to compare by.
-#' @param numerator ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   name of the event variable to be summed for computing the numerator.
-#' @param denominator ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   name of the time variable to be summed for computing the denominator.
 #' @param conf.level (scalar `numeric`)\cr
 #'   confidence level for confidence interval. Default is `0.95`.
 #' @param na.rm (scalar `logical`)\cr
-#'   whether missing values should be removed before summing the numerator and the denominator. Default is `TRUE`.
+#'   whether missing values should be removed before computations. Default is `TRUE`.
 #' @param ... arguments passed to [poisson.test()].
 #' @return an ARD data frame of class 'card'
 #' @name ard_stats_poisson_test
@@ -29,17 +27,17 @@
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
 #' # Exact test of rate parameter against null hypothesis
 #' cards::ADTTE |>
-#'   ard_stats_poisson_test(numerator = CNSR, denominator = AVAL)
+#'   ard_stats_poisson_test(variables = c(CNSR, AVAL))
 #'
 #' # Comparison test of ratio of 2 rate parameters against null hypothesis
 #' cards::ADTTE |>
 #'   dplyr::filter(TRTA %in% c("Placebo", "Xanomeline High Dose")) |>
-#'   ard_stats_poisson_test(by = TRTA, numerator = CNSR, denominator = AVAL)
+#'   ard_stats_poisson_test(by = TRTA, variables = c(CNSR, AVAL))
 NULL
 
 #' @rdname ard_stats_poisson_test
 #' @export
-ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, by = NULL, conf.level = 0.95, ...) {
+ard_stats_poisson_test <- function(data, variables, na.rm = TRUE, by = NULL, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
@@ -47,17 +45,17 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
-  check_not_missing(numerator)
-  check_not_missing(denominator)
+  check_not_missing(variables)
   check_data_frame(data)
   data <- dplyr::ungroup(data)
-  cards::process_selectors(data, by = {{ by }}, numerator = {{ numerator }}, denominator = {{ denominator }})
+  cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})
+  check_length(variables, 2)
   check_logical(na.rm)
   check_scalar(by, allow_empty = TRUE)
   check_range(conf.level, range = c(0, 1))
 
-  # return empty ARD if no numerator/denominator selected ----------------------
-  if (is_empty(numerator) || is_empty(denominator)) {
+  # return empty ARD if no variables selected ----------------------
+  if (is_empty(variables)) {
     return(dplyr::tibble() |> cards::as_card())
   }
 
@@ -73,20 +71,21 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
   if (!is_empty(by)) {
     num <- data |>
       dplyr::group_by(.data[[by]]) |>
-      dplyr::summarise(sum = sum(.data[[numerator]], na.rm = na.rm)) |>
+      dplyr::summarise(sum = sum(.data[[variables[1]]], na.rm = na.rm)) |>
       dplyr::pull(sum)
     denom <- data |>
       dplyr::group_by(.data[[by]]) |>
-      dplyr::summarise(sum = sum(.data[[denominator]], na.rm = na.rm)) |>
+      dplyr::summarise(sum = sum(.data[[variables[2]]], na.rm = na.rm)) |>
       dplyr::pull(sum)
   } else {
-    num <- sum(data[[numerator]], na.rm = na.rm)
-    denom <- sum(data[[denominator]], na.rm = na.rm)
+    num <- sum(data[[variables[1]]], na.rm = na.rm)
+    denom <- sum(data[[variables[2]]], na.rm = na.rm)
   }
 
   # build ARD ------------------------------------------------------------------
   .format_poissontest_results(
     by = by,
+    variables = variables,
     lst_tidy =
       cards::eval_capture_conditions(
         stats::poisson.test(x = num, T = denom, conf.level = conf.level, ...) |> broom::tidy()
@@ -100,6 +99,7 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
 #' @inheritParams cards::tidy_as_ard
 #' @inheritParams stats::poisson.test
 #' @param by (`string`)\cr by column name
+#' @param variables (`character`)\cr names of the event and time variables
 #' @param ... passed to [poisson.test()]
 #'
 #' @return ARD data frame
@@ -113,7 +113,7 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
 #'         broom::tidy()
 #'     )
 #' )
-.format_poissontest_results <- function(by = NULL, lst_tidy, ...) {
+.format_poissontest_results <- function(by = NULL, variables, lst_tidy, ...) {
   # build ARD ------------------------------------------------------------------
   ret <-
     cards::tidy_as_ard(
@@ -127,7 +127,7 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
       fun_args_to_record = c("conf.level", "r"),
       formals = formals(asNamespace("stats")[["poisson.test"]]),
       passed_args = dots_list(...),
-      lst_ard_columns = list(context = "stats_poisson_test")
+      lst_ard_columns = list(context = "stats_poisson_test", variable = variables[2])
     ) |>
     dplyr::distinct()
 
@@ -136,7 +136,7 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
 
   if (!is_empty(by)) {
     ret <- ret |>
-      dplyr::mutate(variable = by)
+      dplyr::mutate(group1 = by)
   }
 
   # add the stat label ---------------------------------------------------------

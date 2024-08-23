@@ -6,8 +6,7 @@
 \usage{
 ard_stats_poisson_test(
   data,
-  numerator,
-  denominator,
+  variables,
   na.rm = TRUE,
   by = NULL,
   conf.level = 0.95,
@@ -18,14 +17,11 @@ ard_stats_poisson_test(
 \item{data}{(\code{data.frame})\cr
 a data frame. See below for details.}
 
-\item{numerator}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-name of the event variable to be summed for computing the numerator.}
-
-\item{denominator}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-name of the time variable to be summed for computing the denominator.}
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+names of the event and time variables (in that order) to be used in computations. Must be of length 2.}
 
 \item{na.rm}{(scalar \code{logical})\cr
-whether missing values should be removed before summing the numerator and the denominator. Default is \code{TRUE}.}
+whether missing values should be removed before computations. Default is \code{TRUE}.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 optional column name to compare by.}
@@ -54,11 +50,11 @@ levels, an error will occur.
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Exact test of rate parameter against null hypothesis
 cards::ADTTE |>
-  ard_stats_poisson_test(numerator = CNSR, denominator = AVAL)
+  ard_stats_poisson_test(variables = c(CNSR, AVAL))
 
 # Comparison test of ratio of 2 rate parameters against null hypothesis
 cards::ADTTE |>
   dplyr::filter(TRTA \%in\% c("Placebo", "Xanomeline High Dose")) |>
-  ard_stats_poisson_test(by = TRTA, numerator = CNSR, denominator = AVAL)
+  ard_stats_poisson_test(by = TRTA, variables = c(CNSR, AVAL))
 \dontshow{\}) # examplesIf}
 }
