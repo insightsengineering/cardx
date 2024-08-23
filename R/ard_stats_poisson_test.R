@@ -136,7 +136,7 @@ ard_stats_poisson_test <- function(data, numerator, denominator, na.rm = TRUE, b
 
   if (!is_empty(by)) {
     ret <- ret |>
-      dplyr::mutate(group1 = by)
+      dplyr::mutate(variable = by)
   }
 
   # add the stat label ---------------------------------------------------------
