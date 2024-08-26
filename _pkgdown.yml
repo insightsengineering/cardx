@@ -32,6 +32,7 @@ reference:
       - ard_stats_mood_test
       - ard_stats_mcnemar_test
       - ard_stats_oneway_test
+      - ard_stats_poisson_test
       - ard_stats_prop_test
       - ard_stats_t_test
       - ard_stats_t_test_onesample
