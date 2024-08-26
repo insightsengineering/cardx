@@ -1,4 +1,4 @@
-# cardx 0.2.0.9009
+# cardx 0.2.0.9010
 
 * Bug fix in `ard_categorical.survey.design()` where all unweighted statistics were returned, even in the case where they were explicitly not requested.
 
