@@ -35,6 +35,8 @@ test_that("ard_continuous_ci.data.frame(method = 'wilcox.test')", {
 })
 
 test_that("ard_continuous_ci.data.frame() follows ard structure", {
+  skip_if_not(is_pkg_installed("broom", reference_pkg = "cardx"))
+
   expect_silent(
     ard_continuous_ci(
       mtcars,
