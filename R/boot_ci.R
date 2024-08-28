@@ -12,7 +12,7 @@
 #'   should be any subset of the values `c("norm","basic", "stud", "perc", "bca")` or simply `"all"` which will
 #'   compute all five types of intervals.
 #' @param stype (`string`)\cr a character string indicating what the second argument of statistic represents.
-#'   Possible values of stype are `"i"` (indices - the default), `"f"` (frequencies), or `"w"` (weights).
+#'   Possible values of `stype` are `"i"` (indices - the default), `"f"` (frequencies), or `"w"` (weights).
 #' @param statistic (`function`)\cr a function which, when applied to data, returns a vector containing the
 #'   statistic(s) of interest. See the parameter description in [boot::boot()] for details.
 #'
@@ -66,7 +66,6 @@ boot_ci <- function(x,
       paste0("All values of t are equal to ", boot$t0, ". Cannot calculate confidence intervals."),
       call = get_cli_abort_call()
     )
-
   } else {
     boot.ci <- boot::boot.ci(boot, conf = conf.level, type = type)
 

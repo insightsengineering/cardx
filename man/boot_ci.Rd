@@ -27,7 +27,7 @@ should be any subset of the values \code{c("norm","basic", "stud", "perc", "bca"
 compute all five types of intervals.}
 
 \item{stype}{(\code{string})\cr a character string indicating what the second argument of statistic represents.
-Possible values of stype are \code{"i"} (indices - the default), \code{"f"} (frequencies), or \code{"w"} (weights).}
+Possible values of \code{stype} are \code{"i"} (indices - the default), \code{"f"} (frequencies), or \code{"w"} (weights).}
 
 \item{statistic}{(\code{function})\cr a function which, when applied to data, returns a vector containing the
 statistic(s) of interest. See the parameter description in \code{\link[boot:boot]{boot::boot()}} for details.}
