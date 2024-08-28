@@ -1,15 +1,13 @@
 #' Function for Calculating Nonparametric Bootstrap Confidence Intervals
 #'
-#' @description
-#' test
+#' This function first applies [boot::boot()] to convert the input data `x` to a `boot` object and then uses
+#' [boot::boot.ci()] to calculate the corresponding nonparametric bootstrap confidence interval.
 #'
-#' @param data (`data.frame`)\cr
-#'   a data frame. See below for details.
-#' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column names to be analyzed. Independent t-tests will be computed for
-#'   each variable.
-#' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   optional column name to stratify results by.
+#' @param x vector of numeric values, i.e. a numeric vector, or a logical vector which will be interpreted
+#'   as binary with values `c(0, 1)`.
+#' @param conf.level (`numeric`)\cr
+#'   a scalar in `(0, 1)` indicating the confidence level.
+#'   Default is `0.95`
 #' @inheritParams boot::boot
 #' @inheritParams boot::boot.ci
 #'

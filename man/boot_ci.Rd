@@ -14,6 +14,13 @@ boot_ci(
 )
 }
 \arguments{
+\item{x}{vector of numeric values, i.e. a numeric vector, or a logical vector which will be interpreted
+as binary with values \code{c(0, 1)}.}
+
+\item{conf.level}{(\code{numeric})\cr
+a scalar in \verb{(0, 1)} indicating the confidence level.
+Default is \code{0.95}}
+
 \item{R}{
     The number of bootstrap replicates.  Usually this will be a single
     positive integer.  For importance resampling, some resamples may use
@@ -51,22 +58,13 @@ boot_ci(
     Any further arguments can be passed to \code{statistic} through the
     \code{\dots} argument.
   }
-
-\item{data}{(\code{data.frame})\cr
-a data frame. See below for details.}
-
-\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column names to be analyzed. Independent t-tests will be computed for
-each variable.}
-
-\item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-optional column name to stratify results by.}
 }
 \value{
 Bootstrap confidence interval.
 }
 \description{
-test
+This function first applies \code{\link[boot:boot]{boot::boot()}} to convert the input data \code{x} to a \code{boot} object and then uses
+\code{\link[boot:boot.ci]{boot::boot.ci()}} to calculate the corresponding nonparametric bootstrap confidence interval.
 }
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "boot", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
