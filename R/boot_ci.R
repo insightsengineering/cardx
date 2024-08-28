@@ -51,11 +51,10 @@ boot_ci <- function(x,
   result <- list(
     N = NULL,
     estimate = NULL,
-    conf.low = NULL,
-    conf.high = NULL,
     conf.level = conf.level,
     R = R,
-    ci.type = type
+    conf.low = NULL,
+    conf.high = NULL
   )
 
   boot <- boot::boot(data = x, statistic = statistic, R = R, stype = stype)
@@ -67,10 +66,28 @@ boot_ci <- function(x,
       paste0("All values of t are equal to ", boot$t0, ". Cannot calculate confidence intervals."),
       call = get_cli_abort_call()
     )
+
   } else {
     boot.ci <- boot::boot.ci(boot, conf = conf.level, type = type)
-    result$conf.low <- boot.ci$percent[1, 4] |> unname()
-    result$conf.high <- boot.ci$percent[1, 5] |> unname()
+
+    if (type == "all") {
+      type_list <- c("normal", "basic", "percent", "bca")
+    } else {
+      type_list <- dplyr::case_match(
+        type,
+        "norm" ~ "normal",
+        "perc" ~ "percent",
+        .default = type
+      )
+    }
+
+    result$conf.low <- NULL
+    result$conf.high <- NULL
+    for (i in seq_along(type_list)) {
+      result[[paste0("ci.type.", i)]] <- type_list[i]
+      result[[paste0("conf.low.", i)]] <- rev(boot.ci[[type_list[i]]])[2] |> unname()
+      result[[paste0("conf.high.", i)]] <- rev(boot.ci[[type_list[i]]])[1] |> unname()
+    }
   }
 
   result
