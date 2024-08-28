@@ -3,13 +3,18 @@
 #' This function first applies [boot::boot()] to convert the input data `x` to a `boot` object and then uses
 #' [boot::boot.ci()] to calculate the corresponding nonparametric bootstrap confidence interval.
 #'
-#' @param x vector of numeric values, i.e. a numeric vector, or a logical vector which will be interpreted
-#'   as binary with values `c(0, 1)`.
-#' @param conf.level (`numeric`)\cr
-#'   a scalar in `(0, 1)` indicating the confidence level.
-#'   Default is `0.95`
-#' @inheritParams boot::boot
-#' @inheritParams boot::boot.ci
+#' @param x (`numeric`)\cr vector of numeric values, i.e. a numeric vector, or a logical vector which will be
+#'   interpreted as binary with values `c(0, 1)`.
+#' @param conf.level (`numeric`)\cr a scalar in `(0, 1)` indicating the confidence level. Default is `0.95`.
+#' @param R (`integer`)\cr the number of bootstrap replicates. See the parameter description in [boot::boot()]
+#'   for details.
+#' @param type (`character`)\cr a vector of character strings representing the type of intervals required. The value
+#'   should be any subset of the values `c("norm","basic", "stud", "perc", "bca")` or simply `"all"` which will
+#'   compute all five types of intervals.
+#' @param stype (`string`)\cr a character string indicating what the second argument of statistic represents.
+#'   Possible values of stype are `"i"` (indices - the default), `"f"` (frequencies), or `"w"` (weights).
+#' @param statistic (`function`)\cr a function which, when applied to data, returns a vector containing the
+#'   statistic(s) of interest. See the parameter description in [boot::boot()] for details.
 #'
 #' @return Bootstrap confidence interval.
 #' @export

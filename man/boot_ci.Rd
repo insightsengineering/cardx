@@ -14,50 +14,23 @@ boot_ci(
 )
 }
 \arguments{
-\item{x}{vector of numeric values, i.e. a numeric vector, or a logical vector which will be interpreted
-as binary with values \code{c(0, 1)}.}
+\item{x}{(\code{numeric})\cr vector of numeric values, i.e. a numeric vector, or a logical vector which will be
+interpreted as binary with values \code{c(0, 1)}.}
 
-\item{conf.level}{(\code{numeric})\cr
-a scalar in \verb{(0, 1)} indicating the confidence level.
-Default is \code{0.95}}
+\item{conf.level}{(\code{numeric})\cr a scalar in \verb{(0, 1)} indicating the confidence level. Default is \code{0.95}.}
 
-\item{R}{
-    The number of bootstrap replicates.  Usually this will be a single
-    positive integer.  For importance resampling, some resamples may use
-    one set of weights and others use a different set of weights.  In
-    this case \code{R} would be a vector of integers where each
-    component gives the number of resamples from each of the rows of
-    weights.
-  }
+\item{R}{(\code{integer})\cr the number of bootstrap replicates. See the parameter description in \code{\link[boot:boot]{boot::boot()}}
+for details.}
 
-\item{type}{
-    A vector of character strings representing the type of intervals
-    required. The value should be any subset of the values
-    \code{c("norm","basic", "stud", "perc", "bca")} or simply \code{"all"}
-    which will compute all five types of intervals.
-  }
+\item{type}{(\code{character})\cr a vector of character strings representing the type of intervals required. The value
+should be any subset of the values \code{c("norm","basic", "stud", "perc", "bca")} or simply \code{"all"} which will
+compute all five types of intervals.}
 
-\item{stype}{
-    A character string indicating what the second argument of \code{statistic}
-    represents.  Possible values of stype are \code{"i"} (indices - the
-    default), \code{"f"} (frequencies), or \code{"w"} (weights).  Not
-    used for \code{sim = "parametric"}.
-  }
+\item{stype}{(\code{string})\cr a character string indicating what the second argument of statistic represents.
+Possible values of stype are \code{"i"} (indices - the default), \code{"f"} (frequencies), or \code{"w"} (weights).}
 
-\item{statistic}{
-    A function which when applied to data returns a vector containing
-    the statistic(s) of interest.  When \code{sim = "parametric"}, the
-    first argument to \code{statistic} must be the data.  For each
-    replicate a simulated dataset returned by \code{ran.gen} will be
-    passed.  In all other cases \code{statistic} must take at least two
-    arguments.  The first argument passed will always be the original
-    data.  The second will be a vector of indices, frequencies or weights
-    which define the bootstrap sample.  Further, if predictions are
-    required, then a third argument is required which would be a vector
-    of the random indices used to generate the bootstrap predictions.
-    Any further arguments can be passed to \code{statistic} through the
-    \code{\dots} argument.
-  }
+\item{statistic}{(\code{function})\cr a function which, when applied to data, returns a vector containing the
+statistic(s) of interest. See the parameter description in \code{\link[boot:boot]{boot::boot()}} for details.}
 }
 \value{
 Bootstrap confidence interval.
