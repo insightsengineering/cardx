@@ -33,7 +33,7 @@ proportion_ci_strat_wilson(
 is_binary(x)
 }
 \arguments{
-\item{x}{vector of a binary values, i.e. a logical vector, or numeric with values \code{c(0, 1)}}
+\item{x}{vector of binary values, i.e. a logical vector, or numeric with values \code{c(0, 1)}}
 
 \item{conf.level}{(\code{numeric})\cr
 a scalar in \verb{(0, 1)} indicating the confidence level.
