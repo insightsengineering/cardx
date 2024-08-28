@@ -8,11 +8,8 @@ test_that("boot_ci() works with standard use", {
   expect_snapshot(res)
 
   set.seed(1)
-  res <- cards::ADSL |>
-    cards::ard_continuous(
-      variables = AGE,
-      statistic = everything() ~ list(boot_ci = boot_ci)
-    )
+  expect_warning(res <- boot_ci(x, type = "all")[1:14])
+  expect_snapshot(res)
 
   expect_snapshot(res)
 })
