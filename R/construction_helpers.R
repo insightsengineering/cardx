@@ -34,11 +34,7 @@
 #' @param package (`string`)\cr
 #'   string of package name that will be temporarily loaded when function
 #'   specified in `method` is executed.
-#' @param pattern (`string`)\cr
-#'   regular expression string. If the regex matches, backticks are added
-#'   to the string. When `NULL`, backticks are not added.
-#' @param pattern_term,pattern_response passed to `bt(pattern)` for arguments
-#'   `stats::reformulate(termlabels, response)`.
+#' @param pattern,pattern_term,pattern_response DEPRECATED
 #' @inheritParams rlang::eval_tidy
 #' @inheritParams stats::reformulate
 #' @inheritParams rlang::args_dots_empty
@@ -172,11 +168,15 @@ construct_model.survey.design <- function(data, formula, method, method.args = l
 #' @rdname construction_helpers
 #' @export
 reformulate2 <- function(termlabels, response = NULL, intercept = TRUE,
-                         pattern_term = "[ \n\r]", pattern_response = "[ \n\r]",
-                         env = parent.frame()) {
+                         env = parent.frame(),
+                         pattern_term = NULL, pattern_response = NULL) {
+  # deprecated argument --------------------------------------------------------
+  if (!missing(pattern_term)) lifecycle::deprecate_warn("0.2.1", what = "cardx::reformulate2(pattern_term)", details = "Argument has been ignored.") # styler: off
+  if (!missing(pattern_response)) lifecycle::deprecate_warn("0.2.1", what = "cardx::reformulate2(pattern_response)", details = "Argument has been ignored.") # styler: off
+
   stats::reformulate(
-    termlabels = bt(termlabels, pattern_term),
-    response = bt(response, pattern_response),
+    termlabels = bt(termlabels),
+    response = bt(response),
     intercept = intercept,
     env = env
   )
@@ -184,15 +184,16 @@ reformulate2 <- function(termlabels, response = NULL, intercept = TRUE,
 
 #' @rdname construction_helpers
 #' @export
-bt <- function(x, pattern = "[ \n\r]") {
+bt <- function(x, pattern = NULL) {
+  # deprecated argument --------------------------------------------------------
+  if (!missing(pattern)) lifecycle::deprecate_warn("0.2.1", what = "cardx::bt(pattern)", details = "Argument has been ignored.") # styler: off
+
   if (is_empty(x)) {
     return(x)
   }
-  if (is_empty(pattern)) {
-    return(x)
-  }
+
   ifelse(
-    str_detect(x, pattern = pattern) & !str_detect(x, "^`.*`$"),
+    make.names(x) != x & !str_detect(x, "^`.*`$"),
     paste0("`", x, "`"),
     x
   )

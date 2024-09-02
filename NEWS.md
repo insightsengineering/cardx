@@ -1,12 +1,20 @@
 # cardx 0.2.0.9013
 
-* Bug fix in `ard_categorical.survey.design()` where all unweighted statistics were returned, even in the case where they were explicitly not requested.
+## New Features and Updates
 
 * Added S3 method `ard_total_n.survey.design()` which returns an ARD with both the survey-weighted and unweighted total sample size.
 
 * Added `warning` and `error` columns to `ard_regression()` output. (#148)
 
 * Implemented `cards::as_card()` where needed in the package to convert data frames to class 'card'. (#200)
+
+## Bug Fixes
+
+* Bug fix in `ard_categorical.survey.design()` where all unweighted statistics were returned, even in the case where they were explicitly not requested.
+
+## Lifecycle Changes
+
+* The `bt(pattern)`, `reformulate2(pattern_term)`, `reformulate2(pattern_response)` arguments have been deprecated and are now ignored. We now use `make.names()` to determine whether a column name needs to be wrapped in backticks. (#192)
 
 # cardx 0.2.0
 
