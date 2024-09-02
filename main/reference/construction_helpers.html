@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9014</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,15 +18,6 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.0">v0.2.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/insightsengineering/cardx/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
@@ -75,12 +66,12 @@
 <span>  <span class="va">termlabels</span>,</span>
 <span>  response <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  intercept <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  pattern_term <span class="op">=</span> <span class="st">"[ \n\r]"</span>,</span>
-<span>  pattern_response <span class="op">=</span> <span class="st">"[ \n\r]"</span>,</span>
-<span>  env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  pattern_term <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pattern_response <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">bt</span><span class="op">(</span><span class="va">x</span>, pattern <span class="op">=</span> <span class="st">"[ \n\r]"</span><span class="op">)</span></span>
+<span><span class="fu">bt</span><span class="op">(</span><span class="va">x</span>, pattern <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">bt_strip</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -146,20 +137,13 @@ their own environments.</p></dd>
 <dd><p>logical: should the formula have an intercept?</p></dd>
 
 
-<dt id="arg-pattern-term-pattern-response">pattern_term, pattern_response<a class="anchor" aria-label="anchor" href="#arg-pattern-term-pattern-response"></a></dt>
-<dd><p>passed to <code>bt(pattern)</code> for arguments
-<code>stats::reformulate(termlabels, response)</code>.</p></dd>
-
-
 <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>(<code>character</code>)<br>
 character vector, typically of variable names</p></dd>
 
 
-<dt id="arg-pattern">pattern<a class="anchor" aria-label="anchor" href="#arg-pattern"></a></dt>
-<dd><p>(<code>string</code>)<br>
-regular expression string. If the regex matches, backticks are added
-to the string. When <code>NULL</code>, backticks are not added.</p></dd>
+<dt id="arg-pattern-pattern-term-pattern-response">pattern, pattern_term, pattern_response<a class="anchor" aria-label="anchor" href="#arg-pattern-pattern-term-pattern-response"></a></dt>
+<dd><p>DEPRECATED</p></dd>
 
 </dl></div>
     <div class="section level2">

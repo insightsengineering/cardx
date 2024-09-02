@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9014</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,15 +18,6 @@
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.0">v0.2.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.1.0">v0.1.0</a> </div></li>
-<!-- end dropdown for versions -->
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/insightsengineering/cardx/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
@@ -41,12 +32,22 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.0.9011" id="cardx-0209011">cardx 0.2.0.9011<a class="anchor" aria-label="anchor" href="#cardx-0209011"></a></h2>
-<ul><li><p>Bug fix in <code><a href="../reference/ard_categorical.survey.design.html">ard_categorical.survey.design()</a></code> where all unweighted statistics were returned, even in the case where they were explicitly not requested.</p></li>
-<li><p>Added S3 method <code><a href="../reference/ard_total_n.survey.design.html">ard_total_n.survey.design()</a></code> which returns an ARD with both the survey-weighted and unweighted total sample size.</p></li>
+<h2 class="pkg-version" data-toc-text="0.2.0.9014" id="cardx-0209014">cardx 0.2.0.9014<a class="anchor" aria-label="anchor" href="#cardx-0209014"></a></h2>
+<div class="section level3">
+<h3 id="new-features-and-updates-0-2-0-9014">New Features and Updates<a class="anchor" aria-label="anchor" href="#new-features-and-updates-0-2-0-9014"></a></h3>
+<ul><li><p>Added S3 method <code><a href="../reference/ard_total_n.survey.design.html">ard_total_n.survey.design()</a></code> which returns an ARD with both the survey-weighted and unweighted total sample size.</p></li>
 <li><p>Added <code>warning</code> and <code>error</code> columns to <code><a href="../reference/ard_regression.html">ard_regression()</a></code> output. (<a href="https://github.com/insightsengineering/cardx/issues/148" class="external-link">#148</a>)</p></li>
 <li><p>Implemented <code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/as_card.html" class="external-link">cards::as_card()</a></code> where needed in the package to convert data frames to class ‘card’. (<a href="https://github.com/insightsengineering/cardx/issues/200" class="external-link">#200</a>)</p></li>
 </ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-0-9014">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0-9014"></a></h3>
+<ul><li>Bug fix in <code><a href="../reference/ard_categorical.survey.design.html">ard_categorical.survey.design()</a></code> where all unweighted statistics were returned, even in the case where they were explicitly not requested.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="lifecycle-changes-0-2-0-9014">Lifecycle Changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-0-2-0-9014"></a></h3>
+<ul><li>The <code>bt(pattern)</code>, <code>reformulate2(pattern_term)</code>, <code>reformulate2(pattern_response)</code> arguments have been deprecated and are now ignored. We now use <code><a href="https://rdrr.io/r/base/make.names.html" class="external-link">make.names()</a></code> to determine whether a column name needs to be wrapped in backticks. (<a href="https://github.com/insightsengineering/cardx/issues/192" class="external-link">#192</a>)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="cardx-020">cardx 0.2.0<a class="anchor" aria-label="anchor" href="#cardx-020"></a></h2><p class="text-muted">CRAN release: 2024-07-20</p>
 <div class="section level4">
