@@ -36,12 +36,12 @@ reformulate2(
   termlabels,
   response = NULL,
   intercept = TRUE,
-  pattern_term = "[ \\n\\r]",
-  pattern_response = "[ \\n\\r]",
-  env = parent.frame()
+  env = parent.frame(),
+  pattern_term = NULL,
+  pattern_response = NULL
 )
 
-bt(x, pattern = "[ \\n\\r]")
+bt(x, pattern = NULL)
 
 bt_strip(x)
 }
@@ -85,15 +85,10 @@ their own environments.}
 
 \item{intercept}{logical: should the formula have an intercept?}
 
-\item{pattern_term, pattern_response}{passed to \code{bt(pattern)} for arguments
-\code{stats::reformulate(termlabels, response)}.}
-
 \item{x}{(\code{character})\cr
 character vector, typically of variable names}
 
-\item{pattern}{(\code{string})\cr
-regular expression string. If the regex matches, backticks are added
-to the string. When \code{NULL}, backticks are not added.}
+\item{pattern, pattern_term, pattern_response}{DEPRECATED}
 }
 \value{
 depends on the calling function
