@@ -41,3 +41,6 @@ pkgdown
 ^\.covrignore$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+
+# reverse dep cehcks
+^checked$

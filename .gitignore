@@ -12,7 +12,9 @@ docs
 .DS_Store
 temp/
 
-
 .pre-commit-config.yaml
 tests/testthat/_snaps/**/*.new.md
 tests/testthat/_snaps/**/*.new.svg
+
+# reverse dep cehcks
+checked/
