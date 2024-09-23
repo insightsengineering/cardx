@@ -26,7 +26,7 @@ Function takes a regression model object and calculates Wald
 statistical test using \code{\link[aod:wald.test]{aod::wald.test()}}.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "aod", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("aod", "broom.helpers"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_aod_wald_test()
 \dontshow{\}) # examplesIf}

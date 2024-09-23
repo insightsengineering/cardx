@@ -11,15 +11,14 @@
 #' @return data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "aod", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("aod", "broom.helpers"), reference_pkg = "cardx"))
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_aod_wald_test()
 ard_aod_wald_test <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or_parameters, ...) {
   set_cli_abort_call()
-  check_pkg_installed("broom.helpers", reference_pkg = "cardx")
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed("aod", reference_pkg = "cardx")
+  check_pkg_installed(c("aod", "broom.helpers"), reference_pkg = "cardx")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
