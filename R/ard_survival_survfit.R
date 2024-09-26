@@ -36,10 +36,10 @@
 #' library(survival)
 #' library(ggsurvfit)
 #'
-#' survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+#' survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, data = cards::ADTTE) |>
 #'   ard_survival_survfit(times = c(60, 180))
 #'
-#' survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+#' survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, data = cards::ADTTE, conf.int = 0.90) |>
 #'   ard_survival_survfit(probs = c(0.25, 0.5, 0.75))
 #'
 #' # Competing Risks Example ---------------------------
