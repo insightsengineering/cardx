@@ -68,15 +68,3 @@
       7      cyl.sd__(Intercept)      cyl.sd__(Intercept)  estimate  4.023    NULL  NULL
       8 Residual.sd__Observation Residual.sd__Observation  estimate  3.149    NULL  NULL
 
-# ard_regression() warnings and errors return correctly
-
-    Code
-      as.data.frame(ard_regression(mod))
-    Output
-        variable    context stat_name  stat_label stat fmt_fn
-      1  model_1 regression  estimate Coefficient NULL   NULL
-                                                                                                           warning
-      1 Could not access test statistic of model parameters., Could not access test statistic of model parameters.
-                               error
-      1 Error: ! Unable to tidy `x`.
-
