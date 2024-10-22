@@ -24,7 +24,7 @@
 #'   Poisson comparison of two rate parameters will be performed on the levels of `by`. If `by` has more than 2
 #'   levels, an error will occur.
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' # Exact test of rate parameter against null hypothesis
 #' cards::ADTTE |>
 #'   ard_stats_poisson_test(variables = c(CNSR, AVAL))
@@ -41,7 +41,7 @@ ard_stats_poisson_test <- function(data, variables, na.rm = TRUE, by = NULL, con
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -104,7 +104,7 @@ ard_stats_poisson_test <- function(data, variables, na.rm = TRUE, by = NULL, con
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' cardx:::.format_poissontest_results(
 #'   by = "ARM",
 #'   variables = c("CNSR", "AVAL"),

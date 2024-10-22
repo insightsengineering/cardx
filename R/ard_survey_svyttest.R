@@ -17,7 +17,7 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survey", "broom"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survey", "broom")))
 #' data(api, package = "survey")
 #' dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 #'
@@ -26,7 +26,7 @@ ard_survey_svyttest <- function(data, by, variables, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(c("survey", "broom"), reference_pkg = "cardx")
+  check_pkg_installed(c("survey", "broom"))
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

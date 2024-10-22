@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("emmeans", "survey", "lme4"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("emmeans", "survey", "lme4")))
 
 test_that("ard_emmeans_mean_difference() works", {
   expect_error(

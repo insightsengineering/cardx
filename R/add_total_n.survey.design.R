@@ -9,7 +9,7 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examplesIf cardx:::is_pkg_installed("survey", reference_pkg = "cardx")
+#' @examplesIf cardx:::is_pkg_installed("survey")
 #' svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 #'
 #' ard_total_n(svy_titanic)

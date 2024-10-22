@@ -7,7 +7,7 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examplesIf cardx:::is_pkg_installed("survey", reference_pkg = "cardx")
+#' @examplesIf cardx:::is_pkg_installed("survey")
 #' svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 #'
 #' ard_missing(svy_titanic, variables = c(Class, Age), by = Survived)
@@ -37,7 +37,7 @@ ard_missing.survey.design <- function(data,
                                       ...) {
   set_cli_abort_call()
   check_dots_empty()
-  check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "survey")
 
   # process inputs -------------------------------------------------------------
   check_not_missing(variables)

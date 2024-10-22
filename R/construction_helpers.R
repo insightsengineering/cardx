@@ -42,7 +42,7 @@
 #' @return depends on the calling function
 #' @name construction_helpers
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed")))
 #' construct_model(
 #'   data = mtcars,
 #'   formula = am ~ mpg + (1 | vs),
@@ -73,7 +73,7 @@ construct_model.data.frame <- function(data, formula, method, method.args = list
   set_cli_abort_call()
   # check pkg installations ----------------------------------------------------
   check_dots_empty()
-  check_pkg_installed(c("withr", package), reference_pkg = "cardx")
+  check_pkg_installed(c("withr", package))
 
   check_not_missing(formula)
   check_class(formula, cls = "formula")
@@ -115,7 +115,7 @@ construct_model.survey.design <- function(data, formula, method, method.args = l
   set_cli_abort_call()
   # check pkg installations ----------------------------------------------------
   check_dots_empty()
-  check_pkg_installed(c("withr", package), reference_pkg = "cardx")
+  check_pkg_installed(c("withr", package))
 
   check_not_missing(formula)
   check_class(formula, cls = "formula")

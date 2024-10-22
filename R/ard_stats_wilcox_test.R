@@ -29,7 +29,7 @@
 #' The data are then passed as
 #' `wilcox.test(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_stats_wilcox_test(by = "ARM", variables = "AGE")
@@ -49,7 +49,7 @@ ard_stats_wilcox_test <- function(data, variables, by = NULL, conf.level = 0.95,
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -99,7 +99,7 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, conf.level = 0
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -151,7 +151,7 @@ ard_stats_paired_wilcox_test <- function(data, by, variables, id, conf.level = 0
 #'
 #' @return ARD data frame
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' # Pre-processing ADSL to have grouping factor (ARM here) with 2 levels
 #' ADSL <- cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>

@@ -1,4 +1,4 @@
-skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx")))
+skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom")))
 
 test_that("check the proportion_ci_*() functions work", {
   # setting vectors to test

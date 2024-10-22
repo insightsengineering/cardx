@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("survival", "broom"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("survival", "broom")))
 
 test_that("ard_survival_survdiff() works", {
   # Log-rank test ----
