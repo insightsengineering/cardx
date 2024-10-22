@@ -300,3 +300,30 @@
       Error in `ard_survival_survfit()`:
       ! Argument `x` cannot be class <survfitcox>.
 
+# ard_survival_survfit() extends to times outside range
+
+    Code
+      print(ard_survival_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA,
+      cards::ADTTE), times = 200), n = Inf)
+    Message
+      {cards} data frame: 15 x 11
+    Output
+         group1 group1_level variable variable_level stat_name stat_label stat
+      1    TRTA      Placebo     time            200    n.risk  Number o…    0
+      2    TRTA      Placebo     time            200  estimate  Survival…    0
+      3    TRTA      Placebo     time            200 std.error  Standard…  NaN
+      4    TRTA      Placebo     time            200 conf.high  CI Upper…   NA
+      5    TRTA      Placebo     time            200  conf.low  CI Lower…   NA
+      6    TRTA    Xanomeli…     time            200    n.risk  Number o…    0
+      7    TRTA    Xanomeli…     time            200  estimate  Survival…    0
+      8    TRTA    Xanomeli…     time            200 std.error  Standard…  NaN
+      9    TRTA    Xanomeli…     time            200 conf.high  CI Upper…   NA
+      10   TRTA    Xanomeli…     time            200  conf.low  CI Lower…   NA
+      11   TRTA    Xanomeli…     time            200    n.risk  Number o…    0
+      12   TRTA    Xanomeli…     time            200  estimate  Survival…    0
+      13   TRTA    Xanomeli…     time            200 std.error  Standard…  NaN
+      14   TRTA    Xanomeli…     time            200 conf.high  CI Upper…   NA
+      15   TRTA    Xanomeli…     time            200  conf.low  CI Lower…   NA
+    Message
+      i 4 more variables: context, fmt_fn, warning, error
+

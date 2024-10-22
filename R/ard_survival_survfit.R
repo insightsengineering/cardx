@@ -134,7 +134,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
     start.time <- 0
   }
   x <- survival::survfit0(x, start.time) %>%
-    summary(times)
+    summary(times, extend = TRUE)
 
   # process competing risks/multi-state models
   multi_state <- inherits(x, "summary.survfitms")

@@ -150,3 +150,11 @@ test_that("ard_survival_survfit() follows ard structure", {
       cards::check_ard_structure(method = FALSE)
   )
 })
+
+test_that("ard_survival_survfit() extends to times outside range", {
+  expect_snapshot(
+    survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+      ard_survival_survfit(times = 200) |>
+      print(n = Inf)
+  )
+})
