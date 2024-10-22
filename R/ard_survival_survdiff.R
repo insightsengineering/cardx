@@ -14,7 +14,7 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit")))
 #' library(survival)
 #' library(ggsurvfit)
 #'
@@ -23,7 +23,7 @@ ard_survival_survdiff <- function(formula, data, rho = 0, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")
+  check_pkg_installed(c("survival", "broom"))
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(formula)

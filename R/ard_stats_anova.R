@@ -37,7 +37,7 @@
 #' @return ARD data frame
 #' @name ard_stats_anova
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom", "withr", "lme4"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom", "withr", "lme4")))
 #' anova(
 #'   lm(mpg ~ am, mtcars),
 #'   lm(mpg ~ am + hp, mtcars)
@@ -73,7 +73,7 @@ ard_stats_anova.anova <- function(x, method_text = "ANOVA results from `stats::a
 
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
-  check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom")
   check_string(method_text)
 
   # return df in cards formats -------------------------------------------------
@@ -100,7 +100,7 @@ ard_stats_anova.data.frame <- function(x,
 
   # check inputs ---------------------------------------------------------------
   check_dots_empty()
-  check_pkg_installed(c("broom", "withr", package), reference_pkg = "cardx")
+  check_pkg_installed(c("broom", "withr", package))
   check_not_missing(formulas)
   check_class(formulas, cls = "list")
   walk(

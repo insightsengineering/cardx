@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("survey", reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed("survey"))
 
 test_that("unstratified ard_continuous.survey.design() works", {
   data(api, package = "survey")

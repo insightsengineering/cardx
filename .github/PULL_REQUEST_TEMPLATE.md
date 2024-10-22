@@ -14,7 +14,7 @@ Pre-review Checklist (if item does not apply, mark is as complete)
 - [ ] If a bug was fixed, a unit test was added.
 - [ ] If a new `ard_*()` function was added, it passes the ARD structural checks from `cards::check_ard_structure()`.
 - [ ] If a new `ard_*()` function was added, `set_cli_abort_call()` has been set.
-- [ ] If a new `ard_*()` function was added and it depends on another package (such as, `broom`), `is_pkg_installed("broom", reference_pkg = "cardx")` has been set in the function call and the following added to the roxygen comments: `@examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"", reference_pkg = "cardx"))`
+- [ ] If a new `ard_*()` function was added and it depends on another package (such as, `broom`), `is_pkg_installed("broom")` has been set in the function call and the following added to the roxygen comments: `@examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom""))`
 - [ ] Code coverage is suitable for any new functions/features (generally, 100% coverage for new code): `devtools::test_coverage()`
 
 Reviewer Checklist (if item does not apply, mark is as complete)

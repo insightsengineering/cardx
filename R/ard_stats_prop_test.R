@@ -17,14 +17,14 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' mtcars |>
 #'   ard_stats_prop_test(by = vs, variables = am)
 ard_stats_prop_test <- function(data, by, variables, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)

@@ -22,14 +22,14 @@
 #' @rdname ard_stats_mood_test
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' cards::ADSL |>
 #'   ard_stats_mood_test(by = "SEX", variables = "AGE")
 ard_stats_mood_test <- function(data, by, variables, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -73,7 +73,7 @@ ard_stats_mood_test <- function(data, by, variables, ...) {
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' cardx:::.format_moodtest_results(
 #'   by = "SEX",
 #'   variable = "AGE",

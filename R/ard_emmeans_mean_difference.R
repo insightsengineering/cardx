@@ -29,7 +29,7 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "emmeans", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "emmeans"))
 #' ard_emmeans_mean_difference(
 #'   data = mtcars,
 #'   formula = mpg ~ am + cyl,
@@ -55,7 +55,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
   set_cli_abort_call()
 
   # check package installation -------------------------------------------------
-  check_pkg_installed(c("emmeans", package), reference_pkg = "cardx")
+  check_pkg_installed(c("emmeans", package))
   check_not_missing(data)
   check_not_missing(formula)
   check_not_missing(method)

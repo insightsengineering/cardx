@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("survey", reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed("survey"))
 
 # Test survey.design works
 test_that("ard_dichotomous.survey.design() works", {

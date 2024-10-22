@@ -7,7 +7,7 @@
 #' @return Confidence interval of a proportion.
 #'
 #' @name proportion_ci
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' x <- c(
 #'   TRUE, TRUE, TRUE, TRUE, TRUE,
 #'   FALSE, FALSE, FALSE, FALSE, FALSE
@@ -75,7 +75,7 @@ proportion_ci_wilson <- function(x, conf.level = 0.95, correct = FALSE) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
@@ -113,7 +113,7 @@ proportion_ci_clopper_pearson <- function(x, conf.level = 0.95) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(x)
