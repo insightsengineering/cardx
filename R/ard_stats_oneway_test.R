@@ -10,13 +10,13 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' ard_stats_oneway_test(AGE ~ ARM, data = cards::ADSL)
 ard_stats_oneway_test <- function(formula, data, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(c("broom"), reference_pkg = "cardx")
+  check_pkg_installed(c("broom"))
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(formula)

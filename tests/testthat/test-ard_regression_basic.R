@@ -1,4 +1,4 @@
-skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers", reference_pkg = "cardx")))
+skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers")))
 
 test_that("ard_regression_basic() works", {
   withr::local_options(list(width = 100))

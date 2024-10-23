@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("broom", "withr"), reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed(c("broom", "withr")))
 
 test_that("ard_stats_mcnemar_test() works", {
   expect_error(

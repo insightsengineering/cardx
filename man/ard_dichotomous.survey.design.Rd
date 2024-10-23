@@ -65,7 +65,7 @@ an ARD data frame of class 'card'
 Compute Analysis Results Data (ARD) for dichotomous summary statistics.
 }
 \examples{
-\dontshow{if (cardx:::is_pkg_installed("survey", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (cardx:::is_pkg_installed("survey")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 survey::svydesign(ids = ~1, data = mtcars, weights = ~1) |>
   ard_dichotomous(by = vs, variables = c(cyl, am), value = list(cyl = 4))
 \dontshow{\}) # examplesIf}

@@ -16,14 +16,14 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' cards::ADSL |>
 #'   ard_stats_t_test_onesample(by = ARM, variables = AGE)
 ard_stats_t_test_onesample <- function(data, variables, by = dplyr::group_vars(data), conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed("broom", reference_pkg = "cardx")
+  check_pkg_installed("broom")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

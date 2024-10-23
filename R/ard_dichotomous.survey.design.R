@@ -11,7 +11,7 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examplesIf cardx:::is_pkg_installed("survey", reference_pkg = "cardx")
+#' @examplesIf cardx:::is_pkg_installed("survey")
 #' survey::svydesign(ids = ~1, data = mtcars, weights = ~1) |>
 #'   ard_dichotomous(by = vs, variables = c(cyl, am), value = list(cyl = 4))
 ard_dichotomous.survey.design <- function(data,
@@ -32,7 +32,7 @@ ard_dichotomous.survey.design <- function(data,
                                           ...) {
   set_cli_abort_call()
   check_dots_empty()
-  check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "survey")
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(variables)

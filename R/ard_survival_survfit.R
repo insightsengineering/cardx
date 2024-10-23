@@ -65,7 +65,7 @@
 #' * Times should be provided using the same scale as the time variable used to fit the provided
 #'   survival fit model.
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit")))
 #' library(survival)
 #' library(ggsurvfit)
 #'
@@ -106,7 +106,7 @@ ard_survival_survfit.default <- function(x, times = NULL, probs = NULL, type = N
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(c("survival", "broom"), reference_pkg = "cardx")
+  check_pkg_installed(c("survival", "broom"))
 
   # check/process inputs -------------------------------------------------------
   check_class(x, cls = c("survfit"))
@@ -195,7 +195,7 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
 #'
 #' @return a `tibble`
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom")))
 #' survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
 #'   cardx:::.process_survfit_time(times = c(60, 180), type = "risk")
 #'
@@ -291,7 +291,7 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
 #'
 #' @return a `tibble`
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "survival", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "survival"))
 #' survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
 #'   cardx:::.process_survfit_probs(probs = c(0.25, 0.75))
 #'
@@ -351,7 +351,7 @@ extract_multi_strata <- function(x, df_stat) {
 #'
 #' @return an ARD data frame of class 'card'
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom")))
 #' cardx:::.format_survfit_results(
 #'   broom::tidy(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE))
 #' )

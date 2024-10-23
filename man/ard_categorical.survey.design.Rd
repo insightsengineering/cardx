@@ -65,7 +65,7 @@ calculated using \code{survey::svymean()}.
 The unweighted statistics are calculated with \code{cards::ard_categorical.data.frame()}.
 }
 \examples{
-\dontshow{if (cardx:::is_pkg_installed("survey", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (cardx:::is_pkg_installed("survey")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
 ard_categorical(svy_titanic, variables = c(Class, Age), by = Survived)

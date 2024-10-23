@@ -30,7 +30,7 @@
 #' The data are then passed as
 #' `effectsize::cohens_d(x = data_wide[[<by level 1>]], y = data_wide[[<by level 2>]], paired = TRUE, ...)`.
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters")))
 #' cards::ADSL |>
 #'   dplyr::filter(ARM %in% c("Placebo", "Xanomeline High Dose")) |>
 #'   ard_effectsize_cohens_d(by = ARM, variables = AGE)
@@ -52,7 +52,7 @@ ard_effectsize_cohens_d <- function(data, by, variables, conf.level = 0.95, ...)
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
+  check_pkg_installed(c("effectsize", "parameters"))
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -103,7 +103,7 @@ ard_effectsize_paired_cohens_d <- function(data, by, variables, id, conf.level =
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(c("effectsize", "parameters"), reference_pkg = "cardx")
+  check_pkg_installed(c("effectsize", "parameters"))
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)
@@ -175,7 +175,7 @@ ard_effectsize_paired_cohens_d <- function(data, by, variables, id, conf.level =
 #'
 #' @return ARD data frame
 #' @keywords internal
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters"), reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("effectsize", "parameters")))
 #' cardx:::.format_cohens_d_results(
 #'   by = "ARM",
 #'   variable = "AGE",
