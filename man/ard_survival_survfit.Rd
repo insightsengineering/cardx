@@ -8,7 +8,7 @@
 \usage{
 ard_survival_survfit(x, ...)
 
-\method{ard_survival_survfit}{default}(x, times = NULL, probs = NULL, type = NULL)
+\method{ard_survival_survfit}{default}(x, times = NULL, probs = NULL, type = NULL, ...)
 
 \method{ard_survival_survfit}{data.frame}(
   x,

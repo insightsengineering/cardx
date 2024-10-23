@@ -102,7 +102,7 @@ ard_survival_survfit <- function(x, ...) {
 
 #' @rdname ard_survival_survfit
 #' @export
-ard_survival_survfit.default <- function(x, times = NULL, probs = NULL, type = NULL) {
+ard_survival_survfit.default <- function(x, times = NULL, probs = NULL, type = NULL, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
