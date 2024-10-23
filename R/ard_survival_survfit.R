@@ -183,7 +183,7 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
     package = "survival",
     method.args = {{ survfit.args }}
   ) |>
-      ard_survival_survfit(times = times, probs = probs, type = type)
+    ard_survival_survfit(times = times, probs = probs, type = type)
 }
 
 #' Process Survival Fit For Time Estimates
