@@ -7,8 +7,8 @@
 .process_survfit_probs(x, probs)
 }
 \arguments{
-\item{x}{(\code{\link[survival:survfit]{survival::survfit()}})\cr
-a \code{\link[survival:survfit]{survival::survfit()}} object. See below for details.}
+\item{x}{(\code{survfit} or \code{data.frame})\cr
+an object of class \code{survfit} created with \code{\link[survival:survfit]{survival::survfit()}} or a data frame. See below for details.}
 
 \item{probs}{(\code{numeric})\cr
 a vector of probabilities with values in (0,1) specifying the survival quantiles to return.}

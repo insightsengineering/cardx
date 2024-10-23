@@ -158,3 +158,36 @@ test_that("ard_survival_survfit() extends to times outside range", {
       print(n = Inf)
   )
 })
+
+test_that("ard_survival_survfit.data.frame() works as expected", {
+  # quoted y expression
+  expect_snapshot(
+    res_quo <-
+      ard_survival_survfit.data.frame(
+        x = mtcars,
+        y = "survival::Surv(mpg, am)",
+        variables = "vs",
+        times = 20,
+        survfit.args = list(start.time = 0, id = cyl)
+      ) |>
+      dplyr::mutate(
+        stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+      ) |>
+      print(n = Inf)
+  )
+
+  # unquoted y expression
+  res_unquo <-
+    ard_survival_survfit.data.frame(
+      x = mtcars,
+      y = survival::Surv(mpg, am),
+      variables = "vs",
+      times = 20,
+      survfit.args = list(start.time = 0, id = cyl)
+    ) |>
+    dplyr::mutate(
+      stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+    )
+
+  expect_equal(res_quo, res_unquo)
+})

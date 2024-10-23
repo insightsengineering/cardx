@@ -327,3 +327,27 @@
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
+# ard_survival_survfit.data.frame() works as expected
+
+    Code
+      res_quo <- print(dplyr::mutate(ard_survival_survfit.data.frame(x = mtcars, y = "survival::Surv(mpg, am)",
+        variables = "vs", times = 20, survfit.args = list(start.time = 0, id = cyl)),
+      stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))),
+      n = Inf)
+    Message
+      {cards} data frame: 10 x 11
+    Output
+         group1 group1_level variable variable_level stat_name stat_label  stat
+      1      vs            0     time             20    n.risk  Number o…     3
+      2      vs            0     time             20  estimate  Survival… 0.615
+      3      vs            0     time             20 std.error  Standard… 0.082
+      4      vs            0     time             20 conf.high  CI Upper…   0.8
+      5      vs            0     time             20  conf.low  CI Lower… 0.474
+      6      vs            1     time             20    n.risk  Number o…    11
+      7      vs            1     time             20  estimate  Survival…     1
+      8      vs            1     time             20 std.error  Standard…     0
+      9      vs            1     time             20 conf.high  CI Upper…     1
+      10     vs            1     time             20  conf.low  CI Lower…     1
+    Message
+      i 4 more variables: context, fmt_fn, warning, error
+

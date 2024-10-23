@@ -2,13 +2,30 @@
 % Please edit documentation in R/ard_survival_survfit.R
 \name{ard_survival_survfit}
 \alias{ard_survival_survfit}
+\alias{ard_survival_survfit.default}
+\alias{ard_survival_survfit.data.frame}
 \title{ARD Survival Estimates}
 \usage{
-ard_survival_survfit(x, times = NULL, probs = NULL, type = NULL)
+ard_survival_survfit(x, ...)
+
+\method{ard_survival_survfit}{default}(x, times = NULL, probs = NULL, type = NULL)
+
+\method{ard_survival_survfit}{data.frame}(
+  x,
+  y,
+  variables,
+  times = NULL,
+  probs = NULL,
+  type = NULL,
+  survfit.args = list(conf.int = 0.95),
+  ...
+)
 }
 \arguments{
-\item{x}{(\code{\link[survival:survfit]{survival::survfit()}})\cr
-a \code{\link[survival:survfit]{survival::survfit()}} object. See below for details.}
+\item{x}{(\code{survfit} or \code{data.frame})\cr
+an object of class \code{survfit} created with \code{\link[survival:survfit]{survival::survfit()}} or a data frame. See below for details.}
+
+\item{...}{These dots are for future extensions and must be empty.}
 
 \item{times}{(\code{numeric})\cr
 a vector of times for which to return survival probabilities.}
@@ -25,6 +42,17 @@ Must be one of the following:\tabular{ll}{
    \code{"risk"} \tab \code{1 - x} \cr
    \code{"cumhaz"} \tab \code{-log(x)} \cr
 }}
+
+\item{y}{(\code{Surv} or \code{string})\cr
+an object of class \code{Surv} created using \code{\link[survival:Surv]{survival::Surv()}}. This object will be passed as the left-hand side of
+the formula constructed and passed to \code{\link[survival:survfit]{survival::survfit()}}. This object can also be passed as a string.}
+
+\item{variables}{(\code{character})\cr
+stratification variables to be passed as the right-hand side of the formula constructed and passed to
+\code{\link[survival:survfit]{survival::survfit()}}.}
+
+\item{survfit.args}{(named \code{list})\cr
+named list of arguments that will be passed to \code{\link[survival:survfit]{survival::survfit()}}.}
 }
 \value{
 an ARD data frame of class 'card'
@@ -40,6 +68,32 @@ from a \code{\link[survival:survfit]{survival::survfit()}} model.
 survival fit model.
 }
 }
+\section{Formula Specification}{
+
+
+The \code{x} argument can accepts a \code{\link[survival:survfit]{survival::survfit()}} object, which must be created from a formula or previously
+fitted model. In order to process this formula correctly, it must be supplied directly to \code{\link[survival:survfit]{survival::survfit()}}
+rather and not taken from a variable. For example, \code{x} can be constructed and supplied to \code{ard_survival_survfit()} as
+follows:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{data <- mtcars
+x <- survival::survfit(survival::Surv(mpg, am) ~ cyl, data = data)
+
+ard_survival_survfit(x, times = 25)
+}\if{html}{\out{</div>}}
+
+Alternatively, a data frame can be passed as \code{x}, with the formula outcome supplied to \code{y} and stratification
+variables passed to \code{variables}, and the formula will be constructed and passed to \code{\link[survival:survfit]{survival::survfit()}} within the
+function.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- mtcars
+y <- "survival::Surv(mpg, am)"
+variables <- "cyl"
+
+ard_survival_survfit(x, y, variables, times = 25)
+}\if{html}{\out{</div>}}
+}
+
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(survival)
@@ -50,6 +104,9 @@ survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, data = cards::ADTTE) |>
 
 survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, data = cards::ADTTE, conf.int = 0.90) |>
   ard_survival_survfit(probs = c(0.25, 0.5, 0.75))
+
+cards::ADTTE |>
+  ard_survival_survfit(y = Surv_CNSR(AVAL, CNSR), variables = c("TRTA", "SEX"), times = 90)
 
 # Competing Risks Example ---------------------------
 set.seed(1)
