@@ -96,9 +96,23 @@ test_that("ard_survival_survfit() works with competing risks", {
       ) |>
       print(n = Inf)
   )
+
+  # error when type is specified
+  expect_snapshot(
+    survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, data = ADTTE_MS) %>%
+      ard_survival_survfit(times = c(60, 180), type = "risk"),
+    error = TRUE
+  )
 })
 
 test_that("ard_survival_survfit() errors are properly handled", {
+  formula <- survival::Surv(mpg, am) ~ cyl
+  x <- survival::survfit(formula, data = mtcars)
+  expect_snapshot(
+    ard_survival_survfit(x, times = 25),
+    error = TRUE
+  )
+
   expect_snapshot(
     ard_survival_survfit("not_survfit"),
     error = TRUE
@@ -107,6 +121,12 @@ test_that("ard_survival_survfit() errors are properly handled", {
   expect_snapshot(
     survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
       ard_survival_survfit(times = 100, type = "notatype"),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+      ard_survival_survfit(probs = c(0.25, 0.75), type = "risk"),
     error = TRUE
   )
 

@@ -265,7 +265,24 @@
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
+---
+
+    Code
+      survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, data = ADTTE_MS) %>%
+        ard_survival_survfit(times = c(60, 180), type = "risk")
+    Condition
+      Error in `ard_survival_survfit()`:
+      ! Cannot use `type` argument with `survfit` models with class <survfitms/survfitcoxms>.
+
 # ard_survival_survfit() errors are properly handled
+
+    Code
+      ard_survival_survfit(x, times = 25)
+    Condition
+      Error in `ard_survival_survfit()`:
+      ! Argument `x` must be of class <formula>, not <name>. See function documentation for details on properly specifying formulas.
+
+---
 
     Code
       ard_survival_survfit("not_survfit")
@@ -281,6 +298,15 @@
     Condition
       Error in `ard_survival_survfit()`:
       ! `type` must be one of "survival", "risk", or "cumhaz", not "notatype".
+
+---
+
+    Code
+      ard_survival_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA,
+      cards::ADTTE), probs = c(0.25, 0.75), type = "risk")
+    Condition
+      Error in `ard_survival_survfit()`:
+      ! Cannot use `type` argument when `probs` argument specifed.
 
 ---
 
