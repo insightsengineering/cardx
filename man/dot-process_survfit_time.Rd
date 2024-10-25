@@ -7,8 +7,8 @@
 .process_survfit_time(x, times, type, start.time = NULL)
 }
 \arguments{
-\item{x}{(\code{\link[survival:survfit]{survival::survfit()}})\cr
-a \code{\link[survival:survfit]{survival::survfit()}} object. See below for details.}
+\item{x}{(\code{survfit} or \code{data.frame})\cr
+an object of class \code{survfit} created with \code{\link[survival:survfit]{survival::survfit()}} or a data frame. See below for details.}
 
 \item{times}{(\code{numeric})\cr
 a vector of times for which to return survival probabilities.}

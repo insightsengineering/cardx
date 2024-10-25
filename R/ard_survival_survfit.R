@@ -4,8 +4,8 @@
 #' Analysis results data for survival quantiles and x-year survival estimates, extracted
 #' from a [survival::survfit()] model.
 #'
-#' @param x ([survival::survfit()])\cr
-#'   a [survival::survfit()] object. See below for details.
+#' @param x (`survfit` or `data.frame`)\cr
+#'   an object of class `survfit` created with [survival::survfit()] or a data frame. See below for details.
 #' @param times (`numeric`)\cr
 #'   a vector of times for which to return survival probabilities.
 #' @param probs (`numeric`)\cr
@@ -23,6 +23,34 @@
 #'   ) %>%
 #'   knitr::kable()
 #'   ```
+#' @param y (`Surv` or `string`)\cr
+#'   an object of class `Surv` created using [survival::Surv()]. This object will be passed as the left-hand side of
+#'   the formula constructed and passed to [survival::survfit()]. This object can also be passed as a string.
+#' @param variables (`character`)\cr
+#'   stratification variables to be passed as the right-hand side of the formula constructed and passed to
+#'   [survival::survfit()].
+#' @param method.args (named `list`)\cr
+#'   named list of arguments that will be passed to [survival::survfit()].
+#' @inheritParams rlang::args_dots_empty
+#'
+#' @section Formula Specification:
+#' When passing a [`survival::survfit()`] object to `ard_survival_survfit()`,
+#' the `survfit()` call must use an evaluated formula and not a stored formula.
+#' Including a proper formula in the call allows the function to accurately
+#' identify all variables included in the estimation. See below for examples:
+#'
+#' ```r
+#' library(cardx)
+#' library(survival)
+#'
+#' # include formula in `survfit()` call
+#' survfit(Surv(time, status) ~ sex, lung) |> ard_survival_survfit(time = 500)
+#'
+#' # you can also pass a data frame to `ard_survival_survfit()` as well.
+#' lung |>
+#'   ard_survival_survfit(y = Surv(time, status), variables = "sex", time = 500)
+#' ```
+#' You **cannot**, however, pass a stored formula, e.g. `survfit(my_formula, lung)`
 #'
 #' @return an ARD data frame of class 'card'
 #' @name ard_survival_survfit
@@ -42,6 +70,9 @@
 #' survfit(Surv_CNSR(AVAL, CNSR) ~ TRTA, data = cards::ADTTE, conf.int = 0.90) |>
 #'   ard_survival_survfit(probs = c(0.25, 0.5, 0.75))
 #'
+#' cards::ADTTE |>
+#'   ard_survival_survfit(y = Surv_CNSR(AVAL, CNSR), variables = c("TRTA", "SEX"), times = 90)
+#'
 #' # Competing Risks Example ---------------------------
 #' set.seed(1)
 #' ADTTE_MS <- cards::ADTTE %>%
@@ -59,15 +90,31 @@ NULL
 
 #' @rdname ard_survival_survfit
 #' @export
-ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
+ard_survival_survfit <- function(x, ...) {
+  set_cli_abort_call()
+
+  check_not_missing(x)
+  UseMethod("ard_survival_survfit")
+}
+
+#' @rdname ard_survival_survfit
+#' @export
+ard_survival_survfit.survfit <- function(x, times = NULL, probs = NULL, type = NULL, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
   check_pkg_installed(c("survival", "broom"))
 
   # check/process inputs -------------------------------------------------------
-  check_not_missing(x)
-  check_class(x, cls = "survfit")
+  if (is.name(x$call$formula)) {
+    cli::cli_abort(
+      message = paste(
+        "The call in the survfit object {.arg x} must be an evaluated formula.",
+        "Please see the function documentation for details on properly specifying formulas."
+      ),
+      call = get_cli_abort_call()
+    )
+  }
   if (inherits(x, "survfitcox")) {
     cli::cli_abort("Argument {.arg x} cannot be class {.cls survfitcox}.",
       call = get_cli_abort_call()
@@ -107,6 +154,34 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
   .format_survfit_results(tidy_survfit)
 }
 
+#' @rdname ard_survival_survfit
+#' @export
+ard_survival_survfit.data.frame <- function(x, y, variables,
+                                            times = NULL, probs = NULL, type = NULL,
+                                            method.args = list(conf.int = 0.95), ...) {
+  set_cli_abort_call()
+
+  # check/process inputs -------------------------------------------------------
+  check_class(variables, "character")
+
+  # process outcome as string --------------------------------------------------
+  y <- enquo(y)
+  # if a character was passed, return it as is
+  if (tryCatch(is.character(eval_tidy(y)), error = \(e) FALSE)) y <- eval_tidy(y) # styler: off
+  # otherwise, convert expr to string
+  else y <- expr_deparse(quo_get_expr(y))  # styler: off
+
+  # build model ----------------------------------------------------------------
+  construct_model(
+    data = x,
+    formula = stats::reformulate(termlabels = bt(variables), response = y),
+    method = "survfit",
+    package = "survival",
+    method.args = {{ method.args }}
+  ) |>
+    ard_survival_survfit(times = times, probs = probs, type = type)
+}
+
 #' Process Survival Fit For Time Estimates
 #'
 #' @inheritParams cards::tidy_as_ard
@@ -134,7 +209,7 @@ ard_survival_survfit <- function(x, times = NULL, probs = NULL, type = NULL) {
     start.time <- 0
   }
   x <- survival::survfit0(x, start.time) %>%
-    summary(times)
+    summary(times, extend = TRUE)
 
   # process competing risks/multi-state models
   multi_state <- inherits(x, "summary.survfitms")

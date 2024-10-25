@@ -96,9 +96,28 @@ test_that("ard_survival_survfit() works with competing risks", {
       ) |>
       print(n = Inf)
   )
+
+  # error when type is specified
+  expect_snapshot(
+    survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, data = ADTTE_MS) %>%
+      ard_survival_survfit(times = c(60, 180), type = "risk"),
+    error = TRUE
+  )
 })
 
 test_that("ard_survival_survfit() errors are properly handled", {
+  formula <- survival::Surv(mpg, am) ~ cyl
+  x <- survival::survfit(formula, data = mtcars)
+  expect_snapshot(
+    ard_survival_survfit(x, times = 25),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    ard_survival_survfit(times = 25),
+    error = TRUE
+  )
+
   expect_snapshot(
     ard_survival_survfit("not_survfit"),
     error = TRUE
@@ -107,6 +126,12 @@ test_that("ard_survival_survfit() errors are properly handled", {
   expect_snapshot(
     survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
       ard_survival_survfit(times = 100, type = "notatype"),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+      ard_survival_survfit(probs = c(0.25, 0.75), type = "risk"),
     error = TRUE
   )
 
@@ -149,4 +174,45 @@ test_that("ard_survival_survfit() follows ard structure", {
       ard_survival_survfit(times = c(60, 180)) |>
       cards::check_ard_structure(method = FALSE)
   )
+})
+
+test_that("ard_survival_survfit() extends to times outside range", {
+  expect_snapshot(
+    survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
+      ard_survival_survfit(times = 200) |>
+      print(n = Inf)
+  )
+})
+
+test_that("ard_survival_survfit.data.frame() works as expected", {
+  # quoted y expression
+  expect_snapshot(
+    res_quo <-
+      ard_survival_survfit.data.frame(
+        x = mtcars,
+        y = "survival::Surv(mpg, am)",
+        variables = "vs",
+        times = 20,
+        method.args = list(start.time = 0, id = cyl)
+      ) |>
+      dplyr::mutate(
+        stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+      ) |>
+      print(n = Inf)
+  )
+
+  # unquoted y expression
+  res_unquo <-
+    ard_survival_survfit.data.frame(
+      x = mtcars,
+      y = survival::Surv(mpg, am),
+      variables = "vs",
+      times = 20,
+      method.args = list(start.time = 0, id = cyl)
+    ) |>
+    dplyr::mutate(
+      stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
+    )
+
+  expect_equal(res_quo, res_unquo)
 })
