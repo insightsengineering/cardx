@@ -2,13 +2,13 @@
 % Please edit documentation in R/ard_survival_survfit.R
 \name{ard_survival_survfit}
 \alias{ard_survival_survfit}
-\alias{ard_survival_survfit.default}
+\alias{ard_survival_survfit.survfit}
 \alias{ard_survival_survfit.data.frame}
 \title{ARD Survival Estimates}
 \usage{
 ard_survival_survfit(x, ...)
 
-\method{ard_survival_survfit}{default}(x, times = NULL, probs = NULL, type = NULL, ...)
+\method{ard_survival_survfit}{survfit}(x, times = NULL, probs = NULL, type = NULL, ...)
 
 \method{ard_survival_survfit}{data.frame}(
   x,
@@ -17,7 +17,7 @@ ard_survival_survfit(x, ...)
   times = NULL,
   probs = NULL,
   type = NULL,
-  survfit.args = list(conf.int = 0.95),
+  method.args = list(conf.int = 0.95),
   ...
 )
 }
@@ -51,7 +51,7 @@ the formula constructed and passed to \code{\link[survival:survfit]{survival::su
 stratification variables to be passed as the right-hand side of the formula constructed and passed to
 \code{\link[survival:survfit]{survival::survfit()}}.}
 
-\item{survfit.args}{(named \code{list})\cr
+\item{method.args}{(named \code{list})\cr
 named list of arguments that will be passed to \code{\link[survival:survfit]{survival::survfit()}}.}
 }
 \value{
@@ -72,9 +72,9 @@ survival fit model.
 
 
 The \code{x} argument can accepts a \code{\link[survival:survfit]{survival::survfit()}} object, which must be created from a formula or previously
-fitted model. In order to process this formula correctly, it must be supplied directly to \code{\link[survival:survfit]{survival::survfit()}}
-rather and not taken from a variable. For example, \code{x} can be constructed and supplied to \code{ard_survival_survfit()} as
-follows:
+fitted model. In order to identify the underlying variable names when processing this formula, it must be supplied
+directly to \code{\link[survival:survfit]{survival::survfit()}} rather and not taken from a variable. For example, \code{x} can be constructed and
+supplied to \code{ard_survival_survfit()} as follows:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{data <- mtcars
 x <- survival::survfit(survival::Surv(mpg, am) ~ cyl, data = data)

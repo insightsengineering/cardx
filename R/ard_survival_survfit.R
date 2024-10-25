@@ -29,16 +29,16 @@
 #' @param variables (`character`)\cr
 #'   stratification variables to be passed as the right-hand side of the formula constructed and passed to
 #'   [survival::survfit()].
-#' @param survfit.args (named `list`)\cr
+#' @param method.args (named `list`)\cr
 #'   named list of arguments that will be passed to [survival::survfit()].
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @section Formula Specification:
 #'
 #' The `x` argument can accepts a [survival::survfit()] object, which must be created from a formula or previously
-#' fitted model. In order to process this formula correctly, it must be supplied directly to [survival::survfit()]
-#' rather and not taken from a variable. For example, `x` can be constructed and supplied to `ard_survival_survfit()` as
-#' follows:
+#' fitted model. In order to identify the underlying variable names when processing this formula, it must be supplied
+#' directly to [survival::survfit()] rather and not taken from a variable. For example, `x` can be constructed and
+#' supplied to `ard_survival_survfit()` as follows:
 #' ```{r, eval = FALSE}
 #' data <- mtcars
 #' x <- survival::survfit(survival::Surv(mpg, am) ~ cyl, data = data)
@@ -96,25 +96,26 @@ NULL
 #' @rdname ard_survival_survfit
 #' @export
 ard_survival_survfit <- function(x, ...) {
+  set_cli_abort_call()
+
   check_not_missing(x)
   UseMethod("ard_survival_survfit")
 }
 
 #' @rdname ard_survival_survfit
 #' @export
-ard_survival_survfit.default <- function(x, times = NULL, probs = NULL, type = NULL, ...) {
+ard_survival_survfit.survfit <- function(x, times = NULL, probs = NULL, type = NULL, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
   check_pkg_installed(c("survival", "broom"))
 
   # check/process inputs -------------------------------------------------------
-  check_class(x, cls = c("survfit"))
   if (is.name(x$call$formula)) {
     cli::cli_abort(
       message = paste(
-        "Argument {.arg x} must be of class {.cls formula}, not {.cls name}.",
-        "See function documentation for details on properly specifying formulas."
+        "The call in the survfit object {.arg x} must be an evaluated formula.",
+        "Please see the function documentation for details on properly specifying formulas."
       ),
       call = get_cli_abort_call()
     )
@@ -162,18 +163,18 @@ ard_survival_survfit.default <- function(x, times = NULL, probs = NULL, type = N
 #' @export
 ard_survival_survfit.data.frame <- function(x, y, variables,
                                             times = NULL, probs = NULL, type = NULL,
-                                            survfit.args = list(conf.int = 0.95), ...) {
+                                            method.args = list(conf.int = 0.95), ...) {
   set_cli_abort_call()
 
   # check/process inputs -------------------------------------------------------
   check_class(variables, "character")
 
   # process outcome as string --------------------------------------------------
-  y <- rlang::enquo(y)
+  y <- enquo(y)
   # if a character was passed, return it as is
-  if (tryCatch(is.character(rlang::eval_tidy(y)), error = \(e) FALSE)) y <- rlang::eval_tidy(y) # styler: off
+  if (tryCatch(is.character(eval_tidy(y)), error = \(e) FALSE)) y <- eval_tidy(y) # styler: off
   # otherwise, convert expr to string
-  else y <- rlang::expr_deparse(rlang::quo_get_expr(y))  # styler: off
+  else y <- expr_deparse(quo_get_expr(y))  # styler: off
 
   # build model ----------------------------------------------------------------
   construct_model(
@@ -181,7 +182,7 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
     formula = stats::reformulate(termlabels = bt(variables), response = y),
     method = "survfit",
     package = "survival",
-    method.args = {{ survfit.args }}
+    method.args = {{ method.args }}
   ) |>
     ard_survival_survfit(times = times, probs = probs, type = type)
 }

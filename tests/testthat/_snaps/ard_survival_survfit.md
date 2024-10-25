@@ -280,15 +280,23 @@
       ard_survival_survfit(x, times = 25)
     Condition
       Error in `ard_survival_survfit()`:
-      ! Argument `x` must be of class <formula>, not <name>. See function documentation for details on properly specifying formulas.
+      ! The call in the survfit object `x` must be an evaluated formula. Please see the function documentation for details on properly specifying formulas.
+
+---
+
+    Code
+      ard_survival_survfit(times = 25)
+    Condition
+      Error in `ard_survival_survfit()`:
+      ! The `x` argument cannot be missing.
 
 ---
 
     Code
       ard_survival_survfit("not_survfit")
     Condition
-      Error in `ard_survival_survfit()`:
-      ! The `x` argument must be class <survfit>, not a string.
+      Error in `UseMethod()`:
+      ! no applicable method for 'ard_survival_survfit' applied to an object of class "character"
 
 ---
 
@@ -357,7 +365,7 @@
 
     Code
       res_quo <- print(dplyr::mutate(ard_survival_survfit.data.frame(x = mtcars, y = "survival::Surv(mpg, am)",
-        variables = "vs", times = 20, survfit.args = list(start.time = 0, id = cyl)),
+        variables = "vs", times = 20, method.args = list(start.time = 0, id = cyl)),
       stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))),
       n = Inf)
     Message

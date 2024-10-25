@@ -114,6 +114,11 @@ test_that("ard_survival_survfit() errors are properly handled", {
   )
 
   expect_snapshot(
+    ard_survival_survfit(times = 25),
+    error = TRUE
+  )
+
+  expect_snapshot(
     ard_survival_survfit("not_survfit"),
     error = TRUE
   )
@@ -188,7 +193,7 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
         y = "survival::Surv(mpg, am)",
         variables = "vs",
         times = 20,
-        survfit.args = list(start.time = 0, id = cyl)
+        method.args = list(start.time = 0, id = cyl)
       ) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
@@ -203,7 +208,7 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
       y = survival::Surv(mpg, am),
       variables = "vs",
       times = 20,
-      survfit.args = list(start.time = 0, id = cyl)
+      method.args = list(start.time = 0, id = cyl)
     ) |>
     dplyr::mutate(
       stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
