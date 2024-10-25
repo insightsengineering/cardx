@@ -34,28 +34,23 @@
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @section Formula Specification:
+#' When passing a [`survival::survfit()`] object to `ard_survival_survfit()`,
+#' the `survfit()` call must use an evaluated formula and not a stored formula.
+#' Including a proper formula in the call allows the function to accurately
+#' identify all variables included in the estimation. See below for examples:
 #'
-#' The `x` argument can accepts a [survival::survfit()] object, which must be created from a formula or previously
-#' fitted model. In order to identify the underlying variable names when processing this formula, it must be supplied
-#' directly to [survival::survfit()] rather and not taken from a variable. For example, `x` can be constructed and
-#' supplied to `ard_survival_survfit()` as follows:
-#' ```{r, eval = FALSE}
-#' data <- mtcars
-#' x <- survival::survfit(survival::Surv(mpg, am) ~ cyl, data = data)
+#' ```r
+#' library(cardx)
+#' library(survival)
 #'
-#' ard_survival_survfit(x, times = 25)
+#' # include formula in `survfit()` call
+#' survfit(Surv(time, status) ~ sex, lung) |> ard_survival_survfit(time = 500)
+#'
+#' # you can also pass a data frame to `ard_survival_survfit()` as well.
+#' lung |>
+#'   ard_survival_survfit(y = Surv(time, status), variables = "sex", time = 500)
 #' ```
-#'
-#' Alternatively, a data frame can be passed as `x`, with the formula outcome supplied to `y` and stratification
-#' variables passed to `variables`, and the formula will be constructed and passed to [survival::survfit()] within the
-#' function.
-#' ```{r, eval = FALSE}
-#' x <- mtcars
-#' y <- "survival::Surv(mpg, am)"
-#' variables <- "cyl"
-#'
-#' ard_survival_survfit(x, y, variables, times = 25)
-#' ```
+#' You **cannot**, however, pass a stored formula, e.g. `survfit(my_formula, lung)`
 #'
 #' @return an ARD data frame of class 'card'
 #' @name ard_survival_survfit

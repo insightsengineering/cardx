@@ -1,5 +1,11 @@
 # cardx 0.2.1.9008
 
+* Implemented `summary(extend=TRUE)` in `ard_survival_survfit()` to return results for time points out of bounds. (#224)
+
+* Added a `data.frame` method to `ard_survival_survfit()`.
+
+* Added a warning for incorrect formula type to `ard_survival_survfit()`. (#223)
+
 # cardx 0.2.1
 
 ## New Features and Updates

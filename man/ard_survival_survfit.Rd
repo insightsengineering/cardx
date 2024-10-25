@@ -70,28 +70,23 @@ survival fit model.
 }
 \section{Formula Specification}{
 
+When passing a \code{\link[survival:survfit]{survival::survfit()}} object to \code{ard_survival_survfit()},
+the \code{survfit()} call must use an evaluated formula and not a stored formula.
+Including a proper formula in the call allows the function to accurately
+identify all variables included in the estimation. See below for examples:
 
-The \code{x} argument can accepts a \code{\link[survival:survfit]{survival::survfit()}} object, which must be created from a formula or previously
-fitted model. In order to identify the underlying variable names when processing this formula, it must be supplied
-directly to \code{\link[survival:survfit]{survival::survfit()}} rather and not taken from a variable. For example, \code{x} can be constructed and
-supplied to \code{ard_survival_survfit()} as follows:
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(cardx)
+library(survival)
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{data <- mtcars
-x <- survival::survfit(survival::Surv(mpg, am) ~ cyl, data = data)
+# include formula in `survfit()` call
+survfit(Surv(time, status) ~ sex, lung) |> ard_survival_survfit(time = 500)
 
-ard_survival_survfit(x, times = 25)
+# you can also pass a data frame to `ard_survival_survfit()` as well.
+lung |>
+  ard_survival_survfit(y = Surv(time, status), variables = "sex", time = 500)
 }\if{html}{\out{</div>}}
 
-Alternatively, a data frame can be passed as \code{x}, with the formula outcome supplied to \code{y} and stratification
-variables passed to \code{variables}, and the formula will be constructed and passed to \code{\link[survival:survfit]{survival::survfit()}} within the
-function.
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- mtcars
-y <- "survival::Surv(mpg, am)"
-variables <- "cyl"
-
-ard_survival_survfit(x, y, variables, times = 25)
-}\if{html}{\out{</div>}}
+You \strong{cannot}, however, pass a stored formula, e.g. \code{survfit(my_formula, lung)}
 }
 
 \examples{
