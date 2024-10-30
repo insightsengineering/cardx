@@ -1,4 +1,4 @@
-# cardx 0.2.1.9009
+# cardx 0.2.1.9010
 
 * Implemented `summary(extend=TRUE)` in `ard_survival_survfit()` to return results for time points out of bounds. (#224)
 
