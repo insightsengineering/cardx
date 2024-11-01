@@ -1329,8 +1329,10 @@ test_that("ard_categorical.survey.design() original types are retained", {
   svy_titanic <-
     survey::svydesign(
       ~1,
-      data = as.data.frame(Titanic) |> dplyr::mutate(Class.dbl = as.numeric(Class),
-                                                     Class.int = as.integer(Class)),
+      data = as.data.frame(Titanic) |> dplyr::mutate(
+        Class.dbl = as.numeric(Class),
+        Class.int = as.integer(Class)
+      ),
       weights = ~Freq
     )
 

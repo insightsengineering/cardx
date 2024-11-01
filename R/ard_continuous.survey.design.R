@@ -345,8 +345,7 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
     if (!"variable_level" %in% names(ard)) df_variable_orginal_types <- unique(ard["variable"]) # styler: off
     else if (!all(variables %in% names(data))) { # for survfit summaries, the times/probs var is not in the data
       df_variable_orginal_types <- unique(ard[c("variable", "variable_level")])
-    }
-    else {
+    } else {
       df_variable_orginal_types <-
         map(
           variables,
@@ -365,17 +364,15 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
   if (!is_empty(variables) && !is_empty(by)) {
     df_original_types <-
       dplyr::cross_join(df_by_orginal_types, df_variable_orginal_types)
-  }
-  else if (!is_empty(variables)) {
+  } else if (!is_empty(variables)) {
     df_original_types <- df_variable_orginal_types
-  }
-  else if (!is_empty(by)) {
+  } else if (!is_empty(by)) {
     df_original_types <- df_by_orginal_types
   }
 
   # unlisting the sorting according the character value
   df_original_types <- df_original_types |>
-    dplyr::arrange(across(everything(), ~map(., as.character) |> unlist(.)))
+    dplyr::arrange(across(everything(), ~ map(., as.character) |> unlist()))
 
   ard_nested <- ard |>
     tidyr::nest(..ard_data... = -c(cards::all_ard_groups(), cards::all_ard_variables())) |>
@@ -395,7 +392,7 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
     all_cols_equal <-
       seq_len(nrow(df_original_types)) |>
       map_lgl(
-        ~identical(
+        ~ identical(
           as.character(df_original_types[["variable_level"]][[.x]]),
           as.character(ard_nested[["variable_level"]][[.x]])
         )
