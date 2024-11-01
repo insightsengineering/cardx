@@ -188,7 +188,7 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
   # quoted y expression
   expect_snapshot(
     res_quo <-
-      ard_survival_survfit.data.frame(
+      ard_survival_survfit(
         x = mtcars,
         y = "survival::Surv(mpg, am)",
         variables = "vs",
@@ -203,7 +203,7 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
 
   # unquoted y expression
   res_unquo <-
-    ard_survival_survfit.data.frame(
+    ard_survival_survfit(
       x = mtcars,
       y = survival::Surv(mpg, am),
       variables = "vs",
@@ -215,4 +215,19 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
     )
 
   expect_equal(res_quo, res_unquo)
+
+  # check type
+  expect_equal(
+    ard_survival_survfit(
+      x = mtcars,
+      y = "survival::Surv(mpg, am)",
+      variables = "vs",
+      times = 20,
+      method.args = list(start.time = 0, id = cyl)
+    ) |>
+      dplyr::pull("group1_level") |>
+      unlist() |>
+      class(),
+    class(mtcars$vs)
+  )
 })
