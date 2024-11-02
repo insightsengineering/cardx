@@ -52,6 +52,13 @@
 #' ```
 #' You **cannot**, however, pass a stored formula, e.g. `survfit(my_formula, lung)`
 #'
+#' @section Variable Classes:
+#' When the `survfit` method is called, the class of the stratifying variables
+#' will be returned as a factor.
+#'
+#' When the data frame method is called, the original classes are retained in the
+#' resulting ARD.
+#'
 #' @return an ARD data frame of class 'card'
 #' @name ard_survival_survfit
 #'
