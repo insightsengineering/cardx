@@ -89,6 +89,15 @@ lung |>
 You \strong{cannot}, however, pass a stored formula, e.g. \code{survfit(my_formula, lung)}
 }
 
+\section{Variable Classes}{
+
+When the \code{survfit} method is called, the class of the stratifying variables
+will be returned as a factor.
+
+When the data frame method is called, the original classes are retained in the
+resulting ARD.
+}
+
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(survival)

@@ -52,6 +52,13 @@
 #' ```
 #' You **cannot**, however, pass a stored formula, e.g. `survfit(my_formula, lung)`
 #'
+#' @section Variable Classes:
+#' When the `survfit` method is called, the class of the stratifying variables
+#' will be returned as a factor.
+#'
+#' When the data frame method is called, the original classes are retained in the
+#' resulting ARD.
+#'
 #' @return an ARD data frame of class 'card'
 #' @name ard_survival_survfit
 #'
@@ -179,7 +186,8 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
     package = "survival",
     method.args = {{ method.args }}
   ) |>
-    ard_survival_survfit(times = times, probs = probs, type = type)
+    ard_survival_survfit(times = times, probs = probs, type = type) |>
+    .restore_original_column_types(data = x)
 }
 
 #' Process Survival Fit For Time Estimates

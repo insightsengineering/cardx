@@ -518,3 +518,30 @@ test_that("ard_continuous.survey.design() follows ard structure", {
       cards::check_ard_structure(method = FALSE)
   )
 })
+
+test_that("ard_continuous.survey.design() original types are retained", {
+  data(api, package = "survey")
+  dclus1 <-
+    survey::svydesign(
+      id = ~dnum,
+      weights = ~pw,
+      data = apiclus1 |> dplyr::mutate(sch.wide_int = as.integer(sch.wide), sch.wide_dbl = as.numeric(sch.wide)),
+      fpc = ~fpc
+    )
+
+  # factors and integer check
+  expect_silent(
+    ard <-
+      ard_continuous(
+        data = dclus1,
+        variables = c(api00, api99),
+        by = c(stype, sch.wide_int, sch.wide_dbl)
+      )
+  )
+  expect_equal(
+    unlist(ard$group1_level) |> levels(),
+    levels(apiclus1$stype)
+  )
+  expect_true(unlist(ard$group2_level) |> is.integer())
+  expect_true(unlist(ard$group3_level) |> is.numeric())
+})

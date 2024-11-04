@@ -74,7 +74,8 @@ ard_continuous_ci.survey.design <- function(data,
     method = method,
     df = df,
     ...
-  )
+  ) |>
+    .restore_original_column_types(data = data$variables)
 }
 
 .calculate_ard_continuous_survey_ci <- function(FUN, data, variables, by, conf.level, ...) {

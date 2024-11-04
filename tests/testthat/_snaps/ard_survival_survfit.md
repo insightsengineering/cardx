@@ -364,7 +364,7 @@
 # ard_survival_survfit.data.frame() works as expected
 
     Code
-      res_quo <- print(dplyr::mutate(ard_survival_survfit.data.frame(x = mtcars, y = "survival::Surv(mpg, am)",
+      res_quo <- print(dplyr::mutate(ard_survival_survfit(x = mtcars, y = "survival::Surv(mpg, am)",
         variables = "vs", times = 20, method.args = list(start.time = 0, id = cyl)),
       stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))),
       n = Inf)

@@ -1324,3 +1324,49 @@ test_that("ard_categorical follows ard structure", {
       cards::check_ard_structure(method = FALSE)
   )
 })
+
+test_that("ard_categorical.survey.design() original types are retained", {
+  svy_titanic <-
+    survey::svydesign(
+      ~1,
+      data = as.data.frame(Titanic) |> dplyr::mutate(
+        Class.dbl = as.numeric(Class),
+        Class.int = as.integer(Class)
+      ),
+      weights = ~Freq
+    )
+
+  # factors and integer check
+  expect_silent(
+    ard <-
+      ard_categorical(svy_titanic, variables = c(Class, Age, Class.int, Class.dbl), by = Survived)
+  )
+  expect_equal(
+    unlist(ard$group1_level) |> levels(),
+    levels(as.data.frame(Titanic)$Survived)
+  )
+  expect_true(
+    dplyr::filter(ard, variable %in% "Class") |>
+      dplyr::pull("variable_level") |>
+      getElement(1L) |>
+      is.factor()
+  )
+  expect_true(
+    dplyr::filter(ard, variable %in% "Age") |>
+      dplyr::pull("variable_level") |>
+      getElement(1L) |>
+      is.factor()
+  )
+  expect_true(
+    dplyr::filter(ard, variable %in% "Class.int") |>
+      dplyr::pull("variable_level") |>
+      getElement(1L) |>
+      is.integer()
+  )
+  expect_true(
+    dplyr::filter(ard, variable %in% "Class.dbl") |>
+      dplyr::pull("variable_level") |>
+      getElement(1L) |>
+      is.numeric()
+  )
+})

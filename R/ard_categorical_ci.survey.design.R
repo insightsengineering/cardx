@@ -145,12 +145,13 @@ ard_categorical_ci.survey.design <- function(data,
       fmt_fn = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
     ) |>
     cards::as_card() |>
-    cards::tidy_ard_column_order()
+    cards::tidy_ard_column_order() |>
+    .restore_original_column_types(data = data$variables)
 
   # if a value was passed for the variable, subset on those results
   if (!is_empty(value)) {
     df_full <- df_full |>
-      dplyr::filter(.data$variable_level %in% .env$value)
+      dplyr::filter(unlist(.data$variable_level) %in% .env$value)
   }
 
   df_full

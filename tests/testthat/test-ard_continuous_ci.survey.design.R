@@ -55,7 +55,7 @@ test_that("ard_continuous_ci(by)", {
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard, group1_level %in% "No", variable %in% "api00", stat_name %in% c("estimate", "std.error")),
+    cards::get_ard_statistics(ard, map(group1_level, as.character) %in% "No", map(variable, as.character) %in% "api00", stat_name %in% c("estimate", "std.error")),
     survey::svymean(~api00, design = dclus1 |> subset(sch.wide == "No")) |>
       as.data.frame() |>
       as.list() |>
@@ -63,7 +63,7 @@ test_that("ard_continuous_ci(by)", {
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard, group1_level %in% "No", variable %in% "api00", stat_name %in% c("conf.low", "conf.high")),
+    cards::get_ard_statistics(ard, map(group1_level, as.character) %in% "No", map(variable, as.character) %in% "api00", stat_name %in% c("conf.low", "conf.high")),
     survey::svymean(~api00, design = dclus1 |> subset(sch.wide == "No")) |>
       confint(level = 0.95, df = survey::degf(dclus1)) |>
       as.data.frame() |>
@@ -89,6 +89,9 @@ test_that("ard_continuous_ci(by)", {
       ard_continuous_ci(dclus1_copy, variables = c(api00, api99), by = sch.wide) |> dplyr::pull("stat")
     }
   )
+
+  # check type
+  expect_true(ard$group1_level |> unique() |> map_lgl(is.factor) |> all())
 })
 
 test_that("ard_continuous_ci(conf.level)", {
@@ -137,7 +140,7 @@ test_that("ard_continuous_ci(method,by)", {
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard, group1_level %in% "No", variable %in% "api00", stat_name %in% c("estimate", "std.error")),
+    cards::get_ard_statistics(ard, map(group1_level, as.character) %in% "No", map(variable, as.character) %in% "api00", stat_name %in% c("estimate", "std.error")),
     survey::svyquantile(~api00, design = dclus1 |> subset(sch.wide == "No"), quantiles = 0.5, interval.type = "beta") |>
       getElement(1L) |>
       as.data.frame() |>
@@ -147,7 +150,7 @@ test_that("ard_continuous_ci(method,by)", {
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard, group1_level %in% "No", variable %in% "api00", stat_name %in% c("conf.low", "conf.high")),
+    cards::get_ard_statistics(ard, map(group1_level, as.character) %in% "No", map(variable, as.character) %in% "api00", stat_name %in% c("conf.low", "conf.high")),
     survey::svyquantile(~api00, design = dclus1 |> subset(sch.wide == "No"), quantiles = 0.5, interval.type = "beta") |>
       confint(level = 0.95) |>
       as.data.frame() |>

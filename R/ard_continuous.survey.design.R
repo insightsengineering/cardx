@@ -99,8 +99,8 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
         )
       }
     ) |>
-    dplyr::bind_rows()
-
+    dplyr::bind_rows() |>
+    .restore_original_column_types(data = data$variables)
 
   # add stat_labels ------------------------------------------------------------
   df_stats <-
@@ -318,4 +318,110 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
         ~ map(.x, as.character)
       )
     )
+}
+
+
+# some operations coerce the variable types to character.
+# this function will convert the `_level` values to their original types
+.restore_original_column_types <- function(ard, data) {
+  # identify grouping variable names with associated levels --------------------
+  by <- character()
+  for (v in names(dplyr::select(ard, cards::all_ard_groups("names")))) {
+    if (paste0(v, "_level") %in% names(ard)) by <- c(by, ard[[v]][1]) # styler: off
+  }
+  variables <- character()
+  if ("variable" %in% names(ard)) {
+    variables <- ard[["variable"]] |> unique()
+  }
+
+  # if there are no levels to correct, then return ard as it is
+  if (is_empty(variables) && is_empty(by)) return(ard) # styler: off
+
+  # add an ID for sorting
+  ard$...ard_id_for_sorting... <- seq_len(nrow(ard))
+
+  # nest the raw data with original types --------------------------------------
+  if (!is_empty(variables)) {
+    if (!"variable_level" %in% names(ard)) df_variable_orginal_types <- unique(ard["variable"]) # styler: off
+    else if (!all(variables %in% names(data))) { # for survfit summaries, the times/probs var is not in the data
+      df_variable_orginal_types <- unique(ard[c("variable", "variable_level")])
+    } else {
+      df_variable_orginal_types <-
+        map(
+          variables,
+          ~ cards::nest_for_ard(data, by = .x, include_data = FALSE) |>
+            stats::setNames(c("variable", "variable_level"))
+        ) |>
+        dplyr::bind_rows()
+    }
+  }
+  if (!is_empty(by)) {
+    df_by_orginal_types <-
+      cards::nest_for_ard(data, by = by, include_data = FALSE)
+  }
+
+  # combine groups and variables together
+  if (!is_empty(variables) && !is_empty(by)) {
+    df_original_types <-
+      dplyr::cross_join(df_by_orginal_types, df_variable_orginal_types)
+  } else if (!is_empty(variables)) {
+    df_original_types <- df_variable_orginal_types
+  } else if (!is_empty(by)) {
+    df_original_types <- df_by_orginal_types
+  }
+
+  # unlisting the sorting according the character value
+  df_original_types <- df_original_types |>
+    dplyr::arrange(across(everything(), ~ map(., as.character) |> unlist()))
+
+  ard_nested <- ard |>
+    tidyr::nest(..ard_data... = -c(cards::all_ard_groups(), cards::all_ard_variables())) |>
+    dplyr::arrange(across(c(cards::all_ard_groups(), cards::all_ard_variables()), unlist))
+
+  # if all columns match, then replace the coerced character cols with their original type/class
+  all_cols_equal <-
+    every(
+      names(df_original_types) |> setdiff("variable_level"),
+      ~ all(
+        unlist(ard_nested[[.x]]) == as.character(unlist(df_original_types[[.x]])) |
+          (is.na(unlist(ard_nested[[.x]])) & is.na(unlist(df_original_types[[.x]])))
+      )
+    )
+  # the variable level needs to be handled separately because there can be mixed type and we can't unlist
+  if (isTRUE(all_cols_equal) && "variable_level" %in% names(df_original_types)) {
+    all_cols_equal <-
+      seq_len(nrow(df_original_types)) |>
+      map_lgl(
+        ~ identical(
+          as.character(df_original_types[["variable_level"]][[.x]]),
+          as.character(ard_nested[["variable_level"]][[.x]])
+        )
+      ) |>
+      all()
+  }
+
+  if (isTRUE(all_cols_equal)) {
+    return(
+      dplyr::bind_cols(
+        df_original_types,
+        dplyr::select(ard_nested, -all_of(names(df_original_types))),
+        .name_repair = "minimal"
+      ) |>
+        tidyr::unnest(cols = "..ard_data...") |>
+        dplyr::arrange(.data$...ard_id_for_sorting...) |>
+        dplyr::select(-"...ard_id_for_sorting...") |>
+        cards::as_card()
+    )
+  }
+
+  # I hope this message is never triggered!
+  cli::cli_inform(c(
+    "If you see this message, variable levels have been coerced to character, which could cause downstream issues.",
+    "*" = "Please post a reproducible example to {.url https://github.com/insightsengineering/cardx/issues/new}, so we can address in the next release.",
+    "i" = "You can create a minimal reproducible example with {.fun reprex::reprex}."
+  ))
+
+  ard |>
+    dplyr::arrange(.data$...ard_id_for_sorting...) |>
+    dplyr::select(-"...ard_id_for_sorting...")
 }
