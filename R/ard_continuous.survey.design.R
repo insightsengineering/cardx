@@ -349,7 +349,7 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
       df_variable_orginal_types <-
         map(
           variables,
-          ~ cards::nest_for_ard(data, by = .x, include_data = FALSE) |>
+          ~ cards::nest_for_ard(tidyr::drop_na(data[.x]), by = .x, include_data = FALSE) |>
             stats::setNames(c("variable", "variable_level"))
         ) |>
         dplyr::bind_rows()
@@ -357,7 +357,7 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
   }
   if (!is_empty(by)) {
     df_by_orginal_types <-
-      cards::nest_for_ard(data, by = by, include_data = FALSE)
+      cards::nest_for_ard(tidyr::drop_na(data[by]), by = by, include_data = FALSE)
   }
 
   # combine groups and variables together
