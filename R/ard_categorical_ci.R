@@ -69,7 +69,7 @@ ard_categorical_ci.data.frame <- function(data,
   cards::process_selectors(data, variables = {{ variables }}, by = {{ by }})
   method <- arg_match(method)
   if (method %in% c("strat_wilson", "strat_wilsoncc")) {
-    cards::process_selectors(data, strata = strata)
+    cards::process_selectors(data, strata = {{ strata }} )
     check_scalar(strata)
   }
   cards::process_formula_selectors(
