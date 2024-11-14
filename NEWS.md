@@ -1,4 +1,12 @@
-# cardx 0.2.1.9007
+# cardx 0.2.1.9012
+
+* Added a `data.frame` method to `ard_survival_survfit()`.
+
+* Added a warning for incorrect formula type to `ard_survival_survfit()`. (#223)
+
+* Implemented `summary(extend=TRUE)` in `ard_survival_survfit()` to return results for time points out of bounds. (#224)
+
+* Methods in the {survey} and {survival} packages do not retain inputs variables types in their outputs. We now are able retain these variable types in ARDs returned by `ard_continuous.survey.design()`, `ard_categorical.survey.design()`, `ard_continuous_ci.survey.design()`, `ard_categorical_ci.survey.design()`, and `ard_survival_survfit.data.frame()` (and notably, _not_ in `ard_survival_survfit.survfit()`).
 
 # cardx 0.2.1
 

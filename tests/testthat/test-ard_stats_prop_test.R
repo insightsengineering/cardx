@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("broom", reference_pkg = "cardx"))
+skip_if_not(is_pkg_installed("broom"))
 
 test_that("ard_stats_prop_test() works", {
   expect_error(

@@ -2,6 +2,7 @@
 url: https://insightsengineering.github.io/cardx
 
 template:
+  math-rendering: mathjax
   package: nesttemplate
 
 # navbar:

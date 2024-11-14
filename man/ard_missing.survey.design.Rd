@@ -41,7 +41,7 @@ statistic names to include. See default value for options.}
 a named list, a list of formulas,
 or a single formula where the list element is a named list of functions
 (or the RHS of a formula),
-e.g. \verb{list(mpg = list(mean = \\(x) round(x, digits = 2) |> as.character))}.}
+e.g. \verb{list(mpg = list(mean = \\(x) round(x, digits = 2) |> as.character()))}.}
 
 \item{stat_label}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas, or a single formula where
@@ -58,7 +58,7 @@ an ARD data frame of class 'card'
 Compute Analysis Results Data (ARD) for statistics related to data missingness for survey objects
 }
 \examples{
-\dontshow{if (cardx:::is_pkg_installed("survey", reference_pkg = "cardx")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (cardx:::is_pkg_installed("survey")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
 ard_missing(svy_titanic, variables = c(Class, Age), by = Survived)

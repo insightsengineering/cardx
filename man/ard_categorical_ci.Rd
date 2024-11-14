@@ -60,7 +60,7 @@ an ARD data frame
 Calculate confidence intervals for proportions.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # compute CI for binary variables
 ard_categorical_ci(mtcars, variables = c(vs, am), method = "wilson")
 

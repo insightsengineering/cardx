@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("survey", reference_pkg = "cards"))
+skip_if_not(is_pkg_installed("survey"))
 
 data(api, package = "survey")
 dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
@@ -6,7 +6,6 @@ dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~f
 test_that("ard_categorical_ci(data)", {
   expect_snapshot(
     ard_categorical_ci(dclus1, variables = c(both, awards)) |>
-      as.data.frame() |>
       dplyr::select(-warning, -error, -fmt_fn, -context)
   )
 })
@@ -17,7 +16,7 @@ test_that("ard_categorical_ci(variables)", {
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard, variable %in% "both", variable_level %in% "No")[c("estimate", "conf.low", "conf.high")],
+    cards::get_ard_statistics(ard, variable %in% "both", map(variable_level, as.character) %in% "No")[c("estimate", "conf.low", "conf.high")],
     survey::svyciprop(~ I(both == "No"), design = dclus1, method = "logit", level = 0.95) %>%
       {c(as.list(.), as.list(attr(., "ci")))} |> # styler: off
       set_names(c("estimate", "conf.low", "conf.high"))
@@ -56,9 +55,9 @@ test_that("ard_categorical_ci(by)", {
   expect_equal(
     cards::get_ard_statistics(
       ard,
-      group1_level %in% "No",
+      map(group1_level, as.character) %in% "No",
       variable %in% "both",
-      variable_level %in% "No",
+      map(variable_level, as.character) %in% "No",
       stat_name %in% c("estimate", "conf.low", "conf.high")
     ),
     survey::svyciprop(~ I(both == "No"), design = dclus1 |> subset(sch.wide == "No")) %>%
@@ -92,7 +91,7 @@ test_that("ard_categorical_ci(conf.level)", {
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard, variable %in% "both", variable_level == "No", stat_name %in% c("estimate", "conf.low", "conf.high")),
+    cards::get_ard_statistics(ard, variable %in% "both", map(variable_level, as.character) %in% "No", stat_name %in% c("estimate", "conf.low", "conf.high")),
     survey::svyciprop(~ I(both == "No"), design = dclus1, level = 0.80, df = survey::degf(dclus1)) %>%
       {c(as.list(.), as.list(attr(., "ci")))} |> # styler: off
       set_names(c("estimate", "conf.low", "conf.high"))
@@ -105,10 +104,30 @@ test_that("ard_categorical_ci(method)", {
   )
 
   expect_equal(
-    cards::get_ard_statistics(ard, variable %in% "both", variable_level == "No", stat_name %in% c("estimate", "conf.low", "conf.high")),
+    cards::get_ard_statistics(ard, variable %in% "both", map(variable_level, as.character) %in% "No", stat_name %in% c("estimate", "conf.low", "conf.high")),
     survey::svyciprop(~ I(both == "No"), design = dclus1, method = "likelihood", df = survey::degf(dclus1)) %>%
       {c(as.list(.), as.list(attr(., "ci")))} |> # styler: off
       set_names(c("estimate", "conf.low", "conf.high"))
+  )
+
+  # check type
+  expect_true(ard$variable_level |> unique() |> map_lgl(is.factor) |> all())
+})
+
+test_that("ard_categorical_ci(value)", {
+  data(api, package = "survey")
+  dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
+
+  expect_equal(
+    ard_categorical_ci(dclus1, variables = sch.wide, value = sch.wide ~ "Yes", method = "xlogit"),
+    ard_categorical_ci(dclus1, variables = sch.wide, method = "xlogit") |>
+      dplyr::filter(unlist(variable_level) %in% "Yes")
+  )
+
+  expect_equal(
+    ard_categorical_ci(dclus1, variables = c(sch.wide, both), value = list(sch.wide ~ "Yes", both ~ "Yes"), method = "xlogit"),
+    ard_categorical_ci(dclus1, variables = c(sch.wide, both), method = "xlogit") |>
+      dplyr::filter(map(variable_level, as.character) %in% "Yes")
   )
 })
 

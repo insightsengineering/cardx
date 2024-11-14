@@ -23,14 +23,14 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd"))
 #' ard_smd_smd(cards::ADSL, by = SEX, variables = AGE)
 #' ard_smd_smd(cards::ADSL, by = SEX, variables = AGEGR1)
 ard_smd_smd <- function(data, by, variables, std.error = TRUE, conf.level = 0.95, ...) {
   set_cli_abort_call()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed("smd", reference_pkg = "cardx")
+  check_pkg_installed("smd")
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(data)

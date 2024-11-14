@@ -265,13 +265,38 @@
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
+---
+
+    Code
+      survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, data = ADTTE_MS) %>%
+        ard_survival_survfit(times = c(60, 180), type = "risk")
+    Condition
+      Error in `ard_survival_survfit()`:
+      ! Cannot use `type` argument with `survfit` models with class <survfitms/survfitcoxms>.
+
 # ard_survival_survfit() errors are properly handled
+
+    Code
+      ard_survival_survfit(x, times = 25)
+    Condition
+      Error in `ard_survival_survfit()`:
+      ! The call in the survfit object `x` must be an evaluated formula. Please see the function documentation for details on properly specifying formulas.
+
+---
+
+    Code
+      ard_survival_survfit(times = 25)
+    Condition
+      Error in `ard_survival_survfit()`:
+      ! The `x` argument cannot be missing.
+
+---
 
     Code
       ard_survival_survfit("not_survfit")
     Condition
-      Error in `ard_survival_survfit()`:
-      ! The `x` argument must be class <survfit>, not a string.
+      Error in `UseMethod()`:
+      ! no applicable method for 'ard_survival_survfit' applied to an object of class "character"
 
 ---
 
@@ -281,6 +306,15 @@
     Condition
       Error in `ard_survival_survfit()`:
       ! `type` must be one of "survival", "risk", or "cumhaz", not "notatype".
+
+---
+
+    Code
+      ard_survival_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA,
+      cards::ADTTE), probs = c(0.25, 0.75), type = "risk")
+    Condition
+      Error in `ard_survival_survfit()`:
+      ! Cannot use `type` argument when `probs` argument specifed.
 
 ---
 
@@ -299,4 +333,55 @@
     Condition
       Error in `ard_survival_survfit()`:
       ! Argument `x` cannot be class <survfitcox>.
+
+# ard_survival_survfit() extends to times outside range
+
+    Code
+      print(ard_survival_survfit(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA,
+      cards::ADTTE), times = 200), n = Inf)
+    Message
+      {cards} data frame: 15 x 11
+    Output
+         group1 group1_level variable variable_level stat_name stat_label stat
+      1    TRTA      Placebo     time            200    n.risk  Number o…    0
+      2    TRTA      Placebo     time            200  estimate  Survival…    0
+      3    TRTA      Placebo     time            200 std.error  Standard…  NaN
+      4    TRTA      Placebo     time            200 conf.high  CI Upper…   NA
+      5    TRTA      Placebo     time            200  conf.low  CI Lower…   NA
+      6    TRTA    Xanomeli…     time            200    n.risk  Number o…    0
+      7    TRTA    Xanomeli…     time            200  estimate  Survival…    0
+      8    TRTA    Xanomeli…     time            200 std.error  Standard…  NaN
+      9    TRTA    Xanomeli…     time            200 conf.high  CI Upper…   NA
+      10   TRTA    Xanomeli…     time            200  conf.low  CI Lower…   NA
+      11   TRTA    Xanomeli…     time            200    n.risk  Number o…    0
+      12   TRTA    Xanomeli…     time            200  estimate  Survival…    0
+      13   TRTA    Xanomeli…     time            200 std.error  Standard…  NaN
+      14   TRTA    Xanomeli…     time            200 conf.high  CI Upper…   NA
+      15   TRTA    Xanomeli…     time            200  conf.low  CI Lower…   NA
+    Message
+      i 4 more variables: context, fmt_fn, warning, error
+
+# ard_survival_survfit.data.frame() works as expected
+
+    Code
+      res_quo <- print(dplyr::mutate(ard_survival_survfit(x = mtcars, y = "survival::Surv(mpg, am)",
+        variables = "vs", times = 20, method.args = list(start.time = 0, id = cyl)),
+      stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))),
+      n = Inf)
+    Message
+      {cards} data frame: 10 x 11
+    Output
+         group1 group1_level variable variable_level stat_name stat_label  stat
+      1      vs            0     time             20    n.risk  Number o…     3
+      2      vs            0     time             20  estimate  Survival… 0.615
+      3      vs            0     time             20 std.error  Standard… 0.082
+      4      vs            0     time             20 conf.high  CI Upper…   0.8
+      5      vs            0     time             20  conf.low  CI Lower… 0.474
+      6      vs            1     time             20    n.risk  Number o…    11
+      7      vs            1     time             20  estimate  Survival…     1
+      8      vs            1     time             20 std.error  Standard…     0
+      9      vs            1     time             20 conf.high  CI Upper…     1
+      10     vs            1     time             20  conf.low  CI Lower…     1
+    Message
+      i 4 more variables: context, fmt_fn, warning, error
 

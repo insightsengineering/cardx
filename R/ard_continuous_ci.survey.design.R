@@ -19,7 +19,7 @@
 #' @return ARD data frame
 #' @export
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "survey", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "survey"))
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
@@ -74,7 +74,8 @@ ard_continuous_ci.survey.design <- function(data,
     method = method,
     df = df,
     ...
-  )
+  ) |>
+    .restore_original_column_types(data = data$variables)
 }
 
 .calculate_ard_continuous_survey_ci <- function(FUN, data, variables, by, conf.level, ...) {

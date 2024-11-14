@@ -7,8 +7,8 @@
 .process_survfit_time(x, times, type, start.time = NULL)
 }
 \arguments{
-\item{x}{(\code{\link[survival:survfit]{survival::survfit()}})\cr
-a \code{\link[survival:survfit]{survival::survfit()}} object. See below for details.}
+\item{x}{(\code{survfit} or \code{data.frame})\cr
+an object of class \code{survfit} created with \code{\link[survival:survfit]{survival::survfit()}} or a data frame. See below for details.}
 
 \item{times}{(\code{numeric})\cr
 a vector of times for which to return survival probabilities.}
@@ -33,7 +33,7 @@ a \code{tibble}
 Process Survival Fit For Time Estimates
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom"), reference_pkg = "cardx"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
   cardx:::.process_survfit_time(times = c(60, 180), type = "risk")
 \dontshow{\}) # examplesIf}

@@ -27,7 +27,7 @@
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a named list of functions
 #'   (or the RHS of a formula),
-#'   e.g. `list(mpg = list(mean = \(x) round(x, digits = 2) |> as.character))`.
+#'   e.g. `list(mpg = list(mean = \(x) round(x, digits = 2) |> as.character()))`.
 #' @param stat_label ([`formula-list-selector`][cards::syntax])\cr
 #'   a named list, a list of formulas, or a single formula where
 #'   the list element is either a named list or a list of formulas defining the
@@ -38,7 +38,7 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
-#' @examplesIf cardx:::is_pkg_installed("survey", reference_pkg = "cardx")
+#' @examplesIf cardx:::is_pkg_installed("survey")
 #' svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 #'
 #' ard_categorical(svy_titanic, variables = c(Class, Age), by = Survived)
@@ -58,7 +58,7 @@ ard_categorical.survey.design <- function(data,
                                           ),
                                           ...) {
   set_cli_abort_call()
-  check_pkg_installed(pkg = "survey", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "survey")
   check_dots_empty()
   deff <- TRUE # we may update in the future to make this an argument for users
 
@@ -207,6 +207,7 @@ ard_categorical.survey.design <- function(data,
 
   # return final object --------------------------------------------------------
   cards |>
+    .restore_original_column_types(data = data$variables) |>
     dplyr::mutate(
       context = "categorical",
       warning = list(NULL),

@@ -27,7 +27,7 @@
 #' @return an ARD data frame
 #' @name ard_categorical_ci
 #'
-#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom", reference_pkg = "cardx"))
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
 #' # compute CI for binary variables
 #' ard_categorical_ci(mtcars, variables = c(vs, am), method = "wilson")
 #'
@@ -63,13 +63,13 @@ ard_categorical_ci.data.frame <- function(data,
   check_dots_empty()
 
   # check installed packages ---------------------------------------------------
-  check_pkg_installed(pkg = "broom", reference_pkg = "cardx")
+  check_pkg_installed(pkg = "broom")
 
   # process inputs -------------------------------------------------------------
   cards::process_selectors(data, variables = {{ variables }}, by = {{ by }})
   method <- arg_match(method)
   if (method %in% c("strat_wilson", "strat_wilsoncc")) {
-    cards::process_selectors(data, strata = strata)
+    cards::process_selectors(data, strata = {{ strata }} )
     check_scalar(strata)
   }
   cards::process_formula_selectors(
