@@ -128,6 +128,46 @@ test_that("ard_event_rates(ordered) works", {
     denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
   )
   expect_equal(res, res2)
+
+  # multiple variables
+  expect_silent(
+    res3 <- ard_event_rates(
+      adae,
+      variables = c(SEX, AESEV),
+      id = USUBJID,
+      by = TRTA,
+      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
+      ordered = c(FALSE, TRUE)
+    )
+  )
+  expect_equal(res, res3[-c(1:18), ])
+
+  # named vector
+  expect_silent(
+    res4 <- ard_event_rates(
+      adae,
+      variables = c(SEX, AESEV),
+      id = USUBJID,
+      by = TRTA,
+      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
+      ordered = c(AESEV = TRUE, SEX = FALSE)
+    )
+  )
+  expect_equal(res3, res4)
+
+  # error - length does not match
+  expect_snapshot(
+    ard_event_rates(
+      adae,
+      variables = c(SEX, AESEV),
+      id = USUBJID,
+      by = TRTA,
+      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
+      ordered = TRUE
+    ),
+    error = TRUE
+  )
+  expect_equal(res, res2)
 })
 
 test_that("ard_event_rates() errors with incomplete factor columns", {

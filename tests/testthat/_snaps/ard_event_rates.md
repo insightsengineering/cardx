@@ -111,6 +111,14 @@
       i 7 more rows
       i Use `print(n = ...)` to see more rows
 
+---
+
+    Code
+      ard_event_rates(adae, variables = c(SEX, AESEV), id = USUBJID, by = TRTA, denominator = dplyr::rename(cards::ADSL, TRTA = ARM), ordered = TRUE)
+    Condition
+      Error in `ard_event_rates()`:
+      ! Argument `ordered` has length 1 but must be the same length as `variables` (2).
+
 # ard_event_rates() errors with incomplete factor columns
 
     Code
