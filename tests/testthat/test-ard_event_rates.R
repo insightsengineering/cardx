@@ -33,7 +33,7 @@ test_that("ard_event_rates() works with default settings", {
   # with denominator
   expect_snapshot(
     ard_event_rates(
-      cards::ADAE |> group_by(TRTA),
+      cards::ADAE |> dplyr::group_by(TRTA),
       variables = AESOC,
       id = USUBJID,
       denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
@@ -77,7 +77,7 @@ test_that("ard_event_rates(ordered) works", {
 
   # pre-ordered factor variable
   adae <- cards::ADAE |>
-    mutate(AESEV = factor(cards::ADAE$AESEV, ordered = TRUE))
+    dplyr::mutate(AESEV = factor(cards::ADAE$AESEV, ordered = TRUE))
 
   expect_silent(
     res <- ard_event_rates(

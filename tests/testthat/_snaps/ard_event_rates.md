@@ -33,7 +33,7 @@
 ---
 
     Code
-      print(ard_event_rates(group_by(cards::ADAE, TRTA), variables = AESOC, id = USUBJID, denominator = dplyr::rename(cards::ADSL, TRTA = ARM)), n = 20, columns = "all")
+      print(ard_event_rates(dplyr::group_by(cards::ADAE, TRTA), variables = AESOC, id = USUBJID, denominator = dplyr::rename(cards::ADSL, TRTA = ARM)), n = 20, columns = "all")
     Message
       {cards} data frame: 207 x 11
     Output

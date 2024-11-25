@@ -108,7 +108,7 @@ ard_event_rates <- function(data,
   if (is.data.frame(denominator) && !is_empty(intersect(by, names(denominator)))) {
     df_na_nan_denom <-
       is.na(denominator[intersect(by, names(denominator))]) |
-      apply(denominator[intersect(by, names(denominator))], MARGIN = 2, is.nan)
+        apply(denominator[intersect(by, names(denominator))], MARGIN = 2, is.nan)
     if (any(df_na_nan_denom)) {
       rows_with_na_denom <- apply(df_na_nan_denom, MARGIN = 1, any)
       cli::cli_inform(c("*" = "Removing {.val {sum(rows_with_na_denom)}} row{?s} from {.arg denominator} with
