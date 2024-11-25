@@ -19,7 +19,8 @@
 #' @param ordered (`logical`)\cr
 #'   Specifies whether factor variables specified by `variables` are ordered or not. If ordered, only the
 #'   highest-ordered level will be counted for each unique value of `id`. Otherwise, each level that occurs per unique
-#'   value of `id` will be counted once.
+#'   value of `id` will be counted once. Must be the same length as `variables`. Defaults to `TRUE` for ordered factor
+#'   variables and `FALSE` otherwise.
 #'
 #' @return an ARD data frame of class 'card'
 #' @name ard_event_rates
@@ -84,7 +85,15 @@ ard_event_rates <- function(data,
   if (is_empty(variables)) {
     return(dplyr::tibble() |> cards::as_card())
   }
+
+  # check the ordered argument
   check_logical(ordered)
+  if (length(ordered) != length(variables)) {
+    cli::cli_abort(
+      "Argument {.arg ordered} has length {length(ordered)} but must be the same length as {.arg variables} ({length(variables)}).",
+      call = get_cli_abort_call()
+    )
+  }
 
   # drop missing values --------------------------------------------------------
   df_na_nan <- is.na(data[c(by, variables)]) | apply(data[c(by, variables)], MARGIN = 2, is.nan)

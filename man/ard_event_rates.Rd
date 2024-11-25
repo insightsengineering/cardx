@@ -59,7 +59,8 @@ statistic labels, e.g. \code{everything() ~ list(n = "n", p = "pct")} or
 \item{ordered}{(\code{logical})\cr
 Specifies whether factor variables specified by \code{variables} are ordered or not. If ordered, only the
 highest-ordered level will be counted for each unique value of \code{id}. Otherwise, each level that occurs per unique
-value of \code{id} will be counted once.}
+value of \code{id} will be counted once. Must be the same length as \code{variables}. Defaults to \code{TRUE} for ordered factor
+variables and \code{FALSE} otherwise.}
 
 \item{...}{Arguments passed to methods.}
 }
