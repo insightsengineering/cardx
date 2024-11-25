@@ -157,7 +157,7 @@ ard_event_rates <- function(data,
 
     if (ord) {
       lst_results[[length(lst_results)]] <- lst_results[[length(lst_results)]] |>
-        mutate(variable_level = as.list(as.character(unlist(variable_level))))
+        dplyr::mutate(variable_level = as.list(as.character(unlist(.data$variable_level))))
     }
   }
 

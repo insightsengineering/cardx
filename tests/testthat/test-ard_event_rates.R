@@ -18,7 +18,7 @@ test_that("ard_event_rates() works with default settings", {
         variable_level == "CARDIAC DISORDERS",
         stat_name == "n"
       ) |>
-      get_ard_statistics(),
+      cards::get_ard_statistics(),
     list(
       n = cards::ADAE |>
         dplyr::filter(
@@ -98,7 +98,7 @@ test_that("ard_event_rates(ordered) works", {
         variable_level == "MODERATE",
         stat_name == "n"
       ) |>
-      get_ard_statistics(),
+      cards::get_ard_statistics(),
     list(
       n = adae |>
         dplyr::arrange(AESEV) |>
@@ -214,7 +214,7 @@ test_that("ard_hierarchical_count() works with by variable not present in 'denom
         group2_level == "MILD",
         variable_level == "CARDIAC DISORDERS"
       ) |>
-      get_ard_statistics(),
+      cards::get_ard_statistics(),
     list(
       n = cards::ADAE |>
         dplyr::filter(
