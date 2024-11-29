@@ -102,6 +102,18 @@ ard_stats_mantelhaen_test.array <- function(data, ...) {
   check_pkg_installed("broom")
 
   # check/process inputs -------------------------------------------------------
+  if (length(dim(data)) != 3) {
+    cli::cli_abort(
+      "When {.arg data} is an {.cls array} it must be 3-dimensional, but {.arg data} is currently {length(dim(data))}-dimensional.",
+      call = get_cli_abort_call()
+    )
+  }
+  if (is.null(names(dimnames(data)))) {
+    cli::cli_abort(
+      "The array given as {.arg data} must have 3 named dimensions. The 3 names will be assigned as the {.arg by}, {.arg variables}, and {.arg strata} column names, respectively.",
+      call = get_cli_abort_call()
+    )
+  }
   by <- names(dimnames(data))[1]
   variables <- names(dimnames(data))[2]
   strata <- names(dimnames(data))[3]
