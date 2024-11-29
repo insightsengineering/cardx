@@ -91,5 +91,6 @@ reference:
 
   - title: "Helpers"
   - contents:
+      - boot_ci
       - proportion_ci
       - construction_helpers
