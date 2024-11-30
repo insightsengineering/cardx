@@ -13,17 +13,21 @@ ard_stats_mantelhaen_test(data, ...)
 \method{ard_stats_mantelhaen_test}{array}(data, ...)
 }
 \arguments{
-\item{data}{(\code{data.frame})\cr
-a data frame.}
+\item{data}{(\code{data.frame} or \code{array})\cr
+a data frame or 3-dimensional named array.}
 
 \item{...}{additional arguments passed to \code{mantelhaen.test(...)}}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name to stratify by. This parameter is optional.}
+column name to compare by. If \code{data} is an array \code{by} is ignored and the first dimension of \code{data} is used as \code{by}.}
 
 \item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column names to be compared. Independent tests will be computed for
-each variable.}
+column names to be compared. Independent tests will be computed for each variable. If \code{data} is an array
+\code{variables} is ignored and the second dimension of \code{data} is used as \code{variables}.}
+
+\item{strata}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name to stratify by. If \code{data} is an array \code{strata} is ignored and the third dimension of \code{data} is used as
+\code{strata}.}
 }
 \value{
 ARD data frame
@@ -34,10 +38,19 @@ Calculated with \code{mantelhaen.test(x = data[[variable]], y = data[[by]], z = 
 }
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# Data Frame Example ----------------------
 cards::ADSL |>
   ard_stats_mantelhaen_test(by = "ARM", variables = "AGEGR1", strata = "SEX")
 
-Rabbits |>
+# Array Example ---------------------------
+penicillin <- array(
+  c(0, 0, 6, 5, 3, 0, 3, 6, 6, 2, 0, 4, 5, 6, 1, 0, 2, 5, 0, 0), dim = c(2, 2, 5),
+  dimnames = list(
+    Delay = c("None", "1.5h"), Response = c("Cured", "Died"), Penicillin.Level = c("1/8", "1/4", "1/2", "1", "4")
+  )
+)
+
+penicillin |>
   ard_stats_mantelhaen_test(exact = TRUE, alternative = "greater")
 \dontshow{\}) # examplesIf}
 }
