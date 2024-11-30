@@ -27,7 +27,8 @@
 #'
 #' # Array Example ---------------------------
 #' penicillin <- array(
-#'   c(0, 0, 6, 5, 3, 0, 3, 6, 6, 2, 0, 4, 5, 6, 1, 0, 2, 5, 0, 0), dim = c(2, 2, 5),
+#'   c(0, 0, 6, 5, 3, 0, 3, 6, 6, 2, 0, 4, 5, 6, 1, 0, 2, 5, 0, 0),
+#'   dim = c(2, 2, 5),
 #'   dimnames = list(
 #'     Delay = c("None", "1.5h"), Response = c("Cured", "Died"), Penicillin.Level = c("1/8", "1/4", "1/2", "1", "4")
 #'   )
@@ -148,7 +149,7 @@ ard_stats_mantelhaen_test.array <- function(data, ...) {
           ...
         ) |>
           broom::tidy() |>
-          dplyr::select(-alternative)
+          dplyr::select(-"alternative")
       ),
     tidy_result_names = c("statistic", "p.value", "parameter", "method"),
     fun_args_to_record =
