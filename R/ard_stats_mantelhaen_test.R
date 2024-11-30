@@ -2,27 +2,38 @@
 #'
 #' @description
 #' Analysis results data for Cochran-Mantel-Haenszel Chi-Squared Test for count data.
-#' Calculated with `mantelhaen.test(x = data[[variable]], y = data[[by]], z = data[[strata]], ...)`
+#' Calculated with `mantelhaen.test(x = data[[variable]], y = data[[by]], z = data[[strata]], ...)` for data frames, and
+#' `mantelhaen.test(x = data, ...)` for arrays.
 #'
-#' @param data (`data.frame`)\cr
-#'   a data frame.
+#' @param data (`data.frame` or `array`)\cr
+#'   a data frame or 3-dimensional named array.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name to compare by.
+#'   column name to compare by. If `data` is an array `by` is ignored and the first dimension of `data` is used as `by`.
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column names to be compared. Independent tests will be computed for
-#'   each variable.
-#' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name to stratify by. This parameter is optional.
+#'   column names to be compared. Independent tests will be computed for each variable. If `data` is an array
+#'   `variables` is ignored and the second dimension of `data` is used as `variables`.
+#' @param strata ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to stratify by. If `data` is an array `strata` is ignored and the third dimension of `data` is used as
+#'   `strata`.
 #' @param ... additional arguments passed to `mantelhaen.test(...)`
 #'
 #' @return ARD data frame
 #' @name ard_stats_mantelhaen_test
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
+#' # Data Frame Example ----------------------
 #' cards::ADSL |>
 #'   ard_stats_mantelhaen_test(by = "ARM", variables = "AGEGR1", strata = "SEX")
 #'
-#' Rabbits |>
+#' # Array Example ---------------------------
+#' penicillin <- array(
+#'   c(0, 0, 6, 5, 3, 0, 3, 6, 6, 2, 0, 4, 5, 6, 1, 0, 2, 5, 0, 0), dim = c(2, 2, 5),
+#'   dimnames = list(
+#'     Delay = c("None", "1.5h"), Response = c("Cured", "Died"), Penicillin.Level = c("1/8", "1/4", "1/2", "1", "4")
+#'   )
+#' )
+#'
+#' penicillin |>
 #'   ard_stats_mantelhaen_test(exact = TRUE, alternative = "greater")
 NULL
 
@@ -56,6 +67,11 @@ ard_stats_mantelhaen_test.data.frame <- function(data, by, variables, strata, ..
     return(dplyr::tibble() |> cards::as_card())
   }
 
+  formals_cmh <- formals(asNamespace("stats")[["mantelhaen.test"]])
+  if (!"alternative" %in% names(dots_list(...))) {
+    formals_cmh$alternative <- "two.sided"
+  }
+
   # build ARD ------------------------------------------------------------------
   ret <- lapply(
     variables,
@@ -74,7 +90,7 @@ ard_stats_mantelhaen_test.data.frame <- function(data, by, variables, strata, ..
         tidy_result_names = c("statistic", "p.value", "parameter", "method"),
         fun_args_to_record =
           c("alternative", "correct", "exact", "conf.level"),
-        formals = formals(stats::mantelhaen.test),
+        formals = formals_cmh,
         passed_args = dots_list(...),
         lst_ard_columns = list(group1 = by, group2 = strata, variable = variable, context = "stats_mantelhaen_test")
       )
@@ -110,42 +126,37 @@ ard_stats_mantelhaen_test.array <- function(data, ...) {
   }
   if (is.null(names(dimnames(data)))) {
     cli::cli_abort(
-      "The array given as {.arg data} must have 3 named dimensions. The 3 names will be assigned as the {.arg by}, {.arg variables}, and {.arg strata} column names, respectively.",
+      "The array given as {.arg data} is unnamed but must have 3 named dimensions. The names will be assigned as the {.arg by}, {.arg variables}, and {.arg strata} column names, respectively.",
       call = get_cli_abort_call()
     )
   }
   by <- names(dimnames(data))[1]
-  variables <- names(dimnames(data))[2]
+  variable <- names(dimnames(data))[2]
   strata <- names(dimnames(data))[3]
 
-  # return empty ARD if no variables selected ----------------------------------
-  if (is_empty(variables)) {
-    return(dplyr::tibble() |> cards::as_card())
+  formals_cmh <- formals(asNamespace("stats")[["mantelhaen.test"]])
+  if (!"alternative" %in% names(dots_list(...))) {
+    formals_cmh$alternative <- "two.sided"
   }
 
   # build ARD ------------------------------------------------------------------
-  ret <- lapply(
-    variables,
-    function(variable) {
-      cards::tidy_as_ard(
-        lst_tidy =
-          cards::eval_capture_conditions(
-            stats::mantelhaen.test(
-              x = data,
-              ...
-            ) |>
-              broom::tidy()
-          ),
-        tidy_result_names = c("statistic", "p.value", "parameter", "method"),
-        fun_args_to_record =
-          c("alternative", "correct", "exact", "conf.level"),
-        formals = formals(stats::mantelhaen.test),
-        passed_args = dots_list(...),
-        lst_ard_columns = list(group1 = by, group2 = strata, variable = variable, context = "stats_mantelhaen_test")
-      )
-    }
-  ) |>
-    dplyr::bind_rows()
+  ret <- cards::tidy_as_ard(
+    lst_tidy =
+      cards::eval_capture_conditions(
+        stats::mantelhaen.test(
+          x = data,
+          ...
+        ) |>
+          broom::tidy() |>
+          dplyr::select(-alternative)
+      ),
+    tidy_result_names = c("statistic", "p.value", "parameter", "method"),
+    fun_args_to_record =
+      c("alternative", "correct", "exact", "conf.level"),
+    formals = formals_cmh,
+    passed_args = dots_list(...),
+    lst_ard_columns = list(group1 = by, group2 = strata, variable = variable, context = "stats_mantelhaen_test")
+  )
 
   # add the stat label ---------------------------------------------------------
   ret |>
