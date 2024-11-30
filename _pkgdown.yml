@@ -30,6 +30,7 @@ reference:
       - ard_stats_chisq_test
       - ard_stats_fisher_test
       - ard_stats_kruskal_test
+      - ard_stats_mantelhaen_test
       - ard_stats_mood_test
       - ard_stats_mcnemar_test
       - ard_stats_oneway_test
