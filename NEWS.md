@@ -1,4 +1,6 @@
-# cardx 0.2.1.9012
+# cardx 0.2.2.9000
+
+# cardx 0.2.2
 
 * Added a `data.frame` method to `ard_survival_survfit()`.
 

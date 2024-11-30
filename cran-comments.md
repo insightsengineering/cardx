@@ -12,7 +12,7 @@
 
 We checked 4 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 0 new problems
+ * We saw 1 new problem in gtsummary, and it is slated to be released next week (I am the maintainer).
  * We failed to check 0 packages
 
 ## Additional Comments
