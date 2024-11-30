@@ -10,6 +10,8 @@
 
 * Methods in the {survey} and {survival} packages do not retain inputs variables types in their outputs. We now are able retain these variable types in ARDs returned by `ard_continuous.survey.design()`, `ard_categorical.survey.design()`, `ard_continuous_ci.survey.design()`, `ard_categorical_ci.survey.design()`, and `ard_survival_survfit.data.frame()` (and notably, _not_ in `ard_survival_survfit.survfit()`).
 
+* Added function `ard_stats_mantelhaen_test()` for calculating ARDs for Cochran-Mantel-Haenszel test results using `stats::mantelhaen.test()`. (#238)
+
 # cardx 0.2.1
 
 ## New Features and Updates
