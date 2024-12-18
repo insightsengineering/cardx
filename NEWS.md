@@ -1,5 +1,7 @@
 # cardx 0.2.2.9002
 
+* Update in `ard_categorical.survey.design()` for factor variables that are all missing. These variables can now be tabulated, where previously this resulted in an error. 
+
 # cardx 0.2.2
 
 * Added a `data.frame` method to `ard_survival_survfit()`.
