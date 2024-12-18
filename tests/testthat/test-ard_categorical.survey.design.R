@@ -1375,7 +1375,7 @@ test_that("ard_categorical.survey.design() works with all NA fct variables", {
   expect_silent(
     ard_fct_na <-
       survey::svydesign(
-        ~ 1,
+        ~1,
         data =
           dplyr::tibble(
             fct = factor(c(NA, NA), levels = c("no", "yes")),
@@ -1411,7 +1411,7 @@ test_that("ard_categorical.survey.design() messaging with all NA lgl variables",
   expect_snapshot(
     error = TRUE,
     survey::svydesign(
-      ~ 1,
+      ~1,
       data =
         dplyr::tibble(
           fct = factor(c(NA, NA), levels = c("no", "yes")),
