@@ -103,10 +103,11 @@ ard_categorical.survey.design <- function(data,
   walk(
     variables,
     \(.x) {
-      if (all(is.na(data$variables[[.x]])) && !inherits(.x, c("logical", "factor"))) {
+      if (all(is.na(data$variables[[.x]])) &&
+          !inherits(data$variables[[.x]], "factor")) {
         cli::cli_abort(
           c("Column {.val {.x}} is all missing and cannot be tabulated.",
-            i = "Only columns of class {.cls logical} and {.cls factor} can be tabulated when all values are missing."
+            i = "Only columns of class {.cls factor} can be tabulated when all values are missing."
           ),
           call = get_cli_abort_call()
         )

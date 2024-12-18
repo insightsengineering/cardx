@@ -1370,3 +1370,55 @@ test_that("ard_categorical.survey.design() original types are retained", {
       is.numeric()
   )
 })
+
+test_that("ard_categorical.survey.design() works with all NA fct variables", {
+  expect_silent(
+    ard_fct_na <-
+      survey::svydesign(
+        ~ 1,
+        data =
+          dplyr::tibble(
+            fct = factor(c(NA, NA), levels = c("no", "yes")),
+            lgl = c(NA, NA)
+          ),
+        weights = ~1
+      ) |>
+      ard_categorical(variables = fct)
+  )
+
+  # all Ns should be zero
+  expect_equal(
+    ard_fct_na |>
+      dplyr::filter(!startsWith(stat_name, "p") & stat_name != "deff") |>
+      dplyr::pull(stat) |>
+      unlist() |>
+      unique(),
+    0L
+  )
+
+  # all percentages (and deff) should be NaN
+  expect_true(
+    ard_fct_na |>
+      dplyr::filter((startsWith(stat_name, "p") | stat_name == "deff") & stat_name != "p.std.error") |>
+      dplyr::pull(stat) |>
+      unique() |>
+      unlist() |>
+      is.nan()
+  )
+})
+
+test_that("ard_categorical.survey.design() messaging with all NA lgl variables", {
+  expect_snapshot(
+    error = TRUE,
+    survey::svydesign(
+      ~ 1,
+      data =
+        dplyr::tibble(
+          fct = factor(c(NA, NA), levels = c("no", "yes")),
+          lgl = c(NA, NA)
+        ),
+      weights = ~1
+    ) |>
+      ard_categorical(variables = lgl)
+  )
+})
