@@ -1,5 +1,5 @@
 
-# cardx <a href="https://insightsengineering.github.io/cardx/"><img src="man/figures/logo.png" align="right" height="120" alt="cardx website" /></a>
+# cardx <a href="https://insightsengineering.github.io/cardx/"><img src="man/figures/logo.svg" align="right" height="120" alt="cardx website" /></a>
 
 [![R-CMD-check](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
