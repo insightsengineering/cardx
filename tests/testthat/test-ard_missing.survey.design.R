@@ -112,3 +112,36 @@ test_that("ard_missing.survey.design() follows ard structure", {
       cards::check_ard_structure(method = FALSE)
   )
 })
+
+# testing bug reported here: https://github.com/ddsjoberg/gtsummary/issues/2092
+test_that("ard_missing.survey.design() works on design columns", {
+  expect_equal(
+    suppressWarnings(
+      dplyr::tribble(
+        ~region, ~year,          ~weights,
+        3,        1972, 0.663196271930943,
+        3,        1972, 0.917370028585327,
+        3,        1972, 0.897412512251031,
+        3,        1972,  1.06634082743438,
+        3,        1972,  0.94432371066466,
+        3,        1972, 0.526887241987567,
+        3,        1972, 0.526887241987567,
+        3,        1972, 0.546578869586901,
+        7,        1972, 0.283198307048893,
+        7,        1972, 0.494322145606406
+      ) %>%
+        survey::svydesign(
+          data = .,
+          ids = ~region,
+          strata = ~year,
+          weights = ~weights,
+          nest = TRUE
+        ) |>
+        ard_missing(variables = weights) |>
+        dplyr::filter(stat_name == "N_nonmiss") |>
+        dplyr::pull("stat") |>
+        getElement(1L)
+    ),
+    6.86651716
+  )
+})

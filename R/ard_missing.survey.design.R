@@ -54,7 +54,7 @@ ard_missing.survey.design <- function(data,
 
   # convert all variables to T/F whether it's missing --------------------------
   data$variables <- data$variables |>
-    dplyr::mutate(across(all_of(variables), Negate(is.na)))
+    dplyr::mutate(across(all_of(variables), Negate(is.na), .names = "lgl_{.col}"))
 
   cards::process_formula_selectors(
     data$variables[variables],
@@ -86,9 +86,12 @@ ard_missing.survey.design <- function(data,
   result <-
     ard_categorical(
       data = data,
-      variables = all_of(variables),
+      variables = all_of(paste0("lgl_", variables)),
       by = any_of(by),
       statistic = everything() ~ c("n", "N", "p", "n_unweighted", "N_unweighted", "p_unweighted")
+    ) |>
+    dplyr::mutate(
+      variable = str_remove(.data$variable, pattern = "^lgl_")
     )
 
   # rename the stats for missingness -------------------------------------------
