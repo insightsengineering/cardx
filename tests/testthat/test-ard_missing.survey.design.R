@@ -145,4 +145,3 @@ test_that("ard_missing.survey.design() works on design columns", {
     6.86651716
   )
 })
-
