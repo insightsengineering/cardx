@@ -1,35 +1,17 @@
----
 name: ✨ Feature Request
 description: Request or propose a new feature
-title: "[Feature Request]: <title>"
-labels: ["enhancement"]
+title: 'Feature Request: <Description>'
 body:
-  - type: textarea
+  - type: markdown
     attributes:
-      label: Feature description
+      value: |
+        Do not use this form to ask a question, or ask for assistance. Instead, ask on <https://stackoverflow.com/> using the `r-cards` tag.
+  - type: textarea
+    id: feature
+    attributes:
+      label: What's the feature?
+      description: Describe the feature and, if applicable, create a mock-up of what you'd like to see.
+      placeholder: Tell us what you see!
+      value: "Brief description of the feature request."
     validations:
       required: true
-  - type: checkboxes
-    id: code-of-conduct
-    attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct.](https://insightsengineering.github.io/cardx/CODE_OF_CONDUCT.html)
-      options:
-        - label: I agree to follow this project's Code of Conduct.
-          required: true
-  - type: checkboxes
-    id: contributor-guidelines
-    attributes:
-      label: Contribution Guidelines
-      description: By submitting this issue, you agree to follow our [Contribution Guidelines.](https://insightsengineering.github.io/cardx/CONTRIBUTING.html)
-      options:
-        - label: I agree to follow this project's Contribution Guidelines.
-          required: true
-  - type: checkboxes
-    id: security-policy
-    attributes:
-      label: Security Policy
-      description: By submitting this issue, you agree to follow our [Security Policy.](https://github.com/insightsengineering/cardx/security/policy)
-      options:
-        - label: I agree to follow this project's Security Policy.
-          required: true
