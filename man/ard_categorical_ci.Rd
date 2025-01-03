@@ -33,7 +33,7 @@ columns to include in summaries. Columns must be class \verb{<logical>}
 or \verb{<numeric>} values coded as \code{c(0, 1)}.}
 
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-columns to stratify calculations by}
+columns to stratify calculations by.}
 
 \item{method}{(\code{string})\cr
 string indicating the type of confidence interval to calculate.

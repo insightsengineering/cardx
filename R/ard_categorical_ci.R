@@ -8,7 +8,7 @@
 #'   columns to include in summaries. Columns must be class `<logical>`
 #'   or `<numeric>` values coded as `c(0, 1)`.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   columns to stratify calculations by
+#'   columns to stratify calculations by.
 #' @param denominator (`string`)\cr
 #'   Must be one of `'column'` (default), `'row'`, and `'cell'`, which specifies
 #'   the direction of the calculation/denominator. Argument is similar to
@@ -100,8 +100,7 @@ ard_categorical_ci.data.frame <- function(data,
   map(
     variables,
     function(variable) {
-      switch(
-        denominator,
+      switch(denominator,
         "column" =
           .calculate_ard_proportion_column(
             data = data,
@@ -161,8 +160,10 @@ ard_categorical_ci.data.frame <- function(data,
     statistic =
       ~ list(
         prop_ci =
-          .calculate_prop_ci_fun(data = data, method = method, conf.level = conf.level,
-                                 strata = strata, weights = weights, max.iterations = max.iterations)
+          .calculate_prop_ci_fun(
+            data = data, method = method, conf.level = conf.level,
+            strata = strata, weights = weights, max.iterations = max.iterations
+          )
       )
   ) %>%
     # merge in the variable levels
@@ -178,27 +179,27 @@ ard_categorical_ci.data.frame <- function(data,
 
 .calculate_prop_ci_fun <- function(data, method, conf.level, strata, weights, max.iterations) {
   switch(method,
-         "waldcc" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = TRUE),
-         "wald" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = FALSE),
-         "wilsoncc" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = TRUE),
-         "wilson" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = FALSE),
-         "clopper-pearson" = \(x, ...) proportion_ci_clopper_pearson(x, conf.level = conf.level),
-         "agresti-coull" = \(x, ...) proportion_ci_agresti_coull(x, conf.level = conf.level),
-         "jeffreys" = \(x, ...) proportion_ci_jeffreys(x, conf.level = conf.level),
-         "strat_wilsoncc" = \(x, data, ...) {
-           proportion_ci_strat_wilson(x,
-                                      strata = data[[strata]], weights = weights,
-                                      max.iterations = max.iterations,
-                                      conf.level = conf.level, correct = TRUE
-           )
-         },
-         "strat_wilson" = \(x, data, ...) {
-           proportion_ci_strat_wilson(x,
-                                      strata = data[[strata]], weights = weights,
-                                      max.iterations = max.iterations,
-                                      conf.level = conf.level, correct = FALSE
-           )
-         }
+    "waldcc" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = TRUE),
+    "wald" = \(x, ...) proportion_ci_wald(x, conf.level = conf.level, correct = FALSE),
+    "wilsoncc" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = TRUE),
+    "wilson" = \(x, ...) proportion_ci_wilson(x, conf.level = conf.level, correct = FALSE),
+    "clopper-pearson" = \(x, ...) proportion_ci_clopper_pearson(x, conf.level = conf.level),
+    "agresti-coull" = \(x, ...) proportion_ci_agresti_coull(x, conf.level = conf.level),
+    "jeffreys" = \(x, ...) proportion_ci_jeffreys(x, conf.level = conf.level),
+    "strat_wilsoncc" = \(x, data, ...) {
+      proportion_ci_strat_wilson(x,
+        strata = data[[strata]], weights = weights,
+        max.iterations = max.iterations,
+        conf.level = conf.level, correct = TRUE
+      )
+    },
+    "strat_wilson" = \(x, data, ...) {
+      proportion_ci_strat_wilson(x,
+        strata = data[[strata]], weights = weights,
+        max.iterations = max.iterations,
+        conf.level = conf.level, correct = FALSE
+      )
+    }
   )
 }
 
@@ -270,12 +271,14 @@ ard_categorical_ci.data.frame <- function(data,
         by = variable
       ) |>
       dplyr::rename(variable = "group1", variable_level = "group1_level") %>%
-      {case_switch(
-        !is_empty(value[[variable]]) ~ dplyr::filter(., .data$variable_level %in% !!value[[variable]]),
-        .default = .
-      )} |>
+      {
+        case_switch(
+          !is_empty(value[[variable]]) ~ dplyr::filter(., .data$variable_level %in% !!value[[variable]]),
+          .default = .
+        )
+      } |>
       dplyr::mutate(
-        data = map(data, ~dplyr::mutate(.x, ....ard_all_true.... = TRUE)),
+        data = map(data, ~ dplyr::mutate(.x, ....ard_all_true.... = TRUE)),
         prop_ci_fun =
           map(
             .data$data,
@@ -294,7 +297,7 @@ ard_categorical_ci.data.frame <- function(data,
             ~ cards::ard_complex(
               data = .x,
               variables = "....ard_all_true....",
-              statistic = list("....ard_all_true...." =  list(prop_ci = .y))
+              statistic = list("....ard_all_true...." = list(prop_ci = .y))
             ) |>
               tidyr::nest(res = -cards::all_ard_variables()) |>
               dplyr::select(-cards::all_ard_variables())
@@ -316,10 +319,12 @@ ard_categorical_ci.data.frame <- function(data,
     by = variable
   ) |>
     dplyr::rename(variable = "group1", variable_level = "group1_level") %>%
-    {case_switch(
-      !is_empty(value[[variable]]) ~ dplyr::filter(., .data$variable_level %in% !!value[[variable]]),
-      .default = .
-    )} |>
+    {
+      case_switch(
+        !is_empty(value[[variable]]) ~ dplyr::filter(., .data$variable_level %in% !!value[[variable]]),
+        .default = .
+      )
+    } |>
     dplyr::mutate(
       df_grouping_cols = list(.env$df_grouping_cols),
       prop_ci_fun =
@@ -360,10 +365,12 @@ ard_categorical_ci.data.frame <- function(data,
       variable = glue::glue("group{length(c(variable, by))}"),
       variable_level = glue::glue("group{length(c(variable, by))}_level")
     ) %>%
-    {case_switch(
-      !is_empty(value[[variable]]) ~ dplyr::filter(., .data$variable_level %in% !!value[[variable]]),
-      .default = .
-    )}
+    {
+      case_switch(
+        !is_empty(value[[variable]]) ~ dplyr::filter(., .data$variable_level %in% !!value[[variable]]),
+        .default = .
+      )
+    }
 
   # create a vector of all the unique values of by and variable pasted together
   levels <-
@@ -393,18 +400,21 @@ ard_categorical_ci.data.frame <- function(data,
       by = c(variable, by)
     ) |>
     dplyr::mutate(
-      ...a_name_anyone_would_ever_pick... = dplyr::coalesce(...a_name_anyone_would_ever_pick..., paste(levels, collapse = ""))
+      ...a_name_anyone_would_ever_pick... =
+        dplyr::coalesce(.data$...a_name_anyone_would_ever_pick..., paste(levels, collapse = ""))
     ) |>
     dplyr::select(-any_of(c(variable, by))) %>%
-    {dplyr::bind_cols(
-      .,
-      map(
-        levels,
-        \(level) (.[["...a_name_anyone_would_ever_pick..."]] == level)
-      ) |>
-        stats::setNames(paste0("level_", levels)) |>
-        dplyr::as_tibble()
-    )} |>
+    {
+      dplyr::bind_cols(
+        .,
+        map(
+          levels,
+          \(level) (.[["...a_name_anyone_would_ever_pick..."]] == level)
+        ) |>
+          stats::setNames(paste0("level_", levels)) |>
+          dplyr::as_tibble()
+      )
+    } |>
     dplyr::select(-"...a_name_anyone_would_ever_pick...")
 
   prop_ci_fun <-
