@@ -13,6 +13,7 @@ ard_categorical_ci(data, ...)
   by = dplyr::group_vars(data),
   method = c("waldcc", "wald", "clopper-pearson", "wilson", "wilsoncc", "strat_wilson",
     "strat_wilsoncc", "agresti-coull", "jeffreys"),
+  denominator = c("column", "row", "cell"),
   conf.level = 0.95,
   value = list(where(is_binary) ~ 1L, where(is.logical) ~ TRUE),
   strata = NULL,
@@ -38,6 +39,11 @@ columns to stratify calculations by}
 string indicating the type of confidence interval to calculate.
 Must be one of .
 See \code{?proportion_ci} for details.}
+
+\item{denominator}{(\code{string})\cr
+Must be one of \code{'column'} (default), \code{'row'}, and \code{'cell'}, which specifies
+the direction of the calculation/denominator. Argument is similar to
+\code{cards::ard_categorical(denominator)}.}
 
 \item{conf.level}{(\code{numeric})\cr
 a scalar in \verb{(0, 1)} indicating the confidence level.
