@@ -221,6 +221,36 @@ test_that("ard_continuous_ci.data.frame(denominator='row')", {
       dplyr::select(cards::all_ard_groups(), cards::all_ard_variables(), "stat") |>
       dplyr::arrange(unlist(group1_level), unlist(variable_level))
   )
+
+  # check the results work with multiple `by` variables
+  expect_equal(
+    ard_categorical_ci(
+      mtcars,
+      by = c(cyl, gear),
+      variables = am,
+      denominator = "row"
+    ) |>
+      dplyr::filter(group1_level %in% 4, group2_level %in% 3) |>
+      cards::get_ard_statistics(),
+    proportion_ci_wald(
+      x = (mtcars$cyl == 4 & mtcars$gear == 3)[mtcars$am == 1],
+      correct = TRUE
+    )
+  )
+
+  # check the results work with no `by` variables
+  expect_equal(
+    ard_categorical_ci(
+      mtcars,
+      variables = am,
+      denominator = "row"
+    ) |>
+      cards::get_ard_statistics(),
+    proportion_ci_wald(
+      x = rep_len(TRUE, length.out = sum(mtcars$am == 1)),
+      correct = TRUE
+    )
+  )
 })
 
 test_that("ard_continuous_ci.data.frame(denominator='cell')", {
@@ -275,5 +305,35 @@ test_that("ard_continuous_ci.data.frame(denominator='cell')", {
     ) |>
       dplyr::select(cards::all_ard_groups(), cards::all_ard_variables(), "stat") |>
       dplyr::arrange(unlist(group1_level), unlist(variable_level))
+  )
+
+  # check the results work with multiple `by` variables
+  expect_equal(
+    ard_categorical_ci(
+      mtcars,
+      by = c(cyl, gear),
+      variables = am,
+      denominator = "cell"
+    ) |>
+      dplyr::filter(group1_level %in% 4, group2_level %in% 3) |>
+      cards::get_ard_statistics(),
+    proportion_ci_wald(
+      x = (mtcars$cyl == 4 & mtcars$gear == 3 & mtcars$am == 1),
+      correct = TRUE
+    )
+  )
+
+  # check the results work with no `by` variables
+  expect_equal(
+    ard_categorical_ci(
+      mtcars,
+      variables = am,
+      denominator = "cell"
+    ) |>
+      cards::get_ard_statistics(),
+    proportion_ci_wald(
+      x = mtcars$am == 1,
+      correct = TRUE
+    )
   )
 })
