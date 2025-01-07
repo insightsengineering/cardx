@@ -167,6 +167,15 @@ test_that("ard_survival_survfit() errors with stratified Cox model", {
   )
 })
 
+test_that("ard_survival_survfit() works with '=' in level labels", {
+  lung2 <- survival::lung %>%
+    dplyr::mutate(age_bin = factor(ifelse(age < 60, "<60", ">=60")))
+
+  expect_snapshot(
+    survival::survfit(survival::Surv(time, status) ~ age_bin, data = lung2) |>
+      ard_survival_survfit(times = 100)
+  )
+})
 
 test_that("ard_survival_survfit() follows ard structure", {
   expect_silent(

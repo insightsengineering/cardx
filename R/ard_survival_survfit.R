@@ -381,7 +381,7 @@ extract_multi_strata <- function(x, df_stat) {
 
   if ("strata" %in% names(ret)) {
     ret <- ret %>%
-      tidyr::separate_wider_delim("strata", "=", names = c("group1", "group1_level"))
+      tidyr::separate_wider_delim("strata", "=", names = c("group1", "group1_level"), too_many = "merge")
   }
 
   ret %>%
