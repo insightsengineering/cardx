@@ -4,7 +4,7 @@
 
 * Update in `ard_missing.survey.design()` where we can now tabulate the missing rate of design variables, such as the weights.
 
-* Fixed a bug in `ard_survival_survfit()` causing an error when "=" character is present in group variable level labels.
+* Fixed a bug in `ard_survival_survfit()` causing an error when "=" character is present in stratification variable level labels. (#252)
 
 # cardx 0.2.2
 
