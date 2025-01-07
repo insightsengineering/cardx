@@ -334,7 +334,7 @@
       Error in `ard_survival_survfit()`:
       ! Argument `x` cannot be class <survfitcox>.
 
-# ard_survival_survfit() works with '=' in level labels
+# ard_survival_survfit() works with '=' in strata variable level labels
 
     Code
       ard_survival_survfit(survival::survfit(survival::Surv(time, status) ~ age_bin,

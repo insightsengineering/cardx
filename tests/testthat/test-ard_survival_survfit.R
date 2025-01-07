@@ -167,7 +167,7 @@ test_that("ard_survival_survfit() errors with stratified Cox model", {
   )
 })
 
-test_that("ard_survival_survfit() works with '=' in level labels", {
+test_that("ard_survival_survfit() works with '=' in strata variable level labels", {
   lung2 <- survival::lung %>%
     dplyr::mutate(age_bin = factor(ifelse(age < 60, "<60", ">=60")))
 
