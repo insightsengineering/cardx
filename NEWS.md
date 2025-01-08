@@ -1,4 +1,4 @@
-# cardx 0.2.2.9008
+# cardx 0.2.2.9009
 
 * Update in `ard_categorical.survey.design()` for factor variables that are all missing. These variables can now be tabulated, where previously this resulted in an error. 
 
