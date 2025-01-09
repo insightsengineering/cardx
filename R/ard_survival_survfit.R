@@ -284,7 +284,7 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
       dplyr::rename(conf.low = "conf.high", conf.high = "conf.low")
   }
 
-  df_stat <- extract_multi_strata(x, df_stat)
+  df_stat <- extract_strata(x, df_stat)
 
   df_stat
 }
@@ -320,13 +320,13 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
 
   if (length(x$n) == 1) df_stat <- df_stat %>% dplyr::select(-"strata")
 
-  df_stat <- extract_multi_strata(x, df_stat)
+  df_stat <- extract_strata(x, df_stat)
 
   df_stat
 }
 
-# process multiple stratifying variables
-extract_multi_strata <- function(x, df_stat) {
+# process stratifying variables
+extract_strata <- function(x, df_stat) {
   x_terms <- attr(stats::terms(stats::as.formula(x$call$formula)), "term.labels")
   x_terms <- gsub(".*\\(", "", gsub("\\)", "", x_terms))
   if (length(x_terms) > 0L) {
@@ -379,11 +379,6 @@ extract_multi_strata <- function(x, df_stat) {
       variable_level = .data[[est]]
     ) %>%
     dplyr::select(-all_of(est))
-
-  if ("strata" %in% names(ret)) {
-    ret <- ret %>%
-      tidyr::separate_wider_delim("strata", "=", names = c("group1", "group1_level"))
-  }
 
   ret %>%
     dplyr::left_join(
