@@ -88,7 +88,7 @@ reference:
       - ard_categorical_ci.data.frame
       - ard_regression
       - ard_regression_basic
-      - ard_event_rates
+      - ard_categorical_max
 
   - title: "Helpers"
   - contents:
