@@ -1,10 +1,10 @@
-test_that("ard_event_rates() works with default settings", {
+test_that("ard_categorical_max() works with default settings", {
   withr::local_options(list(width = 200))
 
   expect_silent(
-    res <- ard_event_rates(
+    res <- ard_categorical_max(
       cards::ADAE,
-      variables = AESOC,
+      variables = AESEV,
       id = USUBJID,
       by = TRTA
     )
@@ -15,7 +15,7 @@ test_that("ard_event_rates() works with default settings", {
     res |>
       dplyr::filter(
         group1_level == "Placebo",
-        variable_level == "CARDIAC DISORDERS",
+        variable_level == "SEVERE",
         stat_name == "n"
       ) |>
       cards::get_ard_statistics(),
@@ -23,18 +23,18 @@ test_that("ard_event_rates() works with default settings", {
       n = cards::ADAE |>
         dplyr::filter(
           TRTA == "Placebo",
-          AESOC == "CARDIAC DISORDERS"
+          AESEV == "SEVERE"
         ) |>
-        dplyr::slice_tail(n = 1L, by = all_of(c("USUBJID", "TRTA", "AESOC"))) |>
+        dplyr::slice_tail(n = 1L, by = all_of(c("USUBJID", "TRTA", "AESEV"))) |>
         nrow()
     )
   )
 
   # with denominator
   expect_snapshot(
-    ard_event_rates(
+    ard_categorical_max(
       cards::ADAE |> dplyr::group_by(TRTA),
-      variables = AESOC,
+      variables = AESEV,
       id = USUBJID,
       denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
     ) |>
@@ -43,27 +43,27 @@ test_that("ard_event_rates() works with default settings", {
 
   # with multiple variables
   expect_silent(
-    res2 <- ard_event_rates(
+    res2 <- ard_categorical_max(
       cards::ADAE,
-      variables = c(SEX, AESOC),
+      variables = c(AESEV, AESER),
       id = USUBJID,
       by = TRTA
     )
   )
-  expect_equal(unique(res2$variable), c("SEX", "AESOC"))
+  expect_equal(unique(res2$variable), c("AESEV", "AESER"))
   expect_equal(
     res,
-    res2[-c(1:18), ]
+    res2[-c(28:45), ]
   )
 })
 
-test_that("ard_event_rates(statistic) works", {
+test_that("ard_categorical_max(statistic) works", {
   withr::local_options(list(width = 200))
 
   expect_snapshot(
-    ard_event_rates(
+    ard_categorical_max(
       cards::ADAE,
-      variables = SEX,
+      variables = AESEV,
       id = USUBJID,
       by = TRTA,
       denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
@@ -72,7 +72,22 @@ test_that("ard_event_rates(statistic) works", {
   )
 })
 
-test_that("ard_event_rates(ordered) works", {
+test_that("ard_categorical_max(quiet) works", {
+  withr::local_options(list(width = 200))
+
+  expect_snapshot(
+    ard_categorical_max(
+      cards::ADAE,
+      variables = AESEV,
+      id = USUBJID,
+      by = TRTA,
+      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
+      quiet = FALSE
+    )
+  )
+})
+
+test_that("ard_categorical_max() works with pre-ordered factor variables", {
   withr::local_options(list(width = 200))
 
   # pre-ordered factor variable
@@ -80,7 +95,7 @@ test_that("ard_event_rates(ordered) works", {
     dplyr::mutate(AESEV = factor(cards::ADAE$AESEV, ordered = TRUE))
 
   expect_silent(
-    res <- ard_event_rates(
+    res <- ard_categorical_max(
       cards::ADAE,
       variables = AESEV,
       id = USUBJID,
@@ -111,16 +126,16 @@ test_that("ard_event_rates(ordered) works", {
     )
   )
 
-  res_unord <- ard_event_rates(
+  res_unord <- ard_categorical_max(
     cards::ADAE,
     variables = AESEV,
     id = USUBJID,
     by = TRTA,
     denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
   )
-  expect_true(res$stat[[1]] != res_unord$stat[[1]])
+  expect_equal(res$stat[[1]], res_unord$stat[[1]])
 
-  res2 <- ard_event_rates(
+  res2 <- ard_categorical_max(
     adae,
     variables = AESEV,
     id = USUBJID,
@@ -131,7 +146,7 @@ test_that("ard_event_rates(ordered) works", {
 
   # multiple variables
   expect_silent(
-    res3 <- ard_event_rates(
+    res3 <- ard_categorical_max(
       adae,
       variables = c(SEX, AESEV),
       id = USUBJID,
@@ -144,7 +159,7 @@ test_that("ard_event_rates(ordered) works", {
 
   # named vector
   expect_silent(
-    res4 <- ard_event_rates(
+    res4 <- ard_categorical_max(
       adae,
       variables = c(SEX, AESEV),
       id = USUBJID,
@@ -154,27 +169,13 @@ test_that("ard_event_rates(ordered) works", {
     )
   )
   expect_equal(res3, res4)
-
-  # error - length does not match
-  expect_snapshot(
-    ard_event_rates(
-      adae,
-      variables = c(SEX, AESEV),
-      id = USUBJID,
-      by = TRTA,
-      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
-      ordered = TRUE
-    ),
-    error = TRUE
-  )
-  expect_equal(res, res2)
 })
 
-test_that("ard_event_rates() errors with incomplete factor columns", {
+test_that("ard_categorical_max() errors with incomplete factor columns", {
   # Check error when factors have no levels
   expect_snapshot(
     error = TRUE,
-    ard_event_rates(
+    ard_categorical_max(
       cards::ADAE |>
         dplyr::mutate(AESOC = factor(AESOC, levels = character(0))),
       variables = AESOC,
@@ -186,7 +187,7 @@ test_that("ard_event_rates() errors with incomplete factor columns", {
   # Check error when factor has NA level
   expect_snapshot(
     error = TRUE,
-    ard_event_rates(
+    ard_categorical_max(
       cards::ADAE |>
         dplyr::mutate(SEX = factor(SEX, levels = c("F", "M", NA), exclude = NULL)),
       variables = SEX,
@@ -196,41 +197,9 @@ test_that("ard_event_rates() errors with incomplete factor columns", {
   )
 })
 
-test_that("ard_hierarchical_count() works with by variable not present in 'denominator'", {
-  expect_silent(
-    ard_events_with_by <- ard_event_rates(
-      data = cards::ADAE,
-      variables = AESOC,
-      id = USUBJID,
-      by = c(TRTA, AESEV),
-      statistic = ~"n"
-    )
-  )
-
-  expect_equal(
-    ard_events_with_by |>
-      dplyr::filter(
-        group1_level == "Placebo",
-        group2_level == "MILD",
-        variable_level == "CARDIAC DISORDERS"
-      ) |>
-      cards::get_ard_statistics(),
-    list(
-      n = cards::ADAE |>
-        dplyr::filter(
-          TRTA == "Placebo",
-          AESEV == "MILD",
-          AESOC == "CARDIAC DISORDERS"
-        ) |>
-        dplyr::slice_tail(n = 1L, by = all_of(c("USUBJID", "TRTA", "AESEV", "AESOC"))) |>
-        nrow()
-    )
-  )
-})
-
-test_that("ard_event_rates() works without any variables", {
+test_that("ard_categorical_max() works without any variables", {
   expect_snapshot(
-    ard_event_rates(
+    ard_categorical_max(
       data = cards::ADAE,
       variables = starts_with("xxxx"),
       id = USUBJID,
@@ -239,9 +208,9 @@ test_that("ard_event_rates() works without any variables", {
   )
 })
 
-test_that("ard_event_rates() follows ard structure", {
+test_that("ard_categorical_max() follows ard structure", {
   expect_silent(
-    ard_event_rates(
+    ard_categorical_max(
       cards::ADAE,
       variables = AESOC,
       id = USUBJID

@@ -1,63 +1,50 @@
-#' ARD to Calculate Event Occurrence Rates by ID
+#' ARD to Calculate Categorical Occurrence Rates by Maximum Level Per Unique ID
 #'
-#' Function calculates event occurrences rates per unique ID.
+#' Function calculates categorical variable level occurrences rates by maximum level per unique ID.
 #' Each variable in `variables` is evaluated independently and then results for all variables are stacked.
-#' For non-ordered variables (`ordered = FALSE`), each level that occurs per unique ID will be counted once.
-#' For ordered variables (`ordered = TRUE`), only the highest-ordered level will be counted for each unique ID.
+#' Only the highest-ordered level will be counted for each unique ID.
+#' Unordered, non-numeric variables will be converted to factor and the default level order used for ordering.
 #'
 #' @inheritParams cards::ard_categorical
 #' @inheritParams cards::ard_stack
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   The factor variables for which event rates (for each level) will be calculated.
+#'   The categorical variables for which occurrence rates per unique ID (by maximum level) will be calculated.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   Argument used to subset `data` to identify rows in `data` to calculate event rates.
+#'   Argument used to subset `data` to identify rows in `data` to calculate categorical variable level occurrence rates.
 #' @param denominator (`data.frame`, `integer`)\cr
 #'   Used to define the denominator and enhance the output.
 #'   The argument is optional. If not specified, `data` will be used as `denominator`.
 #'   - the univariate tabulations of the `by` variables are calculated with `denominator` when a data frame is passed,
 #'     e.g. tabulation of the treatment assignment counts that may appear in the header of a table.
-#' @param ordered (`logical`)\cr
-#'   Specifies whether factor variables specified by `variables` are ordered or not. If ordered, only the
-#'   highest-ordered level will be counted for each unique value of `id`. Otherwise, each level that occurs per unique
-#'   value of `id` will be counted once. Must be the same length as `variables`. Defaults to `TRUE` for ordered factor
-#'   variables and `FALSE` otherwise.
+#' @param quiet (scalar `logical`)\cr
+#'   Logical indicating whether to suppress additional messaging. Default is `FALSE`.
 #'
 #' @return an ARD data frame of class 'card'
-#' @name ard_event_rates
+#' @name ard_categorical_max
 #'
 #' @examples
-#' # Example 1 - Event Rates ------------------------------------
-#' ard_event_rates(
+#' # Occurrence Rates by Max Level (Highest Severity) --------------------------
+#' ard_categorical_max(
 #'   cards::ADAE,
-#'   variables = c(AEBODSYS, AESOC),
+#'   variables = c(AESER, AESEV),
 #'   id = USUBJID,
 #'   by = TRTA,
 #'   denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
 #' )
-#'
-#' # Example 2 - Event Rates by Highest Severity ----------------
-#' ard_event_rates(
-#'   cards::ADAE,
-#'   variables = AESEV,
-#'   id = USUBJID,
-#'   by = TRTA,
-#'   denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
-#'   ordered = TRUE
-#' )
 NULL
 
-#' @rdname ard_event_rates
+#' @rdname ard_categorical_max
 #' @export
-ard_event_rates <- function(data,
-                            variables,
-                            id,
-                            by = dplyr::group_vars(data),
-                            statistic = everything() ~ c("n", "p", "N"),
-                            denominator = NULL,
-                            fmt_fn = NULL,
-                            stat_label = everything() ~ cards::default_stat_labels(),
-                            ordered = sapply(data[variables], is.ordered),
-                            ...) {
+ard_categorical_max <- function(data,
+                                variables,
+                                id,
+                                by = dplyr::group_vars(data),
+                                statistic = everything() ~ c("n", "p", "N"),
+                                denominator = NULL,
+                                fmt_fn = NULL,
+                                stat_label = everything() ~ cards::default_stat_labels(),
+                                quiet = TRUE,
+                                ...) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
@@ -86,13 +73,21 @@ ard_event_rates <- function(data,
     return(dplyr::tibble() |> cards::as_card())
   }
 
-  # check the ordered argument
-  check_logical(ordered)
-  if (length(ordered) != length(variables)) {
-    cli::cli_abort(
-      "Argument {.arg ordered} has length {length(ordered)} but must be the same length as {.arg variables} ({length(variables)}).",
-      call = get_cli_abort_call()
-    )
+  # order variables
+  for (v in variables) {
+    if (is.character(data[[v]])) {
+      lvls <- .unique_and_sorted(data[[v]])
+      vec <- cli::cli_vec(lvls, style = list("vec-sep" = " < ", "vec-sep2" = " < ", "vec-last" = " < "))
+      if (!quiet) {
+        cli::cli_inform(
+          paste(
+            "The {.var {v}} variable is {.obj_type_friendly {data[[v]]}}. It has been converted to a {.cls factor} variable with",
+            "the following ordered levels: {.val {vec}}."
+          )
+        )
+      }
+      data[[v]] <- factor(data[[v]], levels = lvls, ordered = TRUE)
+    }
   }
 
   # drop missing values --------------------------------------------------------
@@ -108,7 +103,7 @@ ard_event_rates <- function(data,
   if (is.data.frame(denominator) && !is_empty(intersect(by, names(denominator)))) {
     df_na_nan_denom <-
       is.na(denominator[intersect(by, names(denominator))]) |
-        apply(denominator[intersect(by, names(denominator))], MARGIN = 2, is.nan)
+      apply(denominator[intersect(by, names(denominator))], MARGIN = 2, is.nan)
     if (any(df_na_nan_denom)) {
       rows_with_na_denom <- apply(df_na_nan_denom, MARGIN = 1, any)
       cli::cli_inform(c("*" = "Removing {.val {sum(rows_with_na_denom)}} row{?s} from {.arg denominator} with
@@ -136,15 +131,12 @@ ard_event_rates <- function(data,
 
   lst_results <- list()
   for (var in variables) {
-    ord <- (is_named(ordered) && ordered[var]) || (!is_named(ordered) && ordered[which(variables == var)])
-    if (ord) data[[var]] <- factor(data[[var]], ordered = TRUE)
-
     lst_results <-
       lst_results |>
       append(
         ard_categorical(
           data = data |>
-            dplyr::slice_tail(n = 1L, by = all_of(c(id, intersect(by, names(denominator)), if (!ord) var))),
+            dplyr::slice_tail(n = 1L, by = all_of(c(id, intersect(by, names(denominator))))),
           variables = all_of(var),
           by = all_of(by),
           statistic = statistic,
@@ -155,16 +147,14 @@ ard_event_rates <- function(data,
           list()
       )
 
-    if (ord) {
-      lst_results[[length(lst_results)]] <- lst_results[[length(lst_results)]] |>
-        dplyr::mutate(variable_level = as.list(as.character(unlist(.data$variable_level))))
-    }
+    lst_results[[length(lst_results)]] <- lst_results[[length(lst_results)]] |>
+      dplyr::mutate(variable_level = as.list(as.character(unlist(.data$variable_level))))
   }
 
   # combine results ------------------------------------------------------------
   result <- lst_results |>
     dplyr::bind_rows() |>
-    dplyr::mutate(context = "event_rates") |>
+    dplyr::mutate(context = "categorical_max") |>
     cards::tidy_ard_column_order() |>
     cards::tidy_ard_row_order()
 
