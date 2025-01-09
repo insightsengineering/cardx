@@ -6,6 +6,8 @@
 \alias{cardx-package}
 \title{cardx: Extra Analysis Results Data Utilities}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Create extra Analysis Results Data (ARD) summary objects. The package supplements the simple ARD functions from the 'cards' package, exporting functions to put statistical results in the ARD format. These objects are used and re-used to construct summary tables, visualizations, and written reports.
 }
 \seealso{
@@ -18,7 +20,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Daniel Sjoberg \email{danield.sjoberg@gmail.com}
+\strong{Maintainer}: Daniel D. Sjoberg \email{danield.sjoberg@gmail.com} (\href{https://orcid.org/0000-0003-0862-2018}{ORCID})
 
 Authors:
 \itemize{
