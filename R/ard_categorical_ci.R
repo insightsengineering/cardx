@@ -311,7 +311,7 @@ ard_categorical_ci.data.frame <- function(data,
   }
 
 
-  df_grouping_cols <- cards::nest_for_ard(data, by = all_of(by), include_data = FALSE)
+  df_grouping_cols <- cards::nest_for_ard(data, by = by, include_data = FALSE)
   levels <- .levels_for_row(data = data, by = by)
 
   cards::nest_for_ard(
@@ -360,7 +360,7 @@ ard_categorical_ci.data.frame <- function(data,
                                            conf.level, strata, weights, max.iterations) {
   # create the base of what the grouping and variable ARD will look like
   df_groups_variable <-
-    cards::nest_for_ard(data, by = all_of(c(by, variable)), include_data = FALSE) |>
+    cards::nest_for_ard(data, by = c(by, variable), include_data = FALSE) |>
     dplyr::rename(
       variable = glue::glue("group{length(c(variable, by))}"),
       variable_level = glue::glue("group{length(c(variable, by))}_level")

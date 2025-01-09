@@ -50,7 +50,8 @@
 #' lung |>
 #'   ard_survival_survfit(y = Surv(time, status), variables = "sex", time = 500)
 #' ```
-#' You **cannot**, however, pass a stored formula, e.g. `survfit(my_formula, lung)`
+#' You **cannot**, however, pass a stored formula, e.g. `survfit(my_formula, lung)`,
+#' but you can use stored formulas with `rlang::inject(survfit(!!my_formula, lung))`.
 #'
 #' @section Variable Classes:
 #' When the `survfit` method is called, the class of the stratifying variables
@@ -117,7 +118,7 @@ ard_survival_survfit.survfit <- function(x, times = NULL, probs = NULL, type = N
     cli::cli_abort(
       message = paste(
         "The call in the survfit object {.arg x} must be an evaluated formula.",
-        "Please see the function documentation for details on properly specifying formulas."
+        "Please see {.help [{.fun ard_survival_survfit}](cardx::ard_survival_survfit)} documentation for details on properly specifying formulas."
       ),
       call = get_cli_abort_call()
     )
