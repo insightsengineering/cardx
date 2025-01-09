@@ -50,7 +50,8 @@
 #' lung |>
 #'   ard_survival_survfit(y = Surv(time, status), variables = "sex", time = 500)
 #' ```
-#' You **cannot**, however, pass a stored formula, e.g. `survfit(my_formula, lung)`
+#' You **cannot**, however, pass a stored formula, e.g. `survfit(my_formula, lung)`,
+#' but you can use stored formulas with `rlang::inject(survfit(!!my_formula, lung))`.
 #'
 #' @section Variable Classes:
 #' When the `survfit` method is called, the class of the stratifying variables
@@ -117,7 +118,7 @@ ard_survival_survfit.survfit <- function(x, times = NULL, probs = NULL, type = N
     cli::cli_abort(
       message = paste(
         "The call in the survfit object {.arg x} must be an evaluated formula.",
-        "Please see the function documentation for details on properly specifying formulas."
+        "Please see {.help [{.fun ard_survival_survfit}](cardx::ard_survival_survfit)} documentation for details on properly specifying formulas."
       ),
       call = get_cli_abort_call()
     )
@@ -283,7 +284,7 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
       dplyr::rename(conf.low = "conf.high", conf.high = "conf.low")
   }
 
-  df_stat <- extract_multi_strata(x, df_stat)
+  df_stat <- extract_strata(x, df_stat)
 
   df_stat
 }
@@ -319,16 +320,16 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
 
   if (length(x$n) == 1) df_stat <- df_stat %>% dplyr::select(-"strata")
 
-  df_stat <- extract_multi_strata(x, df_stat)
+  df_stat <- extract_strata(x, df_stat)
 
   df_stat
 }
 
-# process multiple stratifying variables
-extract_multi_strata <- function(x, df_stat) {
+# process stratifying variables
+extract_strata <- function(x, df_stat) {
   x_terms <- attr(stats::terms(stats::as.formula(x$call$formula)), "term.labels")
   x_terms <- gsub(".*\\(", "", gsub("\\)", "", x_terms))
-  if (length(x_terms) > 1) {
+  if (length(x_terms) > 0L) {
     strata_lvls <- data.frame()
 
     for (i in df_stat[["strata"]]) {
@@ -378,11 +379,6 @@ extract_multi_strata <- function(x, df_stat) {
       variable_level = .data[[est]]
     ) %>%
     dplyr::select(-all_of(est))
-
-  if ("strata" %in% names(ret)) {
-    ret <- ret %>%
-      tidyr::separate_wider_delim("strata", "=", names = c("group1", "group1_level"))
-  }
 
   ret %>%
     dplyr::left_join(

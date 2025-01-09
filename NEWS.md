@@ -1,8 +1,10 @@
-# cardx 0.2.2.9005
+# cardx 0.2.2.9011
 
 * Update in `ard_categorical.survey.design()` for factor variables that are all missing. These variables can now be tabulated, where previously this resulted in an error. 
 
 * Update in `ard_missing.survey.design()` where we can now tabulate the missing rate of design variables, such as the weights.
+
+* Fixed a bug in `ard_survival_survfit()` causing an error when "=" character is present in stratification variable level labels. (#252)
 
 # cardx 0.2.2
 

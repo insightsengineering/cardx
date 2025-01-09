@@ -280,7 +280,7 @@
       ard_survival_survfit(x, times = 25)
     Condition
       Error in `ard_survival_survfit()`:
-      ! The call in the survfit object `x` must be an evaluated formula. Please see the function documentation for details on properly specifying formulas.
+      ! The call in the survfit object `x` must be an evaluated formula. Please see `ard_survival_survfit()` (`?cardx::ard_survival_survfit()`) documentation for details on properly specifying formulas.
 
 ---
 
@@ -333,6 +333,28 @@
     Condition
       Error in `ard_survival_survfit()`:
       ! Argument `x` cannot be class <survfitcox>.
+
+# ard_survival_survfit() works with '=' in strata variable level labels
+
+    Code
+      ard_survival_survfit(survival::survfit(survival::Surv(time, status) ~ age_bin,
+      data = lung2), times = 100)
+    Message
+      {cards} data frame: 10 x 11
+    Output
+          group1 group1_level variable variable_level stat_name stat_label  stat
+      1  age_bin          <60     time            100    n.risk  Number o…    77
+      2  age_bin          <60     time            100  estimate  Survival… 0.928
+      3  age_bin          <60     time            100 std.error  Standard… 0.028
+      4  age_bin          <60     time            100 conf.high  CI Upper… 0.985
+      5  age_bin          <60     time            100  conf.low  CI Lower… 0.874
+      6  age_bin         >=60     time            100    n.risk  Number o…   119
+      7  age_bin         >=60     time            100  estimate  Survival… 0.827
+      8  age_bin         >=60     time            100 std.error  Standard… 0.031
+      9  age_bin         >=60     time            100 conf.high  CI Upper… 0.891
+      10 age_bin         >=60     time            100  conf.low  CI Lower… 0.768
+    Message
+      i 4 more variables: context, fmt_fn, warning, error
 
 # ard_survival_survfit() extends to times outside range
 
