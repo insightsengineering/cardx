@@ -86,7 +86,8 @@ lung |>
   ard_survival_survfit(y = Surv(time, status), variables = "sex", time = 500)
 }\if{html}{\out{</div>}}
 
-You \strong{cannot}, however, pass a stored formula, e.g. \code{survfit(my_formula, lung)}
+You \strong{cannot}, however, pass a stored formula, e.g. \code{survfit(my_formula, lung)},
+but you can use stored formulas with \code{rlang::inject(survfit(!!my_formula, lung))}.
 }
 
 \section{Variable Classes}{

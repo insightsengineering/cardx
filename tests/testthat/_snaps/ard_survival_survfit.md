@@ -280,7 +280,7 @@
       ard_survival_survfit(x, times = 25)
     Condition
       Error in `ard_survival_survfit()`:
-      ! The call in the survfit object `x` must be an evaluated formula. Please see the function documentation for details on properly specifying formulas.
+      ! The call in the survfit object `x` must be an evaluated formula. Please see `ard_survival_survfit()` (`?cardx::ard_survival_survfit()`) documentation for details on properly specifying formulas.
 
 ---
 
