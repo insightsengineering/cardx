@@ -87,7 +87,7 @@
     Code
       ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = dplyr::rename(cards::ADSL, TRTA = ARM), quiet = FALSE)
     Message
-      The `AESEV` variable is a character vector. It has been converted to a <factor> variable with the following ordered levels: "MILD" < "MODERATE" < "SEVERE".
+      `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 27 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label  stat
@@ -143,8 +143,6 @@
     Code
       ard_categorical_max(dplyr::mutate(cards::ADAE, AESOC = factor(AESOC, levels = character(
         0))), variables = AESOC, id = USUBJID, by = TRTA)
-    Message
-      * Removing 1191 rows from `data` with NA or NaN values in "TRTA" and "AESOC" columns.
     Condition
       Error in `ard_categorical_max()`:
       ! Factors with empty "levels" attribute are not allowed, which was identified in column "AESOC".

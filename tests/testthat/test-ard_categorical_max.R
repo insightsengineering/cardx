@@ -90,13 +90,16 @@ test_that("ard_categorical_max(quiet) works", {
 test_that("ard_categorical_max() works with pre-ordered factor variables", {
   withr::local_options(list(width = 200))
 
-  # pre-ordered factor variable
+  # ordered factor variable
   adae <- cards::ADAE |>
     dplyr::mutate(AESEV = factor(cards::ADAE$AESEV, ordered = TRUE))
+  # unordered factor variable
+  adae_unord <- cards::ADAE |>
+    dplyr::mutate(AESEV = factor(cards::ADAE$AESEV, ordered = FALSE))
 
   expect_silent(
     res <- ard_categorical_max(
-      cards::ADAE,
+      adae_unord,
       variables = AESEV,
       id = USUBJID,
       by = TRTA,
@@ -108,6 +111,7 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
 
   expect_equal(
     res |>
+      dplyr::mutate(variable_level = as.character(unlist(variable_level))) |>
       dplyr::filter(
         group1_level == "Placebo",
         variable_level == "MODERATE",
@@ -127,7 +131,7 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
   )
 
   res_unord <- ard_categorical_max(
-    cards::ADAE,
+    adae_unord,
     variables = AESEV,
     id = USUBJID,
     by = TRTA,
@@ -142,7 +146,7 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
     by = TRTA,
     denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
   )
-  expect_equal(res, res2)
+  expect_equal(res, res2, ignore_attr = "class")
 
   # multiple variables
   expect_silent(

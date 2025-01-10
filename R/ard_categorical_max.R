@@ -29,7 +29,8 @@
 #'   variables = c(AESER, AESEV),
 #'   id = USUBJID,
 #'   by = TRTA,
-#'   denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
+#'   denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
+#'   quiet = FALSE
 #' )
 NULL
 
@@ -73,83 +74,35 @@ ard_categorical_max <- function(data,
     return(dplyr::tibble() |> cards::as_card())
   }
 
-  # order variables
+  # print default order of character variable levels ---------------------------
   for (v in variables) {
     if (is.character(data[[v]])) {
       lvls <- .unique_and_sorted(data[[v]])
-      vec <- cli::cli_vec(lvls, style = list("vec-sep" = " < ", "vec-sep2" = " < ", "vec-last" = " < "))
-      if (!quiet) {
-        cli::cli_inform(
-          paste(
-            "The {.var {v}} variable is {.obj_type_friendly {data[[v]]}}. It has been converted to a {.cls factor} variable with",
-            "the following ordered levels: {.val {vec}}."
-          )
-        )
-      }
-      data[[v]] <- factor(data[[v]], levels = lvls, ordered = TRUE)
-    }
-  }
-
-  # drop missing values --------------------------------------------------------
-  df_na_nan <- is.na(data[c(by, variables)]) | apply(data[c(by, variables)], MARGIN = 2, is.nan)
-  if (any(df_na_nan)) {
-    rows_with_na <- apply(df_na_nan, MARGIN = 1, any)
-    cli::cli_inform(c("*" = "Removing {.val {sum(rows_with_na)}} row{?s} from {.arg data} with
-                            {.val {NA}} or {.val {NaN}} values in {.val {c(by, variables)}} column{?s}."))
-    data <- data[!rows_with_na, ]
-  }
-
-  # remove missing by variables from `denominator`
-  if (is.data.frame(denominator) && !is_empty(intersect(by, names(denominator)))) {
-    df_na_nan_denom <-
-      is.na(denominator[intersect(by, names(denominator))]) |
-        apply(denominator[intersect(by, names(denominator))], MARGIN = 2, is.nan)
-    if (any(df_na_nan_denom)) {
-      rows_with_na_denom <- apply(df_na_nan_denom, MARGIN = 1, any)
-      cli::cli_inform(c("*" = "Removing {.val {sum(rows_with_na_denom)}} row{?s} from {.arg denominator} with
-                              {.val {NA}} or {.val {NaN}} values in {.val {intersect(by, names(denominator))}} column{?s}."))
-      denominator <- denominator[!rows_with_na_denom, ]
-    }
-  }
-
-  # sort data ------------------------------------------------------------------
-  data <- dplyr::arrange(data, dplyr::pick(all_of(c(id, by, variables))))
-
-  # print denom columns if not 100% clear which are used
-  if (!is_empty(id) && is.data.frame(denominator)) {
-    denom_cols <- intersect(by, names(denominator))
-    if (!setequal(by, denom_cols)) {
-      msg <-
-        ifelse(
-          is_empty(denom_cols),
-          "Denominator set by number of rows in {.arg denominator} data frame.",
-          "Denominator set by {.val {denom_cols}} column{?s} in {.arg denominator} data frame."
-        )
-      cli::cli_inform(c("i" = msg))
-    }
-  }
-
-  lst_results <- list()
-  for (var in variables) {
-    lst_results <-
-      lst_results |>
-      append(
-        ard_categorical(
-          data = data |>
-            dplyr::slice_tail(n = 1L, by = all_of(c(id, intersect(by, names(denominator))))),
-          variables = all_of(var),
-          by = all_of(by),
-          statistic = statistic,
-          denominator = denominator,
-          fmt_fn = fmt_fn,
-          stat_label = stat_label
-        ) |>
-          list()
+      vec <- cli::cli_vec(
+        lvls,
+        style = list("vec-sep" = " < ", "vec-sep2" = " < ", "vec-last" = " < ", "vec-trunc" = 3)
       )
-
-    lst_results[[length(lst_results)]] <- lst_results[[length(lst_results)]] |>
-      dplyr::mutate(variable_level = as.list(as.character(unlist(.data$variable_level))))
+      if (!quiet) cli::cli_inform("{.var {v}}: {.val {vec}}")
+    }
   }
+
+  lst_results <- lapply(
+    variables,
+    function(x) {
+      ard_categorical(
+        data = data |>
+          cards:::arrange_using_order(c(id, by, x)) |>
+          dplyr::slice_tail(n = 1L, by = all_of(c(id, intersect(by, names(denominator))))),
+        variables = all_of(x),
+        by = all_of(by),
+        statistic = statistic,
+        denominator = denominator,
+        fmt_fn = fmt_fn,
+        stat_label = stat_label
+      ) |>
+        list()
+    }
+  )
 
   # combine results ------------------------------------------------------------
   result <- lst_results |>
