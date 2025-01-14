@@ -82,27 +82,74 @@
     Message
       i 4 more variables: context, fmt_fn, warning, error
 
-# ard_categorical_max(quiet) works
+# ard_categorical_max(denominator) works
 
     Code
-      ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = dplyr::rename(cards::ADSL, TRTA = ARM), quiet = FALSE)
+      ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA)
     Message
-      `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 27 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label  stat
       1    TRTA      Placebo    AESEV           MILD         n          n    36
-      2    TRTA      Placebo    AESEV           MILD         N          N    86
-      3    TRTA      Placebo    AESEV           MILD         p          % 0.419
+      2    TRTA      Placebo    AESEV           MILD         N          N   301
+      3    TRTA      Placebo    AESEV           MILD         p          %  0.12
       4    TRTA      Placebo    AESEV       MODERATE         n          n    26
-      5    TRTA      Placebo    AESEV       MODERATE         N          N    86
-      6    TRTA      Placebo    AESEV       MODERATE         p          % 0.302
+      5    TRTA      Placebo    AESEV       MODERATE         N          N   301
+      6    TRTA      Placebo    AESEV       MODERATE         p          % 0.086
       7    TRTA      Placebo    AESEV         SEVERE         n          n     7
-      8    TRTA      Placebo    AESEV         SEVERE         N          N    86
-      9    TRTA      Placebo    AESEV         SEVERE         p          % 0.081
+      8    TRTA      Placebo    AESEV         SEVERE         N          N   301
+      9    TRTA      Placebo    AESEV         SEVERE         p          % 0.023
       10   TRTA    Xanomeli…    AESEV           MILD         n          n    22
     Message
       i 17 more rows
+      i Use `print(n = ...)` to see more rows
+      i 4 more variables: context, fmt_fn, warning, error
+
+---
+
+    Code
+      ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = 100)
+    Message
+      {cards} data frame: 27 x 11
+    Output
+         group1 group1_level variable variable_level stat_name stat_label stat
+      1    TRTA      Placebo    AESEV           MILD         n          n   36
+      2    TRTA      Placebo    AESEV           MILD         N          N  100
+      3    TRTA      Placebo    AESEV           MILD         p          % 0.36
+      4    TRTA      Placebo    AESEV       MODERATE         n          n   26
+      5    TRTA      Placebo    AESEV       MODERATE         N          N  100
+      6    TRTA      Placebo    AESEV       MODERATE         p          % 0.26
+      7    TRTA      Placebo    AESEV         SEVERE         n          n    7
+      8    TRTA      Placebo    AESEV         SEVERE         N          N  100
+      9    TRTA      Placebo    AESEV         SEVERE         p          % 0.07
+      10   TRTA    Xanomeli…    AESEV           MILD         n          n   22
+    Message
+      i 17 more rows
+      i Use `print(n = ...)` to see more rows
+      i 4 more variables: context, fmt_fn, warning, error
+
+# ard_categorical_max(quiet) works
+
+    Code
+      ard_categorical_max(cards::ADAE, variables = c(AESER, AESEV), id = USUBJID, by = TRTA, denominator = dplyr::rename(cards::ADSL, TRTA = ARM), quiet = FALSE)
+    Message
+      `AESER`: "N" < "Y"
+      `AESEV`: "MILD" < "MODERATE" < "SEVERE"
+      {cards} data frame: 45 x 11
+    Output
+         group1 group1_level variable variable_level stat_name stat_label  stat
+      1    TRTA      Placebo    AESER              N         n          n    69
+      2    TRTA      Placebo    AESER              N         N          N    86
+      3    TRTA      Placebo    AESER              N         p          % 0.802
+      4    TRTA      Placebo    AESER              Y         n          n     0
+      5    TRTA      Placebo    AESER              Y         N          N    86
+      6    TRTA      Placebo    AESER              Y         p          %     0
+      7    TRTA    Xanomeli…    AESER              N         n          n    77
+      8    TRTA    Xanomeli…    AESER              N         N          N    84
+      9    TRTA    Xanomeli…    AESER              N         p          % 0.917
+      10   TRTA    Xanomeli…    AESER              Y         n          n     2
+    Message
+      i 35 more rows
       i Use `print(n = ...)` to see more rows
       i 4 more variables: context, fmt_fn, warning, error
 

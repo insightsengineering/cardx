@@ -72,13 +72,38 @@ test_that("ard_categorical_max(statistic) works", {
   )
 })
 
+test_that("ard_categorical_max(denominator) works", {
+  withr::local_options(list(width = 200))
+
+  # default denominator
+  expect_snapshot(
+    ard_categorical_max(
+      cards::ADAE,
+      variables = AESEV,
+      id = USUBJID,
+      by = TRTA
+    )
+  )
+
+  # numeric denominator
+  expect_snapshot(
+    ard_categorical_max(
+      cards::ADAE,
+      variables = AESEV,
+      id = USUBJID,
+      by = TRTA,
+      denominator = 100
+    )
+  )
+})
+
 test_that("ard_categorical_max(quiet) works", {
   withr::local_options(list(width = 200))
 
   expect_snapshot(
     ard_categorical_max(
       cards::ADAE,
-      variables = AESEV,
+      variables = c(AESER, AESEV),
       id = USUBJID,
       by = TRTA,
       denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),

@@ -10,7 +10,7 @@ ard_categorical_max(
   id,
   by = dplyr::group_vars(data),
   statistic = everything() ~ c("n", "p", "N"),
-  denominator = NULL,
+  denominator = data,
   fmt_fn = NULL,
   stat_label = everything() ~ cards::default_stat_labels(),
   quiet = TRUE,
@@ -37,12 +37,7 @@ or a single formula where the list element one or more of  \code{c("n", "N", "p"
 (or the RHS of a formula).}
 
 \item{denominator}{(\code{data.frame}, \code{integer})\cr
-Used to define the denominator and enhance the output.
-The argument is optional. If not specified, \code{data} will be used as \code{denominator}.
-\itemize{
-\item the univariate tabulations of the \code{by} variables are calculated with \code{denominator} when a data frame is passed,
-e.g. tabulation of the treatment assignment counts that may appear in the header of a table.
-}}
+Used to define the denominator and enhance the output. Defaults to \code{data}.}
 
 \item{fmt_fn}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas,

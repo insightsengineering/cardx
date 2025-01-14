@@ -12,10 +12,7 @@
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   Argument used to subset `data` to identify rows in `data` to calculate categorical variable level occurrence rates.
 #' @param denominator (`data.frame`, `integer`)\cr
-#'   Used to define the denominator and enhance the output.
-#'   The argument is optional. If not specified, `data` will be used as `denominator`.
-#'   - the univariate tabulations of the `by` variables are calculated with `denominator` when a data frame is passed,
-#'     e.g. tabulation of the treatment assignment counts that may appear in the header of a table.
+#'   Used to define the denominator and enhance the output. Defaults to `data`.
 #' @param quiet (scalar `logical`)\cr
 #'   Logical indicating whether to suppress additional messaging. Default is `FALSE`.
 #'
@@ -41,7 +38,7 @@ ard_categorical_max <- function(data,
                                 id,
                                 by = dplyr::group_vars(data),
                                 statistic = everything() ~ c("n", "p", "N"),
-                                denominator = NULL,
+                                denominator = data,
                                 fmt_fn = NULL,
                                 stat_label = everything() ~ cards::default_stat_labels(),
                                 quiet = TRUE,
@@ -62,7 +59,6 @@ ard_categorical_max <- function(data,
       call = get_cli_abort_call()
     )
   }
-  if (is_empty(denominator)) denominator <- data
 
   # check the id argument is not empty
   if (is_empty(id)) {
@@ -74,16 +70,14 @@ ard_categorical_max <- function(data,
     return(dplyr::tibble() |> cards::as_card())
   }
 
-  # print default order of character variable levels ---------------------------
+  # print default order of variable levels -------------------------------------
   for (v in variables) {
-    if (is.character(data[[v]])) {
-      lvls <- .unique_and_sorted(data[[v]])
-      vec <- cli::cli_vec(
-        lvls,
-        style = list("vec-sep" = " < ", "vec-sep2" = " < ", "vec-last" = " < ", "vec-trunc" = 3)
-      )
-      if (!quiet) cli::cli_inform("{.var {v}}: {.val {vec}}")
-    }
+    lvls <- .unique_and_sorted(data[[v]])
+    vec <- cli::cli_vec(
+      lvls,
+      style = list("vec-sep" = " < ", "vec-sep2" = " < ", "vec-last" = " < ", "vec-trunc" = 3)
+    )
+    if (!quiet) cli::cli_inform("{.var {v}}: {.val {vec}}")
   }
 
   lst_results <- lapply(
@@ -91,16 +85,15 @@ ard_categorical_max <- function(data,
     function(x) {
       ard_categorical(
         data = data |>
-          cards:::arrange_using_order(c(id, by, x)) |>
-          dplyr::slice_tail(n = 1L, by = all_of(c(id, intersect(by, names(denominator))))),
+          arrange_using_order(c(id, by, x)) |>
+          dplyr::slice_tail(n = 1L, by = all_of(c(id, by))),
         variables = all_of(x),
         by = all_of(by),
         statistic = statistic,
         denominator = denominator,
         fmt_fn = fmt_fn,
         stat_label = stat_label
-      ) |>
-        list()
+      )
     }
   )
 
@@ -113,4 +106,10 @@ ard_categorical_max <- function(data,
 
   # return final result --------------------------------------------------------
   result
+}
+
+# internal function copied from cards
+# like `dplyr::arrange()`, but uses base R's `order()` to keep consistency in some edge cases
+arrange_using_order <- function(data, columns) {
+  inject(data[with(data, order(!!!syms(columns))), ])
 }
