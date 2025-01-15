@@ -6,6 +6,8 @@
 
 * Fixed a bug in `ard_survival_survfit()` causing an error when "=" character is present in stratification variable level labels. (#252)
 
+* Added function `ard_categorical_max()` to calculate categorical occurrence rates by maximum level per unique ID. (#240)
+
 # cardx 0.2.2
 
 * Added a `data.frame` method to `ard_survival_survfit()`.
