@@ -7,25 +7,25 @@
     Output
          group1 group1_level variable variable_level   context stat_name stat_label  stat fmt_fn warning error
       1    TRTA      Placebo    AESEV           MILD categori…         n          n    36      0              
-      2    TRTA      Placebo    AESEV           MILD categori…         N          N   301      0              
-      3    TRTA      Placebo    AESEV           MILD categori…         p          %  0.12   <fn>              
+      2    TRTA      Placebo    AESEV           MILD categori…         N          N    69      0              
+      3    TRTA      Placebo    AESEV           MILD categori…         p          % 0.522   <fn>              
       4    TRTA      Placebo    AESEV       MODERATE categori…         n          n    26      0              
-      5    TRTA      Placebo    AESEV       MODERATE categori…         N          N   301      0              
-      6    TRTA      Placebo    AESEV       MODERATE categori…         p          % 0.086   <fn>              
+      5    TRTA      Placebo    AESEV       MODERATE categori…         N          N    69      0              
+      6    TRTA      Placebo    AESEV       MODERATE categori…         p          % 0.377   <fn>              
       7    TRTA      Placebo    AESEV         SEVERE categori…         n          n     7      0              
-      8    TRTA      Placebo    AESEV         SEVERE categori…         N          N   301      0              
-      9    TRTA      Placebo    AESEV         SEVERE categori…         p          % 0.023   <fn>              
+      8    TRTA      Placebo    AESEV         SEVERE categori…         N          N    69      0              
+      9    TRTA      Placebo    AESEV         SEVERE categori…         p          % 0.101   <fn>              
       10   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    22      0              
-      11   TRTA    Xanomeli…    AESEV           MILD categori…         N          N   455      0              
-      12   TRTA    Xanomeli…    AESEV           MILD categori…         p          % 0.048   <fn>              
+      11   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    79      0              
+      12   TRTA    Xanomeli…    AESEV           MILD categori…         p          % 0.278   <fn>              
       13   TRTA    Xanomeli…    AESEV       MODERATE categori…         n          n    49      0              
-      14   TRTA    Xanomeli…    AESEV       MODERATE categori…         N          N   455      0              
-      15   TRTA    Xanomeli…    AESEV       MODERATE categori…         p          % 0.108   <fn>              
+      14   TRTA    Xanomeli…    AESEV       MODERATE categori…         N          N    79      0              
+      15   TRTA    Xanomeli…    AESEV       MODERATE categori…         p          %  0.62   <fn>              
       16   TRTA    Xanomeli…    AESEV         SEVERE categori…         n          n     8      0              
-      17   TRTA    Xanomeli…    AESEV         SEVERE categori…         N          N   455      0              
-      18   TRTA    Xanomeli…    AESEV         SEVERE categori…         p          % 0.018   <fn>              
+      17   TRTA    Xanomeli…    AESEV         SEVERE categori…         N          N    79      0              
+      18   TRTA    Xanomeli…    AESEV         SEVERE categori…         p          % 0.101   <fn>              
       19   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    19      0              
-      20   TRTA    Xanomeli…    AESEV           MILD categori…         N          N   435      0              
+      20   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    77      0              
     Message
       i 7 more rows
       i Use `print(n = ...)` to see more rows
@@ -35,6 +35,7 @@
     Code
       print(ard_categorical_max(dplyr::group_by(cards::ADAE, TRTA), variables = AESEV, id = USUBJID, denominator = dplyr::rename(cards::ADSL, TRTA = ARM)), n = 20, columns = "all")
     Message
+      `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 27 x 11
     Output
          group1 group1_level variable variable_level   context stat_name stat_label  stat fmt_fn warning error
@@ -67,6 +68,7 @@
     Code
       ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = dplyr::rename(cards::ADSL, TRTA = ARM), statistic = ~"n")
     Message
+      `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 9 x 11
     Output
         group1 group1_level variable variable_level stat_name stat_label stat
@@ -87,18 +89,19 @@
     Code
       ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA)
     Message
+      `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 27 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label  stat
       1    TRTA      Placebo    AESEV           MILD         n          n    36
-      2    TRTA      Placebo    AESEV           MILD         N          N   301
-      3    TRTA      Placebo    AESEV           MILD         p          %  0.12
+      2    TRTA      Placebo    AESEV           MILD         N          N    69
+      3    TRTA      Placebo    AESEV           MILD         p          % 0.522
       4    TRTA      Placebo    AESEV       MODERATE         n          n    26
-      5    TRTA      Placebo    AESEV       MODERATE         N          N   301
-      6    TRTA      Placebo    AESEV       MODERATE         p          % 0.086
+      5    TRTA      Placebo    AESEV       MODERATE         N          N    69
+      6    TRTA      Placebo    AESEV       MODERATE         p          % 0.377
       7    TRTA      Placebo    AESEV         SEVERE         n          n     7
-      8    TRTA      Placebo    AESEV         SEVERE         N          N   301
-      9    TRTA      Placebo    AESEV         SEVERE         p          % 0.023
+      8    TRTA      Placebo    AESEV         SEVERE         N          N    69
+      9    TRTA      Placebo    AESEV         SEVERE         p          % 0.101
       10   TRTA    Xanomeli…    AESEV           MILD         n          n    22
     Message
       i 17 more rows
@@ -110,6 +113,7 @@
     Code
       ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = 100)
     Message
+      `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 27 x 11
     Output
          group1 group1_level variable variable_level stat_name stat_label stat
@@ -125,31 +129,6 @@
       10   TRTA    Xanomeli…    AESEV           MILD         n          n   22
     Message
       i 17 more rows
-      i Use `print(n = ...)` to see more rows
-      i 4 more variables: context, fmt_fn, warning, error
-
-# ard_categorical_max(quiet) works
-
-    Code
-      ard_categorical_max(cards::ADAE, variables = c(AESER, AESEV), id = USUBJID, by = TRTA, denominator = dplyr::rename(cards::ADSL, TRTA = ARM), quiet = FALSE)
-    Message
-      `AESER`: "N" < "Y"
-      `AESEV`: "MILD" < "MODERATE" < "SEVERE"
-      {cards} data frame: 45 x 11
-    Output
-         group1 group1_level variable variable_level stat_name stat_label  stat
-      1    TRTA      Placebo    AESER              N         n          n    69
-      2    TRTA      Placebo    AESER              N         N          N    86
-      3    TRTA      Placebo    AESER              N         p          % 0.802
-      4    TRTA      Placebo    AESER              Y         n          n     0
-      5    TRTA      Placebo    AESER              Y         N          N    86
-      6    TRTA      Placebo    AESER              Y         p          %     0
-      7    TRTA    Xanomeli…    AESER              N         n          n    77
-      8    TRTA    Xanomeli…    AESER              N         N          N    84
-      9    TRTA    Xanomeli…    AESER              N         p          % 0.917
-      10   TRTA    Xanomeli…    AESER              Y         n          n     2
-    Message
-      i 35 more rows
       i Use `print(n = ...)` to see more rows
       i 4 more variables: context, fmt_fn, warning, error
 

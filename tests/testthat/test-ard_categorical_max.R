@@ -1,7 +1,7 @@
 test_that("ard_categorical_max() works with default settings", {
   withr::local_options(list(width = 200))
 
-  expect_silent(
+  expect_message(
     res <- ard_categorical_max(
       cards::ADAE,
       variables = AESEV,
@@ -42,14 +42,14 @@ test_that("ard_categorical_max() works with default settings", {
   )
 
   # with multiple variables
-  expect_silent(
+  expect_message(expect_message(
     res2 <- ard_categorical_max(
       cards::ADAE,
       variables = c(AESEV, AESER),
       id = USUBJID,
       by = TRTA
     )
-  )
+  ))
   expect_equal(unique(res2$variable), c("AESEV", "AESER"))
   expect_equal(
     res,
@@ -100,14 +100,14 @@ test_that("ard_categorical_max(denominator) works", {
 test_that("ard_categorical_max(quiet) works", {
   withr::local_options(list(width = 200))
 
-  expect_snapshot(
+  expect_silent(
     ard_categorical_max(
       cards::ADAE,
       variables = c(AESER, AESEV),
       id = USUBJID,
       by = TRTA,
       denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
-      quiet = FALSE
+      quiet = TRUE
     )
   )
 })
@@ -122,7 +122,7 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
   adae_unord <- cards::ADAE |>
     dplyr::mutate(AESEV = factor(cards::ADAE$AESEV, ordered = FALSE))
 
-  expect_silent(
+  expect_message(
     res <- ard_categorical_max(
       adae_unord,
       variables = AESEV,
@@ -155,26 +155,30 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
     )
   )
 
-  res_unord <- ard_categorical_max(
-    adae_unord,
-    variables = AESEV,
-    id = USUBJID,
-    by = TRTA,
-    denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
+  expect_message(
+    res_unord <- ard_categorical_max(
+      adae_unord,
+      variables = AESEV,
+      id = USUBJID,
+      by = TRTA,
+      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
+    )
   )
   expect_equal(res$stat[[1]], res_unord$stat[[1]])
 
-  res2 <- ard_categorical_max(
-    adae,
-    variables = AESEV,
-    id = USUBJID,
-    by = TRTA,
-    denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
+  expect_message(
+    res2 <- ard_categorical_max(
+      adae,
+      variables = AESEV,
+      id = USUBJID,
+      by = TRTA,
+      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
+    )
   )
   expect_equal(res, res2, ignore_attr = "class")
 
   # multiple variables
-  expect_silent(
+  expect_message(expect_message(
     res3 <- ard_categorical_max(
       adae,
       variables = c(SEX, AESEV),
@@ -183,11 +187,11 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
       denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
       ordered = c(FALSE, TRUE)
     )
-  )
+  ))
   expect_equal(res, res3[-c(1:18), ])
 
   # named vector
-  expect_silent(
+  expect_message(expect_message(
     res4 <- ard_categorical_max(
       adae,
       variables = c(SEX, AESEV),
@@ -196,7 +200,7 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
       denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
       ordered = c(AESEV = TRUE, SEX = FALSE)
     )
-  )
+  ))
   expect_equal(res3, res4)
 })
 
@@ -238,7 +242,7 @@ test_that("ard_categorical_max() works without any variables", {
 })
 
 test_that("ard_categorical_max() follows ard structure", {
-  expect_silent(
+  expect_message(
     ard_categorical_max(
       cards::ADAE,
       variables = AESOC,

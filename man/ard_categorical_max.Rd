@@ -10,10 +10,10 @@ ard_categorical_max(
   id,
   by = dplyr::group_vars(data),
   statistic = everything() ~ c("n", "p", "N"),
-  denominator = data,
+  denominator = NULL,
   fmt_fn = NULL,
   stat_label = everything() ~ cards::default_stat_labels(),
-  quiet = TRUE,
+  quiet = FALSE,
   ...
 )
 }
@@ -37,7 +37,9 @@ or a single formula where the list element one or more of  \code{c("n", "N", "p"
 (or the RHS of a formula).}
 
 \item{denominator}{(\code{data.frame}, \code{integer})\cr
-Used to define the denominator and enhance the output. Defaults to \code{data}.}
+An optional argument to change the denominator used for \code{"N"} and \code{"p"} statistic calculations.
+Defaults to \code{NULL}, in which case \code{dplyr::distinct(data, dplyr::pick(all_of(c(id, by))))} is used for these
+calculations. See \code{\link[cards:ard_categorical]{cards::ard_categorical()}} for more details on specifying denominators.}
 
 \item{fmt_fn}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas,
@@ -72,7 +74,6 @@ ard_categorical_max(
   variables = c(AESER, AESEV),
   id = USUBJID,
   by = TRTA,
-  denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
-  quiet = FALSE
+  denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
 )
 }

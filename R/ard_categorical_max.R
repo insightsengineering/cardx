@@ -12,7 +12,9 @@
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   Argument used to subset `data` to identify rows in `data` to calculate categorical variable level occurrence rates.
 #' @param denominator (`data.frame`, `integer`)\cr
-#'   Used to define the denominator and enhance the output. Defaults to `data`.
+#'   An optional argument to change the denominator used for `"N"` and `"p"` statistic calculations.
+#'   Defaults to `NULL`, in which case `dplyr::distinct(data, dplyr::pick(all_of(c(id, by))))` is used for these
+#'   calculations. See [cards::ard_categorical()] for more details on specifying denominators.
 #' @param quiet (scalar `logical`)\cr
 #'   Logical indicating whether to suppress additional messaging. Default is `FALSE`.
 #'
@@ -26,8 +28,7 @@
 #'   variables = c(AESER, AESEV),
 #'   id = USUBJID,
 #'   by = TRTA,
-#'   denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
-#'   quiet = FALSE
+#'   denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
 #' )
 NULL
 
@@ -38,10 +39,10 @@ ard_categorical_max <- function(data,
                                 id,
                                 by = dplyr::group_vars(data),
                                 statistic = everything() ~ c("n", "p", "N"),
-                                denominator = data,
+                                denominator = NULL,
                                 fmt_fn = NULL,
                                 stat_label = everything() ~ cards::default_stat_labels(),
-                                quiet = TRUE,
+                                quiet = FALSE,
                                 ...) {
   set_cli_abort_call()
 
@@ -51,14 +52,6 @@ ard_categorical_max <- function(data,
   check_not_missing(id)
   cards::process_selectors(data, variables = {{ variables }}, id = {{ id }}, by = {{ by }})
   data <- dplyr::ungroup(data)
-
-  # denominator must a data frame, or integer
-  if (!is_empty(denominator) && !is.data.frame(denominator) && !is_integerish(denominator)) {
-    cli::cli_abort(
-      "The {.arg denominator} argument must be a {.cls data.frame} or an {.cls integer}, not {.obj_type_friendly {denominator}}.",
-      call = get_cli_abort_call()
-    )
-  }
 
   # check the id argument is not empty
   if (is_empty(id)) {
