@@ -63,16 +63,6 @@ ard_categorical_max <- function(data,
     return(dplyr::tibble() |> cards::as_card())
   }
 
-  # print default order of variable levels -------------------------------------
-  for (v in variables) {
-    lvls <- .unique_and_sorted(data[[v]])
-    vec <- cli::cli_vec(
-      lvls,
-      style = list("vec-sep" = " < ", "vec-sep2" = " < ", "vec-last" = " < ", "vec-trunc" = 3)
-    )
-    if (!quiet) cli::cli_inform("{.var {v}}: {.val {vec}}")
-  }
-
   lst_results <- lapply(
     variables,
     function(x) {
@@ -89,6 +79,16 @@ ard_categorical_max <- function(data,
       )
     }
   )
+
+  # print default order of variable levels -------------------------------------
+  for (v in variables) {
+    lvls <- .unique_and_sorted(data[[v]])
+    vec <- cli::cli_vec(
+      lvls,
+      style = list("vec-sep" = " < ", "vec-sep2" = " < ", "vec-last" = " < ", "vec-trunc" = 3)
+    )
+    if (!quiet) cli::cli_inform("{.var {v}}: {.val {vec}}")
+  }
 
   # combine results ------------------------------------------------------------
   result <- lst_results |>
