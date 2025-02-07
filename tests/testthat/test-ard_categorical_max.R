@@ -53,7 +53,7 @@ test_that("ard_categorical_max() works with default settings", {
   expect_equal(unique(res2$variable), c("AESEV", "AESER"))
   expect_equal(
     res,
-    res2[-c(28:45), ]
+    res2 |> dplyr::filter(variable == "AESEV")
   )
 })
 
@@ -188,7 +188,10 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
       ordered = c(FALSE, TRUE)
     )
   ))
-  expect_equal(res, res3[-c(1:18), ])
+  expect_equal(
+    res,
+    res3 |> dplyr::filter(variable == "AESEV")
+  )
 
   # named vector
   expect_message(expect_message(
