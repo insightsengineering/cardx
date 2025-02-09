@@ -40,7 +40,6 @@ Suggests:
     lme4 (>= 1.1-35.3),
     parameters (>= 0.20.2),
     smd (>= 0.6.6),
-    spelling (>= 2.3.0),
     survey (>= 4.2),
     survival (>= 3.6-4),
     testthat (>= 3.2.0),
