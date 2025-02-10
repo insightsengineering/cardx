@@ -1,5 +1,7 @@
 # cardx 0.2.2.9017
 
+* Little `n` is now returned with the results of the `proportion_ci_*()` functions, which then flows into the results of `ard_proportion_ci()`. (#256)
+
 * Update in `ard_categorical.survey.design()` for factor variables that are all missing. These variables can now be tabulated, where previously this resulted in an error. 
 
 * Update in `ard_missing.survey.design()` where we can now tabulate the missing rate of design variables, such as the weights.
