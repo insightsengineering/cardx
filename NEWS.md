@@ -1,4 +1,4 @@
-# cardx 0.2.2.9017
+# cardx 0.2.2.9018
 
 * Little `n` is now returned with the results of the `proportion_ci_*()` functions, which then flows into the results of `ard_proportion_ci()`. (#256)
 
