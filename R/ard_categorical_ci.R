@@ -1,6 +1,5 @@
 #' ARD Proportion Confidence Intervals
 #'
-#' `r lifecycle::badge('experimental')`\cr
 #' Calculate confidence intervals for proportions.
 #'
 #' @inheritParams cards::ard_categorical

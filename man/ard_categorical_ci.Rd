@@ -62,7 +62,6 @@ when \code{method='strat_wilson'}}
 an ARD data frame
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}\cr
 Calculate confidence intervals for proportions.
 }
 \examples{

@@ -33,8 +33,8 @@ Any rows with \code{NA} or \code{NaN} values are removed from all calculations.}
 
 \item{statistic}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas,
-or a single formula where the list element one or more of  \code{c("n", "N", "p")}
-(or the RHS of a formula).}
+or a single formula where the list element one or more of  \code{c("n", "N", "p", "n_cum", "p_cum")}
+(on the RHS of a formula).}
 
 \item{denominator}{(\code{data.frame}, \code{integer})\cr
 An optional argument to change the denominator used for \code{"N"} and \code{"p"} statistic calculations.
