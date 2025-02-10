@@ -53,6 +53,7 @@ proportion_ci_wald <- function(x, conf.level = 0.95, correct = FALSE) {
 
   list(
     N = n,
+    n = sum(x),
     estimate = p_hat,
     conf.low = l_ci,
     conf.high = u_ci,
@@ -90,7 +91,11 @@ proportion_ci_wilson <- function(x, conf.level = 0.95, correct = FALSE) {
   n <- length(x)
   y <- stats::prop.test(x = sum(x), n = n, correct = correct, conf.level = conf.level)
 
-  list(N = n, conf.level = conf.level) |>
+  list(
+    N = n,
+    n = sum(x),
+    conf.level = conf.level
+  ) |>
     utils::modifyList(val = broom::tidy(y) |> as.list()) |>
     utils::modifyList(
       list(
@@ -126,7 +131,7 @@ proportion_ci_clopper_pearson <- function(x, conf.level = 0.95) {
 
   y <- stats::binom.test(x = sum(x), n = n, conf.level = conf.level)
 
-  list(N = n, conf.level = conf.level) |>
+  list(N = n, n = sum(x), conf.level = conf.level) |>
     utils::modifyList(val = broom::tidy(y) |> as.list()) |>
     utils::modifyList(list(method = "Clopper-Pearson Confidence Interval"))
 }
@@ -168,6 +173,7 @@ proportion_ci_agresti_coull <- function(x, conf.level = 0.95) {
 
   list(
     N = n,
+    n = sum(x),
     estimate = mean(x),
     conf.low = l_ci,
     conf.high = u_ci,
@@ -211,6 +217,7 @@ proportion_ci_jeffreys <- function(x, conf.level = 0.95) {
 
   list(
     N = n,
+    n = sum(x),
     estimate = mean(x),
     conf.low = l_ci,
     conf.high = u_ci,
@@ -351,6 +358,7 @@ proportion_ci_strat_wilson <- function(x,
   # Return values
   list(
     N = length(x),
+    n = sum(x),
     estimate = mean(x),
     conf.low = lower,
     conf.high = upper,

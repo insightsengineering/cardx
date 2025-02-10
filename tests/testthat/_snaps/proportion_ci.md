@@ -21,6 +21,9 @@
       $N
       [1] 10
       
+      $n
+      [1] 5
+      
       $conf.level
       [1] 0.9
       
@@ -58,6 +61,9 @@
       proportion_ci_wilson(x_true)
     Output
       $N
+      [1] 32
+      
+      $n
       [1] 32
       
       $conf.level
@@ -98,6 +104,9 @@
     Output
       $N
       [1] 32
+      
+      $n
+      [1] 0
       
       $conf.level
       [1] 0.95
@@ -153,6 +162,9 @@
       $N
       [1] 10
       
+      $n
+      [1] 5
+      
       $estimate
       [1] 0.5
       
@@ -175,6 +187,9 @@
       proportion_ci_wald(x_true)
     Output
       $N
+      [1] 32
+      
+      $n
       [1] 32
       
       $estimate
@@ -200,6 +215,9 @@
     Output
       $N
       [1] 32
+      
+      $n
+      [1] 0
       
       $estimate
       [1] 0
@@ -234,6 +252,9 @@
     Output
       $N
       [1] 10
+      
+      $n
+      [1] 5
       
       $conf.level
       [1] 0.95
@@ -274,6 +295,9 @@
       $N
       [1] 32
       
+      $n
+      [1] 32
+      
       $conf.level
       [1] 0.95
       
@@ -312,6 +336,9 @@
     Output
       $N
       [1] 32
+      
+      $n
+      [1] 0
       
       $conf.level
       [1] 0.95
@@ -362,6 +389,9 @@
       $N
       [1] 10
       
+      $n
+      [1] 5
+      
       $estimate
       [1] 0.5
       
@@ -384,6 +414,9 @@
       proportion_ci_agresti_coull(x_true)
     Output
       $N
+      [1] 32
+      
+      $n
       [1] 32
       
       $estimate
@@ -409,6 +442,9 @@
     Output
       $N
       [1] 32
+      
+      $n
+      [1] 0
       
       $estimate
       [1] 0
@@ -444,6 +480,9 @@
       $N
       [1] 10
       
+      $n
+      [1] 5
+      
       $estimate
       [1] 0.5
       
@@ -466,6 +505,9 @@
       proportion_ci_jeffreys(x_true)
     Output
       $N
+      [1] 32
+      
+      $n
       [1] 32
       
       $estimate
@@ -491,6 +533,9 @@
     Output
       $N
       [1] 32
+      
+      $n
+      [1] 0
       
       $estimate
       [1] 0
@@ -533,6 +578,9 @@
       $N
       [1] 80
       
+      $n
+      [1] 50
+      
       $estimate
       [1] 0.625
       
@@ -558,6 +606,9 @@
       $N
       [1] 80
       
+      $n
+      [1] 50
+      
       $estimate
       [1] 0.625
       
@@ -582,6 +633,9 @@
       $N
       [1] 80
       
+      $n
+      [1] 50
+      
       $estimate
       [1] 0.625
       
@@ -605,6 +659,9 @@
     Output
       $N
       [1] 80
+      
+      $n
+      [1] 50
       
       $estimate
       [1] 0.625
