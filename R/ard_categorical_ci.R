@@ -82,8 +82,6 @@ ard_categorical_ci.data.frame <- function(data,
     data[variables],
     value = value
   )
-  # drop any missing values in the analysis variables
-  data <- tidyr::drop_na(data, any_of(c(variables, by, strata)))
 
   # if there is no by variable, then treat cell as column because it's the same.
   if (denominator == "cell" && is_empty(by)) {
@@ -199,7 +197,15 @@ ard_categorical_ci.data.frame <- function(data,
         conf.level = conf.level, correct = FALSE
       )
     }
-  )
+  ) |>
+    cards::as_cards_fn(
+      stat_names =
+        case_switch(
+          method %in% c("strat_wilsoncc", "strat_wilsoncc") ~
+            c("N", "n", "estimate", "conf.low", "conf.high", "conf.level", "weights", "method"),
+          .default = c("N", "n", "estimate", "conf.low", "conf.high", "conf.level", "method")
+        )
+    )
 }
 
 .unique_values_sort <- function(data, variable, value = NULL) {
@@ -265,9 +271,11 @@ ard_categorical_ci.data.frame <- function(data,
   # if there are no by variables, then all row percents are 100%
   if (is_empty(by)) {
     df_res <-
-      cards::nest_for_ard(
-        data = data[c(variable, by, strata)],
-        by = variable
+      suppressMessages(
+        cards::nest_for_ard(
+          data = data[c(variable, by, strata)],
+          by = variable
+        )
       ) |>
       dplyr::rename(variable = "group1", variable_level = "group1_level") %>%
       {
@@ -313,9 +321,11 @@ ard_categorical_ci.data.frame <- function(data,
   df_grouping_cols <- cards::nest_for_ard(data, by = by, include_data = FALSE)
   levels <- .levels_for_row(data = data, by = by)
 
-  cards::nest_for_ard(
-    data = data[c(variable, by, strata)],
-    by = variable
+  suppressMessages(
+    cards::nest_for_ard(
+      data = data[c(variable, by, strata)],
+      by = variable
+    )
   ) |>
     dplyr::rename(variable = "group1", variable_level = "group1_level") %>%
     {
@@ -359,7 +369,9 @@ ard_categorical_ci.data.frame <- function(data,
                                            conf.level, strata, weights, max.iterations) {
   # create the base of what the grouping and variable ARD will look like
   df_groups_variable <-
-    cards::nest_for_ard(data, by = c(by, variable), include_data = FALSE) |>
+    suppressMessages(
+      cards::nest_for_ard(data, by = c(by, variable), include_data = FALSE)
+    ) |>
     dplyr::rename(
       variable = glue::glue("group{length(c(variable, by))}"),
       variable_level = glue::glue("group{length(c(variable, by))}_level")
