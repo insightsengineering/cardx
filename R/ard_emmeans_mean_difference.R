@@ -50,8 +50,8 @@ ard_emmeans_mean_difference <- function(data, formula, method,
                                         conf.level = 0.95,
                                         primary_covariate =
                                           stats::terms(formula) |>
-                                          attr("term.labels") |>
-                                          getElement(1L)) {
+                                            attr("term.labels") |>
+                                            getElement(1L)) {
   set_cli_abort_call()
 
   # check package installation -------------------------------------------------
@@ -96,10 +96,11 @@ ard_emmeans_mean_difference <- function(data, formula, method,
     summary(emmeans, calc = c(n = ".wgt.")) |>
     dplyr::as_tibble() |>
     dplyr::rename(
-      mean.estimate = any_of("emmean"),
-      n = any_of("n")) |>
-    dplyr::select(all_of(c(1,2,5)))|>
-    dplyr::rename(variable_level = all_of(primary_covariate))|>
+      mean.estimate = any_of(c("emmean", "prob")),
+      n = any_of("n")
+    ) |>
+    dplyr::select(all_of(c(1, 2, 5))) |>
+    dplyr::rename(variable_level = all_of(primary_covariate)) |>
     dplyr::mutate(variable_level = as.character(variable_level))
 
   # bind the mean and mean difference estimates
@@ -146,7 +147,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
       error = list(NULL),
       fmt_fn = map(.data$stat, \(.x) if (is.numeric(.x)) 1L else NULL) # styler: off
     ) |>
-    dplyr::filter(!is.na(stat))|>
+    dplyr::filter(!is.na(stat)) |>
     cards::as_card() |>
     cards::tidy_ard_column_order()
 }
