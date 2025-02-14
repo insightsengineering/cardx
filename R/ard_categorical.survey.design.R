@@ -517,10 +517,10 @@ case_switch <- function(..., .default = NULL) {
               return(fmt_fn)
             }
             if (stat_name %in% c("p", "p_miss", "p_nonmiss", "p_unweighted")) {
-              return(cards::label_cards(digits = 1, scale = 100))
+              return(cards::label_round(digits = 1, scale = 100))
             }
             if (stat_name %in% c("n", "N", "N_miss", "N_nonmiss", "N_obs", "n_unweighted", "N_unweighted")) {
-              return(cards::label_cards(digits = 0))
+              return(cards::label_round(digits = 0))
             }
             if (is.integer(stat)) {
               return(0L)

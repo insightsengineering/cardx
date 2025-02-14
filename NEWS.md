@@ -1,5 +1,7 @@
 # cardx 0.2.2.9018
 
+* Added `as_cards_fun()` to `ard_categorical_ci()` so when there is an error, the user gets an ARD with the expected ARD structure. (#262)
+
 * Little `n` is now returned with the results of the `proportion_ci_*()` functions, which then flows into the results of `ard_proportion_ci()`. (#256)
 
 * Update in `ard_categorical.survey.design()` for factor variables that are all missing. These variables can now be tabulated, where previously this resulted in an error. 
