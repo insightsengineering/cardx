@@ -271,9 +271,11 @@ ard_categorical_ci.data.frame <- function(data,
   # if there are no by variables, then all row percents are 100%
   if (is_empty(by)) {
     df_res <-
-      cards::nest_for_ard(
-        data = data[c(variable, by, strata)],
-        by = variable
+      suppressMessages(
+        cards::nest_for_ard(
+          data = data[c(variable, by, strata)],
+          by = variable
+        )
       ) |>
       dplyr::rename(variable = "group1", variable_level = "group1_level") %>%
       {
