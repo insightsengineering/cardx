@@ -12,6 +12,8 @@
 
 * Added function `ard_categorical_max()` to calculate categorical occurrence rates by maximum level per unique ID. (#240)
 
+* Bug fix in `ard_categorical_ci(denominator='cell')` when missing values were present in the `by` variable.
+
 # cardx 0.2.2
 
 * Added a `data.frame` method to `ard_survival_survfit()`.
