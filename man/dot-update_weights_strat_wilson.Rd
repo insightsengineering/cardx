@@ -26,8 +26,8 @@ be optimized in the future if we need to estimate better initial weights.}
 
 \item{max.iterations}{(\code{count})\cr maximum number of iterations to be tried. Convergence is always checked.}
 
-\item{conf.level}{(\code{numeric})\cr
-a scalar in \verb{(0, 1)} indicating the confidence level.
+\item{conf.level}{(scalar \code{numeric})\cr
+a scalar in \verb{(0,1)} indicating the confidence level.
 Default is \code{0.95}}
 
 \item{tol}{(\code{number})\cr tolerance threshold for convergence.}

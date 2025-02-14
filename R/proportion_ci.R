@@ -3,7 +3,8 @@
 #' Functions to calculate different proportion confidence intervals for use in `ard_proportion()`.
 #'
 #' @inheritParams ard_categorical_ci
-#' @param x vector of a binary values, i.e. a logical vector, or numeric with values `c(0, 1)`
+#' @param x (binary `numeric`/`logical`)\cr
+#'   vector of a binary values, i.e. a logical vector, or numeric with values `c(0, 1)`
 #' @return Confidence interval of a proportion.
 #'
 #' @name proportion_ci
@@ -238,12 +239,12 @@ proportion_ci_jeffreys <- function(x, conf.level = 0.95) {
 #'
 #'
 #' @param strata (`factor`)\cr variable with one level per stratum and same length as `x`.
-#' @param weights (`numeric` or `NULL`)\cr weights for each level of the strata. If `NULL`, they are
+#' @param weights (`numeric`)\cr weights for each level of the strata. If `NULL`, they are
 #'   estimated using the iterative algorithm that
 #'   minimizes the weighted squared length of the confidence interval.
-#' @param max.iterations (`count`)\cr maximum number of iterations for the iterative procedure used
+#' @param max.iterations (positive `integer`)\cr maximum number of iterations for the iterative procedure used
 #'   to find estimates of optimal weights.
-#' @param correct (`flag`)\cr include the continuity correction. For further information, see for example
+#' @param correct (scalar `logical`)\cr include the continuity correction. For further information, see for example
 #'   [stats::prop.test()].
 #'
 #' @examples

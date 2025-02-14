@@ -5,15 +5,15 @@
 #' @inheritParams cards::ard_categorical
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   columns to include in summaries. Columns must be class `<logical>`
-#'   or `<numeric>` values coded as `c(0, 1)`.
+#'   or `<numeric>` values coded as `c(0,1)`.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   columns to stratify calculations by.
 #' @param denominator (`string`)\cr
 #'   Must be one of `'column'` (default), `'row'`, and `'cell'`, which specifies
 #'   the direction of the calculation/denominator. Argument is similar to
 #'   `cards::ard_categorical(denominator)`.
-#' @param conf.level (`numeric`)\cr
-#'   a scalar in `(0, 1)` indicating the confidence level.
+#' @param conf.level (scalar `numeric`)\cr
+#'   a scalar in `(0,1)` indicating the confidence level.
 #'   Default is `0.95`
 #' @param method (`string`)\cr
 #'   string indicating the type of confidence interval to calculate.
