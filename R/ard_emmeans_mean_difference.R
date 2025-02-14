@@ -85,7 +85,6 @@ ard_emmeans_mean_difference <- function(data, formula, method,
     )
 
   # calculate mean difference statistics ---------------------------------------
-
   df_results <-
     emmeans |>
     emmeans::contrast(method = "pairwise") |>
@@ -113,11 +112,13 @@ ard_emmeans_mean_difference <- function(data, formula, method,
       conf.low = any_of("asymp.LCL"),
       conf.high = any_of("asymp.UCL"),
       conf.low = any_of("lower.CL"),
-      conf.high = any_of("upper.CL")
+      conf.high = any_of("upper.CL"),
+      mean.difference.estimate = any_of("estimate")
     ) %>%
     dplyr::select(
       variable_level = "variable_level",
-      "estimate",
+      "mean.difference.estimate",
+      "mean.estimate",
       std.error = "SE", "df", "n",
       "conf.low", "conf.high", "p.value"
     ) %>%
@@ -139,12 +140,13 @@ ard_emmeans_mean_difference <- function(data, formula, method,
     ) |>
     dplyr::left_join(.df_ttest_stat_labels(primary_covariate), by = "stat_name") |>
     dplyr::mutate(
-      context = "emmeans_mean_difference",
+      context = ifelse(grepl(" - ", variable_level), "emmeans_mean_difference", "emmeans_mean"),
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
       warning = list(NULL),
       error = list(NULL),
       fmt_fn = map(.data$stat, \(.x) if (is.numeric(.x)) 1L else NULL) # styler: off
     ) |>
+    dplyr::filter(!is.na(stat))|>
     cards::as_card() |>
     cards::tidy_ard_column_order()
 }
