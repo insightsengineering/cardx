@@ -1,4 +1,4 @@
-# cardx 0.2.2.9018
+# cardx 0.2.2.9019
 
 * Added `as_cards_fun()` to `ard_categorical_ci()` so when there is an error, the user gets an ARD with the expected ARD structure. (#262)
 
