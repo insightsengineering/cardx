@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.97835840591185" branch-rate="0" lines-covered="3707" lines-valid="3789" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-02-14 05:12:40.201563">
+<coverage line-rate="0.978369823265629" branch-rate="0" lines-covered="3709" lines-valid="3791" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-02-14 05:40:54.04953">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
   <packages>
-    <package name="cardx" line-rate="0.97835840591185" branch-rate="0" complexity="0">
+    <package name="cardx" line-rate="0.978369823265629" branch-rate="0" complexity="0">
       <classes>
         <class name="add_total_n.survey.design.R" filename="R/add_total_n.survey.design.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -457,7 +457,7 @@
             <line number="105" hits="4" branch="false"/>
           </lines>
         </class>
-        <class name="ard_categorical_ci.R" filename="R/ard_categorical_ci.R" line-rate="0.996835443037975" branch-rate="0" complexity="0">
+        <class name="ard_categorical_ci.R" filename="R/ard_categorical_ci.R" line-rate="0.99685534591195" branch-rate="0" complexity="0">
           <methods>
             <method name="ard_categorical_ci" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
@@ -691,11 +691,11 @@
                 <line number="311" hits="1" branch="false"/>
                 <line number="312" hits="1" branch="false"/>
                 <line number="313" hits="1" branch="false"/>
+                <line number="314" hits="1" branch="false"/>
                 <line number="315" hits="1" branch="false"/>
-                <line number="319" hits="5" branch="false"/>
-                <line number="320" hits="5" branch="false"/>
+                <line number="317" hits="1" branch="false"/>
+                <line number="321" hits="5" branch="false"/>
                 <line number="322" hits="5" branch="false"/>
-                <line number="323" hits="5" branch="false"/>
                 <line number="324" hits="5" branch="false"/>
                 <line number="325" hits="5" branch="false"/>
                 <line number="326" hits="5" branch="false"/>
@@ -736,12 +736,12 @@
                 <line number="361" hits="5" branch="false"/>
                 <line number="362" hits="5" branch="false"/>
                 <line number="363" hits="5" branch="false"/>
+                <line number="364" hits="5" branch="false"/>
+                <line number="365" hits="5" branch="false"/>
               </lines>
             </method>
             <method name=".calculate_ard_proportion_cell" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="369" hits="5" branch="false"/>
-                <line number="370" hits="5" branch="false"/>
                 <line number="371" hits="5" branch="false"/>
                 <line number="372" hits="5" branch="false"/>
                 <line number="373" hits="5" branch="false"/>
@@ -754,14 +754,14 @@
                 <line number="380" hits="5" branch="false"/>
                 <line number="381" hits="5" branch="false"/>
                 <line number="382" hits="5" branch="false"/>
-                <line number="385" hits="5" branch="false"/>
-                <line number="386" hits="5" branch="false"/>
+                <line number="383" hits="5" branch="false"/>
+                <line number="384" hits="5" branch="false"/>
                 <line number="387" hits="5" branch="false"/>
                 <line number="388" hits="5" branch="false"/>
                 <line number="389" hits="5" branch="false"/>
                 <line number="390" hits="5" branch="false"/>
-                <line number="394" hits="5" branch="false"/>
-                <line number="395" hits="5" branch="false"/>
+                <line number="391" hits="5" branch="false"/>
+                <line number="392" hits="5" branch="false"/>
                 <line number="396" hits="5" branch="false"/>
                 <line number="397" hits="5" branch="false"/>
                 <line number="398" hits="5" branch="false"/>
@@ -794,8 +794,8 @@
                 <line number="425" hits="5" branch="false"/>
                 <line number="426" hits="5" branch="false"/>
                 <line number="427" hits="5" branch="false"/>
+                <line number="428" hits="5" branch="false"/>
                 <line number="429" hits="5" branch="false"/>
-                <line number="430" hits="5" branch="false"/>
                 <line number="431" hits="5" branch="false"/>
                 <line number="432" hits="5" branch="false"/>
                 <line number="433" hits="5" branch="false"/>
@@ -803,16 +803,18 @@
                 <line number="435" hits="5" branch="false"/>
                 <line number="436" hits="5" branch="false"/>
                 <line number="437" hits="5" branch="false"/>
+                <line number="438" hits="5" branch="false"/>
                 <line number="439" hits="5" branch="false"/>
-                <line number="440" hits="5" branch="false"/>
                 <line number="441" hits="5" branch="false"/>
                 <line number="442" hits="5" branch="false"/>
                 <line number="443" hits="5" branch="false"/>
                 <line number="444" hits="5" branch="false"/>
                 <line number="445" hits="5" branch="false"/>
                 <line number="446" hits="5" branch="false"/>
+                <line number="447" hits="5" branch="false"/>
                 <line number="448" hits="5" branch="false"/>
-                <line number="449" hits="5" branch="false"/>
+                <line number="450" hits="5" branch="false"/>
+                <line number="451" hits="5" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1015,11 +1017,11 @@
             <line number="311" hits="1" branch="false"/>
             <line number="312" hits="1" branch="false"/>
             <line number="313" hits="1" branch="false"/>
+            <line number="314" hits="1" branch="false"/>
             <line number="315" hits="1" branch="false"/>
-            <line number="319" hits="5" branch="false"/>
-            <line number="320" hits="5" branch="false"/>
+            <line number="317" hits="1" branch="false"/>
+            <line number="321" hits="5" branch="false"/>
             <line number="322" hits="5" branch="false"/>
-            <line number="323" hits="5" branch="false"/>
             <line number="324" hits="5" branch="false"/>
             <line number="325" hits="5" branch="false"/>
             <line number="326" hits="5" branch="false"/>
@@ -1060,8 +1062,8 @@
             <line number="361" hits="5" branch="false"/>
             <line number="362" hits="5" branch="false"/>
             <line number="363" hits="5" branch="false"/>
-            <line number="369" hits="5" branch="false"/>
-            <line number="370" hits="5" branch="false"/>
+            <line number="364" hits="5" branch="false"/>
+            <line number="365" hits="5" branch="false"/>
             <line number="371" hits="5" branch="false"/>
             <line number="372" hits="5" branch="false"/>
             <line number="373" hits="5" branch="false"/>
@@ -1074,14 +1076,14 @@
             <line number="380" hits="5" branch="false"/>
             <line number="381" hits="5" branch="false"/>
             <line number="382" hits="5" branch="false"/>
-            <line number="385" hits="5" branch="false"/>
-            <line number="386" hits="5" branch="false"/>
+            <line number="383" hits="5" branch="false"/>
+            <line number="384" hits="5" branch="false"/>
             <line number="387" hits="5" branch="false"/>
             <line number="388" hits="5" branch="false"/>
             <line number="389" hits="5" branch="false"/>
             <line number="390" hits="5" branch="false"/>
-            <line number="394" hits="5" branch="false"/>
-            <line number="395" hits="5" branch="false"/>
+            <line number="391" hits="5" branch="false"/>
+            <line number="392" hits="5" branch="false"/>
             <line number="396" hits="5" branch="false"/>
             <line number="397" hits="5" branch="false"/>
             <line number="398" hits="5" branch="false"/>
@@ -1114,8 +1116,8 @@
             <line number="425" hits="5" branch="false"/>
             <line number="426" hits="5" branch="false"/>
             <line number="427" hits="5" branch="false"/>
+            <line number="428" hits="5" branch="false"/>
             <line number="429" hits="5" branch="false"/>
-            <line number="430" hits="5" branch="false"/>
             <line number="431" hits="5" branch="false"/>
             <line number="432" hits="5" branch="false"/>
             <line number="433" hits="5" branch="false"/>
@@ -1123,16 +1125,18 @@
             <line number="435" hits="5" branch="false"/>
             <line number="436" hits="5" branch="false"/>
             <line number="437" hits="5" branch="false"/>
+            <line number="438" hits="5" branch="false"/>
             <line number="439" hits="5" branch="false"/>
-            <line number="440" hits="5" branch="false"/>
             <line number="441" hits="5" branch="false"/>
             <line number="442" hits="5" branch="false"/>
             <line number="443" hits="5" branch="false"/>
             <line number="444" hits="5" branch="false"/>
             <line number="445" hits="5" branch="false"/>
             <line number="446" hits="5" branch="false"/>
+            <line number="447" hits="5" branch="false"/>
             <line number="448" hits="5" branch="false"/>
-            <line number="449" hits="5" branch="false"/>
+            <line number="450" hits="5" branch="false"/>
+            <line number="451" hits="5" branch="false"/>
           </lines>
         </class>
         <class name="ard_categorical_ci.survey.design.R" filename="R/ard_categorical_ci.survey.design.R" line-rate="0.992248062015504" branch-rate="0" complexity="0">
