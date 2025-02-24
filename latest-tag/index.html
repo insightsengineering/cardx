@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><script src="deps/MathJax-3.2.2/tex-chtml.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Extra Analysis Results Data Utilities">
 <meta name="description" content="Create extra Analysis Results Data (ARD) summary objects. The package supplements the simple ARD functions from the cards package, exporting functions to put statistical results in the ARD format. These objects are used and re-used to construct summary tables, visualizations, and written reports.">
 <meta property="og:description" content="Create extra Analysis Results Data (ARD) summary objects. The package supplements the simple ARD functions from the cards package, exporting functions to put statistical results in the ARD format. These objects are used and re-used to construct summary tables, visualizations, and written reports.">
@@ -32,7 +32,7 @@
 
     <a class="navbar-brand me-2" href="index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdown-versions">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.3">v0.2.3</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.2">v0.2.2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.1">v0.2.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.0">v0.2.0</a>
@@ -73,7 +74,8 @@
 <a class="anchor" aria-label="anchor" href="#cardx-"></a>
 </h1>
 </div>
-<p><a href="https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://app.codecov.io/gh/insightsengineering/cardx?branch=main" class="external-link"><img src="https://codecov.io/gh/insightsengineering/cardx/branch/main/graph/badge.svg" alt="Codecov test coverage"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></p>
+<!-- badges: start -->
+
 <p>The <strong>{cardx}</strong> package is an extension of the {cards} package, providing additional functions to create Analysis Results Data Objects (ARDs) using the <strong>R</strong> programming language. The {cardx} package exports ARD functions that uses utility functions from {cards} and statistical functions from additional packages (such as, {stats}, {mmrm}, {emmeans}, {car}, {survey}, etc.) to construct summary objects.</p>
 <p>Summary objects can be used to:</p>
 <ul>
@@ -162,6 +164,18 @@
 <li>Supporting documentation for both companion packages <a href="https://insightsengineering.github.io/cards/" class="external-link">{cards}</a> and {<a href="https://www.danieldsjoberg.com/gtsummary/index.html" class="external-link">gtsummary</a>} will be useful for understanding the ARD workflow and capabilities.</li>
 </ul>
 </div>
+<div class="section level2">
+<h2 id="cardx--renv">{cardx} + {renv}<a class="anchor" aria-label="anchor" href="#cardx--renv"></a>
+</h2>
+<p>The {cardx} package exports functions to create ARDs based on various statistical methods; methods that are primarily implemented in other packages. {cardx} does not take a hard dependency on these packages, meaning that these packages are not typically installed when {cardx} is installed from CRAN. As a result, {renv} will not record these packages in its <code>lock.file</code> unless there is a direct reference to the underlying statistical package in your code. For example, if you pass a regression model to <code><a href="reference/ard_emmeans_mean_difference.html">ard_emmeans_mean_difference()</a></code>, there is no direct reference to the {emmeans} package in your script and {renv} will not record the package.</p>
+<p>One can circumvent this issue by including some kind of reference to the package in your code. Below are are couple of common ways to do so.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rvlenth.github.io/emmeans/" class="external-link">emmeans</a></span><span class="op">)</span></span></code></pre></div>
+<p>Attaching a package with <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> is great for its simplicity, but you may not want to attach a package if it’s not necessary.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="fu">emmeans</span><span class="fu">::</span><span class="va"><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html" class="external-link">emmeans</a></span><span class="op">)</span></span></code></pre></div>
+<p>You can invisibly print a function from the package. Printing a function does not have an effect on your environment (which is great), but it is somewhat more difficult to read. (<em>This is my preferred method.</em>)</p>
+</div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
@@ -197,14 +211,21 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Daniel Sjoberg <br><small class="roles"> Author, maintainer </small>  </li>
+<li>
+<a href="http://www.danieldsjoberg.com/" class="external-link">Daniel D. Sjoberg</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-0862-2018" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Abinaya Yogasekaram <br><small class="roles"> Author </small>  </li>
 <li>Emily de la Rua <br><small class="roles"> Author </small>  </li>
 <li>F. Hoffmann-La Roche AG <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/insightsengineering/cardx?branch=main" class="external-link"><img src="https://codecov.io/gh/insightsengineering/cardx/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
