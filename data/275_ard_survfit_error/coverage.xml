@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.978392621870883" branch-rate="0" lines-covered="3713" lines-valid="3795" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-02-25 17:47:55.151049">
+<coverage line-rate="0.978392621870883" branch-rate="0" lines-covered="3713" lines-valid="3795" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-02-25 18:00:48.94568">
   <sources>
     <source>/__w/cardx/cardx/cardx</source>
   </sources>
@@ -7269,9 +7269,9 @@
           <methods>
             <method name="ard_survival_survfit" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="102" hits="29" branch="false"/>
-                <line number="104" hits="29" branch="false"/>
-                <line number="105" hits="28" branch="false"/>
+                <line number="102" hits="31" branch="false"/>
+                <line number="104" hits="31" branch="false"/>
+                <line number="105" hits="30" branch="false"/>
               </lines>
             </method>
             <method name="ard_survival_survfit.survfit" signature="" line-rate="1" branch-rate="0" complexity="0">
@@ -7313,9 +7313,9 @@
             </method>
             <method name="ard_survival_survfit.data.frame" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="170" hits="3" branch="false"/>
-                <line number="173" hits="3" branch="false"/>
-                <line number="174" hits="3" branch="false"/>
+                <line number="170" hits="5" branch="false"/>
+                <line number="173" hits="5" branch="false"/>
+                <line number="174" hits="4" branch="false"/>
                 <line number="175" hits="3" branch="false"/>
                 <line number="178" hits="3" branch="false"/>
                 <line number="180" hits="2" branch="false"/>
@@ -7497,9 +7497,9 @@
             </method>
           </methods>
           <lines>
-            <line number="102" hits="29" branch="false"/>
-            <line number="104" hits="29" branch="false"/>
-            <line number="105" hits="28" branch="false"/>
+            <line number="102" hits="31" branch="false"/>
+            <line number="104" hits="31" branch="false"/>
+            <line number="105" hits="30" branch="false"/>
             <line number="111" hits="24" branch="false"/>
             <line number="114" hits="24" branch="false"/>
             <line number="117" hits="24" branch="false"/>
@@ -7533,9 +7533,9 @@
             <line number="159" hits="18" branch="false"/>
             <line number="160" hits="18" branch="false"/>
             <line number="162" hits="18" branch="false"/>
-            <line number="170" hits="3" branch="false"/>
-            <line number="173" hits="3" branch="false"/>
-            <line number="174" hits="3" branch="false"/>
+            <line number="170" hits="5" branch="false"/>
+            <line number="173" hits="5" branch="false"/>
+            <line number="174" hits="4" branch="false"/>
             <line number="175" hits="3" branch="false"/>
             <line number="178" hits="3" branch="false"/>
             <line number="180" hits="2" branch="false"/>
