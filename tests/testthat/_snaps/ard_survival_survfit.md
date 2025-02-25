@@ -325,6 +325,24 @@
       Error in `ard_survival_survfit()`:
       ! One and only one of `times` and `probs` must be specified.
 
+---
+
+    Code
+      cardx::ard_survival_survfit(x = cards::ADTTE, formula = survival::Surv(ttdeath,
+        death) ~ trt, variables = "trt", probs = c(0.25, 0.5, 0.75))
+    Condition
+      Error in `cardx::ard_survival_survfit()`:
+      ! The `y` argument cannot be missing.
+
+---
+
+    Code
+      cardx::ard_survival_survfit(x = cards::ADTTE, y = survival::Surv(ttdeath, death) ~
+        tte, probs = c(0.25, 0.5, 0.75))
+    Condition
+      Error in `cardx::ard_survival_survfit()`:
+      ! The `variables` argument cannot be missing.
+
 # ard_survival_survfit() errors with stratified Cox model
 
     Code
