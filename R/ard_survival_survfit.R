@@ -170,6 +170,8 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
   set_cli_abort_call()
 
   # check/process inputs -------------------------------------------------------
+  check_not_missing(y)
+  check_not_missing(variables)
   check_class(variables, "character")
 
   # process outcome as string --------------------------------------------------
