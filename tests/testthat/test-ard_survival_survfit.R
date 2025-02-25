@@ -142,7 +142,7 @@ test_that("ard_survival_survfit() errors are properly handled", {
   )
 
   expect_snapshot(
-    cardx::ard_survival_survfit(
+    ard_survival_survfit(
       x = cards::ADTTE,
       formula = survival::Surv(ttdeath, death) ~ trt,
       variables = "trt",
@@ -152,7 +152,7 @@ test_that("ard_survival_survfit() errors are properly handled", {
   )
 
   expect_snapshot(
-    cardx::ard_survival_survfit(
+    ard_survival_survfit(
       x = cards::ADTTE,
       y = survival::Surv(ttdeath, death) ~ tte,
       probs = c(0.25, 0.50, 0.75)
