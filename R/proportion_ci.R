@@ -3,7 +3,8 @@
 #' Functions to calculate different proportion confidence intervals for use in `ard_proportion()`.
 #'
 #' @inheritParams ard_categorical_ci
-#' @param x vector of a binary values, i.e. a logical vector, or numeric with values `c(0, 1)`
+#' @param x (binary `numeric`/`logical`)\cr
+#'   vector of a binary values, i.e. a logical vector, or numeric with values `c(0, 1)`
 #' @return Confidence interval of a proportion.
 #'
 #' @name proportion_ci
@@ -53,6 +54,7 @@ proportion_ci_wald <- function(x, conf.level = 0.95, correct = FALSE) {
 
   list(
     N = n,
+    n = sum(x),
     estimate = p_hat,
     conf.low = l_ci,
     conf.high = u_ci,
@@ -90,7 +92,11 @@ proportion_ci_wilson <- function(x, conf.level = 0.95, correct = FALSE) {
   n <- length(x)
   y <- stats::prop.test(x = sum(x), n = n, correct = correct, conf.level = conf.level)
 
-  list(N = n, conf.level = conf.level) |>
+  list(
+    N = n,
+    n = sum(x),
+    conf.level = conf.level
+  ) |>
     utils::modifyList(val = broom::tidy(y) |> as.list()) |>
     utils::modifyList(
       list(
@@ -126,7 +132,7 @@ proportion_ci_clopper_pearson <- function(x, conf.level = 0.95) {
 
   y <- stats::binom.test(x = sum(x), n = n, conf.level = conf.level)
 
-  list(N = n, conf.level = conf.level) |>
+  list(N = n, n = sum(x), conf.level = conf.level) |>
     utils::modifyList(val = broom::tidy(y) |> as.list()) |>
     utils::modifyList(list(method = "Clopper-Pearson Confidence Interval"))
 }
@@ -168,6 +174,7 @@ proportion_ci_agresti_coull <- function(x, conf.level = 0.95) {
 
   list(
     N = n,
+    n = sum(x),
     estimate = mean(x),
     conf.low = l_ci,
     conf.high = u_ci,
@@ -211,6 +218,7 @@ proportion_ci_jeffreys <- function(x, conf.level = 0.95) {
 
   list(
     N = n,
+    n = sum(x),
     estimate = mean(x),
     conf.low = l_ci,
     conf.high = u_ci,
@@ -231,12 +239,12 @@ proportion_ci_jeffreys <- function(x, conf.level = 0.95) {
 #'
 #'
 #' @param strata (`factor`)\cr variable with one level per stratum and same length as `x`.
-#' @param weights (`numeric` or `NULL`)\cr weights for each level of the strata. If `NULL`, they are
+#' @param weights (`numeric`)\cr weights for each level of the strata. If `NULL`, they are
 #'   estimated using the iterative algorithm that
 #'   minimizes the weighted squared length of the confidence interval.
-#' @param max.iterations (`count`)\cr maximum number of iterations for the iterative procedure used
+#' @param max.iterations (positive `integer`)\cr maximum number of iterations for the iterative procedure used
 #'   to find estimates of optimal weights.
-#' @param correct (`flag`)\cr include the continuity correction. For further information, see for example
+#' @param correct (scalar `logical`)\cr include the continuity correction. For further information, see for example
 #'   [stats::prop.test()].
 #'
 #' @examples
@@ -351,6 +359,7 @@ proportion_ci_strat_wilson <- function(x,
   # Return values
   list(
     N = length(x),
+    n = sum(x),
     estimate = mean(x),
     conf.low = lower,
     conf.high = upper,

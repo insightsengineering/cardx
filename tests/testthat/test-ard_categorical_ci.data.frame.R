@@ -168,6 +168,7 @@ test_that("ard_continuous_ci.data.frame() follows ard structure", {
   )
 })
 
+
 test_that("ard_continuous_ci.data.frame(denominator='row')", {
   # check the structure of the output
   expect_silent(
@@ -335,5 +336,95 @@ test_that("ard_continuous_ci.data.frame(denominator='cell')", {
       x = mtcars$am == 1,
       correct = TRUE
     )
+  )
+})
+
+test_that("ard_continuous_ci.data.frame(denominator='column') with all NA column", {
+  expect_silent(
+    ard <-
+      mtcars |>
+      dplyr::mutate(vs = ifelse(am == 0, NA, vs)) |>
+      ard_categorical_ci(
+        variables = vs,
+        by = am,
+        denominator = "column",
+        method = "wilson"
+      )
+  )
+
+  expect_equal(
+    ard |>
+      dplyr::filter(group1_level %in% 0) |>
+      dplyr::pull(stat_name),
+    c("N", "n", "estimate", "conf.low", "conf.high", "conf.level", "method")
+  )
+})
+
+test_that("ard_continuous_ci.data.frame(denominator='row') with all NA column", {
+  expect_silent(
+    ard <-
+      mtcars |>
+      dplyr::mutate(vs = ifelse(am == 0, NA, vs)) |>
+      ard_categorical_ci(
+        variables = vs,
+        by = am,
+        denominator = "row",
+        method = "wilson"
+      )
+  )
+
+  expect_equal(
+    ard |>
+      dplyr::filter(group1_level %in% 0) |>
+      dplyr::pull(stat_name),
+    c("N", "n", "conf.level", "estimate", "statistic", "p.value", "parameter", "conf.low", "conf.high", "method", "alternative")
+  )
+})
+
+test_that("ard_continuous_ci.data.frame(denominator='cell') with all NA column", {
+  expect_silent(
+    ard <-
+      mtcars |>
+      dplyr::mutate(vs = ifelse(am == 0, NA, vs)) |>
+      ard_categorical_ci(
+        variables = vs,
+        by = am,
+        denominator = "cell",
+        method = "wilson"
+      )
+  )
+
+  expect_equal(
+    ard |>
+      dplyr::filter(group1_level %in% 0) |>
+      dplyr::pull(stat_name),
+    c("N", "n", "conf.level", "estimate", "statistic", "p.value", "parameter", "conf.low", "conf.high", "method", "alternative")
+  )
+})
+
+test_that("ard_continuous_ci.data.frame() NA handling", {
+  df <- mtcars[c("am", "cyl", "gear")]
+  df$am[1:5] <- NA
+  df$cyl[6:10] <- NA
+
+  expect_equal(
+    ard_categorical_ci(df, by = am, variables = cyl, denominator = "column", method = "wald") |>
+      dplyr::filter(group1_level %in% 0, variable_level %in% 4) |>
+      cards::get_ard_statistics(),
+    proportion_ci_wald((df$cyl == 4)[df$am == 0])
+  )
+
+  expect_equal(
+    ard_categorical_ci(df, by = am, variables = cyl, denominator = "row", method = "wald") |>
+      dplyr::filter(group1_level %in% 0, variable_level %in% 4) |>
+      cards::get_ard_statistics(),
+    proportion_ci_wald((df$am == 0)[df$cyl == 4])
+  )
+
+  expect_equal(
+    ard_categorical_ci(df, by = am, variables = cyl, denominator = "cell", method = "wald") |>
+      dplyr::filter(group1_level %in% 0, variable_level %in% 4) |>
+      cards::get_ard_statistics(),
+    proportion_ci_wald((df$am == 0) + (df$cyl == 4) > 1)
   )
 })

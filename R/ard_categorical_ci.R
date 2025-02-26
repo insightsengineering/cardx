@@ -1,20 +1,19 @@
 #' ARD Proportion Confidence Intervals
 #'
-#' `r lifecycle::badge('experimental')`\cr
 #' Calculate confidence intervals for proportions.
 #'
 #' @inheritParams cards::ard_categorical
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   columns to include in summaries. Columns must be class `<logical>`
-#'   or `<numeric>` values coded as `c(0, 1)`.
+#'   or `<numeric>` values coded as `c(0,1)`.
 #' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   columns to stratify calculations by.
 #' @param denominator (`string`)\cr
 #'   Must be one of `'column'` (default), `'row'`, and `'cell'`, which specifies
 #'   the direction of the calculation/denominator. Argument is similar to
 #'   `cards::ard_categorical(denominator)`.
-#' @param conf.level (`numeric`)\cr
-#'   a scalar in `(0, 1)` indicating the confidence level.
+#' @param conf.level (scalar `numeric`)\cr
+#'   a scalar in `(0,1)` indicating the confidence level.
 #'   Default is `0.95`
 #' @param method (`string`)\cr
 #'   string indicating the type of confidence interval to calculate.
@@ -83,8 +82,6 @@ ard_categorical_ci.data.frame <- function(data,
     data[variables],
     value = value
   )
-  # drop any missing values in the analysis variables
-  data <- tidyr::drop_na(data, any_of(c(variables, by, strata)))
 
   # if there is no by variable, then treat cell as column because it's the same.
   if (denominator == "cell" && is_empty(by)) {
@@ -200,7 +197,15 @@ ard_categorical_ci.data.frame <- function(data,
         conf.level = conf.level, correct = FALSE
       )
     }
-  )
+  ) |>
+    cards::as_cards_fn(
+      stat_names =
+        case_switch(
+          method %in% c("strat_wilsoncc", "strat_wilsoncc") ~
+            c("N", "n", "estimate", "conf.low", "conf.high", "conf.level", "weights", "method"),
+          .default = c("N", "n", "estimate", "conf.low", "conf.high", "conf.level", "method")
+        )
+    )
 }
 
 .unique_values_sort <- function(data, variable, value = NULL) {
@@ -236,7 +241,7 @@ ard_categorical_ci.data.frame <- function(data,
 }
 
 .levels_for_row <- function(data, by) {
-  cards::nest_for_ard(data = data, by = by, include_data = FALSE) |>
+  suppressMessages(cards::nest_for_ard(data = data, by = by, include_data = FALSE)) |>
     dplyr::select(cards::all_ard_groups(types = "levels")) |>
     map(unlist) |>
     reduce(.f = \(.x, .y) paste0(.x, .y)) |>
@@ -266,9 +271,11 @@ ard_categorical_ci.data.frame <- function(data,
   # if there are no by variables, then all row percents are 100%
   if (is_empty(by)) {
     df_res <-
-      cards::nest_for_ard(
-        data = data[c(variable, by, strata)],
-        by = variable
+      suppressMessages(
+        cards::nest_for_ard(
+          data = data[c(variable, by, strata)],
+          by = variable
+        )
       ) |>
       dplyr::rename(variable = "group1", variable_level = "group1_level") %>%
       {
@@ -311,12 +318,14 @@ ard_categorical_ci.data.frame <- function(data,
   }
 
 
-  df_grouping_cols <- cards::nest_for_ard(data, by = by, include_data = FALSE)
+  df_grouping_cols <- suppressMessages(cards::nest_for_ard(data, by = by, include_data = FALSE))
   levels <- .levels_for_row(data = data, by = by)
 
-  cards::nest_for_ard(
-    data = data[c(variable, by, strata)],
-    by = variable
+  suppressMessages(
+    cards::nest_for_ard(
+      data = data[c(variable, by, strata)],
+      by = variable
+    )
   ) |>
     dplyr::rename(variable = "group1", variable_level = "group1_level") %>%
     {
@@ -360,7 +369,9 @@ ard_categorical_ci.data.frame <- function(data,
                                            conf.level, strata, weights, max.iterations) {
   # create the base of what the grouping and variable ARD will look like
   df_groups_variable <-
-    cards::nest_for_ard(data, by = c(by, variable), include_data = FALSE) |>
+    suppressMessages(
+      cards::nest_for_ard(data, by = c(by, variable), include_data = FALSE)
+    ) |>
     dplyr::rename(
       variable = glue::glue("group{length(c(variable, by))}"),
       variable_level = glue::glue("group{length(c(variable, by))}_level")
@@ -402,19 +413,27 @@ ard_categorical_ci.data.frame <- function(data,
     dplyr::mutate(
       ...a_name_anyone_would_ever_pick... =
         dplyr::coalesce(.data$...a_name_anyone_would_ever_pick..., paste(levels, collapse = ""))
-    ) |>
+    )
+
+  # make dummy vector missing if any of the other variables are missing
+  dummy_data[["...a_name_anyone_would_ever_pick..."]][apply(is.na(dummy_data[c(variable, by, strata)]), MARGIN = 1, FUN = any)] <- NA
+
+  # finish processing dummy data
+  dummy_data <- dummy_data |>
     dplyr::select(-any_of(c(variable, by))) %>%
-    {
-      dplyr::bind_cols(
-        .,
-        map(
-          levels,
-          \(level) (.[["...a_name_anyone_would_ever_pick..."]] == level)
-        ) |>
-          stats::setNames(paste0("level_", levels)) |>
-          dplyr::as_tibble()
-      )
-    } |>
+    # styler: off
+    {dplyr::bind_cols(
+      .,
+      map(
+        levels,
+        \(level) {
+          (.[["...a_name_anyone_would_ever_pick..."]] == level)
+        }
+      ) |>
+        stats::setNames(paste0("level_", levels)) |>
+        dplyr::as_tibble()
+    )} |>
+    # styler: on
     dplyr::select(-"...a_name_anyone_would_ever_pick...")
 
   prop_ci_fun <-

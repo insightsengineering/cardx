@@ -7,11 +7,10 @@ editor_options:
 
 # cardx <a href="https://insightsengineering.github.io/cardx/"><img src="man/figures/logo.png" align="right" height="120" alt="cardx website" /></a>
  
+<!-- badges: start -->
 [![R-CMD-check](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/insightsengineering/cardx/branch/main/graph/badge.svg)](https://app.codecov.io/gh/insightsengineering/cardx?branch=main)
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test coverage](https://codecov.io/gh/insightsengineering/cardx/branch/main/graph/badge.svg)](https://app.codecov.io/gh/insightsengineering/cardx?branch=main)
+<!-- badges: end -->
 
 The **{cardx}** package is an extension of the {cards} package, providing additional functions to create Analysis Results Data Objects (ARDs) using the **R** programming language.
 The {cardx} package exports ARD functions that uses utility functions from {cards} and statistical functions from additional packages (such as, {stats}, {mmrm}, {emmeans}, {car}, {survey}, etc.) to construct summary objects.
@@ -85,3 +84,27 @@ construct_model(
 
 -   The best resources are the help documents accompanying each {cardx} function.
 -   Supporting documentation for both companion packages [{cards}](https://insightsengineering.github.io/cards/) and {[gtsummary](https://www.danieldsjoberg.com/gtsummary/index.html)} will be useful for understanding the ARD workflow and capabilities.
+
+## {cardx} + {renv}
+
+The {cardx} package exports functions to create ARDs based on various statistical methods; methods that are primarily implemented in other packages.
+{cardx} does not take a hard dependency on these packages, meaning that these packages are not typically installed when {cardx} is installed from CRAN.
+As a result, {renv} will not record these packages in its `lock.file` unless there is a direct reference to the underlying statistical package in your code. 
+For example, if you pass a regression model to `ard_emmeans_mean_difference()`, there is no direct reference to the {emmeans} package in your script and {renv} will not record the package.
+
+One can circumvent this issue by including some kind of reference to the package in your code.
+Below are are couple of common ways to do so.
+
+```r
+library(emmeans)
+```
+
+Attaching a package with `library()` is great for its simplicity, but you may not want to attach a package if it's not necessary.
+
+```r
+invisible(emmeans::emmeans)
+```
+
+You can invisibly print a function from the package.
+Printing a function does not have an effect on your environment (which is great), but it is somewhat more difficult to read.
+(_This is my preferred method._)
