@@ -140,6 +140,25 @@ test_that("ard_survival_survfit() errors are properly handled", {
       ard_survival_survfit(times = 100, probs = c(0.25, 0.75)),
     error = TRUE
   )
+
+  expect_snapshot(
+    ard_survival_survfit(
+      x = cards::ADTTE,
+      formula = survival::Surv(ttdeath, death) ~ trt,
+      variables = "trt",
+      probs = c(0.25, 0.50, 0.75)
+    ),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    ard_survival_survfit(
+      x = cards::ADTTE,
+      y = survival::Surv(ttdeath, death) ~ tte,
+      probs = c(0.25, 0.50, 0.75)
+    ),
+    error = TRUE
+  )
 })
 
 test_that("ard_survival_survfit() works with non-syntactic names", {
