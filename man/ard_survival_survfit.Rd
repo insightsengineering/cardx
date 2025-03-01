@@ -47,9 +47,9 @@ Must be one of the following:\tabular{ll}{
 an object of class \code{Surv} created using \code{\link[survival:Surv]{survival::Surv()}}. This object will be passed as the left-hand side of
 the formula constructed and passed to \code{\link[survival:survfit]{survival::survfit()}}. This object can also be passed as a string.}
 
-\item{variables}{(\code{character})\cr
+\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 stratification variables to be passed as the right-hand side of the formula constructed and passed to
-\code{\link[survival:survfit]{survival::survfit()}}.}
+\code{\link[survival:survfit]{survival::survfit()}}. Use \code{variables=NULL} for an unstratified model, e.g. \code{Surv() ~ 1}.}
 
 \item{method.args}{(named \code{list})\cr
 named list of arguments that will be passed to \code{\link[survival:survfit]{survival::survfit()}}.}

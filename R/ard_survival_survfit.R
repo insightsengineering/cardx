@@ -26,9 +26,9 @@
 #' @param y (`Surv` or `string`)\cr
 #'   an object of class `Surv` created using [survival::Surv()]. This object will be passed as the left-hand side of
 #'   the formula constructed and passed to [survival::survfit()]. This object can also be passed as a string.
-#' @param variables (`character`)\cr
+#' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   stratification variables to be passed as the right-hand side of the formula constructed and passed to
-#'   [survival::survfit()].
+#'   [survival::survfit()]. Use `variables=NULL` for an unstratified model, e.g. `Surv() ~ 1`.
 #' @param method.args (named `list`)\cr
 #'   named list of arguments that will be passed to [survival::survfit()].
 #' @inheritParams rlang::args_dots_empty
@@ -172,7 +172,7 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
   # check/process inputs -------------------------------------------------------
   check_not_missing(y)
   check_not_missing(variables)
-  check_class(variables, "character")
+  cards::process_selectors(x, variables = {{ variables }})
 
   # process outcome as string --------------------------------------------------
   y <- enquo(y)
@@ -182,9 +182,15 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
   else y <- expr_deparse(quo_get_expr(y))  # styler: off
 
   # build model ----------------------------------------------------------------
+  survfit_formula <-
+    case_switch(
+      !is_empty(variables) ~ stats::reformulate(termlabels = bt(variables), response = y),
+      .default = stats::reformulate(termlabels = "1", response = y)
+    )
+
   construct_model(
     data = x,
-    formula = stats::reformulate(termlabels = bt(variables), response = y),
+    formula = survfit_formula,
     method = "survfit",
     package = "survival",
     method.args = {{ method.args }}
