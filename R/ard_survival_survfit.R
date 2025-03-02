@@ -28,7 +28,7 @@
 #'   the formula constructed and passed to [survival::survfit()]. This object can also be passed as a string.
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   stratification variables to be passed as the right-hand side of the formula constructed and passed to
-#'   [survival::survfit()]. Use `variables=NULL` for an unstratified model, e.g. `Surv() ~ 1`.
+#'   [survival::survfit()]. Default is `NULL` for an unstratified model, e.g. `Surv() ~ 1`.
 #' @param method.args (named `list`)\cr
 #'   named list of arguments that will be passed to [survival::survfit()].
 #' @inheritParams rlang::args_dots_empty
@@ -164,14 +164,14 @@ ard_survival_survfit.survfit <- function(x, times = NULL, probs = NULL, type = N
 
 #' @rdname ard_survival_survfit
 #' @export
-ard_survival_survfit.data.frame <- function(x, y, variables,
+ard_survival_survfit.data.frame <- function(x, y,
+                                            variables = NULL,
                                             times = NULL, probs = NULL, type = NULL,
                                             method.args = list(conf.int = 0.95), ...) {
   set_cli_abort_call()
 
   # check/process inputs -------------------------------------------------------
   check_not_missing(y)
-  check_not_missing(variables)
   cards::process_selectors(x, variables = {{ variables }})
 
   # process outcome as string --------------------------------------------------

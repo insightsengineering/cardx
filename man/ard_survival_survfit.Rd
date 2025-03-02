@@ -13,7 +13,7 @@ ard_survival_survfit(x, ...)
 \method{ard_survival_survfit}{data.frame}(
   x,
   y,
-  variables,
+  variables = NULL,
   times = NULL,
   probs = NULL,
   type = NULL,
@@ -49,7 +49,7 @@ the formula constructed and passed to \code{\link[survival:survfit]{survival::su
 
 \item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 stratification variables to be passed as the right-hand side of the formula constructed and passed to
-\code{\link[survival:survfit]{survival::survfit()}}. Use \code{variables=NULL} for an unstratified model, e.g. \code{Surv() ~ 1}.}
+\code{\link[survival:survfit]{survival::survfit()}}. Default is \code{NULL} for an unstratified model, e.g. \code{Surv() ~ 1}.}
 
 \item{method.args}{(named \code{list})\cr
 named list of arguments that will be passed to \code{\link[survival:survfit]{survival::survfit()}}.}

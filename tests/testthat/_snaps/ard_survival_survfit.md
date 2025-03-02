@@ -341,7 +341,9 @@
       probs = c(0.25, 0.5, 0.75))
     Condition
       Error in `ard_survival_survfit()`:
-      ! The `variables` argument cannot be missing.
+      ! There was an error evaluating the model `survfit(formula = survival::Surv(ttdeath, death) ~ tte ~ 1, data = ., conf.int = 0.95)`
+      Caused by error in `model.frame.default()`:
+      ! object is not a matrix
 
 # ard_survival_survfit() errors with stratified Cox model
 
