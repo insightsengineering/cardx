@@ -180,6 +180,14 @@ ard_survival_survfit.data.frame <- function(x, y,
   if (tryCatch(is.character(eval_tidy(y)), error = \(e) FALSE)) y <- eval_tidy(y) # styler: off
   # otherwise, convert expr to string
   else y <- expr_deparse(quo_get_expr(y))  # styler: off
+  check_class(
+    with(x, eval(parse_expr(y))),
+    cls = "Surv",
+    message =
+    "The {.arg y} argument must be a string or expression that evaluates to an object of class {.cls Surv}
+     most often created with {.fun survival::Surv} or {.fun ggsurvfit::Surv_CNSR}."
+  )
+
 
   # build model ----------------------------------------------------------------
   survfit_formula <-
