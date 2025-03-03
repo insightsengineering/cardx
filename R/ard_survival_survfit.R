@@ -184,7 +184,7 @@ ard_survival_survfit.data.frame <- function(x, y,
     with(x, eval(parse_expr(y))),
     cls = "Surv",
     message =
-    "The {.arg y} argument must be a string or expression that evaluates to an object of class {.cls Surv}
+      "The {.arg y} argument must be a string or expression that evaluates to an object of class {.cls Surv}
      most often created with {.fun survival::Surv} or {.fun ggsurvfit::Surv_CNSR}."
   )
 
