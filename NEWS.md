@@ -1,5 +1,11 @@
 # cardx 0.2.3.9001
 
+* Specifying `ard_survfit_survfit.data.frame(variables=NULL)` now creates an unstratified `survfit()` model, where previously `variables` argument could not be empty. (#277)
+
+* The `ard_survfit_survfit.data.frame(variables)` now accepts tidyselect input. (#278)
+
+# cardx 0.2.3
+
 ## New Features and Updates
 
 * Added function `ard_categorical_max()` to calculate categorical occurrence rates by maximum level per unique ID. (#240)

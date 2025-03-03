@@ -341,7 +341,7 @@
       probs = c(0.25, 0.5, 0.75))
     Condition
       Error in `ard_survival_survfit()`:
-      ! The `variables` argument cannot be missing.
+      ! The `y` argument must be a string or expression that evaluates to an object of class <Surv> most often created with `survival::Surv()` or `ggsurvfit::Surv_CNSR()`.
 
 # ard_survival_survfit() errors with stratified Cox model
 

@@ -259,3 +259,16 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
     class(mtcars$vs)
   )
 })
+
+test_that("ard_survival_survfit.data.frame(variables=NULL) for unstratified model", {
+  expect_equal(
+    cards::ADTTE |>
+      ard_survival_survfit(
+        y = ggsurvfit::Surv_CNSR(AVAL, CNSR),
+        variables = NULL,
+        times = 90
+      ),
+    survival::survfit(ggsurvfit::Surv_CNSR() ~ 1, data = cards::ADTTE) |>
+      ard_survival_survfit(times = 90)
+  )
+})
