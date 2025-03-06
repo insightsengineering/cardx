@@ -5,7 +5,7 @@ test_that("ard_stats_mantelhaen_test() works", {
 
   expect_silent(
     ard_mantelhaentest <- cards::ADSL |>
-      ard_stats_mantelhaen_test(by = ARM, variables = AGEGR1, strata = SEX)
+      ard_stats_mantelhaen_test(by = ARM, variable = AGEGR1, strata = SEX)
   )
 
   expect_snapshot(ard_mantelhaentest |> print(columns = "all"))
@@ -18,16 +18,5 @@ test_that("ard_stats_mantelhaen_test() works", {
       dplyr::select(statistic, p.value) |>
       unclass(),
     ignore_attr = TRUE
-  )
-
-  # function works with multiple variables
-  expect_equal(
-    dplyr::bind_rows(
-      ard_mantelhaentest,
-      cards::ADSL |>
-        ard_stats_mantelhaen_test(by = ARM, variables = BMIBLGR1, strata = SEX)
-    ),
-    cards::ADSL |>
-      ard_stats_mantelhaen_test(by = ARM, variables = c(AGEGR1, BMIBLGR1), strata = SEX)
   )
 })
