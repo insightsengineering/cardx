@@ -4,7 +4,7 @@
 \alias{ard_stats_mantelhaen_test}
 \title{ARD Cochran-Mantel-Haenszel Chi-Squared Test}
 \usage{
-ard_stats_mantelhaen_test(data, by, variables, strata, ...)
+ard_stats_mantelhaen_test(data, by, variable, strata, ...)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
@@ -13,8 +13,8 @@ a data frame.}
 \item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to compare by.}
 
-\item{variables}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column names to be compared. Independent tests will be computed for each variable.}
+\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name to be compared.}
 
 \item{strata}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name to stratify by.}
@@ -31,6 +31,6 @@ Calculated with \code{mantelhaen.test(x = data[[variable]], y = data[[by]], z = 
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 cards::ADSL |>
-  ard_stats_mantelhaen_test(by = "ARM", variables = "AGEGR1", strata = "SEX")
+  ard_stats_mantelhaen_test(by = "ARM", variable = "AGEGR1", strata = "SEX")
 \dontshow{\}) # examplesIf}
 }

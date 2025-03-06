@@ -19,4 +19,15 @@ test_that("ard_stats_mantelhaen_test() works", {
       unclass(),
     ignore_attr = TRUE
   )
+
+  # custom arguments to stats::mantelhaen.test()
+  expect_silent(
+    ard_mantelhaentest <- cards::ADSL |>
+      ard_stats_mantelhaen_test(
+        by = ARM, variable = AGEGR1, strata = SEX,
+        alternative = "less", correct = FALSE, exact = TRUE, conf.level = 0.90
+      )
+  )
+
+  expect_snapshot(ard_mantelhaentest |> print(columns = "all"))
 })

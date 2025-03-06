@@ -37,14 +37,19 @@ ard_stats_mantelhaen_test <- cards::as_cards_fn(
     check_scalar(variable)
     check_scalar(by)
     check_scalar(strata)
+    check_class(data[[variable]], c("character", "factor"))
+    check_class(data[[by]], c("character", "factor"))
+    check_class(data[[strata]], c("character", "factor"))
 
     # return empty ARD if no variable selected ----------------------------------
     if (is_empty(variable)) {
       return(dplyr::tibble() |> cards::as_card())
     }
 
-    formals_cmh <- formals(asNamespace("stats")[["mantelhaen.test"]])
-    if (!"alternative" %in% names(dots_list())) formals_cmh$alternative <- "two.sided"
+    dots <- dots_list(...)
+    formals_cmh <- formals(asNamespace("stats")[["mantelhaen.test"]])[-c(1:3)]
+    if (!"alternative" %in% names(dots)) formals_cmh$alternative <- "two.sided"
+    formals_cmh <- c(dots, formals_cmh[setdiff(names(formals_cmh), names(dots))])
 
     # build ARD ------------------------------------------------------------------
     mantelhaen <- stats::mantelhaen.test(
@@ -57,7 +62,7 @@ ard_stats_mantelhaen_test <- cards::as_cards_fn(
 
     result <- mantelhaen[["result"]] |>
       broom::tidy() |>
-      dplyr::bind_cols(formals_cmh[-c(1:3)])
+      dplyr::bind_cols(formals_cmh)
 
     dplyr::tibble(
       stat_name = names(result),
@@ -94,6 +99,7 @@ ard_stats_mantelhaen_test <- cards::as_cards_fn(
       error = mantelhaen["error"]
     ) |>
     cards::as_card() |>
+    cards::tidy_ard_row_order() |>
     cards::tidy_ard_column_order()
   },
   stat_names = c(
