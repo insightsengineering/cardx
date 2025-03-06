@@ -1,4 +1,4 @@
-# ard_stats_mantelhaen_test.data.frame() works
+# ard_stats_mantelhaen_test() works
 
     Code
       print(ard_mantelhaentest, columns = "all")
@@ -14,20 +14,4 @@
       6    ARM    SEX   AGEGR1 stats_ma…     correct  Continui…      TRUE   NULL              
       7    ARM    SEX   AGEGR1 stats_ma…       exact  Exact Co…     FALSE   NULL              
       8    ARM    SEX   AGEGR1 stats_ma…  conf.level  CI Confi…      0.95      1              
-
-# ard_stats_mantelhaen_test.array() works
-
-    Code
-      ard_mantelhaentest <- ard_stats_mantelhaen_test(bad_array)
-    Condition
-      Error in `ard_stats_mantelhaen_test()`:
-      ! When `data` is an <array> it must be 3-dimensional, but `data` is currently 2-dimensional.
-
----
-
-    Code
-      ard_mantelhaentest <- ard_stats_mantelhaen_test(bad_array)
-    Condition
-      Error in `ard_stats_mantelhaen_test()`:
-      ! The array given as `data` is unnamed but must have 3 named dimensions. The names will be assigned as the `by`, `variables`, and `strata` column names, respectively.
 
