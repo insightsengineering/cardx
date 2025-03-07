@@ -11,17 +11,17 @@
 #'   column name used to indicate censoring, i.e. whether an event has been observed (1) or not (0).
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name used to identify unique patients in `data`.
-#' @param `conf.level` (`numeric`)\cr
+#' @param conf.level (`numeric`)\cr
 #'   confidence level for the estimated incidence rate.
-#' @param `conf.type` (`string`)\cr
+#' @param conf.type (`string`)\cr
 #'   confidence interval type for the estimated incidence rate.
 #'
 #'   One of: `normal` (default), `normal_log`, `exact`, or `byar`.
-#' @param `var_unit` (`string`)\cr
+#' @param var_unit (`string`)\cr
 #'   unit of time of values in `x`.
 #'
 #'   One of: `day`, `week`, `month`, or `year` (default)
-#' @param `n_person_years` (`numeric`)\cr
+#' @param n_person_years (`numeric`)\cr
 #'   number of person-years to estimate incidence rate for. Defaults to 100.
 #'
 #' @return an ARD data frame of class 'card'
@@ -132,9 +132,9 @@ ard_incidence_rate <- cards::as_cards_fn(
         ),
       context = "incidence_rate"
     ) |>
-    cards::as_card() |>
-    cards::tidy_ard_row_order() |>
-    cards::tidy_ard_column_order()
+      cards::as_card() |>
+      cards::tidy_ard_row_order() |>
+      cards::tidy_ard_column_order()
   },
   stat_names = c(
     "estimate", "conf.low", "conf.high", "conf.type", "conf.level", "tot_person_years", "n_events"

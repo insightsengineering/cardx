@@ -28,20 +28,20 @@ column name used to indicate censoring, i.e. whether an event has been observed 
 \item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name used to identify unique patients in \code{data}.}
 
-\item{`conf.level`}{(\code{numeric})\cr
+\item{conf.level}{(\code{numeric})\cr
 confidence level for the estimated incidence rate.}
 
-\item{`conf.type`}{(\code{string})\cr
+\item{conf.type}{(\code{string})\cr
 confidence interval type for the estimated incidence rate.
 
 One of: \code{normal} (default), \code{normal_log}, \code{exact}, or \code{byar}.}
 
-\item{`var_unit`}{(\code{string})\cr
+\item{var_unit}{(\code{string})\cr
 unit of time of values in \code{x}.
 
 One of: \code{day}, \code{week}, \code{month}, or \code{year} (default)}
 
-\item{`n_person_years`}{(\code{numeric})\cr
+\item{n_person_years}{(\code{numeric})\cr
 number of person-years to estimate incidence rate for. Defaults to 100.}
 }
 \value{
