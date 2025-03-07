@@ -52,29 +52,26 @@ ard_stats_mantelhaen_test <- cards::as_cards_fn(
     formals_cmh <- c(dots, formals_cmh[setdiff(names(formals_cmh), names(dots))])
 
     # build ARD ------------------------------------------------------------------
-    mantelhaen <- stats::mantelhaen.test(
+    results <- stats::mantelhaen.test(
       x = data[[variable]],
       y = data[[by]],
       z = data[[strata]],
       ...
     ) |>
-      cards::eval_capture_conditions()
-
-    result <- mantelhaen[["result"]] |>
       broom::tidy() |>
       dplyr::bind_cols(formals_cmh)
 
     dplyr::tibble(
-      stat_name = names(result),
-      stat = as.list(result),
+      stat_name = names(results),
+      stat = as.list(results) |> unname(),
       variable = variable,
       group1 = by,
       group2 = strata,
       stat_label =
         dplyr::case_when(
-          .data$stat_name %in% "estimate" & result[["exact"]] ~ "Mantel-Haenszel Odds Ratio Estimate",
+          .data$stat_name %in% "estimate" & results[["exact"]] ~ "Mantel-Haenszel Odds Ratio Estimate",
           .data$stat_name %in% "estimate" ~ "Conditional Maximum Likelihood Odds Ratio Estimate",
-          .data$stat_name %in% "statistic" & result[["exact"]] ~ "Mantel-Haenszel X-squared Statistic",
+          .data$stat_name %in% "statistic" & results[["exact"]] ~ "Mantel-Haenszel X-squared Statistic",
           .data$stat_name %in% "statistic" ~ "Generalized Cochran-Mantel-Haenszel Statistic",
           .data$stat_name %in% "p.value" ~ "p-value",
           .data$stat_name %in% "parameter" ~ "Degrees of Freedom",
@@ -85,22 +82,11 @@ ard_stats_mantelhaen_test <- cards::as_cards_fn(
           .data$stat_name %in% "conf.high" ~ "CI Upper Bound",
           TRUE ~ .data$stat_name
         ),
-      fmt_fn =
-        map(
-          .data$stat,
-          function(.x) {
-            if (is.integer(.x)) return(0L)
-            if (is.numeric(.x)) return(1L)
-            NULL
-          }
-        ),
-      context = "stats_mantelhaen_test",
-      warning = mantelhaen["warning"],
-      error = mantelhaen["error"]
+      context = "stats_mantelhaen_test"
     ) |>
-    cards::as_card() |>
-    cards::tidy_ard_row_order() |>
-    cards::tidy_ard_column_order()
+      cards::as_card() |>
+      cards::tidy_ard_row_order() |>
+      cards::tidy_ard_column_order()
   },
   stat_names = c(
     "estimate", "statistic", "p.value", "parameter", "correct", "exact", "conf.level", "conf.low", "conf.high"
