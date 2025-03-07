@@ -16,7 +16,7 @@
 #' @param conf.type (`string`)\cr
 #'   confidence interval type for the estimated incidence rate.
 #'
-#'   One of: `normal` (default), `normal_log`, `exact`, or `byar`.
+#'   One of: `normal` (default), `normal-log`, `exact`, or `byar`.
 #' @param var_unit (`string`)\cr
 #'   unit of time of values in `x`.
 #'
@@ -55,11 +55,11 @@ ard_incidence_rate <- cards::as_cards_fn(
     check_string(conf.type)
     check_string(var_unit)
     check_numeric(n_person_years)
-    if (!conf.type %in% c("normal", "normal_log", "exact", "byar")) {
+    if (!conf.type %in% c("normal", "normal-log", "exact", "byar")) {
       cli::cli_abort(
         paste(
           "The {.arg conf.type} argument is {.val {conf.type}} but must be one of",
-          "{.val {c('normal', 'normal_log', 'exact', 'byar')}}."
+          "{.val {c('normal', 'normal-log', 'exact', 'byar')}}."
         ),
         call = get_cli_abort_call()
       )
@@ -82,7 +82,7 @@ ard_incidence_rate <- cards::as_cards_fn(
     n_unique_id <- sum(!is.na(unique(data[[id]][data[[cnsr]] == 1])))
     rate_est <- n_events / tot_person_years
     alpha <- 1 - conf.level
-    if (conf.type %in% c("normal", "normal_log")) {
+    if (conf.type %in% c("normal", "normal-log")) {
       rate_se <- sqrt(rate_est / tot_person_years)
       rate_ci <- if (conf.type == "normal") {
         rate_est + c(-1, 1) * stats::qnorm(1 - alpha / 2) * rate_se

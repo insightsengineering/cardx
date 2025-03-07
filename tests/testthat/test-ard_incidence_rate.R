@@ -14,6 +14,29 @@ test_that("ard_incidence_rate() works", {
   expect_snapshot(res)
 })
 
+test_that("ard_incidence_rate(conf.type) works", {
+  # conf.type = "normal-log"
+  expect_silent(
+    res <- cards::ADTTE |>
+      ard_incidence_rate(AVAL, CNSR, USUBJID, conf.type = "normal-log")
+  )
+  expect_snapshot(res)
+
+  # conf.type = "exact"
+  expect_silent(
+    res <- cards::ADTTE |>
+      ard_incidence_rate(AVAL, CNSR, USUBJID, conf.type = "exact")
+  )
+  expect_snapshot(res)
+
+  # conf.type = "byar"
+  expect_silent(
+    res <- cards::ADTTE |>
+      ard_incidence_rate(AVAL, CNSR, USUBJID, conf.type = "byar")
+  )
+  expect_snapshot(res)
+})
+
 test_that("ard_incidence_rate() errors are handled correctly", {
   # incorrect conf.type
   expect_snapshot(

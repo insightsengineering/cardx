@@ -34,7 +34,7 @@ confidence level for the estimated incidence rate.}
 \item{conf.type}{(\code{string})\cr
 confidence interval type for the estimated incidence rate.
 
-One of: \code{normal} (default), \code{normal_log}, \code{exact}, or \code{byar}.}
+One of: \code{normal} (default), \code{normal-log}, \code{exact}, or \code{byar}.}
 
 \item{var_unit}{(\code{string})\cr
 unit of time of values in \code{x}.
