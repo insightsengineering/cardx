@@ -1,4 +1,4 @@
-# cardx 0.2.3.9002
+# cardx 0.2.3.9003
 
 * Specifying `ard_survfit_survfit.data.frame(variables=NULL)` now creates an unstratified `survfit()` model, where previously `variables` argument could not be empty. (#277)
 

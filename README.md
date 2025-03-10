@@ -6,6 +6,9 @@
 [![R-CMD-check](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/insightsengineering/cardx/branch/main/graph/badge.svg)](https://app.codecov.io/gh/insightsengineering/cardx?branch=main)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/cardx)](https://CRAN.R-project.org/package=cardx)
+[![Downloads](https://cranlogs.r-pkg.org/badges/cardx)](https://cran.r-project.org/package=cardx)
 <!-- badges: end -->
 
 The **{cardx}** package is an extension of the {cards} package,
