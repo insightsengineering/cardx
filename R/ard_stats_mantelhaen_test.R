@@ -1,0 +1,94 @@
+#' ARD Cochran-Mantel-Haenszel Chi-Squared Test
+#'
+#' @description
+#' Analysis results data for Cochran-Mantel-Haenszel Chi-Squared Test for count data.
+#' Calculated with `mantelhaen.test(x = data[[variable]], y = data[[by]], z = data[[strata]], ...)`.
+#'
+#' @param data (`data.frame`)\cr
+#'   a data frame.
+#' @param by ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to compare by.
+#' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to be compared.
+#' @param strata ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name to stratify by.
+#' @param ... additional arguments passed to `stats::mantelhaen.test(...)`
+#'
+#' @return ARD data frame
+#' @name ard_stats_mantelhaen_test
+#' @export
+#'
+#' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))
+#' cards::ADSL |>
+#'   ard_stats_mantelhaen_test(by = "ARM", variable = "AGEGR1", strata = "SEX")
+ard_stats_mantelhaen_test <- cards::as_cards_fn(
+  function(data, by, variable, strata, ...) {
+    set_cli_abort_call()
+
+    # check installed packages ---------------------------------------------------
+    check_pkg_installed("broom")
+
+    # check/process inputs -------------------------------------------------------
+    check_not_missing(data)
+    check_not_missing(variable)
+    check_not_missing(by)
+    check_not_missing(strata)
+    cards::process_selectors(data, by = {{ by }}, variable = {{ variable }}, strata = {{ strata }})
+    check_scalar(variable)
+    check_scalar(by)
+    check_scalar(strata)
+    check_class(data[[variable]], c("character", "factor"))
+    check_class(data[[by]], c("character", "factor"))
+    check_class(data[[strata]], c("character", "factor"))
+
+    # return empty ARD if no variable selected ----------------------------------
+    if (is_empty(variable)) {
+      return(dplyr::tibble() |> cards::as_card())
+    }
+
+    dots <- dots_list(...)
+    formals_cmh <- formals(asNamespace("stats")[["mantelhaen.test"]])[-c(1:3)]
+    if (!"alternative" %in% names(dots)) formals_cmh$alternative <- "two.sided"
+    formals_cmh <- c(dots, formals_cmh[setdiff(names(formals_cmh), names(dots))])
+
+    # build ARD ------------------------------------------------------------------
+    results <- stats::mantelhaen.test(
+      x = data[[variable]],
+      y = data[[by]],
+      z = data[[strata]],
+      ...
+    ) |>
+      broom::tidy() |>
+      dplyr::bind_cols(formals_cmh)
+
+    dplyr::tibble(
+      stat_name = names(results),
+      stat = as.list(results) |> unname(),
+      variable = variable,
+      group1 = by,
+      group2 = strata,
+      stat_label =
+        dplyr::case_when(
+          .data$stat_name %in% "estimate" & results[["exact"]] ~ "Mantel-Haenszel Odds Ratio Estimate",
+          .data$stat_name %in% "estimate" ~ "Conditional Maximum Likelihood Odds Ratio Estimate",
+          .data$stat_name %in% "statistic" & results[["exact"]] ~ "Mantel-Haenszel X-squared Statistic",
+          .data$stat_name %in% "statistic" ~ "Generalized Cochran-Mantel-Haenszel Statistic",
+          .data$stat_name %in% "p.value" ~ "p-value",
+          .data$stat_name %in% "parameter" ~ "Degrees of Freedom",
+          .data$stat_name %in% "correct" ~ "Continuity Correction",
+          .data$stat_name %in% "exact" ~ "Exact Conditional Test",
+          .data$stat_name %in% "conf.level" ~ "CI Confidence Level",
+          .data$stat_name %in% "conf.low" ~ "CI Lower Bound",
+          .data$stat_name %in% "conf.high" ~ "CI Upper Bound",
+          TRUE ~ .data$stat_name
+        ),
+      context = "stats_mantelhaen_test"
+    ) |>
+      cards::as_card() |>
+      cards::tidy_ard_row_order() |>
+      cards::tidy_ard_column_order()
+  },
+  stat_names = c(
+    "estimate", "statistic", "p.value", "parameter", "correct", "exact", "conf.level", "conf.low", "conf.high"
+  )
+)
