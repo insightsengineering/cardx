@@ -8,16 +8,18 @@ ard_incidence_rate(
   data,
   variable,
   cnsr,
-  id,
+  id = NULL,
+  by = NULL,
+  strata = NULL,
   conf.level = 0.95,
-  conf.type = "normal",
-  var_unit = "year",
+  conf.type = c("normal", "normal-log", "exact", "byar"),
+  units = c("years", "months", "weeks", "days"),
   n_person_years = 100
 )
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
-a data frame.}
+a data frame. Each row in \code{data} is assumed to correspond to a unique event occurrence.}
 
 \item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name of time-to-event variable.}
@@ -26,7 +28,8 @@ column name of time-to-event variable.}
 column name used to indicate censoring, i.e. whether an event has been observed (1) or not (0).}
 
 \item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name used to identify unique patients in \code{data}.}
+column name used to identify unique patients in \code{data}. If \code{NULL}, each row in \code{data} is assumed to correspond to
+a unique patient.}
 
 \item{conf.level}{(\code{numeric})\cr
 confidence level for the estimated incidence rate.}
@@ -36,10 +39,10 @@ confidence interval type for the estimated incidence rate.
 
 One of: \code{normal} (default), \code{normal-log}, \code{exact}, or \code{byar}.}
 
-\item{var_unit}{(\code{string})\cr
+\item{units}{(\code{string})\cr
 unit of time of values in \code{x}.
 
-One of: \code{day}, \code{week}, \code{month}, or \code{year} (default)}
+One of: \code{years} (default), \code{months}, \code{weeks}, or \code{days}}
 
 \item{n_person_years}{(\code{numeric})\cr
 number of person-years to estimate incidence rate for. Defaults to 100.}
@@ -53,8 +56,8 @@ calculates the estimated incidence rate in person years.
 }
 \examples{
 cards::ADTTE |>
-  ard_incidence_rate(AVAL, CNSR, USUBJID)
+  ard_incidence_rate(variable = AVAL, by = TRTA, cnsr = CNSR, id = USUBJID)
 
 cards::ADTTE |>
-  ard_incidence_rate(AVAL, CNSR, USUBJID, var_unit = "month", n_person_years = 10)
+  ard_incidence_rate(variable = AVAL, cnsr = CNSR, id = USUBJID, units = "months", n_person_years = 10)
 }
