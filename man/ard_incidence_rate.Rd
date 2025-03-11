@@ -31,6 +31,18 @@ column name used to indicate censoring, i.e. whether an event has been observed 
 column name used to identify unique patients in \code{data}. If \code{NULL}, each row in \code{data} is assumed to correspond to
 a unique patient.}
 
+\item{by, strata}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+columns to tabulate by/stratify by for summary statistic
+calculation. Arguments are similar, but with an important distinction:
+
+\code{by}: results are calculated for \strong{all combinations} of the columns specified,
+including unobserved combinations and unobserved factor levels.
+
+\code{strata}: results are calculated for \strong{all \emph{observed} combinations} of the
+columns specified.
+
+Arguments may be used in conjunction with one another.}
+
 \item{conf.level}{(\code{numeric})\cr
 confidence level for the estimated incidence rate.}
 
@@ -59,5 +71,11 @@ cards::ADTTE |>
   ard_incidence_rate(variable = AVAL, by = TRTA, cnsr = CNSR, id = USUBJID)
 
 cards::ADTTE |>
-  ard_incidence_rate(variable = AVAL, cnsr = CNSR, id = USUBJID, units = "months", n_person_years = 10)
+  ard_incidence_rate(
+    variable = AVAL,
+    cnsr = CNSR,
+    id = USUBJID,
+    units = "months",
+    n_person_years = 10
+  )
 }
