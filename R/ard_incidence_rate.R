@@ -98,7 +98,6 @@ ard_incidence_rate <- function(data,
 
         dplyr::tibble(
           estimate = rate_est * n_person_years,
-          estimate_label = paste("Estimated AE rate per", n_person_years, "person-years"),
           conf.low = conf.low * n_person_years,
           conf.high = conf.high * n_person_years,
           conf.type = conf.type,
@@ -123,7 +122,7 @@ ard_incidence_rate <- function(data,
     ) |>
       dplyr::select(-"stat_label") |>
       dplyr::left_join(
-        .df_incidence_rate_stat_labels(),
+        .df_incidence_rate_stat_labels(n_person_years),
         by = "stat_name"
       ) |>
       dplyr::mutate(
@@ -135,9 +134,10 @@ ard_incidence_rate <- function(data,
       cards::tidy_ard_row_order()
   }
 
-.df_incidence_rate_stat_labels <- function() {
+.df_incidence_rate_stat_labels <- function(n_person_years) {
   dplyr::tribble(
     ~stat_name, ~stat_label,
+    "estimate", paste("Estimated AE Rate per", n_person_years, "Person-Years"),
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
     "conf.type", "CI Type",

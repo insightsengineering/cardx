@@ -5,6 +5,7 @@ test_that("ard_incidence_rate() works", {
       ard_incidence_rate(AVAL, CNSR, USUBJID)
   )
   expect_snapshot(res |> print(columns = "all"))
+  expect_equal(res$stat_label[1], "Estimated AE Rate per 100 Person-Years")
 
   # custom arguments
   expect_silent(
@@ -12,6 +13,7 @@ test_that("ard_incidence_rate() works", {
       ard_incidence_rate(AVAL, CNSR, USUBJID, units = "months", n_person_years = 10)
   )
   expect_snapshot(res |> print(columns = "all"))
+  expect_equal(res$stat_label[1], "Estimated AE Rate per 10 Person-Years")
 })
 
 test_that("ard_incidence_rate(conf.type) works", {
