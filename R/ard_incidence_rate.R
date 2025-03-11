@@ -63,7 +63,7 @@ ard_incidence_rate <- function(data,
     units <- arg_match(units, error_call = get_cli_abort_call())
 
     # calculate incidence rate & related statistics ------------------------------
-    calc_incidence_rate <- as_cards_fn(
+    calc_incidence_rate <- cards::as_cards_fn(
       \(x) {
         tot_person_years <- sum(x, na.rm = TRUE) / (
           (units == "years") + (units == "months") * 12 + (units == "weeks") * 52.14 + (units == "days") * 365.24
