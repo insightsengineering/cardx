@@ -15,7 +15,7 @@ test_that("ard_incidence_rate() works", {
 
   adae_single <- adae |>
     dplyr::group_by(USUBJID) |>
-    dplyr::summarize(count = dplyr::n(), interval = mean(interval))
+    dplyr::summarize(count = dplyr::n(), interval = mean(interval) * dplyr::n()) # create equal-sized intervals
 
   # one row per subject
   expect_silent(

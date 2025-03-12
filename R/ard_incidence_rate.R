@@ -10,7 +10,7 @@
 #' @param data (`data.frame`)\cr
 #'   a data frame.
 #' @param interval ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name of time interval (time-to-event) variable. Any rows in `data` where `interval` is `NA` will be removed.
+#'   column name of time interval (time at risk) variable.
 #' @param count ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of variable indicating count of events that occurred. If `NULL`, each row in `data` is assumed to
 #'   correspond to a single event occurrence.
@@ -80,9 +80,6 @@ ard_incidence_rate <- function(data,
       } else {
         nrow(data)
       }
-
-      # one interval per event
-      if (!is_empty(count)) x <- x * sapply(data[[count]], max, 1)
 
       # calculate total person-years
       tot_person_years <- sum(x, na.rm = TRUE) / (

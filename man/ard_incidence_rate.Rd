@@ -22,7 +22,7 @@ ard_incidence_rate(
 a data frame.}
 
 \item{interval}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name of time interval (time-to-event) variable. Any rows in \code{data} where \code{interval} is \code{NA} will be removed.}
+column name of time interval (time at risk) variable.}
 
 \item{count}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name of variable indicating count of events that occurred. If \code{NULL}, each row in \code{data} is assumed to
