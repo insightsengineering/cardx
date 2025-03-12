@@ -22,7 +22,7 @@ ard_incidence_rate(
 a data frame.}
 
 \item{interval}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name of time interval (time-to-event) variable.}
+column name of time interval (time-to-event) variable. Any rows in \code{data} where \code{interval} is \code{NA} will be removed.}
 
 \item{count}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name of variable indicating count of events that occurred. If \code{NULL}, each row in \code{data} is assumed to
@@ -73,15 +73,11 @@ Incidence rate is calculated as:
 Total number of events that occurred / Total person-time at risk
 }
 \examples{
-cards::ADAE |>
-  ard_incidence_rate(interval = AETTE, by = TRTA, count = AETOT, id = USUBJID)
-
 cards::ADTTE |>
-  ard_incidence_rate(
-    interval = AVAL,
-    count = CNSR,
-    id = USUBJID,
-    units = "months",
-    n_person_years = 10
-  )
+  ard_incidence_rate(interval = AVAL, count = CNSR, id = USUBJID)
+
+cards::ADAE |>
+  dplyr::rowwise() |>
+  dplyr::mutate(interval = max(.data$ASTDY, 0)) |>
+  ard_incidence_rate(interval = interval, id = USUBJID, by = TRTA, units = "days", n_person_years = 50)
 }

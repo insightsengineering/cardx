@@ -30,7 +30,7 @@
       5 interval incidenc…       conf.level  CI Confi…    0.95      1              
       6 interval incidenc… tot_person_years  Person-Y… 142.085      1              
       7 interval incidenc…         n_events  Number o…    1135      0              
-      8 interval incidenc…      n_unique_id  Number o…     225      0              
+      8 interval incidenc…      n_unique_id  Number o…     217      0              
 
 ---
 
@@ -47,7 +47,7 @@
       5 interval incidenc…       conf.level  CI Confi…    0.95      1              
       6 interval incidenc… tot_person_years  Person-Y… 149.964      1              
       7 interval incidenc…         n_events  Number o…    1180      0              
-      8 interval incidenc…      n_unique_id  Number o…    1191      0              
+      8 interval incidenc…      n_unique_id  Number o…    1180      0              
 
 ---
 
@@ -64,7 +64,7 @@
       5 interval incidenc…       conf.level  CI Confi…    0.95      1              
       6 interval incidenc… tot_person_years  Person-Y… 149.964      1              
       7 interval incidenc…         n_events  Number o…    1180      0              
-      8 interval incidenc…      n_unique_id  Number o…     225      0              
+      8 interval incidenc…      n_unique_id  Number o…     224      0              
 
 # ard_incidence_rate(conf.type) works
 

@@ -10,7 +10,7 @@
 #' @param data (`data.frame`)\cr
 #'   a data frame.
 #' @param interval ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name of time interval (time-to-event) variable. Any events in rows where `interval` is `NA` will be ignored.
+#'   column name of time interval (time-to-event) variable. Any rows in `data` where `interval` is `NA` will be removed.
 #' @param count ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of variable indicating count of events that occurred. If `NULL`, each row in `data` is assumed to
 #'   correspond to a single event occurrence.
@@ -71,7 +71,7 @@ ard_incidence_rate <- function(data,
 
   # calculate incidence rate & related statistics ------------------------------
   calc_incidence_rate <- cards::as_cards_fn(
-    \(x) {
+    \(x, data, ...) {
       # calculate number of unique IDs with >=1 AE
       n_unique_id <- if (!is_empty(id) && !is_empty(count)) {
         length(unique(data[[id]][data[[count]] > 0]))
@@ -80,9 +80,6 @@ ard_incidence_rate <- function(data,
       } else {
         nrow(data)
       }
-
-      # exclude rows with no interval data available
-      data <- data[!is.na(data[[interval]]), ]
 
       # one interval per event
       if (!is_empty(count)) x <- x * sapply(data[[count]], max, 1)
@@ -134,7 +131,7 @@ ard_incidence_rate <- function(data,
   )
 
   # build ARD ------------------------------------------------------------------
-  cards::ard_continuous(
+  cards::ard_complex(
     data = data,
     variables = all_of(interval),
     by = any_of(by),
