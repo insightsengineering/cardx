@@ -6,8 +6,8 @@
 \usage{
 ard_incidence_rate(
   data,
-  variable,
-  cnsr,
+  interval,
+  count = NULL,
   id = NULL,
   by = NULL,
   strata = NULL,
@@ -19,13 +19,14 @@ ard_incidence_rate(
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr
-a data frame. Each row in \code{data} is assumed to correspond to a unique event occurrence.}
+a data frame.}
 
-\item{variable}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name of time-to-event variable.}
+\item{interval}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name of time interval (time-to-event) variable.}
 
-\item{cnsr}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name used to indicate censoring, i.e. whether an event has been observed (1) or not (0).}
+\item{count}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name of variable indicating count of events that occurred. If \code{NULL}, each row in \code{data} is assumed to
+correspond to a single event occurrence.}
 
 \item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name used to identify unique patients in \code{data}. If \code{NULL}, each row in \code{data} is assumed to correspond to
@@ -52,7 +53,7 @@ confidence interval type for the estimated incidence rate.
 One of: \code{normal} (default), \code{normal-log}, \code{exact}, or \code{byar}.}
 
 \item{units}{(\code{string})\cr
-unit of time of values in \code{x}.
+unit of time of values in \code{interval}.
 
 One of: \code{years} (default), \code{months}, \code{weeks}, or \code{days}}
 
@@ -63,17 +64,22 @@ number of person-years to estimate incidence rate for. Defaults to 100.}
 an ARD data frame of class 'card'
 }
 \description{
-Function takes a time variable (\code{variable}), censoring variable (\code{cnsr}), and patient ID variable (\code{id}) and
-calculates the estimated incidence rate in person years.
+Function takes a time interval variable (\code{interval}) and event count variable (\code{count}) and calculates the incidence
+rate in person years.
+}
+\details{
+Incidence rate is calculated as:
+
+Total number of events that occurred / Total person-time at risk
 }
 \examples{
-cards::ADTTE |>
-  ard_incidence_rate(variable = AVAL, by = TRTA, cnsr = CNSR, id = USUBJID)
+cards::ADAE |>
+  ard_incidence_rate(interval = AETTE, by = TRTA, count = AETOT, id = USUBJID)
 
 cards::ADTTE |>
   ard_incidence_rate(
-    variable = AVAL,
-    cnsr = CNSR,
+    interval = AVAL,
+    count = CNSR,
     id = USUBJID,
     units = "months",
     n_person_years = 10

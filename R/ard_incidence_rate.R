@@ -1,14 +1,19 @@
 #' ARD Incidence Rate
 #'
-#' Function takes a time variable (`variable`), censoring variable (`cnsr`), and patient ID variable (`id`) and
-#' calculates the estimated incidence rate in person years.
+#' Function takes a time interval variable (`interval`) and event count variable (`count`) and calculates the incidence
+#' rate in person years.
+#'
+#' Incidence rate is calculated as:
+#'
+#' Total number of events that occurred / Total person-time at risk
 #'
 #' @param data (`data.frame`)\cr
-#'   a data frame. Each row in `data` is assumed to correspond to a unique event occurrence.
-#' @param variable ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name of time-to-event variable.
-#' @param cnsr ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name used to indicate censoring, i.e. whether an event has been observed (1) or not (0).
+#'   a data frame.
+#' @param interval ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name of time interval (time-to-event) variable. Any events in rows where `interval` is `NA` will be ignored.
+#' @param count ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name of variable indicating count of events that occurred. If `NULL`, each row in `data` is assumed to
+#'   correspond to a single event occurrence.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name used to identify unique patients in `data`. If `NULL`, each row in `data` is assumed to correspond to
 #'   a unique patient.
@@ -19,7 +24,7 @@
 #'
 #'   One of: `normal` (default), `normal-log`, `exact`, or `byar`.
 #' @param units (`string`)\cr
-#'   unit of time of values in `x`.
+#'   unit of time of values in `interval`.
 #'
 #'   One of: `years` (default), `months`, `weeks`, or `days`
 #' @param n_person_years (`numeric`)\cr
@@ -31,19 +36,15 @@
 #'
 #' @examples
 #' cards::ADTTE |>
-#'   ard_incidence_rate(variable = AVAL, by = TRTA, cnsr = CNSR, id = USUBJID)
+#'   ard_incidence_rate(interval = AVAL, count = CNSR, id = USUBJID)
 #'
-#' cards::ADTTE |>
-#'   ard_incidence_rate(
-#'     variable = AVAL,
-#'     cnsr = CNSR,
-#'     id = USUBJID,
-#'     units = "months",
-#'     n_person_years = 10
-#'   )
+#' cards::ADAE |>
+#'   dplyr::rowwise() |>
+#'   dplyr::mutate(interval = max(.data$ASTDY, 0)) |>
+#'   ard_incidence_rate(interval = interval, id = USUBJID, by = TRTA, units = "days", n_person_years = 50)
 ard_incidence_rate <- function(data,
-                               variable,
-                               cnsr,
+                               interval,
+                               count = NULL,
                                id = NULL,
                                by = NULL,
                                strata = NULL,
@@ -55,15 +56,13 @@ ard_incidence_rate <- function(data,
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
-  check_not_missing(variable)
-  check_not_missing(cnsr)
+  check_not_missing(interval)
   check_data_frame(data)
   cards::process_selectors(
     data,
-    variable = {{ variable }}, by = {{ by }}, strata = {{ strata }}, cnsr = {{ cnsr }}, id = {{ id }}
+    interval = {{ interval }}, by = {{ by }}, strata = {{ strata }}, count = {{ count }}, id = {{ id }}
   )
-  check_class(data[[variable]], "numeric")
-  check_class(data[[cnsr]], "numeric")
+  check_class(data[[interval]], c("numeric", "integer"))
   check_range(conf.level, c(0, 1))
   check_numeric(n_person_years)
 
@@ -73,15 +72,29 @@ ard_incidence_rate <- function(data,
   # calculate incidence rate & related statistics ------------------------------
   calc_incidence_rate <- cards::as_cards_fn(
     \(x) {
-      tot_person_years <- sum(x, na.rm = TRUE) / (
-        (units == "years") + (units == "months") * 12 + (units == "weeks") * 52.14 + (units == "days") * 365.24
-      )
-      n_events <- sum(data[[cnsr]], na.rm = TRUE)
-      n_unique_id <- if (!is.null(id)) {
-        sum(!is.na(unique(data[[id]][data[[cnsr]] == 1])))
+      # calculate number of unique IDs with >=1 AE
+      n_unique_id <- if (!is_empty(id) && !is_empty(count)) {
+        length(unique(data[[id]][data[[count]] > 0]))
+      } else if (!is_empty(id)) {
+        length(unique(data[[id]]))
       } else {
         nrow(data)
       }
+
+      # exclude rows with no interval data available
+      data <- data[!is.na(data[[interval]]), ]
+
+      # one interval per event
+      if (!is_empty(count)) x <- x * sapply(data[[count]], max, 1)
+
+      # calculate total person-years
+      tot_person_years <- sum(x, na.rm = TRUE) / (
+        (units == "years") + (units == "months") * 12 + (units == "weeks") * 52.14 + (units == "days") * 365.24
+      )
+
+      # calculate total number of events
+      n_events <- if (!is_empty(count)) sum(data[[count]], na.rm = TRUE) else nrow(data)
+
       rate_est <- n_events / tot_person_years
       alpha <- 1 - conf.level
       if (conf.type %in% c("normal", "normal-log")) {
@@ -123,10 +136,10 @@ ard_incidence_rate <- function(data,
   # build ARD ------------------------------------------------------------------
   cards::ard_continuous(
     data = data,
-    variables = all_of(variable),
+    variables = all_of(interval),
     by = any_of(by),
     strata = any_of(strata),
-    statistic = all_of(variable) ~ list(incidence_rate = calc_incidence_rate)
+    statistic = all_of(interval) ~ list(incidence_rate = calc_incidence_rate)
   ) |>
     dplyr::select(-"stat_label") |>
     dplyr::left_join(
@@ -145,7 +158,7 @@ ard_incidence_rate <- function(data,
 .df_incidence_rate_stat_labels <- function(n_person_years) {
   dplyr::tribble(
     ~stat_name, ~stat_label,
-    "estimate", paste("Estimated AE Rate per", n_person_years, "Person-Years"),
+    "estimate", paste("AE Rate per", n_person_years, "Person-Years"),
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
     "conf.type", "CI Type",
