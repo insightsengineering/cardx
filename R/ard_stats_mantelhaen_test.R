@@ -51,10 +51,10 @@ ard_stats_mantelhaen_test <- function(data, by, variables, strata, ...) {
   formals_cmh <- c(dots, formals_cmh[setdiff(names(formals_cmh), names(dots))])
 
   # build ARD ------------------------------------------------------------------
-  test_mantelhaen <- as_cards_fn(
-    \(data, variables, ...) {
+  test_mantelhaen <- cards::as_cards_fn(
+    \(x, data, ...) {
       stats::mantelhaen.test(
-        x = data[[variables]],
+        x = x,
         y = data[[by]],
         z = data[[strata]],
         dots
