@@ -35,13 +35,16 @@
 #' @export
 #'
 #' @examples
-#' cards::ADTTE |>
-#'   ard_incidence_rate(interval = AVAL, count = CNSR, id = USUBJID)
+#' set.seed(1)
+#' data <- data.frame(
+#'   USUBJID = 1:100,
+#'   TRTA = sample(LETTERS[1:3], 100, replace = TRUE),
+#'   AETTE1 = abs(rnorm(100, mean = 0.5)),
+#'   AETOT1 = sample(0:20, 100, replace = TRUE)
+#' )
 #'
-#' cards::ADAE |>
-#'   dplyr::rowwise() |>
-#'   dplyr::mutate(interval = max(.data$ASTDY, 0)) |>
-#'   ard_incidence_rate(interval = interval, id = USUBJID, by = TRTA, units = "days", n_person_years = 50)
+#' data |>
+#'   ard_incidence_rate(interval = AETTE1, count = AETOT1, id = USUBJID, by = TRTA)
 ard_incidence_rate <- function(data,
                                interval,
                                count = NULL,
