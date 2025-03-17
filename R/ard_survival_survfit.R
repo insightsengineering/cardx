@@ -253,7 +253,8 @@ ard_survival_survfit.data.frame <- function(x, y,
   # tidy survfit results
   x_cols <- intersect(names(x), c("time", "n.risk", "surv", "std.err", "upper", "lower", "strata"))
   tidy_x <- data.frame(x[x_cols]) %>%
-    dplyr::rename(estimate = "surv", std.error = "std.err", conf.high = "upper", conf.low = "lower")
+    dplyr::rename(estimate = "surv", std.error = "std.err", conf.high = "upper", conf.low = "lower") %>%
+    dplyr::mutate(conf.level = x$conf.int)
 
   strat <- "strata" %in% names(tidy_x)
 
@@ -327,7 +328,10 @@ ard_survival_survfit.data.frame <- function(x, y,
       set_names(c("estimate", "conf.low", "conf.high")) %>%
       dplyr::mutate(strata = row.names(.)) %>%
       dplyr::select(dplyr::any_of(c("n.risk", "strata", "estimate", "std.error", "conf.low", "conf.high"))) %>%
-      dplyr::mutate(prob = .x)
+      dplyr::mutate(
+        conf.level = x$conf.int,
+        prob = .x
+      )
   ) %>%
     dplyr::bind_rows() %>%
     `rownames<-`(NULL) %>%
@@ -383,10 +387,12 @@ extract_strata <- function(x, df_stat) {
 
   ret <- tidy_survfit %>%
     dplyr::mutate(dplyr::across(
-      dplyr::any_of(c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "time", "prob")), ~ as.list(.)
+      dplyr::any_of(
+        c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "conf.level", "time", "prob")),
+      ~ as.list(.)
     )) %>%
     tidyr::pivot_longer(
-      cols = dplyr::any_of(c("n.risk", "estimate", "std.error", "conf.high", "conf.low")),
+      cols = dplyr::any_of(c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "conf.level")),
       names_to = "stat_name",
       values_to = "stat"
     ) %>%
