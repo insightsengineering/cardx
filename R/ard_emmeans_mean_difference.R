@@ -67,68 +67,80 @@ ard_emmeans_mean_difference <- function(data, formula, method,
   check_range(conf.level, range = c(0, 1))
   response_type <- arg_match(response_type, error_call = get_cli_abort_call())
 
-  # construct primary model ----------------------------------------------------
-  mod <-
-    construct_model(
-      data = data, formula = formula, method = method,
-      method.args = {{ method.args }},
-      package = package, env = caller_env()
-    )
+  # function to perform calculations -------------------------------------------
+  calc_ard <- cards::as_cards_fn(
+    function(x, ...) {
+      # construct primary model ------------------------------------------------
+      mod <-
+        construct_model(
+          data = data, formula = formula, method = method,
+          method.args = {{ method.args }},
+          package = package, env = caller_env()
+        )
 
-  # emmeans --------------------------------------------------------------------
-  emmeans_args <- list(object = mod, specs = reformulate2(primary_covariate))
-  if (response_type %in% "dichotomous") emmeans_args <- c(emmeans_args, list(regrid = "response"))
-  emmeans <-
-    withr::with_namespace(
-      package = "emmeans",
-      code = do.call("emmeans", args = emmeans_args)
-    )
+      # emmeans ----------------------------------------------------------------
+      emmeans_args <- list(object = mod, specs = reformulate2(primary_covariate))
+      if (response_type %in% "dichotomous") emmeans_args <- c(emmeans_args, list(regrid = "response"))
+      emmeans <-
+        withr::with_namespace(
+          package = "emmeans",
+          code = do.call("emmeans", args = emmeans_args)
+        )
 
-  df_results <-
-    emmeans |>
-    emmeans::contrast(method = "pairwise") |>
-    summary(infer = TRUE, level = conf.level)
+      df_results <-
+        emmeans |>
+        emmeans::contrast(method = "pairwise") |>
+        summary(infer = TRUE, level = conf.level)
 
-  # convert results to ARD format ----------------------------------------------
-  df_results |>
-    dplyr::as_tibble() |>
-    dplyr::rename(
-      conf.low = any_of("asymp.LCL"),
-      conf.high = any_of("asymp.UCL"),
-      conf.low = any_of("lower.CL"),
-      conf.high = any_of("upper.CL")
-    ) %>%
-    dplyr::select(
-      variable_level = "contrast",
-      "estimate",
-      std.error = "SE", "df",
-      "conf.low", "conf.high", "p.value"
-    ) %>%
+      # convert results to ARD format ------------------------------------------
+      df_results |>
+        dplyr::as_tibble() |>
+        dplyr::rename(
+          conf.low = any_of("asymp.LCL"),
+          conf.high = any_of("asymp.UCL"),
+          conf.low = any_of("lower.CL"),
+          conf.high = any_of("upper.CL")
+        ) %>%
+        dplyr::select(
+          variable_level = "contrast",
+          "estimate",
+          std.error = "SE", "df",
+          "conf.low", "conf.high", "p.value"
+        ) %>%
+        dplyr::mutate(
+          conf.level = .env$conf.level,
+          method =
+            ifelse(
+              length(attr(stats::terms(formula), "term.labels") |> discard(~ startsWith(., "1 |"))) == 1L,
+              "Least-squares mean difference",
+              "Least-squares adjusted mean difference"
+            )
+        )
+
+    },
+    stat_names = c("estimate", "std.error", "df", "conf.low", "conf.high", "p.value", "conf.level", "method")
+  )
+
+  data_in <- if (is(data, "survey.design")) data$variables else data
+
+  # build ARD ------------------------------------------------------------------
+  cards::ard_complex(
+    data = data_in,
+    variables = all_of(primary_covariate),
+    statistic = all_of(primary_covariate) ~ list(emmeans = calc_ard)
+  ) |>
+    dplyr::select(-"stat_label") |>
+    dplyr::left_join(
+      .df_ttest_stat_labels(primary_covariate),
+      by = "stat_name"
+    ) |>
     dplyr::mutate(
-      conf.level = .env$conf.level,
-      method =
-        ifelse(
-          length(attr(stats::terms(formula), "term.labels") |> discard(~ startsWith(., "1 |"))) == 1L,
-          "Least-squares mean difference",
-          "Least-squares adjusted mean difference"
-        ),
-      across(everything(), as.list),
       variable = "contrast",
-      group1 = .env$primary_covariate
-    ) |>
-    tidyr::pivot_longer(
-      cols = -c("group1", "variable", "variable_level"),
-      names_to = "stat_name",
-      values_to = "stat"
-    ) |>
-    dplyr::left_join(.df_ttest_stat_labels(primary_covariate), by = "stat_name") |>
-    dplyr::mutate(
-      context = "emmeans_mean_difference",
+      group1 = .env$primary_covariate,
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
-      warning = list(NULL),
-      error = list(NULL),
-      fmt_fn = map(.data$stat, \(.x) if (is.numeric(.x)) 1L else NULL) # styler: off
+      context = "emmeans_mean_difference",
     ) |>
     cards::as_card() |>
-    cards::tidy_ard_column_order()
+    cards::tidy_ard_column_order() |>
+    cards::tidy_ard_row_order()
 }
