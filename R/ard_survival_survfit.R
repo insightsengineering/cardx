@@ -388,7 +388,8 @@ extract_strata <- function(x, df_stat) {
   ret <- tidy_survfit %>%
     dplyr::mutate(dplyr::across(
       dplyr::any_of(
-        c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "conf.level", "time", "prob")),
+        c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "conf.level", "time", "prob")
+      ),
       ~ as.list(.)
     )) %>%
     tidyr::pivot_longer(
