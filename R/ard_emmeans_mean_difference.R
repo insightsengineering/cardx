@@ -116,7 +116,6 @@ ard_emmeans_mean_difference <- function(data, formula, method,
               "Least-squares adjusted mean difference"
             )
         )
-
     },
     stat_names = c("estimate", "std.error", "df", "conf.low", "conf.high", "p.value", "conf.level", "method")
   )
@@ -136,7 +135,11 @@ ard_emmeans_mean_difference <- function(data, formula, method,
     ) |>
     dplyr::mutate(
       variable = "contrast",
-      variable_level = .data$stat[.data$stat_name == "variable_level"],
+      variable_level = if ("variable_level" %in% .data$stat_name) {
+        .data$stat[.data$stat_name == "variable_level"]
+      } else {
+        NA
+      },
       group1 = .env$primary_covariate,
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
       context = "emmeans_mean_difference",

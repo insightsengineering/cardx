@@ -101,3 +101,22 @@ test_that("ard_emmeans_mean_difference() follows ard structure", {
       cards::check_ard_structure()
   )
 })
+
+test_that("ard_emmeans_mean_difference() errors are returned correctly", {
+  local_options(width = 250)
+
+  expect_silent(
+    ard <- ard_emmeans_mean_difference(
+      data = mtcars,
+      formula = vs ~ am + mpg,
+      method = "glm",
+      method.args = list(family = nothing),
+      response_type = "dichotomous"
+    )
+  )
+
+  expect_snapshot(ard |> print(columns = "all"))
+
+  expect_length(unique(ard$error), 1)
+  expect_snapshot_value(ard$error[[1]])
+})
