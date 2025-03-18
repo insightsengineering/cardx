@@ -136,10 +136,12 @@ ard_emmeans_mean_difference <- function(data, formula, method,
     ) |>
     dplyr::mutate(
       variable = "contrast",
+      variable_level = .data$stat[.data$stat_name == "variable_level"],
       group1 = .env$primary_covariate,
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
       context = "emmeans_mean_difference",
     ) |>
+    dplyr::filter(stat_name != "variable_level") |>
     cards::as_card() |>
     cards::tidy_ard_column_order() |>
     cards::tidy_ard_row_order()

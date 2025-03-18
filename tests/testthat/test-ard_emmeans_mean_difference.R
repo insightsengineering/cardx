@@ -1,6 +1,8 @@
 skip_if_not(is_pkg_installed(c("emmeans", "survey", "lme4")))
 
 test_that("ard_emmeans_mean_difference() works", {
+  local_options(width = 250)
+
   expect_error(
     ard_emmeans_mean_difference <-
       ard_emmeans_mean_difference(
@@ -12,6 +14,8 @@ test_that("ard_emmeans_mean_difference() works", {
       ),
     NA
   )
+  expect_snapshot(ard_emmeans_mean_difference |> print(columns = "all"))
+
   expect_equal(
     cards::get_ard_statistics(ard_emmeans_mean_difference, stat_name %in% "method"),
     list(method = "Least-squares adjusted mean difference")
