@@ -120,7 +120,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
     stat_names = c("estimate", "std.error", "df", "conf.low", "conf.high", "p.value", "conf.level", "method")
   )
 
-  data_in <- if (is(data, "survey.design")) data$variables else data
+  data_in <- if (dplyr::last(class(data)) == "survey.design") data$variables else data
 
   # build ARD ------------------------------------------------------------------
   cards::ard_complex(
@@ -144,7 +144,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
       context = "emmeans_mean_difference",
     ) |>
-    dplyr::filter(stat_name != "variable_level") |>
+    dplyr::filter(.data$stat_name != "variable_level") |>
     cards::as_card() |>
     cards::tidy_ard_column_order() |>
     cards::tidy_ard_row_order()
