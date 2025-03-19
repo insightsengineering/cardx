@@ -7,13 +7,13 @@
 ard_incidence_rate(
   data,
   time,
+  units,
   count = NULL,
   id = NULL,
   by = NULL,
   strata = NULL,
   conf.level = 0.95,
   conf.type = c("normal", "normal-log", "exact", "byar"),
-  units = c("years", "months", "weeks", "days"),
   n_person_years = 100
 )
 }
@@ -23,6 +23,11 @@ a data frame.}
 
 \item{time}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name of time at risk variable.}
+
+\item{units}{(\code{string})\cr
+unit of values in \code{time}.
+
+One of: \code{years}, \code{months}, \code{weeks}, or \code{days}}
 
 \item{count}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name of variable indicating count of events that occurred. If \code{NULL}, each row in \code{data} is assumed to
@@ -52,11 +57,6 @@ confidence interval type for the estimated incidence rate.
 
 One of: \code{normal} (default), \code{normal-log}, \code{exact}, or \code{byar}.}
 
-\item{units}{(\code{string})\cr
-unit of time of values in \code{time}.
-
-One of: \code{years} (default), \code{months}, \code{weeks}, or \code{days}}
-
 \item{n_person_years}{(\code{numeric})\cr
 number of person-years to estimate incidence rate for. Defaults to 100.}
 }
@@ -82,5 +82,5 @@ data <- data.frame(
 )
 
 data |>
-  ard_incidence_rate(time = AETTE1, count = AETOT1, id = USUBJID, by = TRTA)
+  ard_incidence_rate(time = AETTE1, units = "years", count = AETOT1, id = USUBJID, by = TRTA)
 }
