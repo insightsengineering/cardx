@@ -98,9 +98,9 @@ ard_incidence_rate <- function(data,
       n_events <- if (!is_empty(count)) sum(data[[count]], na.rm = TRUE) else nrow(data)
 
       rate_est <- n_events / tot_person_years
+      rate_se <- sqrt(rate_est / tot_person_years)
       alpha <- 1 - conf.level
       if (conf.type %in% c("normal", "normal-log")) {
-        rate_se <- sqrt(rate_est / tot_person_years)
         rate_ci <- if (conf.type == "normal") {
           rate_est + c(-1, 1) * stats::qnorm(1 - alpha / 2) * rate_se
         } else {
@@ -121,6 +121,7 @@ ard_incidence_rate <- function(data,
 
       dplyr::tibble(
         estimate = rate_est * n_person_years,
+        std.error = rate_se,
         conf.low = conf.low * n_person_years,
         conf.high = conf.high * n_person_years,
         conf.type = conf.type,
@@ -131,7 +132,7 @@ ard_incidence_rate <- function(data,
       )
     },
     stat_names = c(
-      "estimate", "conf.low", "conf.high", "conf.type", "conf.level", "tot_person_years", "n_events", "n_unique_id"
+      "estimate", "std.error", "conf.low", "conf.high", "conf.type", "conf.level", "tot_person_years", "n_events", "n_unique_id"
     )
   )
 
@@ -161,6 +162,7 @@ ard_incidence_rate <- function(data,
   dplyr::tribble(
     ~stat_name, ~stat_label,
     "estimate", paste("AE Rate per", n_person_years, "Person-Years"),
+    "std.error", "Standard Error",
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
     "conf.type", "CI Type",
