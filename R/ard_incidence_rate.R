@@ -58,14 +58,15 @@ ard_incidence_rate <- function(data,
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
-  check_not_missing(data)
-  check_not_missing(time)
-  check_not_missing(units)
   check_data_frame(data)
   cards::process_selectors(
     data,
     time = {{ time }}, by = {{ by }}, strata = {{ strata }}, count = {{ count }}, id = {{ id }}
   )
+  check_length(time, 1)
+  check_length(units, 1)
+  check_length(count, 1, allow_empty = TRUE)
+  check_length(id, 1, allow_empty = TRUE)
   check_class(data[[time]], c("numeric", "integer"))
   check_scalar_range(conf.level, c(0, 1))
   check_numeric(n_person_years)
