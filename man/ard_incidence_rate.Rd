@@ -6,7 +6,7 @@
 \usage{
 ard_incidence_rate(
   data,
-  interval,
+  time,
   count = NULL,
   id = NULL,
   by = NULL,
@@ -21,8 +21,8 @@ ard_incidence_rate(
 \item{data}{(\code{data.frame})\cr
 a data frame.}
 
-\item{interval}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name of time interval (time at risk) variable.}
+\item{time}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+column name of time at risk variable.}
 
 \item{count}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name of variable indicating count of events that occurred. If \code{NULL}, each row in \code{data} is assumed to
@@ -53,7 +53,7 @@ confidence interval type for the estimated incidence rate.
 One of: \code{normal} (default), \code{normal-log}, \code{exact}, or \code{byar}.}
 
 \item{units}{(\code{string})\cr
-unit of time of values in \code{interval}.
+unit of time of values in \code{time}.
 
 One of: \code{years} (default), \code{months}, \code{weeks}, or \code{days}}
 
@@ -64,7 +64,7 @@ number of person-years to estimate incidence rate for. Defaults to 100.}
 an ARD data frame of class 'card'
 }
 \description{
-Function takes a time interval variable (\code{interval}) and event count variable (\code{count}) and calculates the incidence
+Function takes a time at risk variable (\code{time}) and event count variable (\code{count}) and calculates the incidence
 rate in person years.
 }
 \details{
@@ -82,5 +82,5 @@ data <- data.frame(
 )
 
 data |>
-  ard_incidence_rate(interval = AETTE1, count = AETOT1, id = USUBJID, by = TRTA)
+  ard_incidence_rate(time = AETTE1, count = AETOT1, id = USUBJID, by = TRTA)
 }

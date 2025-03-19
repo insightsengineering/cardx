@@ -1,6 +1,6 @@
 #' ARD Incidence Rate
 #'
-#' Function takes a time interval variable (`interval`) and event count variable (`count`) and calculates the incidence
+#' Function takes a time at risk variable (`time`) and event count variable (`count`) and calculates the incidence
 #' rate in person years.
 #'
 #' Incidence rate is calculated as:
@@ -9,8 +9,8 @@
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame.
-#' @param interval ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name of time interval (time at risk) variable.
+#' @param time ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
+#'   column name of time at risk variable.
 #' @param count ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name of variable indicating count of events that occurred. If `NULL`, each row in `data` is assumed to
 #'   correspond to a single event occurrence.
@@ -24,7 +24,7 @@
 #'
 #'   One of: `normal` (default), `normal-log`, `exact`, or `byar`.
 #' @param units (`string`)\cr
-#'   unit of time of values in `interval`.
+#'   unit of time of values in `time`.
 #'
 #'   One of: `years` (default), `months`, `weeks`, or `days`
 #' @param n_person_years (`numeric`)\cr
@@ -44,9 +44,9 @@
 #' )
 #'
 #' data |>
-#'   ard_incidence_rate(interval = AETTE1, count = AETOT1, id = USUBJID, by = TRTA)
+#'   ard_incidence_rate(time = AETTE1, count = AETOT1, id = USUBJID, by = TRTA)
 ard_incidence_rate <- function(data,
-                               interval,
+                               time,
                                count = NULL,
                                id = NULL,
                                by = NULL,
@@ -59,13 +59,13 @@ ard_incidence_rate <- function(data,
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
-  check_not_missing(interval)
+  check_not_missing(time)
   check_data_frame(data)
   cards::process_selectors(
     data,
-    interval = {{ interval }}, by = {{ by }}, strata = {{ strata }}, count = {{ count }}, id = {{ id }}
+    time = {{ time }}, by = {{ by }}, strata = {{ strata }}, count = {{ count }}, id = {{ id }}
   )
-  check_class(data[[interval]], c("numeric", "integer"))
+  check_class(data[[time]], c("numeric", "integer"))
   check_scalar_range(conf.level, c(0, 1))
   check_numeric(n_person_years)
 
@@ -137,10 +137,10 @@ ard_incidence_rate <- function(data,
   # build ARD ------------------------------------------------------------------
   cards::ard_complex(
     data = data,
-    variables = all_of(interval),
+    variables = all_of(time),
     by = any_of(by),
     strata = any_of(strata),
-    statistic = all_of(interval) ~ list(incidence_rate = calc_incidence_rate)
+    statistic = all_of(time) ~ list(incidence_rate = calc_incidence_rate)
   ) |>
     dplyr::select(-"stat_label") |>
     dplyr::left_join(

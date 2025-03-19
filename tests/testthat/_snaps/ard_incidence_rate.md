@@ -23,14 +23,14 @@
       {cards} data frame: 8 x 8
     Output
         variable   context        stat_name stat_label    stat fmt_fn warning error
-      1 interval incidenc…         estimate  AE Rate …  798.82      1              
-      2 interval incidenc…         conf.low  CI Lower… 752.347      1              
-      3 interval incidenc…        conf.high  CI Upper… 845.292      1              
-      4 interval incidenc…        conf.type    CI Type  normal   <fn>              
-      5 interval incidenc…       conf.level  CI Confi…    0.95      1              
-      6 interval incidenc… tot_person_years  Person-Y… 142.085      1              
-      7 interval incidenc…         n_events  Number o…    1135      0              
-      8 interval incidenc…      n_unique_id  Number o…     217      0              
+      1     time incidenc…         estimate  AE Rate … 798.841      1              
+      2     time incidenc…         conf.low  CI Lower… 752.367      1              
+      3     time incidenc…        conf.high  CI Upper… 845.315      1              
+      4     time incidenc…        conf.type    CI Type  normal   <fn>              
+      5     time incidenc…       conf.level  CI Confi…    0.95      1              
+      6     time incidenc… tot_person_years  Person-Y… 142.081      1              
+      7     time incidenc…         n_events  Number o…    1135      0              
+      8     time incidenc…      n_unique_id  Number o…     217      0              
 
 ---
 
@@ -40,14 +40,14 @@
       {cards} data frame: 8 x 8
     Output
         variable   context        stat_name stat_label    stat fmt_fn warning error
-      1 interval incidenc…         estimate  AE Rate … 786.853      1              
-      2 interval incidenc…         conf.low  CI Lower… 741.958      1              
-      3 interval incidenc…        conf.high  CI Upper… 831.749      1              
-      4 interval incidenc…        conf.type    CI Type  normal   <fn>              
-      5 interval incidenc…       conf.level  CI Confi…    0.95      1              
-      6 interval incidenc… tot_person_years  Person-Y… 149.964      1              
-      7 interval incidenc…         n_events  Number o…    1180      0              
-      8 interval incidenc…      n_unique_id  Number o…    1180      0              
+      1     time incidenc…         estimate  AE Rate … 786.875      1              
+      2     time incidenc…         conf.low  CI Lower… 741.978      1              
+      3     time incidenc…        conf.high  CI Upper… 831.771      1              
+      4     time incidenc…        conf.type    CI Type  normal   <fn>              
+      5     time incidenc…       conf.level  CI Confi…    0.95      1              
+      6     time incidenc… tot_person_years  Person-Y…  149.96      1              
+      7     time incidenc…         n_events  Number o…    1180      0              
+      8     time incidenc…      n_unique_id  Number o…    1180      0              
 
 ---
 
@@ -57,14 +57,14 @@
       {cards} data frame: 8 x 8
     Output
         variable   context        stat_name stat_label    stat fmt_fn warning error
-      1 interval incidenc…         estimate  AE Rate … 393.427      1              
-      2 interval incidenc…         conf.low  CI Lower… 370.979      1              
-      3 interval incidenc…        conf.high  CI Upper… 415.874      1              
-      4 interval incidenc…        conf.type    CI Type  normal   <fn>              
-      5 interval incidenc…       conf.level  CI Confi…    0.95      1              
-      6 interval incidenc… tot_person_years  Person-Y… 149.964      1              
-      7 interval incidenc…         n_events  Number o…    1180      0              
-      8 interval incidenc…      n_unique_id  Number o…     224      0              
+      1     time incidenc…         estimate  AE Rate … 393.437      1              
+      2     time incidenc…         conf.low  CI Lower… 370.989      1              
+      3     time incidenc…        conf.high  CI Upper… 415.886      1              
+      4     time incidenc…        conf.type    CI Type  normal   <fn>              
+      5     time incidenc…       conf.level  CI Confi…    0.95      1              
+      6     time incidenc… tot_person_years  Person-Y…  149.96      1              
+      7     time incidenc…         n_events  Number o…    1180      0              
+      8     time incidenc…      n_unique_id  Number o…     224      0              
 
 # ard_incidence_rate(conf.type) works
 
@@ -120,7 +120,7 @@
 # ard_incidence_rate() errors are handled correctly
 
     Code
-      res <- ard_incidence_rate(adtte, interval = AVAL, count = CNSR, id = USUBJID,
+      res <- ard_incidence_rate(adtte, time = AVAL, count = CNSR, id = USUBJID,
         conf.type = "standard")
     Condition
       Error in `ard_incidence_rate()`:
@@ -129,7 +129,7 @@
 ---
 
     Code
-      res <- ard_incidence_rate(adtte, interval = AVAL, count = CNSR, id = USUBJID,
+      res <- ard_incidence_rate(adtte, time = AVAL, count = CNSR, id = USUBJID,
         units = "month")
     Condition
       Error in `ard_incidence_rate()`:
