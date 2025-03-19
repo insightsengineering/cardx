@@ -24,9 +24,9 @@
 #'
 #'   One of: `normal` (default), `normal-log`, `exact`, or `byar`.
 #' @param units (`string`)\cr
-#'   unit of time of values in `time`.
+#'   unit of values in `time`.
 #'
-#'   One of: `years` (default), `months`, `weeks`, or `days`
+#'   One of: `years`, `months`, `weeks`, or `days`
 #' @param n_person_years (`numeric`)\cr
 #'   number of person-years to estimate incidence rate for. Defaults to 100.
 #' @inheritParams cards::ard_continuous
@@ -44,22 +44,23 @@
 #' )
 #'
 #' data |>
-#'   ard_incidence_rate(time = AETTE1, count = AETOT1, id = USUBJID, by = TRTA)
+#'   ard_incidence_rate(time = AETTE1, units = "years", count = AETOT1, id = USUBJID, by = TRTA)
 ard_incidence_rate <- function(data,
                                time,
+                               units,
                                count = NULL,
                                id = NULL,
                                by = NULL,
                                strata = NULL,
                                conf.level = 0.95,
                                conf.type = c("normal", "normal-log", "exact", "byar"),
-                               units = c("years", "months", "weeks", "days"),
                                n_person_years = 100) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
   check_not_missing(time)
+  check_not_missing(units)
   check_data_frame(data)
   cards::process_selectors(
     data,
@@ -70,7 +71,7 @@ ard_incidence_rate <- function(data,
   check_numeric(n_person_years)
 
   conf.type <- arg_match(conf.type, error_call = get_cli_abort_call())
-  units <- arg_match(units, error_call = get_cli_abort_call())
+  units <- arg_match(units, values = c("years", "months", "weeks", "days"), error_call = get_cli_abort_call())
 
   # calculate incidence rate & related statistics ------------------------------
   calc_incidence_rate <- cards::as_cards_fn(

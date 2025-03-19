@@ -120,8 +120,8 @@
 # ard_incidence_rate() errors are handled correctly
 
     Code
-      res <- ard_incidence_rate(adtte, time = AVAL, count = CNSR, id = USUBJID,
-        conf.type = "standard")
+      res <- ard_incidence_rate(adtte, time = AVAL, units = "years", count = CNSR,
+        id = USUBJID, conf.type = "standard")
     Condition
       Error in `ard_incidence_rate()`:
       ! `conf.type` must be one of "normal", "normal-log", "exact", or "byar", not "standard".
@@ -129,8 +129,8 @@
 ---
 
     Code
-      res <- ard_incidence_rate(adtte, time = AVAL, count = CNSR, id = USUBJID,
-        units = "month")
+      res <- ard_incidence_rate(adtte, time = AVAL, units = "month", count = CNSR,
+        id = USUBJID)
     Condition
       Error in `ard_incidence_rate()`:
       ! `units` must be one of "years", "months", "weeks", or "days", not "month".
