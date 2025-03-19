@@ -77,17 +77,21 @@ ard_incidence_rate <- function(data,
     \(x, data, ...) {
       # calculate number of unique IDs with >=1 AE
       n_unique_id <- if (!is_empty(id) && !is_empty(count)) {
-        length(unique(data[[id]][data[[count]] > 0]))
+        sum(!is.na(unique(data[[id]][data[[count]] > 0])))
       } else if (!is_empty(id)) {
-        length(unique(data[[id]]))
+        sum(!is.na(unique(data[[id]])))
       } else {
         nrow(data)
       }
 
       # calculate total person-years
-      tot_person_years <- sum(x, na.rm = TRUE) / (
-        (units == "years") + (units == "months") * 12 + (units == "weeks") * 52.14 + (units == "days") * 365.24
-      )
+      tot_person_years <- sum(x, na.rm = TRUE) *
+        dplyr::case_when(
+          units == "months" ~ 1 / 12, # months per year
+          units == "weeks" ~ 1 / (365.25 / 7), # weeks per year
+          units == "days" ~ 1 / 365.25, # days per year
+          TRUE ~ 1
+        )
 
       # calculate total number of events
       n_events <- if (!is_empty(count)) sum(data[[count]], na.rm = TRUE) else nrow(data)
