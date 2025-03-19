@@ -66,7 +66,7 @@ ard_incidence_rate <- function(data,
     interval = {{ interval }}, by = {{ by }}, strata = {{ strata }}, count = {{ count }}, id = {{ id }}
   )
   check_class(data[[interval]], c("numeric", "integer"))
-  check_range(conf.level, c(0, 1))
+  check_scalar_range(conf.level, c(0, 1))
   check_numeric(n_person_years)
 
   conf.type <- arg_match(conf.type, error_call = get_cli_abort_call())
