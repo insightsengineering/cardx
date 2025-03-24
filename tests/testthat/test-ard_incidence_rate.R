@@ -37,7 +37,7 @@ test_that("ard_incidence_rate() works", {
       ard_incidence_rate(time = time, units = "days", id = USUBJID, n_person_time = 50)
   )
   expect_snapshot(res |> print(columns = "all"))
-  expect_equal(res$stat_label[1], "AE Rate per 50 Person-Years")
+  expect_equal(res$stat_label[1], "AE Rate per 50 Person-Days")
 })
 
 test_that("ard_incidence_rate(conf.type) works", {
