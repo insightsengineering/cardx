@@ -5,16 +5,16 @@
     Message
       {cards} data frame: 9 x 8
     Output
-        variable   context        stat_name stat_label   stat fmt_fn warning error
-      1     AVAL incidenc…         estimate  AE Rate …  0.605      1              
-      2     AVAL incidenc…        std.error  Standard…  0.001      1              
-      3     AVAL incidenc…         conf.low  CI Lower…  0.488      1              
-      4     AVAL incidenc…        conf.high  CI Upper…  0.723      1              
-      5     AVAL incidenc…        conf.type    CI Type normal   <fn>              
-      6     AVAL incidenc…       conf.level  CI Confi…   0.95      1              
-      7     AVAL incidenc… tot_person_years  Person-Y…  16853      1              
-      8     AVAL incidenc…         n_events  Number o…    102      1              
-      9     AVAL incidenc…      n_unique_id  Number o…    102      0              
+        variable   context       stat_name stat_label   stat fmt_fn warning error
+      1     AVAL incidenc…        estimate  AE Rate …  0.605      1              
+      2     AVAL incidenc…       std.error  Standard…  0.001      1              
+      3     AVAL incidenc…        conf.low  CI Lower…  0.488      1              
+      4     AVAL incidenc…       conf.high  CI Upper…  0.723      1              
+      5     AVAL incidenc…       conf.type    CI Type normal   <fn>              
+      6     AVAL incidenc…      conf.level  CI Confi…   0.95      1              
+      7     AVAL incidenc… tot_person_time  Person-Y…  16853      1              
+      8     AVAL incidenc…        n_events  Number o…    102      1              
+      9     AVAL incidenc…     n_unique_id  Number o…    102      0              
 
 ---
 
@@ -23,16 +23,16 @@
     Message
       {cards} data frame: 9 x 8
     Output
-        variable   context        stat_name stat_label    stat fmt_fn warning error
-      1     time incidenc…         estimate  AE Rate … 798.841      1              
-      2     time incidenc…        std.error  Standard…   0.237      1              
-      3     time incidenc…         conf.low  CI Lower… 752.367      1              
-      4     time incidenc…        conf.high  CI Upper… 845.315      1              
-      5     time incidenc…        conf.type    CI Type  normal   <fn>              
-      6     time incidenc…       conf.level  CI Confi…    0.95      1              
-      7     time incidenc… tot_person_years  Person-Y… 142.081      1              
-      8     time incidenc…         n_events  Number o…    1135      0              
-      9     time incidenc…      n_unique_id  Number o…     217      0              
+        variable   context       stat_name stat_label   stat fmt_fn warning error
+      1     time incidenc…        estimate  AE Rate …  2.187      1              
+      2     time incidenc…       std.error  Standard…  0.001      1              
+      3     time incidenc…        conf.low  CI Lower…   2.06      1              
+      4     time incidenc…       conf.high  CI Upper…  2.314      1              
+      5     time incidenc…       conf.type    CI Type normal   <fn>              
+      6     time incidenc…      conf.level  CI Confi…   0.95      1              
+      7     time incidenc… tot_person_time  Person-D…  51895      1              
+      8     time incidenc…        n_events  Number o…   1135      0              
+      9     time incidenc…     n_unique_id  Number o…    217      0              
 
 ---
 
@@ -41,16 +41,16 @@
     Message
       {cards} data frame: 9 x 8
     Output
-        variable   context        stat_name stat_label    stat fmt_fn warning error
-      1     time incidenc…         estimate  AE Rate … 786.875      1              
-      2     time incidenc…        std.error  Standard…   0.229      1              
-      3     time incidenc…         conf.low  CI Lower… 741.978      1              
-      4     time incidenc…        conf.high  CI Upper… 831.771      1              
-      5     time incidenc…        conf.type    CI Type  normal   <fn>              
-      6     time incidenc…       conf.level  CI Confi…    0.95      1              
-      7     time incidenc… tot_person_years  Person-Y…  149.96      1              
-      8     time incidenc…         n_events  Number o…    1180      0              
-      9     time incidenc…      n_unique_id  Number o…    1180      0              
+        variable   context       stat_name stat_label   stat fmt_fn warning error
+      1     time incidenc…        estimate  AE Rate …  2.154      1              
+      2     time incidenc…       std.error  Standard…  0.001      1              
+      3     time incidenc…        conf.low  CI Lower…  2.031      1              
+      4     time incidenc…       conf.high  CI Upper…  2.277      1              
+      5     time incidenc…       conf.type    CI Type normal   <fn>              
+      6     time incidenc…      conf.level  CI Confi…   0.95      1              
+      7     time incidenc… tot_person_time  Person-D…  54773      1              
+      8     time incidenc…        n_events  Number o…   1180      0              
+      9     time incidenc…     n_unique_id  Number o…   1180      0              
 
 ---
 
@@ -59,16 +59,16 @@
     Message
       {cards} data frame: 9 x 8
     Output
-        variable   context        stat_name stat_label    stat fmt_fn warning error
-      1     time incidenc…         estimate  AE Rate … 393.437      1              
-      2     time incidenc…        std.error  Standard…   0.229      1              
-      3     time incidenc…         conf.low  CI Lower… 370.989      1              
-      4     time incidenc…        conf.high  CI Upper… 415.886      1              
-      5     time incidenc…        conf.type    CI Type  normal   <fn>              
-      6     time incidenc…       conf.level  CI Confi…    0.95      1              
-      7     time incidenc… tot_person_years  Person-Y…  149.96      1              
-      8     time incidenc…         n_events  Number o…    1180      0              
-      9     time incidenc…      n_unique_id  Number o…     224      0              
+        variable   context       stat_name stat_label   stat fmt_fn warning error
+      1     time incidenc…        estimate  AE Rate …  1.077      1              
+      2     time incidenc…       std.error  Standard…  0.001      1              
+      3     time incidenc…        conf.low  CI Lower…  1.016      1              
+      4     time incidenc…       conf.high  CI Upper…  1.139      1              
+      5     time incidenc…       conf.type    CI Type normal   <fn>              
+      6     time incidenc…      conf.level  CI Confi…   0.95      1              
+      7     time incidenc… tot_person_time  Person-D…  54773      1              
+      8     time incidenc…        n_events  Number o…   1180      0              
+      9     time incidenc…     n_unique_id  Number o…    224      0              
 
 # ard_incidence_rate(conf.type) works
 
@@ -77,16 +77,16 @@
     Message
       {cards} data frame: 9 x 8
     Output
-        variable   context        stat_name stat_label      stat fmt_fn warning error
-      1     AVAL incidenc…         estimate  AE Rate …     0.605      1              
-      2     AVAL incidenc…        std.error  Standard…     0.001      1              
-      3     AVAL incidenc…         conf.low  CI Lower…     0.498      1              
-      4     AVAL incidenc…        conf.high  CI Upper…     0.735      1              
-      5     AVAL incidenc…        conf.type    CI Type normal-l…   <fn>              
-      6     AVAL incidenc…       conf.level  CI Confi…      0.95      1              
-      7     AVAL incidenc… tot_person_years  Person-Y…     16853      1              
-      8     AVAL incidenc…         n_events  Number o…       102      1              
-      9     AVAL incidenc…      n_unique_id  Number o…       102      0              
+        variable   context       stat_name stat_label      stat fmt_fn warning error
+      1     AVAL incidenc…        estimate  AE Rate …     0.605      1              
+      2     AVAL incidenc…       std.error  Standard…     0.001      1              
+      3     AVAL incidenc…        conf.low  CI Lower…     0.498      1              
+      4     AVAL incidenc…       conf.high  CI Upper…     0.735      1              
+      5     AVAL incidenc…       conf.type    CI Type normal-l…   <fn>              
+      6     AVAL incidenc…      conf.level  CI Confi…      0.95      1              
+      7     AVAL incidenc… tot_person_time  Person-Y…     16853      1              
+      8     AVAL incidenc…        n_events  Number o…       102      1              
+      9     AVAL incidenc…     n_unique_id  Number o…       102      0              
 
 ---
 
@@ -95,16 +95,16 @@
     Message
       {cards} data frame: 9 x 8
     Output
-        variable   context        stat_name stat_label  stat fmt_fn warning error
-      1     AVAL incidenc…         estimate  AE Rate … 0.605      1              
-      2     AVAL incidenc…        std.error  Standard… 0.001      1              
-      3     AVAL incidenc…         conf.low  CI Lower… 0.493      1              
-      4     AVAL incidenc…        conf.high  CI Upper… 0.735      1              
-      5     AVAL incidenc…        conf.type    CI Type exact   <fn>              
-      6     AVAL incidenc…       conf.level  CI Confi…  0.95      1              
-      7     AVAL incidenc… tot_person_years  Person-Y… 16853      1              
-      8     AVAL incidenc…         n_events  Number o…   102      1              
-      9     AVAL incidenc…      n_unique_id  Number o…   102      0              
+        variable   context       stat_name stat_label  stat fmt_fn warning error
+      1     AVAL incidenc…        estimate  AE Rate … 0.605      1              
+      2     AVAL incidenc…       std.error  Standard… 0.001      1              
+      3     AVAL incidenc…        conf.low  CI Lower… 0.493      1              
+      4     AVAL incidenc…       conf.high  CI Upper… 0.735      1              
+      5     AVAL incidenc…       conf.type    CI Type exact   <fn>              
+      6     AVAL incidenc…      conf.level  CI Confi…  0.95      1              
+      7     AVAL incidenc… tot_person_time  Person-Y… 16853      1              
+      8     AVAL incidenc…        n_events  Number o…   102      1              
+      9     AVAL incidenc…     n_unique_id  Number o…   102      0              
 
 ---
 
@@ -113,16 +113,16 @@
     Message
       {cards} data frame: 9 x 8
     Output
-        variable   context        stat_name stat_label  stat fmt_fn warning error
-      1     AVAL incidenc…         estimate  AE Rate … 0.605      1              
-      2     AVAL incidenc…        std.error  Standard… 0.001      1              
-      3     AVAL incidenc…         conf.low  CI Lower… 0.496      1              
-      4     AVAL incidenc…        conf.high  CI Upper… 0.731      1              
-      5     AVAL incidenc…        conf.type    CI Type  byar   <fn>              
-      6     AVAL incidenc…       conf.level  CI Confi…  0.95      1              
-      7     AVAL incidenc… tot_person_years  Person-Y… 16853      1              
-      8     AVAL incidenc…         n_events  Number o…   102      1              
-      9     AVAL incidenc…      n_unique_id  Number o…   102      0              
+        variable   context       stat_name stat_label  stat fmt_fn warning error
+      1     AVAL incidenc…        estimate  AE Rate … 0.605      1              
+      2     AVAL incidenc…       std.error  Standard… 0.001      1              
+      3     AVAL incidenc…        conf.low  CI Lower… 0.496      1              
+      4     AVAL incidenc…       conf.high  CI Upper… 0.731      1              
+      5     AVAL incidenc…       conf.type    CI Type  byar   <fn>              
+      6     AVAL incidenc…      conf.level  CI Confi…  0.95      1              
+      7     AVAL incidenc… tot_person_time  Person-Y… 16853      1              
+      8     AVAL incidenc…        n_events  Number o…   102      1              
+      9     AVAL incidenc…     n_unique_id  Number o…   102      0              
 
 # ard_incidence_rate() errors are handled correctly
 

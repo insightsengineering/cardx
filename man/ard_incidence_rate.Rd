@@ -14,7 +14,7 @@ ard_incidence_rate(
   strata = NULL,
   conf.level = 0.95,
   conf.type = c("normal", "normal-log", "exact", "byar"),
-  n_person_years = 100
+  n_person_time = 100
 )
 }
 \arguments{
@@ -25,7 +25,9 @@ a data frame.}
 column name of time at risk variable.}
 
 \item{units}{(\code{string})\cr
-unit of values in \code{time}.
+unit of values in \code{time} and estimated person-time output (e.g. person-years, person-days, etc.). If the desired
+person-time estimate unit does not match the current \code{time} unit, values of \code{time} should be converted to the
+correct unit during pre-processing.
 
 One of: \code{years}, \code{months}, \code{weeks}, or \code{days}}
 
@@ -57,20 +59,17 @@ confidence interval type for the estimated incidence rate.
 
 One of: \code{normal} (default), \code{normal-log}, \code{exact}, or \code{byar}.}
 
-\item{n_person_years}{(\code{numeric})\cr
-number of person-years to estimate incidence rate for. Defaults to 100.}
+\item{n_person_time}{(\code{numeric})\cr
+amount of person-time (in unit supplied to \code{units}) to estimate incidence rate for. Defaults to 100.}
 }
 \value{
 an ARD data frame of class 'card'
 }
 \description{
 Function takes a time at risk variable (\code{time}) and event count variable (\code{count}) and calculates the incidence
-rate in person years.
-}
-\details{
-Incidence rate is calculated as:
+rate in person-years.
 
-Total number of events that occurred / Total person-time at risk
+Incidence rate is calculated as: Total number of events that occurred / Total person-time at risk
 }
 \examples{
 set.seed(1)
