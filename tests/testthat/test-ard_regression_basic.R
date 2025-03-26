@@ -10,6 +10,15 @@ test_that("ard_regression_basic() works", {
   )
 
   expect_snapshot(as.data.frame(ard) |> dplyr::select(-fmt_fn))
+
+  expect_equal(
+    ard,
+    ard_regression_basic(
+      x = cards::ADSL,
+      formula = AGE ~ ARM,
+      method = "lm"
+    )
+  )
 })
 
 test_that("ard_regression_basic() does not produce `variable_level` column where not applicable", {
