@@ -28,6 +28,12 @@
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_regression_basic()
+#'
+#' ard_regression_basic(
+#'   x = cards::ADSL,
+#'   formula = AGE ~ ARM,
+#'   method = "lm"
+#' )
 NULL
 
 #' @rdname ard_regression_basic

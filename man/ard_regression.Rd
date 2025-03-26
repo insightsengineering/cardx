@@ -60,5 +60,11 @@ structure using the \code{broom.helpers} package.
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_regression(add_estimate_to_reference_rows = TRUE)
+
+ard_regression(
+  x = cards::ADSL,
+  formula = AGE ~ ARM,
+  method = "lm"
+)
 \dontshow{\}) # examplesIf}
 }

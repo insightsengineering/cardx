@@ -16,6 +16,12 @@
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_regression(add_estimate_to_reference_rows = TRUE)
+#'
+#' ard_regression(
+#'   x = cards::ADSL,
+#'   formula = AGE ~ ARM,
+#'   method = "lm"
+#' )
 NULL
 
 #' @rdname ard_regression

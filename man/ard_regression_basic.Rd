@@ -84,5 +84,11 @@ The default arguments used are
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_regression_basic()
+
+ard_regression_basic(
+  x = cards::ADSL,
+  formula = AGE ~ ARM,
+  method = "lm"
+)
 \dontshow{\}) # examplesIf}
 }
