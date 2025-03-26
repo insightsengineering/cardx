@@ -167,7 +167,7 @@ ard_survival_survfit.survfit <- function(x, times = NULL, probs = NULL, type = N
 ard_survival_survfit.data.frame <- function(x, y,
                                             variables = NULL,
                                             times = NULL, probs = NULL, type = NULL,
-                                            method.args = list(conf.int = 0.95), ...) {
+                                            method.args = list(conf.int = 0.95, conf.type = "log"), ...) {
   set_cli_abort_call()
 
   # check/process inputs -------------------------------------------------------
@@ -196,15 +196,21 @@ ard_survival_survfit.data.frame <- function(x, y,
       .default = stats::reformulate(termlabels = "1", response = y)
     )
 
-  construct_model(
+  ard <- construct_model(
     data = x,
     formula = survfit_formula,
     method = "survfit",
     package = "survival",
     method.args = {{ method.args }}
   ) |>
-    ard_survival_survfit(times = times, probs = probs, type = type) |>
-    .restore_original_column_types(data = x)
+    ard_survival_survfit(times = times, probs = probs, type = type)
+
+  ard_overall <- ard[ard$variable == "..ard_survival_survfit..", ]
+
+  ard |>
+    dplyr::filter(ard$variable != "..ard_survival_survfit..") |>
+    .restore_original_column_types(data = x) |>
+    dplyr::bind_rows(ard_overall)
 }
 
 #' Process Survival Fit For Time Estimates
@@ -254,7 +260,10 @@ ard_survival_survfit.data.frame <- function(x, y,
   x_cols <- intersect(names(x), c("time", "n.risk", "surv", "std.err", "upper", "lower", "strata"))
   tidy_x <- data.frame(x[x_cols]) %>%
     dplyr::rename(estimate = "surv", std.error = "std.err", conf.high = "upper", conf.low = "lower") %>%
-    dplyr::mutate(conf.level = x$conf.int)
+    dplyr::mutate(
+      conf.level = x$conf.int,
+      conf.type = x$conf.type
+    )
 
   strat <- "strata" %in% names(tidy_x)
 
@@ -330,6 +339,7 @@ ard_survival_survfit.data.frame <- function(x, y,
       dplyr::select(dplyr::any_of(c("n.risk", "strata", "estimate", "std.error", "conf.low", "conf.high"))) %>%
       dplyr::mutate(
         conf.level = x$conf.int,
+        conf.type = x$conf.type,
         prob = .x
       )
   ) %>%
@@ -384,16 +394,19 @@ extract_strata <- function(x, df_stat) {
 #' @keywords internal
 .format_survfit_results <- function(tidy_survfit) {
   est <- if ("time" %in% names(tidy_survfit)) "time" else "prob"
+  conf.level <- tidy_survfit$conf.level[1]
+  conf.type <- tidy_survfit$conf.type[1]
 
   ret <- tidy_survfit %>%
+    dplyr::select(-"conf.level", -"conf.type") %>%
     dplyr::mutate(dplyr::across(
       dplyr::any_of(
-        c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "conf.level", "time", "prob")
+        c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "time", "prob")
       ),
       ~ as.list(.)
     )) %>%
     tidyr::pivot_longer(
-      cols = dplyr::any_of(c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "conf.level")),
+      cols = dplyr::any_of(c("n.risk", "estimate", "std.error", "conf.high", "conf.low")),
       names_to = "stat_name",
       values_to = "stat"
     ) %>%
@@ -403,7 +416,16 @@ extract_strata <- function(x, df_stat) {
     ) %>%
     dplyr::select(-all_of(est))
 
+  # statistics applicable to all calculations
+  ret_overall <- dplyr::tibble(
+    context = "survival",
+    stat_name = c("conf.level", "conf.type"),
+    stat = as.list(c(conf.level, conf.type)),
+    variable = "..ard_survival_survfit.."
+  )
+
   ret %>%
+    dplyr::bind_rows(ret_overall) %>%
     dplyr::left_join(
       .df_survfit_stat_labels(),
       by = "stat_name"
@@ -439,8 +461,9 @@ extract_strata <- function(x, df_stat) {
     "std.error", "Standard Error (untransformed)",
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
-    "conf.level", "CI Confidence Level",
     "prob", "Quantile",
-    "time", "Time"
+    "time", "Time",
+    "conf.level", "CI Confidence Level",
+    "conf.type", "CI Type"
   )
 }
