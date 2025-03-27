@@ -29,7 +29,7 @@ Imports:
     tidyr (>= 1.3.0)
 Suggests:
     aod (>= 1.3.3),
-    broom (>= 1.0.5),
+    broom (>= 1.0.7.9000),
     broom.helpers (>= 1.17.0),
     broom.mixed (>= 0.2.9),
     car (>= 3.1-2),
@@ -45,7 +45,8 @@ Suggests:
     testthat (>= 3.2.0),
     withr (>= 2.5.0)
 Remotes: 
-    insightsengineering/cards
+    insightsengineering/cards,
+    tidymodels/broom
 Config/Needs/website: insightsengineering/nesttemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: true

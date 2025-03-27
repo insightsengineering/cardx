@@ -1,5 +1,7 @@
 # cardx 0.2.3.9003
 
+* Added a `ard_regression.data.frame()` S3 method. Also converted `ard_regression_basic()` to an S3 generic and added a `ard_regression_basic.data.frame()` method (#287)
+
 * Specifying `ard_survfit_survfit.data.frame(variables=NULL)` now creates an unstratified `survfit()` model, where previously `variables` argument could not be empty. (#277)
 
 * The `ard_survfit_survfit.data.frame(variables)` now accepts tidyselect input. (#278)
