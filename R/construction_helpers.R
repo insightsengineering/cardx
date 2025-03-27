@@ -32,7 +32,7 @@
 #'   must be passed in a way that does not evaluate the list, e.g.
 #'   using rlang's  embrace operator `{{ . }}`.
 #' @param package (`string`)\cr
-#'   string of package name that will be temporarily loaded when function
+#'   a package name that will be temporarily loaded when function
 #'   specified in `method` is executed.
 #' @param pattern,pattern_term,pattern_response DEPRECATED
 #' @inheritParams rlang::eval_tidy
