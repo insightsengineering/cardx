@@ -394,11 +394,11 @@ extract_strata <- function(x, df_stat) {
 #' @keywords internal
 .format_survfit_results <- function(tidy_survfit) {
   est <- if ("time" %in% names(tidy_survfit)) "time" else "prob"
-  conf.level <- tidy_survfit$conf.level[1]
-  conf.type <- tidy_survfit$conf.type[1]
+  conf.level <- tidy_survfit[["conf.level"]][1]
+  conf.type <- tidy_survfit[["conf.type"]][1]
 
   ret <- tidy_survfit %>%
-    dplyr::select(-"conf.level", -"conf.type") %>%
+    dplyr::select(-dplyr::any_of(c("conf.level", "conf.type"))) %>%
     dplyr::mutate(dplyr::across(
       dplyr::any_of(
         c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "time", "prob")
@@ -417,15 +417,19 @@ extract_strata <- function(x, df_stat) {
     dplyr::select(-all_of(est))
 
   # statistics applicable to all calculations
-  ret_overall <- dplyr::tibble(
-    context = "survival",
-    stat_name = c("conf.level", "conf.type"),
-    stat = as.list(c(conf.level, conf.type)),
-    variable = "..ard_survival_survfit.."
-  )
+  if (!is.null(conf.level) && !is.null(conf.type)) {
+    ret <- ret %>%
+      dplyr::bind_rows(
+        dplyr::tibble(
+          context = "survival",
+          stat_name = c("conf.level", "conf.type"),
+          stat = as.list(c(conf.level, conf.type)),
+          variable = "..ard_survival_survfit.."
+        )
+      )
+  }
 
   ret %>%
-    dplyr::bind_rows(ret_overall) %>%
     dplyr::left_join(
       .df_survfit_stat_labels(),
       by = "stat_name"
