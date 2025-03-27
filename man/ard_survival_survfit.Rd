@@ -17,7 +17,7 @@ ard_survival_survfit(x, ...)
   times = NULL,
   probs = NULL,
   type = NULL,
-  method.args = list(conf.int = 0.95),
+  method.args = list(conf.int = 0.95, conf.type = "log"),
   ...
 )
 }
