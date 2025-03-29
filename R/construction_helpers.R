@@ -158,7 +158,7 @@ construct_model.survey.design <- function(data, formula, method, method.args = l
   }
 
   cli::cli_abort(
-    c("There was an error processing the {.arg {argname}} argument.",
+    c("There was an error processing the {.arg {arg_name}} argument.",
       i = "Expecting a simple call. See {.help rlang::is_call_simple} for details."
     ),
     call = get_cli_abort_call()
