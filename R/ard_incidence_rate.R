@@ -104,63 +104,63 @@ ard_incidence_rate <- function(data,
 
 # function to perform calculations -------------------------------------------
 .calc_incidence_rate <- function(data, time, units, count, id, by, strata, conf.level, conf.type, n_person_time) {
-  \(x, data, ...) {
-    # calculate number of unique IDs with >=1 AE
-    n_unique_id <- if (!is_empty(id) && !is_empty(count)) {
-      sum(!is.na(unique(data[[id]][data[[count]] > 0])))
-    } else if (!is_empty(id)) {
-      sum(!is.na(unique(data[[id]])))
-    } else {
-      nrow(data)
-    }
-
-    # calculate total person-years
-    tot_person_time <- sum(x, na.rm = TRUE)
-
-    # calculate total number of events
-    n_events <- if (!is_empty(count)) sum(data[[count]], na.rm = TRUE) else nrow(data)
-
-    rate_est <- n_events / tot_person_time
-    rate_se <- sqrt(rate_est / tot_person_time)
-    alpha <- 1 - conf.level
-    if (conf.type %in% c("normal", "normal-log")) {
-      rate_ci <- if (conf.type == "normal") {
-        rate_est + c(-1, 1) * stats::qnorm(1 - alpha / 2) * rate_se
-      } else {
-        exp(log(rate_est) + c(-1, 1) * stats::qnorm(1 - alpha / 2) * rate_se / rate_est)
-      }
-      conf.low <- rate_ci[1]
-      conf.high <- rate_ci[2]
-    } else if (conf.type == "exact") {
-      conf.low <- stats::qchisq(p = alpha / 2, df = 2 * n_events) / (2 * tot_person_time)
-      conf.high <- stats::qchisq(p = 1 - alpha / 2, df = 2 * n_events + 2) / (2 * tot_person_time)
-    } else if (conf.type == "byar") {
-      seg_1 <- n_events + 0.5
-      seg_2 <- 1 - 1 / (9 * (n_events + 0.5))
-      seg_3 <- stats::qnorm(1 - alpha / 2) * sqrt(1 / (n_events + 0.5)) / 3
-      conf.low <- seg_1 * ((seg_2 - seg_3)^3) / tot_person_time
-      conf.high <- seg_1 * ((seg_2 + seg_3)^3) / tot_person_time
-    }
-
-    dplyr::tibble(
-      estimate = rate_est * n_person_time,
-      std.error = rate_se,
-      conf.low = conf.low * n_person_time,
-      conf.high = conf.high * n_person_time,
-      conf.type = conf.type,
-      conf.level = conf.level,
-      tot_person_time = tot_person_time,
-      n_events = n_events,
-      n_unique_id = n_unique_id
-    )
-  }
-} |>
   cards::as_cards_fn(
+    \(x, data, ...) {
+      # calculate number of unique IDs with >=1 AE
+      n_unique_id <- if (!is_empty(id) && !is_empty(count)) {
+        sum(!is.na(unique(data[[id]][data[[count]] > 0])))
+      } else if (!is_empty(id)) {
+        sum(!is.na(unique(data[[id]])))
+      } else {
+        nrow(data)
+      }
+
+      # calculate total person-years
+      tot_person_time <- sum(x, na.rm = TRUE)
+
+      # calculate total number of events
+      n_events <- if (!is_empty(count)) sum(data[[count]], na.rm = TRUE) else nrow(data)
+
+      rate_est <- n_events / tot_person_time
+      rate_se <- sqrt(rate_est / tot_person_time)
+      alpha <- 1 - conf.level
+      if (conf.type %in% c("normal", "normal-log")) {
+        rate_ci <- if (conf.type == "normal") {
+          rate_est + c(-1, 1) * stats::qnorm(1 - alpha / 2) * rate_se
+        } else {
+          exp(log(rate_est) + c(-1, 1) * stats::qnorm(1 - alpha / 2) * rate_se / rate_est)
+        }
+        conf.low <- rate_ci[1]
+        conf.high <- rate_ci[2]
+      } else if (conf.type == "exact") {
+        conf.low <- stats::qchisq(p = alpha / 2, df = 2 * n_events) / (2 * tot_person_time)
+        conf.high <- stats::qchisq(p = 1 - alpha / 2, df = 2 * n_events + 2) / (2 * tot_person_time)
+      } else if (conf.type == "byar") {
+        seg_1 <- n_events + 0.5
+        seg_2 <- 1 - 1 / (9 * (n_events + 0.5))
+        seg_3 <- stats::qnorm(1 - alpha / 2) * sqrt(1 / (n_events + 0.5)) / 3
+        conf.low <- seg_1 * ((seg_2 - seg_3)^3) / tot_person_time
+        conf.high <- seg_1 * ((seg_2 + seg_3)^3) / tot_person_time
+      }
+
+      dplyr::tibble(
+        estimate = rate_est * n_person_time,
+        std.error = rate_se,
+        conf.low = conf.low * n_person_time,
+        conf.high = conf.high * n_person_time,
+        conf.type = conf.type,
+        conf.level = conf.level,
+        tot_person_time = tot_person_time,
+        n_events = n_events,
+        n_unique_id = n_unique_id
+      )
+    },
     stat_names = c(
       "estimate", "std.error", "conf.low", "conf.high", "conf.type", "conf.level",
       "tot_person_time", "n_events", "n_unique_id"
     )
   )
+}
 
 .df_incidence_rate_stat_labels <- function(n_person_time, units) {
   time_unit <- paste0("Person-", str_replace(units, "([[:alpha:]])", substr(toupper(units), 1, 1)))
