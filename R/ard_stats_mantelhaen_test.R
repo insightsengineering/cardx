@@ -75,21 +75,22 @@ ard_stats_mantelhaen_test <- function(data, by, variables, strata, ...) {
 }
 
 .calc_mantelhaen_test <- function(data, by, variables, strata, mantelhaen.args) {
-  \(x, data, variables, ...) {
-    stats::mantelhaen.test(
-      x = x,
-      y = data[[by]],
-      z = data[[strata]],
-      mantelhaen.args
-    ) |>
-      broom::tidy() |>
-      dplyr::bind_cols(mantelhaen.args)
-  }
-} |> cards::as_cards_fn(
-  stat_names = c(
-    "estimate", "statistic", "p.value", "parameter", "correct", "exact", "conf.level", "conf.low", "conf.high"
+  cards::as_cards_fn(
+    \(x, data, variables, ...) {
+      stats::mantelhaen.test(
+        x = x,
+        y = data[[by]],
+        z = data[[strata]],
+        mantelhaen.args
+      ) |>
+        broom::tidy() |>
+        dplyr::bind_cols(mantelhaen.args)
+    },
+    stat_names = c(
+      "estimate", "statistic", "p.value", "parameter", "correct", "exact", "conf.level", "conf.low", "conf.high"
+    )
   )
-)
+}
 
 .df_mantelhaentest_stat_labels <- function(exact = FALSE) {
   dplyr::tribble(
