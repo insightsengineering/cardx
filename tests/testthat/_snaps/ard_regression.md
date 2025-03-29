@@ -1,8 +1,7 @@
 # ard_regression() works
 
     Code
-      dplyr::mutate(dplyr::select(as.data.frame(ard_regression(lm(AGE ~ ARM, data = cards::ADSL),
-      add_estimate_to_reference_rows = TRUE)), -context, -stat_label, -fmt_fn), stat = lapply(
+      dplyr::mutate(dplyr::select(as.data.frame(ard), -context, -stat_label, -fmt_fn), stat = lapply(
         stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x)))
     Output
          variable       variable_level      stat_name                       stat warning error
