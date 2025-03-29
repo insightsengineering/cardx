@@ -48,33 +48,19 @@ ard_stats_mantelhaen_test <- function(data, by, variables, strata, ...) {
   dots <- dots_list(...)
   formals_cmh <- formals(asNamespace("stats")[["mantelhaen.test"]])[-c(1:3)]
   if (!"alternative" %in% names(dots)) formals_cmh$alternative <- "two.sided"
-  formals_cmh <- c(dots, formals_cmh[setdiff(names(formals_cmh), names(dots))])
+  mantelhaen.args <- c(dots, formals_cmh[setdiff(names(formals_cmh), names(dots))])
 
   # build ARD ------------------------------------------------------------------
-  test_mantelhaen <- cards::as_cards_fn(
-    \(x, data, ...) {
-      stats::mantelhaen.test(
-        x = x,
-        y = data[[by]],
-        z = data[[strata]],
-        dots
-      ) |>
-        broom::tidy() |>
-        dplyr::bind_cols(formals_cmh)
-    },
-    stat_names = c(
-      "estimate", "statistic", "p.value", "parameter", "correct", "exact", "conf.level", "conf.low", "conf.high"
-    )
-  )
-
   cards::ard_complex(
     data = data,
     variables = all_of(variables),
-    statistic = all_of(variables) ~ list(stats_mantelhaen_test = test_mantelhaen)
+    statistic = all_of(variables) ~ list(
+      stats_mantelhaen_test = .calc_mantelhaen_test(data, by, variables, strata, mantelhaen.args)
+    )
   ) |>
     dplyr::select(-"stat_label") |>
     dplyr::left_join(
-      .df_mantelhaentest_stat_labels(exact = formals_cmh$exact),
+      .df_mantelhaentest_stat_labels(exact = mantelhaen.args$exact),
       by = "stat_name"
     ) |>
     dplyr::mutate(
@@ -87,6 +73,23 @@ ard_stats_mantelhaen_test <- function(data, by, variables, strata, ...) {
     cards::tidy_ard_column_order() |>
     cards::tidy_ard_row_order()
 }
+
+.calc_mantelhaen_test <- function(data, by, variables, strata, mantelhaen.args) {
+  \(x, data, variables, ...) {
+    stats::mantelhaen.test(
+      x = x,
+      y = data[[by]],
+      z = data[[strata]],
+      mantelhaen.args
+    ) |>
+      broom::tidy() |>
+      dplyr::bind_cols(mantelhaen.args)
+  }
+} |> cards::as_cards_fn(
+  stat_names = c(
+    "estimate", "statistic", "p.value", "parameter", "correct", "exact", "conf.level", "conf.low", "conf.high"
+  )
+)
 
 .df_mantelhaentest_stat_labels <- function(exact = FALSE) {
   dplyr::tribble(
