@@ -6,6 +6,8 @@
 
 * The `ard_survfit_survfit.data.frame(variables)` now accepts tidyselect input. (#278)
 
+* Added `cards::as_cards_fun()` to `ard_emmeans_mean_difference()` so when an error occurs the user gets an ARD with the expected ARD structure. (#132)
+
 # cardx 0.2.3
 
 ## New Features and Updates
