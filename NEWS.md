@@ -1,10 +1,16 @@
-# cardx 0.2.3.9006
+# cardx 0.2.3.9009
 
 * Added a `ard_regression.data.frame()` S3 method. Also converted `ard_regression_basic()` to an S3 generic and added a `ard_regression_basic.data.frame()` method (#287)
 
 * Specifying `ard_survfit_survfit.data.frame(variables=NULL)` now creates an unstratified `survfit()` model, where previously `variables` argument could not be empty. (#277)
 
 * The `ard_survfit_survfit.data.frame(variables)` now accepts tidyselect input. (#278)
+
+* Added `conf.level` and `conf.type` to `ard_survival_survfit()` results. (#218)
+
+* Added `cards::as_cards_fun()` to `ard_emmeans_mean_difference()` so when an error occurs the user gets an ARD with the expected ARD structure. (#132)
+
+* Added function `ard_stats_mantelhaen_test()` to calculate ARDs for Cochran-Mantel-Haenszel test results using `stats::mantelhaen.test()`. (#238)
 
 # cardx 0.2.3
 
@@ -37,6 +43,8 @@
 * Implemented `summary(extend=TRUE)` in `ard_survival_survfit()` to return results for time points out of bounds. (#224)
 
 * Methods in the {survey} and {survival} packages do not retain inputs variables types in their outputs. We now are able retain these variable types in ARDs returned by `ard_continuous.survey.design()`, `ard_categorical.survey.design()`, `ard_continuous_ci.survey.design()`, `ard_categorical_ci.survey.design()`, and `ard_survival_survfit.data.frame()` (and notably, _not_ in `ard_survival_survfit.survfit()`).
+
+* Added function `ard_stats_mantelhaen_test()` for calculating ARDs for Cochran-Mantel-Haenszel test results using `stats::mantelhaen.test()`. (#238)
 
 # cardx 0.2.1
 
