@@ -8,6 +8,8 @@
 
 * Added `conf.level` and `conf.type` to `ard_survival_survfit()` results. (#218)
 
+* Added `cards::as_cards_fun()` to `ard_emmeans_mean_difference()` so when an error occurs the user gets an ARD with the expected ARD structure. (#132)
+
 # cardx 0.2.3
 
 ## New Features and Updates
