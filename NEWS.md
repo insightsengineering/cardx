@@ -6,6 +6,8 @@
 
 * The `ard_survfit_survfit.data.frame(variables)` now accepts tidyselect input. (#278)
 
+* Added function `ard_stats_mantelhaen_test()` to calculate ARDs for Cochran-Mantel-Haenszel test results using `stats::mantelhaen.test()`. (#238)
+
 # cardx 0.2.3
 
 ## New Features and Updates
