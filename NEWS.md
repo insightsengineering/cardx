@@ -6,6 +6,8 @@
 
 * The `ard_survfit_survfit.data.frame(variables)` now accepts tidyselect input. (#278)
 
+* Added `conf.level` and `conf.type` to `ard_survival_survfit()` results. (#218)
+
 # cardx 0.2.3
 
 ## New Features and Updates
