@@ -1,7 +1,7 @@
 skip_if_not(is_pkg_installed(c("emmeans", "survey", "lme4")))
 
 test_that("ard_emmeans_mean_difference() works", {
-  local_options(width = 250)
+  withr::local_options(width = 250)
 
   expect_error(
     ard_emmeans_mean_difference <-
@@ -103,7 +103,7 @@ test_that("ard_emmeans_mean_difference() follows ard structure", {
 })
 
 test_that("ard_emmeans_mean_difference() errors are returned correctly", {
-  local_options(width = 250)
+  withr::local_options(width = 250)
 
   expect_silent(
     ard <- ard_emmeans_mean_difference(
