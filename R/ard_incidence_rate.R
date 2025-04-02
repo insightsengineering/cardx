@@ -36,6 +36,30 @@
 #' @return an ARD data frame of class 'card'
 #' @export
 #'
+#' @details
+#' The formulas used to calculate the confidence interval for each CI type are as follows, where `x` represents the
+#' total number of events that occurred:
+#'
+#' * `byar`: Byar's approximation of a Poisson CI. A continuity correction of 0.5 is included in the calculation.
+#'
+#'   `CI lower limit = (x + 0.5) * (1 - 1 / (9 * (x + 0.5)) - stats::qnorm(1 - alpha / 2) / (3 * sqrt(x + 0.5)))^3 / tot_person_time`
+#'   `CI upper limit = (x + 0.5) * (1 - 1 / (9 * (x + 0.5)) + stats::qnorm(1 - alpha / 2) / (3 * sqrt(x + 0.5)))^3 / tot_person_time`
+#'
+#' * `normal`: Normal CI.
+#'
+#'   `CI lower limit = x / tot_person_time - stats::qnorm(1 - alpha / 2) * sqrt(x) / tot_person_time`
+#'   `CI upper limit = x / tot_person_time + stats::qnorm(1 - alpha / 2) * sqrt(x) / tot_person_time`
+#'
+#' * `normal-log`: Normal-Log CI.
+#'
+#'   `CI lower limit = exp(log(x / tot_person_time) - stats::qnorm(1 - alpha / 2) / sqrt(x))`
+#'   `CI upper limit = exp(log(x / tot_person_time) + stats::qnorm(1 - alpha / 2) / sqrt(x))`
+#'
+#' * `exact`: Exact CI for a Poisson mean.
+#'
+#'   `CI lower limit = stats::qchisq(p = alpha / 2, df = 2 * x) / (2 * tot_person_time)`
+#'   `CI upper limit = stats::qchisq(p = 1 - alpha / 2, df = 2 * x + 2) / (2 * tot_person_time)`
+#'
 #' @examples
 #' set.seed(1)
 #' data <- data.frame(
