@@ -423,7 +423,7 @@ extract_strata <- function(x, df_stat) {
         dplyr::tibble(
           context = "survival",
           stat_name = c("conf.level", "conf.type"),
-          stat = as.list(c(conf.level, conf.type)),
+          stat = list(conf.level, conf.type),
           variable = "..ard_survival_survfit.."
         )
       )
