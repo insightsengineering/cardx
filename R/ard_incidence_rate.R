@@ -17,20 +17,18 @@
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   column name used to identify unique patients in `data`. If `NULL`, each row in `data` is assumed to correspond to
 #'   a unique patient.
+#' @param n_person_time (`numeric`)\cr
+#'   amount of person-time to estimate incidence rate for. Defaults to 100.
+#' @param unit_label (`string`)\cr
+#'   label for the unit of values in `time` and estimated person-time output (e.g. `"years"` for person-years,
+#'   `"days"` for person-days, etc.). If the desired person-time estimate unit does not match the current `time` unit,
+#'   values of `time` should be converted to the correct unit during pre-processing. Defaults to `"time"` (person-time).
 #' @param conf.level (`numeric`)\cr
 #'   confidence level for the estimated incidence rate.
 #' @param conf.type (`string`)\cr
 #'   confidence interval type for the estimated incidence rate.
 #'
 #'   One of: `normal` (default), `normal-log`, `exact`, or `byar`.
-#' @param units (`string`)\cr
-#'   unit of values in `time` and estimated person-time output (e.g. person-years, person-days, etc.). If the desired
-#'   person-time estimate unit does not match the current `time` unit, values of `time` should be converted to the
-#'   correct unit during pre-processing.
-#'
-#'   One of: `years`, `months`, `weeks`, or `days`
-#' @param n_person_time (`numeric`)\cr
-#'   amount of person-time (in unit supplied to `units`) to estimate incidence rate for. Defaults to 100.
 #' @inheritParams cards::ard_continuous
 #'
 #' @return an ARD data frame of class 'card'
@@ -70,17 +68,17 @@
 #' )
 #'
 #' data |>
-#'   ard_incidence_rate(time = AETTE1, units = "years", count = AETOT1, id = USUBJID, by = TRTA)
+#'   ard_incidence_rate(time = AETTE1, unit_label = "years", count = AETOT1, id = USUBJID, by = TRTA)
 ard_incidence_rate <- function(data,
                                time,
-                               units,
                                count = NULL,
                                id = NULL,
                                by = NULL,
                                strata = NULL,
+                               n_person_time = 100,
+                               unit_label = "time",
                                conf.level = 0.95,
-                               conf.type = c("normal", "normal-log", "exact", "byar"),
-                               n_person_time = 100) {
+                               conf.type = c("normal", "normal-log", "exact", "byar")) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
@@ -89,17 +87,25 @@ ard_incidence_rate <- function(data,
     data,
     time = {{ time }}, by = {{ by }}, strata = {{ strata }}, count = {{ count }}, id = {{ id }}
   )
-  check_length(time, 1)
-  check_length(units, 1)
-  check_length(count, 1, allow_empty = TRUE)
-  check_length(id, 1, allow_empty = TRUE)
-  check_class(data[[time]], c("numeric", "integer"))
+  check_scalar(time)
+  check_string(unit_label)
+  check_scalar(count, allow_empty = TRUE)
+  check_scalar(id, allow_empty = TRUE)
   check_scalar_range(conf.level, c(0, 1))
   check_numeric(n_person_time)
-  check_length(n_person_time, 1)
+  check_scalar(n_person_time)
+  if (!class(data[[time]]) %in% c("numeric", "integer")) {
+    cli::cli_abort(
+      message = paste(
+        "The vector specified via {.arg time} from {.arg data} must be of type {.cls numeric} or {.cls integer},",
+        "but {.arg {data}[[{time}]]} is of type {.obj_type_friendly {data[[time]]}}."
+      ),
+      call = get_cli_abort_call()
+    )
+  }
+
 
   conf.type <- arg_match(conf.type, error_call = get_cli_abort_call())
-  units <- arg_match(units, values = c("years", "months", "weeks", "days"), error_call = get_cli_abort_call())
 
   # build ARD ------------------------------------------------------------------
   cards::ard_complex(
@@ -130,7 +136,7 @@ ard_incidence_rate <- function(data,
 .calc_incidence_rate <- function(data, time, units, count, id, by, strata, conf.level, conf.type, n_person_time) {
   cards::as_cards_fn(
     \(x, data, ...) {
-      # calculate number of unique IDs with >=1 AE
+      # calculate number of unique IDs with >=1 event
       n_unique_id <- if (!is_empty(id) && !is_empty(count)) {
         sum(!is.na(unique(data[[id]][data[[count]] > 0])))
       } else if (!is_empty(id)) {
@@ -186,19 +192,19 @@ ard_incidence_rate <- function(data,
   )
 }
 
-.df_incidence_rate_stat_labels <- function(n_person_time, units) {
-  time_unit <- paste0("Person-", str_replace(units, "([[:alpha:]])", substr(toupper(units), 1, 1)))
+.df_incidence_rate_stat_labels <- function(n_person_time, unit_label) {
+  time_unit <- paste0("Person-", str_replace(unit_label, "([[:alpha:]])", substr(toupper(unit_label), 1, 1)))
 
   dplyr::tribble(
     ~stat_name, ~stat_label,
-    "estimate", paste("AE Rate per", n_person_time, time_unit),
+    "estimate", paste("Rate per", n_person_time, time_unit),
     "std.error", "Standard Error",
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
     "conf.type", "CI Type",
     "conf.level", "CI Confidence Level",
     "tot_person_time", paste(time_unit, "at Risk"),
-    "n_events", "Number of AEs Observed",
-    "n_unique_id", "Number of Patients with Any AE"
+    "n_events", "Number of Events Observed",
+    "n_unique_id", "Number of Patients with Any Event"
   )
 }

@@ -7,14 +7,14 @@
 ard_incidence_rate(
   data,
   time,
-  units,
   count = NULL,
   id = NULL,
   by = NULL,
   strata = NULL,
+  n_person_time = 100,
+  unit_label = "time",
   conf.level = 0.95,
-  conf.type = c("normal", "normal-log", "exact", "byar"),
-  n_person_time = 100
+  conf.type = c("normal", "normal-log", "exact", "byar")
 )
 }
 \arguments{
@@ -23,13 +23,6 @@ a data frame.}
 
 \item{time}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name of time at risk variable.}
-
-\item{units}{(\code{string})\cr
-unit of values in \code{time} and estimated person-time output (e.g. person-years, person-days, etc.). If the desired
-person-time estimate unit does not match the current \code{time} unit, values of \code{time} should be converted to the
-correct unit during pre-processing.
-
-One of: \code{years}, \code{months}, \code{weeks}, or \code{days}}
 
 \item{count}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 column name of variable indicating count of events that occurred. If \code{NULL}, each row in \code{data} is assumed to
@@ -51,6 +44,14 @@ columns specified.
 
 Arguments may be used in conjunction with one another.}
 
+\item{n_person_time}{(\code{numeric})\cr
+amount of person-time to estimate incidence rate for. Defaults to 100.}
+
+\item{unit_label}{(\code{string})\cr
+label for the unit of values in \code{time} and estimated person-time output (e.g. \code{"years"} for person-years,
+\code{"days"} for person-days, etc.). If the desired person-time estimate unit does not match the current \code{time} unit,
+values of \code{time} should be converted to the correct unit during pre-processing. Defaults to \code{"time"} (person-time).}
+
 \item{conf.level}{(\code{numeric})\cr
 confidence level for the estimated incidence rate.}
 
@@ -58,9 +59,6 @@ confidence level for the estimated incidence rate.}
 confidence interval type for the estimated incidence rate.
 
 One of: \code{normal} (default), \code{normal-log}, \code{exact}, or \code{byar}.}
-
-\item{n_person_time}{(\code{numeric})\cr
-amount of person-time (in unit supplied to \code{units}) to estimate incidence rate for. Defaults to 100.}
 }
 \value{
 an ARD data frame of class 'card'
@@ -103,5 +101,5 @@ data <- data.frame(
 )
 
 data |>
-  ard_incidence_rate(time = AETTE1, units = "years", count = AETOT1, id = USUBJID, by = TRTA)
+  ard_incidence_rate(time = AETTE1, unit_label = "years", count = AETOT1, id = USUBJID, by = TRTA)
 }
