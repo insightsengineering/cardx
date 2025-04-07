@@ -40,23 +40,20 @@
 #'
 #' * `byar`: Byar's approximation of a Poisson CI. A continuity correction of 0.5 is included in the calculation.
 #'
-#'   `CI lower limit = (x + 0.5) * (1 - 1 / (9 * (x + 0.5)) - stats::qnorm(1 - alpha / 2) / (3 * sqrt(x + 0.5)))^3 / tot_person_time`
-#'   `CI upper limit = (x + 0.5) * (1 - 1 / (9 * (x + 0.5)) + stats::qnorm(1 - alpha / 2) / (3 * sqrt(x + 0.5)))^3 / tot_person_time`
+#'   \deqn{CI = (x + 0.5) \times (1 - 1 / (9 \times (x + 0.5)) \pm Z_{1 - \alpha / 2} / (3 \times \sqrt{x + 0.5}))^3 / \text{total person time}}
 #'
 #' * `normal`: Normal CI.
 #'
-#'   `CI lower limit = x / tot_person_time - stats::qnorm(1 - alpha / 2) * sqrt(x) / tot_person_time`
-#'   `CI upper limit = x / tot_person_time + stats::qnorm(1 - alpha / 2) * sqrt(x) / tot_person_time`
+#'   \deqn{CI = x / \text{total person time} \pm Z_{1 - \alpha / 2} \times \sqrt{x} / \text{total person time}}
 #'
 #' * `normal-log`: Normal-Log CI.
 #'
-#'   `CI lower limit = exp(log(x / tot_person_time) - stats::qnorm(1 - alpha / 2) / sqrt(x))`
-#'   `CI upper limit = exp(log(x / tot_person_time) + stats::qnorm(1 - alpha / 2) / sqrt(x))`
+#'   \deqn{CI = \exp(\log(x / \text{total person time}) \pm Z_{1 - \alpha / 2} / \sqrt{x})}
 #'
 #' * `exact`: Exact CI for a Poisson mean.
 #'
-#'   `CI lower limit = stats::qchisq(p = alpha / 2, df = 2 * x) / (2 * tot_person_time)`
-#'   `CI upper limit = stats::qchisq(p = 1 - alpha / 2, df = 2 * x + 2) / (2 * tot_person_time)`
+#'   \deqn{CI_{lower} = \chi^2_{\alpha / 2, 2x + 2} / {2 \times \text{total person time}}}
+#'   \deqn{CI_{upper} = \chi^2_{1 - \alpha / 2, 2x + 2} / {2 \times \text{total person time}}}
 #'
 #' @examples
 #' set.seed(1)

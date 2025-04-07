@@ -75,20 +75,17 @@ total number of events that occurred:
 \itemize{
 \item \code{byar}: Byar's approximation of a Poisson CI. A continuity correction of 0.5 is included in the calculation.
 
-\verb{CI lower limit = (x + 0.5) * (1 - 1 / (9 * (x + 0.5)) - stats::qnorm(1 - alpha / 2) / (3 * sqrt(x + 0.5)))^3 / tot_person_time}
-\verb{CI upper limit = (x + 0.5) * (1 - 1 / (9 * (x + 0.5)) + stats::qnorm(1 - alpha / 2) / (3 * sqrt(x + 0.5)))^3 / tot_person_time}
+\deqn{CI = (x + 0.5) \times (1 - 1 / (9 \times (x + 0.5)) \pm Z_{1 - \alpha / 2} / (3 \times \sqrt{x + 0.5}))^3 / \text{total person time}}
 \item \code{normal}: Normal CI.
 
-\verb{CI lower limit = x / tot_person_time - stats::qnorm(1 - alpha / 2) * sqrt(x) / tot_person_time}
-\verb{CI upper limit = x / tot_person_time + stats::qnorm(1 - alpha / 2) * sqrt(x) / tot_person_time}
+\deqn{CI = x / \text{total person time} \pm Z_{1 - \alpha / 2} \times \sqrt{x} / \text{total person time}}
 \item \code{normal-log}: Normal-Log CI.
 
-\verb{CI lower limit = exp(log(x / tot_person_time) - stats::qnorm(1 - alpha / 2) / sqrt(x))}
-\verb{CI upper limit = exp(log(x / tot_person_time) + stats::qnorm(1 - alpha / 2) / sqrt(x))}
+\deqn{CI = \exp(\log(x / \text{total person time}) \pm Z_{1 - \alpha / 2} / \sqrt{x})}
 \item \code{exact}: Exact CI for a Poisson mean.
 
-\verb{CI lower limit = stats::qchisq(p = alpha / 2, df = 2 * x) / (2 * tot_person_time)}
-\verb{CI upper limit = stats::qchisq(p = 1 - alpha / 2, df = 2 * x + 2) / (2 * tot_person_time)}
+\deqn{CI_{lower} = \chi^2_{\alpha / 2, 2x + 2} / {2 \times \text{total person time}}}
+\deqn{CI_{upper} = \chi^2_{1 - \alpha / 2, 2x + 2} / {2 \times \text{total person time}}}
 }
 }
 \examples{
