@@ -68,7 +68,7 @@
 #' )
 #'
 #' data |>
-#'   ard_incidence_rate(time = AETTE1, unit_label = "years", count = AETOT1, id = USUBJID, by = TRTA)
+#'   ard_incidence_rate(time = AETTE1, count = AETOT1, id = USUBJID, by = TRTA, unit_label = "years")
 ard_incidence_rate <- function(data,
                                time,
                                count = NULL,
@@ -97,8 +97,8 @@ ard_incidence_rate <- function(data,
   if (!class(data[[time]]) %in% c("numeric", "integer")) {
     cli::cli_abort(
       message = paste(
-        "The vector specified via {.arg time} from {.arg data} must be of type {.cls numeric} or {.cls integer},",
-        "but {.arg {data}[[{time}]]} is of type {.obj_type_friendly {data[[time]]}}."
+        "The {.arg time} variable must be of type {.cls numeric/integer} but {.arg {time}} is",
+        "{.obj_type_friendly {data[[time]]}}."
       ),
       call = get_cli_abort_call()
     )
@@ -115,12 +115,12 @@ ard_incidence_rate <- function(data,
     strata = any_of(strata),
     statistic = all_of(time) ~ list(
       incidence_rate =
-        .calc_incidence_rate(data, time, units, count, id, by, strata, conf.level, conf.type, n_person_time)
+        .calc_incidence_rate(data, time, count, id, by, strata, n_person_time, unit_label, conf.level, conf.type)
     )
   ) |>
     dplyr::select(-"stat_label") |>
     dplyr::left_join(
-      .df_incidence_rate_stat_labels(n_person_time, units),
+      .df_incidence_rate_stat_labels(n_person_time, unit_label),
       by = "stat_name"
     ) |>
     dplyr::mutate(
@@ -133,7 +133,7 @@ ard_incidence_rate <- function(data,
 }
 
 # function to perform calculations -------------------------------------------
-.calc_incidence_rate <- function(data, time, units, count, id, by, strata, conf.level, conf.type, n_person_time) {
+.calc_incidence_rate <- function(data, time, count, id, by, strata, n_person_time, unit_label, conf.level, conf.type) {
   cards::as_cards_fn(
     \(x, data, ...) {
       # calculate number of unique IDs with >=1 event

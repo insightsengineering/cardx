@@ -101,5 +101,5 @@ data <- data.frame(
 )
 
 data |>
-  ard_incidence_rate(time = AETTE1, unit_label = "years", count = AETOT1, id = USUBJID, by = TRTA)
+  ard_incidence_rate(time = AETTE1, count = AETOT1, id = USUBJID, by = TRTA, unit_label = "years")
 }
