@@ -11,7 +11,7 @@ test_that("ard_incidence_rate() works", {
       ard_incidence_rate(time = AVAL, count = CNSR, id = USUBJID, unit_label = "years")
   )
   expect_snapshot(res |> print(columns = "all"))
-  expect_equal(res$stat_label[1], "Rate per 100 Person-Years")
+  expect_equal(res$stat_label[1], "Incidence rate per 100 Person-Years")
 
   adae_single <- adae |>
     dplyr::group_by(USUBJID) |>
@@ -37,7 +37,7 @@ test_that("ard_incidence_rate() works", {
       ard_incidence_rate(time = time, id = USUBJID, n_person_time = 50, unit_label = "days")
   )
   expect_snapshot(res |> print(columns = "all"))
-  expect_equal(res$stat_label[1], "Rate per 50 Person-Days")
+  expect_equal(res$stat_label[1], "Incidence rate per 50 Person-Days")
 })
 
 test_that("ard_incidence_rate(conf.type) works", {

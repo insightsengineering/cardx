@@ -6,7 +6,7 @@
       {cards} data frame: 9 x 8
     Output
         variable   context       stat_name stat_label   stat fmt_fn warning error
-      1     AVAL incidenc…        estimate  Rate per…  0.605      1              
+      1     AVAL incidenc…        estimate  Incidenc…  0.605      1              
       2     AVAL incidenc…       std.error  Standard…  0.001      1              
       3     AVAL incidenc…        conf.low  CI Lower…  0.488      1              
       4     AVAL incidenc…       conf.high  CI Upper…  0.723      1              
@@ -24,7 +24,7 @@
       {cards} data frame: 9 x 8
     Output
         variable   context       stat_name stat_label   stat fmt_fn warning error
-      1     time incidenc…        estimate  Rate per…  2.187      1              
+      1     time incidenc…        estimate  Incidenc…  2.187      1              
       2     time incidenc…       std.error  Standard…  0.001      1              
       3     time incidenc…        conf.low  CI Lower…   2.06      1              
       4     time incidenc…       conf.high  CI Upper…  2.314      1              
@@ -42,7 +42,7 @@
       {cards} data frame: 9 x 8
     Output
         variable   context       stat_name stat_label   stat fmt_fn warning error
-      1     time incidenc…        estimate  Rate per…  2.154      1              
+      1     time incidenc…        estimate  Incidenc…  2.154      1              
       2     time incidenc…       std.error  Standard…  0.001      1              
       3     time incidenc…        conf.low  CI Lower…  2.031      1              
       4     time incidenc…       conf.high  CI Upper…  2.277      1              
@@ -60,7 +60,7 @@
       {cards} data frame: 9 x 8
     Output
         variable   context       stat_name stat_label   stat fmt_fn warning error
-      1     time incidenc…        estimate  Rate per…  1.077      1              
+      1     time incidenc…        estimate  Incidenc…  1.077      1              
       2     time incidenc…       std.error  Standard…  0.001      1              
       3     time incidenc…        conf.low  CI Lower…  1.016      1              
       4     time incidenc…       conf.high  CI Upper…  1.139      1              
@@ -78,7 +78,7 @@
       {cards} data frame: 9 x 8
     Output
         variable   context       stat_name stat_label      stat fmt_fn warning error
-      1     AVAL incidenc…        estimate  Rate per…     0.605      1              
+      1     AVAL incidenc…        estimate  Incidenc…     0.605      1              
       2     AVAL incidenc…       std.error  Standard…     0.001      1              
       3     AVAL incidenc…        conf.low  CI Lower…     0.498      1              
       4     AVAL incidenc…       conf.high  CI Upper…     0.735      1              
@@ -96,7 +96,7 @@
       {cards} data frame: 9 x 8
     Output
         variable   context       stat_name stat_label  stat fmt_fn warning error
-      1     AVAL incidenc…        estimate  Rate per… 0.605      1              
+      1     AVAL incidenc…        estimate  Incidenc… 0.605      1              
       2     AVAL incidenc…       std.error  Standard… 0.001      1              
       3     AVAL incidenc…        conf.low  CI Lower… 0.493      1              
       4     AVAL incidenc…       conf.high  CI Upper… 0.735      1              
@@ -114,7 +114,7 @@
       {cards} data frame: 9 x 8
     Output
         variable   context       stat_name stat_label  stat fmt_fn warning error
-      1     AVAL incidenc…        estimate  Rate per… 0.605      1              
+      1     AVAL incidenc…        estimate  Incidenc… 0.605      1              
       2     AVAL incidenc…       std.error  Standard… 0.001      1              
       3     AVAL incidenc…        conf.low  CI Lower… 0.496      1              
       4     AVAL incidenc…       conf.high  CI Upper… 0.731      1              

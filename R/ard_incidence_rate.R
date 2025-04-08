@@ -194,7 +194,7 @@ ard_incidence_rate <- function(data,
 
   dplyr::tribble(
     ~stat_name, ~stat_label,
-    "estimate", paste("Rate per", n_person_time, time_unit),
+    "estimate", paste("Incidence rate per", n_person_time, time_unit),
     "std.error", "Standard Error",
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
