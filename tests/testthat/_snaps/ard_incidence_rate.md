@@ -14,7 +14,7 @@
       6     AVAL incidenc…      conf.level  CI Confi…   0.95      1              
       7     AVAL incidenc… tot_person_time  Person-Y…  16853      1              
       8     AVAL incidenc…        n_events  Number o…    102      1              
-      9     AVAL incidenc…     n_unique_id  Number o…    102      0              
+      9     AVAL incidenc…               N  Number o…    254      0              
 
 ---
 
@@ -32,7 +32,7 @@
       6     time incidenc…      conf.level  CI Confi…   0.95      1              
       7     time incidenc… tot_person_time  Person-D…  51895      1              
       8     time incidenc…        n_events  Number o…   1135      0              
-      9     time incidenc…     n_unique_id  Number o…    217      0              
+      9     time incidenc…               N  Number o…    217      0              
 
 ---
 
@@ -50,7 +50,7 @@
       6     time incidenc…      conf.level  CI Confi…   0.95      1              
       7     time incidenc… tot_person_time  Person-D…  54773      1              
       8     time incidenc…        n_events  Number o…   1180      0              
-      9     time incidenc…     n_unique_id  Number o…   1180      0              
+      9     time incidenc…               N  Number o…   1180      0              
 
 ---
 
@@ -68,7 +68,7 @@
       6     time incidenc…      conf.level  CI Confi…   0.95      1              
       7     time incidenc… tot_person_time  Person-D…  54773      1              
       8     time incidenc…        n_events  Number o…   1180      0              
-      9     time incidenc…     n_unique_id  Number o…    224      0              
+      9     time incidenc…               N  Number o…    224      0              
 
 # ard_incidence_rate(conf.type) works
 
@@ -86,7 +86,7 @@
       6     AVAL incidenc…      conf.level  CI Confi…      0.95      1              
       7     AVAL incidenc… tot_person_time  Person-Y…     16853      1              
       8     AVAL incidenc…        n_events  Number o…       102      1              
-      9     AVAL incidenc…     n_unique_id  Number o…       102      0              
+      9     AVAL incidenc…               N  Number o…       254      0              
 
 ---
 
@@ -104,7 +104,7 @@
       6     AVAL incidenc…      conf.level  CI Confi…  0.95      1              
       7     AVAL incidenc… tot_person_time  Person-Y… 16853      1              
       8     AVAL incidenc…        n_events  Number o…   102      1              
-      9     AVAL incidenc…     n_unique_id  Number o…   102      0              
+      9     AVAL incidenc…               N  Number o…   254      0              
 
 ---
 
@@ -122,7 +122,7 @@
       6     AVAL incidenc…      conf.level  CI Confi…  0.95      1              
       7     AVAL incidenc… tot_person_time  Person-Y… 16853      1              
       8     AVAL incidenc…        n_events  Number o…   102      1              
-      9     AVAL incidenc…     n_unique_id  Number o…   102      0              
+      9     AVAL incidenc…               N  Number o…   254      0              
 
 # ard_incidence_rate() errors are handled correctly
 

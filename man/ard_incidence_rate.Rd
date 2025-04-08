@@ -29,8 +29,8 @@ column name of variable indicating count of events that occurred. If \code{NULL}
 correspond to a single event occurrence.}
 
 \item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-column name used to identify unique patients in \code{data}. If \code{NULL}, each row in \code{data} is assumed to correspond to
-a unique patient.}
+column name used to identify unique subjects in \code{data}. If \code{NULL}, each row in \code{data} is assumed to correspond to
+a unique subject.}
 
 \item{by, strata}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 columns to tabulate by/stratify by for summary statistic
@@ -70,22 +70,22 @@ rate in person-years.
 Incidence rate is calculated as: Total number of events that occurred / Total person-time at risk
 }
 \details{
-The formulas used to calculate the confidence interval for each CI type are as follows, where \code{x} represents the
-total number of events that occurred:
+The formulas used to calculate the confidence interval for each CI type are as follows, where \eqn{x} represents the
+total number of events that occurred and \eqn{t_i} represents the person time in row \eqn{i} of \code{data}:
 \itemize{
 \item \code{byar}: Byar's approximation of a Poisson CI. A continuity correction of 0.5 is included in the calculation.
 
-\deqn{CI = (x + 0.5) \times (1 - 1 / (9 \times (x + 0.5)) \pm Z_{1 - \alpha / 2} / (3 \times \sqrt{x + 0.5}))^3 / \text{total person time}}
+\deqn{CI = (x + 0.5) \times (1 - 1 / (9 \times (x + 0.5)) \pm Z_{1 - \alpha / 2} / (3 \times \sqrt{x + 0.5}))^3 / \sum{t_i}}
 \item \code{normal}: Normal CI.
 
-\deqn{CI = x / \text{total person time} \pm Z_{1 - \alpha / 2} \times \sqrt{x} / \text{total person time}}
+\deqn{CI = x / \sum{t_i} \pm Z_{1 - \alpha / 2} \times \sqrt{x} / \sum{t_i}}
 \item \code{normal-log}: Normal-Log CI.
 
-\deqn{CI = \exp(\log(x / \text{total person time}) \pm Z_{1 - \alpha / 2} / \sqrt{x})}
+\deqn{CI = \exp(\log(x / \sum{t_i}) \pm Z_{1 - \alpha / 2} / \sqrt{x})}
 \item \code{exact}: Exact CI for a Poisson mean.
 
-\deqn{CI_{lower} = \chi^2_{\alpha / 2, 2x + 2} / {2 \times \text{total person time}}}
-\deqn{CI_{upper} = \chi^2_{1 - \alpha / 2, 2x + 2} / {2 \times \text{total person time}}}
+\deqn{CI_{lower} = \chi^2_{\alpha / 2, 2x + 2} / {2 \times \sum{t_i}}}
+\deqn{CI_{upper} = \chi^2_{1 - \alpha / 2, 2x + 2} / {2 \times \sum{t_i}}}
 }
 }
 \examples{

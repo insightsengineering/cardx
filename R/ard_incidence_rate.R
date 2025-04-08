@@ -15,8 +15,8 @@
 #'   column name of variable indicating count of events that occurred. If `NULL`, each row in `data` is assumed to
 #'   correspond to a single event occurrence.
 #' @param id ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
-#'   column name used to identify unique patients in `data`. If `NULL`, each row in `data` is assumed to correspond to
-#'   a unique patient.
+#'   column name used to identify unique subjects in `data`. If `NULL`, each row in `data` is assumed to correspond to
+#'   a unique subject.
 #' @param n_person_time (`numeric`)\cr
 #'   amount of person-time to estimate incidence rate for. Defaults to 100.
 #' @param unit_label (`string`)\cr
@@ -35,25 +35,25 @@
 #' @export
 #'
 #' @details
-#' The formulas used to calculate the confidence interval for each CI type are as follows, where `x` represents the
-#' total number of events that occurred:
+#' The formulas used to calculate the confidence interval for each CI type are as follows, where \eqn{x} represents the
+#' total number of events that occurred and \eqn{t_i} represents the person time in row \eqn{i} of `data`:
 #'
 #' * `byar`: Byar's approximation of a Poisson CI. A continuity correction of 0.5 is included in the calculation.
 #'
-#'   \deqn{CI = (x + 0.5) \times (1 - 1 / (9 \times (x + 0.5)) \pm Z_{1 - \alpha / 2} / (3 \times \sqrt{x + 0.5}))^3 / \text{total person time}}
+#'   \deqn{CI = (x + 0.5) \times (1 - 1 / (9 \times (x + 0.5)) \pm Z_{1 - \alpha / 2} / (3 \times \sqrt{x + 0.5}))^3 / \sum{t_i}}
 #'
 #' * `normal`: Normal CI.
 #'
-#'   \deqn{CI = x / \text{total person time} \pm Z_{1 - \alpha / 2} \times \sqrt{x} / \text{total person time}}
+#'   \deqn{CI = x / \sum{t_i} \pm Z_{1 - \alpha / 2} \times \sqrt{x} / \sum{t_i}}
 #'
 #' * `normal-log`: Normal-Log CI.
 #'
-#'   \deqn{CI = \exp(\log(x / \text{total person time}) \pm Z_{1 - \alpha / 2} / \sqrt{x})}
+#'   \deqn{CI = \exp(\log(x / \sum{t_i}) \pm Z_{1 - \alpha / 2} / \sqrt{x})}
 #'
 #' * `exact`: Exact CI for a Poisson mean.
 #'
-#'   \deqn{CI_{lower} = \chi^2_{\alpha / 2, 2x + 2} / {2 \times \text{total person time}}}
-#'   \deqn{CI_{upper} = \chi^2_{1 - \alpha / 2, 2x + 2} / {2 \times \text{total person time}}}
+#'   \deqn{CI_{lower} = \chi^2_{\alpha / 2, 2x + 2} / {2 \times \sum{t_i}}}
+#'   \deqn{CI_{upper} = \chi^2_{1 - \alpha / 2, 2x + 2} / {2 \times \sum{t_i}}}
 #'
 #' @examples
 #' set.seed(1)
@@ -134,9 +134,7 @@ ard_incidence_rate <- function(data,
   cards::as_cards_fn(
     \(x, data, ...) {
       # calculate number of unique IDs with >=1 event
-      n_unique_id <- if (!is_empty(id) && !is_empty(count)) {
-        sum(!is.na(unique(data[[id]][data[[count]] > 0])))
-      } else if (!is_empty(id)) {
+      N <- if (!is_empty(id)) {
         sum(!is.na(unique(data[[id]])))
       } else {
         nrow(data)
@@ -179,12 +177,12 @@ ard_incidence_rate <- function(data,
         conf.level = conf.level,
         tot_person_time = tot_person_time,
         n_events = n_events,
-        n_unique_id = n_unique_id
+        N = N
       )
     },
     stat_names = c(
       "estimate", "std.error", "conf.low", "conf.high", "conf.type", "conf.level",
-      "tot_person_time", "n_events", "n_unique_id"
+      "tot_person_time", "n_events", "N"
     )
   )
 }
@@ -202,6 +200,6 @@ ard_incidence_rate <- function(data,
     "conf.level", "CI Confidence Level",
     "tot_person_time", paste(time_unit, "at Risk"),
     "n_events", "Number of Events Observed",
-    "n_unique_id", "Number of Patients with Any Event"
+    "N", "Number of Subjects Observed"
   )
 }
