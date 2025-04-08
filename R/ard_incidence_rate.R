@@ -35,25 +35,26 @@
 #' @export
 #'
 #' @details
-#' The formulas used to calculate the confidence interval for each CI type are as follows, where \eqn{x} represents the
-#' total number of events that occurred and \eqn{t_i} represents the person time in row \eqn{i} of `data`:
+#' The formulas used to calculate the confidence interval for each CI type are as
+#' follows, where \eqn{x_i} and \eqn{t_i} represent the number of events and follow-up
+#' time for subject \eqn{i}, respectively.
 #'
 #' * `byar`: Byar's approximation of a Poisson CI. A continuity correction of 0.5 is included in the calculation.
 #'
-#'   \deqn{CI = (x + 0.5) \times (1 - 1 / (9 \times (x + 0.5)) \pm Z_{1 - \alpha / 2} / (3 \times \sqrt{x + 0.5}))^3 / \sum{t_i}}
+#'   \deqn{CI = (\sum{x_i} + 0.5) (1 - 1 / (9 \times (\sum{x_i} + 0.5)) \pm Z_{1 - \alpha / 2} / (3 \sqrt{\sum{x_i} + 0.5}))^3 / \sum{t_i}}
 #'
 #' * `normal`: Normal CI.
 #'
-#'   \deqn{CI = x / \sum{t_i} \pm Z_{1 - \alpha / 2} \times \sqrt{x} / \sum{t_i}}
+#'   \deqn{CI = \sum{x_i} / \sum{t_i} \pm Z_{1 - \alpha / 2} \sqrt{\sum{x_i}} / \sum{t_i}}
 #'
 #' * `normal-log`: Normal-Log CI.
 #'
-#'   \deqn{CI = \exp(\log(x / \sum{t_i}) \pm Z_{1 - \alpha / 2} / \sqrt{x})}
+#'   \deqn{CI = \exp(\log(\sum{x_i} / \sum{t_i}) \pm Z_{1 - \alpha / 2} / \sqrt{\sum{x_i}})}
 #'
 #' * `exact`: Exact CI for a Poisson mean.
 #'
-#'   \deqn{CI_{lower} = \chi^2_{\alpha / 2, 2x + 2} / {2 \times \sum{t_i}}}
-#'   \deqn{CI_{upper} = \chi^2_{1 - \alpha / 2, 2x + 2} / {2 \times \sum{t_i}}}
+#'   \deqn{CI_{lower} = \chi^2_{\alpha / 2, 2\sum{x_i} + 2} / {2 \sum{t_i}}}
+#'   \deqn{CI_{upper} = \chi^2_{1 - \alpha / 2, 2\sum{x_i} + 2} / {2 \sum{t_i}}}
 #'
 #' @examples
 #' set.seed(1)
