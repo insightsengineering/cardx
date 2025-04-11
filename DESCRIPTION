@@ -14,13 +14,13 @@ Description: Create extra Analysis Results Data (ARD) summary objects.
     format. These objects are used and re-used to construct summary
     tables, visualizations, and written reports.
 License: Apache License 2.0
-URL: https://insightsengineering.github.io/cardx/,
-    https://github.com/insightsengineering/cardx/
+URL: https://github.com/insightsengineering/cardx,
+    https://insightsengineering.github.io/cardx/
 BugReports: https://github.com/insightsengineering/cardx/issues
 Depends:
     R (>= 4.2)
 Imports:
-    cards (>= 0.5.0),
+    cards (>= 0.5.1),
     cli (>= 3.6.1),
     dplyr (>= 1.1.2),
     glue (>= 1.6.2),

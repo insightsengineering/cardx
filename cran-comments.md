@@ -6,21 +6,13 @@
 
 ## R CMD check results
 
-(I added my middle initial to my name to match my other packages on CRAN.)
-
-  New maintainer:
-    Daniel D. Sjoberg <danield.sjoberg@gmail.com>
-  Old maintainer(s):
-    Daniel Sjoberg <danield.sjoberg@gmail.com>
-
-0 errors ✔ | 0 warnings ✔ | 1 note ✖
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 ## revdepcheck results
 
 We checked 4 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 0 new problems
- * We failed to check 0 packages
+ * We saw 1 new problem in the 'gtsummary' package. I maintain this package and the break is expected. I will submit a new version as soon as 'cardx' is on CRAN.
 
 ## Additional Comments
 
