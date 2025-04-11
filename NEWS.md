@@ -1,4 +1,4 @@
-# cardx 0.2.3.9011
+# cardx 0.2.3.9012
 
 * Added a `ard_regression.data.frame()` S3 method. Also converted `ard_regression_basic()` to an S3 generic and added a `ard_regression_basic.data.frame()` method (#287)
 
