@@ -32,7 +32,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdown-versions">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.4">v0.2.4</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.3">v0.2.3</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.2">v0.2.2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.1">v0.2.1</a>
@@ -70,7 +71,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Process Survival Fit For Time Estimates</h1>
-      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/cardx/blob/v0.2.3/R/ard_survival_survfit.R" class="external-link"><code>R/ard_survival_survfit.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/cardx/blob/v0.2.4/R/ard_survival_survfit.R" class="external-link"><code>R/ard_survival_survfit.R</code></a></small>
       <div class="d-none name"><code>dot-process_survfit_time.Rd</code></div>
     </div>
 
@@ -148,20 +149,20 @@ default starting time. See <code><a href="https://rdrr.io/pkg/survival/man/survf
 </h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">survival</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/survfit.html" class="external-link">survfit</a></span><span class="op">(</span><span class="fu">survival</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">AVAL</span>, <span class="va">CNSR</span><span class="op">)</span> <span class="op">~</span> <span class="va">TRTA</span>, <span class="fu">cards</span><span class="fu">::</span><span class="va"><a href="https://insightsengineering.github.io/cards/latest-tag/reference/adam.html" class="external-link">ADTTE</a></span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">cardx</span><span class="fu">:::</span><span class="fu">.process_survfit_time</span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">180</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"risk"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   time n.risk  estimate  std.error conf.high   conf.low context</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   60     59 0.1071694 0.03599237 0.1749982 0.03376387    risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   60     14 0.3060260 0.07123698 0.4324990 0.15136743    risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   60     20 0.2678584 0.06803896 0.3897725 0.12158756    risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  180     35 0.3490579 0.06147816 0.4590580 0.21668945    risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  180      3 0.7379399 0.14042839 0.9083203 0.25091938    risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  180      5 0.6191957 0.12993587 0.8048989 0.25673450    risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           group1_level group1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1              Placebo   TRTA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Xanomeline High Dose   TRTA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Xanomeline Low Dose   TRTA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4              Placebo   TRTA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Xanomeline High Dose   TRTA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Xanomeline Low Dose   TRTA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   time n.risk  estimate  std.error conf.high   conf.low conf.level conf.type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   60     59 0.1071694 0.03599237 0.1749982 0.03376387       0.95       log</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   60     14 0.3060260 0.07123698 0.4324990 0.15136743       0.95       log</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   60     20 0.2678584 0.06803896 0.3897725 0.12158756       0.95       log</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  180     35 0.3490579 0.06147816 0.4590580 0.21668945       0.95       log</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  180      3 0.7379399 0.14042839 0.9083203 0.25091938       0.95       log</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  180      5 0.6191957 0.12993587 0.8048989 0.25673450       0.95       log</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   context         group1_level group1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    risk              Placebo   TRTA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    risk Xanomeline High Dose   TRTA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    risk  Xanomeline Low Dose   TRTA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    risk              Placebo   TRTA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    risk Xanomeline High Dose   TRTA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    risk  Xanomeline Low Dose   TRTA</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

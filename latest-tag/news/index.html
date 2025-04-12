@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,6 +46,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdown-versions">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.4">v0.2.4</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.3">v0.2.3</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.2">v0.2.2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.1">v0.2.1</a>
@@ -68,9 +69,25 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/insightsengineering/cardx/blob/v0.2.3/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/insightsengineering/cardx/blob/v0.2.4/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.4" id="cardx-024">cardx 0.2.4<a class="anchor" aria-label="anchor" href="#cardx-024"></a>
+</h2>
+<div class="section level3">
+<h3 id="new-features-and-updates-0-2-4">New Features and Updates<a class="anchor" aria-label="anchor" href="#new-features-and-updates-0-2-4"></a>
+</h3>
+<ul>
+<li><p>Added function <code><a href="../reference/ard_stats_mantelhaen_test.html">ard_stats_mantelhaen_test()</a></code> to calculate ARDs for Cochran-Mantel-Haenszel test results using <code><a href="https://rdrr.io/r/stats/mantelhaen.test.html" class="external-link">stats::mantelhaen.test()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/238" class="external-link">#238</a>)</p></li>
+<li><p>Added a <code><a href="../reference/ard_regression.html">ard_regression.data.frame()</a></code> S3 method. Also converted <code><a href="../reference/ard_regression_basic.html">ard_regression_basic()</a></code> to an S3 generic and added a <code><a href="../reference/ard_regression_basic.html">ard_regression_basic.data.frame()</a></code> method (<a href="https://github.com/insightsengineering/cardx/issues/287" class="external-link">#287</a>)</p></li>
+<li><p>Specifying <code>ard_survfit_survfit.data.frame(variables=NULL)</code> now creates an unstratified <code><a href="https://rdrr.io/pkg/survival/man/survfit.html" class="external-link">survfit()</a></code> model, where previously <code>variables</code> argument could not be empty. (<a href="https://github.com/insightsengineering/cardx/issues/277" class="external-link">#277</a>)</p></li>
+<li><p>The <code>ard_survfit_survfit.data.frame(variables)</code> now accepts tidyselect input. (<a href="https://github.com/insightsengineering/cardx/issues/278" class="external-link">#278</a>)</p></li>
+<li><p>Added <code>conf.level</code> and <code>conf.type</code> to <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit()</a></code> results. (<a href="https://github.com/insightsengineering/cardx/issues/218" class="external-link">#218</a>)</p></li>
+<li><p>Added <code>cards::as_cards_fun()</code> to <code><a href="../reference/ard_emmeans_mean_difference.html">ard_emmeans_mean_difference()</a></code> so when an error occurs the user gets an ARD with the expected ARD structure. (<a href="https://github.com/insightsengineering/cardx/issues/132" class="external-link">#132</a>)</p></li>
+</ul>
+</div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.3" id="cardx-023">cardx 0.2.3<a class="anchor" aria-label="anchor" href="#cardx-023"></a>
 </h2>
@@ -110,6 +127,7 @@
 <li><p>Added a warning for incorrect formula type to <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/223" class="external-link">#223</a>)</p></li>
 <li><p>Implemented <code>summary(extend=TRUE)</code> in <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit()</a></code> to return results for time points out of bounds. (<a href="https://github.com/insightsengineering/cardx/issues/224" class="external-link">#224</a>)</p></li>
 <li><p>Methods in the {survey} and {survival} packages do not retain inputs variables types in their outputs. We now are able retain these variable types in ARDs returned by <code><a href="../reference/ard_continuous.survey.design.html">ard_continuous.survey.design()</a></code>, <code><a href="../reference/ard_categorical.survey.design.html">ard_categorical.survey.design()</a></code>, <code><a href="../reference/ard_continuous_ci.survey.design.html">ard_continuous_ci.survey.design()</a></code>, <code><a href="../reference/ard_categorical_ci.survey.design.html">ard_categorical_ci.survey.design()</a></code>, and <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit.data.frame()</a></code> (and notably, <em>not</em> in <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit.survfit()</a></code>).</p></li>
+<li><p>Added function <code><a href="../reference/ard_stats_mantelhaen_test.html">ard_stats_mantelhaen_test()</a></code> for calculating ARDs for Cochran-Mantel-Haenszel test results using <code><a href="https://rdrr.io/r/stats/mantelhaen.test.html" class="external-link">stats::mantelhaen.test()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/238" class="external-link">#238</a>)</p></li>
 </ul>
 </div>
     <div class="section level2">

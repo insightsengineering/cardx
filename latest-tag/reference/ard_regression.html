@@ -34,7 +34,7 @@ structure using the broom.helpers package.">
 
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,6 +50,7 @@ structure using the broom.helpers package.">
     <div class="dropdown-menu" aria-labelledby="dropdown-versions">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.4">v0.2.4</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.3">v0.2.3</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.2">v0.2.2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.1">v0.2.1</a>
@@ -72,7 +73,7 @@ structure using the broom.helpers package.">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Regression ARD</h1>
-      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/cardx/blob/v0.2.3/R/ard_regression.R" class="external-link"><code>R/ard_regression.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/cardx/blob/v0.2.4/R/ard_regression.R" class="external-link"><code>R/ard_regression.R</code></a></small>
       <div class="d-none name"><code>ard_regression.Rd</code></div>
     </div>
 
@@ -87,7 +88,18 @@ structure using the <code>broom.helpers</code> package.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ard_regression</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">ard_regression</span><span class="op">(</span><span class="va">x</span>, tidy_fun <span class="op">=</span> <span class="fu">broom.helpers</span><span class="fu">::</span><span class="va"><a href="https://larmarange.github.io/broom.helpers/reference/tidy_with_broom_or_parameters.html" class="external-link">tidy_with_broom_or_parameters</a></span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ard_regression</span><span class="op">(</span><span class="va">x</span>, tidy_fun <span class="op">=</span> <span class="fu">broom.helpers</span><span class="fu">::</span><span class="va"><a href="https://larmarange.github.io/broom.helpers/reference/tidy_with_broom_or_parameters.html" class="external-link">tidy_with_broom_or_parameters</a></span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'data.frame'</span></span>
+<span><span class="fu">ard_regression</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">formula</span>,</span>
+<span>  <span class="va">method</span>,</span>
+<span>  method.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"base"</span>,</span>
+<span>  tidy_fun <span class="op">=</span> <span class="fu">broom.helpers</span><span class="fu">::</span><span class="va"><a href="https://larmarange.github.io/broom.helpers/reference/tidy_with_broom_or_parameters.html" class="external-link">tidy_with_broom_or_parameters</a></span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -98,7 +110,8 @@ structure using the <code>broom.helpers</code> package.</p>
 <dl>
 <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a>
 </dt>
-<dd><p>regression model object</p></dd>
+<dd><p>(regression model/<code>data.frame</code>)<br>
+regression model object or a data frame</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a>
@@ -110,6 +123,39 @@ structure using the <code>broom.helpers</code> package.</p>
 </dt>
 <dd><p>(<code>function</code>)<br>
 a tidier. Default is <code><a href="https://larmarange.github.io/broom.helpers/reference/tidy_with_broom_or_parameters.html" class="external-link">broom.helpers::tidy_with_broom_or_parameters</a></code></p></dd>
+
+
+<dt id="arg-formula">formula<a class="anchor" aria-label="anchor" href="#arg-formula"></a>
+</dt>
+<dd><p>(<code>formula</code>)<br>
+a formula</p></dd>
+
+
+<dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a>
+</dt>
+<dd><p>(<code>string</code>)<br>
+string of function naming the function to be called, e.g. <code>"glm"</code>.
+If function belongs to a library that is not attached, the package name
+must be specified in the <code>package</code> argument.</p></dd>
+
+
+<dt id="arg-method-args">method.args<a class="anchor" aria-label="anchor" href="#arg-method-args"></a>
+</dt>
+<dd>
+<p>(named <code>list</code>)<br>
+named list of arguments that will be passed to <code>method</code>.</p>
+<p>Note that this list may contain non-standard evaluation components.
+If you are wrapping this function in other functions, the argument
+must be passed in a way that does not evaluate the list, e.g.
+using rlang's  embrace operator <code>{{ . }}</code>.</p>
+</dd>
+
+
+<dt id="arg-package">package<a class="anchor" aria-label="anchor" href="#arg-package"></a>
+</dt>
+<dd><p>(<code>string</code>)<br>
+a package name that will be temporarily loaded when function
+specified in <code>method</code> is executed.</p></dd>
 
 </dl>
 </div>
@@ -124,6 +170,27 @@ a tidier. Default is <code><a href="https://larmarange.github.io/broom.helpers/r
 </h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">AGE</span> <span class="op">~</span> <span class="va">ARM</span>, data <span class="op">=</span> <span class="fu">cards</span><span class="fu">::</span><span class="va"><a href="https://insightsengineering.github.io/cards/latest-tag/reference/adam.html" class="external-link">ADSL</a></span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">ard_regression</span><span class="op">(</span>add_estimate_to_reference_rows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 43 x 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    variable variable_level   context      stat_name stat_label      stat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       ARM        Placebo regressi…           term       term ARMPlace…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       ARM        Placebo regressi…      var_label      Label Descript…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       ARM        Placebo regressi…      var_class      Class character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       ARM        Placebo regressi…       var_type       Type categori…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       ARM        Placebo regressi…    var_nlevels   N Levels         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       ARM        Placebo regressi…      contrasts  contrasts contr.tr…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       ARM        Placebo regressi… contrasts_type  Contrast… treatment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       ARM        Placebo regressi…  reference_row  referenc…      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       ARM        Placebo regressi…          label  Level La…   Placebo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      ARM        Placebo regressi…          n_obs     N Obs.        86</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">33 more rows</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">Use `print(n = ...)` to see more rows</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #555555;">3 more variables: fmt_fn, warning, error</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ard_regression</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="fu">cards</span><span class="fu">::</span><span class="va"><a href="https://insightsengineering.github.io/cards/latest-tag/reference/adam.html" class="external-link">ADSL</a></span>,</span></span>
+<span class="r-in"><span>  formula <span class="op">=</span> <span class="va">AGE</span> <span class="op">~</span> <span class="va">ARM</span>,</span></span>
+<span class="r-in"><span>  method <span class="op">=</span> <span class="st">"lm"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">{cards} data frame: 43 x 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    variable variable_level   context      stat_name stat_label      stat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       ARM        Placebo regressi…           term       term ARMPlace…</span>
