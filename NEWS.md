@@ -1,4 +1,10 @@
-# cardx 0.2.3.9011
+# cardx 0.2.4.9000
+
+# cardx 0.2.4
+
+## New Features and Updates
+
+* Added function `ard_stats_mantelhaen_test()` to calculate ARDs for Cochran-Mantel-Haenszel test results using `stats::mantelhaen.test()`. (#238)
 
 * Added a `ard_regression.data.frame()` S3 method. Also converted `ard_regression_basic()` to an S3 generic and added a `ard_regression_basic.data.frame()` method (#287)
 
@@ -9,8 +15,6 @@
 * Added `conf.level` and `conf.type` to `ard_survival_survfit()` results. (#218)
 
 * Added `cards::as_cards_fun()` to `ard_emmeans_mean_difference()` so when an error occurs the user gets an ARD with the expected ARD structure. (#132)
-
-* Added function `ard_stats_mantelhaen_test()` to calculate ARDs for Cochran-Mantel-Haenszel test results using `stats::mantelhaen.test()`. (#238)
 
 # cardx 0.2.3
 
