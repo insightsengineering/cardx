@@ -1,5 +1,7 @@
 # cardx 0.2.4.9000
 
+* Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
+
 # cardx 0.2.4
 
 ## New Features and Updates
