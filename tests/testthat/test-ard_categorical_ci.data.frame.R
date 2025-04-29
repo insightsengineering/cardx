@@ -466,7 +466,7 @@ test_that("ard_categorical_ci(method = 'strat_wilson') NA handling", {
       ) ,
       ard_categorical_ci(
         data = data.frame(
-          rsp = rsp2,
+          rsp = rsp_na,
           strata = interaction(strata_na)
         ),
         variables = rsp,
@@ -502,3 +502,4 @@ test_that("ard_categorical_ci(method = 'strat_wilson') NA handling", {
       method = "strat_wilson"
     )
   )
+})
