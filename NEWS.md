@@ -1,4 +1,4 @@
-# cardx 0.2.4.9002
+# cardx 0.2.4.9003
 
 * Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
 
