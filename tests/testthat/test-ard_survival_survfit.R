@@ -276,6 +276,23 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
       class(),
     class(mtcars$vs)
   )
+
+  # adding another check type
+  expect_silent(
+    tbl <-
+      ard_survival_survfit(
+        x = cards::ADTTE,
+        variables = "TRTA",
+        y = "survival::Surv(time = AVAL, event = 1 - CNSR, type = 'right', origin = 0)",
+        times = c(6, 12)
+      )
+  )
+  expect_equal(
+    cards::rename_ard_columns(tbl) |>
+      dplyr::pull("TRTA") |>
+      class(),
+    class(cards::ADTTE$TRTA)
+  )
 })
 
 test_that("ard_survival_survfit.data.frame(variables=NULL) for unstratified model", {
