@@ -2,6 +2,8 @@
 
 * Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
 
+* Fix in `ard_survival_survfit.data.frame()` method where the stratifying variable was not correctly converted back to its original type.
+
 # cardx 0.2.4
 
 ## New Features and Updates
