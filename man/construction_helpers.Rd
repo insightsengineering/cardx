@@ -78,9 +78,9 @@ environment is not applicable for quosures because they have
 their own environments.}
 
 \item{termlabels}{character vector giving the right-hand side of a
-    model formula.  Cannot be zero-length.}
+    model formula.  May be zero-length.}
 
-\item{response}{character string, symbol or call giving the left-hand
+\item{response}{a character string, symbol or call giving the left-hand
     side of a model formula, or \code{NULL}.}
 
 \item{intercept}{logical: should the formula have an intercept?}
