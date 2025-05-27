@@ -293,7 +293,6 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
       class(),
     class(cards::ADTTE$TRTA)
   )
-
 })
 
 test_that("ard_survival_survfit.data.frame(variables=NULL) for unstratified model", {
