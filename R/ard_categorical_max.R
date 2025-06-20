@@ -40,6 +40,7 @@ ard_categorical_max <- function(data,
                                 by = dplyr::group_vars(data),
                                 statistic = everything() ~ c("n", "p", "N"),
                                 denominator = NULL,
+                                strata = NULL,
                                 fmt_fn = NULL,
                                 stat_label = everything() ~ cards::default_stat_labels(),
                                 quiet = FALSE,
@@ -50,7 +51,8 @@ ard_categorical_max <- function(data,
   check_not_missing(data)
   check_not_missing(variables)
   check_not_missing(id)
-  cards::process_selectors(data, variables = {{ variables }}, id = {{ id }}, by = {{ by }})
+  cards::process_selectors(data, variables = {{ variables }}, id = {{ id }},
+                           by = {{ by }}, strata = {{ strata }})
   data <- dplyr::ungroup(data)
 
   # check the id argument is not empty
@@ -68,10 +70,11 @@ ard_categorical_max <- function(data,
     function(x) {
       ard_categorical(
         data = data |>
-          arrange_using_order(c(id, by, x)) |>
-          dplyr::slice_tail(n = 1L, by = all_of(c(id, by))),
+          arrange_using_order(c(id, by, strata, x)) |>
+          dplyr::slice_tail(n = 1L, by = all_of(c(id, by, strata))),
         variables = all_of(x),
         by = all_of(by),
+        strata = all_of(strata),
         statistic = statistic,
         denominator = denominator,
         fmt_fn = fmt_fn,

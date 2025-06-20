@@ -254,3 +254,27 @@ test_that("ard_categorical_max() follows ard structure", {
       cards::check_ard_structure(method = FALSE)
   )
 })
+
+test_that("ard_categorical_max() strata works", {
+
+  res <- ard_categorical_max(
+    cards::ADAE |>
+      dplyr::mutate(TRTA = factor(TRTA)) |>
+      dplyr::filter(TRTA != "Placebo"),
+    variables = AESEV,
+    id = USUBJID,
+    strata = TRTA
+  )
+
+  # Check removed levels of strata variable aren't present
+  expect_equal(
+    res |>
+      dplyr::filter(group1_level == "Placebo") |>
+      nrow(),
+    0
+  )
+
+  # snapshot check complete output
+  expect_snapshot(res)
+
+})
