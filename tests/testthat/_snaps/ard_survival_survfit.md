@@ -39,7 +39,7 @@
       31   <NA>           NA ..ard_survival_survfit..                conf.level  CI Confi…  0.95
       32   <NA>           NA ..ard_survival_survfit..                 conf.type    CI Type   log
     Message
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 
 # ard_survival_survfit() works with different type
 
@@ -82,7 +82,7 @@
       31   <NA>           NA ..ard_survival_survfit..                conf.level  CI Confi…  0.95
       32   <NA>           NA ..ard_survival_survfit..                 conf.type    CI Type   log
     Message
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 
 # ard_survival_survfit() works with probs provided
 
@@ -113,7 +113,7 @@
       19   <NA>           NA ..ard_survival_survfit..                conf.level  CI Confi… 0.95
       20   <NA>           NA ..ard_survival_survfit..                 conf.type    CI Type  log
     Message
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 
 # ard_survival_survfit() works with unstratified model
 
@@ -136,7 +136,7 @@
       11 ..ard_survival_survfit..                survival conf.level  CI Confi…  0.95
       12 ..ard_survival_survfit..                survival  conf.type    CI Type   log
     Message
-      i 3 more variables: fmt_fn, warning, error
+      i 3 more variables: fmt_fun, warning, error
 
 ---
 
@@ -155,7 +155,7 @@
       7 ..ard_survival_survfit..                 survival conf.level  CI Confi… 0.95
       8 ..ard_survival_survfit..                 survival  conf.type    CI Type  log
     Message
-      i 3 more variables: fmt_fn, warning, error
+      i 3 more variables: fmt_fun, warning, error
 
 # ard_survival_survfit() works with multiple stratification variables
 
@@ -259,7 +259,7 @@
       31   <NA>           NA ..ard_survival_survfit..                conf.level  CI Confi…  0.95
       32   <NA>           NA ..ard_survival_survfit..                 conf.type    CI Type   log
     Message
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 
 ---
 
@@ -368,7 +368,7 @@
       11    <NA>           NA ..ard_survival_survfit..                conf.level  CI Confi…  0.95
       12    <NA>           NA ..ard_survival_survfit..                 conf.type    CI Type   log
     Message
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 
 # ard_survival_survfit() extends to times outside range
 
@@ -396,7 +396,7 @@
       16   <NA>           NA ..ard_survival_survfit..                conf.level  CI Confi… 0.95
       17   <NA>           NA ..ard_survival_survfit..                 conf.type    CI Type  log
     Message
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 
 # ard_survival_survfit.data.frame() works as expected
 
@@ -420,5 +420,5 @@
       11   <NA>           NA ..ard_survival_survfit..                conf.level  CI Confi…  0.95
       12   <NA>           NA ..ard_survival_survfit..                 conf.type    CI Type   log
     Message
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 

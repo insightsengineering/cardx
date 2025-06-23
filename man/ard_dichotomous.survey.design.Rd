@@ -12,10 +12,11 @@
   statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted",
     "N_unweighted", "p_unweighted"),
   denominator = c("column", "row", "cell"),
-  fmt_fn = NULL,
+  fmt_fun = NULL,
   stat_label = everything() ~ list(p = "\%", p.std.error = "SE(\%)", deff =
     "Design Effect", n_unweighted = "Unweighted n", N_unweighted = "Unweighted N",
     p_unweighted = "Unweighted \%"),
+  fmt_fn = deprecated(),
   ...
 )
 }
@@ -44,7 +45,7 @@ statistic names to include. See default value for options.}
 a string indicating the type proportions to calculate. Must be one of
 \code{"column"} (the default), \code{"row"}, and \code{"cell"}.}
 
-\item{fmt_fn}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
+\item{fmt_fun}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas,
 or a single formula where the list element is a named list of functions
 (or the RHS of a formula),
@@ -55,6 +56,8 @@ a named list, a list of formulas, or a single formula where
 the list element is either a named list or a list of formulas defining the
 statistic labels, e.g. \code{everything() ~ list(mean = "Mean", sd = "SD")} or
 \code{everything() ~ list(mean ~ "Mean", sd ~ "SD")}.}
+
+\item{fmt_fn}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 
 \item{...}{These dots are for future extensions and must be empty.}
 }

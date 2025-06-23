@@ -11,13 +11,14 @@
   statistic = everything() ~ c("N_obs", "N_miss", "N_nonmiss", "p_miss", "p_nonmiss",
     "N_obs_unweighted", "N_miss_unweighted", "N_nonmiss_unweighted", "p_miss_unweighted",
     "p_nonmiss_unweighted"),
-  fmt_fn = NULL,
+  fmt_fun = NULL,
   stat_label = everything() ~ list(N_obs = "Total N", N_miss = "N Missing", N_nonmiss =
     "N not Missing", p_miss = "\% Missing", p_nonmiss = "\% not Missing",
     N_obs_unweighted = "Total N (unweighted)", N_miss_unweighted =
     "N Missing (unweighted)", N_nonmiss_unweighted = "N not Missing (unweighted)",
     p_miss_unweighted = "\% Missing (unweighted)", p_nonmiss_unweighted =
     "\% not Missing (unweighted)"),
+  fmt_fn = deprecated(),
   ...
 )
 }
@@ -37,7 +38,7 @@ a named list, a list of formulas,
 or a single formula where the list element is a character vector of
 statistic names to include. See default value for options.}
 
-\item{fmt_fn}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
+\item{fmt_fun}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas,
 or a single formula where the list element is a named list of functions
 (or the RHS of a formula),
@@ -48,6 +49,8 @@ a named list, a list of formulas, or a single formula where
 the list element is either a named list or a list of formulas defining the
 statistic labels, e.g. \code{everything() ~ list(mean = "Mean", sd = "SD")} or
 \code{everything() ~ list(mean ~ "Mean", sd ~ "SD")}.}
+
+\item{fmt_fn}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 
 \item{...}{These dots are for future extensions and must be empty.}
 }

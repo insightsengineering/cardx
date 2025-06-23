@@ -5,27 +5,27 @@
     Message
       {cards} data frame: 27 x 11
     Output
-         group1 group1_level variable variable_level   context stat_name stat_label  stat fmt_fn warning error
-      1    TRTA      Placebo    AESEV           MILD categori…         n          n    36      0              
-      2    TRTA      Placebo    AESEV           MILD categori…         N          N    69      0              
-      3    TRTA      Placebo    AESEV           MILD categori…         p          % 0.522   <fn>              
-      4    TRTA      Placebo    AESEV       MODERATE categori…         n          n    26      0              
-      5    TRTA      Placebo    AESEV       MODERATE categori…         N          N    69      0              
-      6    TRTA      Placebo    AESEV       MODERATE categori…         p          % 0.377   <fn>              
-      7    TRTA      Placebo    AESEV         SEVERE categori…         n          n     7      0              
-      8    TRTA      Placebo    AESEV         SEVERE categori…         N          N    69      0              
-      9    TRTA      Placebo    AESEV         SEVERE categori…         p          % 0.101   <fn>              
-      10   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    22      0              
-      11   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    79      0              
-      12   TRTA    Xanomeli…    AESEV           MILD categori…         p          % 0.278   <fn>              
-      13   TRTA    Xanomeli…    AESEV       MODERATE categori…         n          n    49      0              
-      14   TRTA    Xanomeli…    AESEV       MODERATE categori…         N          N    79      0              
-      15   TRTA    Xanomeli…    AESEV       MODERATE categori…         p          %  0.62   <fn>              
-      16   TRTA    Xanomeli…    AESEV         SEVERE categori…         n          n     8      0              
-      17   TRTA    Xanomeli…    AESEV         SEVERE categori…         N          N    79      0              
-      18   TRTA    Xanomeli…    AESEV         SEVERE categori…         p          % 0.101   <fn>              
-      19   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    19      0              
-      20   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    77      0              
+         group1 group1_level variable variable_level   context stat_name stat_label  stat fmt_fun warning error
+      1    TRTA      Placebo    AESEV           MILD categori…         n          n    36       0              
+      2    TRTA      Placebo    AESEV           MILD categori…         N          N    69       0              
+      3    TRTA      Placebo    AESEV           MILD categori…         p          % 0.522    <fn>              
+      4    TRTA      Placebo    AESEV       MODERATE categori…         n          n    26       0              
+      5    TRTA      Placebo    AESEV       MODERATE categori…         N          N    69       0              
+      6    TRTA      Placebo    AESEV       MODERATE categori…         p          % 0.377    <fn>              
+      7    TRTA      Placebo    AESEV         SEVERE categori…         n          n     7       0              
+      8    TRTA      Placebo    AESEV         SEVERE categori…         N          N    69       0              
+      9    TRTA      Placebo    AESEV         SEVERE categori…         p          % 0.101    <fn>              
+      10   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    22       0              
+      11   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    79       0              
+      12   TRTA    Xanomeli…    AESEV           MILD categori…         p          % 0.278    <fn>              
+      13   TRTA    Xanomeli…    AESEV       MODERATE categori…         n          n    49       0              
+      14   TRTA    Xanomeli…    AESEV       MODERATE categori…         N          N    79       0              
+      15   TRTA    Xanomeli…    AESEV       MODERATE categori…         p          %  0.62    <fn>              
+      16   TRTA    Xanomeli…    AESEV         SEVERE categori…         n          n     8       0              
+      17   TRTA    Xanomeli…    AESEV         SEVERE categori…         N          N    79       0              
+      18   TRTA    Xanomeli…    AESEV         SEVERE categori…         p          % 0.101    <fn>              
+      19   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    19       0              
+      20   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    77       0              
     Message
       i 7 more rows
       i Use `print(n = ...)` to see more rows
@@ -38,27 +38,27 @@
       `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 27 x 11
     Output
-         group1 group1_level variable variable_level   context stat_name stat_label  stat fmt_fn warning error
-      1    TRTA      Placebo    AESEV           MILD categori…         n          n    36      0              
-      2    TRTA      Placebo    AESEV           MILD categori…         N          N    86      0              
-      3    TRTA      Placebo    AESEV           MILD categori…         p          % 0.419   <fn>              
-      4    TRTA      Placebo    AESEV       MODERATE categori…         n          n    26      0              
-      5    TRTA      Placebo    AESEV       MODERATE categori…         N          N    86      0              
-      6    TRTA      Placebo    AESEV       MODERATE categori…         p          % 0.302   <fn>              
-      7    TRTA      Placebo    AESEV         SEVERE categori…         n          n     7      0              
-      8    TRTA      Placebo    AESEV         SEVERE categori…         N          N    86      0              
-      9    TRTA      Placebo    AESEV         SEVERE categori…         p          % 0.081   <fn>              
-      10   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    22      0              
-      11   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    84      0              
-      12   TRTA    Xanomeli…    AESEV           MILD categori…         p          % 0.262   <fn>              
-      13   TRTA    Xanomeli…    AESEV       MODERATE categori…         n          n    49      0              
-      14   TRTA    Xanomeli…    AESEV       MODERATE categori…         N          N    84      0              
-      15   TRTA    Xanomeli…    AESEV       MODERATE categori…         p          % 0.583   <fn>              
-      16   TRTA    Xanomeli…    AESEV         SEVERE categori…         n          n     8      0              
-      17   TRTA    Xanomeli…    AESEV         SEVERE categori…         N          N    84      0              
-      18   TRTA    Xanomeli…    AESEV         SEVERE categori…         p          % 0.095   <fn>              
-      19   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    19      0              
-      20   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    84      0              
+         group1 group1_level variable variable_level   context stat_name stat_label  stat fmt_fun warning error
+      1    TRTA      Placebo    AESEV           MILD categori…         n          n    36       0              
+      2    TRTA      Placebo    AESEV           MILD categori…         N          N    86       0              
+      3    TRTA      Placebo    AESEV           MILD categori…         p          % 0.419    <fn>              
+      4    TRTA      Placebo    AESEV       MODERATE categori…         n          n    26       0              
+      5    TRTA      Placebo    AESEV       MODERATE categori…         N          N    86       0              
+      6    TRTA      Placebo    AESEV       MODERATE categori…         p          % 0.302    <fn>              
+      7    TRTA      Placebo    AESEV         SEVERE categori…         n          n     7       0              
+      8    TRTA      Placebo    AESEV         SEVERE categori…         N          N    86       0              
+      9    TRTA      Placebo    AESEV         SEVERE categori…         p          % 0.081    <fn>              
+      10   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    22       0              
+      11   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    84       0              
+      12   TRTA    Xanomeli…    AESEV           MILD categori…         p          % 0.262    <fn>              
+      13   TRTA    Xanomeli…    AESEV       MODERATE categori…         n          n    49       0              
+      14   TRTA    Xanomeli…    AESEV       MODERATE categori…         N          N    84       0              
+      15   TRTA    Xanomeli…    AESEV       MODERATE categori…         p          % 0.583    <fn>              
+      16   TRTA    Xanomeli…    AESEV         SEVERE categori…         n          n     8       0              
+      17   TRTA    Xanomeli…    AESEV         SEVERE categori…         N          N    84       0              
+      18   TRTA    Xanomeli…    AESEV         SEVERE categori…         p          % 0.095    <fn>              
+      19   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    19       0              
+      20   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    84       0              
     Message
       i 7 more rows
       i Use `print(n = ...)` to see more rows
@@ -82,7 +82,7 @@
       8   TRTA    Xanomeli…    AESEV       MODERATE         n          n   42
       9   TRTA    Xanomeli…    AESEV         SEVERE         n          n   16
     Message
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 
 # ard_categorical_max(denominator) works
 
@@ -106,7 +106,7 @@
     Message
       i 17 more rows
       i Use `print(n = ...)` to see more rows
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 
 ---
 
@@ -130,7 +130,7 @@
     Message
       i 17 more rows
       i Use `print(n = ...)` to see more rows
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 
 # ard_categorical_max() works with pre-ordered factor variables
 
@@ -139,27 +139,27 @@
     Message
       {cards} data frame: 27 x 11
     Output
-         group1 group1_level variable variable_level   context stat_name stat_label  stat fmt_fn warning error
-      1    TRTA      Placebo    AESEV           MILD categori…         n          n    36      0              
-      2    TRTA      Placebo    AESEV           MILD categori…         N          N    86      0              
-      3    TRTA      Placebo    AESEV           MILD categori…         p          % 0.419   <fn>              
-      4    TRTA      Placebo    AESEV       MODERATE categori…         n          n    26      0              
-      5    TRTA      Placebo    AESEV       MODERATE categori…         N          N    86      0              
-      6    TRTA      Placebo    AESEV       MODERATE categori…         p          % 0.302   <fn>              
-      7    TRTA      Placebo    AESEV         SEVERE categori…         n          n     7      0              
-      8    TRTA      Placebo    AESEV         SEVERE categori…         N          N    86      0              
-      9    TRTA      Placebo    AESEV         SEVERE categori…         p          % 0.081   <fn>              
-      10   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    22      0              
-      11   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    84      0              
-      12   TRTA    Xanomeli…    AESEV           MILD categori…         p          % 0.262   <fn>              
-      13   TRTA    Xanomeli…    AESEV       MODERATE categori…         n          n    49      0              
-      14   TRTA    Xanomeli…    AESEV       MODERATE categori…         N          N    84      0              
-      15   TRTA    Xanomeli…    AESEV       MODERATE categori…         p          % 0.583   <fn>              
-      16   TRTA    Xanomeli…    AESEV         SEVERE categori…         n          n     8      0              
-      17   TRTA    Xanomeli…    AESEV         SEVERE categori…         N          N    84      0              
-      18   TRTA    Xanomeli…    AESEV         SEVERE categori…         p          % 0.095   <fn>              
-      19   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    19      0              
-      20   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    84      0              
+         group1 group1_level variable variable_level   context stat_name stat_label  stat fmt_fun warning error
+      1    TRTA      Placebo    AESEV           MILD categori…         n          n    36       0              
+      2    TRTA      Placebo    AESEV           MILD categori…         N          N    86       0              
+      3    TRTA      Placebo    AESEV           MILD categori…         p          % 0.419    <fn>              
+      4    TRTA      Placebo    AESEV       MODERATE categori…         n          n    26       0              
+      5    TRTA      Placebo    AESEV       MODERATE categori…         N          N    86       0              
+      6    TRTA      Placebo    AESEV       MODERATE categori…         p          % 0.302    <fn>              
+      7    TRTA      Placebo    AESEV         SEVERE categori…         n          n     7       0              
+      8    TRTA      Placebo    AESEV         SEVERE categori…         N          N    86       0              
+      9    TRTA      Placebo    AESEV         SEVERE categori…         p          % 0.081    <fn>              
+      10   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    22       0              
+      11   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    84       0              
+      12   TRTA    Xanomeli…    AESEV           MILD categori…         p          % 0.262    <fn>              
+      13   TRTA    Xanomeli…    AESEV       MODERATE categori…         n          n    49       0              
+      14   TRTA    Xanomeli…    AESEV       MODERATE categori…         N          N    84       0              
+      15   TRTA    Xanomeli…    AESEV       MODERATE categori…         p          % 0.583    <fn>              
+      16   TRTA    Xanomeli…    AESEV         SEVERE categori…         n          n     8       0              
+      17   TRTA    Xanomeli…    AESEV         SEVERE categori…         N          N    84       0              
+      18   TRTA    Xanomeli…    AESEV         SEVERE categori…         p          % 0.095    <fn>              
+      19   TRTA    Xanomeli…    AESEV           MILD categori…         n          n    19       0              
+      20   TRTA    Xanomeli…    AESEV           MILD categori…         N          N    84       0              
     Message
       i 7 more rows
       i Use `print(n = ...)` to see more rows
@@ -219,5 +219,5 @@
       17   TRTA    Xanomeli…    AESEV         SEVERE         N          N    77
       18   TRTA    Xanomeli…    AESEV         SEVERE         p          % 0.208
     Message
-      i 4 more variables: context, fmt_fn, warning, error
+      i 4 more variables: context, fmt_fun, warning, error
 
