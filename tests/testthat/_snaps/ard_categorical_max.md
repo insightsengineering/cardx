@@ -192,3 +192,32 @@
     Output
       data frame with 0 columns and 0 rows
 
+# ard_categorical_max() strata works
+
+    Code
+      res
+    Message
+      {cards} data frame: 18 x 11
+    Output
+         group1 group1_level variable variable_level stat_name stat_label  stat
+      1    TRTA    Xanomeli…    AESEV           MILD         n          n    22
+      2    TRTA    Xanomeli…    AESEV           MILD         N          N    79
+      3    TRTA    Xanomeli…    AESEV           MILD         p          % 0.278
+      4    TRTA    Xanomeli…    AESEV       MODERATE         n          n    49
+      5    TRTA    Xanomeli…    AESEV       MODERATE         N          N    79
+      6    TRTA    Xanomeli…    AESEV       MODERATE         p          %  0.62
+      7    TRTA    Xanomeli…    AESEV         SEVERE         n          n     8
+      8    TRTA    Xanomeli…    AESEV         SEVERE         N          N    79
+      9    TRTA    Xanomeli…    AESEV         SEVERE         p          % 0.101
+      10   TRTA    Xanomeli…    AESEV           MILD         n          n    19
+      11   TRTA    Xanomeli…    AESEV           MILD         N          N    77
+      12   TRTA    Xanomeli…    AESEV           MILD         p          % 0.247
+      13   TRTA    Xanomeli…    AESEV       MODERATE         n          n    42
+      14   TRTA    Xanomeli…    AESEV       MODERATE         N          N    77
+      15   TRTA    Xanomeli…    AESEV       MODERATE         p          % 0.545
+      16   TRTA    Xanomeli…    AESEV         SEVERE         n          n    16
+      17   TRTA    Xanomeli…    AESEV         SEVERE         N          N    77
+      18   TRTA    Xanomeli…    AESEV         SEVERE         p          % 0.208
+    Message
+      i 4 more variables: context, fmt_fn, warning, error
+
