@@ -13,7 +13,7 @@
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a character vector of
 #'   statistic names to include. See below for options.
-#' @param fmt_fn ([`formula-list-selector`][cards::syntax])\cr
+#' @param fmt_fun ([`formula-list-selector`][cards::syntax])\cr
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a named list of functions
 #'   (or the RHS of a formula),
@@ -23,6 +23,7 @@
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
+#' @inheritParams ard_categorical.survey.design
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @section statistic argument:
@@ -46,11 +47,22 @@
 #' )
 ard_continuous.survey.design <- function(data, variables, by = NULL,
                                          statistic = everything() ~ c("median", "p25", "p75"),
-                                         fmt_fn = NULL,
+                                         fmt_fun = NULL,
                                          stat_label = NULL,
+                                         fmt_fn = deprecated(),
                                          ...) {
   set_cli_abort_call()
   check_dots_empty()
+
+  # deprecated args ------------------------------------------------------------
+  if (lifecycle::is_present(fmt_fn)) {
+    lifecycle::deprecate_soft(
+      when = "0.2.5",
+      what = "ard_continuous(fmt_fn)",
+      with = "ard_continuous(fmt_fun)"
+    )
+    fmt_fun <- fmt_fn
+  }
 
   # check installed packages ---------------------------------------------------
   check_pkg_installed(pkg = "survey")
@@ -66,7 +78,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   cards::process_formula_selectors(
     data$variables[variables],
     statistic = statistic,
-    fmt_fn = fmt_fn,
+    fmt_fun = fmt_fun,
     stat_label = stat_label
   )
   cards::fill_formula_selectors(
@@ -128,17 +140,17 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   }
 
   # add formatting stats -------------------------------------------------------
-  df_stats$fmt_fn <- list(1L)
-  if (!is_empty(fmt_fn)) {
+  df_stats$fmt_fun <- list(1L)
+  if (!is_empty(fmt_fun)) {
     df_stats <-
       dplyr::rows_update(
         df_stats,
         dplyr::tibble(
-          variable = names(fmt_fn),
-          stat_name = map(.data$variable, ~ names(fmt_fn[[.x]])),
-          fmt_fn = map(.data$variable, ~ fmt_fn[[.x]] |> unname())
+          variable = names(fmt_fun),
+          stat_name = map(.data$variable, ~ names(fmt_fun[[.x]])),
+          fmt_fun = map(.data$variable, ~ fmt_fun[[.x]] |> unname())
         ) |>
-          tidyr::unnest(cols = c("stat_name", "fmt_fn")),
+          tidyr::unnest(cols = c("stat_name", "fmt_fun")),
         by = c("variable", "stat_name"),
         unmatched = "ignore"
       )

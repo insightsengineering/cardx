@@ -179,7 +179,7 @@ ard_stats_anova.data.frame <- function(x,
       warning = lst_results["warning"],
       error = lst_results["error"],
       context = "stats_anova",
-      fmt_fn = lapply(
+      fmt_fun = lapply(
         .data$stat,
         function(x) {
           switch(is.integer(x),
