@@ -1,4 +1,4 @@
-# cardx 0.2.4.9005
+# cardx 0.2.4.9006
 
 * Adding `strata` argument to `ard_categorical_max()`. (#445, @jtalboys)
 
