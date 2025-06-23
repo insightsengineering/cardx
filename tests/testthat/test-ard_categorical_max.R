@@ -256,7 +256,6 @@ test_that("ard_categorical_max() follows ard structure", {
 })
 
 test_that("ard_categorical_max() strata works", {
-
   res <- ard_categorical_max(
     cards::ADAE |>
       dplyr::mutate(TRTA = factor(TRTA)) |>
@@ -276,5 +275,4 @@ test_that("ard_categorical_max() strata works", {
 
   # snapshot check complete output
   expect_snapshot(res)
-
 })

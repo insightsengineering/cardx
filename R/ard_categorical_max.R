@@ -51,8 +51,10 @@ ard_categorical_max <- function(data,
   check_not_missing(data)
   check_not_missing(variables)
   check_not_missing(id)
-  cards::process_selectors(data, variables = {{ variables }}, id = {{ id }},
-                           by = {{ by }}, strata = {{ strata }})
+  cards::process_selectors(data,
+    variables = {{ variables }}, id = {{ id }},
+    by = {{ by }}, strata = {{ strata }}
+  )
   data <- dplyr::ungroup(data)
 
   # check the id argument is not empty
