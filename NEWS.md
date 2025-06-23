@@ -4,6 +4,8 @@
 
 * Fix in `ard_survival_survfit.data.frame()` method where the stratifying variable was not correctly converted back to its original type.
 
+* Fix in `ard_total_n.survey.design()` to use `update()` instead of `dplyr::mutate()`, which sometimes caused a downstream issue.
+
 # cardx 0.2.4
 
 ## New Features and Updates
