@@ -1,4 +1,6 @@
-# cardx 0.2.4.9004
+# cardx 0.2.4.9005
+
+* Adding `strata` argument to `ard_categorical_max()`. (#445, @jtalboys)
 
 * Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
 
