@@ -1,6 +1,12 @@
-# cardx 0.2.4.9003
+# cardx 0.2.4.9006
+
+* Adding `strata` argument to `ard_categorical_max()`. (#445, @jtalboys)
 
 * Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
+
+* Fix in `ard_survival_survfit.data.frame()` method where the stratifying variable was not correctly converted back to its original type.
+
+* Fix in `ard_total_n.survey.design()` to use `update()` instead of `dplyr::mutate()`, which sometimes caused a downstream issue.
 
 # cardx 0.2.4
 

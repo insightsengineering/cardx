@@ -11,6 +11,7 @@ ard_categorical_max(
   by = dplyr::group_vars(data),
   statistic = everything() ~ c("n", "p", "N"),
   denominator = NULL,
+  strata = NULL,
   fmt_fn = NULL,
   stat_label = everything() ~ cards::default_stat_labels(),
   quiet = FALSE,
@@ -27,9 +28,17 @@ The categorical variables for which occurrence rates per unique ID (by maximum l
 \item{id}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
 Argument used to subset \code{data} to identify rows in \code{data} to calculate categorical variable level occurrence rates.}
 
-\item{by}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-columns to tabulate by in the series of ARD function calls.
-Any rows with \code{NA} or \code{NaN} values are removed from all calculations.}
+\item{by, strata}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
+columns to use for grouping or stratifying the table output.
+Arguments are similar, but with an important distinction:
+
+\code{by}: results are tabulated by \strong{all combinations} of the columns specified,
+including unobserved combinations and unobserved factor levels.
+
+\code{strata}: results are tabulated by \strong{all \emph{observed} combinations} of the
+columns specified.
+
+Arguments may be used in conjunction with one another.}
 
 \item{statistic}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas,

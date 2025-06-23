@@ -376,7 +376,10 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
 
   ard_nested <- ard |>
     tidyr::nest(..ard_data... = -c(cards::all_ard_groups(), cards::all_ard_variables())) |>
-    dplyr::arrange(across(c(cards::all_ard_groups(), cards::all_ard_variables()), unlist))
+    dplyr::arrange(across(
+      c(cards::all_ard_groups(), cards::all_ard_variables()),
+      ~ map(., as.character) |> unlist()
+    ))
 
   # if all columns match, then replace the coerced character cols with their original type/class
   all_cols_equal <-
