@@ -430,7 +430,6 @@ test_that("ard_continuous_ci.data.frame() NA handling", {
 })
 
 test_that("ard_categorical_ci(method = 'strat_wilson') NA handling", {
-
   # no NAs
   rsp <- c(
     sample(c(TRUE, FALSE), size = 40, prob = c(3 / 4, 1 / 4), replace = TRUE),
@@ -448,33 +447,33 @@ test_that("ard_categorical_ci(method = 'strat_wilson') NA handling", {
   # data with NA values
 
   strata_na <- rbind(strata_data, data.frame(f1 = c(NA, NA), f2 = c(NA, NA)))
-  rsp_na <- c(rsp, NA,NA)
+  rsp_na <- c(rsp, NA, NA)
   weights_na <- c(weights, NA, NA)
 
- # NA in the strata
+  # NA in the strata
   expect_equal(
-      ard_categorical_ci(
-        data = data.frame(
-          rsp = rsp,
-          strata = interaction(strata_data)
-        ),
-        variables = rsp,
-        strata = strata,
-        weights = weights,
-        max.iterations = 10,
-        method = "strat_wilson"
-      ) ,
-      ard_categorical_ci(
-        data = data.frame(
-          rsp = rsp_na,
-          strata = interaction(strata_na)
-        ),
-        variables = rsp,
-        strata = strata,
-        weights = weights,
-        max.iterations = 10,
-        method = "strat_wilson"
-      )
+    ard_categorical_ci(
+      data = data.frame(
+        rsp = rsp,
+        strata = interaction(strata_data)
+      ),
+      variables = rsp,
+      strata = strata,
+      weights = weights,
+      max.iterations = 10,
+      method = "strat_wilson"
+    ),
+    ard_categorical_ci(
+      data = data.frame(
+        rsp = rsp_na,
+        strata = interaction(strata_na)
+      ),
+      variables = rsp,
+      strata = strata,
+      weights = weights,
+      max.iterations = 10,
+      method = "strat_wilson"
+    )
   )
 
   # NA in weights
@@ -489,7 +488,7 @@ test_that("ard_categorical_ci(method = 'strat_wilson') NA handling", {
       weights = weights,
       max.iterations = 10,
       method = "strat_wilson"
-    ) ,
+    ),
     ard_categorical_ci(
       data = data.frame(
         rsp = rsp_na,
