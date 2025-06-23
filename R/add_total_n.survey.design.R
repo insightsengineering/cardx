@@ -19,9 +19,7 @@ ard_total_n.survey.design <- function(data, ...) {
   check_dots_empty()
 
   # calculate total N ----------------------------------------------------------
-  data$variables <-
-    data$variables |>
-    dplyr::mutate(..ard_total_n.. = TRUE)
+  data <- update(data, ..ard_total_n.. = TRUE)
 
   data |>
     ard_dichotomous(
