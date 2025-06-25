@@ -33,7 +33,7 @@
 ---
 
     Code
-      print(ard_categorical_max(dplyr::group_by(cards::ADAE, TRTA), variables = AESEV, id = USUBJID, denominator = dplyr::rename(cards::ADSL, TRTA = ARM)), n = 20, columns = "all")
+      print(ard_categorical_max(dplyr::group_by(cards::ADAE, TRTA), variables = AESEV, id = USUBJID, denominator = cards::ADSL), n = 20, columns = "all")
     Message
       `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 27 x 11
@@ -66,7 +66,7 @@
 # ard_categorical_max(statistic) works
 
     Code
-      ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = dplyr::rename(cards::ADSL, TRTA = ARM), statistic = ~"n")
+      ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = cards::ADSL, statistic = ~"n")
     Message
       `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 9 x 11
