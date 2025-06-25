@@ -1,4 +1,4 @@
-# cardx 0.2.4.9006
+# cardx 0.2.4.9007
 
 * Updating any `fmt_fn` references to `fmt_fun` for consistency. 
 
