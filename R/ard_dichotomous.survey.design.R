@@ -20,7 +20,7 @@ ard_dichotomous.survey.design <- function(data,
                                           value = cards::maximum_variable_value(data$variables[variables]),
                                           statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted"),
                                           denominator = c("column", "row", "cell"),
-                                          fmt_fn = NULL,
+                                          fmt_fun = NULL,
                                           stat_label = everything() ~ list(
                                             p = "%",
                                             p.std.error = "SE(%)",
@@ -29,10 +29,21 @@ ard_dichotomous.survey.design <- function(data,
                                             "N_unweighted" = "Unweighted N",
                                             "p_unweighted" = "Unweighted %"
                                           ),
+                                          fmt_fn = deprecated(),
                                           ...) {
   set_cli_abort_call()
   check_dots_empty()
   check_pkg_installed(pkg = "survey")
+
+  # deprecated args ------------------------------------------------------------
+  if (lifecycle::is_present(fmt_fn)) {
+    lifecycle::deprecate_soft(
+      when = "0.2.5",
+      what = "ard_dichotomous(fmt_fn)",
+      with = "ard_dichotomous(fmt_fun)"
+    )
+    fmt_fun <- fmt_fn
+  }
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(variables)
@@ -58,7 +69,7 @@ ard_dichotomous.survey.design <- function(data,
     by = {{ by }},
     statistic = statistic,
     denominator = denominator,
-    fmt_fn = fmt_fn,
+    fmt_fun = fmt_fun,
     stat_label = stat_label
   ) |>
     dplyr::filter(

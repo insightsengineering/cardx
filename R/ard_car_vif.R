@@ -80,7 +80,7 @@ ard_car_vif <- function(x, ...) {
         "Adjusted GVIF",
         .data$stat_name
       ),
-      fmt_fn = map(
+      fmt_fun = map(
         .data$stat,
         function(.x) {
           # styler: off

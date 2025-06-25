@@ -23,7 +23,7 @@
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a character vector of
 #'   statistic names to include. See default value for options.
-#' @param fmt_fn ([`formula-list-selector`][cards::syntax])\cr
+#' @param fmt_fun ([`formula-list-selector`][cards::syntax])\cr
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a named list of functions
 #'   (or the RHS of a formula),
@@ -33,6 +33,7 @@
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
+#' @param fmt_fn `r lifecycle::badge("deprecated")`
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @return an ARD data frame of class 'card'
@@ -47,7 +48,7 @@ ard_categorical.survey.design <- function(data,
                                           by = NULL,
                                           statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted"),
                                           denominator = c("column", "row", "cell"),
-                                          fmt_fn = NULL,
+                                          fmt_fun = NULL,
                                           stat_label = everything() ~ list(
                                             p = "%",
                                             p.std.error = "SE(%)",
@@ -56,11 +57,22 @@ ard_categorical.survey.design <- function(data,
                                             "N_unweighted" = "Unweighted N",
                                             "p_unweighted" = "Unweighted %"
                                           ),
+                                          fmt_fn = deprecated(),
                                           ...) {
   set_cli_abort_call()
   check_pkg_installed(pkg = "survey")
   check_dots_empty()
   deff <- TRUE # we may update in the future to make this an argument for users
+
+  # deprecated args ------------------------------------------------------------
+  if (lifecycle::is_present(fmt_fn)) {
+    lifecycle::deprecate_soft(
+      when = "0.2.5",
+      what = "ard_categorical(fmt_fn)",
+      with = "ard_categorical(fmt_fun)"
+    )
+    fmt_fun <- fmt_fn
+  }
 
   # process arguments ----------------------------------------------------------
   check_not_missing(variables)
@@ -82,7 +94,7 @@ ard_categorical.survey.design <- function(data,
   cards::process_formula_selectors(
     data = data$variables[variables],
     statistic = statistic,
-    fmt_fn = fmt_fn,
+    fmt_fun = fmt_fun,
     stat_label = stat_label
   )
   cards::fill_formula_selectors(
@@ -181,7 +193,7 @@ ard_categorical.survey.design <- function(data,
           ~ map(.x, as.character)
         )
       ) |>
-      dplyr::select(-c("stat_label", "fmt_fn", "warning", "error")) |>
+      dplyr::select(-c("stat_label", "fmt_fun", "warning", "error")) |>
       dplyr::mutate(
         stat_name =
           dplyr::case_match(.data$stat_name, "n" ~ "n_unweighted", "N" ~ "N_unweighted", "p" ~ "p_unweighted")
@@ -189,13 +201,13 @@ ard_categorical.survey.design <- function(data,
     cards <- cards |> dplyr::bind_rows(cards_unweighted) # styler: off
   }
 
-  # final processing of fmt_fn -------------------------------------------------
+  # final processing of fmt_fun ------------------------------------------------
   cards <- cards |>
     .process_nested_list_as_df(
-      arg = fmt_fn,
-      new_column = "fmt_fn"
+      arg = fmt_fun,
+      new_column = "fmt_fun"
     ) |>
-    .default_svy_cat_fmt_fn()
+    .default_svy_cat_fmt_fun()
 
   # merge in statistic labels --------------------------------------------------
   cards <- cards |>
@@ -506,15 +518,15 @@ case_switch <- function(..., .default = NULL) {
   return(.default)
 }
 
-.default_svy_cat_fmt_fn <- function(x) {
+.default_svy_cat_fmt_fun <- function(x) {
   x |>
     dplyr::mutate(
-      fmt_fn =
+      fmt_fun =
         pmap(
-          list(.data$stat_name, .data$stat, .data$fmt_fn),
-          function(stat_name, stat, fmt_fn) {
-            if (!is_empty(fmt_fn)) {
-              return(fmt_fn)
+          list(.data$stat_name, .data$stat, .data$fmt_fun),
+          function(stat_name, stat, fmt_fun) {
+            if (!is_empty(fmt_fun)) {
+              return(fmt_fun)
             }
             if (stat_name %in% c("p", "p_miss", "p_nonmiss", "p_unweighted")) {
               return(cards::label_round(digits = 1, scale = 100))
@@ -556,7 +568,7 @@ case_switch <- function(..., .default = NULL) {
 #'
 #' cardx:::.process_nested_list_as_df(ard, NULL, "new_col")
 .process_nested_list_as_df <- function(x, arg, new_column, unlist = FALSE) {
-  # add fmt_fn column if not already present
+  # add column if not already present
   if (!new_column %in% names(x)) {
     x[[new_column]] <- list(NULL)
   }

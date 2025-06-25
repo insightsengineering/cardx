@@ -435,7 +435,7 @@ extract_strata <- function(x, df_stat) {
       by = "stat_name"
     ) %>%
     dplyr::mutate(
-      fmt_fn = lapply(
+      fmt_fun = lapply(
         .data$stat,
         function(x) {
           switch(is.integer(x),
