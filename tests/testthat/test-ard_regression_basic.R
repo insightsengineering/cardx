@@ -9,7 +9,7 @@ test_that("ard_regression_basic() works", {
     NA
   )
 
-  expect_snapshot(as.data.frame(ard) |> dplyr::select(-fmt_fn))
+  expect_snapshot(as.data.frame(ard) |> dplyr::select(-fmt_fun))
 
   expect_equal(
     ard,

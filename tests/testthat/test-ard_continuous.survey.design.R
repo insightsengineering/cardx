@@ -315,7 +315,7 @@ test_that("ard_continuous.survey.design() error handling", {
   )
 })
 
-test_that("ard_continuous.survey.design(fmt_fn)", {
+test_that("ard_continuous.survey.design(fmt_fun)", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
@@ -324,7 +324,7 @@ test_that("ard_continuous.survey.design(fmt_fn)", {
       dclus1,
       variables = c(api99, api00),
       statistic = ~ c("mean", "median", "min", "max"),
-      fmt_fn = list(api00 = list(mean = 2, median = "xx.xx", min = as.character))
+      fmt_fun = list(api00 = list(mean = 2, median = "xx.xx", min = as.character))
     ) |>
       dplyr::select(-warning, -error) |>
       as.data.frame()

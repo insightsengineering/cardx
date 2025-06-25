@@ -54,7 +54,7 @@ ard_car_anova <- function(x, ...) {
           .data$stat_name %in% "p.value" ~ "p-value",
           TRUE ~ .data$stat_name
         ),
-      fmt_fn =
+      fmt_fun =
         map(
           .data$stat,
           function(.x) {

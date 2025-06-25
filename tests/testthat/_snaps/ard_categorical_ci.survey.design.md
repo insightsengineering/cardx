@@ -2,7 +2,7 @@
 
     Code
       dplyr::select(ard_categorical_ci(dclus1, variables = c(both, awards)), -warning,
-      -error, -fmt_fn, -context)
+      -error, -fmt_fun, -context)
     Message
       {cards} data frame: 20 x 5
     Output

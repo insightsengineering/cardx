@@ -12,7 +12,7 @@ test_that("ard_regression() works", {
   expect_snapshot(
     ard |>
       as.data.frame() |>
-      dplyr::select(-context, -stat_label, -fmt_fn) |>
+      dplyr::select(-context, -stat_label, -fmt_fun) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
       )
@@ -45,7 +45,7 @@ test_that("ard_regression() works specifying custom tidier", {
     lme4::lmer(mpg ~ hp + (1 | cyl), data = mtcars) |>
       ard_regression(tidy_fun = broom.mixed::tidy) |>
       as.data.frame() |>
-      dplyr::select(-context, -stat_label, -fmt_fn) |>
+      dplyr::select(-context, -stat_label, -fmt_fun) |>
       dplyr::filter(map_lgl(stat, is.numeric)) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))

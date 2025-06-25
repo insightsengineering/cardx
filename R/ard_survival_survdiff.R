@@ -87,7 +87,7 @@ ard_survival_survdiff <- function(formula, data, rho = 0, ...) {
       context = "survival_survdiff",
       warning = lst_glance["warning"],
       error = lst_glance["error"],
-      fmt_fn = map(
+      fmt_fun = map(
         .data$stat,
         function(x) {
           if (is.numeric(x)) return(1L) # styler: off

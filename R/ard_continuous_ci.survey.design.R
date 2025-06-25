@@ -144,7 +144,7 @@ ard_continuous_ci.survey.design <- function(data,
     tidyr::unnest("result") |>
     dplyr::mutate(
       stat_label = .data$stat_name,
-      fmt_fn = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
+      fmt_fun = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
     ) |>
     cards::as_card() |>
     cards::tidy_ard_column_order()
