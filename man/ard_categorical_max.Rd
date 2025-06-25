@@ -12,9 +12,10 @@ ard_categorical_max(
   statistic = everything() ~ c("n", "p", "N"),
   denominator = NULL,
   strata = NULL,
-  fmt_fn = NULL,
+  fmt_fun = NULL,
   stat_label = everything() ~ cards::default_stat_labels(),
   quiet = FALSE,
+  fmt_fn = deprecated(),
   ...
 )
 }
@@ -50,7 +51,7 @@ An optional argument to change the denominator used for \code{"N"} and \code{"p"
 Defaults to \code{NULL}, in which case \code{dplyr::distinct(data, dplyr::pick(all_of(c(id, by))))} is used for these
 calculations. See \code{\link[cards:ard_categorical]{cards::ard_categorical()}} for more details on specifying denominators.}
 
-\item{fmt_fn}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
+\item{fmt_fun}{(\code{\link[cards:syntax]{formula-list-selector}})\cr
 a named list, a list of formulas,
 or a single formula where the list element is a named list of functions
 (or the RHS of a formula),
@@ -64,6 +65,8 @@ statistic labels, e.g. \code{everything() ~ list(n = "n", p = "pct")} or
 
 \item{quiet}{(scalar \code{logical})\cr
 Logical indicating whether to suppress additional messaging. Default is \code{FALSE}.}
+
+\item{fmt_fn}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 
 \item{...}{Arguments passed to methods.}
 }

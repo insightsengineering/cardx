@@ -17,6 +17,7 @@
 #'   calculations. See [cards::ard_categorical()] for more details on specifying denominators.
 #' @param quiet (scalar `logical`)\cr
 #'   Logical indicating whether to suppress additional messaging. Default is `FALSE`.
+#' @param fmt_fn `r lifecycle::badge("deprecated")`
 #'
 #' @return an ARD data frame of class 'card'
 #' @name ard_categorical_max
@@ -41,11 +42,22 @@ ard_categorical_max <- function(data,
                                 statistic = everything() ~ c("n", "p", "N"),
                                 denominator = NULL,
                                 strata = NULL,
-                                fmt_fn = NULL,
+                                fmt_fun = NULL,
                                 stat_label = everything() ~ cards::default_stat_labels(),
                                 quiet = FALSE,
+                                fmt_fn = deprecated(),
                                 ...) {
   set_cli_abort_call()
+
+  # deprecated args ------------------------------------------------------------
+  if (lifecycle::is_present(fmt_fn)) {
+    lifecycle::deprecate_soft(
+      when = "0.2.5",
+      what = "ard_categorical_max(fmt_fn)",
+      with = "ard_categorical_max(fmt_fun)"
+    )
+    fmt_fun <- fmt_fn
+  }
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
@@ -79,7 +91,7 @@ ard_categorical_max <- function(data,
         strata = all_of(strata),
         statistic = statistic,
         denominator = denominator,
-        fmt_fn = fmt_fn,
+        fmt_fun = fmt_fun,
         stat_label = stat_label
       )
     }

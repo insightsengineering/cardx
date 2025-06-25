@@ -108,7 +108,7 @@ ard_regression.data.frame <- function(x, formula, method, method.args = list(), 
     dplyr::mutate(
       warning = lst_results["warning"],
       error = lst_results["error"],
-      fmt_fn = lapply(
+      fmt_fun = lapply(
         .data$stat,
         function(x) {
           switch(is.integer(x),

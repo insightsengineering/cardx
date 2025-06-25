@@ -1,7 +1,7 @@
 # ard_regression_basic() works
 
     Code
-      dplyr::select(as.data.frame(ard), -fmt_fn)
+      dplyr::select(as.data.frame(ard), -fmt_fun)
     Output
          variable       variable_level    context stat_name     stat_label       stat warning error
       1       ARM Xanomeline High Dose regression  estimate    Coefficient -0.8283499    NULL  NULL
