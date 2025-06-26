@@ -81,7 +81,7 @@ ard_categorical_ci.data.frame <- function(data,
 
   # if the method is strat_wilson, `weights` and `strata` cannot contain NA values
   if (method %in% c("strat_wilson")) {
-    if (any(is.na({{ weights }}))){
+    if (any(is.na({{ weights }}))) {
       cli::cli_warn("{.field weights} cannot contain {.val NA} values.")
     }
   }

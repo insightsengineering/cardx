@@ -231,7 +231,7 @@ test_that("ard_continuous_ci.data.frame(denominator='row')", {
       variables = am,
       denominator = "row"
     ) |>
-      dplyr::filter(group1_level %in% 4, unlist(group2_level) ==3) |>
+      dplyr::filter(group1_level %in% 4, unlist(group2_level) == 3) |>
       cards::get_ard_statistics(),
     proportion_ci_wald(
       x = (mtcars$cyl == 4 & mtcars$gear == 3)[mtcars$am == 1],
@@ -479,14 +479,15 @@ test_that("ard_categorical_ci(method = 'strat_wilson') NA handling", {
   # NA in weights should return a cli warning message
   expect_warning(
     ard_categorical_ci(
-    data = data.frame(
-      rsp = rsp_na,
-      strata = interaction(strata_na)
-    ),
-    variables = rsp,
-    strata = strata,
-    weights = weights_na,
-    max.iterations = 10,
-    method = "strat_wilson"
-  ))
+      data = data.frame(
+        rsp = rsp_na,
+        strata = interaction(strata_na)
+      ),
+      variables = rsp,
+      strata = strata,
+      weights = weights_na,
+      max.iterations = 10,
+      method = "strat_wilson"
+    )
+  )
 })
