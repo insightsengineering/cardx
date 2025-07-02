@@ -231,7 +231,7 @@ test_that("ard_continuous_ci.data.frame(denominator='row')", {
       variables = am,
       denominator = "row"
     ) |>
-      dplyr::filter(group1_level %in% 4, group2_level %in% 3) |>
+      dplyr::filter(group1_level %in% 4, unlist(group2_level) == 3) |>
       cards::get_ard_statistics(),
     proportion_ci_wald(
       x = (mtcars$cyl == 4 & mtcars$gear == 3)[mtcars$am == 1],
@@ -316,7 +316,7 @@ test_that("ard_continuous_ci.data.frame(denominator='cell')", {
       variables = am,
       denominator = "cell"
     ) |>
-      dplyr::filter(group1_level %in% 4, group2_level %in% 3) |>
+      dplyr::filter(group1_level %in% 4, unlist(group2_level) %in% 3) |>
       cards::get_ard_statistics(),
     proportion_ci_wald(
       x = (mtcars$cyl == 4 & mtcars$gear == 3 & mtcars$am == 1),
@@ -426,5 +426,68 @@ test_that("ard_continuous_ci.data.frame() NA handling", {
       dplyr::filter(group1_level %in% 0, variable_level %in% 4) |>
       cards::get_ard_statistics(),
     proportion_ci_wald((df$am == 0) + (df$cyl == 4) > 1)
+  )
+})
+
+test_that("ard_categorical_ci(method = 'strat_wilson') NA handling", {
+  # no NAs
+  rsp <- c(
+    sample(c(TRUE, FALSE), size = 40, prob = c(3 / 4, 1 / 4), replace = TRUE),
+    sample(c(TRUE, FALSE), size = 40, prob = c(1 / 2, 1 / 2), replace = TRUE)
+  )
+  grp <- factor(rep(c("A", "B"), each = 40), levels = c("B", "A"))
+  strata_data <- data.frame(
+    "f1" = sample(c("a", "b"), 80, TRUE),
+    "f2" = sample(c("x", "y", "z"), 80, TRUE),
+    stringsAsFactors = TRUE
+  )
+
+  weights <- 1:6 / sum(1:6)
+
+  # data with NA values
+
+  strata_na <- rbind(strata_data, data.frame(f1 = c(NA, NA), f2 = c(NA, NA)))
+  rsp_na <- c(rsp, NA, NA)
+  weights_na <- c(weights, NA, NA)
+
+  # NA in the strata
+  expect_equal(
+    ard_categorical_ci(
+      data = data.frame(
+        rsp = rsp,
+        strata = interaction(strata_data)
+      ),
+      variables = rsp,
+      strata = strata,
+      weights = weights,
+      max.iterations = 10,
+      method = "strat_wilson"
+    ),
+    ard_categorical_ci(
+      data = data.frame(
+        rsp = rsp_na,
+        strata = interaction(strata_na)
+      ),
+      variables = rsp,
+      strata = strata,
+      weights = weights,
+      max.iterations = 10,
+      method = "strat_wilson"
+    )
+  )
+
+  # NA in weights should return a cli warning message
+  expect_warning(
+    ard_categorical_ci(
+      data = data.frame(
+        rsp = rsp_na,
+        strata = interaction(strata_na)
+      ),
+      variables = rsp,
+      strata = strata,
+      weights = weights_na,
+      max.iterations = 10,
+      method = "strat_wilson"
+    )
   )
 })
