@@ -1,15 +1,15 @@
 # cardx 0.2.4.9008
 
+* Adding `strata` argument to `ard_categorical_max()`. (#445, @jtalboys)
+
+* Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
+
 * Updating any `fmt_fn` references to `fmt_fun` for consistency. 
 
     * Any function with an argument `cardx::foo(fmt_fn)` has been updated to `cardx::foo(fmt_fun)`. The old syntax will continue to function, but with a deprecation warning to users.
 
     * Importantly, the ARD column named `"fmt_fn"` has been updated to `"fmt_fun"`. This change cannot be formally deprecated. For users who were accessing the ARD object directly to modify this column instead of using functions like `cards::update_ard_fmt_fun()`, this will be a breaking change.
     
-* Adding `strata` argument to `ard_categorical_max()`. (#445, @jtalboys)
-
-* Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
-
 * Fix in `ard_survival_survfit.data.frame()` method where the stratifying variable was not correctly converted back to its original type.
 
 * Fix in `ard_total_n.survey.design()` to use `update()` instead of `dplyr::mutate()`, which sometimes caused a downstream issue.

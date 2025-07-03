@@ -10,9 +10,11 @@
 
 ## revdepcheck results
 
-We checked 4 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 6 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 1 new problem in the 'gtsummary' package. I maintain this package and the break is expected. I will submit a new version as soon as 'cardx' is on CRAN.
+ 
+ * We failed to check 0 packages
 
 ## Additional Comments
 
