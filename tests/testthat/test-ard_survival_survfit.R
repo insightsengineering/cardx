@@ -296,6 +296,7 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
 })
 
 test_that("ard_survival_survfit.data.frame(variables=NULL) for unstratified model", {
+  skip_if_not(is_pkg_installed("ggsurvfit"))
   expect_equal(
     cards::ADTTE |>
       ard_survival_survfit(
