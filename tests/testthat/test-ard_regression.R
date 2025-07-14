@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(pkg = "broom.helpers"))
+skip_if_not(is_pkg_installed("broom.helpers"))
 
 test_that("ard_regression() works", {
   withr::local_options(list(width = 90))
