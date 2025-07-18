@@ -91,6 +91,7 @@ reference:
       - ard_regression_basic
       - ard_categorical_max
       - ard_incidence_rate
+      - ard_abnormal
 
   - title: "Helpers"
   - contents:
