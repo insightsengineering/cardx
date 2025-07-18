@@ -103,14 +103,14 @@ ard_abnormal <- function(data,
         dplyr::bind_cols(dplyr::tibble(variable_level = list(abn)))
     }
   ) |>
-  dplyr::bind_rows() |>
-  dplyr::mutate(
-    stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
-    context = "abnormal",
-  ) |>
-  cards::as_card() |>
-  cards::tidy_ard_column_order() |>
-  cards::tidy_ard_row_order()
+    dplyr::bind_rows() |>
+    dplyr::mutate(
+      stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
+      context = "abnormal",
+    ) |>
+    cards::as_card() |>
+    cards::tidy_ard_column_order() |>
+    cards::tidy_ard_row_order()
 }
 
 # function to perform calculations -------------------------------------------
