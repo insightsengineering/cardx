@@ -38,18 +38,18 @@
 #'
 #' # Example 1 -------------------
 #' adlb |>
-#'   ard_abnormal(
+#'   ard_categorical_abnormal(
 #'     postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA,
 #'     abnormal = list(Low = "LOW", High = "HIGH")
 #'   )
-ard_abnormal <- function(data,
-                         postbaseline,
-                         baseline,
-                         id = NULL,
-                         by = NULL,
-                         strata = NULL,
-                         abnormal = list(Low = "LOW", High = "HIGH"),
-                         excl_baseline_abn = TRUE) {
+ard_categorical_abnormal <- function(data,
+                                     postbaseline,
+                                     baseline,
+                                     id = NULL,
+                                     by = NULL,
+                                     strata = NULL,
+                                     abnormal = list(Low = "LOW", High = "HIGH"),
+                                     excl_baseline_abn = TRUE) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------

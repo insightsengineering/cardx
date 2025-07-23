@@ -1,4 +1,4 @@
-# ard_abnormal() works
+# ard_categorical_abnormal() works
 
     Code
       print(res, columns = "all")
@@ -70,21 +70,21 @@
       17   TRTA    Xanomeli…  LBNRIND           High abnormal         N          N     6       0              
       18   TRTA    Xanomeli…  LBNRIND           High abnormal         p          %   0.5    <fn>              
 
-# ard_abnormal() errors are handled correctly
+# ard_categorical_abnormal() errors are handled correctly
 
     Code
-      res <- ard_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID,
+      res <- ard_categorical_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID,
         by = TRTA, abnormal = list("HIGH", "LOW"))
     Condition
-      Error in `ard_abnormal()`:
+      Error in `ard_categorical_abnormal()`:
       ! `abnormal` must be a named list, where each name corresponds to a different abnormality/direction.
 
 ---
 
     Code
-      res <- ard_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID,
+      res <- ard_categorical_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID,
         by = TRTA, abnormal = list(high = 1:5, low = 0))
     Condition
-      Error in `ard_abnormal()`:
+      Error in `ard_categorical_abnormal()`:
       ! Each abnormal level of `LBNRIND` specified via `abnormal` must be a <string>.
 
