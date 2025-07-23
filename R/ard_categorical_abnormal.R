@@ -25,6 +25,8 @@
 #'   abnormality. Any levels specified but not present in the data are ignored.
 #' @param excl_baseline_abn (`logical`)\cr
 #'   whether participants with baseline abnormality should be excluded from calculations. Defaults to `TRUE`.
+#' @param quiet (scalar `logical`)\cr
+#'   logical indicating whether to suppress additional messaging. Default is `FALSE`.
 #' @inheritParams cards::ard_continuous
 #'
 #' @return an ARD data frame of class 'card'
@@ -49,7 +51,8 @@ ard_categorical_abnormal <- function(data,
                                      by = NULL,
                                      strata = NULL,
                                      abnormal = list(Low = "LOW", High = "HIGH"),
-                                     excl_baseline_abn = TRUE) {
+                                     excl_baseline_abn = TRUE,
+                                     quiet = FALSE) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------
@@ -60,6 +63,7 @@ ard_categorical_abnormal <- function(data,
   )
   check_not_missing(abnormal)
   check_scalar_logical(excl_baseline_abn)
+  check_scalar_logical(quiet)
   check_class(abnormal, "list")
 
   if (!is_named(abnormal)) {
@@ -75,18 +79,28 @@ ard_categorical_abnormal <- function(data,
     )
   }
 
+  # print abnormality levels ---------------------------------------------------
+  if (!quiet) {
+    for (i in seq_along(abnormal)) {
+      vec <- cli::cli_vec(abnormal[[i]], style = list("vec-sep" = ", ", "vec-sep2" = ", ", "vec-last" = ", "))
+      cli::cli_inform("Abnormality {.val {names(abnormal)[i]}} created {cli::qty(abnormal[[i]])} {?from/by merging} level{?s}: {.val {vec}}")
+    }
+  }
+
   # build ARD ------------------------------------------------------------------
   data <- data |>
     dplyr::mutate(
       dplyr::across(
         all_of(c(postbaseline, baseline)),
         \(x) {
+          # combine levels specified for each abnormality
           do.call(fct_collapse, args = c(list(f = x), abnormal)) |>
             suppressWarnings()
         }
       )
     )
 
+  # calculate statistics for each abnormality
   lapply(
     names(abnormal),
     function(abn) {
@@ -106,7 +120,7 @@ ard_categorical_abnormal <- function(data,
     dplyr::bind_rows() |>
     dplyr::mutate(
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
-      context = "abnormal",
+      context = "categorical_abnormal",
     ) |>
     cards::as_card() |>
     cards::tidy_ard_column_order() |>

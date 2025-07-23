@@ -73,8 +73,8 @@
 # ard_categorical_abnormal() errors are handled correctly
 
     Code
-      res <- ard_categorical_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID,
-        by = TRTA, abnormal = list("HIGH", "LOW"))
+      res <- ard_categorical_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND,
+        id = USUBJID, by = TRTA, abnormal = list("HIGH", "LOW"))
     Condition
       Error in `ard_categorical_abnormal()`:
       ! `abnormal` must be a named list, where each name corresponds to a different abnormality/direction.
@@ -82,8 +82,8 @@
 ---
 
     Code
-      res <- ard_categorical_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID,
-        by = TRTA, abnormal = list(high = 1:5, low = 0))
+      res <- ard_categorical_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND,
+        id = USUBJID, by = TRTA, abnormal = list(high = 1:5, low = 0))
     Condition
       Error in `ard_categorical_abnormal()`:
       ! Each abnormal level of `LBNRIND` specified via `abnormal` must be a <string>.

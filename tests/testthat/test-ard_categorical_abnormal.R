@@ -6,28 +6,34 @@ test_that("ard_categorical_abnormal() works", {
   withr::local_options(list(width = 200))
 
   # default abnormal
-  expect_silent(
+  expect_message(expect_message(
     res <- adlb |>
       ard_categorical_abnormal(postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA)
-  )
+  ))
   expect_snapshot(res |> print(columns = "all"))
 
   # custom abnormal, no `by`
-  expect_silent(
-    res <- adlb |>
+  expect_snapshot(
+    adlb |>
       ard_categorical_abnormal(
         postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID,
         abnormal = list(low = c("LOW", "LOW LOW"), high = c("HIGH", "HIGH HIGH"), other = "OTHER")
-      )
+      ) |>
+      print(columns = "all")
   )
-  expect_snapshot(res |> print(columns = "all"))
 
   # excl_baseline_abn=FALSE
+  expect_snapshot(
+    adlb |>
+      ard_categorical_abnormal(postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, excl_baseline_abn = FALSE) |>
+      print(columns = "all")
+  )
+
+  # quiet=TRUE
   expect_silent(
     res <- adlb |>
-      ard_categorical_abnormal(postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, excl_baseline_abn = FALSE)
+      ard_categorical_abnormal(postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, quiet = TRUE)
   )
-  expect_snapshot(res |> print(columns = "all"))
 })
 
 test_that("ard_categorical_abnormal() errors are handled correctly", {
