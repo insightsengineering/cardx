@@ -127,6 +127,13 @@ test_that("ard_dichotomous.survey.design() works", {
     ) |>
       sort()
   )
+  
+  # Test that deff = FALSE (default) does not include deff statistics
+  expect_equal(
+    cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "deff") |> unlist() |> length(),
+    0L,
+    info = "Default deff = FALSE should not include deff statistics"
+  )
 
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "n_unweighted") |> unlist() |> unname(),
@@ -213,6 +220,13 @@ test_that("ard_dichotomous.survey.design() works", {
     ) |>
       sort()
   )
+  
+  # Test that deff = FALSE (default) does not include deff statistics
+  expect_equal(
+    cards::get_ard_statistics(ard_dichotomous_col, stat_name %in% "deff") |> unlist() |> length(),
+    0L,
+    info = "Default deff = FALSE should not include deff statistics for column denominator"
+  )
 
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_col, stat_name %in% "n_unweighted") |> unlist() |> unname(),
@@ -287,6 +301,13 @@ test_that("ard_dichotomous.survey.design() works", {
         deff = "Design Effect"
       ))[2:3, "deff"] |> unlist()
     )) |> sort()
+  )
+  
+  # Test that deff = FALSE (default) does not include deff statistics
+  expect_equal(
+    cards::get_ard_statistics(ard_dichotomous_cell, stat_name %in% "deff") |> unlist() |> length(),
+    0L,
+    info = "Default deff = FALSE should not include deff statistics for cell denominator"
   )
 
   expect_equal(
