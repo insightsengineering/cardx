@@ -14,6 +14,18 @@ test_that("ard_categorical_abnormal() works", {
   )
   expect_snapshot(res |> print(columns = "all"))
 
+  # values that are absent are not ignored
+  expect_equal(
+    adlb |>
+      ard_categorical_abnormal(
+        postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, abnormal = list(high = "u", low = "a")
+      ),
+    adlb |>
+      ard_categorical_abnormal(
+        postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, abnormal = list(high = "HIGH", low = "LOW")
+      )
+  )
+
   # custom abnormal, no `by`
   expect_snapshot(
     adlb |>
@@ -44,14 +56,6 @@ test_that("ard_categorical_abnormal() errors are handled correctly", {
     res <- adlb |>
       ard_categorical_abnormal(
         postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, abnormal = list("HIGH", "LOW")
-      ),
-    error = TRUE
-  )
-  # incorrect abnormality values
-  expect_snapshot(
-    res <- adlb |>
-      ard_categorical_abnormal(
-        postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, abnormal = list(high = "u", low = "a")
       ),
     error = TRUE
   )
