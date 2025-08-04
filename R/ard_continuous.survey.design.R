@@ -23,6 +23,8 @@
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
+#' @param deff (`logical`)\cr
+#'   Calculate design effect. Default is `FALSE`.
 #' @inheritParams ard_categorical.survey.design
 #' @inheritParams rlang::args_dots_empty
 #'
@@ -49,6 +51,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
                                          statistic = everything() ~ c("median", "p25", "p75"),
                                          fmt_fun = NULL,
                                          stat_label = NULL,
+                                         deff = FALSE,
                                          fmt_fn = deprecated(),
                                          ...) {
   set_cli_abort_call()
@@ -92,6 +95,15 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
       i = "Values must be in {.val {cardx:::accepted_svy_stats(FALSE)}}"
     )
   )
+  
+  # if deff = TRUE, add "deff" to statistics if not already present
+  if (isTRUE(deff)) {
+    statistic <- map(
+      names(statistic),
+      ~ if (!"deff" %in% statistic[[.x]]) c(statistic[[.x]], "deff") else statistic[[.x]]
+    ) |>
+      set_names(names(statistic))
+  }
 
   # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
@@ -106,7 +118,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
         map(
           statistic[[variable]],
           function(statistic) {
-            .compute_svy_stat(data, variable = variable, by = by, stat_name = statistic)
+            .compute_svy_stat(data, variable = variable, by = by, stat_name = statistic, deff = deff)
           }
         )
       }
@@ -193,7 +205,7 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
 
 # this function calculates the summary for a single variable, single statistic
 # and for all `by` levels. it returns an ARD data frame
-.compute_svy_stat <- function(data, variable, by = NULL, stat_name) {
+.compute_svy_stat <- function(data, variable, by = NULL, stat_name, deff = FALSE) {
   # difftime variable needs to be transformed into numeric for svyquantile
   if (inherits(data$variables[[variable]], "difftime")) {
     data$variables[[variable]] <- unclass(data$variables[[variable]])

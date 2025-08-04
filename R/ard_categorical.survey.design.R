@@ -33,6 +33,8 @@
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
+#' @param deff (`logical`)\cr
+#'   Calculate design effect. Default is `FALSE`.
 #' @param fmt_fn `r lifecycle::badge("deprecated")`
 #' @inheritParams rlang::args_dots_empty
 #'
@@ -46,7 +48,7 @@
 ard_categorical.survey.design <- function(data,
                                           variables,
                                           by = NULL,
-                                          statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted"),
+                                          statistic = everything() ~ c("n", "N", "p", "p.std.error", "n_unweighted", "N_unweighted", "p_unweighted"),
                                           denominator = c("column", "row", "cell"),
                                           fmt_fun = NULL,
                                           stat_label = everything() ~ list(
@@ -58,11 +60,11 @@ ard_categorical.survey.design <- function(data,
                                             "p_unweighted" = "Unweighted %"
                                           ),
                                           fmt_fn = deprecated(),
+                                          deff = FALSE,
                                           ...) {
   set_cli_abort_call()
   check_pkg_installed(pkg = "survey")
   check_dots_empty()
-  deff <- TRUE # we may update in the future to make this an argument for users
 
   # deprecated args ------------------------------------------------------------
   if (lifecycle::is_present(fmt_fn)) {
@@ -110,6 +112,15 @@ ard_categorical.survey.design <- function(data,
     )
   )
   denominator <- arg_match(denominator)
+  
+  # if deff = TRUE, add "deff" to statistics if not already present
+  if (isTRUE(deff)) {
+    statistic <- map(
+      names(statistic),
+      ~ if (!"deff" %in% statistic[[.x]]) c(statistic[[.x]], "deff") else statistic[[.x]]
+    ) |>
+      set_names(names(statistic))
+  }
 
   # check the missingness
   walk(
@@ -322,13 +333,16 @@ check_na_factor_levels <- function(data, variables) {
 }
 
 .one_svytable_rates_no_by_row <- function(data, variable, deff) {
-  dplyr::tibble(
+  result <- dplyr::tibble(
     variable = .env$variable,
     variable_level = unique(data$variables[[variable]]) |> sort() |> as.character(),
     p = 1,
-    p.std.error = 0,
-    deff = NaN
+    p.std.error = 0
   )
+  if (isTRUE(deff)) {
+    result$deff <- NaN
+  }
+  result
 }
 
 .one_svytable_rates_no_by_column_and_cell <- function(data, variable, deff) {
@@ -388,7 +402,7 @@ check_na_factor_levels <- function(data, variables) {
           str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
-    set_names(c("variable_level", "group1_level", "p", "p.std.error", "deff")) |>
+    (\(x) set_names(x, c("variable_level", "group1_level", names(x)[-c(1:2)])))() |>
     dplyr::mutate(
       group1 = .env$by,
       variable = .env$variable,
@@ -421,7 +435,7 @@ check_na_factor_levels <- function(data, variables) {
           str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
-    set_names(c("group1_level", "variable_level", "p", "p.std.error", "deff")) |>
+    (\(x) set_names(x, c("group1_level", "variable_level", names(x)[-c(1:2)])))() |>
     dplyr::mutate(
       group1 = .env$by,
       variable = .env$variable,

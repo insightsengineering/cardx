@@ -96,8 +96,17 @@ test_that("ard_dichotomous.survey.design() works", {
 
 
 
+  # Test deff statistics with explicit deff = TRUE
+  ard_dichotomous_row_deff <- ard_dichotomous(svy_dicho,
+    by = vs,
+    variables = c(cyl, am),
+    value = list(cyl = 4),
+    denominator = "row",
+    deff = TRUE
+  )
+  
   expect_equal(
-    cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "deff") |> unlist() |> unname() |> sort(),
+    cards::get_ard_statistics(ard_dichotomous_row_deff, stat_name %in% "deff") |> unlist() |> unname() |> sort(),
     c(
       survey::svyby(
         formula = reformulate2("vs"),
@@ -173,8 +182,17 @@ test_that("ard_dichotomous.survey.design() works", {
       sort()
   )
 
+  # Test deff statistics with explicit deff = TRUE
+  ard_dichotomous_col_deff <- ard_dichotomous(svy_dicho,
+    by = vs,
+    variables = c(cyl, am),
+    value = list(cyl = 4),
+    denominator = "column",
+    deff = TRUE
+  )
+  
   expect_equal(
-    cards::get_ard_statistics(ard_dichotomous_col |> dplyr::arrange_all(), stat_name %in% "deff") |> unlist() |> unname() |> sort(),
+    cards::get_ard_statistics(ard_dichotomous_col_deff |> dplyr::arrange_all(), stat_name %in% "deff") |> unlist() |> unname() |> sort(),
     c(
       survey::svyby(
         formula = reformulate2("am"),
@@ -244,8 +262,17 @@ test_that("ard_dichotomous.survey.design() works", {
     )) |> sort()
   )
 
+  # Test deff statistics with explicit deff = TRUE
+  ard_dichotomous_cell_deff <- ard_dichotomous(svy_dicho,
+    by = vs,
+    variables = c(cyl, am),
+    value = list(cyl = 4),
+    denominator = "cell",
+    deff = TRUE
+  )
+  
   expect_equal(
-    cards::get_ard_statistics(ard_dichotomous_cell |> dplyr::arrange_all(), stat_name %in% "deff") |> unlist() |> unname() |> sort(),
+    cards::get_ard_statistics(ard_dichotomous_cell_deff |> dplyr::arrange_all(), stat_name %in% "deff") |> unlist() |> unname() |> sort(),
     unname(c(
       as.data.frame(survey::svymean(
         x = inject(~ interaction(!!sym(bt("vs")), !!sym(bt("cyl")))),
