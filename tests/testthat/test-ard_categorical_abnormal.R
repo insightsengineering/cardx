@@ -6,10 +6,12 @@ test_that("ard_categorical_abnormal() works", {
   withr::local_options(list(width = 200))
 
   # default abnormal
-  expect_message(expect_message(
-    res <- adlb |>
-      ard_categorical_abnormal(postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA)
-  ))
+  expect_message(
+    expect_message(
+      res <- adlb |>
+        ard_categorical_abnormal(postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA)
+    )
+  )
   expect_snapshot(res |> print(columns = "all"))
 
   # custom abnormal, no `by`
@@ -42,6 +44,14 @@ test_that("ard_categorical_abnormal() errors are handled correctly", {
     res <- adlb |>
       ard_categorical_abnormal(
         postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, abnormal = list("HIGH", "LOW")
+      ),
+    error = TRUE
+  )
+  # incorrect abnormality values
+  expect_snapshot(
+    res <- adlb |>
+      ard_categorical_abnormal(
+        postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, abnormal = list(high = "u", low = "a")
       ),
     error = TRUE
   )
