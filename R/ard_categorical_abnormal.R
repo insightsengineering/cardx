@@ -36,13 +36,15 @@
 #' # Load Data -------------------
 #' set.seed(1)
 #' adlb <- cards::ADLB
-#' adlb$BNRIND <- ifelse(adlb$BNRIND != "N", sample(c("LOW", "HIGH"), nrow(adlb), replace = TRUE), "NORMAL")
+#' adlb$BNRIND <- ifelse(
+#'   adlb$BNRIND != "N", sample(c("LOW", "LOW LOW", "HIGH", "HIGH HIGH"), nrow(adlb), replace = TRUE), "NORMAL"
+#' )
 #'
 #' # Example 1 -------------------
 #' adlb |>
 #'   ard_categorical_abnormal(
 #'     postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA,
-#'     abnormal = list(Low = "LOW", High = "HIGH")
+#'     abnormal = list(Low = c("LOW", "LOW LOW"), High = c("HIGH", "HIGH HIGH"))
 #'   )
 ard_categorical_abnormal <- function(data,
                                      postbaseline,
