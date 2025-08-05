@@ -104,7 +104,7 @@ test_that("ard_dichotomous.survey.design() works", {
     denominator = "row",
     deff = TRUE
   )
-  
+
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_row_deff, stat_name %in% "deff") |> unlist() |> unname() |> sort(),
     c(
@@ -127,7 +127,7 @@ test_that("ard_dichotomous.survey.design() works", {
     ) |>
       sort()
   )
-  
+
   # Test that deff = FALSE (default) does not include deff statistics
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "deff") |> unlist() |> length(),
@@ -197,7 +197,7 @@ test_that("ard_dichotomous.survey.design() works", {
     denominator = "column",
     deff = TRUE
   )
-  
+
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_col_deff |> dplyr::arrange_all(), stat_name %in% "deff") |> unlist() |> unname() |> sort(),
     c(
@@ -220,7 +220,7 @@ test_that("ard_dichotomous.survey.design() works", {
     ) |>
       sort()
   )
-  
+
   # Test that deff = FALSE (default) does not include deff statistics
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_col, stat_name %in% "deff") |> unlist() |> length(),
@@ -284,7 +284,7 @@ test_that("ard_dichotomous.survey.design() works", {
     denominator = "cell",
     deff = TRUE
   )
-  
+
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_cell_deff |> dplyr::arrange_all(), stat_name %in% "deff") |> unlist() |> unname() |> sort(),
     unname(c(
@@ -302,7 +302,7 @@ test_that("ard_dichotomous.survey.design() works", {
       ))[2:3, "deff"] |> unlist()
     )) |> sort()
   )
-  
+
   # Test that deff = FALSE (default) does not include deff statistics
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_cell, stat_name %in% "deff") |> unlist() |> length(),

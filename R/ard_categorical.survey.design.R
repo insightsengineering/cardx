@@ -112,7 +112,7 @@ ard_categorical.survey.design <- function(data,
     )
   )
   denominator <- arg_match(denominator)
-  
+
   # if deff = TRUE, add "deff" to statistics if not already present
   if (isTRUE(deff)) {
     statistic <- map(

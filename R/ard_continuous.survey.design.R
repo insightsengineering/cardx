@@ -95,7 +95,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
       i = "Values must be in {.val {cardx:::accepted_svy_stats(FALSE)}}"
     )
   )
-  
+
   # if deff = TRUE, add "deff" to statistics if not already present
   if (isTRUE(deff)) {
     statistic <- map(
