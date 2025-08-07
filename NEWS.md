@@ -1,5 +1,7 @@
 # cardx 0.2.5.9000
 
+* Added function `ard_categorical_abnormal()` to calculate ARDs for abnormality analyses. (#310)
+
 * Adding `strata` argument to `ard_categorical_max()`. (#445, @jtalboys)
 
 * Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
