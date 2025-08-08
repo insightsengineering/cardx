@@ -11,6 +11,7 @@
   statistic = everything() ~ c("median", "p25", "p75"),
   fmt_fun = NULL,
   stat_label = NULL,
+  deff = FALSE,
   fmt_fn = deprecated(),
   ...
 )
@@ -42,6 +43,9 @@ a named list, a list of formulas, or a single formula where
 the list element is either a named list or a list of formulas defining the
 statistic labels, e.g. \code{everything() ~ list(mean = "Mean", sd = "SD")} or
 \code{everything() ~ list(mean ~ "Mean", sd ~ "SD")}.}
+
+\item{deff}{(\code{logical})\cr
+Calculate design effect. Default is \code{FALSE}.}
 
 \item{fmt_fn}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 
