@@ -6,7 +6,7 @@
 #' The counts and proportion (`"N"`, `"n"`, `"p"`) are calculated using `survey::svytable()`,
 #' and the standard errors and design effect (`"p.std.error"`, `"deff"`) are
 #' calculated using `survey::svymean()`.
-#' 
+#'
 #' The design effect (`"deff"`) is calculated only when requested in the `statistic` argument.
 #'
 #' The unweighted statistics are calculated with `cards::ard_categorical.data.frame()`.
@@ -111,7 +111,7 @@ ard_categorical.survey.design <- function(data,
     )
   )
   denominator <- arg_match(denominator)
-  
+
   # Check if deff is in any of the requested statistics
   deff <- any(map_lgl(statistic, ~ "deff" %in% .x))
 
