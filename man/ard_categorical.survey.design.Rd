@@ -16,7 +16,6 @@
     "Design Effect", n_unweighted = "Unweighted n", N_unweighted = "Unweighted N",
     p_unweighted = "Unweighted \%"),
   fmt_fn = deprecated(),
-  deff = FALSE,
   ...
 )
 }
@@ -54,9 +53,6 @@ statistic labels, e.g. \code{everything() ~ list(mean = "Mean", sd = "SD")} or
 
 \item{fmt_fn}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 
-\item{deff}{(\code{logical})\cr
-Calculate design effect. Default is \code{FALSE}.}
-
 \item{...}{These dots are for future extensions and must be empty.}
 }
 \value{
@@ -68,6 +64,8 @@ Compute tabulations on survey-weighted data.
 The counts and proportion (\code{"N"}, \code{"n"}, \code{"p"}) are calculated using \code{survey::svytable()},
 and the standard errors and design effect (\code{"p.std.error"}, \code{"deff"}) are
 calculated using \code{survey::svymean()}.
+
+The design effect (\code{"deff"}) is calculated only when requested in the \code{statistic} argument.
 
 The unweighted statistics are calculated with \code{cards::ard_categorical.data.frame()}.
 }

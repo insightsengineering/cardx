@@ -7,8 +7,6 @@
 #'   named list of dichotomous values to tabulate.
 #'   Default is `cards::maximum_variable_value(data$variables)`,
 #'   which returns the largest/last value after a sort.
-#' @param deff (`logical`)\cr
-#'   Calculate design effect. Default is `FALSE`.
 #'
 #' @return an ARD data frame of class 'card'
 #' @export
@@ -32,7 +30,6 @@ ard_dichotomous.survey.design <- function(data,
                                             "p_unweighted" = "Unweighted %"
                                           ),
                                           fmt_fn = deprecated(),
-                                          deff = FALSE,
                                           ...) {
   set_cli_abort_call()
   check_dots_empty()
@@ -73,8 +70,7 @@ ard_dichotomous.survey.design <- function(data,
     statistic = statistic,
     denominator = denominator,
     fmt_fun = fmt_fun,
-    stat_label = stat_label,
-    deff = deff
+    stat_label = stat_label
   ) |>
     dplyr::filter(
       pmap(

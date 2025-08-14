@@ -96,13 +96,13 @@ test_that("ard_dichotomous.survey.design() works", {
 
 
 
-  # Test deff statistics with explicit deff = TRUE
+  # Test deff statistics when included in statistic argument
   ard_dichotomous_row_deff <- ard_dichotomous(svy_dicho,
     by = vs,
     variables = c(cyl, am),
     value = list(cyl = 4),
     denominator = "row",
-    deff = TRUE
+    statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted")
   )
 
   expect_equal(
@@ -128,11 +128,11 @@ test_that("ard_dichotomous.survey.design() works", {
       sort()
   )
 
-  # Test that deff = FALSE (default) does not include deff statistics
+  # Test that deff is not included by default (not in default statistic list)
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "deff") |> unlist() |> length(),
     0L,
-    info = "Default deff = FALSE should not include deff statistics"
+    info = "Default statistic list should not include deff statistics"
   )
 
   expect_equal(
@@ -189,13 +189,13 @@ test_that("ard_dichotomous.survey.design() works", {
       sort()
   )
 
-  # Test deff statistics with explicit deff = TRUE
+  # Test deff statistics when included in statistic argument
   ard_dichotomous_col_deff <- ard_dichotomous(svy_dicho,
     by = vs,
     variables = c(cyl, am),
     value = list(cyl = 4),
     denominator = "column",
-    deff = TRUE
+    statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted")
   )
 
   expect_equal(
@@ -221,11 +221,11 @@ test_that("ard_dichotomous.survey.design() works", {
       sort()
   )
 
-  # Test that deff = FALSE (default) does not include deff statistics
+  # Test that deff is not included by default (not in default statistic list)
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_col, stat_name %in% "deff") |> unlist() |> length(),
     0L,
-    info = "Default deff = FALSE should not include deff statistics for column denominator"
+    info = "Default statistic list should not include deff statistics for column denominator"
   )
 
   expect_equal(
@@ -276,13 +276,13 @@ test_that("ard_dichotomous.survey.design() works", {
     )) |> sort()
   )
 
-  # Test deff statistics with explicit deff = TRUE
+  # Test deff statistics when included in statistic argument
   ard_dichotomous_cell_deff <- ard_dichotomous(svy_dicho,
     by = vs,
     variables = c(cyl, am),
     value = list(cyl = 4),
     denominator = "cell",
-    deff = TRUE
+    statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted")
   )
 
   expect_equal(
@@ -303,11 +303,11 @@ test_that("ard_dichotomous.survey.design() works", {
     )) |> sort()
   )
 
-  # Test that deff = FALSE (default) does not include deff statistics
+  # Test that deff is not included by default (not in default statistic list)
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_cell, stat_name %in% "deff") |> unlist() |> length(),
     0L,
-    info = "Default deff = FALSE should not include deff statistics for cell denominator"
+    info = "Default statistic list should not include deff statistics for cell denominator"
   )
 
   expect_equal(

@@ -11,7 +11,6 @@
   statistic = everything() ~ c("median", "p25", "p75"),
   fmt_fun = NULL,
   stat_label = NULL,
-  deff = FALSE,
   fmt_fn = deprecated(),
   ...
 )
@@ -44,9 +43,6 @@ the list element is either a named list or a list of formulas defining the
 statistic labels, e.g. \code{everything() ~ list(mean = "Mean", sd = "SD")} or
 \code{everything() ~ list(mean ~ "Mean", sd ~ "SD")}.}
 
-\item{deff}{(\code{logical})\cr
-Calculate design effect. Default is \code{FALSE}.}
-
 \item{fmt_fn}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 
 \item{...}{These dots are for future extensions and must be empty.}
@@ -63,6 +59,8 @@ Returns an ARD of weighted statistics using the \code{{survey}} package.
 The following statistics are available:
 'mean', 'median', 'min', 'max', 'sum', 'var', 'sd', 'mean.std.error', 'deff', 'p##',
 where 'p##' is are the percentiles and \verb{##} is an integer between 0 and 100.
+
+The design effect (\code{"deff"}) is calculated only when requested in the \code{statistic} argument.
 }
 
 \examples{

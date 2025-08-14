@@ -17,7 +17,6 @@
     "Design Effect", n_unweighted = "Unweighted n", N_unweighted = "Unweighted N",
     p_unweighted = "Unweighted \%"),
   fmt_fn = deprecated(),
-  deff = FALSE,
   ...
 )
 }
@@ -59,9 +58,6 @@ statistic labels, e.g. \code{everything() ~ list(mean = "Mean", sd = "SD")} or
 \code{everything() ~ list(mean ~ "Mean", sd ~ "SD")}.}
 
 \item{fmt_fn}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
-
-\item{deff}{(\code{logical})\cr
-Calculate design effect. Default is \code{FALSE}.}
 
 \item{...}{These dots are for future extensions and must be empty.}
 }

@@ -23,8 +23,6 @@
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
-#' @param deff (`logical`)\cr
-#'   Calculate design effect. Default is `FALSE`.
 #' @inheritParams ard_categorical.survey.design
 #' @inheritParams rlang::args_dots_empty
 #'
@@ -33,6 +31,8 @@
 #' The following statistics are available:
 #' `r cardx:::accepted_svy_stats(FALSE) |> shQuote("sh") |> paste(collapse = ", ")`,
 #' where 'p##' is are the percentiles and `##` is an integer between 0 and 100.
+#' 
+#' The design effect (`"deff"`) is calculated only when requested in the `statistic` argument.
 #'
 #'
 #' @return an ARD data frame of class 'card'
@@ -51,7 +51,6 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
                                          statistic = everything() ~ c("median", "p25", "p75"),
                                          fmt_fun = NULL,
                                          stat_label = NULL,
-                                         deff = FALSE,
                                          fmt_fn = deprecated(),
                                          ...) {
   set_cli_abort_call()
@@ -96,15 +95,6 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
     )
   )
 
-  # if deff = TRUE, add "deff" to statistics if not already present
-  if (isTRUE(deff)) {
-    statistic <- map(
-      names(statistic),
-      ~ if (!"deff" %in% statistic[[.x]]) c(statistic[[.x]], "deff") else statistic[[.x]]
-    ) |>
-      set_names(names(statistic))
-  }
-
   # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
     return(dplyr::tibble() |> cards::as_card())
@@ -118,7 +108,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
         map(
           statistic[[variable]],
           function(statistic) {
-            .compute_svy_stat(data, variable = variable, by = by, stat_name = statistic, deff = deff)
+            .compute_svy_stat(data, variable = variable, by = by, stat_name = statistic)
           }
         )
       }
@@ -205,7 +195,7 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
 
 # this function calculates the summary for a single variable, single statistic
 # and for all `by` levels. it returns an ARD data frame
-.compute_svy_stat <- function(data, variable, by = NULL, stat_name, deff = FALSE) {
+.compute_svy_stat <- function(data, variable, by = NULL, stat_name) {
   # difftime variable needs to be transformed into numeric for svyquantile
   if (inherits(data$variables[[variable]], "difftime")) {
     data$variables[[variable]] <- unclass(data$variables[[variable]])

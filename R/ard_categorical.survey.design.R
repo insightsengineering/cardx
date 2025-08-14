@@ -6,6 +6,8 @@
 #' The counts and proportion (`"N"`, `"n"`, `"p"`) are calculated using `survey::svytable()`,
 #' and the standard errors and design effect (`"p.std.error"`, `"deff"`) are
 #' calculated using `survey::svymean()`.
+#' 
+#' The design effect (`"deff"`) is calculated only when requested in the `statistic` argument.
 #'
 #' The unweighted statistics are calculated with `cards::ard_categorical.data.frame()`.
 #'
@@ -33,8 +35,6 @@
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
-#' @param deff (`logical`)\cr
-#'   Calculate design effect. Default is `FALSE`.
 #' @param fmt_fn `r lifecycle::badge("deprecated")`
 #' @inheritParams rlang::args_dots_empty
 #'
@@ -60,7 +60,6 @@ ard_categorical.survey.design <- function(data,
                                             "p_unweighted" = "Unweighted %"
                                           ),
                                           fmt_fn = deprecated(),
-                                          deff = FALSE,
                                           ...) {
   set_cli_abort_call()
   check_pkg_installed(pkg = "survey")
@@ -112,15 +111,9 @@ ard_categorical.survey.design <- function(data,
     )
   )
   denominator <- arg_match(denominator)
-
-  # if deff = TRUE, add "deff" to statistics if not already present
-  if (isTRUE(deff)) {
-    statistic <- map(
-      names(statistic),
-      ~ if (!"deff" %in% statistic[[.x]]) c(statistic[[.x]], "deff") else statistic[[.x]]
-    ) |>
-      set_names(names(statistic))
-  }
+  
+  # Check if deff is in any of the requested statistics
+  deff <- any(map_lgl(statistic, ~ "deff" %in% .x))
 
   # check the missingness
   walk(
