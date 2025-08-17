@@ -59,6 +59,8 @@ Returns an ARD of weighted statistics using the \code{{survey}} package.
 The following statistics are available:
 'mean', 'median', 'min', 'max', 'sum', 'var', 'sd', 'mean.std.error', 'deff', 'p##',
 where 'p##' is are the percentiles and \verb{##} is an integer between 0 and 100.
+
+The design effect (\code{"deff"}) is calculated only when requested in the \code{statistic} argument.
 }
 
 \examples{

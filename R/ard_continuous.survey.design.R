@@ -32,6 +32,8 @@
 #' `r cardx:::accepted_svy_stats(FALSE) |> shQuote("sh") |> paste(collapse = ", ")`,
 #' where 'p##' is are the percentiles and `##` is an integer between 0 and 100.
 #'
+#' The design effect (`"deff"`) is calculated only when requested in the `statistic` argument.
+#'
 #'
 #' @return an ARD data frame of class 'card'
 #' @export

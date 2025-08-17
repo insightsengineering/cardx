@@ -18,7 +18,7 @@ ard_dichotomous.survey.design <- function(data,
                                           variables,
                                           by = NULL,
                                           value = cards::maximum_variable_value(data$variables[variables]),
-                                          statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted"),
+                                          statistic = everything() ~ c("n", "N", "p", "p.std.error", "n_unweighted", "N_unweighted", "p_unweighted"),
                                           denominator = c("column", "row", "cell"),
                                           fmt_fun = NULL,
                                           stat_label = everything() ~ list(
