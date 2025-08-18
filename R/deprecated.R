@@ -10,18 +10,6 @@
 NULL
 
 # v0.3.0 -----------------------------------------------------------------------
-#' @rdname deprecated
-#' @export
-ard_categorical_max <- function(...) {
-  lifecycle::deprecate_soft(
-    when = "0.3.0",
-    what = "cardx::ard_categorical_max()",
-    with = "cardx::ard_tabulate_max()"
-  )
-
-  ard_tabulate_max(...)
-}
-
 #' @importFrom cards ard_continuous
 #' @export
 cards::ard_continuous
@@ -62,26 +50,26 @@ ard_categorical.survey.design <- function(data, ...) {
 
 #' @rdname deprecated
 #' @export
-# ard_dichotomous.survey.design <- function(data, variables, value = cards::maximum_variable_value(data[variables]), ...) {
-#   lifecycle::deprecate_soft(
-#     when = "0.3.0",
-#     what = "cardx::ard_dichotomous()",
-#     with = "cardx::ard_tabulate()",
-#     details = "The `value` argument no longer has a default value and must be specified."
-#   )
-#
-#   cards::process_selectors(data, variables = {{ variables }})
-#   cards::process_formula_selectors(data[variables], value = value)
-#   fill_formula_selectors(
-#     data[variables],
-#     value = formals(asNamespace("cards")[["ard_dichotomous.data.frame"]])[["value"]] |> eval()
-#   )
-#
-#   ard_tabulate(
-#     data = data,
-#     variables = {{ variables }},
-#     value = value,
-#     ...
-#   ) |>
-#     dplyr::mutate(context = "dichotomous")
-# }
+ard_dichotomous.survey.design <- function(data, ...) {
+  lifecycle::deprecate_soft(
+    when = "0.3.0",
+    what = "cardx::ard_dichotomous()",
+    with = "cardx::ard_tabulate_value()",
+    details = "The `value` argument no longer has a default value and must be specified."
+  )
+
+  ard_tabulate_value(data = data, ...) |>
+    dplyr::mutate(context = "dichotomous")
+}
+
+#' @rdname deprecated
+#' @export
+ard_categorical_max <- function(...) {
+  lifecycle::deprecate_soft(
+    when = "0.3.0",
+    what = "cardx::ard_categorical_max()",
+    with = "cardx::ard_tabulate_max()"
+  )
+
+  ard_tabulate_max(...)
+}
