@@ -1,8 +1,14 @@
 # cardx 0.2.5.9002
 
-* Added function `ard_categorical_abnormal()` to calculate ARDs for abnormality analyses. (#310)
+* The following functions have been renamed.
+    - `ard_continuous()` to `ard_summary()`
+    - `ard_categorical()` to `ard_tabulate()`
+    - `ard_dichotomous()` to `ard_tabulate_value()`
+    - `ard_categorical_max()` to `ard_tabulate_max()`
 
-* Adding `strata` argument to `ard_categorical_max()`. (#445, @jtalboys)
+* Added function `ard_tabulate_abnormal()` to calculate ARDs for abnormality analyses. (#310)
+
+* Adding `strata` argument to `ard_tabulate_max()`. (#445, @jtalboys)
 
 * Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
 

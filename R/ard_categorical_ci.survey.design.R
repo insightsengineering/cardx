@@ -3,7 +3,7 @@
 #' Confidence intervals for categorical variables calculated via
 #' [`survey::svyciprop()`].
 #'
-#' @inheritParams ard_continuous.survey.design
+#' @inheritParams ard_summary.survey.design
 #' @inheritParams ard_categorical_ci.data.frame
 #' @param method (`string`)\cr
 #'   Method passed to `survey::svyciprop(method)`

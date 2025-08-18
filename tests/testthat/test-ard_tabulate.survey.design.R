@@ -1,7 +1,7 @@
 skip_if_not(is_pkg_installed("survey"))
 
 # Test survey.design working (2x3)
-test_that("ard_categorical.survey.design() works", {
+test_that("ard_tabulate.survey.design() works", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
@@ -11,7 +11,7 @@ test_that("ard_categorical.survey.design() works", {
   # denom = row, with by
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -24,7 +24,7 @@ test_that("ard_categorical.survey.design() works", {
   # denom = column, with by
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -37,7 +37,7 @@ test_that("ard_categorical.survey.design() works", {
   # denom = cell, with by
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -52,19 +52,19 @@ test_that("ard_categorical.survey.design() works", {
   # section 1: by variable, row denominator
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row |> dplyr::arrange_all(), stat_name %in% "n") |> unlist(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::arrange_all() |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::arrange_all() |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row |> dplyr::arrange_all(), stat_name %in% "N") |> unlist(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::arrange_all() |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::arrange_all() |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row |> dplyr::arrange_all(), stat_name %in% "p") |> unlist(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::arrange_all() |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::arrange_all() |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist()
   )
 
@@ -92,40 +92,40 @@ test_that("ard_categorical.survey.design() works", {
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row |> dplyr::arrange_all(), stat_name %in% "n_unweighted") |> unlist() |> unname(),
-    ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::arrange_all() |>
+    ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::arrange_all() |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N_unweighted") |> unlist() |> unname(),
-    ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "row") |>
+    ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p_unweighted") |> unlist() |> unname(),
-    ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "row") |>
+    ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname()
   )
 
   # section 2: by variable, column denominator
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col |> dplyr::arrange_all(), stat_name %in% "n") |> unlist(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
       dplyr::arrange_all() |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col |> dplyr::arrange_all(), stat_name %in% "N") |> unlist(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
       dplyr::arrange_all() |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col |> dplyr::arrange_all(), stat_name %in% "p") |> unlist(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
       dplyr::arrange_all() |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist()
   )
@@ -154,40 +154,40 @@ test_that("ard_categorical.survey.design() works", {
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n_unweighted") |> unlist() |> unname(),
-    ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "column") |>
+    ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "N_unweighted") |> unlist() |> unname(),
-    ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "column") |>
+    ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p_unweighted") |> unlist() |> unname(),
-    ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "column") |>
+    ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname()
   )
 
   # section 3: by variable, cell denominator
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell |> dplyr::arrange_all(), stat_name %in% "n") |> unlist(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       dplyr::arrange_all() |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell |> dplyr::arrange_all(), stat_name %in% "N") |> unlist(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       dplyr::arrange_all() |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell |> dplyr::arrange_all(), stat_name %in% "p") |> unlist(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       dplyr::arrange_all() |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist()
   )
@@ -212,19 +212,19 @@ test_that("ard_categorical.survey.design() works", {
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n_unweighted") |> unlist() |> unname(),
-    ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "N_unweighted") |> unlist() |> unname(),
-    ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p_unweighted") |> unlist() |> unname(),
-    ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname()
   )
 
@@ -232,7 +232,7 @@ test_that("ard_categorical.survey.design() works", {
   # denom = row, without by
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "row"
@@ -244,7 +244,7 @@ test_that("ard_categorical.survey.design() works", {
   # denom = column, without by
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "column"
@@ -256,7 +256,7 @@ test_that("ard_categorical.survey.design() works", {
   # denom = cell, without by
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "cell"
@@ -270,19 +270,19 @@ test_that("ard_categorical.survey.design() works", {
   # section 4: without by variable, row denominator
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist()
   )
 
@@ -303,38 +303,38 @@ test_that("ard_categorical.survey.design() works", {
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n_unweighted") |> unlist() |> unname(),
-    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "row") |>
+    cards::ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N_unweighted") |> unlist() |> unname(),
-    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "row") |>
+    cards::ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p_unweighted") |> unlist() |> unname(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = NULL, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname()
   )
 
   # section 5: without by variable, column denominator
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "N") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = NULL, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist()
   )
 
@@ -352,38 +352,38 @@ test_that("ard_categorical.survey.design() works", {
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n_unweighted") |> unlist() |> unname(),
-    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "column") |>
+    cards::ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "N_unweighted") |> unlist() |> unname(),
-    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "column") |>
+    cards::ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p_unweighted") |> unlist() |> unname(),
-    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "column") |>
+    cards::ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname()
   )
 
   # section 6: without by variable, cell denominator
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "N") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = NULL, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist()
   )
 
@@ -401,24 +401,24 @@ test_that("ard_categorical.survey.design() works", {
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n_unweighted") |> unlist() |> unname(),
-    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "cell") |>
+    cards::ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "N_unweighted") |> unlist() |> unname(),
-    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "cell") |>
+    cards::ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p_unweighted") |> unlist() |> unname(),
-    cards::ard_categorical(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "cell") |>
+    cards::ard_tabulate(as.data.frame(Titanic), variables = c(Class, Age), by = NULL, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname()
   )
 })
 
-test_that("ard_categorical.survey.design() returns an error when variables have all NAs", {
+test_that("ard_tabulate.survey.design() returns an error when variables have all NAs", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
@@ -426,7 +426,7 @@ test_that("ard_categorical.survey.design() returns an error when variables have 
   svy_titanic$variables$Class <- NA
 
   expect_snapshot(
-    ard_categorical(
+    ard_tabulate(
       svy_titanic,
       variables = c(Class, Age),
       by = Survived,
@@ -437,7 +437,7 @@ test_that("ard_categorical.survey.design() returns an error when variables have 
 
   # column denom
   expect_snapshot(
-    ard_categorical(
+    ard_tabulate(
       svy_titanic,
       variables = c(Class, Age),
       by = Survived,
@@ -448,7 +448,7 @@ test_that("ard_categorical.survey.design() returns an error when variables have 
 
   # cell denom
   expect_snapshot(
-    ard_categorical(
+    ard_tabulate(
       svy_titanic,
       variables = c(Class, Age),
       by = Survived,
@@ -459,7 +459,7 @@ test_that("ard_categorical.survey.design() returns an error when variables have 
 })
 
 # - Do we get results for unobserved factor levels in the `by` and `variable` variables?
-test_that("ard_categorical.survey.design() works for unobserved factor levels", {
+test_that("ard_tabulate.survey.design() works for unobserved factor levels", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
   svy_titanic$variables$Survived <- fct_expand(svy_titanic$variables$Survived, "Unknown")
@@ -474,7 +474,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -486,7 +486,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -498,7 +498,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -510,19 +510,19 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n") |> unlist() |> sort(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> sort()
   )
 
@@ -550,37 +550,37 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "N") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> sort()
   )
 
@@ -608,37 +608,37 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "N_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "N") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> sort()
   )
 
@@ -662,19 +662,19 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "N_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname() |> sort()
   )
   # variables have unobserved levels, no by variable
@@ -684,7 +684,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "row"
@@ -695,7 +695,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "column"
@@ -706,7 +706,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "cell"
@@ -720,7 +720,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -732,7 +732,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -744,7 +744,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -756,7 +756,7 @@ test_that("ard_categorical.survey.design() works for unobserved factor levels", 
 })
 
 # - Do we get results for unobserved logical levels in the `by` and `variable` variables?
-test_that("ard_categorical.survey.design() works for unobserved logical levels", {
+test_that("ard_tabulate.survey.design() works for unobserved logical levels", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
   svy_titanic$variables$Survived <- rep(TRUE, length(svy_titanic$variables$Survived))
@@ -770,7 +770,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -782,7 +782,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -794,7 +794,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -806,19 +806,19 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n") |> unlist() |> sort(),
-    ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> sort()
   )
 
@@ -846,37 +846,37 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "N_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_row, stat_name %in% "p_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "row") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "N") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> sort()
   )
 
@@ -904,37 +904,37 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "N_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_col, stat_name %in% "p_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "column") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "N") |> unlist(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p") |> unlist() |> sort(),
-    cards::ard_categorical(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_titanic, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> sort()
   )
 
@@ -958,19 +958,19 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "n_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "n") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "N_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "N") |> unlist() |> unname() |> sort()
   )
 
   expect_equal(
     cards::get_ard_statistics(ard_svy_cat_cell, stat_name %in% "p_unweighted") |> unlist() |> unname() |> sort(),
-    cards::ard_categorical(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
+    cards::ard_tabulate(df_uw, variables = c(Class, Age), by = Survived, denominator = "cell") |>
       cards::get_ard_statistics(stat_name %in% "p") |> unlist() |> unname() |> sort()
   )
 
@@ -981,7 +981,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "row"
@@ -992,7 +992,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "column"
@@ -1003,7 +1003,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "cell"
@@ -1017,7 +1017,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -1029,7 +1029,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -1041,7 +1041,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -1053,7 +1053,7 @@ test_that("ard_categorical.survey.design() works for unobserved logical levels",
 })
 
 # - Does the work around apply for variables with only 1 level
-test_that("ard_categorical.survey.design() works with variables with only 1 level", {
+test_that("ard_tabulate.survey.design() works with variables with only 1 level", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
   svy_titanic$variables$Survived <- rep("Yes", length(svy_titanic$variables$Survived))
@@ -1061,7 +1061,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
   # by variable only has 1 level
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -1073,7 +1073,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
 
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -1085,7 +1085,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
 
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -1102,7 +1102,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
 
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "row"
@@ -1113,7 +1113,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
 
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "column"
@@ -1124,7 +1124,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
 
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         denominator = "cell"
@@ -1138,7 +1138,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
 
   expect_error(
     ard_svy_cat_row <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -1150,7 +1150,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
 
   expect_error(
     ard_svy_cat_col <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -1162,7 +1162,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
 
   expect_error(
     ard_svy_cat_cell <-
-      ard_categorical(
+      ard_tabulate(
         svy_titanic,
         variables = c(Class, Age),
         by = Survived,
@@ -1173,7 +1173,7 @@ test_that("ard_categorical.survey.design() works with variables with only 1 leve
   expect_invisible(cards::check_ard_structure(ard_svy_cat_cell, method = FALSE))
 })
 
-test_that("ard_categorical.survey.design(by) messages about protected names", {
+test_that("ard_tabulate.survey.design(by) messages about protected names", {
   svy_mtcars <-
     survey::svydesign(
       ids = ~1,
@@ -1194,27 +1194,27 @@ test_that("ard_categorical.survey.design(by) messages about protected names", {
 
   expect_snapshot(
     error = TRUE,
-    ard_categorical(svy_mtcars, by = variable, variables = gear)
+    ard_tabulate(svy_mtcars, by = variable, variables = gear)
   )
 
   expect_error(
-    ard_categorical(svy_mtcars, by = variable_level, variables = gear),
+    ard_tabulate(svy_mtcars, by = variable_level, variables = gear),
     'The `by` argument cannot include variables named "variable", "variable_level", "group1_level", "p", and "n".'
   )
 
   expect_snapshot(
     error = TRUE,
-    ard_categorical(svy_mtcars, by = p.std.error, variables = name)
+    ard_tabulate(svy_mtcars, by = p.std.error, variables = name)
   )
 
   expect_error(
-    ard_categorical(svy_mtcars, by = p.std.error, variables = name),
+    ard_tabulate(svy_mtcars, by = p.std.error, variables = name),
     'The `variables` argument cannot include variables named "by", "name", "n", "p", and "p.std.error".'
   )
 })
 
 # - test if function parameters can be used as variable names without error
-test_that("ard_categorical.survey.design() works when using generic names ", {
+test_that("ard_tabulate.survey.design() works when using generic names ", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
@@ -1224,8 +1224,8 @@ test_that("ard_categorical.survey.design() works when using generic names ", {
 
 
   expect_equal(
-    ard_categorical(svy_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::select(stat),
-    ard_categorical(svy_titanic2, variables = c(variable, variable_level), by = by, denominator = "row") |> dplyr::select(stat)
+    ard_tabulate(svy_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::select(stat),
+    ard_tabulate(svy_titanic2, variables = c(variable, variable_level), by = by, denominator = "row") |> dplyr::select(stat)
   )
 
   # rename vars
@@ -1234,8 +1234,8 @@ test_that("ard_categorical.survey.design() works when using generic names ", {
     dplyr::rename("N" = Class, "p" = Age, "name" = Survived, "group1_level" = Sex)
 
   expect_equal(
-    ard_categorical(svy_titanic, variables = c(Class), by = Survived, denominator = "row") |> dplyr::select(stat),
-    ard_categorical(svy_titanic2, variables = c(N), by = name, denominator = "row") |> dplyr::select(stat)
+    ard_tabulate(svy_titanic, variables = c(Class), by = Survived, denominator = "row") |> dplyr::select(stat),
+    ard_tabulate(svy_titanic2, variables = c(N), by = name, denominator = "row") |> dplyr::select(stat)
   )
 
   # rename vars
@@ -1243,13 +1243,13 @@ test_that("ard_categorical.survey.design() works when using generic names ", {
     dplyr::rename("n" = Class, "mean" = Age, "p.std.error" = Survived, "n_unweighted" = Sex)
 
   expect_equal(
-    ard_categorical(svy_titanic, variables = c(Sex, Age), by = Survived, denominator = "row") |> dplyr::select(stat),
-    ard_categorical(svy_titanic2, variables = c(n_unweighted, mean), by = p.std.error, denominator = "row") |> dplyr::select(stat)
+    ard_tabulate(svy_titanic, variables = c(Sex, Age), by = Survived, denominator = "row") |> dplyr::select(stat),
+    ard_tabulate(svy_titanic2, variables = c(n_unweighted, mean), by = p.std.error, denominator = "row") |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_categorical(svy_titanic, variables = Sex, by = Survived, denominator = "row") |> dplyr::select(stat),
-    ard_categorical(svy_titanic2, variables = n_unweighted, by = p.std.error, denominator = "row") |> dplyr::select(stat)
+    ard_tabulate(svy_titanic, variables = Sex, by = Survived, denominator = "row") |> dplyr::select(stat),
+    ard_tabulate(svy_titanic2, variables = n_unweighted, by = p.std.error, denominator = "row") |> dplyr::select(stat)
   )
 
   # rename vars
@@ -1257,23 +1257,23 @@ test_that("ard_categorical.survey.design() works when using generic names ", {
     dplyr::rename("N_unweighted" = Class, "p_unweighted" = Age, "column" = Survived, "row" = Sex)
 
   expect_equal(
-    ard_categorical(svy_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::select(stat),
-    ard_categorical(svy_titanic2, variables = c(N_unweighted, p_unweighted), by = column, denominator = "row") |> dplyr::select(stat)
+    ard_tabulate(svy_titanic, variables = c(Class, Age), by = Survived, denominator = "row") |> dplyr::select(stat),
+    ard_tabulate(svy_titanic2, variables = c(N_unweighted, p_unweighted), by = column, denominator = "row") |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_categorical(svy_titanic, variables = c(Survived, Sex), by = Class, denominator = "row") |> dplyr::select(stat),
-    ard_categorical(svy_titanic2, variables = c(column, row), by = N_unweighted, denominator = "row") |> dplyr::select(stat)
+    ard_tabulate(svy_titanic, variables = c(Survived, Sex), by = Class, denominator = "row") |> dplyr::select(stat),
+    ard_tabulate(svy_titanic2, variables = c(column, row), by = N_unweighted, denominator = "row") |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_categorical(svy_titanic, variables = c(Class, Survived), by = Age, denominator = "row") |> dplyr::select(stat),
-    ard_categorical(svy_titanic2, variables = c(N_unweighted, column), by = p_unweighted, denominator = "row") |> dplyr::select(stat)
+    ard_tabulate(svy_titanic, variables = c(Class, Survived), by = Age, denominator = "row") |> dplyr::select(stat),
+    ard_tabulate(svy_titanic2, variables = c(N_unweighted, column), by = p_unweighted, denominator = "row") |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_categorical(svy_titanic, variables = c(Class, Survived), by = Sex, denominator = "row") |> dplyr::select(stat),
-    ard_categorical(svy_titanic2, variables = c(N_unweighted, column), by = row, denominator = "row") |> dplyr::select(stat)
+    ard_tabulate(svy_titanic, variables = c(Class, Survived), by = Sex, denominator = "row") |> dplyr::select(stat),
+    ard_tabulate(svy_titanic2, variables = c(N_unweighted, column), by = row, denominator = "row") |> dplyr::select(stat)
   )
 
   # rename vars
@@ -1281,27 +1281,27 @@ test_that("ard_categorical.survey.design() works when using generic names ", {
     dplyr::rename("cell" = Class, "p_unweighted" = Age, "column" = Survived, "row" = Sex)
 
   expect_equal(
-    ard_categorical(svy_titanic, variables = c(Class, Survived), by = Age, denominator = "row") |> dplyr::select(stat),
-    ard_categorical(svy_titanic2, variables = c(cell, column), by = p_unweighted, denominator = "row") |> dplyr::select(stat)
+    ard_tabulate(svy_titanic, variables = c(Class, Survived), by = Age, denominator = "row") |> dplyr::select(stat),
+    ard_tabulate(svy_titanic2, variables = c(cell, column), by = p_unweighted, denominator = "row") |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_categorical(svy_titanic, variables = c(Sex, Survived), by = Class, denominator = "row") |> dplyr::select(stat),
-    ard_categorical(svy_titanic2, variables = c(row, column), by = cell, denominator = "row") |> dplyr::select(stat)
+    ard_tabulate(svy_titanic, variables = c(Sex, Survived), by = Class, denominator = "row") |> dplyr::select(stat),
+    ard_tabulate(svy_titanic2, variables = c(row, column), by = cell, denominator = "row") |> dplyr::select(stat)
   )
 })
 
-test_that("ard_categorical.survey.design(statistic) properly excluded unweighted stats not selected", {
+test_that("ard_tabulate.survey.design(statistic) properly excluded unweighted stats not selected", {
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
   expect_equal(
-    ard_categorical(
+    ard_tabulate(
       svy_titanic,
       variables = Sex,
       statistic = ~ c("N", "N_unweighted")
     ) |>
       dplyr::select(variable, variable_level, stat_name, stat_label, stat),
-    ard_categorical(
+    ard_tabulate(
       svy_titanic,
       variables = Sex
     ) |>
@@ -1310,12 +1310,12 @@ test_that("ard_categorical.survey.design(statistic) properly excluded unweighted
   )
 })
 
-test_that("ard_categorical follows ard structure", {
+test_that("ard_tabulate follows ard structure", {
   data(api, package = "survey")
   svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
   expect_silent(
-    ard_categorical(
+    ard_tabulate(
       svy_titanic,
       variables = c(Class, Age),
       by = Survived,
@@ -1325,7 +1325,7 @@ test_that("ard_categorical follows ard structure", {
   )
 })
 
-test_that("ard_categorical.survey.design() original types are retained", {
+test_that("ard_tabulate.survey.design() original types are retained", {
   svy_titanic <-
     survey::svydesign(
       ~1,
@@ -1339,7 +1339,7 @@ test_that("ard_categorical.survey.design() original types are retained", {
   # factors and integer check
   expect_silent(
     ard <-
-      ard_categorical(svy_titanic, variables = c(Class, Age, Class.int, Class.dbl), by = Survived)
+      ard_tabulate(svy_titanic, variables = c(Class, Age, Class.int, Class.dbl), by = Survived)
   )
   expect_equal(
     unlist(ard$group1_level) |> levels(),
@@ -1371,7 +1371,7 @@ test_that("ard_categorical.survey.design() original types are retained", {
   )
 })
 
-test_that("ard_categorical.survey.design() works with all NA fct variables", {
+test_that("ard_tabulate.survey.design() works with all NA fct variables", {
   expect_silent(
     ard_fct_na <-
       survey::svydesign(
@@ -1383,7 +1383,7 @@ test_that("ard_categorical.survey.design() works with all NA fct variables", {
           ),
         weights = ~1
       ) |>
-      ard_categorical(variables = fct)
+      ard_tabulate(variables = fct)
   )
 
   # all Ns should be zero
@@ -1407,7 +1407,7 @@ test_that("ard_categorical.survey.design() works with all NA fct variables", {
   )
 })
 
-test_that("ard_categorical.survey.design() messaging with all NA lgl variables", {
+test_that("ard_tabulate.survey.design() messaging with all NA lgl variables", {
   expect_snapshot(
     error = TRUE,
     survey::svydesign(
@@ -1419,6 +1419,6 @@ test_that("ard_categorical.survey.design() messaging with all NA lgl variables",
         ),
       weights = ~1
     ) |>
-      ard_categorical(variables = lgl)
+      ard_tabulate(variables = lgl)
   )
 })

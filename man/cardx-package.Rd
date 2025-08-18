@@ -30,6 +30,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Malcolm Barrett (\href{https://orcid.org/0000-0003-0299-5825}{ORCID}) [contributor]
   \item F. Hoffmann-La Roche AG [copyright holder, funder]
 }
 

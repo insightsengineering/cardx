@@ -29,7 +29,7 @@
 #'   confidence interval type for the estimated incidence rate.
 #'
 #'   One of: `normal` (default), `normal-log`, `exact`, or `byar`.
-#' @inheritParams cards::ard_continuous
+#' @inheritParams cards::ard_summary
 #'
 #' @return an ARD data frame of class 'card'
 #' @export

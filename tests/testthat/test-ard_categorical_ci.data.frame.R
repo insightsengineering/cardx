@@ -184,13 +184,13 @@ test_that("ard_continuous_ci.data.frame(denominator='row')", {
     cards::check_ard_structure(ard)
   )
 
-  # check the estimates align with `cards::ard_categorical(denominator='row)`
+  # check the estimates align with `cards::ard_tabulate(denominator='row)`
   expect_equal(
     ard |>
       dplyr::filter(stat_name == "estimate") |>
       dplyr::select(cards::all_ard_groups(), cards::all_ard_variables(), "stat") |>
       dplyr::arrange(unlist(group1_level), unlist(variable_level)),
-    cards::ard_categorical(
+    cards::ard_tabulate(
       mtcars,
       by = am,
       variables = vs,
@@ -201,7 +201,7 @@ test_that("ard_continuous_ci.data.frame(denominator='row')", {
       dplyr::arrange(unlist(group1_level), unlist(variable_level))
   )
 
-  # check the estimates align with `cards::ard_categorical(denominator='row)` for dichotomous variables
+  # check the estimates align with `cards::ard_tabulate(denominator='row)` for dichotomous variables
   expect_equal(
     ard_categorical_ci(
       mtcars,
@@ -212,7 +212,7 @@ test_that("ard_continuous_ci.data.frame(denominator='row')", {
       dplyr::filter(stat_name == "estimate") |>
       dplyr::select(cards::all_ard_groups(), cards::all_ard_variables(), "stat") |>
       dplyr::arrange(unlist(group1_level), unlist(variable_level)),
-    cards::ard_dichotomous(
+    cards::ard_tabulate_value(
       mtcars,
       by = am,
       variables = vs,
@@ -269,13 +269,13 @@ test_that("ard_continuous_ci.data.frame(denominator='cell')", {
     cards::check_ard_structure(ard)
   )
 
-  # check the estimates align with `cards::ard_categorical(denominator='row)`
+  # check the estimates align with `cards::ard_tabulate(denominator='row)`
   expect_equal(
     ard |>
       dplyr::filter(stat_name == "estimate") |>
       dplyr::select(cards::all_ard_groups(), cards::all_ard_variables(), "stat") |>
       dplyr::arrange(group1, variable, unlist(group1_level), unlist(variable_level)),
-    cards::ard_categorical(
+    cards::ard_tabulate(
       mtcars,
       by = am,
       variables = vs,
@@ -286,7 +286,7 @@ test_that("ard_continuous_ci.data.frame(denominator='cell')", {
       dplyr::arrange(group1, variable, unlist(group1_level), unlist(variable_level))
   )
 
-  # check the estimates align with `cards::ard_categorical(denominator='row)` for dichotomous variables
+  # check the estimates align with `cards::ard_tabulate(denominator='row)` for dichotomous variables
   expect_equal(
     ard_categorical_ci(
       mtcars,
@@ -297,7 +297,7 @@ test_that("ard_continuous_ci.data.frame(denominator='cell')", {
       dplyr::filter(stat_name == "estimate") |>
       dplyr::select(cards::all_ard_groups(), cards::all_ard_variables(), "stat") |>
       dplyr::arrange(unlist(group1_level), unlist(variable_level)),
-    cards::ard_dichotomous(
+    cards::ard_tabulate_value(
       mtcars,
       by = am,
       variables = vs,

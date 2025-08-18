@@ -1,4 +1,4 @@
-# unstratified ard_continuous.survey.design() works
+# unstratified ard_summary.survey.design() works
 
     Code
       ard_uni_svy_cont
@@ -19,10 +19,10 @@
     Message
       i 2 more variables: warning, error
 
-# ard_continuous.survey.design(fmt_fun)
+# ard_summary.survey.design(fmt_fun)
 
     Code
-      as.data.frame(dplyr::select(ard_continuous(dclus1, variables = c(api99, api00),
+      as.data.frame(dplyr::select(ard_summary(dclus1, variables = c(api99, api00),
       statistic = ~ c("mean", "median", "min", "max"), fmt_fun = list(api00 = list(
         mean = 2, median = "xx.xx", min = as.character))), -warning, -error))
     Output
@@ -36,11 +36,11 @@
       7    api00 continuous       min    Minimum      411 .Primitive("as.character")
       8    api00 continuous       max    Maximum      905                          1
 
-# ard_continuous.survey.design(stat_label)
+# ard_summary.survey.design(stat_label)
 
     Code
-      as.data.frame(ard_continuous(dclus1, variables = c(api00, api99), statistic = ~
-      c("mean", "median", "min", "max"), stat_label = list(api00 = list(mean = "MeAn",
+      as.data.frame(ard_summary(dclus1, variables = c(api00, api99), statistic = ~ c(
+        "mean", "median", "min", "max"), stat_label = list(api00 = list(mean = "MeAn",
         median = "MEDian", min = "MINimum"))))
     Output
         variable    context stat_name stat_label     stat fmt_fun warning error

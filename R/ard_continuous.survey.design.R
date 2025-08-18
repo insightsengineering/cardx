@@ -23,7 +23,7 @@
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
-#' @inheritParams ard_categorical.survey.design
+#' @inheritParams ard_tabulate.survey.design
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @section statistic argument:
@@ -42,17 +42,17 @@
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
-#' ard_continuous(
+#' ard_summary(
 #'   data = dclus1,
 #'   variables = api00,
 #'   by = stype
 #' )
-ard_continuous.survey.design <- function(data, variables, by = NULL,
-                                         statistic = everything() ~ c("median", "p25", "p75"),
-                                         fmt_fun = NULL,
-                                         stat_label = NULL,
-                                         fmt_fn = deprecated(),
-                                         ...) {
+ard_summary.survey.design <- function(data, variables, by = NULL,
+                                      statistic = everything() ~ c("median", "p25", "p75"),
+                                      fmt_fun = NULL,
+                                      stat_label = NULL,
+                                      fmt_fn = deprecated(),
+                                      ...) {
   set_cli_abort_call()
   check_dots_empty()
 
@@ -60,8 +60,8 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   if (lifecycle::is_present(fmt_fn)) {
     lifecycle::deprecate_soft(
       when = "0.2.5",
-      what = "ard_continuous(fmt_fn)",
-      with = "ard_continuous(fmt_fun)"
+      what = "ard_summary(fmt_fn)",
+      with = "ard_summary(fmt_fun)"
     )
     fmt_fun <- fmt_fn
   }
@@ -85,7 +85,7 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   )
   cards::fill_formula_selectors(
     data$variables[variables],
-    statistic = formals(asNamespace("cardx")[["ard_continuous.survey.design"]])[["statistic"]] |> eval()
+    statistic = formals(asNamespace("cardx")[["ard_summary.survey.design"]])[["statistic"]] |> eval()
   )
   cards::check_list_elements(
     x = statistic,

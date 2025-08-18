@@ -9,7 +9,7 @@
 #'
 #' The design effect (`"deff"`) is calculated only when requested in the `statistic` argument.
 #'
-#' The unweighted statistics are calculated with `cards::ard_categorical.data.frame()`.
+#' The unweighted statistics are calculated with `cards::ard_tabulate.data.frame()`.
 #'
 #' @param data (`survey.design`)\cr
 #'   a design object often created with [`survey::svydesign()`].
@@ -44,23 +44,23 @@
 #' @examplesIf cardx:::is_pkg_installed("survey")
 #' svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 #'
-#' ard_categorical(svy_titanic, variables = c(Class, Age), by = Survived)
-ard_categorical.survey.design <- function(data,
-                                          variables,
-                                          by = NULL,
-                                          statistic = everything() ~ c("n", "N", "p", "p.std.error", "n_unweighted", "N_unweighted", "p_unweighted"),
-                                          denominator = c("column", "row", "cell"),
-                                          fmt_fun = NULL,
-                                          stat_label = everything() ~ list(
-                                            p = "%",
-                                            p.std.error = "SE(%)",
-                                            deff = "Design Effect",
-                                            "n_unweighted" = "Unweighted n",
-                                            "N_unweighted" = "Unweighted N",
-                                            "p_unweighted" = "Unweighted %"
-                                          ),
-                                          fmt_fn = deprecated(),
-                                          ...) {
+#' ard_tabulate(svy_titanic, variables = c(Class, Age), by = Survived)
+ard_tabulate.survey.design <- function(data,
+                                       variables,
+                                       by = NULL,
+                                       statistic = everything() ~ c("n", "N", "p", "p.std.error", "n_unweighted", "N_unweighted", "p_unweighted"),
+                                       denominator = c("column", "row", "cell"),
+                                       fmt_fun = NULL,
+                                       stat_label = everything() ~ list(
+                                         p = "%",
+                                         p.std.error = "SE(%)",
+                                         deff = "Design Effect",
+                                         "n_unweighted" = "Unweighted n",
+                                         "N_unweighted" = "Unweighted N",
+                                         "p_unweighted" = "Unweighted %"
+                                       ),
+                                       fmt_fn = deprecated(),
+                                       ...) {
   set_cli_abort_call()
   check_pkg_installed(pkg = "survey")
   check_dots_empty()
@@ -69,8 +69,8 @@ ard_categorical.survey.design <- function(data,
   if (lifecycle::is_present(fmt_fn)) {
     lifecycle::deprecate_soft(
       when = "0.2.5",
-      what = "ard_categorical(fmt_fn)",
-      with = "ard_categorical(fmt_fun)"
+      what = "ard_tabulate(fmt_fn)",
+      with = "ard_tabulate(fmt_fun)"
     )
     fmt_fun <- fmt_fn
   }
@@ -100,7 +100,7 @@ ard_categorical.survey.design <- function(data,
   )
   cards::fill_formula_selectors(
     data = data$variables[variables],
-    statistic = formals(asNamespace("cardx")[["ard_categorical.survey.design"]])[["statistic"]] |> eval(),
+    statistic = formals(asNamespace("cardx")[["ard_tabulate.survey.design"]])[["statistic"]] |> eval(),
   )
   accepted_svy_stats <- c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted")
   cards::check_list_elements(
@@ -183,7 +183,7 @@ ard_categorical.survey.design <- function(data,
 
   if (!is_empty(statistic_unweighted)) {
     cards_unweighted <-
-      ard_categorical(
+      ard_tabulate(
         data = data[["variables"]],
         variables = all_of(names(statistic_unweighted)),
         by = any_of(by),
@@ -571,7 +571,7 @@ case_switch <- function(..., .default = NULL) {
 #' @keywords internal
 #'
 #' @examples
-#' ard <- ard_categorical(cards::ADSL, by = "ARM", variables = "AGEGR1")
+#' ard <- ard_tabulate(cards::ADSL, by = "ARM", variables = "AGEGR1")
 #'
 #' cardx:::.process_nested_list_as_df(ard, NULL, "new_col")
 .process_nested_list_as_df <- function(x, arg, new_column, unlist = FALSE) {

@@ -1,4 +1,4 @@
-# ard_categorical_max() works with default settings
+# ard_tabulate_max() works with default settings
 
     Code
       print(res, n = 20, columns = "all")
@@ -33,7 +33,7 @@
 ---
 
     Code
-      print(ard_categorical_max(dplyr::group_by(cards::ADAE, TRTA), variables = AESEV, id = USUBJID, denominator = cards::ADSL), n = 20, columns = "all")
+      print(ard_tabulate_max(dplyr::group_by(cards::ADAE, TRTA), variables = AESEV, id = USUBJID, denominator = cards::ADSL), n = 20, columns = "all")
     Message
       `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 27 x 11
@@ -63,10 +63,10 @@
       i 7 more rows
       i Use `print(n = ...)` to see more rows
 
-# ard_categorical_max(statistic) works
+# ard_tabulate_max(statistic) works
 
     Code
-      ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = cards::ADSL, statistic = ~"n")
+      ard_tabulate_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = cards::ADSL, statistic = ~"n")
     Message
       `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 9 x 11
@@ -84,10 +84,10 @@
     Message
       i 4 more variables: context, fmt_fun, warning, error
 
-# ard_categorical_max(denominator) works
+# ard_tabulate_max(denominator) works
 
     Code
-      ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA)
+      ard_tabulate_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA)
     Message
       `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 27 x 11
@@ -111,7 +111,7 @@
 ---
 
     Code
-      ard_categorical_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = 100)
+      ard_tabulate_max(cards::ADAE, variables = AESEV, id = USUBJID, by = TRTA, denominator = 100)
     Message
       `AESEV`: "MILD" < "MODERATE" < "SEVERE"
       {cards} data frame: 27 x 11
@@ -132,7 +132,7 @@
       i Use `print(n = ...)` to see more rows
       i 4 more variables: context, fmt_fun, warning, error
 
-# ard_categorical_max() works with pre-ordered factor variables
+# ard_tabulate_max() works with pre-ordered factor variables
 
     Code
       print(res, n = 20, columns = "all")
@@ -164,35 +164,35 @@
       i 7 more rows
       i Use `print(n = ...)` to see more rows
 
-# ard_categorical_max() errors with incomplete factor columns
+# ard_tabulate_max() errors with incomplete factor columns
 
     Code
-      ard_categorical_max(dplyr::mutate(cards::ADAE, AESOC = factor(AESOC, levels = character(
+      ard_tabulate_max(dplyr::mutate(cards::ADAE, AESOC = factor(AESOC, levels = character(
         0))), variables = AESOC, id = USUBJID, by = TRTA)
     Condition
-      Error in `ard_categorical_max()`:
+      Error in `ard_tabulate_max()`:
       ! Factors with empty "levels" attribute are not allowed, which was identified in column "AESOC".
 
 ---
 
     Code
-      ard_categorical_max(dplyr::mutate(cards::ADAE, SEX = factor(SEX, levels = c("F",
+      ard_tabulate_max(dplyr::mutate(cards::ADAE, SEX = factor(SEX, levels = c("F",
         "M", NA), exclude = NULL)), variables = SEX, id = USUBJID, by = TRTA)
     Condition
-      Error in `ard_categorical_max()`:
+      Error in `ard_tabulate_max()`:
       ! Factors with NA levels are not allowed, which are present in column "SEX".
 
-# ard_categorical_max() works without any variables
+# ard_tabulate_max() works without any variables
 
     Code
-      ard_categorical_max(data = cards::ADAE, variables = starts_with("xxxx"), id = USUBJID,
+      ard_tabulate_max(data = cards::ADAE, variables = starts_with("xxxx"), id = USUBJID,
       by = c(TRTA, AESEV))
     Message
       {cards} data frame: 0 x 0
     Output
       data frame with 0 columns and 0 rows
 
-# ard_categorical_max() strata works
+# ard_tabulate_max() strata works
 
     Code
       res
