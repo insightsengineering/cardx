@@ -7,6 +7,10 @@ cards::ard_summary
 #' @export
 cards::ard_tabulate
 
+#' @importFrom cards ard_tabulate_value
+#' @export
+cards::ard_tabulate_value
+
 #' @importFrom cards ard_missing
 #' @export
 cards::ard_missing
