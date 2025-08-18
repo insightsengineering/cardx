@@ -67,7 +67,7 @@ reference:
   - contents:
       - ard_summary.survey.design
       - ard_categorical.survey.design
-      - ard_dichotomous.survey.design
+      - ard_tabulate_value.survey.design
       - ard_missing.survey.design
       - ard_attributes.survey.design
       - ard_continuous_ci.survey.design

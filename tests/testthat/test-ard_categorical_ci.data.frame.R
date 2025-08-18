@@ -212,7 +212,7 @@ test_that("ard_continuous_ci.data.frame(denominator='row')", {
       dplyr::filter(stat_name == "estimate") |>
       dplyr::select(cards::all_ard_groups(), cards::all_ard_variables(), "stat") |>
       dplyr::arrange(unlist(group1_level), unlist(variable_level)),
-    cards::ard_dichotomous(
+    cards::ard_tabulate_value(
       mtcars,
       by = am,
       variables = vs,
@@ -297,7 +297,7 @@ test_that("ard_continuous_ci.data.frame(denominator='cell')", {
       dplyr::filter(stat_name == "estimate") |>
       dplyr::select(cards::all_ard_groups(), cards::all_ard_variables(), "stat") |>
       dplyr::arrange(unlist(group1_level), unlist(variable_level)),
-    cards::ard_dichotomous(
+    cards::ard_tabulate_value(
       mtcars,
       by = am,
       variables = vs,

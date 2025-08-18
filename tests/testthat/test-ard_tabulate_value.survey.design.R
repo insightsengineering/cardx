@@ -1,7 +1,7 @@
 skip_if_not(is_pkg_installed("survey"))
 
 # Test survey.design works
-test_that("ard_dichotomous.survey.design() works", {
+test_that("ard_tabulate_value.survey.design() works", {
   svy_dicho <- survey::svydesign(ids = ~1, data = mtcars, weights = ~1)
   # convert variables to factor
   svy_dicho$variables <- svy_dicho$variables |>
@@ -10,7 +10,7 @@ test_that("ard_dichotomous.survey.design() works", {
   # row denom with by var
   expect_error(
     ard_dichotomous_row <-
-      ard_dichotomous(
+      ard_tabulate_value(
         svy_dicho,
         by = vs,
         variables = c(cyl, am),
@@ -26,7 +26,7 @@ test_that("ard_dichotomous.survey.design() works", {
 
   # col denom with by var
   expect_error(
-    ard_dichotomous_col <- ard_dichotomous(
+    ard_dichotomous_col <- ard_tabulate_value(
       svy_dicho,
       by = vs,
       variables = c(cyl, am),
@@ -42,7 +42,7 @@ test_that("ard_dichotomous.survey.design() works", {
 
   # cell denom with by var
   expect_error(
-    ard_dichotomous_cell <- ard_dichotomous(
+    ard_dichotomous_cell <- ard_tabulate_value(
       svy_dicho,
       by = vs,
       variables = c(cyl, am),
@@ -62,7 +62,7 @@ test_that("ard_dichotomous.survey.design() works", {
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "n") |>
       unlist(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -76,7 +76,7 @@ test_that("ard_dichotomous.survey.design() works", {
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "N") |>
       unlist(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -90,7 +90,7 @@ test_that("ard_dichotomous.survey.design() works", {
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_row, stat_name %in% "p") |>
       unlist(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -135,7 +135,7 @@ test_that("ard_dichotomous.survey.design() works", {
   )
 
   # Test deff statistics when included in statistic argument
-  ard_dichotomous_row_deff <- ard_dichotomous(
+  ard_dichotomous_row_deff <- ard_tabulate_value(
     svy_dicho,
     by = vs,
     variables = c(cyl, am),
@@ -202,7 +202,7 @@ test_that("ard_dichotomous.survey.design() works", {
     ) |>
       unlist() |>
       unname(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -221,7 +221,7 @@ test_that("ard_dichotomous.survey.design() works", {
     ) |>
       unlist() |>
       unname(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -237,7 +237,7 @@ test_that("ard_dichotomous.survey.design() works", {
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_col, stat_name %in% "n") |>
       unlist(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -251,7 +251,7 @@ test_that("ard_dichotomous.survey.design() works", {
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_col, stat_name %in% "N") |>
       unlist(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -265,7 +265,7 @@ test_that("ard_dichotomous.survey.design() works", {
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_col, stat_name %in% "p") |>
       unlist(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -310,7 +310,7 @@ test_that("ard_dichotomous.survey.design() works", {
   )
 
   # Test deff statistics when included in statistic argument
-  ard_dichotomous_col_deff <- ard_dichotomous(
+  ard_dichotomous_col_deff <- ard_tabulate_value(
     svy_dicho,
     by = vs,
     variables = c(cyl, am),
@@ -377,7 +377,7 @@ test_that("ard_dichotomous.survey.design() works", {
     ) |>
       unlist() |>
       unname(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -395,7 +395,7 @@ test_that("ard_dichotomous.survey.design() works", {
     ) |>
       unlist() |>
       unname(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -411,7 +411,7 @@ test_that("ard_dichotomous.survey.design() works", {
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_cell, stat_name %in% "n") |>
       unlist(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -425,7 +425,7 @@ test_that("ard_dichotomous.survey.design() works", {
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_cell, stat_name %in% "N") |>
       unlist(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -439,7 +439,7 @@ test_that("ard_dichotomous.survey.design() works", {
   expect_equal(
     cards::get_ard_statistics(ard_dichotomous_cell, stat_name %in% "p") |>
       unlist(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -478,7 +478,7 @@ test_that("ard_dichotomous.survey.design() works", {
   )
 
   # Test deff statistics when included in statistic argument
-  ard_dichotomous_cell_deff <- ard_dichotomous(
+  ard_dichotomous_cell_deff <- ard_tabulate_value(
     svy_dicho,
     by = vs,
     variables = c(cyl, am),
@@ -539,7 +539,7 @@ test_that("ard_dichotomous.survey.design() works", {
     ) |>
       unlist() |>
       unname(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -557,7 +557,7 @@ test_that("ard_dichotomous.survey.design() works", {
     ) |>
       unlist() |>
       unname(),
-    ard_dichotomous(
+    ard_tabulate_value(
       mtcars,
       by = vs,
       variables = c(cyl, am),
@@ -571,7 +571,7 @@ test_that("ard_dichotomous.survey.design() works", {
 
   # row denom without by var
   expect_error(
-    ard_dichotomous_row <- ard_dichotomous(
+    ard_dichotomous_row <- ard_tabulate_value(
       svy_dicho,
       by = NULL,
       variables = c(cyl, am),
@@ -587,7 +587,7 @@ test_that("ard_dichotomous.survey.design() works", {
 
   # col denom without by var
   expect_error(
-    ard_dichotomous_col <- ard_dichotomous(
+    ard_dichotomous_col <- ard_tabulate_value(
       svy_dicho,
       by = NULL,
       variables = c(cyl, am),
@@ -603,7 +603,7 @@ test_that("ard_dichotomous.survey.design() works", {
 
   # col denom without by var
   expect_error(
-    ard_dichotomous_cell <- ard_dichotomous(
+    ard_dichotomous_cell <- ard_tabulate_value(
       svy_dicho,
       by = NULL,
       variables = c(cyl, am),
@@ -629,7 +629,7 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
   # row denom with by var
   expect_error(
     ard_dichotomous_row <-
-      ard_dichotomous(
+      ard_tabulate_value(
         svy_dicho,
         by = vs,
         variables = c(cyl, am),
@@ -645,7 +645,7 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
 
   # col denom with by var
   expect_error(
-    ard_dichotomous_col <- ard_dichotomous(
+    ard_dichotomous_col <- ard_tabulate_value(
       svy_dicho,
       by = vs,
       variables = c(cyl, am),
@@ -661,7 +661,7 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
 
   # cell denom with by var
   expect_error(
-    ard_dichotomous_cell <- ard_dichotomous(
+    ard_dichotomous_cell <- ard_tabulate_value(
       svy_dicho,
       by = vs,
       variables = c(cyl, am),
@@ -685,7 +685,7 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
   # row denom with by var
   expect_error(
     ard_dichotomous_row <-
-      ard_dichotomous(
+      ard_tabulate_value(
         svy_dicho,
         by = vs,
         variables = c(cyl, am),
@@ -701,7 +701,7 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
 
   # col denom with by var
   expect_error(
-    ard_dichotomous_col <- ard_dichotomous(
+    ard_dichotomous_col <- ard_tabulate_value(
       svy_dicho,
       by = vs,
       variables = c(cyl, am),
@@ -717,7 +717,7 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
 
   # cell denom with by var
   expect_error(
-    ard_dichotomous_cell <- ard_dichotomous(
+    ard_dichotomous_cell <- ard_tabulate_value(
       svy_dicho,
       by = vs,
       variables = c(cyl, am),
@@ -733,7 +733,7 @@ test_that("ard_dichotomous.survey.design() works with various input types", {
 })
 
 
-test_that("ard_dichotomous.survey.design() returns an error with erroneous input", {
+test_that("ard_tabulate_value.survey.design() returns an error with erroneous input", {
   # value passed in is not logical should return an error
   svy_dicho <- survey::svydesign(ids = ~1, data = mtcars, weights = ~1)
 
@@ -741,7 +741,7 @@ test_that("ard_dichotomous.survey.design() returns an error with erroneous input
     dplyr::mutate(across(c("cyl", "am"), as.logical))
 
   expect_snapshot(
-    ard_dichotomous(
+    ard_tabulate_value(
       svy_dicho,
       by = vs,
       variables = c(cyl, am),
@@ -757,7 +757,7 @@ test_that("ard_dichotomous.survey.design() returns an error with erroneous input
 
   svy_dicho$variables$vs
   expect_snapshot(
-    ard_dichotomous(
+    ard_tabulate_value(
       svy_dicho,
       by = cyl,
       variables = c(vs, am),
@@ -771,7 +771,7 @@ test_that("ard_dichotomous.survey.design() returns an error with erroneous input
     dplyr::mutate(across("disp", as.numeric))
 
   expect_snapshot(
-    ard_dichotomous(
+    ard_tabulate_value(
       svy_dicho,
       by = cyl,
       variables = c(vs, disp),
@@ -783,12 +783,12 @@ test_that("ard_dichotomous.survey.design() returns an error with erroneous input
 })
 
 
-test_that("ard_dichotomous.survey.design() follows ard structure", {
+test_that("ard_tabulate_value.survey.design() follows ard structure", {
   svy_dicho <- survey::svydesign(ids = ~1, data = mtcars, weights = ~1)
   svy_dicho$variables <- svy_dicho$variables |>
     dplyr::mutate(across(c("cyl", "am", "vs"), as.factor))
   expect_silent(
-    ard_dichotomous(
+    ard_tabulate_value(
       svy_dicho,
       by = vs,
       variables = c(cyl, am),
