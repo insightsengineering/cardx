@@ -22,7 +22,7 @@ BugReports: https://github.com/insightsengineering/cardx/issues
 Depends:
     R (>= 4.2)
 Imports:
-    cards (>= 0.6.1.9008),
+    cards (>= 0.6.1.9016),
     cli (>= 3.6.1),
     dplyr (>= 1.1.2),
     glue (>= 1.6.2),
@@ -47,7 +47,7 @@ Suggests:
     testthat (>= 3.2.0),
     withr (>= 2.5.0)
 Remotes:
-    insightsengineering/cards@470-function-rename
+    insightsengineering/cards
 Config/Needs/website: insightsengineering/nesttemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: true
