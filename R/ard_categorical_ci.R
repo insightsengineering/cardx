@@ -2,7 +2,7 @@
 #'
 #' Calculate confidence intervals for proportions.
 #'
-#' @inheritParams cards::ard_categorical
+#' @inheritParams cards::ard_tabulate
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   columns to include in summaries. Columns must be class `<logical>`
 #'   or `<numeric>` values coded as `c(0,1)`.
@@ -11,7 +11,7 @@
 #' @param denominator (`string`)\cr
 #'   Must be one of `'column'` (default), `'row'`, and `'cell'`, which specifies
 #'   the direction of the calculation/denominator. Argument is similar to
-#'   `cards::ard_categorical(denominator)`.
+#'   `cards::ard_tabulate(denominator)`.
 #' @param conf.level (scalar `numeric`)\cr
 #'   a scalar in `(0,1)` indicating the confidence level.
 #'   Default is `0.95`

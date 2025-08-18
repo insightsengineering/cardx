@@ -27,7 +27,7 @@
 #'   whether participants with baseline abnormality should be excluded from calculations. Defaults to `TRUE`.
 #' @param quiet (scalar `logical`)\cr
 #'   logical indicating whether to suppress additional messaging. Default is `FALSE`.
-#' @inheritParams cards::ard_continuous
+#' @inheritParams cards::ard_summary
 #'
 #' @return an ARD data frame of class 'card'
 #' @export
@@ -37,24 +37,26 @@
 #' set.seed(1)
 #' adlb <- cards::ADLB
 #' adlb$BNRIND <- ifelse(
-#'   adlb$BNRIND != "N", sample(c("LOW", "LOW LOW", "HIGH", "HIGH HIGH"), nrow(adlb), replace = TRUE), "NORMAL"
+#'   adlb$BNRIND != "N",
+#'   sample(c("LOW", "LOW LOW", "HIGH", "HIGH HIGH"), nrow(adlb), replace = TRUE),
+#'   "NORMAL"
 #' )
 #'
 #' # Example 1 -------------------
 #' adlb |>
-#'   ard_categorical_abnormal(
+#'   ard_tabulate_abnormal(
 #'     postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA,
 #'     abnormal = list(Low = c("LOW", "LOW LOW"), High = c("HIGH", "HIGH HIGH"))
 #'   )
-ard_categorical_abnormal <- function(data,
-                                     postbaseline,
-                                     baseline,
-                                     id = NULL,
-                                     by = NULL,
-                                     strata = NULL,
-                                     abnormal = list(Low = "LOW", High = "HIGH"),
-                                     excl_baseline_abn = TRUE,
-                                     quiet = FALSE) {
+ard_tabulate_abnormal <- function(data,
+                                  postbaseline,
+                                  baseline,
+                                  id = NULL,
+                                  by = NULL,
+                                  strata = NULL,
+                                  abnormal = list(Low = "LOW", High = "HIGH"),
+                                  excl_baseline_abn = TRUE,
+                                  quiet = FALSE) {
   set_cli_abort_call()
 
   # check inputs ---------------------------------------------------------------

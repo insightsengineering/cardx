@@ -1,15 +1,11 @@
 # cards ------------------------------------------------------------------------
-#' @importFrom cards ard_continuous
+#' @importFrom cards ard_summary
 #' @export
-cards::ard_continuous
+cards::ard_summary
 
-#' @importFrom cards ard_categorical
+#' @importFrom cards ard_tabulate
 #' @export
-cards::ard_categorical
-
-#' @importFrom cards ard_dichotomous
-#' @export
-cards::ard_dichotomous
+cards::ard_tabulate
 
 #' @importFrom cards ard_missing
 #' @export

@@ -2,7 +2,7 @@
 #'
 #' Compute Analysis Results Data (ARD) for dichotomous summary statistics.
 #'
-#' @inheritParams ard_categorical.survey.design
+#' @inheritParams ard_tabulate.survey.design
 #' @param value (named `list`)\cr
 #'   named list of dichotomous values to tabulate.
 #'   Default is `cards::maximum_variable_value(data$variables)`,
@@ -63,7 +63,7 @@ ard_dichotomous.survey.design <- function(data,
   }
 
   # calculate summary statistics -----------------------------------------------
-  ard_categorical(
+  ard_tabulate(
     data = data,
     variables = all_of(variables),
     by = {{ by }},

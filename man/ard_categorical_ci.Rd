@@ -43,7 +43,7 @@ See \code{?proportion_ci} for details.}
 \item{denominator}{(\code{string})\cr
 Must be one of \code{'column'} (default), \code{'row'}, and \code{'cell'}, which specifies
 the direction of the calculation/denominator. Argument is similar to
-\code{cards::ard_categorical(denominator)}.}
+\code{cards::ard_tabulate(denominator)}.}
 
 \item{conf.level}{(scalar \code{numeric})\cr
 a scalar in \verb{(0,1)} indicating the confidence level.

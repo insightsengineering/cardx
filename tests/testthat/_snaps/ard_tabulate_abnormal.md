@@ -1,4 +1,4 @@
-# ard_categorical_abnormal() works
+# ard_tabulate_abnormal() works
 
     Code
       print(res, columns = "all")
@@ -28,7 +28,7 @@
 ---
 
     Code
-      print(ard_categorical_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, abnormal = list(low = c("LOW", "LOW LOW"), high = c("HIGH", "HIGH HIGH"), other = "OTHER")), columns = "all")
+      print(ard_tabulate_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, abnormal = list(low = c("LOW", "LOW LOW"), high = c("HIGH", "HIGH HIGH"), other = "OTHER")), columns = "all")
     Message
       Abnormality "low" created by merging levels: "LOW", "LOW LOW"
       Abnormality "high" created by merging levels: "HIGH", "HIGH HIGH"
@@ -49,7 +49,7 @@
 ---
 
     Code
-      print(ard_categorical_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, excl_baseline_abn = FALSE), columns = "all")
+      print(ard_tabulate_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND, id = USUBJID, by = TRTA, excl_baseline_abn = FALSE), columns = "all")
     Message
       Abnormality "Low" created from level: "LOW"
       Abnormality "High" created from level: "HIGH"
@@ -75,21 +75,21 @@
       17   TRTA    Xanomeli…  LBNRIND           High categori…         N          N     6       0              
       18   TRTA    Xanomeli…  LBNRIND           High categori…         p          %   0.5    <fn>              
 
-# ard_categorical_abnormal() errors are handled correctly
+# ard_tabulate_abnormal() errors are handled correctly
 
     Code
-      res <- ard_categorical_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND,
+      res <- ard_tabulate_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND,
         id = USUBJID, by = TRTA, abnormal = list("HIGH", "LOW"))
     Condition
-      Error in `ard_categorical_abnormal()`:
+      Error in `ard_tabulate_abnormal()`:
       ! `abnormal` must be a named list, where each name corresponds to a different abnormality/direction.
 
 ---
 
     Code
-      res <- ard_categorical_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND,
+      res <- ard_tabulate_abnormal(adlb, postbaseline = LBNRIND, baseline = BNRIND,
         id = USUBJID, by = TRTA, abnormal = list(high = 1:5, low = 0))
     Condition
-      Error in `ard_categorical_abnormal()`:
+      Error in `ard_tabulate_abnormal()`:
       ! Each abnormal level of `LBNRIND` specified via `abnormal` must be a <string>.
 

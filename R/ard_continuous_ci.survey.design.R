@@ -4,7 +4,7 @@
 #' Confidence limits are calculated with `survey::svymean()` and `survey::svyquantile()`.
 #'
 #'
-#' @inheritParams ard_continuous.survey.design
+#' @inheritParams ard_summary.survey.design
 #' @param method (`string`)\cr
 #'   Method for confidence interval calculation.
 #'   When `"svymean"`, the calculation is computed via `survey::svymean()`.

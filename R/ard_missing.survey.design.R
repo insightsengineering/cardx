@@ -2,7 +2,7 @@
 #'
 #' Compute Analysis Results Data (ARD) for statistics related to data missingness for survey objects
 #'
-#' @inheritParams ard_categorical.survey.design
+#' @inheritParams ard_tabulate.survey.design
 #'
 #' @return an ARD data frame of class 'card'
 #' @export
@@ -95,7 +95,7 @@ ard_missing.survey.design <- function(data,
 
   # calculate results ----------------------------------------------------------
   result <-
-    ard_categorical(
+    ard_tabulate(
       data = data,
       variables = all_of(paste0("lgl_", variables)),
       by = any_of(by),
