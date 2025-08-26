@@ -1,8 +1,8 @@
 # ard_tabulate_value.survey.design() returns an error with erroneous input
 
     Code
-      ard_tabulate_value(svy_dicho, by = vs, variables = c(cyl, am), value = list(cyl = 4),
-      denominator = "row")
+      ard_tabulate_value(svy_dicho, by = vs, variables = c(cyl, am), value = list(
+        cyl = 4), denominator = "row")
     Condition
       Error in `ard_tabulate_value()`:
       ! Error in argument `value` for variable "cyl".
