@@ -1,10 +1,6 @@
 # cardx 0.2.5.9006
 
-* The following functions have been renamed.
-    - `ard_continuous()` to `ard_summary()`
-    - `ard_categorical()` to `ard_tabulate()`
-    - `ard_dichotomous()` to `ard_tabulate_value()`
-    - `ard_categorical_max()` to `ard_tabulate_max()`
+## New Features and Updates
 
 * Added function `ard_tabulate_abnormal()` to calculate ARDs for abnormality analyses. (#310)
 
@@ -12,12 +8,22 @@
 
 * Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
 
+## Lifecycle Changes
+
+* The following functions have been renamed.
+    - `ard_continuous()` to `ard_summary()`
+    - `ard_categorical()` to `ard_tabulate()`
+    - `ard_dichotomous()` to `ard_tabulate_value()`
+    - `ard_categorical_max()` to `ard_tabulate_max()`
+   
 * Updating any `fmt_fn` references to `fmt_fun` for consistency. 
 
     * Any function with an argument `cardx::foo(fmt_fn)` has been updated to `cardx::foo(fmt_fun)`. The old syntax will continue to function, but with a deprecation warning to users.
 
     * Importantly, the ARD column named `"fmt_fn"` has been updated to `"fmt_fun"`. This change cannot be formally deprecated. For users who were accessing the ARD object directly to modify this column instead of using functions like `cards::update_ard_fmt_fun()`, this will be a breaking change.
-    
+ 
+## Bug Fixes
+
 * Fix in `ard_survival_survfit.data.frame()` method where the stratifying variable was not correctly converted back to its original type.
 
 * Fix in `ard_total_n.survey.design()` to use `update()` instead of `dplyr::mutate()`, which sometimes caused a downstream issue.
