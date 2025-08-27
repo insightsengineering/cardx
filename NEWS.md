@@ -1,4 +1,4 @@
-# cardx 0.2.5.9006
+# cardx 0.3.0
 
 ## New Features and Updates
 
