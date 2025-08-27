@@ -1,4 +1,4 @@
-# cardx 0.2.5.9005
+# cardx 0.2.5.9006
 
 * The following functions have been renamed.
     - `ard_continuous()` to `ard_summary()`
