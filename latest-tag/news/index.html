@@ -35,7 +35,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5.9006</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdown-versions">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.3.0">v0.3.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.5">v0.2.5</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.4">v0.2.4</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.3">v0.2.3</a>
@@ -75,16 +76,42 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/insightsengineering/cardx/blob/v0.2.5/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/insightsengineering/cardx/blob/v0.3.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.5" id="cardx-025">cardx 0.2.5<a class="anchor" aria-label="anchor" href="#cardx-025"></a>
+<h2 class="pkg-version" data-toc-text="0.2.5.9006" id="cardx-0259006">cardx 0.2.5.9006<a class="anchor" aria-label="anchor" href="#cardx-0259006"></a>
 </h2>
-<p class="text-muted">CRAN release: 2025-07-03</p>
+<div class="section level3">
+<h3 id="new-features-and-updates-0-2-5-9006">New Features and Updates<a class="anchor" aria-label="anchor" href="#new-features-and-updates-0-2-5-9006"></a>
+</h3>
 <ul>
-<li><p>Adding <code>strata</code> argument to <code><a href="../reference/ard_categorical_max.html">ard_categorical_max()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/445" class="external-link">#445</a>, <a href="https://github.com/jtalboys" class="external-link">@jtalboys</a>)</p></li>
+<li><p>Added function <code><a href="../reference/ard_tabulate_abnormal.html">ard_tabulate_abnormal()</a></code> to calculate ARDs for abnormality analyses. (<a href="https://github.com/insightsengineering/cardx/issues/310" class="external-link">#310</a>)</p></li>
+<li><p>Adding <code>strata</code> argument to <code><a href="../reference/ard_tabulate_max.html">ard_tabulate_max()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/445" class="external-link">#445</a>, <a href="https://github.com/jtalboys" class="external-link">@jtalboys</a>)</p></li>
 <li><p>Added function <code><a href="../reference/ard_incidence_rate.html">ard_incidence_rate()</a></code> to calculate ARDs for incidence rate estimation. (<a href="https://github.com/insightsengineering/cardx/issues/234" class="external-link">#234</a>)</p></li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="lifecycle-changes-0-2-5-9006">Lifecycle Changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-0-2-5-9006"></a>
+</h3>
+<ul>
+<li>
+<p>The following functions have been renamed.</p>
+<ul>
+<li>
+<code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/deprecated.html" class="external-link">ard_continuous()</a></code> to <code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/ard_summary.html" class="external-link">ard_summary()</a></code>
+</li>
+<li>
+<code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/deprecated.html" class="external-link">ard_categorical()</a></code> to <code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/ard_tabulate.html" class="external-link">ard_tabulate()</a></code>
+</li>
+<li>
+<code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/deprecated.html" class="external-link">ard_dichotomous()</a></code> to <code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/ard_tabulate_value.html" class="external-link">ard_tabulate_value()</a></code>
+</li>
+<li>
+<code><a href="../reference/deprecated.html">ard_categorical_max()</a></code> to <code><a href="../reference/ard_tabulate_max.html">ard_tabulate_max()</a></code>
+</li>
+</ul>
+</li>
 <li>
 <p>Updating any <code>fmt_fn</code> references to <code>fmt_fun</code> for consistency.</p>
 <ul>
@@ -92,9 +119,16 @@
 <li><p>Importantly, the ARD column named <code>"fmt_fn"</code> has been updated to <code>"fmt_fun"</code>. This change cannot be formally deprecated. For users who were accessing the ARD object directly to modify this column instead of using functions like <code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/update_ard.html" class="external-link">cards::update_ard_fmt_fun()</a></code>, this will be a breaking change.</p></li>
 </ul>
 </li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-5-9006">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-5-9006"></a>
+</h3>
+<ul>
 <li><p>Fix in <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit.data.frame()</a></code> method where the stratifying variable was not correctly converted back to its original type.</p></li>
 <li><p>Fix in <code><a href="../reference/ard_total_n.survey.design.html">ard_total_n.survey.design()</a></code> to use <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code> instead of <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>, which sometimes caused a downstream issue.</p></li>
 </ul>
+</div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.4" id="cardx-024">cardx 0.2.4<a class="anchor" aria-label="anchor" href="#cardx-024"></a>
@@ -121,7 +155,7 @@
 <h3 id="new-features-and-updates-0-2-3">New Features and Updates<a class="anchor" aria-label="anchor" href="#new-features-and-updates-0-2-3"></a>
 </h3>
 <ul>
-<li>Added function <code><a href="../reference/ard_categorical_max.html">ard_categorical_max()</a></code> to calculate categorical occurrence rates by maximum level per unique ID. (<a href="https://github.com/insightsengineering/cardx/issues/240" class="external-link">#240</a>)</li>
+<li>Added function <code><a href="../reference/deprecated.html">ard_categorical_max()</a></code> to calculate categorical occurrence rates by maximum level per unique ID. (<a href="https://github.com/insightsengineering/cardx/issues/240" class="external-link">#240</a>)</li>
 </ul>
 </div>
 <div class="section level3">
@@ -130,7 +164,7 @@
 <ul>
 <li><p>Little <code>n</code> is now returned with the results of the <code>proportion_ci_*()</code> functions, which then flows into the results of <code>ard_proportion_ci()</code>. (<a href="https://github.com/insightsengineering/cardx/issues/256" class="external-link">#256</a>)</p></li>
 <li><p>Added <code>as_cards_fun()</code> to <code><a href="../reference/ard_categorical_ci.html">ard_categorical_ci()</a></code> so when there is an error, the user gets an ARD with the expected ARD structure. (<a href="https://github.com/insightsengineering/cardx/issues/262" class="external-link">#262</a>)</p></li>
-<li><p>Update in <code><a href="../reference/ard_categorical.survey.design.html">ard_categorical.survey.design()</a></code> for factor variables that are all missing. These variables can now be tabulated, where previously this resulted in an error.</p></li>
+<li><p>Update in <code><a href="../reference/deprecated.html">ard_categorical.survey.design()</a></code> for factor variables that are all missing. These variables can now be tabulated, where previously this resulted in an error.</p></li>
 <li><p>Update in <code><a href="../reference/ard_missing.survey.design.html">ard_missing.survey.design()</a></code> where we can now tabulate the missing rate of design variables, such as the weights.</p></li>
 </ul>
 </div>
@@ -151,7 +185,7 @@
 <li><p>Added a <code>data.frame</code> method to <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit()</a></code>.</p></li>
 <li><p>Added a warning for incorrect formula type to <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/223" class="external-link">#223</a>)</p></li>
 <li><p>Implemented <code>summary(extend=TRUE)</code> in <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit()</a></code> to return results for time points out of bounds. (<a href="https://github.com/insightsengineering/cardx/issues/224" class="external-link">#224</a>)</p></li>
-<li><p>Methods in the {survey} and {survival} packages do not retain inputs variables types in their outputs. We now are able retain these variable types in ARDs returned by <code><a href="../reference/ard_continuous.survey.design.html">ard_continuous.survey.design()</a></code>, <code><a href="../reference/ard_categorical.survey.design.html">ard_categorical.survey.design()</a></code>, <code><a href="../reference/ard_continuous_ci.survey.design.html">ard_continuous_ci.survey.design()</a></code>, <code><a href="../reference/ard_categorical_ci.survey.design.html">ard_categorical_ci.survey.design()</a></code>, and <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit.data.frame()</a></code> (and notably, <em>not</em> in <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit.survfit()</a></code>).</p></li>
+<li><p>Methods in the {survey} and {survival} packages do not retain inputs variables types in their outputs. We now are able retain these variable types in ARDs returned by <code><a href="../reference/deprecated.html">ard_continuous.survey.design()</a></code>, <code><a href="../reference/deprecated.html">ard_categorical.survey.design()</a></code>, <code><a href="../reference/ard_continuous_ci.survey.design.html">ard_continuous_ci.survey.design()</a></code>, <code><a href="../reference/ard_categorical_ci.survey.design.html">ard_categorical_ci.survey.design()</a></code>, and <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit.data.frame()</a></code> (and notably, <em>not</em> in <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit.survfit()</a></code>).</p></li>
 <li><p>Added function <code><a href="../reference/ard_stats_mantelhaen_test.html">ard_stats_mantelhaen_test()</a></code> for calculating ARDs for Cochran-Mantel-Haenszel test results using <code><a href="https://rdrr.io/r/stats/mantelhaen.test.html" class="external-link">stats::mantelhaen.test()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/238" class="external-link">#238</a>)</p></li>
 </ul>
 </div>
@@ -172,7 +206,7 @@
 <h3 id="bug-fixes-0-2-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-1"></a>
 </h3>
 <ul>
-<li>Bug fix in <code><a href="../reference/ard_categorical.survey.design.html">ard_categorical.survey.design()</a></code> where all unweighted statistics were returned, even in the case where they were explicitly not requested.</li>
+<li>Bug fix in <code><a href="../reference/deprecated.html">ard_categorical.survey.design()</a></code> where all unweighted statistics were returned, even in the case where they were explicitly not requested.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -241,11 +275,11 @@
 <li>
 <code><a href="../reference/ard_survival_survfit.html">ard_survival_survfit()</a></code> for survival analyses using <code><a href="https://rdrr.io/pkg/survival/man/survfit.html" class="external-link">survival::survfit()</a></code>. (<a href="https://github.com/insightsengineering/cardx/issues/43" class="external-link">#43</a>)</li>
 <li>
-<code><a href="../reference/ard_continuous.survey.design.html">ard_continuous.survey.design()</a></code> for calculating univariate summary statistics from weighted/survey data using many functions from the {survey} package. (<a href="https://github.com/insightsengineering/cardx/issues/68" class="external-link">#68</a>)</li>
+<code><a href="../reference/deprecated.html">ard_continuous.survey.design()</a></code> for calculating univariate summary statistics from weighted/survey data using many functions from the {survey} package. (<a href="https://github.com/insightsengineering/cardx/issues/68" class="external-link">#68</a>)</li>
 <li>
-<code><a href="../reference/ard_categorical.survey.design.html">ard_categorical.survey.design()</a></code> for tabulating summary statistics from weighted/survey data using many functions from the {survey} package. (<a href="https://github.com/insightsengineering/cardx/issues/140" class="external-link">#140</a>)</li>
+<code><a href="../reference/deprecated.html">ard_categorical.survey.design()</a></code> for tabulating summary statistics from weighted/survey data using many functions from the {survey} package. (<a href="https://github.com/insightsengineering/cardx/issues/140" class="external-link">#140</a>)</li>
 <li>
-<code><a href="../reference/ard_dichotomous.survey.design.html">ard_dichotomous.survey.design()</a></code> for tabulating dichotomous summary statistics from weighted/survey data using many functions from the {survey} package. (<a href="https://github.com/insightsengineering/cardx/issues/2" class="external-link">#2</a>)</li>
+<code><a href="../reference/deprecated.html">ard_dichotomous.survey.design()</a></code> for tabulating dichotomous summary statistics from weighted/survey data using many functions from the {survey} package. (<a href="https://github.com/insightsengineering/cardx/issues/2" class="external-link">#2</a>)</li>
 <li>
 <code><a href="../reference/ard_missing.survey.design.html">ard_missing.survey.design()</a></code> for tabulating missing summary statistics from weighted/survey data using many functions from the {survey} package. (<a href="https://github.com/insightsengineering/cardx/issues/2" class="external-link">#2</a>)</li>
 <li>
