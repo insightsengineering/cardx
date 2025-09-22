@@ -85,7 +85,7 @@ ard_aod_wald_test <- function(x, tidy_fun = broom.helpers::tidy_with_broom_or_pa
           .data$stat_name %in% "p.value" ~ "p-value",
           TRUE ~ .data$stat_name
         ),
-      fmt_fn =
+      fmt_fun =
         map(
           .data$stat,
           function(.x) {

@@ -50,7 +50,7 @@ must be passed in a way that does not evaluate the list, e.g.
 using rlang's  embrace operator \code{{{ . }}}.}
 
 \item{package}{(\code{string})\cr
-string of package name that will be temporarily loaded when function
+a package name that will be temporarily loaded when function
 specified in \code{method} is executed.}
 }
 \value{

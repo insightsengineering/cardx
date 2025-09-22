@@ -1,6 +1,8 @@
 skip_if_not(is_pkg_installed(c("emmeans", "survey", "lme4")))
 
 test_that("ard_emmeans_mean_difference() works", {
+  withr::local_options(width = 250)
+
   expect_error(
     ard_emmeans_mean_difference <-
       ard_emmeans_mean_difference(
@@ -12,6 +14,8 @@ test_that("ard_emmeans_mean_difference() works", {
       ),
     NA
   )
+  expect_snapshot(ard_emmeans_mean_difference |> print(columns = "all"))
+
   expect_equal(
     cards::get_ard_statistics(ard_emmeans_mean_difference, stat_name %in% "method")[1],
     list(method = "Least-squares adjusted mean difference")
@@ -124,4 +128,23 @@ test_that("ard_emmeans_mean_difference() follows ard structure", {
     ) |>
       cards::check_ard_structure()
   )
+})
+
+test_that("ard_emmeans_mean_difference() errors are returned correctly", {
+  withr::local_options(width = 250)
+
+  expect_silent(
+    ard <- ard_emmeans_mean_difference(
+      data = mtcars,
+      formula = vs ~ am + mpg,
+      method = "glm",
+      method.args = list(family = nothing),
+      response_type = "dichotomous"
+    )
+  )
+
+  expect_snapshot(ard |> print(columns = "all"))
+
+  expect_length(unique(ard$error), 1)
+  expect_snapshot_value(ard$error[[1]])
 })

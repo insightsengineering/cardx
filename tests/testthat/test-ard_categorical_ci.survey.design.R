@@ -6,7 +6,7 @@ dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~f
 test_that("ard_categorical_ci(data)", {
   expect_snapshot(
     ard_categorical_ci(dclus1, variables = c(both, awards)) |>
-      dplyr::select(-warning, -error, -fmt_fn, -context)
+      dplyr::select(-warning, -error, -fmt_fun, -context)
   )
 })
 

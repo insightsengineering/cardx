@@ -67,87 +67,97 @@ ard_emmeans_mean_difference <- function(data, formula, method,
   check_range(conf.level, range = c(0, 1))
   response_type <- arg_match(response_type, error_call = get_cli_abort_call())
 
-  # construct primary model ----------------------------------------------------
-  mod <-
-    construct_model(
-      data = data, formula = formula, method = method,
-      method.args = {{ method.args }},
-      package = package, env = caller_env()
+  data_in <- if (dplyr::last(class(data)) == "survey.design") data$variables else data
+
+  # build ARD ------------------------------------------------------------------
+  cards::ard_complex(
+    data = data_in,
+    variables = all_of(primary_covariate),
+    statistic = all_of(primary_covariate) ~ list(
+      emmeans =
+        .calc_emmeans_mean_difference(
+          data, formula, method, {{ method.args }}, package, response_type, conf.level, primary_covariate
+        )
     )
-
-  # emmeans --------------------------------------------------------------------
-  emmeans_args <- list(object = mod, specs = reformulate2(primary_covariate))
-  if (response_type %in% "dichotomous") emmeans_args <- c(emmeans_args, list(regrid = "response"))
-  emmeans <-
-    withr::with_namespace(
-      package = "emmeans",
-      code = do.call("emmeans", args = emmeans_args)
-    )
-
-  # calculate mean difference statistics ---------------------------------------
-  df_results <-
-    emmeans |>
-    emmeans::contrast(method = "pairwise") |>
-    summary(infer = TRUE, level = conf.level) |>
-    dplyr::rename(variable_level = contrast)
-
-  # calculate mean estimate statistics -----------------------------------------
-  mean_est <-
-    summary(emmeans, calc = c(n = ".wgt.")) |>
-    dplyr::as_tibble() |>
-    dplyr::rename(
-      mean.estimate = any_of(c("emmean", "prob")),
-      n = any_of("n")
+  ) |>
+    dplyr::select(-"stat_label") |>
+    dplyr::left_join(
+      .df_ttest_stat_labels(primary_covariate),
+      by = "stat_name"
     ) |>
-    dplyr::select(all_of(c(1, 2, 5))) |>
-    dplyr::rename(variable_level = all_of(primary_covariate)) |>
-    dplyr::mutate(variable_level = as.character(variable_level))
-
-  # bind the mean and mean difference estimates
-  results <- dplyr::full_join(df_results, mean_est, by = "variable_level")
-
-  # convert results to ARD format ----------------------------------------------
-  results |>
-    dplyr::as_tibble() |>
-    dplyr::rename(
-      conf.low = any_of("asymp.LCL"),
-      conf.high = any_of("asymp.UCL"),
-      conf.low = any_of("lower.CL"),
-      conf.high = any_of("upper.CL"),
-      mean.difference.estimate = any_of("estimate")
-    ) %>%
-    dplyr::select(
-      variable_level = "variable_level",
-      "mean.difference.estimate",
-      "mean.estimate",
-      std.error = "SE", "df", "n",
-      "conf.low", "conf.high", "p.value"
-    ) %>%
     dplyr::mutate(
-      conf.level = .env$conf.level,
-      method =
-        ifelse(
-          length(attr(stats::terms(formula), "term.labels") |> discard(~ startsWith(., "1 |"))) == 1L,
-          "Least-squares mean difference",
-          "Least-squares adjusted mean difference"
-        ),
-      across(everything(), as.list),
-      variable = .env$primary_covariate
-    ) |>
-    tidyr::pivot_longer(
-      cols = -c("variable", "variable_level"),
-      names_to = "stat_name",
-      values_to = "stat"
-    ) |>
-    dplyr::left_join(.df_ttest_stat_labels(primary_covariate), by = "stat_name") |>
-    dplyr::mutate(
-      context = ifelse(grepl(" - ", variable_level), "emmeans_mean_difference", "emmeans_mean"),
+      variable = "contrast",
+      variable_level = if ("variable_level" %in% .data$stat_name) {
+        .data$stat[.data$stat_name == "variable_level"]
+      } else {
+        NA
+      },
+      group1 = .env$primary_covariate,
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
-      warning = list(NULL),
-      error = list(NULL),
-      fmt_fn = map(.data$stat, \(.x) if (is.numeric(.x)) 1L else NULL) # styler: off
+      context = "emmeans_mean_difference",
     ) |>
-    dplyr::filter(!is.na(stat)) |>
+    dplyr::filter(.data$stat_name != "variable_level") |>
     cards::as_card() |>
-    cards::tidy_ard_column_order()
+    cards::tidy_ard_column_order() |>
+    cards::tidy_ard_row_order()
+}
+
+# function to perform calculations -------------------------------------------
+.calc_emmeans_mean_difference <- function(data, formula, method,
+                                          method.args,
+                                          package,
+                                          response_type,
+                                          conf.level,
+                                          primary_covariate) {
+  cards::as_cards_fn(
+    \(x, ...) {
+      # construct primary model ------------------------------------------------
+      mod <-
+        construct_model(
+          data = data, formula = formula, method = method,
+          method.args = {{ method.args }},
+          package = package, env = caller_env()
+        )
+
+      # emmeans ----------------------------------------------------------------
+      emmeans_args <- list(object = mod, specs = reformulate2(primary_covariate))
+      if (response_type %in% "dichotomous") emmeans_args <- c(emmeans_args, list(regrid = "response"))
+      emmeans <-
+        withr::with_namespace(
+          package = "emmeans",
+          code = do.call("emmeans", args = emmeans_args)
+        )
+
+      df_results <-
+        emmeans |>
+        emmeans::contrast(method = "pairwise") |>
+        summary(infer = TRUE, level = conf.level)
+
+      # convert results to ARD format ------------------------------------------
+      df_results |>
+        dplyr::as_tibble() |>
+        dplyr::rename(
+          conf.low = any_of("asymp.LCL"),
+          conf.high = any_of("asymp.UCL"),
+          conf.low = any_of("lower.CL"),
+          conf.high = any_of("upper.CL")
+        ) %>%
+        dplyr::select(
+          variable_level = "contrast",
+          "estimate",
+          std.error = "SE", "df",
+          "conf.low", "conf.high", "p.value"
+        ) %>%
+        dplyr::mutate(
+          conf.level = .env$conf.level,
+          method =
+            ifelse(
+              length(attr(stats::terms(formula), "term.labels") |> discard(~ startsWith(., "1 |"))) == 1L,
+              "Least-squares mean difference",
+              "Least-squares adjusted mean difference"
+            )
+        )
+    },
+    stat_names = c("estimate", "std.error", "df", "conf.low", "conf.high", "p.value", "conf.level", "method")
+  )
 }

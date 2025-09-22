@@ -6,11 +6,11 @@
         "c/yl"), response = "hp"), method = "lm"))), stat_name %in% c("term",
         "estimate"))
     Output
-        variable    context stat_name  stat_label      stat fmt_fn warning error
-      1    M P G regression      term        term   `M P G`   NULL    NULL  NULL
-      2    M P G regression  estimate Coefficient -2.774769      1    NULL  NULL
-      3     c/yl regression      term        term    `c/yl`   NULL    NULL  NULL
-      4     c/yl regression  estimate Coefficient  23.97863      1    NULL  NULL
+        variable    context stat_name  stat_label      stat fmt_fun warning error
+      1    M P G regression      term        term   `M P G`    NULL    NULL  NULL
+      2    M P G regression  estimate Coefficient -2.774769       1    NULL  NULL
+      3     c/yl regression      term        term    `c/yl`    NULL    NULL  NULL
+      4     c/yl regression  estimate Coefficient  23.97863       1    NULL  NULL
 
 # construct_model() messaging
 

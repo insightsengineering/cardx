@@ -32,7 +32,7 @@
 #'   must be passed in a way that does not evaluate the list, e.g.
 #'   using rlang's  embrace operator `{{ . }}`.
 #' @param package (`string`)\cr
-#'   string of package name that will be temporarily loaded when function
+#'   a package name that will be temporarily loaded when function
 #'   specified in `method` is executed.
 #' @param pattern,pattern_term,pattern_response DEPRECATED
 #' @inheritParams rlang::eval_tidy
@@ -158,7 +158,7 @@ construct_model.survey.design <- function(data, formula, method, method.args = l
   }
 
   cli::cli_abort(
-    c("There was an error processing the {.arg {argname}} argument.",
+    c("There was an error processing the {.arg {arg_name}} argument.",
       i = "Expecting a simple call. See {.help rlang::is_call_simple} for details."
     ),
     call = get_cli_abort_call()

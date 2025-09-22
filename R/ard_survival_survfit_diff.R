@@ -50,7 +50,7 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
   ard_survival_survfit <-
     ard_survival_survfit(x = x, times = times) |>
     dplyr::filter(.data$stat_name %in% c("estimate", "std.error")) |>
-    dplyr::select(-c("stat_label", "context", "fmt_fn"))
+    dplyr::select(-c("stat_label", "context", "fmt_fun"))
 
   # transform the survival ARD into a cards object with the survival difference
   card <-
@@ -103,7 +103,7 @@ ard_survival_survfit_diff <- function(x, times, conf.level = 0.95) {
     dplyr::mutate(
       warning = ard_survival_survfit[["warning"]][1],
       error = ard_survival_survfit[["error"]][1],
-      fmt_fn = list(1L),
+      fmt_fun = list(1L),
       stat_label =
         dplyr::case_when(
           .data$stat_name %in% "estimate" ~ "Survival Difference",

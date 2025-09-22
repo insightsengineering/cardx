@@ -33,22 +33,23 @@ proportion_ci_strat_wilson(
 is_binary(x)
 }
 \arguments{
-\item{x}{vector of a binary values, i.e. a logical vector, or numeric with values \code{c(0, 1)}}
+\item{x}{(binary \code{numeric}/\code{logical})\cr
+vector of a binary values, i.e. a logical vector, or numeric with values \code{c(0, 1)}}
 
-\item{conf.level}{(\code{numeric})\cr
-a scalar in \verb{(0, 1)} indicating the confidence level.
+\item{conf.level}{(scalar \code{numeric})\cr
+a scalar in \verb{(0,1)} indicating the confidence level.
 Default is \code{0.95}}
 
-\item{correct}{(\code{flag})\cr include the continuity correction. For further information, see for example
+\item{correct}{(scalar \code{logical})\cr include the continuity correction. For further information, see for example
 \code{\link[stats:prop.test]{stats::prop.test()}}.}
 
 \item{strata}{(\code{factor})\cr variable with one level per stratum and same length as \code{x}.}
 
-\item{weights}{(\code{numeric} or \code{NULL})\cr weights for each level of the strata. If \code{NULL}, they are
+\item{weights}{(\code{numeric})\cr weights for each level of the strata. If \code{NULL}, they are
 estimated using the iterative algorithm that
 minimizes the weighted squared length of the confidence interval.}
 
-\item{max.iterations}{(\code{count})\cr maximum number of iterations for the iterative procedure used
+\item{max.iterations}{(positive \code{integer})\cr maximum number of iterations for the iterative procedure used
 to find estimates of optimal weights.}
 }
 \value{

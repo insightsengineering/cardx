@@ -30,6 +30,7 @@ reference:
       - ard_stats_chisq_test
       - ard_stats_fisher_test
       - ard_stats_kruskal_test
+      - ard_stats_mantelhaen_test
       - ard_stats_mood_test
       - ard_stats_mcnemar_test
       - ard_stats_oneway_test
@@ -64,9 +65,9 @@ reference:
 
   - subtitle: "{survey} package"
   - contents:
-      - ard_continuous.survey.design
-      - ard_categorical.survey.design
-      - ard_dichotomous.survey.design
+      - ard_summary.survey.design
+      - ard_tabulate.survey.design
+      - ard_tabulate_value.survey.design
       - ard_missing.survey.design
       - ard_attributes.survey.design
       - ard_continuous_ci.survey.design
@@ -88,7 +89,9 @@ reference:
       - ard_categorical_ci.data.frame
       - ard_regression
       - ard_regression_basic
-      - ard_categorical_max
+      - ard_tabulate_max
+      - ard_incidence_rate
+      - ard_tabulate_abnormal
 
   - title: "Helpers"
   - contents:

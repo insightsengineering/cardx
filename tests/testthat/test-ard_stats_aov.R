@@ -1,6 +1,7 @@
-skip_if_not(is_pkg_installed(c("broom.helpers", "parameters")))
+skip_if_not(is_pkg_installed(c("broom.helpers", "parameters", "withr")))
 
 test_that("ard_aov() works", {
+  withr::local_options(list(width = 180))
   expect_error(
     ard_aov <-
       ard_stats_aov(AGE ~ ARM, data = cards::ADSL),

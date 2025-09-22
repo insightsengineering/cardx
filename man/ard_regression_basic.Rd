@@ -2,10 +2,26 @@
 % Please edit documentation in R/ard_regression_basic.R
 \name{ard_regression_basic}
 \alias{ard_regression_basic}
+\alias{ard_regression_basic.default}
+\alias{ard_regression_basic.data.frame}
 \title{Basic Regression ARD}
 \usage{
-ard_regression_basic(
+ard_regression_basic(x, ...)
+
+\method{ard_regression_basic}{default}(
   x,
+  tidy_fun = broom.helpers::tidy_with_broom_or_parameters,
+  stats_to_remove = c("term", "var_type", "var_label", "var_class", "label",
+    "contrasts_type", "contrasts", "var_nlevels"),
+  ...
+)
+
+\method{ard_regression_basic}{data.frame}(
+  x,
+  formula,
+  method,
+  method.args = list(),
+  package = "base",
   tidy_fun = broom.helpers::tidy_with_broom_or_parameters,
   stats_to_remove = c("term", "var_type", "var_label", "var_class", "label",
     "contrasts_type", "contrasts", "var_nlevels"),
@@ -13,7 +29,10 @@ ard_regression_basic(
 )
 }
 \arguments{
-\item{x}{regression model object}
+\item{x}{(regression model/\code{data.frame})\cr
+regression model object or a data frame}
+
+\item{...}{Arguments passed to \code{\link[broom.helpers:tidy_plus_plus]{broom.helpers::tidy_plus_plus()}}}
 
 \item{tidy_fun}{(\code{function})\cr
 a tidier. Default is \code{\link[broom.helpers:tidy_with_broom_or_parameters]{broom.helpers::tidy_with_broom_or_parameters}}}
@@ -22,7 +41,25 @@ a tidier. Default is \code{\link[broom.helpers:tidy_with_broom_or_parameters]{br
 character vector of statistic names to remove. Default is
 \code{c("term", "var_type", "var_label", "var_class", "label", "contrasts_type", "contrasts", "var_nlevels")}.}
 
-\item{...}{Arguments passed to \code{\link[broom.helpers:tidy_plus_plus]{broom.helpers::tidy_plus_plus()}}}
+\item{formula}{(\code{formula})\cr
+a formula}
+
+\item{method}{(\code{string})\cr
+string of function naming the function to be called, e.g. \code{"glm"}.
+If function belongs to a library that is not attached, the package name
+must be specified in the \code{package} argument.}
+
+\item{method.args}{(named \code{list})\cr
+named list of arguments that will be passed to \code{method}.
+
+Note that this list may contain non-standard evaluation components.
+If you are wrapping this function in other functions, the argument
+must be passed in a way that does not evaluate the list, e.g.
+using rlang's  embrace operator \code{{{ . }}}.}
+
+\item{package}{(\code{string})\cr
+a package name that will be temporarily loaded when function
+specified in \code{method} is executed.}
 }
 \value{
 data frame
@@ -47,5 +84,11 @@ The default arguments used are
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_regression_basic()
+
+ard_regression_basic(
+  x = cards::ADSL,
+  formula = AGE ~ ARM,
+  method = "lm"
+)
 \dontshow{\}) # examplesIf}
 }

@@ -14,7 +14,7 @@
       6      rsp           TRUE proporti… conf.level  conf.lev…      0.95
       7      rsp           TRUE proporti…     method     method Stratifi…
     Message
-      i 3 more variables: fmt_fn, warning, error
+      i 3 more variables: fmt_fun, warning, error
 
 ---
 
@@ -32,7 +32,7 @@
       6      rsp           TRUE proporti… conf.level  conf.lev…      0.95
       7      rsp           TRUE proporti…     method     method Stratifi…
     Message
-      i 3 more variables: fmt_fn, warning, error
+      i 3 more variables: fmt_fun, warning, error
 
 # ard_categorical_ci() messaging
 

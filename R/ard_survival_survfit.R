@@ -26,9 +26,9 @@
 #' @param y (`Surv` or `string`)\cr
 #'   an object of class `Surv` created using [survival::Surv()]. This object will be passed as the left-hand side of
 #'   the formula constructed and passed to [survival::survfit()]. This object can also be passed as a string.
-#' @param variables (`character`)\cr
+#' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   stratification variables to be passed as the right-hand side of the formula constructed and passed to
-#'   [survival::survfit()].
+#'   [survival::survfit()]. Default is `NULL` for an unstratified model, e.g. `Surv() ~ 1`.
 #' @param method.args (named `list`)\cr
 #'   named list of arguments that will be passed to [survival::survfit()].
 #' @inheritParams rlang::args_dots_empty
@@ -164,13 +164,15 @@ ard_survival_survfit.survfit <- function(x, times = NULL, probs = NULL, type = N
 
 #' @rdname ard_survival_survfit
 #' @export
-ard_survival_survfit.data.frame <- function(x, y, variables,
+ard_survival_survfit.data.frame <- function(x, y,
+                                            variables = NULL,
                                             times = NULL, probs = NULL, type = NULL,
-                                            method.args = list(conf.int = 0.95), ...) {
+                                            method.args = list(conf.int = 0.95, conf.type = "log"), ...) {
   set_cli_abort_call()
 
   # check/process inputs -------------------------------------------------------
-  check_class(variables, "character")
+  check_not_missing(y)
+  cards::process_selectors(x, variables = {{ variables }})
 
   # process outcome as string --------------------------------------------------
   y <- enquo(y)
@@ -178,17 +180,37 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
   if (tryCatch(is.character(eval_tidy(y)), error = \(e) FALSE)) y <- eval_tidy(y) # styler: off
   # otherwise, convert expr to string
   else y <- expr_deparse(quo_get_expr(y))  # styler: off
+  check_class(
+    with(x, eval(parse_expr(y))),
+    cls = "Surv",
+    message =
+      "The {.arg y} argument must be a string or expression that evaluates to an object of class {.cls Surv}
+     most often created with {.fun survival::Surv} or {.fun ggsurvfit::Surv_CNSR}."
+  )
+
 
   # build model ----------------------------------------------------------------
-  construct_model(
+  survfit_formula <-
+    case_switch(
+      !is_empty(variables) ~ stats::reformulate(termlabels = bt(variables), response = y),
+      .default = stats::reformulate(termlabels = "1", response = y)
+    )
+
+  ard <- construct_model(
     data = x,
-    formula = stats::reformulate(termlabels = bt(variables), response = y),
+    formula = survfit_formula,
     method = "survfit",
     package = "survival",
     method.args = {{ method.args }}
   ) |>
-    ard_survival_survfit(times = times, probs = probs, type = type) |>
-    .restore_original_column_types(data = x)
+    ard_survival_survfit(times = times, probs = probs, type = type)
+
+  ard_overall <- ard[ard$variable == "..ard_survival_survfit..", ]
+
+  ard |>
+    dplyr::filter(ard$variable != "..ard_survival_survfit..") |>
+    .restore_original_column_types(data = x) |>
+    dplyr::bind_rows(ard_overall)
 }
 
 #' Process Survival Fit For Time Estimates
@@ -237,7 +259,11 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
   # tidy survfit results
   x_cols <- intersect(names(x), c("time", "n.risk", "surv", "std.err", "upper", "lower", "strata"))
   tidy_x <- data.frame(x[x_cols]) %>%
-    dplyr::rename(estimate = "surv", std.error = "std.err", conf.high = "upper", conf.low = "lower")
+    dplyr::rename(estimate = "surv", std.error = "std.err", conf.high = "upper", conf.low = "lower") %>%
+    dplyr::mutate(
+      conf.level = x$conf.int,
+      conf.type = x$conf.type
+    )
 
   strat <- "strata" %in% names(tidy_x)
 
@@ -311,7 +337,11 @@ ard_survival_survfit.data.frame <- function(x, y, variables,
       set_names(c("estimate", "conf.low", "conf.high")) %>%
       dplyr::mutate(strata = row.names(.)) %>%
       dplyr::select(dplyr::any_of(c("n.risk", "strata", "estimate", "std.error", "conf.low", "conf.high"))) %>%
-      dplyr::mutate(prob = .x)
+      dplyr::mutate(
+        conf.level = x$conf.int,
+        conf.type = x$conf.type,
+        prob = .x
+      )
   ) %>%
     dplyr::bind_rows() %>%
     `rownames<-`(NULL) %>%
@@ -364,10 +394,16 @@ extract_strata <- function(x, df_stat) {
 #' @keywords internal
 .format_survfit_results <- function(tidy_survfit) {
   est <- if ("time" %in% names(tidy_survfit)) "time" else "prob"
+  conf.level <- tidy_survfit[["conf.level"]][1]
+  conf.type <- tidy_survfit[["conf.type"]][1]
 
   ret <- tidy_survfit %>%
+    dplyr::select(-dplyr::any_of(c("conf.level", "conf.type"))) %>%
     dplyr::mutate(dplyr::across(
-      dplyr::any_of(c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "time", "prob")), ~ as.list(.)
+      dplyr::any_of(
+        c("n.risk", "estimate", "std.error", "conf.high", "conf.low", "time", "prob")
+      ),
+      ~ as.list(.)
     )) %>%
     tidyr::pivot_longer(
       cols = dplyr::any_of(c("n.risk", "estimate", "std.error", "conf.high", "conf.low")),
@@ -380,13 +416,26 @@ extract_strata <- function(x, df_stat) {
     ) %>%
     dplyr::select(-all_of(est))
 
+  # statistics applicable to all calculations
+  if (!is.null(conf.level) && !is.null(conf.type)) {
+    ret <- ret %>%
+      dplyr::bind_rows(
+        dplyr::tibble(
+          context = "survival",
+          stat_name = c("conf.level", "conf.type"),
+          stat = list(conf.level, conf.type),
+          variable = "..ard_survival_survfit.."
+        )
+      )
+  }
+
   ret %>%
     dplyr::left_join(
       .df_survfit_stat_labels(),
       by = "stat_name"
     ) %>%
     dplyr::mutate(
-      fmt_fn = lapply(
+      fmt_fun = lapply(
         .data$stat,
         function(x) {
           switch(is.integer(x),
@@ -416,8 +465,9 @@ extract_strata <- function(x, df_stat) {
     "std.error", "Standard Error (untransformed)",
     "conf.low", "CI Lower Bound",
     "conf.high", "CI Upper Bound",
-    "conf.level", "CI Confidence Level",
     "prob", "Quantile",
-    "time", "Time"
+    "time", "Time",
+    "conf.level", "CI Confidence Level",
+    "conf.type", "CI Type"
   )
 }

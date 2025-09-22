@@ -29,8 +29,8 @@ including unobserved combinations and unobserved factor levels.}
 \item{method}{(\code{string})\cr
 Method passed to \code{survey::svyciprop(method)}}
 
-\item{conf.level}{(\code{numeric})\cr
-a scalar in \verb{(0, 1)} indicating the confidence level.
+\item{conf.level}{(scalar \code{numeric})\cr
+a scalar in \verb{(0,1)} indicating the confidence level.
 Default is \code{0.95}}
 
 \item{value}{(\code{\link[cards:syntax]{formula-list-selector}})\cr

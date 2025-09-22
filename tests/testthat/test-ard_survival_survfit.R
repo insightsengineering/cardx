@@ -1,6 +1,8 @@
 skip_if_not(is_pkg_installed(c("survival", "broom")))
 
 test_that("ard_survival_survfit() works with times provided", {
+  withr::local_options(width = 250)
+
   expect_snapshot(
     survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
       ard_survival_survfit(times = c(60, 180)) |>
@@ -12,6 +14,8 @@ test_that("ard_survival_survfit() works with times provided", {
 })
 
 test_that("ard_survival_survfit() works with different type", {
+  withr::local_options(width = 250)
+
   expect_snapshot(
     survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
       ard_survival_survfit(times = c(60, 180), type = "risk") |>
@@ -23,6 +27,8 @@ test_that("ard_survival_survfit() works with different type", {
 })
 
 test_that("ard_survival_survfit() works with probs provided", {
+  withr::local_options(width = 250)
+
   expect_snapshot(
     survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
       ard_survival_survfit(probs = c(0.25, 0.75)) |>
@@ -34,6 +40,8 @@ test_that("ard_survival_survfit() works with probs provided", {
 })
 
 test_that("ard_survival_survfit() works with unstratified model", {
+  withr::local_options(width = 250)
+
   expect_snapshot(
     survival::survfit(survival::Surv(time, status) ~ 1, data = survival::lung) |>
       ard_survival_survfit(times = c(60, 180)) |>
@@ -54,6 +62,8 @@ test_that("ard_survival_survfit() works with unstratified model", {
 })
 
 test_that("ard_survival_survfit() works with multiple stratification variables", {
+  withr::local_options(width = 250)
+
   expect_snapshot(
     survival::survfit(survival::Surv(time, status) ~ sex + ph.ecog, data = survival::lung) |>
       ard_survival_survfit(times = c(60, 180)) |>
@@ -78,6 +88,8 @@ test_that("ard_survival_survfit() works with multiple stratification variables",
 })
 
 test_that("ard_survival_survfit() works with competing risks", {
+  withr::local_options(width = 250)
+
   set.seed(1)
   ADTTE_MS <- cards::ADTTE %>%
     dplyr::mutate(
@@ -140,6 +152,25 @@ test_that("ard_survival_survfit() errors are properly handled", {
       ard_survival_survfit(times = 100, probs = c(0.25, 0.75)),
     error = TRUE
   )
+
+  expect_snapshot(
+    ard_survival_survfit(
+      x = cards::ADTTE,
+      formula = survival::Surv(ttdeath, death) ~ trt,
+      variables = "trt",
+      probs = c(0.25, 0.50, 0.75)
+    ),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    ard_survival_survfit(
+      x = cards::ADTTE,
+      y = survival::Surv(ttdeath, death) ~ tte,
+      probs = c(0.25, 0.50, 0.75)
+    ),
+    error = TRUE
+  )
 })
 
 test_that("ard_survival_survfit() works with non-syntactic names", {
@@ -168,6 +199,8 @@ test_that("ard_survival_survfit() errors with stratified Cox model", {
 })
 
 test_that("ard_survival_survfit() works with '=' in strata variable level labels", {
+  withr::local_options(width = 250)
+
   lung2 <- survival::lung %>%
     dplyr::mutate(age_bin = factor(ifelse(age < 60, "<60", ">=60")))
 
@@ -186,6 +219,8 @@ test_that("ard_survival_survfit() follows ard structure", {
 })
 
 test_that("ard_survival_survfit() extends to times outside range", {
+  withr::local_options(width = 250)
+
   expect_snapshot(
     survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE) |>
       ard_survival_survfit(times = 200) |>
@@ -194,6 +229,8 @@ test_that("ard_survival_survfit() extends to times outside range", {
 })
 
 test_that("ard_survival_survfit.data.frame() works as expected", {
+  withr::local_options(width = 250)
+
   # quoted y expression
   expect_snapshot(
     res_quo <-
@@ -238,5 +275,35 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
       unlist() |>
       class(),
     class(mtcars$vs)
+  )
+
+  # adding another check type
+  expect_silent(
+    tbl <-
+      ard_survival_survfit(
+        x = cards::ADTTE,
+        variables = "TRTA",
+        y = "survival::Surv(time = AVAL, event = 1 - CNSR, type = 'right', origin = 0)",
+        times = c(6, 12)
+      )
+  )
+  expect_equal(
+    cards::rename_ard_columns(tbl) |>
+      dplyr::pull("TRTA") |>
+      class(),
+    class(cards::ADTTE$TRTA)
+  )
+})
+
+test_that("ard_survival_survfit.data.frame(variables=NULL) for unstratified model", {
+  expect_equal(
+    cards::ADTTE |>
+      ard_survival_survfit(
+        y = ggsurvfit::Surv_CNSR(AVAL, CNSR),
+        variables = NULL,
+        times = 90
+      ),
+    survival::survfit(ggsurvfit::Surv_CNSR() ~ 1, data = cards::ADTTE) |>
+      ard_survival_survfit(times = 90)
   )
 })

@@ -13,7 +13,7 @@
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a character vector of
 #'   statistic names to include. See below for options.
-#' @param fmt_fn ([`formula-list-selector`][cards::syntax])\cr
+#' @param fmt_fun ([`formula-list-selector`][cards::syntax])\cr
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a named list of functions
 #'   (or the RHS of a formula),
@@ -23,6 +23,7 @@
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
+#' @inheritParams ard_tabulate.survey.design
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @section statistic argument:
@@ -30,6 +31,8 @@
 #' The following statistics are available:
 #' `r cardx:::accepted_svy_stats(FALSE) |> shQuote("sh") |> paste(collapse = ", ")`,
 #' where 'p##' is are the percentiles and `##` is an integer between 0 and 100.
+#'
+#' The design effect (`"deff"`) is calculated only when requested in the `statistic` argument.
 #'
 #'
 #' @return an ARD data frame of class 'card'
@@ -39,18 +42,29 @@
 #' data(api, package = "survey")
 #' dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 #'
-#' ard_continuous(
+#' ard_summary(
 #'   data = dclus1,
 #'   variables = api00,
 #'   by = stype
 #' )
-ard_continuous.survey.design <- function(data, variables, by = NULL,
-                                         statistic = everything() ~ c("median", "p25", "p75"),
-                                         fmt_fn = NULL,
-                                         stat_label = NULL,
-                                         ...) {
+ard_summary.survey.design <- function(data, variables, by = NULL,
+                                      statistic = everything() ~ c("median", "p25", "p75"),
+                                      fmt_fun = NULL,
+                                      stat_label = NULL,
+                                      fmt_fn = deprecated(),
+                                      ...) {
   set_cli_abort_call()
   check_dots_empty()
+
+  # deprecated args ------------------------------------------------------------
+  if (lifecycle::is_present(fmt_fn)) {
+    lifecycle::deprecate_soft(
+      when = "0.2.5",
+      what = "ard_summary(fmt_fn)",
+      with = "ard_summary(fmt_fun)"
+    )
+    fmt_fun <- fmt_fn
+  }
 
   # check installed packages ---------------------------------------------------
   check_pkg_installed(pkg = "survey")
@@ -66,12 +80,12 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   cards::process_formula_selectors(
     data$variables[variables],
     statistic = statistic,
-    fmt_fn = fmt_fn,
+    fmt_fun = fmt_fun,
     stat_label = stat_label
   )
   cards::fill_formula_selectors(
     data$variables[variables],
-    statistic = formals(asNamespace("cardx")[["ard_continuous.survey.design"]])[["statistic"]] |> eval()
+    statistic = formals(asNamespace("cardx")[["ard_summary.survey.design"]])[["statistic"]] |> eval()
   )
   cards::check_list_elements(
     x = statistic,
@@ -128,17 +142,17 @@ ard_continuous.survey.design <- function(data, variables, by = NULL,
   }
 
   # add formatting stats -------------------------------------------------------
-  df_stats$fmt_fn <- list(1L)
-  if (!is_empty(fmt_fn)) {
+  df_stats$fmt_fun <- list(1L)
+  if (!is_empty(fmt_fun)) {
     df_stats <-
       dplyr::rows_update(
         df_stats,
         dplyr::tibble(
-          variable = names(fmt_fn),
-          stat_name = map(.data$variable, ~ names(fmt_fn[[.x]])),
-          fmt_fn = map(.data$variable, ~ fmt_fn[[.x]] |> unname())
+          variable = names(fmt_fun),
+          stat_name = map(.data$variable, ~ names(fmt_fun[[.x]])),
+          fmt_fun = map(.data$variable, ~ fmt_fun[[.x]] |> unname())
         ) |>
-          tidyr::unnest(cols = c("stat_name", "fmt_fn")),
+          tidyr::unnest(cols = c("stat_name", "fmt_fun")),
         by = c("variable", "stat_name"),
         unmatched = "ignore"
       )
@@ -376,7 +390,10 @@ accepted_svy_stats <- function(expand_quantiles = TRUE) {
 
   ard_nested <- ard |>
     tidyr::nest(..ard_data... = -c(cards::all_ard_groups(), cards::all_ard_variables())) |>
-    dplyr::arrange(across(c(cards::all_ard_groups(), cards::all_ard_variables()), unlist))
+    dplyr::arrange(across(
+      c(cards::all_ard_groups(), cards::all_ard_variables()),
+      ~ map(., as.character) |> unlist()
+    ))
 
   # if all columns match, then replace the coerced character cols with their original type/class
   all_cols_equal <-

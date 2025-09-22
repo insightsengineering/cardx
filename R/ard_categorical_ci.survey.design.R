@@ -3,7 +3,7 @@
 #' Confidence intervals for categorical variables calculated via
 #' [`survey::svyciprop()`].
 #'
-#' @inheritParams ard_continuous.survey.design
+#' @inheritParams ard_summary.survey.design
 #' @inheritParams ard_categorical_ci.data.frame
 #' @param method (`string`)\cr
 #'   Method passed to `survey::svyciprop(method)`
@@ -142,7 +142,7 @@ ard_categorical_ci.survey.design <- function(data,
     tidyr::unnest("result") |>
     dplyr::mutate(
       stat_label = .data$stat_name,
-      fmt_fn = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
+      fmt_fun = map(.data$stat, ~ case_switch(is.numeric(.x) ~ 2L, .default = as.character))
     ) |>
     cards::as_card() |>
     cards::tidy_ard_column_order() |>

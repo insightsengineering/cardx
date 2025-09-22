@@ -38,14 +38,14 @@ ard_stats_t_test_onesample <- function(data, variables, by = dplyr::group_vars(d
     return(dplyr::tibble() |> cards::as_card())
   }
 
-  cards::ard_continuous(
+  cards::ard_summary(
     data = data,
     variables = all_of(variables),
     by = all_of(by),
     statistic = all_of(variables) ~ list(t_test_onesample = \(x) stats::t.test(x = x, conf.level = conf.level, ...) |> broom::tidy())
   ) |>
     cards::bind_ard(
-      cards::ard_continuous(
+      cards::ard_summary(
         data = data,
         variables = all_of(variables),
         by = all_of(by),

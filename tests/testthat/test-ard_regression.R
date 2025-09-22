@@ -3,14 +3,28 @@ skip_if_not(is_pkg_installed(pkg = "broom.helpers"))
 test_that("ard_regression() works", {
   withr::local_options(list(width = 90))
 
+  expect_silent(
+    ard <-
+      lm(AGE ~ ARM, data = cards::ADSL) |>
+      ard_regression(add_estimate_to_reference_rows = TRUE)
+  )
+
   expect_snapshot(
-    lm(AGE ~ ARM, data = cards::ADSL) |>
-      ard_regression(add_estimate_to_reference_rows = TRUE) |>
+    ard |>
       as.data.frame() |>
-      dplyr::select(-context, -stat_label, -fmt_fn) |>
+      dplyr::select(-context, -stat_label, -fmt_fun) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))
       )
+  )
+
+  expect_equal(
+    ard,
+    ard_regression(
+      x = cards::ADSL,
+      formula = AGE ~ ARM,
+      method = "lm"
+    )
   )
 
   # checking non-syntactic names
@@ -31,7 +45,7 @@ test_that("ard_regression() works specifying custom tidier", {
     lme4::lmer(mpg ~ hp + (1 | cyl), data = mtcars) |>
       ard_regression(tidy_fun = broom.mixed::tidy) |>
       as.data.frame() |>
-      dplyr::select(-context, -stat_label, -fmt_fn) |>
+      dplyr::select(-context, -stat_label, -fmt_fun) |>
       dplyr::filter(map_lgl(stat, is.numeric)) |>
       dplyr::mutate(
         stat = lapply(stat, function(x) ifelse(is.numeric(x), cards::round5(x, 3), x))

@@ -3,7 +3,7 @@
 #' Returns the total N for a survey object.
 #' The placeholder variable name returned in the object is `"..ard_total_n.."`
 #'
-#' @inheritParams ard_dichotomous.survey.design
+#' @inheritParams ard_tabulate_value.survey.design
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @return an ARD data frame of class 'card'
@@ -19,12 +19,10 @@ ard_total_n.survey.design <- function(data, ...) {
   check_dots_empty()
 
   # calculate total N ----------------------------------------------------------
-  data$variables <-
-    data$variables |>
-    dplyr::mutate(..ard_total_n.. = TRUE)
+  data <- stats::update(data, ..ard_total_n.. = TRUE)
 
   data |>
-    ard_dichotomous(
+    ard_tabulate_value(
       variables = "..ard_total_n..",
       statistic = list(..ard_total_n.. = c("N", "N_unweighted"))
     ) |>

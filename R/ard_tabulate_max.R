@@ -5,7 +5,7 @@
 #' Only the highest-ordered level will be counted for each unique ID.
 #' Unordered, non-numeric variables will be converted to factor and the default level order used for ordering.
 #'
-#' @inheritParams cards::ard_categorical
+#' @inheritParams cards::ard_tabulate
 #' @inheritParams cards::ard_stack
 #' @param variables ([`tidy-select`][dplyr::dplyr_tidy_select])\cr
 #'   The categorical variables for which occurrence rates per unique ID (by maximum level) will be calculated.
@@ -14,43 +14,59 @@
 #' @param denominator (`data.frame`, `integer`)\cr
 #'   An optional argument to change the denominator used for `"N"` and `"p"` statistic calculations.
 #'   Defaults to `NULL`, in which case `dplyr::distinct(data, dplyr::pick(all_of(c(id, by))))` is used for these
-#'   calculations. See [cards::ard_categorical()] for more details on specifying denominators.
+#'   calculations. See [cards::ard_tabulate()] for more details on specifying denominators.
 #' @param quiet (scalar `logical`)\cr
 #'   Logical indicating whether to suppress additional messaging. Default is `FALSE`.
+#' @param fmt_fn `r lifecycle::badge("deprecated")`
 #'
 #' @return an ARD data frame of class 'card'
-#' @name ard_categorical_max
+#' @name ard_tabulate_max
 #'
 #' @examples
 #' # Occurrence Rates by Max Level (Highest Severity) --------------------------
-#' ard_categorical_max(
+#' ard_tabulate_max(
 #'   cards::ADAE,
 #'   variables = c(AESER, AESEV),
 #'   id = USUBJID,
 #'   by = TRTA,
-#'   denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
+#'   denominator = cards::ADSL
 #' )
 NULL
 
-#' @rdname ard_categorical_max
+#' @rdname ard_tabulate_max
 #' @export
-ard_categorical_max <- function(data,
-                                variables,
-                                id,
-                                by = dplyr::group_vars(data),
-                                statistic = everything() ~ c("n", "p", "N"),
-                                denominator = NULL,
-                                fmt_fn = NULL,
-                                stat_label = everything() ~ cards::default_stat_labels(),
-                                quiet = FALSE,
-                                ...) {
+ard_tabulate_max <- function(data,
+                             variables,
+                             id,
+                             by = dplyr::group_vars(data),
+                             statistic = everything() ~ c("n", "p", "N"),
+                             denominator = NULL,
+                             strata = NULL,
+                             fmt_fun = NULL,
+                             stat_label = everything() ~ cards::default_stat_labels(),
+                             quiet = FALSE,
+                             fmt_fn = deprecated(),
+                             ...) {
   set_cli_abort_call()
+
+  # deprecated args ------------------------------------------------------------
+  if (lifecycle::is_present(fmt_fn)) {
+    lifecycle::deprecate_soft(
+      when = "0.2.5",
+      what = "ard_tabulate_max(fmt_fn)",
+      with = "ard_tabulate_max(fmt_fun)"
+    )
+    fmt_fun <- fmt_fn
+  }
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(data)
   check_not_missing(variables)
   check_not_missing(id)
-  cards::process_selectors(data, variables = {{ variables }}, id = {{ id }}, by = {{ by }})
+  cards::process_selectors(data,
+    variables = {{ variables }}, id = {{ id }},
+    by = {{ by }}, strata = {{ strata }}
+  )
   data <- dplyr::ungroup(data)
 
   # check the id argument is not empty
@@ -68,13 +84,14 @@ ard_categorical_max <- function(data,
     function(x) {
       ard_categorical(
         data = data |>
-          arrange_using_order(c(id, by, x)) |>
-          dplyr::slice_tail(n = 1L, by = all_of(c(id, by))),
+          arrange_using_order(c(id, by, strata, x)) |>
+          dplyr::slice_tail(n = 1L, by = all_of(c(id, by, strata))),
         variables = all_of(x),
         by = all_of(by),
+        strata = all_of(strata),
         statistic = statistic,
         denominator = denominator,
-        fmt_fn = fmt_fn,
+        fmt_fun = fmt_fun,
         stat_label = stat_label
       )
     }

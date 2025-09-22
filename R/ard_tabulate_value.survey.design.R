@@ -2,7 +2,7 @@
 #'
 #' Compute Analysis Results Data (ARD) for dichotomous summary statistics.
 #'
-#' @inheritParams ard_categorical.survey.design
+#' @inheritParams ard_tabulate.survey.design
 #' @param value (named `list`)\cr
 #'   named list of dichotomous values to tabulate.
 #'   Default is `cards::maximum_variable_value(data$variables)`,
@@ -13,26 +13,37 @@
 #'
 #' @examplesIf cardx:::is_pkg_installed("survey")
 #' survey::svydesign(ids = ~1, data = mtcars, weights = ~1) |>
-#'   ard_dichotomous(by = vs, variables = c(cyl, am), value = list(cyl = 4))
-ard_dichotomous.survey.design <- function(data,
-                                          variables,
-                                          by = NULL,
-                                          value = cards::maximum_variable_value(data$variables[variables]),
-                                          statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted"),
-                                          denominator = c("column", "row", "cell"),
-                                          fmt_fn = NULL,
-                                          stat_label = everything() ~ list(
-                                            p = "%",
-                                            p.std.error = "SE(%)",
-                                            deff = "Design Effect",
-                                            "n_unweighted" = "Unweighted n",
-                                            "N_unweighted" = "Unweighted N",
-                                            "p_unweighted" = "Unweighted %"
-                                          ),
-                                          ...) {
+#'   ard_tabulate_value(by = vs, variables = c(cyl, am), value = list(cyl = 4))
+ard_tabulate_value.survey.design <- function(data,
+                                             variables,
+                                             by = NULL,
+                                             value = cards::maximum_variable_value(data$variables[variables]),
+                                             statistic = everything() ~ c("n", "N", "p", "p.std.error", "n_unweighted", "N_unweighted", "p_unweighted"),
+                                             denominator = c("column", "row", "cell"),
+                                             fmt_fun = NULL,
+                                             stat_label = everything() ~ list(
+                                               p = "%",
+                                               p.std.error = "SE(%)",
+                                               deff = "Design Effect",
+                                               "n_unweighted" = "Unweighted n",
+                                               "N_unweighted" = "Unweighted N",
+                                               "p_unweighted" = "Unweighted %"
+                                             ),
+                                             fmt_fn = deprecated(),
+                                             ...) {
   set_cli_abort_call()
   check_dots_empty()
   check_pkg_installed(pkg = "survey")
+
+  # deprecated args ------------------------------------------------------------
+  if (lifecycle::is_present(fmt_fn)) {
+    lifecycle::deprecate_soft(
+      when = "0.2.5",
+      what = "ard_tabulate_value(fmt_fn)",
+      with = "ard_tabulate_value(fmt_fun)"
+    )
+    fmt_fun <- fmt_fn
+  }
 
   # check inputs ---------------------------------------------------------------
   check_not_missing(variables)
@@ -42,7 +53,7 @@ ard_dichotomous.survey.design <- function(data,
   cards::process_formula_selectors(data$variables[variables], value = value)
   cards::fill_formula_selectors(
     data$variables[variables],
-    value = formals(asNamespace("cardx")[["ard_dichotomous.survey.design"]])[["value"]] |> eval()
+    value = formals(asNamespace("cardx")[["ard_tabulate_value.survey.design"]])[["value"]] |> eval()
   )
   .check_dichotomous_value(data$variables, value)
 
@@ -52,13 +63,13 @@ ard_dichotomous.survey.design <- function(data,
   }
 
   # calculate summary statistics -----------------------------------------------
-  ard_categorical(
+  ard_tabulate(
     data = data,
     variables = all_of(variables),
     by = {{ by }},
     statistic = statistic,
     denominator = denominator,
-    fmt_fn = fmt_fn,
+    fmt_fun = fmt_fun,
     stat_label = stat_label
   ) |>
     dplyr::filter(
@@ -75,7 +86,7 @@ ard_dichotomous.survey.design <- function(data,
 
 #' Perform Value Checks
 #'
-#' Check the validity of the values passed in `ard_dichotomous(value)`.
+#' Check the validity of the values passed in `ard_tabulate_value(value)`.
 #'
 #' @param data (`data.frame`)\cr
 #'   a data frame

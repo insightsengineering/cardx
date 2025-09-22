@@ -6,6 +6,9 @@
 [![R-CMD-check](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/insightsengineering/cardx/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/insightsengineering/cardx/branch/main/graph/badge.svg)](https://app.codecov.io/gh/insightsengineering/cardx?branch=main)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/cardx)](https://CRAN.R-project.org/package=cardx)
+[![Downloads](https://cranlogs.r-pkg.org/badges/cardx)](https://cran.r-project.org/package=cardx)
 <!-- badges: end -->
 
 The **{cardx}** package is an extension of the {cards} package,
@@ -74,7 +77,7 @@ cards::ADSL |>
     ## 13    ARM      AGE stats_t_…   var.equal  Equal Va…     FALSE
     ## 14    ARM      AGE stats_t_…  conf.level  CI Confi…      0.95
 
-    ## ℹ 3 more variables: fmt_fn, warning, error
+    ## ℹ 3 more variables: fmt_fun, warning, error
 
 Note that the returned ARD contains the analysis results in addition to
 the function parameters used to calculate the results allowing for
@@ -105,13 +108,13 @@ construct_model(
 
     ## {cards} data frame: 6 x 8
 
-    ##      variable   context stat_name stat_label     stat fmt_fn
-    ## 1 (Intercept) aod_wald…        df  Degrees …        1      1
-    ## 2 (Intercept) aod_wald… statistic  Statistic 7126.713      1
-    ## 3 (Intercept) aod_wald…   p.value    p-value        0      1
-    ## 4         ARM aod_wald…        df  Degrees …        2      1
-    ## 5         ARM aod_wald… statistic  Statistic    1.046      1
-    ## 6         ARM aod_wald…   p.value    p-value    0.593      1
+    ##      variable   context stat_name stat_label     stat fmt_fun
+    ## 1 (Intercept) aod_wald…        df  Degrees …        1       1
+    ## 2 (Intercept) aod_wald… statistic  Statistic 7126.713       1
+    ## 3 (Intercept) aod_wald…   p.value    p-value        0       1
+    ## 4         ARM aod_wald…        df  Degrees …        2       1
+    ## 5         ARM aod_wald… statistic  Statistic    1.046       1
+    ## 6         ARM aod_wald…   p.value    p-value    0.593       1
 
     ## ℹ 2 more variables: warning, error
 

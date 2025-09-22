@@ -16,5 +16,5 @@ temp/
 tests/testthat/_snaps/**/*.new.md
 tests/testthat/_snaps/**/*.new.svg
 
-# reverse dep cehcks
+# reverse dep checks
 checked/

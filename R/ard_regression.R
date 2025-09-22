@@ -3,7 +3,9 @@
 #' Function takes a regression model object and converts it to a ARD
 #' structure using the `broom.helpers` package.
 #'
-#' @param x regression model object
+#' @inheritParams construct_model
+#' @param x (regression model/`data.frame`)\cr
+#'   regression model object or a data frame
 #' @param tidy_fun (`function`)\cr
 #'   a tidier. Default is [`broom.helpers::tidy_with_broom_or_parameters`]
 #' @param ... Arguments passed to [`broom.helpers::tidy_plus_plus()`]
@@ -14,6 +16,12 @@
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))
 #' lm(AGE ~ ARM, data = cards::ADSL) |>
 #'   ard_regression(add_estimate_to_reference_rows = TRUE)
+#'
+#' ard_regression(
+#'   x = cards::ADSL,
+#'   formula = AGE ~ ARM,
+#'   method = "lm"
+#' )
 NULL
 
 #' @rdname ard_regression
@@ -46,6 +54,31 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
   .regression_final_ard_prep(lst_results)
 }
 
+#' @rdname ard_regression
+#' @export
+ard_regression.data.frame <- function(x, formula, method, method.args = list(), package = "base",
+                                      tidy_fun = broom.helpers::tidy_with_broom_or_parameters, ...) {
+  # check inputs ---------------------------------------------------------------
+  set_cli_abort_call()
+  check_not_missing(x)
+  check_not_missing(formula)
+  check_not_missing(method)
+  check_class(formula, cls = "formula")
+
+  # build model ----------------------------------------------------------------
+  model <-
+    construct_model(
+      data = x,
+      formula = formula,
+      method = method,
+      method.args = {{ method.args }},
+      package = package
+    )
+
+  # summarize model ------------------------------------------------------------
+  ard_regression(x = model, tidy_fun = tidy_fun, ...)
+}
+
 .regression_final_ard_prep <- function(lst_results) {
   # saving the results in data frame -------------------------------------------
   df_card <-
@@ -75,7 +108,7 @@ ard_regression.default <- function(x, tidy_fun = broom.helpers::tidy_with_broom_
     dplyr::mutate(
       warning = lst_results["warning"],
       error = lst_results["error"],
-      fmt_fn = lapply(
+      fmt_fun = lapply(
         .data$stat,
         function(x) {
           switch(is.integer(x),

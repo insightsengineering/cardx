@@ -70,7 +70,7 @@ must be passed in a way that does not evaluate the list, e.g.
 using rlang's  embrace operator \code{{{ . }}}.}
 
 \item{package}{(\code{string})\cr
-string of package name that will be temporarily loaded when function
+a package name that will be temporarily loaded when function
 specified in \code{method} is executed.}
 
 \item{env}{The environment in which to evaluate \code{expr}. This
@@ -78,9 +78,9 @@ environment is not applicable for quosures because they have
 their own environments.}
 
 \item{termlabels}{character vector giving the right-hand side of a
-    model formula.  Cannot be zero-length.}
+    model formula.  May be zero-length.}
 
-\item{response}{character string, symbol or call giving the left-hand
+\item{response}{a character string, symbol or call giving the left-hand
     side of a model formula, or \code{NULL}.}
 
 \item{intercept}{logical: should the formula have an intercept?}

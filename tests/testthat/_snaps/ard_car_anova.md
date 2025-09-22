@@ -5,13 +5,13 @@
     Message
       {cards} data frame: 6 x 8
     Output
-           variable   context stat_name stat_label  stat fmt_fn
-      1 factor(cyl) car_anova statistic  Statistic     0      1
-      2 factor(cyl) car_anova        df  Degrees …     2      1
-      3 factor(cyl) car_anova   p.value    p-value     1      1
-      4  factor(am) car_anova statistic  Statistic     0      1
-      5  factor(am) car_anova        df  Degrees …     1      1
-      6  factor(am) car_anova   p.value    p-value 0.998      1
+           variable   context stat_name stat_label  stat fmt_fun
+      1 factor(cyl) car_anova statistic  Statistic     0       1
+      2 factor(cyl) car_anova        df  Degrees …     2       1
+      3 factor(cyl) car_anova   p.value    p-value     1       1
+      4  factor(am) car_anova statistic  Statistic     0       1
+      5  factor(am) car_anova        df  Degrees …     1       1
+      6  factor(am) car_anova   p.value    p-value 0.998       1
     Message
       i 2 more variables: warning, error
 

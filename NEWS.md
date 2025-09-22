@@ -1,16 +1,72 @@
-# cardx 0.2.2.9020
+# cardx 0.3.0.9000
 
-* Added `as_cards_fun()` to `ard_categorical_ci()` so when there is an error, the user gets an ARD with the expected ARD structure. (#262)
+# cardx 0.3.0
+
+## New Features and Updates
+
+* Added function `ard_tabulate_abnormal()` to calculate ARDs for abnormality analyses. (#310)
+
+* Adding `strata` argument to `ard_tabulate_max()`. (#445, @jtalboys)
+
+* Added function `ard_incidence_rate()` to calculate ARDs for incidence rate estimation. (#234)
+
+## Lifecycle Changes
+
+* The following functions have been renamed.
+    - `ard_continuous()` to `ard_summary()`
+    - `ard_categorical()` to `ard_tabulate()`
+    - `ard_dichotomous()` to `ard_tabulate_value()`
+    - `ard_categorical_max()` to `ard_tabulate_max()`
+   
+* Updating any `fmt_fn` references to `fmt_fun` for consistency. 
+
+    * Any function with an argument `cardx::foo(fmt_fn)` has been updated to `cardx::foo(fmt_fun)`. The old syntax will continue to function, but with a deprecation warning to users.
+
+    * Importantly, the ARD column named `"fmt_fn"` has been updated to `"fmt_fun"`. This change cannot be formally deprecated. For users who were accessing the ARD object directly to modify this column instead of using functions like `cards::update_ard_fmt_fun()`, this will be a breaking change.
+ 
+## Bug Fixes
+
+* Fix in `ard_survival_survfit.data.frame()` method where the stratifying variable was not correctly converted back to its original type.
+
+* Fix in `ard_total_n.survey.design()` to use `update()` instead of `dplyr::mutate()`, which sometimes caused a downstream issue.
+
+# cardx 0.2.4
+
+## New Features and Updates
+
+* Added function `ard_stats_mantelhaen_test()` to calculate ARDs for Cochran-Mantel-Haenszel test results using `stats::mantelhaen.test()`. (#238)
+
+* Added a `ard_regression.data.frame()` S3 method. Also converted `ard_regression_basic()` to an S3 generic and added a `ard_regression_basic.data.frame()` method (#287)
+
+* Specifying `ard_survfit_survfit.data.frame(variables=NULL)` now creates an unstratified `survfit()` model, where previously `variables` argument could not be empty. (#277)
+
+* The `ard_survfit_survfit.data.frame(variables)` now accepts tidyselect input. (#278)
+
+* Added `conf.level` and `conf.type` to `ard_survival_survfit()` results. (#218)
+
+* Added `cards::as_cards_fun()` to `ard_emmeans_mean_difference()` so when an error occurs the user gets an ARD with the expected ARD structure. (#132)
+
+# cardx 0.2.3
+
+## New Features and Updates
+
+* Added function `ard_categorical_max()` to calculate categorical occurrence rates by maximum level per unique ID. (#240)
+
+## Other Updates
 
 * Little `n` is now returned with the results of the `proportion_ci_*()` functions, which then flows into the results of `ard_proportion_ci()`. (#256)
+
+* Added `as_cards_fun()` to `ard_categorical_ci()` so when there is an error, the user gets an ARD with the expected ARD structure. (#262)
 
 * Update in `ard_categorical.survey.design()` for factor variables that are all missing. These variables can now be tabulated, where previously this resulted in an error. 
 
 * Update in `ard_missing.survey.design()` where we can now tabulate the missing rate of design variables, such as the weights.
 
+## Bug Fixes
+
 * Fixed a bug in `ard_survival_survfit()` causing an error when "=" character is present in stratification variable level labels. (#252)
 
-* Added function `ard_categorical_max()` to calculate categorical occurrence rates by maximum level per unique ID. (#240)
+* Bug fix in `ard_categorical_ci(denominator='cell')` when missing values were present in the `by` variable.
 
 # cardx 0.2.2
 
@@ -21,6 +77,8 @@
 * Implemented `summary(extend=TRUE)` in `ard_survival_survfit()` to return results for time points out of bounds. (#224)
 
 * Methods in the {survey} and {survival} packages do not retain inputs variables types in their outputs. We now are able retain these variable types in ARDs returned by `ard_continuous.survey.design()`, `ard_categorical.survey.design()`, `ard_continuous_ci.survey.design()`, `ard_categorical_ci.survey.design()`, and `ard_survival_survfit.data.frame()` (and notably, _not_ in `ard_survival_survfit.survfit()`).
+
+* Added function `ard_stats_mantelhaen_test()` for calculating ARDs for Cochran-Mantel-Haenszel test results using `stats::mantelhaen.test()`. (#238)
 
 # cardx 0.2.1
 

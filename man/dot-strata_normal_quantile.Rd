@@ -7,12 +7,12 @@
 .strata_normal_quantile(vars, weights, conf.level)
 }
 \arguments{
-\item{weights}{(\code{numeric} or \code{NULL})\cr weights for each level of the strata. If \code{NULL}, they are
+\item{weights}{(\code{numeric})\cr weights for each level of the strata. If \code{NULL}, they are
 estimated using the iterative algorithm that
 minimizes the weighted squared length of the confidence interval.}
 
-\item{conf.level}{(\code{numeric})\cr
-a scalar in \verb{(0, 1)} indicating the confidence level.
+\item{conf.level}{(scalar \code{numeric})\cr
+a scalar in \verb{(0,1)} indicating the confidence level.
 Default is \code{0.95}}
 }
 \value{

@@ -13,8 +13,8 @@ Create extra Analysis Results Data (ARD) summary objects. The package supplement
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://github.com/insightsengineering/cardx}
   \item \url{https://insightsengineering.github.io/cardx/}
-  \item \url{https://github.com/insightsengineering/cardx/}
   \item Report bugs at \url{https://github.com/insightsengineering/cardx/issues}
 }
 
@@ -30,6 +30,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Malcolm Barrett (\href{https://orcid.org/0000-0003-0299-5825}{ORCID}) [contributor]
   \item F. Hoffmann-La Roche AG [copyright holder, funder]
 }
 

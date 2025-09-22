@@ -50,7 +50,7 @@ ard_stats_aov <- function(formula, data, ...) {
           TRUE ~ .data$stat_name
         ),
       context = "stats_aov",
-      fmt_fn = lapply(
+      fmt_fun = lapply(
         .data$stat,
         function(x) {
           switch(is.integer(x),

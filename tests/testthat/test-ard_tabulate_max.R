@@ -1,8 +1,8 @@
-test_that("ard_categorical_max() works with default settings", {
+test_that("ard_tabulate_max() works with default settings", {
   withr::local_options(list(width = 200))
 
   expect_message(
-    res <- ard_categorical_max(
+    res <- ard_tabulate_max(
       cards::ADAE,
       variables = AESEV,
       id = USUBJID,
@@ -32,18 +32,18 @@ test_that("ard_categorical_max() works with default settings", {
 
   # with denominator
   expect_snapshot(
-    ard_categorical_max(
+    ard_tabulate_max(
       cards::ADAE |> dplyr::group_by(TRTA),
       variables = AESEV,
       id = USUBJID,
-      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
+      denominator = cards::ADSL
     ) |>
       print(n = 20, columns = "all")
   )
 
   # with multiple variables
   expect_message(expect_message(
-    res2 <- ard_categorical_max(
+    res2 <- ard_tabulate_max(
       cards::ADAE,
       variables = c(AESEV, AESER),
       id = USUBJID,
@@ -57,27 +57,27 @@ test_that("ard_categorical_max() works with default settings", {
   )
 })
 
-test_that("ard_categorical_max(statistic) works", {
+test_that("ard_tabulate_max(statistic) works", {
   withr::local_options(list(width = 200))
 
   expect_snapshot(
-    ard_categorical_max(
+    ard_tabulate_max(
       cards::ADAE,
       variables = AESEV,
       id = USUBJID,
       by = TRTA,
-      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
+      denominator = cards::ADSL,
       statistic = ~"n"
     )
   )
 })
 
-test_that("ard_categorical_max(denominator) works", {
+test_that("ard_tabulate_max(denominator) works", {
   withr::local_options(list(width = 200))
 
   # default denominator
   expect_snapshot(
-    ard_categorical_max(
+    ard_tabulate_max(
       cards::ADAE,
       variables = AESEV,
       id = USUBJID,
@@ -87,7 +87,7 @@ test_that("ard_categorical_max(denominator) works", {
 
   # numeric denominator
   expect_snapshot(
-    ard_categorical_max(
+    ard_tabulate_max(
       cards::ADAE,
       variables = AESEV,
       id = USUBJID,
@@ -97,22 +97,22 @@ test_that("ard_categorical_max(denominator) works", {
   )
 })
 
-test_that("ard_categorical_max(quiet) works", {
+test_that("ard_tabulate_max(quiet) works", {
   withr::local_options(list(width = 200))
 
   expect_silent(
-    ard_categorical_max(
+    ard_tabulate_max(
       cards::ADAE,
       variables = c(AESER, AESEV),
       id = USUBJID,
       by = TRTA,
-      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
+      denominator = cards::ADSL,
       quiet = TRUE
     )
   )
 })
 
-test_that("ard_categorical_max() works with pre-ordered factor variables", {
+test_that("ard_tabulate_max() works with pre-ordered factor variables", {
   withr::local_options(list(width = 200))
 
   # ordered factor variable
@@ -123,12 +123,12 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
     dplyr::mutate(AESEV = factor(cards::ADAE$AESEV, ordered = FALSE))
 
   expect_message(
-    res <- ard_categorical_max(
+    res <- ard_tabulate_max(
       adae_unord,
       variables = AESEV,
       id = USUBJID,
       by = TRTA,
-      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
+      denominator = cards::ADSL,
       ordered = TRUE
     )
   )
@@ -156,35 +156,35 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
   )
 
   expect_message(
-    res_unord <- ard_categorical_max(
+    res_unord <- ard_tabulate_max(
       adae_unord,
       variables = AESEV,
       id = USUBJID,
       by = TRTA,
-      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
+      denominator = cards::ADSL
     )
   )
   expect_equal(res$stat[[1]], res_unord$stat[[1]])
 
   expect_message(
-    res2 <- ard_categorical_max(
+    res2 <- ard_tabulate_max(
       adae,
       variables = AESEV,
       id = USUBJID,
       by = TRTA,
-      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM)
+      denominator = cards::ADSL
     )
   )
   expect_equal(res, res2, ignore_attr = "class")
 
   # multiple variables
   expect_message(expect_message(
-    res3 <- ard_categorical_max(
+    res3 <- ard_tabulate_max(
       adae,
       variables = c(SEX, AESEV),
       id = USUBJID,
       by = TRTA,
-      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
+      denominator = cards::ADSL,
       ordered = c(FALSE, TRUE)
     )
   ))
@@ -195,23 +195,23 @@ test_that("ard_categorical_max() works with pre-ordered factor variables", {
 
   # named vector
   expect_message(expect_message(
-    res4 <- ard_categorical_max(
+    res4 <- ard_tabulate_max(
       adae,
       variables = c(SEX, AESEV),
       id = USUBJID,
       by = TRTA,
-      denominator = cards::ADSL |> dplyr::rename(TRTA = ARM),
+      denominator = cards::ADSL,
       ordered = c(AESEV = TRUE, SEX = FALSE)
     )
   ))
   expect_equal(res3, res4)
 })
 
-test_that("ard_categorical_max() errors with incomplete factor columns", {
+test_that("ard_tabulate_max() errors with incomplete factor columns", {
   # Check error when factors have no levels
   expect_snapshot(
     error = TRUE,
-    ard_categorical_max(
+    ard_tabulate_max(
       cards::ADAE |>
         dplyr::mutate(AESOC = factor(AESOC, levels = character(0))),
       variables = AESOC,
@@ -223,7 +223,7 @@ test_that("ard_categorical_max() errors with incomplete factor columns", {
   # Check error when factor has NA level
   expect_snapshot(
     error = TRUE,
-    ard_categorical_max(
+    ard_tabulate_max(
       cards::ADAE |>
         dplyr::mutate(SEX = factor(SEX, levels = c("F", "M", NA), exclude = NULL)),
       variables = SEX,
@@ -233,9 +233,9 @@ test_that("ard_categorical_max() errors with incomplete factor columns", {
   )
 })
 
-test_that("ard_categorical_max() works without any variables", {
+test_that("ard_tabulate_max() works without any variables", {
   expect_snapshot(
-    ard_categorical_max(
+    ard_tabulate_max(
       data = cards::ADAE,
       variables = starts_with("xxxx"),
       id = USUBJID,
@@ -244,13 +244,35 @@ test_that("ard_categorical_max() works without any variables", {
   )
 })
 
-test_that("ard_categorical_max() follows ard structure", {
+test_that("ard_tabulate_max() follows ard structure", {
   expect_message(
-    ard_categorical_max(
+    ard_tabulate_max(
       cards::ADAE,
       variables = AESOC,
       id = USUBJID
     ) |>
       cards::check_ard_structure(method = FALSE)
   )
+})
+
+test_that("ard_tabulate_max() strata works", {
+  res <- ard_tabulate_max(
+    cards::ADAE |>
+      dplyr::mutate(TRTA = factor(TRTA)) |>
+      dplyr::filter(TRTA != "Placebo"),
+    variables = AESEV,
+    id = USUBJID,
+    strata = TRTA
+  )
+
+  # Check removed levels of strata variable aren't present
+  expect_equal(
+    res |>
+      dplyr::filter(group1_level == "Placebo") |>
+      nrow(),
+    0
+  )
+
+  # snapshot check complete output
+  expect_snapshot(res)
 })

@@ -31,7 +31,7 @@ ard_stats_prop_test <- function(data, by, variables, conf.level = 0.95, ...) {
   check_not_missing(variables)
   check_not_missing(by)
   check_data_frame(data)
-  check_range(conf.level, range = c(0, 1))
+  check_scalar_range(conf.level, range = c(0, 1))
 
   # process inputs -------------------------------------------------------------
   cards::process_selectors(data, by = {{ by }}, variables = {{ variables }})

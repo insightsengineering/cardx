@@ -3,19 +3,51 @@
 \name{ard_regression}
 \alias{ard_regression}
 \alias{ard_regression.default}
+\alias{ard_regression.data.frame}
 \title{Regression ARD}
 \usage{
 ard_regression(x, ...)
 
 \method{ard_regression}{default}(x, tidy_fun = broom.helpers::tidy_with_broom_or_parameters, ...)
+
+\method{ard_regression}{data.frame}(
+  x,
+  formula,
+  method,
+  method.args = list(),
+  package = "base",
+  tidy_fun = broom.helpers::tidy_with_broom_or_parameters,
+  ...
+)
 }
 \arguments{
-\item{x}{regression model object}
+\item{x}{(regression model/\code{data.frame})\cr
+regression model object or a data frame}
 
 \item{...}{Arguments passed to \code{\link[broom.helpers:tidy_plus_plus]{broom.helpers::tidy_plus_plus()}}}
 
 \item{tidy_fun}{(\code{function})\cr
 a tidier. Default is \code{\link[broom.helpers:tidy_with_broom_or_parameters]{broom.helpers::tidy_with_broom_or_parameters}}}
+
+\item{formula}{(\code{formula})\cr
+a formula}
+
+\item{method}{(\code{string})\cr
+string of function naming the function to be called, e.g. \code{"glm"}.
+If function belongs to a library that is not attached, the package name
+must be specified in the \code{package} argument.}
+
+\item{method.args}{(named \code{list})\cr
+named list of arguments that will be passed to \code{method}.
+
+Note that this list may contain non-standard evaluation components.
+If you are wrapping this function in other functions, the argument
+must be passed in a way that does not evaluate the list, e.g.
+using rlang's  embrace operator \code{{{ . }}}.}
+
+\item{package}{(\code{string})\cr
+a package name that will be temporarily loaded when function
+specified in \code{method} is executed.}
 }
 \value{
 data frame
@@ -28,5 +60,11 @@ structure using the \code{broom.helpers} package.
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_regression(add_estimate_to_reference_rows = TRUE)
+
+ard_regression(
+  x = cards::ADSL,
+  formula = AGE ~ ARM,
+  method = "lm"
+)
 \dontshow{\}) # examplesIf}
 }

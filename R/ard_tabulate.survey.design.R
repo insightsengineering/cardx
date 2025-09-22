@@ -7,7 +7,9 @@
 #' and the standard errors and design effect (`"p.std.error"`, `"deff"`) are
 #' calculated using `survey::svymean()`.
 #'
-#' The unweighted statistics are calculated with `cards::ard_categorical.data.frame()`.
+#' The design effect (`"deff"`) is calculated only when requested in the `statistic` argument.
+#'
+#' The unweighted statistics are calculated with `cards::ard_tabulate.data.frame()`.
 #'
 #' @param data (`survey.design`)\cr
 #'   a design object often created with [`survey::svydesign()`].
@@ -23,7 +25,7 @@
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a character vector of
 #'   statistic names to include. See default value for options.
-#' @param fmt_fn ([`formula-list-selector`][cards::syntax])\cr
+#' @param fmt_fun ([`formula-list-selector`][cards::syntax])\cr
 #'   a named list, a list of formulas,
 #'   or a single formula where the list element is a named list of functions
 #'   (or the RHS of a formula),
@@ -33,6 +35,7 @@
 #'   the list element is either a named list or a list of formulas defining the
 #'   statistic labels, e.g. `everything() ~ list(mean = "Mean", sd = "SD")` or
 #'   `everything() ~ list(mean ~ "Mean", sd ~ "SD")`.
+#' @param fmt_fn `r lifecycle::badge("deprecated")`
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @return an ARD data frame of class 'card'
@@ -41,26 +44,36 @@
 #' @examplesIf cardx:::is_pkg_installed("survey")
 #' svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 #'
-#' ard_categorical(svy_titanic, variables = c(Class, Age), by = Survived)
-ard_categorical.survey.design <- function(data,
-                                          variables,
-                                          by = NULL,
-                                          statistic = everything() ~ c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted"),
-                                          denominator = c("column", "row", "cell"),
-                                          fmt_fn = NULL,
-                                          stat_label = everything() ~ list(
-                                            p = "%",
-                                            p.std.error = "SE(%)",
-                                            deff = "Design Effect",
-                                            "n_unweighted" = "Unweighted n",
-                                            "N_unweighted" = "Unweighted N",
-                                            "p_unweighted" = "Unweighted %"
-                                          ),
-                                          ...) {
+#' ard_tabulate(svy_titanic, variables = c(Class, Age), by = Survived)
+ard_tabulate.survey.design <- function(data,
+                                       variables,
+                                       by = NULL,
+                                       statistic = everything() ~ c("n", "N", "p", "p.std.error", "n_unweighted", "N_unweighted", "p_unweighted"),
+                                       denominator = c("column", "row", "cell"),
+                                       fmt_fun = NULL,
+                                       stat_label = everything() ~ list(
+                                         p = "%",
+                                         p.std.error = "SE(%)",
+                                         deff = "Design Effect",
+                                         "n_unweighted" = "Unweighted n",
+                                         "N_unweighted" = "Unweighted N",
+                                         "p_unweighted" = "Unweighted %"
+                                       ),
+                                       fmt_fn = deprecated(),
+                                       ...) {
   set_cli_abort_call()
   check_pkg_installed(pkg = "survey")
   check_dots_empty()
-  deff <- TRUE # we may update in the future to make this an argument for users
+
+  # deprecated args ------------------------------------------------------------
+  if (lifecycle::is_present(fmt_fn)) {
+    lifecycle::deprecate_soft(
+      when = "0.2.5",
+      what = "ard_tabulate(fmt_fn)",
+      with = "ard_tabulate(fmt_fun)"
+    )
+    fmt_fun <- fmt_fn
+  }
 
   # process arguments ----------------------------------------------------------
   check_not_missing(variables)
@@ -82,12 +95,12 @@ ard_categorical.survey.design <- function(data,
   cards::process_formula_selectors(
     data = data$variables[variables],
     statistic = statistic,
-    fmt_fn = fmt_fn,
+    fmt_fun = fmt_fun,
     stat_label = stat_label
   )
   cards::fill_formula_selectors(
     data = data$variables[variables],
-    statistic = formals(asNamespace("cardx")[["ard_categorical.survey.design"]])[["statistic"]] |> eval(),
+    statistic = formals(asNamespace("cardx")[["ard_tabulate.survey.design"]])[["statistic"]] |> eval(),
   )
   accepted_svy_stats <- c("n", "N", "p", "p.std.error", "deff", "n_unweighted", "N_unweighted", "p_unweighted")
   cards::check_list_elements(
@@ -98,6 +111,9 @@ ard_categorical.survey.design <- function(data,
     )
   )
   denominator <- arg_match(denominator)
+
+  # Check if deff is in any of the requested statistics
+  deff <- any(map_lgl(statistic, ~ "deff" %in% .x))
 
   # check the missingness
   walk(
@@ -167,7 +183,7 @@ ard_categorical.survey.design <- function(data,
 
   if (!is_empty(statistic_unweighted)) {
     cards_unweighted <-
-      ard_categorical(
+      ard_tabulate(
         data = data[["variables"]],
         variables = all_of(names(statistic_unweighted)),
         by = any_of(by),
@@ -181,7 +197,7 @@ ard_categorical.survey.design <- function(data,
           ~ map(.x, as.character)
         )
       ) |>
-      dplyr::select(-c("stat_label", "fmt_fn", "warning", "error")) |>
+      dplyr::select(-c("stat_label", "fmt_fun", "warning", "error")) |>
       dplyr::mutate(
         stat_name =
           dplyr::case_match(.data$stat_name, "n" ~ "n_unweighted", "N" ~ "N_unweighted", "p" ~ "p_unweighted")
@@ -189,13 +205,13 @@ ard_categorical.survey.design <- function(data,
     cards <- cards |> dplyr::bind_rows(cards_unweighted) # styler: off
   }
 
-  # final processing of fmt_fn -------------------------------------------------
+  # final processing of fmt_fun ------------------------------------------------
   cards <- cards |>
     .process_nested_list_as_df(
-      arg = fmt_fn,
-      new_column = "fmt_fn"
+      arg = fmt_fun,
+      new_column = "fmt_fun"
     ) |>
-    .default_svy_cat_fmt_fn()
+    .default_svy_cat_fmt_fun()
 
   # merge in statistic labels --------------------------------------------------
   cards <- cards |>
@@ -310,13 +326,16 @@ check_na_factor_levels <- function(data, variables) {
 }
 
 .one_svytable_rates_no_by_row <- function(data, variable, deff) {
-  dplyr::tibble(
+  result <- dplyr::tibble(
     variable = .env$variable,
     variable_level = unique(data$variables[[variable]]) |> sort() |> as.character(),
     p = 1,
-    p.std.error = 0,
-    deff = NaN
+    p.std.error = 0
   )
+  if (isTRUE(deff)) {
+    result$deff <- NaN
+  }
+  result
 }
 
 .one_svytable_rates_no_by_column_and_cell <- function(data, variable, deff) {
@@ -376,7 +395,7 @@ check_na_factor_levels <- function(data, variables) {
           str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
-    set_names(c("variable_level", "group1_level", "p", "p.std.error", "deff")) |>
+    (\(x) set_names(x, c("variable_level", "group1_level", names(x)[-c(1:2)])))() |>
     dplyr::mutate(
       group1 = .env$by,
       variable = .env$variable,
@@ -409,7 +428,7 @@ check_na_factor_levels <- function(data, variables) {
           str_remove_all("`")
     ) |>
     tidyr::pivot_wider(names_from = "stat", values_from = "value") |>
-    set_names(c("group1_level", "variable_level", "p", "p.std.error", "deff")) |>
+    (\(x) set_names(x, c("group1_level", "variable_level", names(x)[-c(1:2)])))() |>
     dplyr::mutate(
       group1 = .env$by,
       variable = .env$variable,
@@ -506,15 +525,15 @@ case_switch <- function(..., .default = NULL) {
   return(.default)
 }
 
-.default_svy_cat_fmt_fn <- function(x) {
+.default_svy_cat_fmt_fun <- function(x) {
   x |>
     dplyr::mutate(
-      fmt_fn =
+      fmt_fun =
         pmap(
-          list(.data$stat_name, .data$stat, .data$fmt_fn),
-          function(stat_name, stat, fmt_fn) {
-            if (!is_empty(fmt_fn)) {
-              return(fmt_fn)
+          list(.data$stat_name, .data$stat, .data$fmt_fun),
+          function(stat_name, stat, fmt_fun) {
+            if (!is_empty(fmt_fun)) {
+              return(fmt_fun)
             }
             if (stat_name %in% c("p", "p_miss", "p_nonmiss", "p_unweighted")) {
               return(cards::label_round(digits = 1, scale = 100))
@@ -552,11 +571,11 @@ case_switch <- function(..., .default = NULL) {
 #' @keywords internal
 #'
 #' @examples
-#' ard <- ard_categorical(cards::ADSL, by = "ARM", variables = "AGEGR1")
+#' ard <- ard_tabulate(cards::ADSL, by = "ARM", variables = "AGEGR1")
 #'
 #' cardx:::.process_nested_list_as_df(ard, NULL, "new_col")
 .process_nested_list_as_df <- function(x, arg, new_column, unlist = FALSE) {
-  # add fmt_fn column if not already present
+  # add column if not already present
   if (!new_column %in% names(x)) {
     x[[new_column]] <- list(NULL)
   }

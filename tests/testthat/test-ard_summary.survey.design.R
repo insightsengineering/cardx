@@ -1,12 +1,12 @@
 skip_if_not(is_pkg_installed("survey"))
 
-test_that("unstratified ard_continuous.survey.design() works", {
+test_that("unstratified ard_summary.survey.design() works", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
   expect_error(
     ard_uni_svy_cont <-
-      ard_continuous(
+      ard_summary(
         dclus1,
         variables = api00,
         statistic = ~ c(
@@ -71,13 +71,13 @@ test_that("unstratified ard_continuous.survey.design() works", {
 })
 
 
-test_that("stratified ard_continuous.survey.design() works", {
+test_that("stratified ard_summary.survey.design() works", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
   expect_error(
     ard_svy_cont <-
-      ard_continuous(
+      ard_summary(
         dclus1,
         by = both,
         variables = api00,
@@ -238,13 +238,13 @@ test_that("stratified ard_continuous.survey.design() works", {
   )
 })
 
-test_that("ard_continuous.survey.design() NA handling", {
+test_that("ard_summary.survey.design() NA handling", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1 |> dplyr::mutate(api00 = NA_real_), fpc = ~fpc)
 
   expect_error(
     ard_uni_NA_svy_cont <-
-      ard_continuous(
+      ard_summary(
         dclus1,
         variables = api00,
         statistic = ~ c(
@@ -263,7 +263,7 @@ test_that("ard_continuous.survey.design() NA handling", {
 
   expect_error(
     ard_NA_svy_cont <-
-      ard_continuous(
+      ard_summary(
         dclus1,
         variables = api00,
         by = both,
@@ -282,7 +282,7 @@ test_that("ard_continuous.survey.design() NA handling", {
   )
 })
 
-test_that("ard_continuous.survey.design() error handling", {
+test_that("ard_summary.survey.design() error handling", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1[1:20, ], fpc = ~fpc)
 
@@ -290,7 +290,7 @@ test_that("ard_continuous.survey.design() error handling", {
   # and these "results" may vary across systems (all are nonsense), so just check
   # that code runs without error
   expect_error(
-    ard_continuous(
+    ard_summary(
       dclus1,
       variables = sname,
       statistic = ~ c(
@@ -302,7 +302,7 @@ test_that("ard_continuous.survey.design() error handling", {
   )
 
   expect_error(
-    ard_continuous(
+    ard_summary(
       dclus1,
       variables = sname,
       by = both,
@@ -315,28 +315,28 @@ test_that("ard_continuous.survey.design() error handling", {
   )
 })
 
-test_that("ard_continuous.survey.design(fmt_fn)", {
+test_that("ard_summary.survey.design(fmt_fun)", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
   expect_snapshot(
-    ard_continuous(
+    ard_summary(
       dclus1,
       variables = c(api99, api00),
       statistic = ~ c("mean", "median", "min", "max"),
-      fmt_fn = list(api00 = list(mean = 2, median = "xx.xx", min = as.character))
+      fmt_fun = list(api00 = list(mean = 2, median = "xx.xx", min = as.character))
     ) |>
       dplyr::select(-warning, -error) |>
       as.data.frame()
   )
 })
 
-test_that("ard_continuous.survey.design(stat_label)", {
+test_that("ard_summary.survey.design(stat_label)", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
   expect_snapshot(
-    ard_continuous(
+    ard_summary(
       dclus1,
       variables = c(api00, api99),
       statistic = ~ c("mean", "median", "min", "max"),
@@ -346,7 +346,7 @@ test_that("ard_continuous.survey.design(stat_label)", {
   )
 })
 
-test_that("ard_continuous.survey.design(by) unobserved levels/combinations", {
+test_that("ard_summary.survey.design(by) unobserved levels/combinations", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(
     id = ~dnum, weights = ~pw,
@@ -362,7 +362,7 @@ test_that("ard_continuous.survey.design(by) unobserved levels/combinations", {
   # The 'Neither' level is never observed, but included in the table
   expect_setequal(
     levels(dclus1$variables$both),
-    ard_continuous(
+    ard_summary(
       dclus1,
       variables = api00,
       by = both,
@@ -376,7 +376,7 @@ test_that("ard_continuous.survey.design(by) unobserved levels/combinations", {
   # stype="E" is not observed with awards="No", but it should still appear in table
   with(dclus1$variables, table(stype, awards))
   expect_equal(
-    ard_continuous(
+    ard_summary(
       dclus1,
       variables = api00,
       by = c(stype, awards),
@@ -390,7 +390,7 @@ test_that("ard_continuous.survey.design(by) unobserved levels/combinations", {
 
 
 # - test if function parameters can be used as variable names without error
-test_that("ard_continuous.survey.design() works when using generic names ", {
+test_that("ard_summary.survey.design() works when using generic names ", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
@@ -401,23 +401,23 @@ test_that("ard_continuous.survey.design() works when using generic names ", {
 
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(variable_level, variable), by = median) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(variable_level, variable), by = median) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(dnum, snum), by = cds) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(median, p25), by = variable_level) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(dnum, snum), by = cds) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(median, p25), by = variable_level) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(dnum, snum), by = stype) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(median, p25), by = variable) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(dnum, snum), by = stype) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(median, p25), by = variable) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(dnum, cds), by = snum) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(median, variable_level), by = p25) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(dnum, cds), by = snum) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(median, variable_level), by = p25) |> dplyr::select(stat)
   )
 
   # rename vars
@@ -425,28 +425,28 @@ test_that("ard_continuous.survey.design() works when using generic names ", {
     dplyr::rename("by" = cds, "statistic" = stype, "weights" = dnum, "p75" = snum)
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(by, statistic), by = weights) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(by, statistic), by = weights) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(stype, dnum), by = cds) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(statistic, weights), by = by) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(stype, dnum), by = cds) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(statistic, weights), by = by) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, dnum), by = stype) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(by, weights), by = statistic) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, dnum), by = stype) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(by, weights), by = statistic) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, stype), by = snum) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(by, statistic), by = p75) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, stype), by = snum) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(by, statistic), by = p75) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, snum), by = stype) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(by, p75), by = statistic) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, snum), by = stype) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(by, p75), by = statistic) |> dplyr::select(stat)
   )
 
   # rename vars
@@ -454,28 +454,28 @@ test_that("ard_continuous.survey.design() works when using generic names ", {
     dplyr::rename("mean" = cds, "sd" = stype, "var" = dnum, "sum" = snum)
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(mean, sd), by = var) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(mean, sd), by = var) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(stype, dnum), by = cds) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(sd, var), by = mean) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(stype, dnum), by = cds) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(sd, var), by = mean) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, dnum), by = stype) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(mean, var), by = sd) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, dnum), by = stype) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(mean, var), by = sd) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, stype), by = snum) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(mean, sd), by = sum) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, stype), by = snum) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(mean, sd), by = sum) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, snum), by = stype) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(mean, sum), by = sd) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, snum), by = stype) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(mean, sum), by = sd) |> dplyr::select(stat)
   )
 
   # rename vars again
@@ -484,42 +484,42 @@ test_that("ard_continuous.survey.design() works when using generic names ", {
     dplyr::rename("deff" = cds, "min" = stype, "max" = dnum, "mean.std.error" = snum)
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(deff, min), by = max) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, stype), by = dnum) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(deff, min), by = max) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(stype, dnum), by = cds) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(min, max), by = deff) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(stype, dnum), by = cds) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(min, max), by = deff) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, dnum), by = stype) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(deff, max), by = min) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, dnum), by = stype) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(deff, max), by = min) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, stype), by = snum) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(deff, min), by = mean.std.error) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, stype), by = snum) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(deff, min), by = mean.std.error) |> dplyr::select(stat)
   )
 
   expect_equal(
-    ard_continuous(dclus1, variables = c(cds, snum), by = stype) |> dplyr::select(stat),
-    ard_continuous(dclus2, variables = c(deff, mean.std.error), by = min) |> dplyr::select(stat)
+    ard_summary(dclus1, variables = c(cds, snum), by = stype) |> dplyr::select(stat),
+    ard_summary(dclus2, variables = c(deff, mean.std.error), by = min) |> dplyr::select(stat)
   )
 })
 
-test_that("ard_continuous.survey.design() follows ard structure", {
+test_that("ard_summary.survey.design() follows ard structure", {
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 
   expect_silent(
-    ard_continuous(dclus1, variables = c(cds, stype), by = snum) |>
+    ard_summary(dclus1, variables = c(cds, stype), by = snum) |>
       cards::check_ard_structure(method = FALSE)
   )
 })
 
-test_that("ard_continuous.survey.design() original types are retained", {
+test_that("ard_summary.survey.design() original types are retained", {
   data(api, package = "survey")
   dclus1 <-
     survey::svydesign(
@@ -532,7 +532,7 @@ test_that("ard_continuous.survey.design() original types are retained", {
   # factors and integer check
   expect_silent(
     ard <-
-      ard_continuous(
+      ard_summary(
         data = dclus1,
         variables = c(api00, api99),
         by = c(stype, sch.wide_int, sch.wide_dbl)
