@@ -80,6 +80,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
         )
     )
   )
+  # unlist stat column containing values for each variable_level
   if (length(result$stat[[which(result$stat_label == "variable_level")]]) > 1) {
     result <- result |> tidyr::unnest_longer(col = "stat")
   }
