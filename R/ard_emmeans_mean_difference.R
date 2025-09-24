@@ -102,9 +102,9 @@ ard_emmeans_mean_difference <- function(data, formula, method,
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
       context = "emmeans_mean_difference",
     ) |>
-    dplyr::filter(!is.na(stat)) |>
+    dplyr::filter(!is.na(.data$stat)) |>
     dplyr::filter(.data$stat_name != "variable_level") |>
-    dplyr::arrange(variable_level) |>
+    dplyr::arrange(.data$variable_level) |>
     cards::as_card() |>
     cards::tidy_ard_column_order() |>
     cards::tidy_ard_row_order()
@@ -140,7 +140,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
         emmeans |>
         emmeans::contrast(method = "pairwise") |>
         summary(infer = TRUE, level = conf.level) |>
-        dplyr::rename(variable_level = contrast)
+        dplyr::rename(variable_level = "contrast")
 
       # calculate mean estimate statistics -----------------------------------------
       mean_est <-
@@ -152,7 +152,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
         ) |>
         dplyr::select(all_of(c(1, 2, 5))) |>
         dplyr::rename(variable_level = all_of(primary_covariate)) |>
-        dplyr::mutate(variable_level = as.character(variable_level))
+        dplyr::mutate(variable_level = as.character(.data$variable_level))
 
       # bind the mean and mean difference estimates
       results <- dplyr::full_join(df_results, mean_est, by = "variable_level")
