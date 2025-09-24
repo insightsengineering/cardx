@@ -1,5 +1,7 @@
 # cardx 0.3.0.9000
 
+* The `ard_complex()` function has been renamed to `ard_mvsummary()`.
+
 # cardx 0.3.0
 
 ## New Features and Updates

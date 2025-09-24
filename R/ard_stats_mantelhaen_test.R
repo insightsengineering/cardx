@@ -51,7 +51,7 @@ ard_stats_mantelhaen_test <- function(data, by, variables, strata, ...) {
   mantelhaen.args <- c(dots, formals_cmh[setdiff(names(formals_cmh), names(dots))])
 
   # build ARD ------------------------------------------------------------------
-  cards::ard_complex(
+  cards::ard_mvsummary(
     data = data,
     variables = all_of(variables),
     statistic = all_of(variables) ~ list(

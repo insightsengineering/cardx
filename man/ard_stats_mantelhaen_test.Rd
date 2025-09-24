@@ -29,7 +29,7 @@ Analysis results data for Cochran-Mantel-Haenszel Chi-Squared Test for count dat
 Calculated with \code{mantelhaen.test(x = data[[variables]], y = data[[by]], z = data[[strata]], ...)}.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) withAutoprint(\{ # examplesIf}
 cards::ADSL |>
   ard_stats_mantelhaen_test(by = "ARM", variables = "AGEGR1", strata = "SEX")
 \dontshow{\}) # examplesIf}

@@ -108,7 +108,7 @@ names that contain a space are wrapped in backticks.
 }
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("withr", "lme4", "broom.helpers", "broom.mixed")))) withAutoprint(\{ # examplesIf}
 construct_model(
   data = mtcars,
   formula = am ~ mpg + (1 | vs),

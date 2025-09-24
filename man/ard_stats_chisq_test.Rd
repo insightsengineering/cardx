@@ -27,7 +27,7 @@ Analysis results data for Pearson's Chi-squared Test.
 Calculated with \code{chisq.test(x = data[[variable]], y = data[[by]], ...)}
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) withAutoprint(\{ # examplesIf}
 cards::ADSL |>
   ard_stats_chisq_test(by = "ARM", variables = "AGEGR1")
 \dontshow{\}) # examplesIf}

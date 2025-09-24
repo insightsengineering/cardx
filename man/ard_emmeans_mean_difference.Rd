@@ -67,7 +67,7 @@ The arguments \code{data}, \code{formula}, \code{method}, \code{method.args}, \c
 to construct the regression model via \code{cardx::construct_model()}.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "emmeans"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "emmeans"))) withAutoprint(\{ # examplesIf}
 ard_emmeans_mean_difference(
   data = mtcars,
   formula = mpg ~ am + cyl,

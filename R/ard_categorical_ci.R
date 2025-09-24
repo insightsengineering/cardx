@@ -157,7 +157,7 @@ ard_categorical_ci.data.frame <- function(data,
   levels <- .unique_values_sort(data, variable = variable, value = value[[variable]])
   data <- .as_dummy_column(data, variable = variable, levels = levels, by = by, strata = strata)
 
-  cards::ard_complex(
+  cards::ard_mvsummary(
     data = data,
     variables = c(everything(), -all_of(c(by, strata))),
     by = all_of(by),
@@ -308,7 +308,7 @@ ard_categorical_ci.data.frame <- function(data,
         result =
           map2(
             .data$data, .data$prop_ci_fun,
-            ~ cards::ard_complex(
+            ~ cards::ard_mvsummary(
               data = .x,
               variables = "....ard_all_true....",
               statistic = list("....ard_all_true...." = list(prop_ci = .y))
@@ -359,7 +359,7 @@ ard_categorical_ci.data.frame <- function(data,
         map2(
           .data$data, .data$prop_ci_fun,
           ~ .as_dummy_row(data = .x, levels = levels, by = by, strata = strata) |>
-            cards::ard_complex(
+            cards::ard_mvsummary(
               variables = c(everything(), -any_of(strata)),
               statistic = everything() ~ list(prop_ci = .y)
             ) |>
@@ -454,7 +454,7 @@ ard_categorical_ci.data.frame <- function(data,
     )
 
   df_res <-
-    cards::ard_complex(
+    cards::ard_mvsummary(
       data = dummy_data,
       variables = -any_of(strata),
       statistic = everything() ~ list(prop_ci = prop_ci_fun)

@@ -47,7 +47,7 @@ levels, an error will occur.
 }
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) withAutoprint(\{ # examplesIf}
 # Exact test of rate parameter against null hypothesis
 cards::ADTTE |>
   ard_stats_poisson_test(variables = c(CNSR, AVAL))

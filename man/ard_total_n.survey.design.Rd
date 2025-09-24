@@ -20,7 +20,7 @@ Returns the total N for a survey object.
 The placeholder variable name returned in the object is \code{"..ard_total_n.."}
 }
 \examples{
-\dontshow{if (cardx:::is_pkg_installed("survey")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (cardx:::is_pkg_installed("survey")) withAutoprint(\{ # examplesIf}
 svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
 ard_total_n(svy_titanic)

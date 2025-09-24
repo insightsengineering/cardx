@@ -31,7 +31,7 @@ For the \code{ard_stats_mood_test()} function, the data is expected to be one ro
 The data is passed as \code{mood.test(data[[variable]] ~ data[[by]], ...)}.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) withAutoprint(\{ # examplesIf}
 cards::ADSL |>
   ard_stats_mood_test(by = "SEX", variables = "AGE")
 \dontshow{\}) # examplesIf}

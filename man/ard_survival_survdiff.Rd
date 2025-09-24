@@ -25,7 +25,7 @@ an ARD data frame of class 'card'
 Analysis results data for comparison of survival using \code{\link[survival:survdiff]{survival::survdiff()}}.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit")))) withAutoprint(\{ # examplesIf}
 library(survival)
 library(ggsurvfit)
 
