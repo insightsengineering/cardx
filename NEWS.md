@@ -1,4 +1,4 @@
-# cardx 0.3.0.9000
+# cardx 0.3.0.9001
 
 * The `ard_complex()` function has been renamed to `ard_mvsummary()`.
 
