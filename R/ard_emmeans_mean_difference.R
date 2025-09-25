@@ -70,7 +70,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
   data_in <- if (dplyr::last(class(data)) == "survey.design") data$variables else data
 
   # build ARD ------------------------------------------------------------------
-  cards::ard_complex(
+  result <- cards::ard_mvsummary(
     data = data_in,
     variables = all_of(primary_covariate),
     statistic = all_of(primary_covariate) ~ list(
@@ -79,16 +79,22 @@ ard_emmeans_mean_difference <- function(data, formula, method,
           data, formula, method, {{ method.args }}, package, response_type, conf.level, primary_covariate
         )
     )
-  ) |>
+  )
+  # unlist stat column containing values for each variable_level
+  if (length(result$stat[[which(result$stat_label == "variable_level")]]) > 1) {
+    result <- result |> tidyr::unnest_longer(col = "stat")
+  }
+
+  result |>
     dplyr::select(-"stat_label") |>
     dplyr::left_join(
-      .df_ttest_stat_labels(primary_covariate),
+      .df_emmeans_stat_labels(),
       by = "stat_name"
     ) |>
     dplyr::mutate(
       variable = "contrast",
       variable_level = if ("variable_level" %in% .data$stat_name) {
-        .data$stat[.data$stat_name == "variable_level"]
+        rep_len(.data$stat[.data$stat_name == "variable_level"], length.out = nrow(result))
       } else {
         NA
       },
@@ -96,7 +102,9 @@ ard_emmeans_mean_difference <- function(data, formula, method,
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
       context = "emmeans_mean_difference",
     ) |>
+    dplyr::filter(!is.na(.data$stat)) |>
     dplyr::filter(.data$stat_name != "variable_level") |>
+    dplyr::arrange(.data$variable_level) |>
     cards::as_card() |>
     cards::tidy_ard_column_order() |>
     cards::tidy_ard_row_order()
@@ -131,21 +139,39 @@ ard_emmeans_mean_difference <- function(data, formula, method,
       df_results <-
         emmeans |>
         emmeans::contrast(method = "pairwise") |>
-        summary(infer = TRUE, level = conf.level)
+        summary(infer = TRUE, level = conf.level) |>
+        dplyr::rename(variable_level = "contrast")
+
+      # calculate mean estimate statistics -----------------------------------------
+      mean_est <-
+        summary(emmeans, calc = c(n = ".wgt.")) |>
+        dplyr::as_tibble() |>
+        dplyr::rename(
+          mean.estimate = any_of(c("emmean", "prob")),
+          n = any_of("n")
+        ) |>
+        dplyr::select(all_of(c(1, 2, 5))) |>
+        dplyr::rename(variable_level = all_of(primary_covariate)) |>
+        dplyr::mutate(variable_level = as.character(.data$variable_level))
+
+      # bind the mean and mean difference estimates
+      results <- dplyr::full_join(df_results, mean_est, by = "variable_level")
 
       # convert results to ARD format ------------------------------------------
-      df_results |>
+      results |>
         dplyr::as_tibble() |>
         dplyr::rename(
           conf.low = any_of("asymp.LCL"),
           conf.high = any_of("asymp.UCL"),
           conf.low = any_of("lower.CL"),
-          conf.high = any_of("upper.CL")
+          conf.high = any_of("upper.CL"),
+          mean.difference.estimate = any_of("estimate")
         ) %>%
         dplyr::select(
-          variable_level = "contrast",
-          "estimate",
-          std.error = "SE", "df",
+          "variable_level",
+          "mean.difference.estimate",
+          "mean.estimate",
+          std.error = "SE", "df", "n",
           "conf.low", "conf.high", "p.value"
         ) %>%
         dplyr::mutate(
@@ -156,8 +182,23 @@ ard_emmeans_mean_difference <- function(data, formula, method,
               "Least-squares mean difference",
               "Least-squares adjusted mean difference"
             )
-        )
+        ) |>
+        dplyr::mutate(across(everything(), ~ .x |> as.list()))
     },
-    stat_names = c("estimate", "std.error", "df", "conf.low", "conf.high", "p.value", "conf.level", "method")
+    stat_names = c("variable_level", "mean.difference.estimate", "mean.estimate", "std.error", "df", "n", "conf.low", "conf.high", "p.value", "conf.level", "method")
+  )
+}
+
+.df_emmeans_stat_labels <- function() {
+  dplyr::tribble(
+    ~stat_name, ~stat_label,
+    "mean.difference.estimate", "Mean Difference",
+    "mean.estimate", "Mean",
+    "std.error", "Standard Error",
+    "df", "Degrees of Freedom",
+    "conf.low", "CI Lower Bound",
+    "conf.high", "CI Upper Bound",
+    "p.value", "p-value",
+    "conf.level", "CI Confidence Level",
   )
 }

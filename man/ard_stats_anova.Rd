@@ -78,7 +78,7 @@ e.g. \code{package = 'lme4'} must be specified when \code{method = 'glmer'}.
 See example below.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom", "withr", "lme4")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom", "withr", "lme4")))) withAutoprint(\{ # examplesIf}
 anova(
   lm(mpg ~ am, mtcars),
   lm(mpg ~ am + hp, mtcars)

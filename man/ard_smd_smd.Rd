@@ -36,7 +36,7 @@ Additionally, this function add a confidence interval to the SMD when
 \code{std.error=TRUE}, which the original \code{smd::smd()} does not include.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "smd"))) withAutoprint(\{ # examplesIf}
 ard_smd_smd(cards::ADSL, by = SEX, variables = AGE)
 ard_smd_smd(cards::ADSL, by = SEX, variables = AGEGR1)
 \dontshow{\}) # examplesIf}

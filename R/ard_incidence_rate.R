@@ -106,7 +106,7 @@ ard_incidence_rate <- function(data,
   conf.type <- arg_match(conf.type, error_call = get_cli_abort_call())
 
   # build ARD ------------------------------------------------------------------
-  cards::ard_complex(
+  cards::ard_mvsummary(
     data = data,
     variables = all_of(time),
     by = any_of(by),

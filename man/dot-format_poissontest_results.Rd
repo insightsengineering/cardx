@@ -24,7 +24,7 @@ ARD data frame
 Convert Poisson test to ARD
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) withAutoprint(\{ # examplesIf}
 cardx:::.format_poissontest_results(
   by = "ARM",
   variables = c("CNSR", "AVAL"),

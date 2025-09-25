@@ -24,7 +24,7 @@ Calculate differences in the Kaplan-Meier estimator of survival using the
 results from \code{\link[survival:survfit]{survival::survfit()}}.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "ggsurvfit")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "ggsurvfit")))) withAutoprint(\{ # examplesIf}
 library(ggsurvfit)
 library(survival)
 

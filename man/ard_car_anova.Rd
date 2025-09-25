@@ -18,7 +18,7 @@ data frame
 Function takes a regression model object and calculated ANOVA using \code{\link[car:Anova]{car::Anova()}}.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom.helpers", "car", "parameters")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("broom.helpers", "car", "parameters")))) withAutoprint(\{ # examplesIf}
 lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_car_anova()
 

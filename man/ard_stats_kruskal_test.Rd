@@ -26,7 +26,7 @@ Analysis results data for Kruskal-Wallis Rank Sum Test.
 Calculated with \code{kruskal.test(data[[variable]], data[[by]], ...)}
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) withAutoprint(\{ # examplesIf}
 cards::ADSL |>
   ard_stats_kruskal_test(by = "ARM", variables = "AGE")
 \dontshow{\}) # examplesIf}

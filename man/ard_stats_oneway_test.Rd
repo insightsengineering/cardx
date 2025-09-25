@@ -25,7 +25,7 @@ Analysis results data for Testing Equal Means in a One-Way Layout.
 calculated with \code{oneway.test()}
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) withAutoprint(\{ # examplesIf}
 ard_stats_oneway_test(AGE ~ ARM, data = cards::ADSL)
 \dontshow{\}) # examplesIf}
 }

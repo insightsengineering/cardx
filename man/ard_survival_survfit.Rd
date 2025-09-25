@@ -100,7 +100,7 @@ resulting ARD.
 }
 
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom", "ggsurvfit")))) withAutoprint(\{ # examplesIf}
 library(survival)
 library(ggsurvfit)
 

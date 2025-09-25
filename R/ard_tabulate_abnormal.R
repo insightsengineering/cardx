@@ -108,7 +108,7 @@ ard_tabulate_abnormal <- function(data,
   lapply(
     names(abnormal),
     function(abn) {
-      cards::ard_complex(
+      cards::ard_mvsummary(
         data = data,
         variables = all_of(postbaseline),
         by = any_of(by),

@@ -29,7 +29,7 @@ ARD data frame
 Analysis results data for survey t-test using \code{\link[survey:svyttest]{survey::svyttest()}}.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survey", "broom")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survey", "broom")))) withAutoprint(\{ # examplesIf}
 data(api, package = "survey")
 dclus2 <- survey::svydesign(id = ~ dnum + snum, fpc = ~ fpc1 + fpc2, data = apiclus2)
 

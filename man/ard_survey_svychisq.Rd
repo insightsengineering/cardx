@@ -32,7 +32,7 @@ Analysis results data for survey Chi-Square test using \code{\link[survey:svychi
 Only two-way comparisons are supported.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survey", "broom")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survey", "broom")))) withAutoprint(\{ # examplesIf}
 data(api, package = "survey")
 dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
 

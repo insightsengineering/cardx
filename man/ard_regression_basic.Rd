@@ -81,7 +81,7 @@ The default arguments used are
 }\if{html}{\out{</div>}}
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))) withAutoprint(\{ # examplesIf}
 lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_regression_basic()
 

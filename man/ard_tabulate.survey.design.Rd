@@ -70,7 +70,7 @@ The design effect (\code{"deff"}) is calculated only when requested in the \code
 The unweighted statistics are calculated with \code{cards::ard_tabulate.data.frame()}.
 }
 \examples{
-\dontshow{if (cardx:::is_pkg_installed("survey")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (cardx:::is_pkg_installed("survey")) withAutoprint(\{ # examplesIf}
 svy_titanic <- survey::svydesign(~1, data = as.data.frame(Titanic), weights = ~Freq)
 
 ard_tabulate(svy_titanic, variables = c(Class, Age), by = Survived)

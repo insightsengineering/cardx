@@ -13,7 +13,7 @@ an ARD data frame of class 'card'
 Convert Tidied Survival Fit to ARD
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom")))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("survival", "broom")))) withAutoprint(\{ # examplesIf}
 cardx:::.format_survfit_results(
   broom::tidy(survival::survfit(survival::Surv(AVAL, CNSR) ~ TRTA, cards::ADTTE))
 )

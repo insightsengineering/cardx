@@ -57,7 +57,7 @@ Function takes a regression model object and converts it to a ARD
 structure using the \code{broom.helpers} package.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom.helpers"))) withAutoprint(\{ # examplesIf}
 lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_regression(add_estimate_to_reference_rows = TRUE)
 

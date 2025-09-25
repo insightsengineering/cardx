@@ -36,7 +36,7 @@ Analysis results data for one-sample t-tests.
 Result may be stratified by including the \code{by} argument.
 }
 \examples{
-\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom"))) withAutoprint(\{ # examplesIf}
 cards::ADSL |>
   ard_stats_t_test_onesample(by = ARM, variables = AGE)
 \dontshow{\}) # examplesIf}
