@@ -2,6 +2,8 @@
 
 * The `ard_complex()` function has been renamed to `ard_mvsummary()`.
 
+* Added mean estimate statistics to the `ard_emmeans_mean_difference()` function.
+
 # cardx 0.3.0
 
 ## New Features and Updates
