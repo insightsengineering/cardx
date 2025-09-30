@@ -25,6 +25,9 @@
 #' @param primary_covariate (`string`)\cr
 #'   string indicating the primary covariate (typically the dichotomous treatment variable).
 #'   Default is the first covariate listed in the formula.
+#' @param estimate_type (`string`)\cr
+#'   string indicating whether statistics for the `'mean.difference'` or `'mean.estimates'` of the model should be
+#'   returned. Defaults to `'mean.difference'`.
 #'
 #' @return ARD data frame
 #' @export
@@ -51,7 +54,8 @@ ard_emmeans_mean_difference <- function(data, formula, method,
                                         primary_covariate =
                                           stats::terms(formula) |>
                                             attr("term.labels") |>
-                                            getElement(1L)) {
+                                            getElement(1L),
+                                        estimate_type = c("mean.difference", "mean.estimates")) {
   set_cli_abort_call()
 
   # check package installation -------------------------------------------------
@@ -66,6 +70,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
   check_scalar(conf.level)
   check_range(conf.level, range = c(0, 1))
   response_type <- arg_match(response_type, error_call = get_cli_abort_call())
+  estimate_type <- arg_match(estimate_type, error_call = get_cli_abort_call())
 
   data_in <- if (dplyr::last(class(data)) == "survey.design") data$variables else data
 
@@ -76,19 +81,21 @@ ard_emmeans_mean_difference <- function(data, formula, method,
     statistic = all_of(primary_covariate) ~ list(
       emmeans =
         .calc_emmeans_mean_difference(
-          data, formula, method, {{ method.args }}, package, response_type, conf.level, primary_covariate
+          data, formula, method, {{ method.args }}, package, response_type, conf.level, primary_covariate, estimate_type
         )
     )
   )
   # unlist stat column containing values for each variable_level
-  if (length(result$stat[[which(result$stat_label == "variable_level")]]) > 1) {
+  if (estimate_type == "mean.estimates" & length(result$stat[[which(result$stat_label == "variable_level")]]) > 1) {
     result <- result |> tidyr::unnest_longer(col = "stat")
+  } else if (!is_empty(result$stat[[1]][[1]])) {
+    result <- result |> dplyr::mutate(stat = unlist(.data$stat, recursive = FALSE))
   }
 
   result |>
     dplyr::select(-"stat_label") |>
     dplyr::left_join(
-      .df_emmeans_stat_labels(),
+      .df_emmeans_stat_labels(estimate_type),
       by = "stat_name"
     ) |>
     dplyr::mutate(
@@ -100,7 +107,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
       },
       group1 = .env$primary_covariate,
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
-      context = "emmeans_mean_difference",
+      context = ifelse(estimate_type == "mean.difference", "emmeans_mean_difference", "emmeans_mean_estimates"),
     ) |>
     dplyr::filter(!is.na(.data$stat)) |>
     dplyr::filter(.data$stat_name != "variable_level") |>
@@ -110,13 +117,14 @@ ard_emmeans_mean_difference <- function(data, formula, method,
     cards::tidy_ard_row_order()
 }
 
-# function to perform calculations -------------------------------------------
+# function to perform calculations ---------------------------------------------
 .calc_emmeans_mean_difference <- function(data, formula, method,
                                           method.args,
                                           package,
                                           response_type,
                                           conf.level,
-                                          primary_covariate) {
+                                          primary_covariate,
+                                          estimate_type) {
   cards::as_cards_fn(
     \(x, ...) {
       # construct primary model ------------------------------------------------
@@ -136,26 +144,25 @@ ard_emmeans_mean_difference <- function(data, formula, method,
           code = do.call("emmeans", args = emmeans_args)
         )
 
-      df_results <-
-        emmeans |>
-        emmeans::contrast(method = "pairwise") |>
-        summary(infer = TRUE, level = conf.level) |>
-        dplyr::rename(variable_level = "contrast")
-
-      # calculate mean estimate statistics -----------------------------------------
-      mean_est <-
-        summary(emmeans, calc = c(n = ".wgt.")) |>
-        dplyr::as_tibble() |>
-        dplyr::rename(
-          mean.estimate = any_of(c("emmean", "prob")),
-          n = any_of("n")
-        ) |>
-        dplyr::select(all_of(c(1, 2, 5))) |>
-        dplyr::rename(variable_level = all_of(primary_covariate)) |>
-        dplyr::mutate(variable_level = as.character(.data$variable_level))
-
-      # bind the mean and mean difference estimates
-      results <- dplyr::full_join(df_results, mean_est, by = "variable_level")
+      if (estimate_type == "mean.difference") {
+        # calculate mean difference estimate -----------------------------------
+        results <-
+          emmeans |>
+          emmeans::contrast(method = "pairwise") |>
+          summary(infer = TRUE, level = conf.level) |>
+          dplyr::rename(variable_level = "contrast")
+      } else {
+        # calculate mean estimates ---------------------------------------------
+        results <-
+          summary(emmeans, calc = c(n = ".wgt.")) |>
+          dplyr::as_tibble() |>
+          dplyr::rename(
+            estimate = any_of(c("emmean", "prob")),
+            n = any_of("n")
+          ) |>
+          dplyr::rename(variable_level = all_of(primary_covariate)) |>
+          dplyr::mutate(variable_level = as.character(.data$variable_level))
+      }
 
       # convert results to ARD format ------------------------------------------
       results |>
@@ -165,35 +172,36 @@ ard_emmeans_mean_difference <- function(data, formula, method,
           conf.high = any_of("asymp.UCL"),
           conf.low = any_of("lower.CL"),
           conf.high = any_of("upper.CL"),
-          mean.difference.estimate = any_of("estimate")
-        ) %>%
-        dplyr::select(
-          "variable_level",
-          "mean.difference.estimate",
-          "mean.estimate",
-          std.error = "SE", "df", "n",
+          std.error = any_of("SE")
+        ) |>
+        dplyr::select(any_of(c(
+          "variable_level", "estimate",
+          "std.error", "df", "n",
           "conf.low", "conf.high", "p.value"
-        ) %>%
+        ))) |>
         dplyr::mutate(
           conf.level = .env$conf.level,
           method =
-            ifelse(
-              length(attr(stats::terms(formula), "term.labels") |> discard(~ startsWith(., "1 |"))) == 1L,
-              "Least-squares mean difference",
-              "Least-squares adjusted mean difference"
+            dplyr::case_when(
+              estimate_type == "mean.estimates" ~ "Least-squares means",
+              length(attr(stats::terms(formula), "term.labels") |> discard(~ startsWith(., "1 |"))) == 1L ~ "Least-squares mean difference",
+              TRUE ~ "Least-squares adjusted mean difference"
             )
         ) |>
         dplyr::mutate(across(everything(), ~ .x |> as.list()))
     },
-    stat_names = c("variable_level", "mean.difference.estimate", "mean.estimate", "std.error", "df", "n", "conf.low", "conf.high", "p.value", "conf.level", "method")
+    stat_names = if (estimate_type == "mean.difference") {
+      c("variable_level", "estimate", "std.error", "df", "conf.low", "conf.high", "p.value", "conf.level", "method")
+    } else {
+      c("variable_level", "estimate", "std.error", "df", "conf.low", "conf.high", "p.value", "conf.level", "method", "n")
+    }
   )
 }
 
-.df_emmeans_stat_labels <- function() {
+.df_emmeans_stat_labels <- function(estimate_type) {
   dplyr::tribble(
     ~stat_name, ~stat_label,
-    "mean.difference.estimate", "Mean Difference",
-    "mean.estimate", "Mean",
+    "estimate", if (estimate_type == "mean.difference") "Mean Difference" else "Mean",
     "std.error", "Standard Error",
     "df", "Degrees of Freedom",
     "conf.low", "CI Lower Bound",

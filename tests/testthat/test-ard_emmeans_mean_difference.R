@@ -3,7 +3,8 @@ skip_if_not(is_pkg_installed(c("emmeans", "survey", "lme4")))
 test_that("ard_emmeans_mean_difference() works", {
   withr::local_options(width = 250)
 
-  expect_error(
+  # mean.difference
+  expect_silent(
     ard_emmeans_mean_difference <-
       ard_emmeans_mean_difference(
         data = mtcars,
@@ -11,8 +12,7 @@ test_that("ard_emmeans_mean_difference() works", {
         method = "glm",
         method.args = list(family = binomial),
         response_type = "dichotomous"
-      ),
-    NA
+      )
   )
   expect_snapshot(ard_emmeans_mean_difference |> print(columns = "all"))
 
@@ -21,7 +21,7 @@ test_that("ard_emmeans_mean_difference() works", {
     list(method = "Least-squares adjusted mean difference")
   )
   expect_equal(
-    cards::get_ard_statistics(ard_emmeans_mean_difference, stat_name %in% "mean.difference.estimate") |>
+    cards::get_ard_statistics(ard_emmeans_mean_difference, stat_name %in% "estimate") |>
       unlist() |>
       unname(),
     glm(vs ~ am + mpg, data = mtcars, family = binomial) |>
@@ -31,8 +31,26 @@ test_that("ard_emmeans_mean_difference() works", {
       getElement("estimate")
   )
 
+  # mean.estimates
+  expect_silent(
+    ard_emmeans_mean_estimates <-
+      ard_emmeans_mean_difference(
+        data = mtcars,
+        formula = vs ~ am + mpg,
+        method = "glm",
+        method.args = list(family = binomial),
+        response_type = "dichotomous",
+        estimate_type = "mean.estimates"
+      )
+  )
+  expect_snapshot(ard_emmeans_mean_estimates |> print(columns = "all"))
+
   expect_equal(
-    cards::get_ard_statistics(ard_emmeans_mean_difference, stat_name %in% "mean.estimate") |>
+    cards::get_ard_statistics(ard_emmeans_mean_estimates, stat_name %in% "method")[1],
+    list(method = "Least-squares means")
+  )
+  expect_equal(
+    cards::get_ard_statistics(ard_emmeans_mean_estimates, stat_name %in% "estimate") |>
       unlist() |>
       unname(),
     glm(vs ~ am + mpg, data = mtcars, family = binomial) |>
@@ -41,8 +59,8 @@ test_that("ard_emmeans_mean_difference() works", {
       getElement("prob")
   )
 
-
-  expect_error(
+  # mean.difference
+  expect_silent(
     ard_emmeans_mean_difference_lme4 <-
       ard_emmeans_mean_difference(
         data = mtcars,
@@ -51,15 +69,14 @@ test_that("ard_emmeans_mean_difference() works", {
         method.args = list(family = binomial),
         package = "lme4",
         response_type = "dichotomous"
-      ),
-    NA
+      )
   )
   expect_equal(
     cards::get_ard_statistics(ard_emmeans_mean_difference_lme4, stat_name %in% "method")[1],
     list(method = "Least-squares mean difference")
   )
   expect_equal(
-    cards::get_ard_statistics(ard_emmeans_mean_difference_lme4, stat_name %in% "mean.difference.estimate") |>
+    cards::get_ard_statistics(ard_emmeans_mean_difference_lme4, stat_name %in% "estimate") |>
       unlist() |>
       unname(),
     lme4::glmer(vs ~ am + (1 | cyl), data = mtcars, family = binomial) |>
@@ -69,8 +86,25 @@ test_that("ard_emmeans_mean_difference() works", {
       getElement("estimate")
   )
 
+  # mean.estimates
+  expect_silent(
+    ard_emmeans_mean_estimates_lme4 <-
+      ard_emmeans_mean_difference(
+        data = mtcars,
+        formula = vs ~ am + (1 | cyl),
+        method = "glmer",
+        method.args = list(family = binomial),
+        package = "lme4",
+        response_type = "dichotomous",
+        estimate_type = "mean.estimates"
+      )
+  )
   expect_equal(
-    cards::get_ard_statistics(ard_emmeans_mean_difference_lme4, stat_name %in% "mean.estimate") |>
+    cards::get_ard_statistics(ard_emmeans_mean_estimates_lme4, stat_name %in% "method")[1],
+    list(method = "Least-squares means")
+  )
+  expect_equal(
+    cards::get_ard_statistics(ard_emmeans_mean_estimates_lme4, stat_name %in% "estimate") |>
       unlist() |>
       unname(),
     lme4::glmer(vs ~ am + (1 | cyl), data = mtcars, family = binomial) |>
@@ -79,8 +113,9 @@ test_that("ard_emmeans_mean_difference() works", {
       getElement("prob")
   )
 
+  # mean.difference
   #styler: off
-  expect_error({
+  expect_silent({
     data(api, package = "survey")
     ard_emmeans_mean_difference_svy <-
       survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc) |>
@@ -88,8 +123,7 @@ test_that("ard_emmeans_mean_difference() works", {
         formula = api00 ~ sch.wide,
         method = "svyglm",
         package = "survey"
-      )},
-    NA
+      )}
   )
   # styler: on
   expect_equal(
@@ -97,7 +131,7 @@ test_that("ard_emmeans_mean_difference() works", {
     list(method = "Least-squares mean difference")
   )
   expect_equal(
-    cards::get_ard_statistics(ard_emmeans_mean_difference_svy, stat_name %in% "mean.difference.estimate") |>
+    cards::get_ard_statistics(ard_emmeans_mean_difference_svy, stat_name %in% "estimate") |>
       unlist() |>
       unname(),
     survey::svyglm(api00 ~ sch.wide, design = survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)) |>
@@ -106,8 +140,23 @@ test_that("ard_emmeans_mean_difference() works", {
       summary(infer = TRUE) |>
       getElement("estimate")
   )
+
+  # mean.estimates
+  #styler: off
+  expect_silent({
+    data(api, package = "survey")
+    ard_emmeans_mean_difference_svy <-
+      survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc) |>
+      ard_emmeans_mean_difference(
+        formula = api00 ~ sch.wide,
+        method = "svyglm",
+        package = "survey",
+        estimate_type = "mean.estimates"
+      )}
+  )
+  # styler: on
   expect_equal(
-    cards::get_ard_statistics(ard_emmeans_mean_difference_svy, stat_name %in% "mean.estimate") |>
+    cards::get_ard_statistics(ard_emmeans_mean_difference_svy, stat_name %in% "estimate") |>
       unlist() |>
       unname(),
     survey::svyglm(api00 ~ sch.wide, design = survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)) |>
