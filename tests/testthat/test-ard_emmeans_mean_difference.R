@@ -3,7 +3,7 @@ skip_if_not(is_pkg_installed(c("emmeans", "survey", "lme4")))
 test_that("ard_emmeans_mean_difference() works", {
   withr::local_options(width = 250)
 
-  # mean.difference
+  # estimate_type = difference
   expect_silent(
     ard_emmeans_mean_difference <-
       ard_emmeans_mean_difference(
@@ -31,7 +31,7 @@ test_that("ard_emmeans_mean_difference() works", {
       getElement("estimate")
   )
 
-  # mean.estimates
+  # estimate_type = emmean
   expect_silent(
     ard_emmeans_mean_estimates <-
       ard_emmeans_mean_difference(
@@ -40,7 +40,7 @@ test_that("ard_emmeans_mean_difference() works", {
         method = "glm",
         method.args = list(family = binomial),
         response_type = "dichotomous",
-        estimate_type = "mean.estimates"
+        estimate_type = "emmean"
       )
   )
   expect_snapshot(ard_emmeans_mean_estimates |> print(columns = "all"))
@@ -59,7 +59,7 @@ test_that("ard_emmeans_mean_difference() works", {
       getElement("prob")
   )
 
-  # mean.difference
+  # estimate_type = difference
   expect_silent(
     ard_emmeans_mean_difference_lme4 <-
       ard_emmeans_mean_difference(
@@ -86,7 +86,7 @@ test_that("ard_emmeans_mean_difference() works", {
       getElement("estimate")
   )
 
-  # mean.estimates
+  # estimate_type = emmean
   expect_silent(
     ard_emmeans_mean_estimates_lme4 <-
       ard_emmeans_mean_difference(
@@ -96,7 +96,7 @@ test_that("ard_emmeans_mean_difference() works", {
         method.args = list(family = binomial),
         package = "lme4",
         response_type = "dichotomous",
-        estimate_type = "mean.estimates"
+        estimate_type = "emmean"
       )
   )
   expect_equal(
@@ -113,7 +113,7 @@ test_that("ard_emmeans_mean_difference() works", {
       getElement("prob")
   )
 
-  # mean.difference
+  # estimate_type = difference
   #styler: off
   expect_silent({
     data(api, package = "survey")
@@ -141,7 +141,7 @@ test_that("ard_emmeans_mean_difference() works", {
       getElement("estimate")
   )
 
-  # mean.estimates
+  # estimate_type = emmean
   #styler: off
   expect_silent({
     data(api, package = "survey")
@@ -151,7 +151,7 @@ test_that("ard_emmeans_mean_difference() works", {
         formula = api00 ~ sch.wide,
         method = "svyglm",
         package = "survey",
-        estimate_type = "mean.estimates"
+        estimate_type = "emmean"
       )}
   )
   # styler: on

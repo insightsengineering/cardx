@@ -13,7 +13,7 @@ ard_emmeans_mean_difference(
   response_type = c("continuous", "dichotomous"),
   conf.level = 0.95,
   primary_covariate = getElement(attr(stats::terms(formula), "term.labels"), 1L),
-  estimate_type = c("mean.difference", "mean.estimates")
+  estimate_type = c("difference", "emmean")
 )
 }
 \arguments{
@@ -53,8 +53,8 @@ string indicating the primary covariate (typically the dichotomous treatment var
 Default is the first covariate listed in the formula.}
 
 \item{estimate_type}{(\code{string})\cr
-string indicating whether statistics for the \code{'mean.difference'} or \code{'mean.estimates'} of the model should be
-returned. Defaults to \code{'mean.difference'}.}
+string indicating whether statistics for the mean difference (\code{'difference'}) or mean estimates (\code{'emmean'}) of
+the model should be returned. Defaults to \code{'difference'}.}
 }
 \value{
 ARD data frame

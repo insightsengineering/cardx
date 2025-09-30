@@ -26,8 +26,8 @@
 #'   string indicating the primary covariate (typically the dichotomous treatment variable).
 #'   Default is the first covariate listed in the formula.
 #' @param estimate_type (`string`)\cr
-#'   string indicating whether statistics for the `'mean.difference'` or `'mean.estimates'` of the model should be
-#'   returned. Defaults to `'mean.difference'`.
+#'   string indicating whether statistics for the mean difference (`'difference'`) or mean estimates (`'emmean'`) of
+#'   the model should be returned. Defaults to `'difference'`.
 #'
 #' @return ARD data frame
 #' @export
@@ -55,7 +55,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
                                           stats::terms(formula) |>
                                             attr("term.labels") |>
                                             getElement(1L),
-                                        estimate_type = c("mean.difference", "mean.estimates")) {
+                                        estimate_type = c("difference", "emmean")) {
   set_cli_abort_call()
 
   # check package installation -------------------------------------------------
@@ -86,7 +86,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
     )
   )
   # unlist stat column
-  if (estimate_type == "mean.estimates" & length(result$stat[[which(result$stat_label == "variable_level")]]) > 1) {
+  if (estimate_type == "emmean" & length(result$stat[[which(result$stat_label == "variable_level")]]) > 1) {
     result <- result |> tidyr::unnest_longer(col = "stat")
   } else if (!is_empty(result$stat[[1]][[1]])) {
     result <- result |> dplyr::mutate(stat = unlist(.data$stat, recursive = FALSE))
@@ -107,7 +107,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
       },
       group1 = .env$primary_covariate,
       stat_label = dplyr::coalesce(.data$stat_label, .data$stat_name),
-      context = ifelse(estimate_type == "mean.difference", "emmeans_mean_difference", "emmeans_mean_estimates"),
+      context = ifelse(estimate_type == "difference", "emmeans_mean_difference", "emmeans_mean_estimates"),
     ) |>
     dplyr::filter(!is.na(.data$stat)) |>
     dplyr::filter(.data$stat_name != "variable_level") |>
@@ -144,7 +144,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
           code = do.call("emmeans", args = emmeans_args)
         )
 
-      if (estimate_type == "mean.difference") {
+      if (estimate_type == "difference") {
         # calculate mean difference estimate -----------------------------------
         results <-
           emmeans |>
@@ -183,14 +183,14 @@ ard_emmeans_mean_difference <- function(data, formula, method,
           conf.level = .env$conf.level,
           method =
             dplyr::case_when(
-              estimate_type == "mean.estimates" ~ "Least-squares means",
+              estimate_type == "emmean" ~ "Least-squares means",
               length(attr(stats::terms(formula), "term.labels") |> discard(~ startsWith(., "1 |"))) == 1L ~ "Least-squares mean difference",
               TRUE ~ "Least-squares adjusted mean difference"
             )
         ) |>
         dplyr::mutate(across(everything(), ~ .x |> as.list()))
     },
-    stat_names = if (estimate_type == "mean.difference") {
+    stat_names = if (estimate_type == "difference") {
       c("variable_level", "estimate", "std.error", "df", "conf.low", "conf.high", "p.value", "conf.level", "method")
     } else {
       c("variable_level", "estimate", "std.error", "df", "conf.low", "conf.high", "p.value", "conf.level", "method", "n")
@@ -201,7 +201,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
 .df_emmeans_stat_labels <- function(estimate_type) {
   dplyr::tribble(
     ~stat_name, ~stat_label,
-    "estimate", if (estimate_type == "mean.difference") "Mean Difference" else "Mean",
+    "estimate", if (estimate_type == "difference") "Mean Difference" else "Mean",
     "std.error", "Standard Error",
     "df", "Degrees of Freedom",
     "conf.low", "CI Lower Bound",
