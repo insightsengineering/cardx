@@ -85,7 +85,7 @@ ard_emmeans_mean_difference <- function(data, formula, method,
         )
     )
   )
-  # unlist stat column containing values for each variable_level
+  # unlist stat column
   if (estimate_type == "mean.estimates" & length(result$stat[[which(result$stat_label == "variable_level")]]) > 1) {
     result <- result |> tidyr::unnest_longer(col = "stat")
   } else if (!is_empty(result$stat[[1]][[1]])) {
