@@ -28,7 +28,9 @@
 #'   method.args = list(family = binomial),
 #'   response_type = "dichotomous"
 #' )
-ard_emmeans_emmeans <- function(data, formula, method,
+ard_emmeans_emmeans <- function(data,
+                                formula,
+                                method,
                                 method.args = list(),
                                 package = "base",
                                 response_type = c("continuous", "dichotomous"),
@@ -60,8 +62,11 @@ ard_emmeans_emmeans <- function(data, formula, method,
     variables = all_of(primary_covariate),
     statistic = all_of(primary_covariate) ~ list(
       emmeans =
-        .calc_emmeans_mean_difference(
-          data, formula, method, {{ method.args }}, package, response_type, conf.level, primary_covariate
+        .calc_emmeans(
+          data = data, formula = formula, method = method,
+          method.args = {{ method.args }}, package = package,
+          response_type = response_type, conf.level = conf.level,
+          primary_covariate = primary_covariate
         )
     )
   )
@@ -96,12 +101,12 @@ ard_emmeans_emmeans <- function(data, formula, method,
 }
 
 # function to perform calculations ---------------------------------------------
-.calc_emmeans_mean_difference <- function(data, formula, method,
-                                          method.args,
-                                          package,
-                                          response_type,
-                                          conf.level,
-                                          primary_covariate) {
+.calc_emmeans <- function(data, formula, method,
+                          method.args,
+                          package,
+                          response_type,
+                          conf.level,
+                          primary_covariate) {
   cards::as_cards_fn(
     \(x, ...) {
       # construct primary model ------------------------------------------------
