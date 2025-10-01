@@ -87,6 +87,7 @@ to construct the regression model via \code{cardx::construct_model()}.
 }
 \examples{
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "emmeans"))) withAutoprint(\{ # examplesIf}
+# LS Mean Difference
 ard_emmeans_contrast(
   data = mtcars,
   formula = mpg ~ am + cyl,
@@ -102,6 +103,7 @@ ard_emmeans_contrast(
 )
 \dontshow{\}) # examplesIf}
 \dontshow{if (do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "emmeans"))) withAutoprint(\{ # examplesIf}
+# LS Means
 ard_emmeans_emmeans(
   data = mtcars,
   formula = mpg ~ am + cyl,

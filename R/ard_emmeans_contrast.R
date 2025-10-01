@@ -28,6 +28,7 @@
 #' @rdname ard_emmeans
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "emmeans"))
+#' # LS Mean Difference
 #' ard_emmeans_contrast(
 #'   data = mtcars,
 #'   formula = mpg ~ am + cyl,

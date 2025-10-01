@@ -14,6 +14,7 @@
 #' @rdname ard_emmeans
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "emmeans"))
+#' # LS Means
 #' ard_emmeans_emmeans(
 #'   data = mtcars,
 #'   formula = mpg ~ am + cyl,
