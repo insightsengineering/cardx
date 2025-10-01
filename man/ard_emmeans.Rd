@@ -24,8 +24,7 @@ ard_emmeans_emmeans(
   package = "base",
   response_type = c("continuous", "dichotomous"),
   conf.level = 0.95,
-  primary_covariate = getElement(attr(stats::terms(formula), "term.labels"), 1L),
-  estimate_type = c("difference", "emmean")
+  primary_covariate = getElement(attr(stats::terms(formula), "term.labels"), 1L)
 )
 }
 \arguments{
@@ -63,14 +62,8 @@ confidence level for confidence interval. Default is \code{0.95}.}
 \item{primary_covariate}{(\code{string})\cr
 string indicating the primary covariate (typically the dichotomous treatment variable).
 Default is the first covariate listed in the formula.}
-
-\item{estimate_type}{(\code{string})\cr
-string indicating whether statistics for the mean difference (\code{'difference'}) or mean estimates (\code{'emmean'}) of
-the model should be returned. Defaults to \code{'difference'}.}
 }
 \value{
-ARD data frame
-
 ARD data frame
 }
 \description{

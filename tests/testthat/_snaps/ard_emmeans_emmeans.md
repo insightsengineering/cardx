@@ -3,23 +3,6 @@
     Code
       print(ard_emmeans_emmeans, columns = "all")
     Message
-      {cards} data frame: 8 x 10
-    Output
-        group1 variable variable_level   context  stat_name stat_label      stat fmt_fun warning error
-      1     am contrast      am0 - am1 emmeans_…   estimate  Mean Dif…      0.61    <fn>              
-      2     am contrast      am0 - am1 emmeans_…  std.error  Standard…     0.229    <fn>              
-      3     am contrast      am0 - am1 emmeans_…         df  Degrees …       Inf    <fn>              
-      4     am contrast      am0 - am1 emmeans_…   conf.low  CI Lower…     0.162    <fn>              
-      5     am contrast      am0 - am1 emmeans_…  conf.high  CI Upper…     1.059    <fn>              
-      6     am contrast      am0 - am1 emmeans_…    p.value    p-value     0.008    <fn>              
-      7     am contrast      am0 - am1 emmeans_… conf.level  CI Confi…      0.95    <fn>              
-      8     am contrast      am0 - am1 emmeans_…     method     method Least-sq…    <fn>              
-
----
-
-    Code
-      print(ard_emmeans_mean_estimates, columns = "all")
-    Message
       {cards} data frame: 16 x 10
     Output
          group1 variable variable_level   context  stat_name stat_label      stat fmt_fun warning error
@@ -45,10 +28,10 @@
     Code
       print(ard, columns = "all")
     Message
-      {cards} data frame: 8 x 10
+      {cards} data frame: 9 x 10
     Output
         group1 variable variable_level   context  stat_name stat_label stat fmt_fun warning     error
-      1     am contrast                emmeans_…   estimate  Mean Dif…         <fn>         There wa…
+      1     am contrast                emmeans_…   estimate       Mean         <fn>         There wa…
       2     am contrast                emmeans_…  std.error  Standard…         <fn>         There wa…
       3     am contrast                emmeans_…         df  Degrees …         <fn>         There wa…
       4     am contrast                emmeans_…   conf.low  CI Lower…         <fn>         There wa…
@@ -56,6 +39,7 @@
       6     am contrast                emmeans_…    p.value    p-value         <fn>         There wa…
       7     am contrast                emmeans_… conf.level  CI Confi…         <fn>         There wa…
       8     am contrast                emmeans_…     method     method         <fn>         There wa…
+      9     am contrast                emmeans_…          n          n         <fn>         There wa…
 
 ---
 
