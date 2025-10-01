@@ -136,7 +136,7 @@ ard_emmeans_contrast <- function(data, formula, method,
         summary(infer = TRUE, level = conf.level) |>
         dplyr::rename(variable_level = "contrast")
 
-      # convert results to ARD format ------------------------------------------
+      # convert results to ARD format ----------------------------------------
       results |>
         dplyr::as_tibble() |>
         dplyr::rename(
