@@ -1,7 +1,7 @@
-#' ARD for LS Mean Difference
+#' ARDs for LS Mean Difference and LS Means
 #'
 #' @description
-#' This function calculates least-squares mean differences using the 'emmeans'
+#' The `ard_emmeans_contrast()` function calculates least-squares mean differences using the 'emmeans'
 #' package using the following
 #'
 #' ```r
@@ -9,9 +9,6 @@
 #'   emmeans::contrast(method = "pairwise") |>
 #'   summary(infer = TRUE, level = <confidence level>)
 #' ```
-#'
-#' The arguments `data`, `formula`, `method`, `method.args`, `package` are used
-#' to construct the regression model via `cardx::construct_model()`.
 #'
 #' @param data (`data.frame`/`survey.design`)\cr
 #'   a data frame or survey design object
@@ -31,31 +28,32 @@
 #'
 #' @return ARD data frame
 #' @export
+#' @rdname ard_emmeans
 #'
 #' @examplesIf do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "emmeans"))
-#' ard_emmeans_mean_difference(
+#' ard_emmeans_contrast(
 #'   data = mtcars,
 #'   formula = mpg ~ am + cyl,
 #'   method = "lm"
 #' )
 #'
-#' ard_emmeans_mean_difference(
+#' ard_emmeans_contrast(
 #'   data = mtcars,
 #'   formula = vs ~ am + mpg,
 #'   method = "glm",
 #'   method.args = list(family = binomial),
 #'   response_type = "dichotomous"
 #' )
-ard_emmeans_mean_difference <- function(data, formula, method,
-                                        method.args = list(),
-                                        package = "base",
-                                        response_type = c("continuous", "dichotomous"),
-                                        conf.level = 0.95,
-                                        primary_covariate =
-                                          stats::terms(formula) |>
-                                            attr("term.labels") |>
-                                            getElement(1L),
-                                        estimate_type = c("difference", "emmean")) {
+ard_emmeans_contrast <- function(data, formula, method,
+                                 method.args = list(),
+                                 package = "base",
+                                 response_type = c("continuous", "dichotomous"),
+                                 conf.level = 0.95,
+                                 primary_covariate =
+                                   stats::terms(formula) |>
+                                   attr("term.labels") |>
+                                   getElement(1L),
+                                 estimate_type = c("difference", "emmean")) {
   set_cli_abort_call()
 
   # check package installation -------------------------------------------------

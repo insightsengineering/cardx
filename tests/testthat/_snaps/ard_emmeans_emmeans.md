@@ -1,7 +1,7 @@
-# ard_emmeans_mean_difference() works
+# ard_emmeans_emmeans() works
 
     Code
-      print(ard_emmeans_mean_difference, columns = "all")
+      print(ard_emmeans_emmeans, columns = "all")
     Message
       {cards} data frame: 8 x 10
     Output
@@ -40,7 +40,7 @@
       15     am contrast              1 emmeans_… conf.level  CI Confi…      0.95    <fn>              
       16     am contrast              1 emmeans_…     method     method Least-sq…    <fn>              
 
-# ard_emmeans_mean_difference() errors are returned correctly
+# ard_emmeans_emmeans() errors are returned correctly
 
     Code
       print(ard, columns = "all")
