@@ -29,14 +29,14 @@
 #'   response_type = "dichotomous"
 #' )
 ard_emmeans_emmeans <- function(data, formula, method,
-                                 method.args = list(),
-                                 package = "base",
-                                 response_type = c("continuous", "dichotomous"),
-                                 conf.level = 0.95,
-                                 primary_covariate =
-                                   stats::terms(formula) |>
-                                   attr("term.labels") |>
-                                   getElement(1L)) {
+                                method.args = list(),
+                                package = "base",
+                                response_type = c("continuous", "dichotomous"),
+                                conf.level = 0.95,
+                                primary_covariate =
+                                  stats::terms(formula) |>
+                                    attr("term.labels") |>
+                                    getElement(1L)) {
   set_cli_abort_call()
 
   # check package installation -------------------------------------------------

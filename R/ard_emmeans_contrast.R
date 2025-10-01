@@ -49,8 +49,8 @@ ard_emmeans_contrast <- function(data, formula, method,
                                  conf.level = 0.95,
                                  primary_covariate =
                                    stats::terms(formula) |>
-                                   attr("term.labels") |>
-                                   getElement(1L)) {
+                                     attr("term.labels") |>
+                                     getElement(1L)) {
   set_cli_abort_call()
 
   # check package installation -------------------------------------------------
