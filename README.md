@@ -136,7 +136,7 @@ meaning that these packages are not typically installed when {cardx} is
 installed from CRAN. As a result, {renv} will not record these packages
 in its `lock.file` unless there is a direct reference to the underlying
 statistical package in your code. For example, if you pass a regression
-model to `ard_emmeans_mean_difference()`, there is no direct reference
+model to `ard_emmeans_contrast()`, there is no direct reference
 to the {emmeans} package in your script and {renv} will not record the
 package.
 

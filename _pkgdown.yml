@@ -57,7 +57,8 @@ reference:
 
   - subtitle: "{emmeans} package"
   - contents:
-      - ard_emmeans_mean_difference
+      - ard_emmeans_contrast
+      - ard_emmeans_emmeans
 
   - subtitle: "{smd} package"
   - contents:
