@@ -73,3 +73,15 @@ ard_categorical_max <- function(...) {
 
   ard_tabulate_max(...)
 }
+
+#' @rdname deprecated
+#' @export
+ard_emmeans_mean_difference <- function(...) {
+  lifecycle::deprecate_soft(
+    when = "0.3.1",
+    what = "cardx::ard_emmeans_mean_difference()",
+    with = "cardx::ard_emmeans_contrast()"
+  )
+
+  ard_emmeans_contrast(...)
+}

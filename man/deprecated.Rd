@@ -6,6 +6,7 @@
 \alias{ard_categorical.survey.design}
 \alias{ard_dichotomous.survey.design}
 \alias{ard_categorical_max}
+\alias{ard_emmeans_mean_difference}
 \title{Deprecated functions}
 \usage{
 \method{ard_continuous}{survey.design}(data, ...)
@@ -15,6 +16,8 @@
 \method{ard_dichotomous}{survey.design}(data, ...)
 
 ard_categorical_max(...)
+
+ard_emmeans_mean_difference(...)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}\cr
