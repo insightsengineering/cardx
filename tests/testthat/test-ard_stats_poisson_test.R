@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("broom"))
+skip_if_pkg_not_installed("broom")
 
 test_that("ard_stats_poisson_test() works for one sample tests", {
   # Default values work

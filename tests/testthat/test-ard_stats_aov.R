@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("broom.helpers", "parameters", "withr")))
+skip_if_pkg_not_installed(c("broom.helpers", "parameters", "withr"))
 
 test_that("ard_aov() works", {
   withr::local_options(list(width = 180))

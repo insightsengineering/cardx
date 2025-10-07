@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("survey"))
+skip_if_pkg_not_installed("survey")
 
 # Test survey.design works
 test_that("ard_tabulate_value.survey.design() works", {

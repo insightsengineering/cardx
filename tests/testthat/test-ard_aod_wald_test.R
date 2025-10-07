@@ -1,4 +1,4 @@
-skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = c("aod", "broom.helpers"))))
+skip_if_pkg_not_installed(c("aod", "broom.helpers"))
 
 test_that("ard_aod_wald_test() works", {
   # works for a generic case

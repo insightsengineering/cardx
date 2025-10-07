@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("emmeans", "survey", "lme4")))
+skip_if_pkg_not_installed(c("emmeans", "survey", "lme4"))
 
 test_that("ard_emmeans_emmeans() works", {
   withr::local_options(width = 250)
