@@ -41,8 +41,8 @@
 #'
 #' - `get_min_version_required()` will return, if any, the minimum version of `pkg` required by `ref`.
 #'
-#' - `skip_if_pkg_not_installed()` checks whether packages are installed and skips tests if any are
-#'   not installed.
+#' - `skip_if_pkg_not_installed()` checks whether packages are installed (with the minimum required version)
+#'    and skips tests if any are not installed.
 #'
 #' @param pkg (`character`)\cr
 #'   vector of package names to check.
@@ -184,12 +184,14 @@ get_min_version_required <- function(pkg, ref = utils::packageName(), lib.loc = 
 skip_if_pkg_not_installed <- function(pkg,
                                       ref = utils::packageName()) {
   pkg_deps <- get_min_version_required(pkg, ref = ref)
-  pkg_installed <- sapply(pkg_deps$pkg, rlang::is_installed)
-  if (!all(pkg_installed)) {
-    # skip if any required package is not installed
-    testthat::skip(message = paste(
-      "Required package", shQuote(names(which(!pkg_installed))[1], type = "sh"), "is not installed"
-    ))
+  for (p in pkg_deps$pkg) {
+    pkg_installed <- rlang::is_installed(p)
+    if (!pkg_installed) {
+      # skip if any required package is not installed
+      testthat::skip(message = paste(
+        "Required package", shQuote(p, type = "sh"), "is not installed"
+      ))
+    }
   }
   invisible()
 }
