@@ -1,4 +1,4 @@
-skip_if_not(do.call(asNamespace("cardx")$is_pkg_installed, list(pkg = "broom")))
+skip_if_pkg_not_installed("broom")
 
 test_that("ard_categorical_ci() works", {
   # testing the easy methods together for binary variables

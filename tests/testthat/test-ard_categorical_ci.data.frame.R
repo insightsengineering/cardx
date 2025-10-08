@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("broom"))
+skip_if_pkg_not_installed("broom")
 
 test_that("ard_categorical_ci.data.frame(method = 'wald')", {
   expect_equal(

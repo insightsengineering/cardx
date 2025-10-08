@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("effectsize", "parameters")))
+skip_if_pkg_not_installed(c("effectsize", "parameters"))
 
 test_that("ard_effectsize_cohens_d() works", {
   # there were some discrepancies in the 7th decimal place on one system

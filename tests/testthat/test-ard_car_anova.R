@@ -1,6 +1,4 @@
-skip_if_not(
-  is_pkg_installed(c("broom.helpers", "car", "parameters"))
-)
+skip_if_pkg_not_installed(c("broom.helpers", "car", "parameters"))
 
 test_that("ard_car_anova() works", {
   # works for a generic case

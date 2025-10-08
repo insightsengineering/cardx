@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("survival", "broom")))
+skip_if_pkg_not_installed(c("survival", "broom"))
 
 test_that("ard_survival_survfit() works with times provided", {
   withr::local_options(width = 250)
@@ -296,6 +296,8 @@ test_that("ard_survival_survfit.data.frame() works as expected", {
 })
 
 test_that("ard_survival_survfit.data.frame(variables=NULL) for unstratified model", {
+  skip_if_pkg_not_installed("ggsurvfit")
+
   expect_equal(
     cards::ADTTE |>
       ard_survival_survfit(

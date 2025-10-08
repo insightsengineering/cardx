@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("broom", "withr", "lme4", "survival", "geepack")))
+skip_if_pkg_not_installed(c("broom", "withr", "lme4", "survival", "geepack"))
 
 test_that("ard_stats_anova.anova() works", {
   expect_equal(

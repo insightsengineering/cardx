@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("broom"))
+skip_if_pkg_not_installed("broom")
 
 test_that("ard_stats_wilcox_test() works", {
   # One Sample Wilcox works

@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("smd"))
+skip_if_pkg_not_installed("smd")
 
 test_that("ard_smd_smd() works", {
   expect_error(
@@ -30,7 +30,7 @@ test_that("ard_smd_smd() works", {
 })
 
 test_that("ard_smd() works with survey data", {
-  skip_if_not(is_pkg_installed("survey"))
+  skip_if_pkg_not_installed("survey")
 
   data(api, package = "survey")
   dclus1 <- survey::svydesign(id = ~dnum, weights = ~pw, data = apiclus1, fpc = ~fpc)
