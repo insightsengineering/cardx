@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("survey"))
+skip_if_pkg_not_installed("survey")
 
 test_that("ard_total_n.survey.design() works", {
   expect_snapshot(

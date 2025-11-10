@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("car"))
+skip_if_pkg_not_installed("car")
 
 test_that("ard_car_vif() works", {
   expect_snapshot(

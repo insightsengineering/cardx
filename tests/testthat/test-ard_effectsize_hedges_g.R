@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("effectsize", "parameters")))
+skip_if_pkg_not_installed(c("effectsize", "parameters"))
 
 test_that("ard_effectsize_hedges_g() works", {
   expect_error(

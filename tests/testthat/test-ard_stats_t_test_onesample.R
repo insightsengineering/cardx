@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed("broom"))
+skip_if_pkg_not_installed("broom")
 
 test_that("ard_stats_t_test_onesample() works", {
   # first calculate an object to test against

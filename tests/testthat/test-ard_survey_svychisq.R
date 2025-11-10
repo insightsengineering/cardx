@@ -1,4 +1,4 @@
-skip_if_not(is_pkg_installed(c("survey", "broom")))
+skip_if_pkg_not_installed(c("survey", "broom"))
 
 test_that("ard_survey_svychisq() works", {
   data(api, package = "survey")
