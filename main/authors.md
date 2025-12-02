@@ -20,13 +20,13 @@ Source:
 [`DESCRIPTION`](https://github.com/insightsengineering/cardx/blob/main/DESCRIPTION)
 
 Sjoberg D, Yogasekaram A, de la Rua E (2025). *cardx: Extra Analysis
-Results Data Utilities*. R package version 0.3.0.9006,
+Results Data Utilities*. R package version 0.3.0.9007,
 <https://github.com/insightsengineering/cardx>.
 
     @Manual{,
       title = {cardx: Extra Analysis Results Data Utilities},
       author = {Daniel D. Sjoberg and Abinaya Yogasekaram and Emily {de la Rua}},
       year = {2025},
-      note = {R package version 0.3.0.9006},
+      note = {R package version 0.3.0.9007},
       url = {https://github.com/insightsengineering/cardx},
     }
