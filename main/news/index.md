@@ -2,8 +2,6 @@
 
 ## cardx 0.3.0.9007
 
-- The `ard_complex()` function has been renamed to `ard_mvsummary()`.
-
 - Added the
   [`ard_emmeans_emmeans()`](https://insightsengineering.github.io/cardx/reference/ard_emmeans.md)
   function.
@@ -14,6 +12,8 @@
   to
   [`ard_emmeans_contrast()`](https://insightsengineering.github.io/cardx/reference/ard_emmeans.md)
   to align with function naming conventions.
+
+- The `ard_complex()` function has been renamed to `ard_mvsummary()`.
 
 ## cardx 0.3.0
 
