@@ -37,7 +37,7 @@
 
     <a class="navbar-brand me-2" href="index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9007</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdown-versions">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.3.1">v0.3.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.3.0">v0.3.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.5">v0.2.5</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.4">v0.2.4</a>
@@ -175,7 +176,7 @@
 <div class="section level2">
 <h2 id="cardx--renv">{cardx} + {renv}<a class="anchor" aria-label="anchor" href="#cardx--renv"></a>
 </h2>
-<p>The {cardx} package exports functions to create ARDs based on various statistical methods; methods that are primarily implemented in other packages. {cardx} does not take a hard dependency on these packages, meaning that these packages are not typically installed when {cardx} is installed from CRAN. As a result, {renv} will not record these packages in its <code>lock.file</code> unless there is a direct reference to the underlying statistical package in your code. For example, if you pass a regression model to <code><a href="reference/ard_emmeans_mean_difference.html">ard_emmeans_mean_difference()</a></code>, there is no direct reference to the {emmeans} package in your script and {renv} will not record the package.</p>
+<p>The {cardx} package exports functions to create ARDs based on various statistical methods; methods that are primarily implemented in other packages. {cardx} does not take a hard dependency on these packages, meaning that these packages are not typically installed when {cardx} is installed from CRAN. As a result, {renv} will not record these packages in its <code>lock.file</code> unless there is a direct reference to the underlying statistical package in your code. For example, if you pass a regression model to <code><a href="reference/ard_emmeans.html">ard_emmeans_contrast()</a></code>, there is no direct reference to the {emmeans} package in your script and {renv} will not record the package.</p>
 <p>One can circumvent this issue by including some kind of reference to the package in your code. Below are are couple of common ways to do so.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rvlenth.github.io/emmeans/" class="external-link">emmeans</a></span><span class="op">)</span></span></code></pre></div>
