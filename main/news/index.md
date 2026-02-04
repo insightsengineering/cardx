@@ -1,6 +1,10 @@
 # Changelog
 
+## cardx 0.3.1.9001
+
 ## cardx 0.3.1
+
+CRAN release: 2025-12-04
 
 - Added the
   [`ard_emmeans_emmeans()`](https://insightsengineering.github.io/cardx/reference/ard_emmeans.md)
@@ -248,6 +252,7 @@ CRAN release: 2024-07-20
   ([\#106](https://github.com/insightsengineering/cardx/issues/106))
 
 ``` r
+
 ard_ttest()             -> ard_stats_t_test()
 ard_paired_ttest()      -> ard_stats_paired_t_test()
 ard_wilcoxtest()        -> ard_stats_wilcox_test()
