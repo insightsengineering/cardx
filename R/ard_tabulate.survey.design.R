@@ -200,7 +200,7 @@ ard_tabulate.survey.design <- function(data,
       dplyr::select(-c("stat_label", "fmt_fun", "warning", "error")) |>
       dplyr::mutate(
         stat_name =
-          dplyr::case_match(.data$stat_name, "n" ~ "n_unweighted", "N" ~ "N_unweighted", "p" ~ "p_unweighted")
+          dplyr::recode_values(.data$stat_name, "n" ~ "n_unweighted", "N" ~ "N_unweighted", "p" ~ "p_unweighted")
       )
     cards <- cards |> dplyr::bind_rows(cards_unweighted) # styler: off
   }

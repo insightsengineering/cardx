@@ -1422,3 +1422,4 @@ test_that("ard_tabulate.survey.design() messaging with all NA lgl variables", {
       ard_tabulate(variables = lgl)
   )
 })
+

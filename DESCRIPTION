@@ -24,7 +24,7 @@ Depends:
 Imports:
     cards (>= 0.7.0),
     cli (>= 3.6.1),
-    dplyr (>= 1.1.2),
+    dplyr (>= 1.2.0),
     glue (>= 1.6.2),
     lifecycle (>= 1.0.3),
     rlang (>= 1.1.1),
