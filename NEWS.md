@@ -1,4 +1,6 @@
-# cardx 0.3.1.9001
+# cardx 0.3.2
+
+* Swapped internal use of `dplyr::case_when()` for `dplyr::recode_values()` as the former is now deprecated. (#327)
 
 # cardx 0.3.1
 
