@@ -22,6 +22,7 @@ Summary objects can be used to:
 Install cards from CRAN with:
 
 ``` r
+
 install.packages("cardx")
 ```
 
@@ -29,6 +30,7 @@ You can install the development version of cards from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("insightsengineering/cardx")
 ```
@@ -40,6 +42,7 @@ devtools::install_github("insightsengineering/cardx")
 Example t-test:
 
 ``` r
+
 library(cardx)
 
 cards::ADSL |>
@@ -79,6 +82,7 @@ reproducible future analyses and further customization.
 Some {cardx} functions accept regression model objects as input:
 
 ``` r
+
 lm(AGE ~ ARM, data = cards::ADSL) |>
   ard_aod_wald_test()
 ```
@@ -89,6 +93,7 @@ should begin with a data set rather than a model object. To accomplish
 this we include model construction helpers.
 
 ``` r
+
 construct_model(
   data = cards::ADSL,
   formula = reformulate2("ARM", response = "AGE"),
@@ -138,6 +143,7 @@ One can circumvent this issue by including some kind of reference to the
 package in your code. Below are are couple of common ways to do so.
 
 ``` r
+
 library(emmeans)
 ```
 
@@ -147,6 +153,7 @@ simplicity, but you may not want to attach a package if it’s not
 necessary.
 
 ``` r
+
 invisible(emmeans::emmeans)
 ```
 

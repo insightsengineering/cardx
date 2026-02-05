@@ -1,6 +1,19 @@
 # Changelog
 
+## cardx 0.3.2
+
+CRAN release: 2026-02-05
+
+- Swapped internal use of
+  [`dplyr::case_when()`](https://dplyr.tidyverse.org/reference/case-and-replace-when.html)
+  for
+  [`dplyr::recode_values()`](https://dplyr.tidyverse.org/reference/recode-and-replace-values.html)
+  as the former is now deprecated.
+  ([\#327](https://github.com/insightsengineering/cardx/issues/327))
+
 ## cardx 0.3.1
+
+CRAN release: 2025-12-04
 
 - Added the
   [`ard_emmeans_emmeans()`](https://insightsengineering.github.io/cardx/reference/ard_emmeans.md)
@@ -248,6 +261,7 @@ CRAN release: 2024-07-20
   ([\#106](https://github.com/insightsengineering/cardx/issues/106))
 
 ``` r
+
 ard_ttest()             -> ard_stats_t_test()
 ard_paired_ttest()      -> ard_stats_paired_t_test()
 ard_wilcoxtest()        -> ard_stats_wilcox_test()

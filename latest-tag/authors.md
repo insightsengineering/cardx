@@ -17,16 +17,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/insightsengineering/cardx/blob/v0.3.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/insightsengineering/cardx/blob/v0.3.2/DESCRIPTION)
 
-Sjoberg D, Yogasekaram A, de la Rua E (2025). *cardx: Extra Analysis
-Results Data Utilities*. R package version 0.3.1,
+Sjoberg D, Yogasekaram A, de la Rua E (2026). *cardx: Extra Analysis
+Results Data Utilities*. R package version 0.3.2,
 <https://github.com/insightsengineering/cardx>.
 
     @Manual{,
       title = {cardx: Extra Analysis Results Data Utilities},
       author = {Daniel D. Sjoberg and Abinaya Yogasekaram and Emily {de la Rua}},
-      year = {2025},
-      note = {R package version 0.3.1},
+      year = {2026},
+      note = {R package version 0.3.2},
       url = {https://github.com/insightsengineering/cardx},
     }

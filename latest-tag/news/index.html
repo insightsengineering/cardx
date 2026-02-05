@@ -35,7 +35,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cardx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdown-versions">
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.3.2">v0.3.2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.3.1">v0.3.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.3.0">v0.3.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/cardx/v0.2.5">v0.2.5</a>
@@ -77,12 +78,21 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/insightsengineering/cardx/blob/v0.3.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/insightsengineering/cardx/blob/v0.3.2/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.2" id="cardx-032">cardx 0.3.2<a class="anchor" aria-label="anchor" href="#cardx-032"></a>
+</h2>
+<p class="text-muted">CRAN release: 2026-02-05</p>
+<ul>
+<li>Swapped internal use of <code><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">dplyr::case_when()</a></code> for <code><a href="https://dplyr.tidyverse.org/reference/recode-and-replace-values.html" class="external-link">dplyr::recode_values()</a></code> as the former is now deprecated. (<a href="https://github.com/insightsengineering/cardx/issues/327" class="external-link">#327</a>)</li>
+</ul>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.1" id="cardx-031">cardx 0.3.1<a class="anchor" aria-label="anchor" href="#cardx-031"></a>
 </h2>
+<p class="text-muted">CRAN release: 2025-12-04</p>
 <ul>
 <li><p>Added the <code><a href="../reference/ard_emmeans.html">ard_emmeans_emmeans()</a></code> function. (<a href="https://github.com/insightsengineering/cardx/issues/317" class="external-link">#317</a>)</p></li>
 <li><p>Renamed <code><a href="../reference/deprecated.html">ard_emmeans_mean_difference()</a></code> to <code><a href="../reference/ard_emmeans.html">ard_emmeans_contrast()</a></code> to align with function naming conventions.</p></li>
