@@ -1,6 +1,15 @@
 # Changelog
 
-## cardx 0.3.1.9001
+## cardx 0.3.2
+
+CRAN release: 2026-02-05
+
+- Swapped internal use of
+  [`dplyr::case_when()`](https://dplyr.tidyverse.org/reference/case-and-replace-when.html)
+  for
+  [`dplyr::recode_values()`](https://dplyr.tidyverse.org/reference/recode-and-replace-values.html)
+  as the former is now deprecated.
+  ([\#327](https://github.com/insightsengineering/cardx/issues/327))
 
 ## cardx 0.3.1
 
