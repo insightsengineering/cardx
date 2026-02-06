@@ -87,7 +87,7 @@ ard_tabulate.survey.design <- function(data,
 
   # return empty ARD if no variables selected ----------------------------------
   if (is_empty(variables)) {
-    return(dplyr::tibble() |> cards::as_card())
+    return(dplyr::tibble() |> cards::as_card(check=FALSE))
   }
 
   check_na_factor_levels(data$variables, c(by, variables))
@@ -230,7 +230,7 @@ ard_tabulate.survey.design <- function(data,
       warning = list(NULL),
       error = list(NULL),
     ) |>
-    cards::as_card() |>
+    cards::as_card(check=FALSE) |>
     cards::tidy_ard_column_order() |>
     cards::tidy_ard_row_order()
 }
