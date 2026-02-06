@@ -22,7 +22,7 @@ BugReports: https://github.com/insightsengineering/cardx/issues
 Depends:
     R (>= 4.2)
 Imports:
-    cards (>= 0.7.0),
+    cards (>= 0.7.1.9005),
     cli (>= 3.6.1),
     dplyr (>= 1.2.0),
     glue (>= 1.6.2),
