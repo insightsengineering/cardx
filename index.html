@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="5;url=https://github.com/pharmaverse/cardx">
+    <title>Off to Pharmaverse! 💖</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fff0f5; /* Lavender blush */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #4a4a4a;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+            max-width: 400px;
+            border: 2px solid #ffb6c1;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #ff69b4; /* Hot pink */
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .heart {
+            font-size: 50px;
+            display: inline-block;
+            animation: bounce 1.2s infinite alternate;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #ff69b4;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .btn:hover {
+            background-color: #ff409f;
+            transform: scale(1.05);
+        }
+
+        .timer {
+            font-size: 13px;
+            color: #a1a1a1;
+            margin-top: 20px;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="heart">💝</div>
+        <h1>Off to cardx!</h1>
+        <p>Hold tight! We are whisking you away to the <strong>pharmaverse/cardx</strong> repository in just a moment...</p>
+        
+        <a href="https://github.com/pharmaverse/cardx" class="btn">Take Me There Now ✨</a>
+        
+        <div class="timer">Redirecting automatically in <span id="countdown">5</span> seconds...</div>
+    </div>
+
+    <script>
+        // Cute little countdown timer graphic
+        let timeLeft = 5;
+        const downloadTimer = setInterval(function(){
+            if(timeLeft <= 1){
+                clearInterval(downloadTimer);
+            }
+            timeLeft -= 1;
+            document.getElementById("countdown").textContent = timeLeft;
+        }, 1000);
+    </script>
+
+</body>
+</html>
